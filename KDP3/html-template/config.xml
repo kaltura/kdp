@@ -7,7 +7,7 @@
 
 			<Plugin id="kalturaMix" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand" disableUrlHashing="true" />
 			<Plugin id="download" width="0%" height="0%" includeInLayout="false"/>
-			<!--<Plugin id="visibilator" target="{myBtn}" tagString="{mediaProxy.entry.tags}" tag="hdOn" show="true" />-->
+			
 			
 			<Plugin id="captureThumbnail" width="0%" height="0%" includeInLayout="false"/>
 			<!--<Plugin id="vast" numPreroll="1" timeout="1000" prerollInterval="2" prerollStartWith="1" 

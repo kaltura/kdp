@@ -148,35 +148,27 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 			"allowScriptAccess","sameDomain", 
 			"type", "application/x-shockwave-flash",
 			"flashvars","sourceType=entryId"+
-						"&host=kaldev.kaltura.com"+
-						"&autoPlay=false"+
-						"&cdnHost=cdnkaldev.kaltura.com"+
-						//"&mediaProtocol=rtmpt"+
-						//"&httpProtocol=https"+
+						"&host=www.kaltura.com"+
+						"&autoPlay=true"+
+						"&cdnHost=cdn.kaltura.com"+
+						//"&mediaProtocol=http"+ //Protocol from which the media is played.
+						//"&httpProtocol=https"+ //Protocol in which the player is currently running
 						"&entryId=0_uj4r5uiu"+ //00_x5hndh91//image = 00_r4ei4ohges
-						//"&entryId=0_4d9f4j9l"+ //00_x5hndh91//image = 00_r4ei4ohges
-						"&clientTag=cache_st:20000000"+
-						//"&playlistAPI.kpl0Url=" + playlistUrl +
+						//"&playlistAPI.kpl0Url=" + playlistUrl + //Enable playlists.
 						//"&playlistAPI.kpl0Name=ABCDEFG"+
-						//"&playlistAPI.kpl1Url=" + playlistUrl1 +
-						//"&playlistAPI.kpl1Name=W27SE0g"+
-						///"&playlistAPI.kpl2Url=" + playlistUrl1 +
-						//"&playlistAPI.kpl2Name=W27SE0g"+
-						//"&playlistAPI.kpl3Url=" + playlistUrl1 +
-						//"&playlistAPI.kpl3Name=CCCCCC"+
-						"&debugMode=true"+
-						"&fileSystemMode=true"+
+						"&debugMode=true"+ //View notifications fired by the KDP in the debug console/flash tracer.
+						"&fileSystemMode=true"+ //Run KDP from the file system. Disabled Security Domain checks.
 						"&uiConfId=48503"+
-						"&widgetId=_569"+
-						"&partnerId=569"+
-						"&subpId=56900"+
+						"&widgetId=_0"+
+						"&partnerId=0"+
+						"&subpId=0"+
 						"&pluginDomain=plugins/"+
-						"&kml=local"+
-						"&streamerUrl=rtmp://rtmp.kaldev.com/ondemand/"+
-						"&streamerType=http"+ //if the file is a flv/mp4 or similar
-						//"&rtmpFlavors=1"+
+						"&kml=local"+ //Use the local config.xml file instead of the uiconf xml.
+						//"&streamerUrl=rtmp://rtmp.kaldev.com/ondemand/"+
+						"&streamerType=http"+ //Specifies whether the video is running in progressive download mode or adaptive bitrate mode.
+						//"&rtmpFlavors=1"+ //If the video runs in adaptive bitrate node and has several bitrates.
 						"&disableAlerts=false"+
-						"&externalInterfaceDisabled=false"+
+						"&externalInterfaceDisabled=false"+ //Allows to work with external javascript interface.
 						"&autoMute=false"+
 						//"&playlistAPI.autoPlay=true"+
 						//"&playlistAPI.autoContinue=true"+
