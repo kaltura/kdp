@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" version="3">
+  <includeClasses>
+    <classEntry path="com.akamai.AkamaiConnection"/>
+    <classEntry path="com.akamai.AkamaiEnhancedNetStream"/>
+    <classEntry path="com.akamai.AkamaiNetConnection"/>
+    <classEntry path="com.akamai.events.AkamaiErrorEvent"/>
+    <classEntry path="com.akamai.events.AkamaiNotificationEvent"/>
+    <classEntry path="com.akamai.events.AkamaiStatusEvent"/>
+    <classEntry path="com.akamai.rss.AkamaiBOSSParser"/>
+    <classEntry path="com.akamai.rss.AkamaiMediaRSS"/>
+    <classEntry path="com.akamai.rss.ContentTO"/>
+    <classEntry path="com.akamai.rss.EnclosureTO"/>
+    <classEntry path="com.akamai.rss.ItemTO"/>
+    <classEntry path="com.akamai.rss.Media"/>
+    <classEntry path="com.akamai.rss.ThumbnailTO"/>
+    <classEntry path="com.akamai.utilities.HTTPBandwidthEstimate"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

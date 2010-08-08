@@ -1,0 +1,36 @@
+Following is a summary of the KDP external interface
+
+1. Enabling KDP's external interface
+	The KDP external interface is disabled by default to prevent issues with embed codes missing the allowScriptAccess attribute.
+	in order to enable the external interface capabilities the externalInterfaceDisabled flashvars should be set to 0.
+	
+	e.g. flashvars="externalInterfaceDisabled=0"
+	
+	The ExternalInterfaceVO enabled property is set accordingly. All further external interface calls will first test this property.
+	Any plugin using external interface should use ExternalInterfaceProxy in order to prevent errors in case of an embed code disallowing
+	scripting access.
+	
+2. Registered callbacks
+	Once the kdp is started, the externalInterfaceDisabled flag is tested and callbacks are registered accordingly.
+	After the registration of the callbacks the jsCallbackReady callback is called passing the flash html object id as a
+	single parameter.
+	It should be noted that at this phase the kdp layout wasnt created yet.
+	All callbacks append the objectId as their last parameter.
+	
+	The following callback are registered:
+	
+	1. addJsListener(listenerString:String, jsFunctionName:String):void
+		Register a function listener for a given event (listed in events.txt)
+		Multiple functions may be registered to the same event
+		
+	2. removeJsListener(listenerString:String, jsFunctionName:String):void
+		Remove a previously set listener function.
+	
+	3. notifyJs(notificationName:String, body:Object):void
+		Send an event (listed in events.txt) to the KDP. 
+	
+	4. evaluate(expression:String):Object
+		Evaluate an expression (listed in expressions.txt) and return the result as a string.
+	
+	5. setKDPAttribute(componentName : String , prop : String , newValue : String):void
+		Sets the attribute of a given component (or proxy). 
