@@ -29,7 +29,7 @@ package com.kaltura.kdpfl.plugin.component {
 		/**
 		 * Mediator name 
 		 */		
-		public static const NAME:String = "statisticsMediator";
+		public static const NAME:String = "TmMediator";
 		
 		/**
 		 * Parameter signifying whether statistics should be disabled. 
@@ -133,35 +133,9 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		override public function listNotificationInterests():Array {
 			return [
-				"hasOpenedFullScreen", 
-				"hasCloseFullScreen", 
-				"playerUpdatePlayhead",  
 				"playerPlayed", 
-				"mediaReady", 
-				"durationChange", 
-				"playerSeekStart", 
-				"playerSeekEnd", 
-				"scrubberDragStart", 
-				"scrubberDragEnd", 
-				"playerPaused", 
-				"playerPlayEnd", 
-				"playerStateChange", 
-				"changeMedia", 
-				"kdpReady",
-				"kdpEmpty",
-				"gotoEditorWindow", 
-				"doDownload", 
-				"doGigya", 
-				"doSeek", 
-				"gotoContributorWindow", 
-				AdsNotificationTypes.AD_START, 
-				AdsNotificationTypes.AD_CLICK, 
-				AdsNotificationTypes.BUMPER_STARTED, 
-				AdsNotificationTypes.BUMPER_CLICKED,
-				AdsNotificationTypes.FIRST_QUARTILE_OF_AD,
-				AdsNotificationTypes.MID_OF_AD,
-				AdsNotificationTypes.THIRD_QUARTILE_OF_AD
-			];
+				"mediaReady" 
+					];
 		}
 
 
@@ -199,47 +173,6 @@ package com.kaltura.kdpfl.plugin.component {
 		}
 
 		/**
-		 * Function checks whether a progress statistics event should be dispathced.
-		 * @param currPosition	current playhead position
-		 * @param duration		media duration
-		 * @return 	event type code, or -1 if none matched
-		 * 
-		 */
-		private function percentStatsChanged(currPosition:Number, duration:int):int {
-
-			var percent:Number = 0;
-			var seekPercent:Number = 0;
-
-			if (_inDrag || _inFF) {
-				return -1;
-			}
-
-			if (duration > 0) {
-				percent = currPosition / duration;
-				seekPercent = _lastSeek / duration;
-			}
-
-			if (!_p25Once && Math.round(percent * 100) >= 25 && seekPercent < 0.25) {
-				_p25Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_25;
-			}
-			else if (!_p50Once && Math.round(percent * 100) >= 50 && seekPercent < 0.50) {
-				_p50Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_50;
-			}
-			else if (!_p75Once && Math.round(percent * 100) >= 75 && seekPercent < 0.75) {
-				_p75Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_75;
-			}
-			else if (!_p100Once && Math.round(percent * 100) >= 98 && seekPercent < 1) {
-				_p100Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_100;
-			}
-
-			return -1;
-		}
-
-		/**
 		 *  Function responsible for dispatching the appropriate statistics event according to the notification fired by the KDP.
 		 * @param note notification fired by the KDP and caught by the Mediator.
 		 * 
@@ -252,31 +185,9 @@ package com.kaltura.kdpfl.plugin.component {
 			var kse:KalturaStatsEvent = getBasicStatsData(kc.ks);
 			var data:Object = note.getBody();
 			switch (note.getName()) {
-				case "hasOpenedFullScreen":
-					if (_fullScreen == false) {
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_FULL_SCREEN;
-					}
-					_fullScreen = true;
-					_normalScreen = false;
-					break;
-				case "hasCloseFullScreen":
-					if (_normalScreen == false) {
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.CLOSE_FULL_SCREEN;
-					}
-					_fullScreen = false;
-					_normalScreen = true;
-					break;
-
-				case "kdpEmpty":
-					if (_ready)
-						return;
-					kse.eventType = com.kaltura.types.KalturaStatsEventType.WIDGET_LOADED;
-					_ready = true;
-					break;
 
 				case "playerPlayed":
 					if (_isNewLoad && !_played) {
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.PLAY;
 						_played = true;
 						// this is for the marker
 						sendExternalHit(false);
@@ -292,7 +203,6 @@ package com.kaltura.kdpfl.plugin.component {
 							_played = false;
 							_lastId = kse.entryId;
 							_isNewLoad = true;
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.MEDIA_LOADED;
 							sendExternalHit(true);
 						}
 						else {
@@ -301,187 +211,8 @@ package com.kaltura.kdpfl.plugin.component {
 						}
 					}
 					break;
-
-				case "durationChange":
-					if (_isNewLoad) {
-						_hasSeeked = false;
-						_p25Once = false;
-						_p50Once = false;
-						_p75Once = false;
-						_p100Once = false;
-					}
-					return;
-					break;
-
-				case "fastForward":
-					_inFF = true;
-					return;
-					break;
-
-				case "stopFastForward":
-					_inFF = false;
-					return;
-					break;
-
-
-				case "playerSeekEnd":
-					_inSeek = false;
-					return;
-					break;
-
-				case "scrubberDragStart":
-					_inDrag = true;
-					return;
-					break;
-
-				case "scrubberDragEnd":
-					_inDrag = false;
-					_inSeek = false;
-					return;
-					break;
-
-				case "playerUpdatePlayhead":
-					kse.eventType = percentStatsChanged(data as Number, kse.duration);
-					if (kse.eventType < 0) {
-						return; // negative number means no need to change update
-					}
-					break;
-
-				case "kdpReady":
-					// Ready should not occur more than once
-					if (_ready)
-						return;
-					kse.eventType = com.kaltura.types.KalturaStatsEventType.WIDGET_LOADED;
-					_ready = true;
-					break;
-				case "gotoEditorWindow":
-					kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_EDIT;
-					break
-				case "doDownload":
-					kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_DOWNLOAD;
-					break;
-				case "doGigya":
-					kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_VIRAL;
-					break;
-				case "doSeek":
-					if (_inDrag && !_inSeek) {
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.SEEK;
-					}
-					_lastSeek = Number(note.getBody());
-					_inSeek = true;
-					_hasSeeked = true;
-					break;
-				case "gotoContributorWindow":
-					kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_UPLOAD;
-					break;
-				case AdsNotificationTypes.BUMPER_CLICKED:
-					kse.eventType = com.kaltura.types.KalturaStatsEventType.BUMPER_CLICKED;
-					break;
-				case AdsNotificationTypes.BUMPER_STARTED:
-					if (note.getBody().timeSlot == "preroll") {
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.PRE_BUMPER_PLAYED;
-					}
-					else if (note.getBody().timeSlot == "postroll") {
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.POST_BUMPER_PLAYED;
-					}
-					break;
-				case AdsNotificationTypes.AD_CLICK:
-					timeSlot = note.getBody().timeSlot;
-					switch (timeSlot) {
-						case "preroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_CLICKED;
-							break;
-						case "midroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_CLICKED;
-							break;
-						case "postroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_CLICKED;
-							break;
-						case "overlay":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_CLICKED;
-							break;
-						
-					}
-					break;
-				case AdsNotificationTypes.AD_START:
-					timeSlot = note.getBody().timeSlot;
-					switch (timeSlot) {
-						case "preroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_STARTED;
-							break;
-						case "midroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_STARTED;
-							break;
-						case "postroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_STARTED;
-							break;
-						case "overlay":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
-							break;
-					}
-					break;
-				case AdsNotificationTypes.FIRST_QUARTILE_OF_AD:
-					timeSlot = note.getBody().timeSlot;
-					switch (timeSlot) {
-						case "preroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_25;
-							break;
-						case "midroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_25;
-							break;
-						case "postroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_25;
-							break;
-						case "overlay":
-//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
-							break;
-					}
-					break;
-				case AdsNotificationTypes.MID_OF_AD:
-					timeSlot = note.getBody().timeSlot;
-					switch (timeSlot) {
-						case "preroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_50;
-							break;
-						case "midroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_50;
-							break;
-						case "postroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_50;
-							break;
-						case "overlay":
-//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
-							break;
-					}
-					break;
-				case AdsNotificationTypes.THIRD_QUARTILE_OF_AD:
-					timeSlot = note.getBody().timeSlot;
-					switch (timeSlot) {
-						case "preroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_75;
-							break;
-						case "midroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_75;
-							break;
-						case "postroll":
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_75;
-							break;
-						case "overlay":
-//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
-							break;
-					}
-					break;
-				
+		
 			}
-
-			// if we enter this function for any wrong reason and we don't have event to send, just return...
-			if (!kse.eventType || kse.eventType == int.MIN_VALUE) {
-				return;
-			}
-
-			var collect:StatsCollect = new StatsCollect(kse);
-			collect.method = URLRequestMethod.GET;
-			kc.post(collect);
 		}
 		
 		
