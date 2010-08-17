@@ -5,7 +5,7 @@ package
 	
 	import flash.display.Sprite;
 	
-	public class statisticsPlugin extends Sprite implements IPluginFactory
+	public class TmStatsPlugin extends Sprite implements IPluginFactory
 	{
 		/**
 		 * set to true to disable statistics notifications 
@@ -16,7 +16,7 @@ package
 		 * Constructor. 
 		 * 
 		 */		
-		public function statisticsPlugin()
+		public function TmStatsPlugin()
 		{
 
 		}
@@ -24,7 +24,7 @@ package
 		
 		public function create(pluginName : String = null) : IPlugin	
 		{
-			return new statisticsPluginCode(statsDis);
+			return new TmStatsPluginCode(statsDis);
 		}
 
 	}

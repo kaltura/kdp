@@ -1,7 +1,7 @@
 package {
 	//import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.IPlugin;
-	import com.kaltura.kdpfl.plugin.component.StatisticsMediator;
+	import com.kaltura.kdpfl.plugin.component.TmMediator;
 	
 	import fl.managers.*;
 	
@@ -10,7 +10,7 @@ package {
 	
 	import org.puremvc.as3.interfaces.IFacade;
 
-	public class statisticsPluginCode extends Sprite implements IPlugin
+	public class TmStatsPluginCode extends Sprite implements IPlugin
 	{
 		
 		/**
@@ -21,7 +21,7 @@ package {
 		/**
 		 * reference to this plugin's mediator 
 		 */		
-		private var _statisticsMediator : StatisticsMediator;
+		private var _statisticsMediator : TmMediator
 		
 		
 		/**
@@ -35,7 +35,7 @@ package {
 		 * Constructor 
 		 * 
 		 */		
-		public function statisticsPluginCode(disStats : Boolean)
+		public function TmStatsPluginCode(disStats : Boolean)
 		{
 			Security.allowDomain("*");
 			statsDis = disStats;
@@ -44,7 +44,7 @@ package {
 		
 		public function initializePlugin( facade : IFacade ) : void
 		{
-			_statisticsMediator = new StatisticsMediator(statsDis);
+			_statisticsMediator = new TmMediator(statsDis);
 			_statisticsMediator.path = hitPath;
 			facade.registerMediator( _statisticsMediator);
 		}

@@ -23,7 +23,7 @@ package com.kaltura.kdpfl.plugin.component {
 	 * @author Hila
 	 * 
 	 */	
-	public class StatisticsMediator extends Mediator {
+	public class TmMediator extends Mediator {
 		
 		
 		/**
@@ -121,7 +121,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 * @param viewComponent
 		 * 
 		 */		
-		public function StatisticsMediator(disStats:Boolean, viewComponent:Object = null) {
+		public function TmMediator(disStats:Boolean, viewComponent:Object = null) {
 			super(NAME, viewComponent);
 			statsDis = disStats;
 		}

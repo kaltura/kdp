@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>statisticsPlugin</name>
+	<name>TmStatisticsPlugin</name>
 	<comment></comment>
 	<projects>
 		<project>KDP_3</project>
@@ -19,7 +19,7 @@
 		<link>
 			<name>bin-debug</name>
 			<type>2</type>
-			<locationURI>DOCUMENTS/KDP3/bin-debug/plugins</locationURI>
+			<location>C:/kdp3-3.4.5/KDP3/bin-debug/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>
