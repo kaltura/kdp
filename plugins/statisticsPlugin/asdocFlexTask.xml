@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ASDoc Builder" basedir="." default="doc"> 
+    <property name="FLEX_HOME" value="C:\Program Files\Adobe\Adobe Flash Builder 4\sdks\4.0.0"/> 
+    <property name="OUTPUT_DIR" value="C:/temp/ant/asdoc"/> 
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" /> 
+    <target name="doc"> 
+        <asdoc output="${OUTPUT_DIR}" lenient="true" failonerror="true"> 
+            <compiler.source-path 
+                path-element="${FLEX_HOME}/frameworks/projects/framework/src"/> 
+            <doc-classes class="mx.controls.Button"/> 
+        </asdoc> 
+    </target> 
+    <target name="clean"> 
+        <delete includeEmptyDirs="true"> 
+            <fileset dir="${OUTPUT_DIR}" includes="**/*"/> 
+        </delete> 
+    </target> 
+</project>
+
+
+<!--project name="ASDoc Builder" basedir="." default="main"> 
+    <property name="FLEX_HOME" value="C:\Program Files\Adobe\Adobe Flash Builder 4\sdks\4.0.0"/> 
+    <property name="OUTPUT_DIR" value="./docs/asdoc"/>
+	<property name="APP_ROOT" value="./"/> 
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+	 
+    <target name="main" depends="clean,doc"/> 
+	
+    <target name="doc"> 
+        <asdoc output="${OUTPUT_DIR}" lenient="true" failonerror="true"> 
+            <doc-sources path-element="${APP_ROOT}/src/statisticsPlugin.as"/> 
+            <source-path path-element="${APP_ROOT}/src"/> 
+			<compiler.library-path dir="${APP_ROOT}" append="true"> 
+                <include name="kdp3Lib/bin" /> 
+                <include name="libs" /> 
+            </compiler.library-path> 
+			<external-library-path dir="${APP_ROOT}" append="true">
+				<include name="libs" /> 
+                <include name="kdp3Lib/bin" />
+			</external-library-path>
+        </asdoc> 
+    </target> 
+	
+    <target name="clean"> 
+        <delete includeEmptyDirs="true"> 
+            <fileset dir="${OUTPUT_DIR}" includes="**/*"/> 
+        </delete> 
+    </target> 
+</project-->

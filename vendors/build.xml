@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="KDP Builder" basedir=".">        
+	
+	<property file="build.properties" description="Load project build properties"/>
+	
+	<target name="build">
+		<ant dir="OSMF" inheritAll="true" target="build"/>		
+		<ant dir="Akamai" inheritAll="true" target="build"/>
+		<ant dir="Eyewonder_Instream_Framework_v2_8_2" inheritAll="true" target="build"/>			
+		<ant dir="VPAID" inheritAll="true" target="build"/>		
+		<ant dir="VASTNew" inheritAll="true" target="build"/>				
+	</target>
+</project>
