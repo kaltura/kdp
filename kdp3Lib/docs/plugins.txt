@@ -1,0 +1,114 @@
+INTRO
+-----------
+If you looked at the KDP 3 KML (Kaltura Markup Language) you might find <Plugin  /> tag.
+This plug-in tag tell the KDP3 to load other .swf file at runtime and add its content to interact with the KDP3,
+ The plug-in can be visual or logic only, for example:
+
+<Plugin id="statistics" width="0%" height="0%" includeInLayout="false"/>
+
+This plugin is a logic plugin (not visual in the UI) so it's attributes are width and height 0% and include in layout=false,
+The Plugin id=statistics so if one want to refer this plugin from flashvar/kml itself/at run time (setAtribute) he will be able
+To refer this plugin by it's id.
+
+PLUGIN DECLERATION IN KML
+-------------------------------------
+Let's begin from the end, if I am done with creating the plugin and now I need to use it within 
+
+
+HOW TO BUILD PLUGIN
+------------------------------
+1.	Check out kdp3Lib and point your project to it.
+2.	 Create YourClassPlugin & YourClassPluginCode as described below.
+3.	If you need to get attributes from kml add them to the YourClassPluginCode. Kdp3 will populate them.
+4.	If you need to send notifications to the kdp3 only you can use the faced to send it.
+5.	If you need to recive notifications from the kdp you need to create a mediator and  
+
+
+MORE DETAILS
+---------------------
+A simple plug-in that don't interact with the player need to contain 2 classes:
+1.	YourClassPlugin.
+2.	YourClassPluginCode.
+
+
+YourClassPlugin – this is the document class that first loaded by the KDP3, this class must implement IPluginFactory
+
+public interface IPluginFactory
+{
+/**
+	* this function creates a new IPlugin instance. It is implemented by the plugin application class 
+	* @param pluginName the name of the plugin to be created in case there are multiple plugins within
+	* the same plugin swf file 
+	* @return 
+	* 
+	*/
+	function create(pluginName : String = null) : IPlugin;	
+} 
+
+When create is called the YourClassPluginCode is instanced.
+
+YourClassPluginCode – this class implement IPlugin that establish the way for the plugin to interact and listen to the KDP notifications
+
+public interface IPlugin
+{
+/**
+	* This function is automatically called by the player after the plugin has loaded.
+	* the facade used to comunicate with the hosted player  
+	* @param 
+	* 
+	*/		
+	function initializePlugin( facade : IFacade ) : void
+		
+	/**
+	* 
+	* @param styleName
+	* @param setSkinSize
+	* 
+	*/		
+	function setSkin( styleName : String , setSkinSize : Boolean = false) : void;
+} 
+
+When the plug-in is created it first call to setSkin where there one can skin his plug-in while using Pre defined flash assets that 
+In this stage available for the component.
+
+Then  initializePlugin is called and the façade of the kdp is sent to the plugin, the façade (this is pure mvc façade) let you send notification to the kdp
+Retrieve kdp's proxy or mediators and or connect with other plugins.
+
+The YourClassPluginCode is the visual component that is added to the KDP view, make sure you add all plugin children to it.
+
+As best practice to listen to the KDP notification one should create a Mediator, a Mediator is a Class that wrap view component and can register to the façade notification,
+In your mediator class you should override listNotificationInterests & handleNotification for example:
+
+override public function listNotificationInterests():Array
+{
+return  [
+			"playerPlayed"
+		  ];
+}
+		
+override public function handleNotification(note:INotification):void
+{
+switch(note.getName())
+	{
+	// this means that the main container will be 100% X 100% always
+		case "playerPlayed":
+			trace("test plugin");
+		break;
+	}
+}
+
+Note: when a plugin is loaded into the KDP3 you don't need to pass the façade from the YourClassPluginCode to YourMediator,
+The mediator has a reference to the façade anyway.
+
+
+USING KALTURA CLIENT
+---------------------
+The KDP holds the Kaltura client, if one wants to make Kaltura calls one will want to get  a hold of this client and post actions and listen to their result,
+To do that you can use the next line:
+var kalturaClient : Object = facade.retrieveProxy("servicesProxy")["kalturaClient"];
+
+and with it one can execute calls and use kaltura's great API one can find here:
+http://kaldev.kaltura.com/api_v3/testmeDoc/index.php
+
+how to use Kaltura client one can find here:
+...
