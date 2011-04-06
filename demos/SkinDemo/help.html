@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>If you fail to see the player - it might have to do with the fact the a local swf (the player) is trying to get access to classes of different swf (the skin) </p>
+<p>&nbsp;</p>
+<p>you might want to try one of the 2 actions: </p>
+<p><li>Open an access for the folder that contains both files. </li>
+<ul>
+  <li>Get to this page: http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html </li>
+  <li>In the drop down in the flash - chose add location., and add the folder of this projects. </li>
+  <li>mark the new location with 'always allow'</li>
+</ul>
+
+<li>copy the folder to any web server (localhost is OK too), and open the file from the web server. Remember that in this case, the skin will be cached, and if you do not clean your caceh, you will not see skin updates. </li>
+<p>&nbsp;</p>
+</body>
+</html>
