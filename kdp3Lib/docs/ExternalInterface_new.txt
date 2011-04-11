@@ -1,0 +1,76 @@
+KDP & External Interface
+
+
+1)	To enable KDP to communicate with an external javascript interface, first pass a flashvar to the KDP:
+	externalInterfaceDisabled=false
+2)	jsCallbackReady – the first callback of the player. The javascript function is passed the id of the player embedded in the page.
+
+	var kdp;
+	function jsCallbackReady (objectId){
+		kdp = document.getElementById(objectId);
+	}	
+
+3)	To draw data from KDP components using the javascript interface, use the evaluate callback. The format of the callback is:
+	evaluate(‘{component.property}’); //The curly brackets are necessary – this is what tells the KDP that it needs to return the value of this String, rather than just return the same String.
+
+	For example, if you wish to extract the name of the entry from the KDP:
+
+	function getName(){	
+	var entry_name = kdp.evaluate('{mediaProxy.entry.name}');
+		alert('Entry name: ',entry_name);
+	}
+
+	This callback is valid for any object that is externalized by the player. These include any component in the uiconf (buttons, labels etc) which are accessed by their id and the KDP data in the form of VOs . Below  is a list of the externalized names of the VOs.
+
+
+4)	The KDP is based on the pureMVC design pattern. Therefore, any significant changes and events that occur in the component are passed as NOTIFICATIONS. The KDP externalizes these notifications for the javascript.
+	In order to listen for a notification, use the following callback:
+	
+	addJsListener(notificationName:String, listenerFunctionName:String)
+	
+	Example: We want to listen for the player beginning to play:
+
+	function addPlayListener(){	
+	var entry_name = kdp.addJsListener('playerPlayed', ‘playListener’);
+	}
+
+	function playListener (){
+		alert (‘Player is playing!’);
+		kdp.removeJsListener('playerPlayed', ‘playListener’); //This must be done, otherwise this function will keep getting called every time the player will begin to play.
+	} 
+
+	So, if you want to be notified of a button being pressed,  the way to do it is:
+	a.	Open the uiconf, and find the button’s tag in it.
+	b.	Add property kClick=”sendNotification(‘myNotification’)”. Example:
+
+	<Button id="my_play_btn" width="18" height="18" kClick="sendNotification('playPressed')" command="play" />
+
+	This makes sure that the button starts the KDP playing and also dispatches notification 
+	‘playPressed’. The notification string is completely up to you.
+	
+	c.	In the javascript  add the functions:
+	
+	function addPlayPressedListener(){	
+		var entry_name = kdp.addJsListener('playPressed', ‘playPressedListener’);
+	}
+	
+	function playPressedListener (){
+		alert (‘Play button was pressed!’);
+		kdp.removeJsListener('playPressed', ‘playListener’); //This must be done, otherwise this function will keep getting called every time the player will begin to play.
+	} 
+	
+	
+	Attached is a list of notifications that the KDP dispatches as part of its runtime activity.
+	
+	
+	
+	The information about the media entry:
+	mediaProxy.entry.name – name of the entry
+	mediaProxy.entry.description – description of the entry
+	mediaProxy.entry.tags – tags of the entry
+	mediaProxy.entry.categories – categories of the entry
+	
+	For the flashvars:
+	configProxy.flashvars.{flashvar name}
+
+
