@@ -1,0 +1,8 @@
+These 2 scripts might help manage buttons assets in the library. 
+
+DuplicateFolderbutton.jsfl
+this script is used to create a set of symbols that matches the 8 states symbols of a KDP button. 
+
+how to use this script ? 
+in Flash (CS4 for example) open the library
+find a folder of an existing button (IE   
