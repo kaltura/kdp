@@ -26,7 +26,7 @@ package com.kaltura.kdpfl.view.controls
 		protected var _tooltipHeight : Number;
 		//Tooltip delay in milliseconds
 		protected var _delay : Number;
-		
+		protected var _paddingX : Number = 0;
 		
 		
 		public function ToolTipManager(enforcer:Enforcer){}
@@ -62,22 +62,20 @@ package com.kaltura.kdpfl.view.controls
 			
 			var rightLimitX : Number = target.root.parent.localToGlobal(new Point(target.root.parent.x, target.root.parent.y) ).x + target.root.parent.width;
 			
-			trace(rightLimitX);
-			
 			var leftLimitX : Number = target.root.parent.x;
 			
 			if (target.parent.localToGlobal(targetPoint).x + _tooltipWidth + offsetX  > rightLimitX)
 			{
-				positionX = rightLimitX - tooltipWidth + offsetX;
+				positionX = rightLimitX - tooltipWidth + offsetX + paddingX;
 			}
 			else if (target.parent.localToGlobal(targetPoint).x + offsetX  < leftLimitX)
 			{
 				//In case of negative offsetX
-				positionX = - target.parent.localToGlobal(targetPoint).x - offsetX;
+				positionX = - target.parent.localToGlobal(targetPoint).x - offsetX + paddingX;
 			}
 			else
 			{
-				positionX = target.parent.localToGlobal(targetPoint).x + offsetX;
+				positionX = target.parent.localToGlobal(targetPoint).x + offsetX + paddingX;
 			}
 			var positionY : int = target.stage.mouseY 
 			
@@ -149,6 +147,16 @@ package com.kaltura.kdpfl.view.controls
 		public function set delay(value:Number):void
 		{
 			_delay = value;
+		}
+
+		public function get paddingX():Number
+		{
+			return _paddingX;
+		}
+
+		public function set paddingX(value:Number):void
+		{
+			_paddingX = value;
 		}
 
 

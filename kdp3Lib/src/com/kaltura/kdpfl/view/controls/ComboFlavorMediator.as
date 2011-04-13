@@ -4,6 +4,7 @@ package com.kaltura.kdpfl.view.controls
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.StreamerType;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.puremvc.as3.patterns.mediator.MultiMediator;
 	
 	import flash.events.Event;
@@ -71,6 +72,11 @@ package com.kaltura.kdpfl.view.controls
 					break;
 				case NotificationType.MEDIA_READY:
 					(viewComponent as KFlavorComboBox).determineEnabled();
+					break;
+				case NotificationType.PLAYER_PLAY_END:
+					var currBitrate : Number = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.getBitrateForDynamicStreamIndex((facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.currentDynamicStreamIndex);
+					(viewComponent as KFlavorComboBox).enabled = true;
+					(viewComponent as KFlavorComboBox).selectedMessage = "Bitrate: " + Math.round(currBitrate/100) * 100;
 					break;
 			}
 		}

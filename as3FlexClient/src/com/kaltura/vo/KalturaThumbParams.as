@@ -17,7 +17,7 @@ package com.kaltura.vo
 
 		public var cropHeight : int = int.MIN_VALUE;
 
-		public var videoOffset : int = int.MIN_VALUE;
+		public var videoOffset : Number = int.MIN_VALUE;
 
 		public var width : int = int.MIN_VALUE;
 
