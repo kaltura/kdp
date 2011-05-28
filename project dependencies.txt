@@ -1,0 +1,25 @@
+Project dependencies:
+
+1)KDP3 requires:
+	a. kdp3Lib
+	b.as3FlexClient
+	c.OSMF	(under trunk/vendors)
+
+2)playlistApiPlugin requires:
+	a.kdp3Lib
+	b.Akamai (under trunk/vendors)
+
+3)kalturaMixPlugin requires:
+	a.as3FlexClient
+	b.FlashRoughcutLib
+
+4)vastPlugin requires:
+	a.VASTNew (under trunk/vendors)
+	b.VPAID (under trunk/vendors)
+
+5)overlayPlugin
+	a.VASTNew (under trunk/vendors)
+	b.VPAID (under trunk/vendors)
+
+6)eyewonderPlugin
+	a.Eyewonder_Instream_Framework_v2_8_2 (trunk/vendors)

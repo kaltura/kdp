@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="downloadPlugin Builder" basedir=".">    
+
+	<import file="${flex-build}" description="Import common kaltura build targets like flex-extract-classes"/>      	
+	<property file="build.properties" description="Load project build properties"/>
+
+	<target name="build" depends="clean, init, compile">
+		<copy file="${project.outputfile}" todir="${solution.binplugins}"/>
+		<echo>Project built successfully</echo>
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${project.bin}" description="Make sure there is a bin directory"/>
+	</target>
+	
+	<target name="compile">
+		<echo>Compiling ${project.outputfile}</echo>		
+		<mxmlc file="${project.asfile}" output="${project.outputfile}" load-externs="${solution.reportfile}">            			
+			<load-config filename="${project.configfile}"/>
+			<source-path path-element="${project.src}"/>
+
+			<!-- Every directory should have a different compiler.library-path tag -->
+			<compiler.library-path dir="${solution.bin}" append="true">
+				<include name="kdp3Lib.swc" />
+            </compiler.library-path>		
+        </mxmlc>		
+    </target>
+	
+    <target name="clean">	
+		<echo>Deleting ${project.bin}</echo>			
+        <delete dir="${project.bin}" failonerror="false"/>
+    </target>	
+</project>
