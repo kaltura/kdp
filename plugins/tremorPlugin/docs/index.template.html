@@ -1,0 +1,239 @@
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+
+<!-- 
+Smart developers always View Source. 
+
+This application was built using Adobe Flex, an open source framework
+for building rich Internet applications that get delivered via the
+Flash Player or to desktops via Adobe AIR. 
+
+Learn more about Flex at http://flex.org 
+// -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!--  BEGIN Browser History required section -->
+<link rel="stylesheet" type="text/css" href="history/history.css" />
+<!--  END Browser History required section -->
+
+<title>${title}</title>
+<script src="AC_OETags.js" language="javascript"></script>
+
+<!--  BEGIN Browser History required section -->
+<script src="history/history.js" language="javascript"></script>
+<!--  END Browser History required section -->
+
+<style>
+body { margin: 0px; overflow:hidden }
+</style>
+<script language="JavaScript" type="text/javascript">
+<!--
+// -----------------------------------------------------------------------------
+// Globals
+// Major version of Flash required
+var requiredMajorVersion = ${version_major};
+// Minor version of Flash required
+var requiredMinorVersion = ${version_minor};
+// Minor version of Flash required
+var requiredRevision = ${version_revision};
+// -----------------------------------------------------------------------------
+
+ function doLoadVideo() {
+	my_entry = document.getElementById("my_entry").value;
+	my_kdp = document.getElementById("${swf}");
+	my_kdp.sendNotification("changeMedia",{entryId:my_entry.toString(),flavorId:my_entry2.toString()});
+ }
+ 
+ function get(el) {
+  return document.getElementById(el);
+ }
+ 
+ function play() {
+ 	my_kdp = document.getElementById("${swf}");
+ 	my_kdp.sendNotification("doPlay");
+ }
+ function gotoEditorWindow(a) {
+	alert('gotoEditorWindow with entry : '+a);
+ }
+ function gotoContributorWindow(a) {
+	alert('gotoContributorWindow with entry : '+a);
+ }
+ function customFunc1(a) {
+	alert('customFunc1 with entry : '+a);
+ }
+ function customFunc2(a) {
+	alert('customFunc2 with entry : '+a);
+ }
+ function customFunc3(a) {
+	alert('customFunc3 with entry : '+a);
+ }
+ function customFunc4(a) {
+	alert('customFunc4 with entry : '+a);
+ }
+ function customFunc5(a) {
+	alert('customFunc5 with entry : '+a);
+ }
+ function hideAndShow(component,val) {
+ 	my_kdp = document.getElementById("${swf}");
+	my_kdp.sendNotification("showUiElement",{id:component, show:val});
+ }
+ function jsCallBackReady(parm){
+ 	alert('kdp ready');
+ }
+ function cleanMedia() {
+ 	my_kdp.sendNotification("cleanMedia");
+ }
+// -->
+</script>
+
+<!-- script type="text/javascript" src="http://cdna.tremormedia.com/acudeo/banners.js"></script>
+<script type="text/javascript">
+function displayCompanionBanners(banners, tracking) {
+	tmDisplayBanner(banners, "adCompanionBanner300x250", 300, 250, null, tracking);	
+}
+</script -->
+
+<script type="text/javascript" src="http://cdna.tremormedia.com/acudeo/banners.js"></script>
+<script type="text/javascript">
+function displayCompanionBanners(banners, tracking) {
+	tmDisplayBanner(banners, "adCompanionBanner300x250", 300, 250, null, tracking);	
+}
+</script>
+
+
+</head>
+
+<body scroll="no">
+<script language="JavaScript" type="text/javascript">
+<!--
+// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
+var hasProductInstall = DetectFlashVer(6, 0, 65);
+
+// Version check based upon the values defined in globals
+var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+
+if ( hasProductInstall && !hasRequestedVersion ) {
+	// DO NOT MODIFY THE FOLLOWING FOUR LINES
+	// Location visited after installation is complete if installation is required
+	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
+	var MMredirectURL = window.location;
+    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
+    var MMdoctitle = document.title;
+
+	AC_FL_RunContent(
+		"src", "playerProductInstall",
+		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
+		"width", "${width}",
+		"height", "${height}",
+		"align", "middle",
+		"allowFullScreen", "true",
+		"id", "${application}",
+		"quality", "high",
+		"bgcolor", "${bgcolor}",
+		"name", "${application}",
+		"allowScriptAccess","always",
+		"type", "application/x-shockwave-flash",	
+		"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+} else if (hasRequestedVersion) {
+	// if we've detected an acceptable version
+	// embed the Flash Content SWF when all tests are passed
+
+	var pl = escape("http://cdnkaldev.kaltura.com/index.php/partnerservices2/executeplaylist%3Fuid%3D%26format%3D8%26playlist_id%3D0_mybhrtmj%26partner_id%3D569%26subp_id%3D56900%26ks%3D%7Bks%7D");
+	var playlistUrl =  escape( "http://kaldev.kaltura.com/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id=56900&ks={ks}&playlist_id=0_azj5yzj4&partner_id=569");
+	var playlistUrl1 = escape( "http://kaldev.kaltura.com/index.php/partnerservices2/executeplaylist?uid=&partner_id=1&subp_id=100&format=8&ks={ks}&playlist_id=0_ugfsgu6q");
+	var playlistUrl2 = escape( "http://kaldev.kaltura.com/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id=100&ks={ks}&playlist_id=00_2594arsy1g&partner_id=1");
+	var playlistUrl3 = escape( "http://kaldev.kaltura.com/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id=100&ks={ks}&playlist_id=00_gv5ymvgkox&partner_id=1");
+	var dcaplaylistUrl =  escape("http://www.kaltura.co.cc/index.php/partnerservices2/executeplaylist?uid=&partner_id=331&subp_id=33100&format=8&ks={ks}&playlist_id=0_bgyuos9k&{FLAVOR}");
+	
+	AC_FL_RunContent(
+			"src", "${swf}",
+			"width", "800",
+			"height", "380",
+			"align", "middle",
+			"allowFullScreen", "true",
+			"id", "${application}", 
+			"quality", "high",
+			"bgcolor", "${bgcolor}",
+			"name", "${application}",
+			"allowScriptAccess","always", 
+			"type", "application/x-shockwave-flash",
+			"flashvars","sourceType=entryId"+
+						"&host=kaldev.kaltura.com"+
+						"&autoPlay=true"+
+						//"&entryId=0_tikujaq2"+ //00_x5hndh91//image = 00_r4ei4ohges
+						"&cdnHost=cdnkaldev.kaltura.com"+
+						//"&httpProtocol=https"+
+						"&clientTag=cache_st:20000000"+
+						//"&playlistAPI.autoPlay=true"+
+						"&playlistAPI.autoContinue=true"+
+						"&playlistAPI.kpl0Url=" + pl +
+						"&playlistAPI.kpl0Name=ABCDEFG"+
+						//"&playlistAPI.kpl1Url=" + playlistUrl +
+						//"&playlistAPI.kpl1Name=W27SE0g"+
+						"&debugMode=false"+
+						//"&kalturaMix.mixPluginsBaseUrl=http://hilacomp/kdp3/mixplugins/v2.0/"+
+						"&fileSystemMode=true"+
+						"&uiConfId=48503"+
+						"&widgetId=_569"+
+						"&partnerId=569"+
+						"&subpId=56900"+
+						"&pluginDomain=plugins/"+
+						"&kml=local"+
+						"&loop=false"+
+						//"&streamerUrl=rtmp://cp77659.live.edgefcs.net/live"+
+						"&streamerUrl=rtmp://rtmp.kaltura.co.cc/ondemand/"+
+						"&streamerType=http"+ //if the file is a flv/mp4 or similar
+						//"&rtmpFlavors=1"+
+						//"&streamName=ariel_test@17712"+
+						"&disableAlerts=false"+
+						"&externalInterfaceDisabled=false"+
+						"&autoRewind=false"+
+						//"&localSkin=assets/skin.swf"+
+						"&referer=http://kaldev.kaltura.com"+
+						//"&jsCallBackReadyFunc=baba"+
+						"&playerBgColor=0x010101"+
+						//"&ks=MTNlNDg3NGNkNzVkMGU0ZDIxYzA3NjAyZjNmNmZjMmE2Njg3YzY2M3wxOzE7MTI2NDcwNzA5OTsyOzEyNjIxMTUwOTkuMDQ7X19BRE1JTl9fMDsq"+
+						
+						"&playerBgAlpha=0.9",
+			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+  } else {  // flash is too old or we can't detect the plugin
+    var alternateContent = 'Alternate HTML content should be placed here. '
+  	+ 'This content requires the Adobe Flash Player. '
+   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
+    document.write(alternateContent);  // insert non-flash content
+  }
+// -->
+</script> 
+<noscript>
+  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+			id="${application}" width="${width}" height="${height}"
+			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+			<param name="movie" value="${swf}.swf" />
+			<param name="quality" value="high" />
+			<param name="bgcolor" value="${bgcolor}" />
+			<param name="allowScriptAccess" value="always" />
+			<embed src="${swf}.swf" quality="high" bgcolor="${bgcolor}"
+				width="${width}" height="${height}" name="${application}" align="middle"
+				play="true"
+				loop="false"
+				quality="high"
+				allowScriptAccess="always"
+				type="application/x-shockwave-flash"
+				pluginspage="http://www.adobe.com/go/getflashplayer">
+			</embed>
+	</object>
+</noscript>
+
+
+</br></br>
+</br></br>
+</br></br>
+<div id="adCompanionBanner300x250"></div>
+	
+</body>
+
+</html>
