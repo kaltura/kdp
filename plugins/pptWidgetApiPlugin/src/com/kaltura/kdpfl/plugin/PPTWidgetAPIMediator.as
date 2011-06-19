@@ -272,9 +272,9 @@ package com.kaltura.kdpfl.plugin
 		
 		public function loadSyncEntry():void
 		{
-			if (!syncEntryId)
+			if (!syncEntryId || syncEntryId == "-1" || syncEntryId =="")
 			{
-				//sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.PPTWIDGET_SYNC_ENTRY_NOT_FOUND_MESSAGE, title: PPTWidgetStrings.PPTWIDGET_GENERIC_ERROR_TITLE });
+				sendNotification (NotificationType.CHANGE_MEDIA, {entryId: "-1"} );
 				return;
 			}
 			var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;

@@ -16,7 +16,7 @@ package com.kaltura.kdpfl.plugin
 		
 		public static var PPTWIDGET_GENERIC_ERROR_TITLE:String = "Error";
 		
-		public static var PPT_SWF_NOT_FOUND_TITLE:String="Error loading PPT";
+		public static var PPT_SWF_NOT_FOUND_TITLE:String="Error loading presentation";
 		
 		public static var PPTWIDGET_GENERIC_ERROR_MESSAGE:String = "An error occurred";
 		
@@ -28,6 +28,6 @@ package com.kaltura.kdpfl.plugin
 		
 		public static var PPTWIDGET_SAVED_SUCCESSFULLY_MESSAGE:String = "Saved successfully";
 		
-		public static var PPT_SWF_NOT_FOUND_MESSAGE:String="Error loading PPT";
+		public static var PPT_SWF_NOT_FOUND_MESSAGE:String="Presentation is currently unavailable.";
 	}
 }
