@@ -4,6 +4,8 @@ package com.kaltura.kdpfl.plugin
 
 	public class PPTWidgetStrings 
 	{
+		private static var _flashvars : Object;
+		
 		public static var PPTWIDGET_SAVE_CHANGES_TITLE:String = "Confirm";
 		
 		public static var PPTWIDGET_SAVE_CHANGES_TEXT:String = "Do you want to save changes?";
@@ -29,5 +31,19 @@ package com.kaltura.kdpfl.plugin
 		public static var PPTWIDGET_SAVED_SUCCESSFULLY_MESSAGE:String = "Saved successfully";
 		
 		public static var PPT_SWF_NOT_FOUND_MESSAGE:String="Presentation is currently unavailable.";
+		
+		public static function init (flashvars : Object) : void
+		{
+			_flashvars = flashvars;
+		}
+		
+		public static function getString(key:String):String
+		{
+			
+			if (_flashvars.hasOwnProperty("strings") && _flashvars["strings"].hasOwnProperty(key))
+				return _flashvars["strings"][key];
+			
+			return PPTWidgetStrings[key];
+		}
 	}
 }

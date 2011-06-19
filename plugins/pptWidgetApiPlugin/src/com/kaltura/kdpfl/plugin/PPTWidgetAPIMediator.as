@@ -119,6 +119,7 @@ package com.kaltura.kdpfl.plugin
 		{
 			
 			_flashvars = facade.retrieveProxy("configProxy")["vo"]["flashvars"];
+			PPTWidgetStrings.init( _flashvars);
 			
 			if (_flashvars.editMode)
 			{
@@ -320,7 +321,7 @@ package com.kaltura.kdpfl.plugin
 			
 			if (!_videoEntryId)
 			{
-				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.PPTWIDGET_VIDEO_ENTRY_NOT_FOUND_MESSAGE, title: PPTWidgetStrings.PPTWIDGET_GENERIC_ERROR_TITLE });
+				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_VIDEO_ENTRY_NOT_FOUND_MESSAGE"), title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_TITLE") });
 				return;
 			}
 			
@@ -340,7 +341,7 @@ package com.kaltura.kdpfl.plugin
 			
 			if (!_slidePath)
 			{
-				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.PPTWIDGET_VIDEO_SLIDE_NOT_FOUND_MESSAGE, title: PPTWidgetStrings.PPTWIDGET_GENERIC_ERROR_TITLE });
+				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_VIDEO_SLIDE_NOT_FOUND_MESSAGE"), title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_TITLE") });
 				return;
 			}
 			
@@ -523,7 +524,7 @@ package com.kaltura.kdpfl.plugin
 		{
 			logError("loadSyncEntryError", event.error)
 			if (event.error)
-				sendNotification(NotificationType.ALERT, { message: event.error.errorMsg, title: PPTWidgetStrings.PPTWIDGET_GENERIC_ERROR_TITLE });
+				sendNotification(NotificationType.ALERT, { message: event.error.errorMsg, title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_TITLE") });
 			else
 				alertGenericError();
 		}
@@ -697,11 +698,11 @@ package com.kaltura.kdpfl.plugin
 			{
 				switch(event.currentTarget.label)
 				{
-					case PPTWidgetStrings.PPTWIDGET_ALERT_BUTTON_LABEL_YES:
+					case PPTWidgetStrings.getString("PPTWIDGET_ALERT_BUTTON_LABEL_YES"):
 						_sendCloseNotification = true;
 						saveDataEntry();
 						break;
-					case PPTWidgetStrings.PPTWIDGET_ALERT_BUTTON_LABEL_NO:
+					case PPTWidgetStrings.getString("PPTWIDGET_ALERT_BUTTON_LABEL_NO"):
 						sendNotification('pptWidgetClose');
 						break;
 				}
@@ -785,7 +786,7 @@ package com.kaltura.kdpfl.plugin
 			if (_sendCloseNotification)
 				sendNotification('pptWidgetClose');
 			else
-				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.PPTWIDGET_SAVED_SUCCESSFULLY_MESSAGE, title: PPTWidgetStrings.PPTWIDGET_GENERIC_TITLE });
+				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_SAVED_SUCCESSFULLY_MESSAGE"), title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_TITLE") });
 			
 			shouldSave = false;
 			_sendCloseNotification = false;
@@ -800,7 +801,7 @@ package com.kaltura.kdpfl.plugin
 		
 		protected function alertGenericError():void
 		{
-			sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.PPTWIDGET_GENERIC_ERROR_MESSAGE, title: PPTWidgetStrings.PPT_SWF_NOT_FOUND_MESSAGE});
+			sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_MESSAGE"), title: PPTWidgetStrings.getString("PPT_SWF_NOT_FOUND_MESSAGE")});
 		}
 		
 		protected function set shouldSave(v:Boolean):void
