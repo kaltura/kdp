@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2005-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+	Kaltura's default flex-config, please mark which changes are important
+	
+-->
+
+<flex-config>
+
+	<output>bin/kdp3.swf</output>
+
+	<compiler>
+
+		<source-path>
+			<path-element>src</path-element>
+		</source-path>
+
+		<include-libraries>
+			<library>../../bin/as3FlexClient.swc</library>
+			<library>../../bin/kdp3Lib.swc</library>
+			<library>../../bin/vendors/OSMF.swc</library>
+		</include-libraries>
+
+	</compiler>
+
+</flex-config>
