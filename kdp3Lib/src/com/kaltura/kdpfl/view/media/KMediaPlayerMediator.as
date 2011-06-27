@@ -153,7 +153,6 @@ package com.kaltura.kdpfl.view.media
 			
 			player.addEventListener( DynamicStreamEvent.SWITCHING_CHANGE , onSwitchingChange );
 			
-			kMediaPlayer.addEventListener(ComponentEvent.RESIZE, onPlayerResize);
 			
 			if(_flashvars.disableOnScreenClick)
 			{
@@ -169,10 +168,6 @@ package com.kaltura.kdpfl.view.media
 			_kdp3Preloader.width = size.width;
 		}
 		
-		private function onPlayerResize (e : ComponentEvent) : void
-		{
-			trace("new kmediaplayer width: "+e.target.width+" new kmediaplayer height "+e.target.height);
-		}
 		
 		/**
 		 * Enables play/pause on clicking the video.
@@ -453,6 +448,7 @@ package com.kaltura.kdpfl.view.media
 					//we should not allow the seek. 
 					if( _mediaProxy.vo.entryExtraData && 
 					   !_mediaProxy.vo.entryExtraData.isAdmin && 
+					   _mediaProxy.vo.entryExtraData.isSessionRestricted &&
 						_mediaProxy.vo.entryExtraData.previewLength != -1 &&
 						_mediaProxy.vo.entryExtraData.previewLength <= Number(note.getBody()))
 					{

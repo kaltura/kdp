@@ -670,7 +670,7 @@ package com.kaltura.kdpfl.controller
 					}
 					catch (e: Error)
 					{
-						if (_flashvars.debugMode="true")
+						if (_flashvars.debugMode=="true")
 							trace ("LoadConfigCommand::addAttributesToManager >> property " +prop.localName()+" not found on " + getQualifiedClassName(manager));
 					}
 				}
