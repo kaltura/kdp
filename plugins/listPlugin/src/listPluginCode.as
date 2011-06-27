@@ -19,8 +19,6 @@ package
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import mx.events.ListEvent;
-	
 	import org.puremvc.as3.interfaces.IFacade;
 
 	public class listPluginCode extends UIComponent implements IPlugin
