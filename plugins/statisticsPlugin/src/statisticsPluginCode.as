@@ -9,7 +9,7 @@ package {
 	import flash.system.Security;
 	
 	import org.puremvc.as3.interfaces.IFacade;
-
+	
 	public class statisticsPluginCode extends Sprite implements IPlugin
 	{
 		
@@ -23,6 +23,8 @@ package {
 		 */		
 		private var _statisticsMediator : StatisticsMediator;
 		
+		public var statsDomain : String;
+		
 		
 		/**
 		 * Constructor 
@@ -33,11 +35,12 @@ package {
 			Security.allowDomain("*");
 			statsDis = disStats;
 		}
-
+		
 		
 		public function initializePlugin( facade : IFacade ) : void
 		{
 			_statisticsMediator = new StatisticsMediator(statsDis);
+			_statisticsMediator.statsDomain = statsDomain;
 			facade.registerMediator( _statisticsMediator);
 		}
 		
