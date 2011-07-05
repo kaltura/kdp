@@ -2,9 +2,6 @@ package com.kaltura.kdpfl.controller
 {
 	import com.kaltura.KalturaClient;
 	import com.kaltura.commands.MultiRequest;
-	import com.kaltura.commands.baseEntry.BaseEntryGet;
-	import com.kaltura.commands.baseEntry.BaseEntryGetContextData;
-	import com.kaltura.commands.flavorAsset.FlavorAssetGetWebPlayableByEntryId;
 	import com.kaltura.commands.session.SessionStartWidgetSession;
 	import com.kaltura.commands.uiConf.UiConfGet;
 	import com.kaltura.commands.widget.WidgetGet;
@@ -17,7 +14,6 @@ package com.kaltura.kdpfl.controller
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.SourceType;
-	import com.kaltura.vo.KalturaEntryContextDataParams;
 	import com.kaltura.vo.KalturaLiveStreamBitrate;
 	import com.kaltura.vo.KalturaStartWidgetSessionResponse;
 	import com.kaltura.vo.KalturaUiConf;
@@ -59,7 +55,7 @@ package com.kaltura.kdpfl.controller
 	import com.kaltura.kdpfl.model.strings.MessageStrings;
 	import flash.utils.getQualifiedClassName;
 	import com.yahoo.astra.containers.formClasses.RequiredIndicator;
-
+	
 	/**
 	 * This class handles the retrieval of the player groundwork - the KS (Kaltura Session),KWidget and the uiConf.xml
 	 * @author Hila
@@ -89,24 +85,24 @@ package com.kaltura.kdpfl.controller
 			{
 				var embeddedXML:XML = new XML(embeddedWidgetData);
 				var xml:String = "<result>" + embeddedXML.result[1].toString() + "</result>";
-
+				
 				var getUiconfXml:XML = new XML(xml);
 				var getUiconfDelegate:UiConfGetDelegate = new UiConfGetDelegate(null, null);
-					 
+				
 				var uiConf:KalturaUiConf = getUiconfDelegate.parse(getUiconfXml);
-					
+				
 				// if flashvars requested a uiconf different from the one embedded check if need to fetch uiconf from server
 				if (_flashvars.uiConfId && _flashvars.uiConfId != uiConf.id)
 					return false;
-					
+				
 				_configProxy.vo.kuiConf = uiConf;
-					
+				
 				xml = "<result>" + embeddedXML.result[0].toString() + "</result>";
 				var getWidgetXml:XML = new XML(xml);
 				var getWidgetDelegate:WidgetGetDelegate = new WidgetGetDelegate(null, null);
 				var kw:KalturaWidget = getWidgetDelegate.parse(getWidgetXml);
 				_configProxy.vo.kw = kw;
-		
+				
 				return true;
 			}
 			
@@ -124,10 +120,10 @@ package com.kaltura.kdpfl.controller
 			_configProxy = facade.retrieveProxy( ConfigProxy.NAME ) as ConfigProxy;
 			_layoutProxy = facade.retrieveProxy( LayoutProxy.NAME ) as LayoutProxy;
 			_mediaProxy = facade.retrieveProxy( MediaProxy.NAME ) as MediaProxy;
-
+			
 			_flashvars = _configProxy.vo.flashvars;
 			
-							
+			
 			// if the wrapper embedded data was valid we can immidiately start working on the layout
 			// without sending a get widget request.
 			// in this case an flashvar given entry will be fetched in a later stage since we dont
@@ -137,7 +133,7 @@ package com.kaltura.kdpfl.controller
 			{
 				if (_flashvars.entryId && _flashvars.entryId != "-1")					
 					_mediaProxy.vo.entry.id = _flashvars.entryId;
-					
+				
 				_flashvars.widgetId = _configProxy.vo.kw.id;
 				fetchLayout();
 				return;
@@ -161,7 +157,7 @@ package com.kaltura.kdpfl.controller
 			
 			//start a multi request to get session if needed widget and uiconf
 			var mr : MultiRequest = new MultiRequest();
-				
+			
 			//if there is no ks we need to call first to create widget session
 			if(!_flashvars.ks)
 			{
@@ -177,7 +173,7 @@ package com.kaltura.kdpfl.controller
 			{
 				_kc.ks = _flashvars.ks;
 			}
-
+			
 			//Get Widget 
 			var widgetGet:WidgetGet = new WidgetGet(_flashvars.widgetId);
 			mr.addAction( widgetGet );
@@ -198,12 +194,12 @@ package com.kaltura.kdpfl.controller
 			}
 			
 			mr.addAction( uiconfGet );
- 	
 			
-           
+			
+			
 			mr.addEventListener( KalturaEvent.COMPLETE , result );
 			mr.addEventListener( KalturaEvent.FAILED , fault );
-		
+			
 			_kc.post( mr );
 			/////////////////////////////////////////////	
 		}
@@ -224,12 +220,12 @@ package com.kaltura.kdpfl.controller
 			//ifd we didn't got the ks from the flashvars we have a result on start widger session
 			if(!_kc.ks)
 			{
-				if(arr[i] is KalturaError)
+				if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 				{
 					++i; //procced anyway
 					//TODO: Trace, Report, and notify the user
 					trace("Error in Start Widget Session");
-					//sendNotification( NotificationType.ALERT , {message: DefaultStrings.SERVICE_START_WIDGET_ERROR, title: DefaultStrings.SERVICE_ERROR} );
+					sendNotification( NotificationType.ALERT , {message: MessageStrings.getString("SERVICE_START_WIDGET_ERROR"), title: MessageStrings.getString("SERVICE_ERROR")} );
 				}
 				else
 				{	
@@ -238,12 +234,12 @@ package com.kaltura.kdpfl.controller
 				}
 			}
 			
-			if(arr[i] is KalturaError)
+			if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 			{
 				++i; //procced anyway
 				//TODO: Trace, Report, and notify the user
 				trace("Error in Get Widget");
-				//sendNotification( NotificationType.ALERT , {message: DefaultStrings.SERVICE_GET_WIDGET_ERROR, title: DefaultStrings.SERVICE_ERROR} );
+				sendNotification( NotificationType.ALERT , {message: MessageStrings.getString("SERVICE_GET_WIDGET_ERROR"), title: MessageStrings.getString("SERVICE_ERROR")} );
 			}
 			else
 			{
@@ -251,13 +247,13 @@ package com.kaltura.kdpfl.controller
 				var kw : KalturaWidget = arr[i++];
 				_configProxy.vo.kw = kw;
 			}
-		
-			if(arr[i] is KalturaError)
+			
+			if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 			{
 				++i; //procced anyway
 				//TODO: Trace, Report, and notify the user
 				trace("Error in Get UIConf");
-				//sendNotification( NotificationType.ALERT , {message: DefaultStrings.SERVICE_GET_UICONF_ERROR, title: DefaultStrings.SERVICE_ERROR} );
+				sendNotification( NotificationType.ALERT , {message: MessageStrings.getString("SERVICE_GET_UICONF_ERROR"), title: MessageStrings.getString("SERVICE_ERROR")} );
 			}
 			else
 			{
@@ -265,9 +261,9 @@ package com.kaltura.kdpfl.controller
 				var kuiConf : KalturaUiConf = arr[i++];
 				_configProxy.vo.kuiConf = kuiConf;
 			}
-				
 			
-
+			
+			
 			fetchLayout();			
 		}
 		/**
@@ -301,7 +297,7 @@ package com.kaltura.kdpfl.controller
 				
 				if(_flashvars.kmlPath == null) //if we don't have kmlPath in flashvars
 					_flashvars.kmlPath = 'config.xml'
-					
+				
 				
 				loader = new URLLoader();
 				loader.addEventListener(Event.COMPLETE, XMLLoaded ); 
@@ -354,7 +350,7 @@ package com.kaltura.kdpfl.controller
 				
 				delete (pluginXML.@relativeTo);
 				delete (pluginXML.@position);
-
+				
 				var xml:XML = layoutXML.descendants().(attribute("id") == relativeTo)[0];
 				if (xml == null)
 				{
@@ -416,7 +412,7 @@ package com.kaltura.kdpfl.controller
 					
 					for(var s:String in pluginParams)
 						pluginXML.@[s] = pluginParams[s];
-						
+					
 					appendPluginToLayout(layoutXML, pluginXML);
 				}
 			}
@@ -436,7 +432,7 @@ package com.kaltura.kdpfl.controller
 				if (s.indexOf(".") >= 0)
 					dottedVars.push(s);
 			}
-				
+			
 			for each(s in dottedVars)
 			{				
 				var subParams:Array = s.split(".");
@@ -566,7 +562,7 @@ package com.kaltura.kdpfl.controller
 			
 			// convert all flashvars with dot syntax (e.g. watermark.path) to objects
 			buildFlashvarsTree();
-
+			
 			// append plugins to the layout from flashvars and plugins segment within the layout xml			
 			appendPluginsToLayout(xml);
 			

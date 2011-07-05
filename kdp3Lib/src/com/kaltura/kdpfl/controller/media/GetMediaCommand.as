@@ -160,12 +160,12 @@ package com.kaltura.kdpfl.controller.media
 			/////////////////////////////////////////////////////////////////
 			/////////////////////////////////////////////////////////////////
 			/////////////////////////////////////////////////////////////////
-			if(arr[i] is KalturaError)
+			if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 			{
 				++i;
 				trace("Error in Get Entry");
-				trace(arr[i]);
-				//sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_ENTRY_ERROR'), title: MessageStrings.getString('SERVICE_ERROR')} );
+				sendNotification( NotificationType.ENTRY_FAILED );
+				sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_ENTRY_ERROR'), title: MessageStrings.getString('SERVICE_ERROR')} );
 			}
 			else
 			{
@@ -179,7 +179,7 @@ package com.kaltura.kdpfl.controller.media
 				}
 			}
 			
-			if(arr[i] is KalturaError )
+			if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 			{
 				trace("Warning : Empty Flavors");
 				_mediaProxy.vo.kalturaMediaFlavorArray = null;
@@ -209,6 +209,7 @@ package com.kaltura.kdpfl.controller.media
 				else
 				{
 					_mediaProxy.vo.kalturaMediaFlavorArray = null;
+					//sendNotification(NotificationType.ALERT, {title: MessageStrings.getString("SERVICE_ERROR"), message:MessageStrings.getString("SERVICE_GET_FLAVORS_ERROR")} );
 				}
 			}
 			else
@@ -216,12 +217,12 @@ package com.kaltura.kdpfl.controller.media
 				_mediaProxy.vo.kalturaMediaFlavorArray = arr[i++];
 			} 
 			
-			if(arr[i] is KalturaError )
+			if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 			{
 				//TODO: Trace, Report, and notify the user
 				trace("Warning : Empty Extra Params");
 				++i;
-				//sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_EXTRA_ERROR'), title: MessageStrings.getString('SERVICE_GET_EXTRA_ERROR_TITLE')} );
+				//sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_EXTRA_ERROR'), title: MessageStrings.getString('SERVICE_ERROR')} );
 			}
 			else
 			{
@@ -230,12 +231,12 @@ package com.kaltura.kdpfl.controller.media
 			
 			if (_flashvars.requiredMetadataFields)
 			{
-				if(arr[i] is KalturaError)
+				if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 				{
 					//TODO: Trace, Report, and notify the user
 					trace("Warning : Empty Meta data");
 					++i;
-					//sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_EXTRA_ERROR'), title: MessageStrings.getString('SERVICE_GET_EXTRA_ERROR_TITLE')} );
+					//sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_CUSTOM_METADATA_ERROR_MESSAGE'), title: MessageStrings.getString('SERVICE_ERROR')} );
 				}
 				else
 				{
@@ -372,7 +373,7 @@ package com.kaltura.kdpfl.controller.media
 			{
 				_mediaProxy.vo.isMediaDisabled = true;
 			}
-
+			
 			commandComplete();
 		}
 		

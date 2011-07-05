@@ -12,8 +12,7 @@ package com.kaltura.kdpfl.view.controls
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.utils.getDefinitionByName;
-	import flash.utils.setTimeout;
-
+	
 	/**
 	 * This view loads an image and places it in one of the 4 corners of it. 
 	 * if the image gets a landing url parameter it will become clickable
@@ -48,7 +47,7 @@ package com.kaltura.kdpfl.view.controls
 				_loader.load(urlRequest);
 			}
 			_paddingNumber = Number(padding);
-
+			
 			_loaderContainer.addChild(_loader);
 			addChild(_loaderContainer);
 			setStyle("skin","ScrollPane_upSkin");
@@ -57,7 +56,7 @@ package com.kaltura.kdpfl.view.controls
 		//We must implement IO Eroor to any case somwone is closing the browser in the middle of
 		//Loading, if not it might crash the browser.
 		private function onIOError( event : IOErrorEvent ) :void { }
-
+		
 		/**
 		 * The image was loaded - position it and add the click behavior if needed
 		 */
@@ -73,7 +72,7 @@ package com.kaltura.kdpfl.view.controls
 		}
 		override public function setStyle(type:String, name:Object):void
 		{
- 			try{
+			try{
 				var cls:Class = getDefinitionByName(name.toString()) as Class;
 				super.setStyle(type, cls);
 			}catch(e:Error){
@@ -97,9 +96,9 @@ package com.kaltura.kdpfl.view.controls
 			if(pausePlayer)
 				dispatchEvent(new Event(WATERMARK_PAUSE));
 			var request:URLRequest = new URLRequest(clickPath);
-            navigateToURL(request);
+			navigateToURL(request);
 		}
-
+		
 		public function get watermarkPath () : String
 		{
 			return path;
@@ -142,7 +141,7 @@ package com.kaltura.kdpfl.view.controls
 		{
 			clickPath  = value;
 		}
-
+		
 		/**
 		 * Get a string of the location and place the image according to it
 		 */
@@ -154,22 +153,22 @@ package com.kaltura.kdpfl.view.controls
 			_loaderContainer.y = _paddingNumber;
 			switch(position)
 			{
-   				case "topLeft":
+				case "topLeft":
 					_loaderContainer.x = _paddingNumber;
 					_loaderContainer.y = _paddingNumber;
-				break;
+					break;
 				case "topRight":
 					_loaderContainer.x = width-_loaderContainer.width-_paddingNumber;
 					_loaderContainer.y = _paddingNumber;
-				break;
+					break;
 				case "bottomRight":
 					_loaderContainer.x = width-_loaderContainer.width;
 					_loaderContainer.y = height-_loaderContainer.height-_paddingNumber;
-				break;
+					break;
 				case "bottomLeft":
 					_loaderContainer.x = _paddingNumber;
 					_loaderContainer.y = height-_loaderContainer.height-_paddingNumber;
-				break;   
+					break;   
 			}
 		}
 		override public function set width(value:Number):void
