@@ -1,7 +1,9 @@
 package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.KalturaClient;
 	import com.kaltura.commands.stats.StatsCollect;
+	import com.kaltura.config.KalturaConfig;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.AdsNotificationTypes;
 	import com.kaltura.kdpfl.util.URLProccessing;
 	import com.kaltura.kdpfl.util.URLUtils;
@@ -14,6 +16,7 @@ package com.kaltura.kdpfl.plugin.component {
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
+
 	/**
 	 * Class StatisticsPluginMediator is responsible for "catching" the KDP notifications and translating them to the appropriate statistics events.
 	 * @author Hila
@@ -26,6 +29,10 @@ package com.kaltura.kdpfl.plugin.component {
 		 * Mediator name 
 		 */		
 		public static const NAME:String = "statisticsMediator";
+		
+		public var statsDomain : String;
+		
+		private var _flashvars : Object;
 		
 		/**
 		 * Parameter signifying whether statistics should be disabled. 
@@ -107,6 +114,8 @@ package com.kaltura.kdpfl.plugin.component {
 		 * the result if intelligent seeking.
 		 */		
 		private var _isNewLoad:Boolean = false;
+		
+		private var _kc : KalturaClient;
 
 		/**
 		 * Constructor 
@@ -155,6 +164,19 @@ package com.kaltura.kdpfl.plugin.component {
 				AdsNotificationTypes.MID_OF_AD,
 				AdsNotificationTypes.THIRD_QUARTILE_OF_AD
 			];
+		}
+		
+		override public function onRegister():void 
+		{
+			_flashvars = facade.retrieveProxy("configProxy")["vo"]["flashvars"];
+			
+			var config : KalturaConfig = new KalturaConfig();
+			config.domain = statsDomain ? statsDomain : _flashvars.host;
+			config.ks = facade.retrieveProxy("servicesProxy")["kalturaClient"]["ks"];
+			config.partnerId = _flashvars.partnerId;
+			config.protocol = _flashvars.httpProtocol;
+			config.clientTag = facade.retrieveProxy("servicesProxy")["kalturaClient"]["clientTag"];
+			_kc = new KalturaClient(config);
 		}
 
 
@@ -241,8 +263,12 @@ package com.kaltura.kdpfl.plugin.component {
 			if (statsDis)
 				return;
 			var timeSlot:String;
-			var kc:KalturaClient = facade.retrieveProxy("servicesProxy")["kalturaClient"];
-			var kse:KalturaStatsEvent = getBasicStatsData(kc.ks);
+			//var _kc:KalturaClient = facade.retrieveProxy("servicesProxy")["kalturaClient"];
+			
+			
+			
+			
+			var kse:KalturaStatsEvent = getBasicStatsData(_kc.ks);
 			var data:Object = note.getBody();
 			switch (note.getName()) {
 				case "hasOpenedFullScreen":
@@ -472,7 +498,7 @@ package com.kaltura.kdpfl.plugin.component {
 
 			var collect:StatsCollect = new StatsCollect(kse);
 			collect.method = URLRequestMethod.GET;
-			kc.post(collect);
+			_kc.post(collect);
 		}
 
 

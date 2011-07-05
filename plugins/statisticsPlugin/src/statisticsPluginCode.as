@@ -23,6 +23,8 @@ package {
 		 */		
 		private var _statisticsMediator : StatisticsMediator;
 		
+		public var statsDomain : String;
+		
 		
 		/**
 		 * Constructor 
@@ -38,6 +40,7 @@ package {
 		public function initializePlugin( facade : IFacade ) : void
 		{
 			_statisticsMediator = new StatisticsMediator(statsDis);
+			_statisticsMediator.statsDomain = statsDomain;
 			facade.registerMediator( _statisticsMediator);
 		}
 		
