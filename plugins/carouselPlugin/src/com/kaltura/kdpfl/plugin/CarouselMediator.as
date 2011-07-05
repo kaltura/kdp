@@ -9,7 +9,7 @@ package com.kaltura.kdpfl.plugin
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
-
+	
 	public class CarouselMediator extends Mediator
 	{
 		public static const NAME:String = "carouselMediator";
@@ -36,6 +36,9 @@ package com.kaltura.kdpfl.plugin
 						sendNotification("updateGalleryDataProvider");
 					}
 					break;
+				case "changeVideoPresentation":
+					(viewComponent as CarouselPluginCode).carousel.selectedIndex = 0;
+					break;
 				case "pptWidgetPrevCarouselSlide":
 					onCarouselPrev(note);
 					break;
@@ -47,11 +50,7 @@ package com.kaltura.kdpfl.plugin
 		
 		override public function listNotificationInterests():Array
 		{
-			var notifications:Array = super.listNotificationInterests();
-			notifications.push("carouselPrev");
-			notifications.push("carouselNext");
-			notifications.push("pptWidgetNextCarouselSlide");
-			notifications.push("pptWidgetPrevCarouselSlide");
+			var notifications:Array = ["carouselPrev","carouselNext","pptWidgetNextCarouselSlide","pptWidgetPrevCarouselSlide","changeVideoPresentation"];
 			return notifications;
 		}
 		
