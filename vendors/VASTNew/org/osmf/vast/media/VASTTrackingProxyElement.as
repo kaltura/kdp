@@ -86,6 +86,7 @@ package org.osmf.vast.media
 			}
 		}
 		
+		
 		// Overrides
 		//
 		
@@ -120,7 +121,7 @@ package org.osmf.vast.media
 		/**
 		 * @private 
 		 */
-		private function processMutedChange(event:AudioEvent):void
+		protected function processMutedChange(event:AudioEvent):void
 		{
 			if (event.muted)
 			{
@@ -131,7 +132,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processPlayStateChange(event:PlayEvent):void
+		protected function processPlayStateChange(event:PlayEvent):void
 		{
 			if (event.playState == PlayState.PLAYING)
 			{
@@ -156,7 +157,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processComplete(event:TimeEvent):void
+		protected function processComplete(event:TimeEvent):void
 		{
 			playheadTimer.stop();
 			
@@ -172,7 +173,7 @@ package org.osmf.vast.media
 		// Internals
 		//
 		
-		private function setEvents(events:Vector.<VASTTrackingEvent>):void
+		protected function setEvents(events:Vector.<VASTTrackingEvent>):void
 		{
 			eventsMap = new Dictionary();
 			
@@ -239,16 +240,16 @@ package org.osmf.vast.media
 			return 0;
 		}
 
-		private var dispatcher:TraitEventDispatcher;
-		private var eventsMap:Dictionary;
+		protected var dispatcher:TraitEventDispatcher;
+		protected var eventsMap:Dictionary;
 			// Key:   VASTTrackingEventType
 			// Value: VASTTrackingEvent
-		private var httpLoader:HTTPLoader;
-		private var playheadTimer:Timer;
+		protected var httpLoader:HTTPLoader;
+		protected var playheadTimer:Timer;
 		
-		private var startReached:Boolean = false;
-		private var firstQuartileReached:Boolean = false;
-		private var midpointReached:Boolean = false;
-		private var thirdQuartileReached:Boolean = false;
+		protected var startReached:Boolean = false;
+		protected var firstQuartileReached:Boolean = false;
+		protected var midpointReached:Boolean = false;
+		protected var thirdQuartileReached:Boolean = false;
 	}
 }

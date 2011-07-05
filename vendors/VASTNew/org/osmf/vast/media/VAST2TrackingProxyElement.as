@@ -91,8 +91,6 @@ package org.osmf.vast.media
 		public function VAST2TrackingProxyElement(events:Vector.<VASTTrackingEvent>, httpLoader:HTTPLoader=null, wrappedElement:MediaElement=null, cacheBust:CacheBuster = null,  clickURL:String = "")
 		{ 
 			super(events);
-			setEvents(events);
-			this.httpLoader = httpLoader;
 			clickThruURL = clickURL;
 			
 			if (cacheBust == null) // Cachebuster should be shared across all events for the same ad view due to synchronization/correlation that happens on some ad servers
@@ -101,15 +99,9 @@ package org.osmf.vast.media
 				cacheBuster = cacheBust;
 						
 			proxiedElement = wrappedElement;
-			
-			playheadTimer = new Timer(250);
-			playheadTimer.addEventListener(TimerEvent.TIMER, onPlayheadTimer);
-			
+
 			dispatcher = new TraitEventDispatcher();
 			dispatcher.media = wrappedElement;
-			dispatcher.addEventListener(AudioEvent.MUTED_CHANGE, processMutedChange);
-			dispatcher.addEventListener(PlayEvent.PLAY_STATE_CHANGE, processPlayStateChange);
-			dispatcher.addEventListener(TimeEvent.COMPLETE, processComplete);
 			dispatcher.addEventListener(LoadEvent.LOAD_STATE_CHANGE, processLoadStateChange);
 			dispatcher.media.addEventListener(MediaErrorEvent.MEDIA_ERROR, mediaError);
 			
@@ -131,12 +123,7 @@ package org.osmf.vast.media
 				
 				
 			}
-			
-			
-			if (events == null)
-			{
-				throw new ArgumentError(OSMFStrings.getString(OSMFStrings.INVALID_PARAM));
-			}
+
 		}
 		
 		private function onMetadataValueAdded(e:MetadataEvent):void
@@ -396,7 +383,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processMutedChange(event:AudioEvent):void
+		override protected function processMutedChange(event:AudioEvent):void
 		{
 			//trace("MUTE == " + mute);
 			//trace("PLAYER VOLUME " + playerVolume);
@@ -456,7 +443,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processPlayStateChange(event:PlayEvent):void
+		override protected function processPlayStateChange(event:PlayEvent):void
 		{
 			if (event.playState == PlayState.PLAYING)
 			{
@@ -487,7 +474,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processComplete(event:TimeEvent):void
+		override protected function processComplete(event:TimeEvent):void
 		{
 			playheadTimer.stop();
 			
@@ -507,7 +494,7 @@ package org.osmf.vast.media
 		// Internals
 		//
 		
-		private function setEvents(events:Vector.<VASTTrackingEvent>):void
+		override protected function setEvents(events:Vector.<VASTTrackingEvent>):void
 		{
 			eventsMap = new Dictionary();
 			
@@ -614,21 +601,11 @@ package org.osmf.vast.media
 			return cacheBuster.cacheBustURL( urlToTag, CacheBuster.AD);
 		}
 			
-		private var browserEngine : String = 'unknown';
-		private var dispatcher:TraitEventDispatcher;
-		private var eventsMap:Dictionary;
-			// Key:   VASTTrackingEventType
-			// Value: VASTTrackingEvent
-		private var httpLoader:HTTPLoader;
-		private var playheadTimer:Timer;
-		private var clickThruURL:String;
-		private var startReached:Boolean = false;
-		private var firstQuartileReached:Boolean = false;
-		private var midpointReached:Boolean = false;
-		private var thirdQuartileReached:Boolean = false;
-		private var cacheBuster:CacheBuster;
-		private var mute:Boolean = false;
-		private var playerVolume:Number = 0;
-		private var mediaContainer:MediaContainer;
+		protected var browserEngine : String = 'unknown';
+		protected var clickThruURL:String;
+		protected var cacheBuster:CacheBuster;
+		protected var mute:Boolean = false;
+		protected var playerVolume:Number = 0;
+		protected var mediaContainer:MediaContainer;
 	}
 }
