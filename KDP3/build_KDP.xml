@@ -44,6 +44,8 @@
     	<copy todir="${v_kdp}\plugins" file="..\genericOSMFPlugin\${build}\genericOSMFPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="gigyaPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\gigyaPlugin\${build}\gigyaPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="kalturaMixPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\listPlugin\${build}\kalturaMixPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="listPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\listPlugin\${build}\listPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="metaDataPlugin" destdir="${build}"/>
