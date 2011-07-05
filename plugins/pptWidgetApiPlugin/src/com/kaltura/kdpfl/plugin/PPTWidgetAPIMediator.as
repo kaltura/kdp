@@ -2,7 +2,7 @@ package com.kaltura.kdpfl.plugin
 {
 	import com.kaltura.KalturaClient;
 	import com.kaltura.commands.baseEntry.BaseEntryGet;
-	import com.kaltura.commands.baseEntry.BaseEntryUpdate;
+	import com.kaltura.commands.data.DataUpdate;
 	import com.kaltura.errors.KalturaError;
 	import com.kaltura.events.KalturaEvent;
 	import com.kaltura.kdpfl.model.MediaProxy;
@@ -138,24 +138,24 @@ package com.kaltura.kdpfl.plugin
 			//TODO : after confirmattion of the project manager, this feature will be brought back
 			/*if (_flashvars.autoPlay=="true")
 			{
-				_flashvars.autoPlay = "false";
-				_playOnLoad = true;
+			_flashvars.autoPlay = "false";
+			_playOnLoad = true;
 			}*/
 			
 			/*if(_flashvars.carouselVisible)
 			{
-				if (_flashvars.carouselVisible == "true" || _flashvars.carouselVisible == "1")
-				{
-					viewComponent.toggleGallery = true;
-				}
-				else
-				{
-					viewComponent.toggleGallery = false;
-				}
-					
+			if (_flashvars.carouselVisible == "true" || _flashvars.carouselVisible == "1")
+			{
+			viewComponent.toggleGallery = true;
+			}
+			else
+			{
+			viewComponent.toggleGallery = false;
+			}
+			
 			}
 			else{
-				viewComponent.toggleGallery = true;
+			viewComponent.toggleGallery = true;
 			}*/
 		}
 		
@@ -195,6 +195,9 @@ package com.kaltura.kdpfl.plugin
 					break;
 				case "pptWidgetRemoveMark":
 					onPPTWidgetRemoveMark(note);
+					break;
+				case "videoMarkHighlight":
+					(viewComponent as PPTWidgetAPIPlugin).isMarkSelected = true;
 					break;
 				case "pptWidgetUpdateMark":
 					onPPTWidgetUpdateMark(note);
@@ -237,8 +240,8 @@ package com.kaltura.kdpfl.plugin
 					gotoSlide(1);	
 					/*if (_playOnLoad)
 					{
-						sendNotification("doPlay");
-						_flashvars.autoPlay="true";
+					sendNotification("doPlay");
+					_flashvars.autoPlay="true";
 					}*/
 					break;
 			}
@@ -263,6 +266,7 @@ package com.kaltura.kdpfl.plugin
 				"showOnlyPPT",
 				"showOnlyVideo",
 				"updateGalleryDataProvider",
+				"videoMarkHighlight",
 				NotificationType.HAS_OPENED_FULL_SCREEN,
 				NotificationType.HAS_CLOSED_FULL_SCREEN,
 				NotificationType.PLAYER_UPDATE_PLAYHEAD,
@@ -321,7 +325,7 @@ package com.kaltura.kdpfl.plugin
 			
 			if (!_videoEntryId)
 			{
-				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_VIDEO_ENTRY_NOT_FOUND_MESSAGE"), title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_TITLE") });
+				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_VIDEO_SLIDE_NOT_FOUND_MESSAGE"), title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_TITLE") });
 				return;
 			}
 			
@@ -341,7 +345,7 @@ package com.kaltura.kdpfl.plugin
 			
 			if (!_slidePath)
 			{
-				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_VIDEO_SLIDE_NOT_FOUND_MESSAGE"), title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_TITLE") });
+				sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPT_SWF_NOT_FOUND_MESSAGE"), title: PPTWidgetStrings.getString("PPT_SWF_NOT_FOUND_TITLE") });
 				return;
 			}
 			
@@ -369,12 +373,12 @@ package com.kaltura.kdpfl.plugin
 				trace("No time node ");
 				dataContentXML.appendChild(XML("<times/>"));
 			}
-
+			
 			var videoMarksXML:XML = XML(dataContentXML.times);
 			
 			var numberOfTimes:uint = XMLList(videoMarksXML.time).length();
 			
- 			for each (var videoMark:XML in videoMarksXML.time) 
+			for each (var videoMark:XML in videoMarksXML.time) 
 			{
 				_videoMarksArray.push({video: Math.round(Number(videoMark.video)), slide: Number(videoMark.slide)});
 			}
@@ -395,7 +399,7 @@ package com.kaltura.kdpfl.plugin
 		private function slideLoadIOErrorHandler(event:IOErrorEvent):void 
 		{
 			trace("slideLoadIOErrorHandler: " + event.text);
-			alertGenericError();
+			sendNotification( NotificationType.ALERT, {message: PPTWidgetStrings.getString("PPT_SWF_NOT_FOUND_TITLE"), title: PPTWidgetStrings.getString("PPT_SWF_NOT_FOUND_MESSAGE")} );
 		}
 		
 		protected function slideLoadComplete(event:Event):void
@@ -422,7 +426,7 @@ package com.kaltura.kdpfl.plugin
 			
 		}
 		
-
+		
 		
 		protected function getFirstSlidePictures( ):void 
 		{
@@ -616,9 +620,9 @@ package com.kaltura.kdpfl.plugin
 				sendNotification("videoMarkAdded", newMark);
 				shouldSave = true;
 			}
-		
-		}
 			
+		}
+		
 		protected function onPPTWidgetRemoveMark(note:INotification):void
 		{
 			var time:Number;
@@ -639,6 +643,7 @@ package com.kaltura.kdpfl.plugin
 					break;
 				}
 			}
+			(viewComponent as PPTWidgetAPIPlugin).isMarkSelected = false;
 			shouldSave = true;
 		}
 		
@@ -770,10 +775,11 @@ package com.kaltura.kdpfl.plugin
 			}
 			videoMarksXML.appendChild(slidesXML);
 			
+			//var entry:KalturaDataEntry = (viewComponent as PPTWidgetAPIPlugin).dataEntry ? (viewComponent as PPTWidgetAPIPlugin).dataEntry : new KalturaDataEntry();;
 			var entry:KalturaDataEntry = new KalturaDataEntry();
 			entry.dataContent = videoMarksXML.toXMLString();
-			
-			var entryUpdate:BaseEntryUpdate = new BaseEntryUpdate(syncEntryId, entry);
+			entry.retrieveDataContentByGet = (viewComponent as PPTWidgetAPIPlugin).dataEntry.retrieveDataContentByGet;
+			var entryUpdate:DataUpdate = new DataUpdate(syncEntryId, entry);
 			entryUpdate.addEventListener(KalturaEvent.COMPLETE, saveDataEntryComplete);
 			entryUpdate.addEventListener(KalturaEvent.FAILED, saveDataEntryError);
 			
@@ -801,7 +807,7 @@ package com.kaltura.kdpfl.plugin
 		
 		protected function alertGenericError():void
 		{
-			sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_MESSAGE"), title: PPTWidgetStrings.getString("PPT_SWF_NOT_FOUND_MESSAGE")});
+			sendNotification(NotificationType.ALERT, { message: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_MESSAGE"), title: PPTWidgetStrings.getString("PPTWIDGET_GENERIC_ERROR_TITLE")});
 		}
 		
 		protected function set shouldSave(v:Boolean):void

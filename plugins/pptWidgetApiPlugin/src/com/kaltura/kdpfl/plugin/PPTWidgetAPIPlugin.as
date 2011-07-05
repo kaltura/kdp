@@ -10,7 +10,7 @@ package com.kaltura.kdpfl.plugin
 	import flash.display.Sprite;
 	
 	import org.puremvc.as3.interfaces.IFacade;
-
+	
 	public dynamic class PPTWidgetAPIPlugin extends Sprite implements IPlugin
 	{
 		public var nextButtonId:DisplayObject;
@@ -33,11 +33,14 @@ package com.kaltura.kdpfl.plugin
 		protected var _gallerySize : int;
 		protected var _decreasedBitmapSize : Number;
 		private var _dataEntry : KalturaDataEntry;
+		private var _isMarkSelected : Boolean;
 		
 		
 		public function PPTWidgetAPIPlugin()
 		{
 		}
+		
+		
 		
 		public function setSkin(styleName:String, setSkinSize:Boolean=false):void { }
 		
@@ -80,7 +83,7 @@ package com.kaltura.kdpfl.plugin
 		[Bindable]
 		public function set toggleGallery(visible : Boolean):void { _toggleGallery = visible; }
 		public function get toggleGallery() : Boolean {return _toggleGallery; }
-
+		
 		[Bindable]
 		public function get enableAddMark():Boolean {return _enableAddMark;}
 		public function set enableAddMark(value:Boolean):void {_enableAddMark = value;}
@@ -92,11 +95,11 @@ package com.kaltura.kdpfl.plugin
 		[Bindable]
 		public function set showOnlyVideo(showPPT : Boolean):void { _showOnlyVideo = showPPT; }
 		public function get showOnlyVideo() : Boolean {return _showOnlyVideo; }
-
+		
 		[Bindable]
 		public function get dataEntry():KalturaDataEntry{ return _dataEntry; }
 		public function set dataEntry(value:KalturaDataEntry):void { _dataEntry = value; }
-
+		
 		[Bindable]
 		public function get presentationMovieClip():MovieClip { return _presentationMovieClip; }
 		public function set presentationMovieClip(value:MovieClip):void { _presentationMovieClip = value; }
@@ -106,7 +109,7 @@ package com.kaltura.kdpfl.plugin
 		{
 			return _gallerySize;
 		}
-
+		
 		public function set gallerySize(value:int):void
 		{
 			_gallerySize = value;
@@ -120,12 +123,23 @@ package com.kaltura.kdpfl.plugin
 			//Bitmap will be determined by the tooltip and not the thumbnail.
 			return _decreasedBitmapSize*2;
 		}
-
+		
 		public function set decreasedBitmapSize(value:Number):void
 		{
 			_decreasedBitmapSize = value;
 		}
-
-
+		
+		[Bindable]
+		public function get isMarkSelected():Boolean
+		{
+			return _isMarkSelected;
+		}
+		
+		public function set isMarkSelected(value:Boolean):void
+		{
+			_isMarkSelected = value;
+		}
+		
+		
 	}
 }
