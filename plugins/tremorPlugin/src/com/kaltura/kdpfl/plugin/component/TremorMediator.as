@@ -1,4 +1,5 @@
 package com.kaltura.kdpfl.plugin.component {
+	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.AdsNotificationTypes;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
@@ -18,7 +19,7 @@ package com.kaltura.kdpfl.plugin.component {
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.interfaces.IProxy;
-
+	
 	public class TremorMediator extends SequenceMultiMediator {
 		public static const NAME:String = "TremorMediator";
 		
@@ -27,24 +28,24 @@ package com.kaltura.kdpfl.plugin.component {
 		public static const MID:String = "midroll";
 		public static const POST:String = "postroll";
 		
-
+		
 		/**
 		 * Tremor program id
 		 */
 		public var progId:String = "";
-
+		
 		/**
 		 * Tremor Log level. <br/>
 		 * optional values: ALL, DEBUG, INFO, WARN, ERROR and FATAL
 		 */
 		public var traces:String = "";
-
+		
 		/**
 		 * current ad context. 
 		 * possible values are preroll / midroll / postroll. 
 		 */
 		private var _adContext:String = TremorMediator.MID;
-
+		
 		/**
 		 * Tremor's hell-ish ad manager 
 		 */		
@@ -90,7 +91,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 * enable/disable gui, use this to not call too many of any of them. 
 		 */
 		private var _controlsEnabled:Boolean = true;
-
+		
 		/**
 		 * tremor send startAd for midrolls twice. we'll only dispatch one of them.
 		 * hopefully. 
@@ -119,23 +120,23 @@ package com.kaltura.kdpfl.plugin.component {
 			traces = tracesVolume;
 			_adManager = (viewComponent as Tremor).ad_manager;
 		}
-
+		
 		
 		/**
 		 * initialize the ad manager 
 		 */
 		private function initAdManager():void {
-
+			
 			var player:Player = new Player();
 			player.videoRegion = new Rectangle(0, 0, 300, 300);
 			player.volume = 100;
-
+			
 			var page:Page = new Page();
 			var flashvars:Object = facade.retrieveProxy("configProxy");
 			page.url = flashvars.vo.flashvars.referer;
-
+			
 			_adManager.init({player: player, page: page, debug:"FATAL"});
-
+			
 			_adManager.setVolume(100);
 			
 			_adManager.addEventListener(AcudeoEvent.PROGRAM_LOADED, onAdManagerProgramLoaded);
@@ -154,7 +155,7 @@ package com.kaltura.kdpfl.plugin.component {
 			_adManager.addEventListener(AdEvent.CLICK, onAdsEvent);
 			
 			_adManager.addEventListener(AdEvent.HIDE_BANNERS, onHideBanner);
-
+			
 			_adManager.load({
 				progId: progId
 			});
@@ -221,10 +222,10 @@ package com.kaltura.kdpfl.plugin.component {
 			sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
 		}
 		
-
+		
 		private function onAdManagerProgramLoaded(evt:Event):void {
 			_programLoaded = true; //race condition
-			
+			_adManager.removeEventListener(AcudeoEvent.PROGRAM_LOADED, onAdManagerProgramLoaded);
 			if (_requestAd) {
 				preAds();
 				_requestAd = false;
@@ -235,8 +236,8 @@ package com.kaltura.kdpfl.plugin.component {
 				
 			}
 		}
-
-
+		
+		
 		private function onControlsStateChange(evt:Object):void {
 			if (evt.enabled) {
 				enableControls();
@@ -244,30 +245,30 @@ package com.kaltura.kdpfl.plugin.component {
 				disableControls();
 			}
 		}
-
-
+		
+		
 		private function enableControls():void {
 			if (!_controlsEnabled) {
 				facade.sendNotification("enableGui", {guiEnabled: true, enableType: "full"});
 				_controlsEnabled = true;
 			}
 		}
-
-
+		
+		
 		private function disableControls():void {
 			if (_controlsEnabled) {
 				facade.sendNotification("enableGui", {guiEnabled: false, enableType: "full"});
 				_controlsEnabled = false;
 			}
 		}
-
-
+		
+		
 		private function onAdVideoProgress(evt:Event):void 
 		{
 			
 		}
-
-
+		
+		
 		/**
 		 * display a companion ad (any ad)
 		 * @param event
@@ -277,14 +278,14 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				if (ExternalInterface.available)
 					ExternalInterface.call("displayCompanionBanners", event.ad.banners,
-										   {playerIndex: event.data.player.playerIndex});
+						{playerIndex: event.data.player.playerIndex});
 			} catch (e:Error)
 			{
 				trace("ExternalInterface error");
 			}
 		}
-
-
+		
+		
 		/**
 		 * for prerolls and postrolls, we need to trigger ads manually.
 		 */
@@ -296,28 +297,28 @@ package com.kaltura.kdpfl.plugin.component {
 				sendNotification(postSequenceNotificationStartName);
 			}
 		}
-
-
+		
+		
 		/**
 		 * Initialization of the tremor component. This is done here (and not previously), since only here we
 		 * know that all config values are present
 		 */
 		override public function onRegister():void {
 		}
-
-
+		
+		
 		override public function listNotificationInterests():Array {
 			var notify:Array = [preSequenceNotificationStartName,
-								postSequenceNotificationStartName,
-								NotificationType.PLAYER_UPDATE_PLAYHEAD,
-								NotificationType.VOLUME_CHANGED,
-								NotificationType.KDP_EMPTY,
-								NotificationType.KDP_READY
+				postSequenceNotificationStartName,
+				NotificationType.PLAYER_UPDATE_PLAYHEAD,
+				NotificationType.VOLUME_CHANGED,
+				NotificationType.LAYOUT_READY,
+				NotificationType.CHANGE_MEDIA_PROCESS_STARTED
 			];
 			return notify;
 		}
-
-
+		
+		
 		override public function handleNotification(note:INotification):void {
 			var kc:Object = facade.retrieveProxy("servicesProxy")["kalturaClient"];
 			var config:Object = facade.retrieveProxy("configProxy");
@@ -333,26 +334,26 @@ package com.kaltura.kdpfl.plugin.component {
 				case NotificationType.VOLUME_CHANGED:
 					setVolume(data.newVolume);
 					break;
-
+				
 				case preSequenceNotificationStartName:
-					preAds();
+					var newEntryId:String = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry.id;
+					preAds(newEntryId);
 					break;
-
+				
 				case postSequenceNotificationStartName:
 					postAds();
 					clearMediaData();
 					break;
 				
-				case NotificationType.KDP_EMPTY:
-				case NotificationType.KDP_READY:
+				case NotificationType.LAYOUT_READY:
 					if (!_managerInit) {
 						initAdManager();
 					}
 					break;
 			}
 		}
-
-
+		
+		
 		/**
 		 * delete all data concerning the current entry, so when
 		 * the next entry loads we'll ask for new info 
@@ -375,17 +376,17 @@ package com.kaltura.kdpfl.plugin.component {
 			content.title = _entryTitle
 			_adManager.setContent(content);
 		}
-
-
+		
+		
 		/**
 		 * show preroll ads
 		 */
-		private function preAds():void {
+		private function preAds(newEntryId : String=""):void {
 			disableControls();
 			_adContext = TremorMediator.PRE;
 			//check if the ad manager is ready - race condition
 			if (_programLoaded) {
-				if (!_entryId) {
+				if (!_entryId || _entryId != newEntryId) {
 					retrieveMediaData();
 				}
 				_adManager.contentPreStart();
@@ -394,8 +395,8 @@ package com.kaltura.kdpfl.plugin.component {
 				_requestAd = true;
 			}
 		}
-
-
+		
+		
 		/**
 		 * show postroll ads
 		 */
@@ -403,12 +404,12 @@ package com.kaltura.kdpfl.plugin.component {
 			_adContext = TremorMediator.POST;
 			_adManager.contentEnd();
 		}
-
-
+		
+		
 		/////////////////////////////////////////////////////////
 		// TREMOR FUNCTIONS API 
 		/////////////////////////////////////////////////////////
-
+		
 		/**
 		 * after playing the pre-roll - this function tells the player to resume playing
 		 * the original video if no pre-roll it will be called automaticaly
@@ -421,8 +422,8 @@ package com.kaltura.kdpfl.plugin.component {
 			enableControls();
 			sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
 		}
-
-
+		
+		
 		/**
 		 * whenever a tremor component shows mid roll ad (or a a banner clicked and opened a video ad) - pause the current video
 		 * @param event
@@ -431,8 +432,8 @@ package com.kaltura.kdpfl.plugin.component {
 			paused = true;
 			sendNotification("doPause");
 		}
-
-
+		
+		
 		/**
 		 * whenever a tremor component finished showing a mid video ad - resume the current video
 		 * @param event
@@ -441,8 +442,8 @@ package com.kaltura.kdpfl.plugin.component {
 			paused = false;
 			sendNotification(NotificationType.DO_PLAY);
 		}
-
-
+		
+		
 		/**
 		 * Call when everything is done - including post rolls
 		 * @param event
@@ -451,9 +452,9 @@ package com.kaltura.kdpfl.plugin.component {
 			enableControls();
 			sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
 		}
-
-
-
+		
+		
+		
 		//////////////////////////////////////////////////////////////////////////////////////
 		//Player properties changed
 		/////////////////////////////////////////////////////////////////////////////////////		
@@ -466,11 +467,11 @@ package com.kaltura.kdpfl.plugin.component {
 			// Call as content is playing
 			if (_adManager && !paused) {
 				_adManager.contentProgress(currentPosition, duration);
-
+				
 			}
 		}
-
-
+		
+		
 		/**
 		 * Update the tremor component on screen size changes.
 		 * @param w the new width
@@ -482,8 +483,8 @@ package com.kaltura.kdpfl.plugin.component {
 				_adManager.setVideoRegion(new Rectangle(0, 0, w, h));
 			}
 		}
-
-
+		
+		
 		/**
 		 * Update the tremor component on volume changes.
 		 * @param volume the new volume (0 to 1 scale)
@@ -493,8 +494,8 @@ package com.kaltura.kdpfl.plugin.component {
 			if (_adManager)
 				_adManager.setVolume(_currentVolume);
 		}
-
-
+		
+		
 		public function get view():DisplayObject {
 			return viewComponent as DisplayObject;
 		}
