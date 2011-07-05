@@ -9,7 +9,7 @@ package com.kaltura.kdpfl.plugin.component {
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
-
+	
 	/**
 	 * Mediator for Gigya plugin 
 	 */	
@@ -25,7 +25,7 @@ package com.kaltura.kdpfl.plugin.component {
 		
 		private var _embedCode:String;
 		private var _currentEntry:String = "";
-
+		
 		// initialize the configuration object 
 		private var _cfg:Object = {};
 		
@@ -45,8 +45,8 @@ package com.kaltura.kdpfl.plugin.component {
 		 * The plugin is currently running inside appstudio 
 		 */		
 		private var _isInAps:Boolean;
-
-
+		
+		
 		/**
 		 * Constructor. 
 		 * @param viewComponent	the view component for this mediator
@@ -58,26 +58,26 @@ package com.kaltura.kdpfl.plugin.component {
 			if (flashvars.isInAppstudio)
 				_isInAps = true;
 		}
-
-
+		
+		
 		public function get defaultBookmarkURL():String
 		{
 			return _defaultBookmarkURL;
 		}
-
+		
 		public function set defaultBookmarkURL(value:String):void
 		{
 			_defaultBookmarkURL = value;
 		}
-
+		
 		/**
 		 * @inheritDocs 
 		 */		
 		override public function listNotificationInterests():Array {
 			return ["playerReady", "mediaReady", "durationChange", "doGigya"];
 		}
-
-
+		
+		
 		/**
 		 * Create the widget partner data from flashvars
 		 * The pd flashvars contains a comma separated list of variables names that should be
@@ -92,7 +92,7 @@ package com.kaltura.kdpfl.plugin.component {
 			var pd:String = flashvars['pd'];
 			if (pd) {
 				var xml:XML = new XML('<uiVars/>');
-
+				
 				var pdVars:Array = pd.split(',');
 				for each (var pdVar:String in pdVars) {
 					var subParams:Array = pdVar.split(".");
@@ -108,21 +108,21 @@ package com.kaltura.kdpfl.plugin.component {
 						xml.appendChild(varXML);
 					}
 				}
-
+				
 				return new XML("<xml/>").appendChild(xml);
 			}
-
+			
 			return null;
 		}
-
-
+		
+		
 		private function _getShareCode(kc:Object):void {
 			var media:Object = facade.retrieveProxy("mediaProxy");
 			var config:Object = facade.retrieveProxy("configProxy");
 			_flashvars = config.getData().flashvars;
 			if (!uiconfId)
 				uiconfId = config.vo.kuiConf.id;
-
+			
 			// build client instacr
 			//if there are more places to use this - make this global 	
 			//configuration 
@@ -133,15 +133,15 @@ package com.kaltura.kdpfl.plugin.component {
 			kw.sourceWidgetId = config["vo"]["kw"]["id"]; //"_1";// 
 			kw.partnerData = createWidgetPartnerData(_flashvars);
 			kw.securityType = KalturaWidgetSecurityType.NONE;
-
+			
 			//add widget			
 			var addWidget:WidgetAdd = new WidgetAdd(kw);
 			addWidget.addEventListener(KalturaEvent.COMPLETE, onWidgetComplete);
 			addWidget.addEventListener(KalturaEvent.FAILED, onWidgetFailed);
 			kc.post(addWidget);
 		}
-
-
+		
+		
 		private function onWidgetComplete(evt:Object):void {
 			var whtml:String = evt["data"]["widgetHTML"];
 			_embedCode = whtml;
@@ -151,14 +151,14 @@ package com.kaltura.kdpfl.plugin.component {
 				(view as Gigya).loadGigya(_cfg, MODULE_ID);
 			}
 		}
-
-
+		
+		
 		private function onWidgetFailed(evt:Object):void {
 			_loadWithNewConfig = false;
 			facade.sendNotification("enableGui", {guiEnabled: true, enableType: "full"});
 			
 		}
-
+		
 		/**
 		 * @inheritDocs 
 		 */
@@ -170,7 +170,7 @@ package com.kaltura.kdpfl.plugin.component {
 				case "doGigya":
 					if (_isInAps)
 						break;
-
+					
 					facade.sendNotification("doPause");
 					facade.sendNotification("closeFullScreen");
 					facade.sendNotification("enableGui", {guiEnabled: false, enableType: "full"});
@@ -183,18 +183,18 @@ package com.kaltura.kdpfl.plugin.component {
 						(view as Gigya).showGigya();
 					}
 					break;
-
+				
 			}
 		}
-
-
+		
+		
 		private function _createGigyaConfig():void {
 			var layout:Object = facade.retrieveProxy("layoutProxy");
 			var media:Object = facade.retrieveProxy("mediaProxy");
 			// Step 2 - Set up security to allow your app to interact with the Share menu 
 			Security.allowDomain("cdn.gigya.com");
 			Security.allowInsecureDomain("cdn.gigya.com");
-
+			
 			// Step 4 - This code assigns the configurations you set in our site to the Share menu configuration object 
 			_cfg['width'] = (viewComponent as DisplayObject).parent.parent.width;
 			_cfg['height'] = (viewComponent as DisplayObject).parent.parent.height;
@@ -203,7 +203,7 @@ package com.kaltura.kdpfl.plugin.component {
 			_cfg['useFacebookMystuff']='false';
 			
 			try{
-				_cfg['facebookPreviewURL3'] = _flashvars.httpProtocol + _flashvars.cdnHost + "/p/" + _flashvars.partnerId + "/thumbnail/width/" + (viewComponent as DisplayObject).width + "/entry_id/" + _currentEntry;
+				_cfg['facebookPreviewURL3'] = media["vo"]["entry"]["thumbnailUrl"];
 			}catch (e:Error)
 			{
 				trace(e.message);
@@ -228,29 +228,29 @@ package com.kaltura.kdpfl.plugin.component {
 			_cfg['defaultContent'] = _embedCode;
 			if(_defaultBookmarkURL)
 				_cfg['defaultBookmarkURL']=_defaultBookmarkURL;
-
+			
 			// Step 5 - Set up the event listeners
 			_cfg['onLoad'] = function(eventObj:Object):void {
 			}
-
+			
 			_cfg['onClose'] = function(eventObj:Object):void {
 				(view as Gigya).hideGigya();
 				//re-enable the UI 
 				facade.sendNotification("enableGui", {guiEnabled: true, enableType: "full"});
 			}
-
+			
 		}
-
-
+		
+		
 		/**
 		 * plugin width 
 		 */		
 		public function set width(value:Number):void {
 			_width = value;
 			_cfg['width'] = _width;
-
+			
 		}
-
+		
 		/**
 		 * plugin height 
 		 */
@@ -258,16 +258,16 @@ package com.kaltura.kdpfl.plugin.component {
 			_height = value;
 			_cfg['height'] = _height;
 		}
-
-
+		
+		
 		/**
 		 * plugin view component 
 		 */		
 		public function get view():DisplayObject {
 			return viewComponent as DisplayObject;
 		}
-
-
+		
+		
 		/**
 		 * subject of sent email 
 		 */		
@@ -275,8 +275,8 @@ package com.kaltura.kdpfl.plugin.component {
 			if (_shareEmailSubject == "")
 				_shareEmailSubject = value;
 		}
-
-
+		
+		
 		/**
 		 * content of sent email
 		 */		
@@ -284,7 +284,7 @@ package com.kaltura.kdpfl.plugin.component {
 			if (_shareEmailBody == "")
 				_shareEmailBody = value;
 		}
-
+		
 		/**
 		 * Gigya partner id
 		 */
@@ -300,8 +300,8 @@ package com.kaltura.kdpfl.plugin.component {
 			if (_title == "")
 				_title = value;
 		}
-
-
+		
+		
 		/**
 		 * @private
 		 */			
@@ -309,8 +309,8 @@ package com.kaltura.kdpfl.plugin.component {
 			if (_uiconfId == "")
 				_uiconfId = value;
 		}
-
-
+		
+		
 		/**
 		 * the uiconf that will be the new widget uiconf
 		 */
