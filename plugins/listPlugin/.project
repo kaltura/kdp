@@ -18,7 +18,7 @@
 		<link>
 			<name>bin-debug</name>
 			<type>2</type>
-			<location>C:/workspaces/kdp3/KDP3/html-template/plugins</location>
+			<locationURI>DOCUMENTS/KDP3/html-template/plugins</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
