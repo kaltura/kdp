@@ -1,0 +1,680 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="Carousel,com.yahoo.astra.fl.controls.Carousel,createAccessibilityImplementation,columnCount,columnWidth,iconField,iconFunction,labelField,labelFunction,layoutRenderer,rowCount,rowHeight,sourceField,sourceFunction,createCellRenderer,initializeAccessibility,invalidateCellRenderers,itemToIcon,itemToLabel,itemToSource,moveSelectionHorizontally,scrollToIndex,validateCellRenderers" name="keywords">
+<title>com.yahoo.astra.fl.controls.Carousel</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Carousel - kdp3Lib Documentation';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?com/yahoo/astra/fl/controls/Carousel.html&amp;com/yahoo/astra/fl/controls/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Carousel</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Carousel"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.yahoo.astra.fl.controls</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Carousel</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Carousel <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> fl.controls.SelectableList</td>
+</tr>
+</table>
+<p></p>
+  A list-like component that supports custom rendering engines for maximum
+  creative flexibility.
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">fl.controls.List<br>
+<a href="http://developer.yahoo.com/ypatterns/pattern.php?pattern=carousel" target="mm_external">Carousel Pattern</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#columnCount">columnCount</a> : uint<div class="summaryTableDescription">
+   Gets or sets the number of columns that are at least partially visible in the 
+   list.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#columnWidth">columnWidth</a> : Number<div class="summaryTableDescription">
+   Gets or sets the width that is applied to a column in the list, in pixels.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#createAccessibilityImplementation">createAccessibilityImplementation</a> : Function<div class="summaryTableDescription">[static]
+    Placeholder for mixin by CarouselAccImpl.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#iconField">iconField</a> : String<div class="summaryTableDescription">
+   Gets or sets the item field that provides the icon for a cell renderer.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#iconFunction">iconFunction</a> : Function<div class="summaryTableDescription">
+         Gets or sets the function to be used to obtain the icon for the item.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#labelField">labelField</a> : String<div class="summaryTableDescription">
+         Gets or sets the name of the field in the <code>dataProvider</code> object 
+         to be displayed as the label in the tabs.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#labelFunction">labelFunction</a> : Function<div class="summaryTableDescription">
+         Gets or sets the function to be used to obtain the label for the item.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#layoutRenderer">layoutRenderer</a> : <a href="carouselClasses/ICarouselLayoutRenderer.html">ICarouselLayoutRenderer</a>
+<div class="summaryTableDescription">
+   An instance of ICarouselLayoutRenderer that handles the layout of
+   cell renderers for this Carousel instance.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#rowCount">rowCount</a> : uint<div class="summaryTableDescription">[read-only]
+   </div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#rowHeight">rowHeight</a> : Number<div class="summaryTableDescription">
+   Gets or sets the height of each row in the list, in pixels.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sourceField">sourceField</a> : String<div class="summaryTableDescription">
+   Gets or sets the item field that provides the source path for a cell renderer.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sourceFunction">sourceFunction</a> : Function<div class="summaryTableDescription">
+         Gets or sets the function to be used to obtain the image source for the item.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#Carousel()">Carousel</a>()</div>
+<div class="summaryTableDescription">
+   Constructor.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#itemToIcon()">itemToIcon</a>(item:Object):Object</div>
+<div class="summaryTableDescription">
+   Retrieves the icon that the renderer displays for the given
+   data object based on the <code>iconField</code> or <code>iconFunction</code>
+   defined by the Carousel.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#itemToLabel()">itemToLabel</a>(item:Object):String</div>
+<div class="summaryTableDescription">
+   Retrieves the label text that the renderer displays for the given
+   data object based on the <code>labelField</code> or <code>labelFunction</code>
+   defined by the Carousel.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#itemToSource()">itemToSource</a>(item:Object):Object</div>
+<div class="summaryTableDescription">
+   Retrieves the image source that the renderer displays for the given
+   data object based on the <code>sourceField</code> or <code>sourceFunction</code>
+   defined by the Carousel.</div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#scrollToIndex()">scrollToIndex</a>(newCaretIndex:int):void</div>
+<div class="summaryTableDescription">
+         </div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#initializeAccessibility()">initializeAccessibility</a>():void</div>
+<div class="summaryTableDescription">
+       </div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#moveSelectionHorizontally()">moveSelectionHorizontally</a>(code:uint, shiftKey:Boolean, ctrlKey:Boolean):void</div>
+<div class="summaryTableDescription">
+         </div>
+</td><td class="summaryTableOwnerCol">Carousel</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="columnCount"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">columnCount</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>columnCount:uint</code>&nbsp;&nbsp;[read-write]<p>
+   Gets or sets the number of columns that are at least partially visible in the 
+   list. 
+            </p><p>The default value is <code>0</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get columnCount():uint</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set columnCount(value:uint):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Carousel.html#rowCount" target="">rowCount</a>
+</div>
+</div>
+<a name="columnWidth"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">columnWidth</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>columnWidth:Number</code>&nbsp;&nbsp;[read-write]<p>
+   Gets or sets the width that is applied to a column in the list, in pixels.
+            </p><p>The default value is <code>50</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get columnWidth():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set columnWidth(value:Number):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Carousel.html#rowHeight" target="">rowHeight</a>
+</div>
+</div>
+<a name="createAccessibilityImplementation"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">createAccessibilityImplementation</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var createAccessibilityImplementation:Function</code><p>
+    Placeholder for mixin by CarouselAccImpl.
+   </p></div>
+<a name="iconField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">iconField</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>iconField:String</code>&nbsp;&nbsp;[read-write]<p>
+   Gets or sets the item field that provides the icon for a cell renderer.
+                  </p><p><strong>Note:</strong> The <code>iconField</code> is not used if the 
+   <code>iconFunction</code> property is set to a callback function.</p>
+            <p>The default value is <code>"icon"</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get iconField():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set iconField(value:String):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Carousel.html#iconFunction" target="">iconFunction</a>
+</div>
+</div>
+<a name="iconFunction"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">iconFunction</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>iconFunction:Function</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the function to be used to obtain the icon for the item.
+            </p><p>By default, the component displays the <code>icon</code> property
+   for a <code>dataProvider</code> item. But some data sets may not have 
+   a <code>icon</code> field or may not have a field whose value
+   can be used as a icon without modification.</p>
+            <p><strong>Note:</strong> The <code>iconField</code> property is not used 
+         if the <code>iconFunction</code> property is set to a callback function.</p>
+                  <p>The default value is <code>null</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get iconFunction():Function</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set iconFunction(value:Function):void</code>
+<br>
+</div>
+<a name="labelField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">labelField</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>labelField:String</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the name of the field in the <code>dataProvider</code> object 
+         to be displayed as the label in the tabs. 
+            </p><p>By default, the component displays the <code>label</code> property 
+   of each <code>dataProvider</code> item. If the <code>dataProvider</code> 
+   items do not contain a <code>label</code> property, you can set the 
+   <code>labelField</code> property to use a different property.</p>
+                  <p><strong>Note:</strong> The <code>labelField</code> property is not used 
+         if the <code>labelFunction</code> property is set to a callback function.</p>
+         
+         <p>The default value is <code>"label"</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get labelField():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set labelField(value:String):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Carousel.html#labelFunction" target="">labelFunction</a>
+</div>
+</div>
+<a name="labelFunction"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">labelFunction</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>labelFunction:Function</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the function to be used to obtain the label for the item.
+            </p><p>By default, the component displays the <code>label</code> property
+   for a <code>dataProvider</code> item. But some data sets may not have 
+   a <code>label</code> field or may not have a field whose value
+   can be used as a label without modification. For example, a given data 
+   set might store full names but maintain them in <code>lastName</code> and  
+   <code>firstName</code> fields. In such a case, this property could be
+   used to set a callback function that concatenates the values of the 
+   <code>lastName</code> and <code>firstName</code> fields into a full 
+   name string to be displayed.</p>
+            <p><strong>Note:</strong> The <code>labelField</code> property is not used 
+         if the <code>labelFunction</code> property is set to a callback function.</p>
+                  <p>The default value is <code>null</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get labelFunction():Function</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set labelFunction(value:Function):void</code>
+<br>
+</div>
+<a name="layoutRenderer"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">layoutRenderer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>layoutRenderer:<a href="carouselClasses/ICarouselLayoutRenderer.html">ICarouselLayoutRenderer</a></code>&nbsp;&nbsp;[read-write]<p>
+   An instance of ICarouselLayoutRenderer that handles the layout of
+   cell renderers for this Carousel instance.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get layoutRenderer():<a href="carouselClasses/ICarouselLayoutRenderer.html">ICarouselLayoutRenderer</a></code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set layoutRenderer(value:<a href="carouselClasses/ICarouselLayoutRenderer.html">ICarouselLayoutRenderer</a>):void</code>
+<br>
+</div>
+<a name="rowCount"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">rowCount</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>rowCount:uint</code>&nbsp;&nbsp;[read-only]<p>
+   </p><p>The default value is <code>1</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get rowCount():uint</code>
+<br>
+</div>
+<a name="rowHeight"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">rowHeight</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>rowHeight:Number</code>&nbsp;&nbsp;[read-write]<p>
+   Gets or sets the height of each row in the list, in pixels.
+                  </p><p>The default value is <code>20</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get rowHeight():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set rowHeight(value:Number):void</code>
+<br>
+</div>
+<a name="sourceField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sourceField</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>sourceField:String</code>&nbsp;&nbsp;[read-write]<p>
+   Gets or sets the item field that provides the source path for a cell renderer.
+                  </p><p><strong>Note:</strong> The <code>sourceField</code> is not used if the 
+   <code>sourceFunction</code> property is set to a callback function.</p>
+            <p>The default value is <code>"source"</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get sourceField():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set sourceField(value:String):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Carousel.html#sourceFunction" target="">sourceFunction</a>
+</div>
+</div>
+<a name="sourceFunction"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sourceFunction</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>sourceFunction:Function</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the function to be used to obtain the image source for the item.
+            </p><p>By default, the component displays the <code>source</code> property
+   for a <code>dataProvider</code> item. But some data sets may not have 
+   a <code>source</code> field or may not have a field whose value
+   can be used as an image source without modification.</p>
+            <p><strong>Note:</strong> The <code>sourceField</code> property is not used 
+         if the <code>sourceFunction</code> property is set to a callback function.</p>
+                  <p>The default value is <code>null</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get sourceFunction():Function</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set sourceFunction(value:Function):void</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="Carousel()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Carousel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function Carousel()</code><p>
+   Constructor.
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="createCellRenderer()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">createCellRenderer</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>astra_carousel_internal function createCellRenderer(item:Object, parent:DisplayObjectContainer = null):ICellRenderer</code><p>
+   Creates a cell renderer for use by the layout renderer.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">item</span>:Object</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">parent</span>:DisplayObjectContainer</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>ICellRenderer</code></td>
+</tr>
+</table>
+</div>
+<a name="initializeAccessibility()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">initializeAccessibility</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected override function initializeAccessibility():void</code><p>
+       </p></div>
+<a name="invalidateCellRenderers()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">invalidateCellRenderers</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>astra_carousel_internal function invalidateCellRenderers():void</code><p>
+   Tells the Carousel that its cell renderers are invalid and that the
+   layout renderer is beginning to draw.
+   </p></div>
+<a name="itemToIcon()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemToIcon</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function itemToIcon(item:Object):Object</code><p>
+   Retrieves the icon that the renderer displays for the given
+   data object based on the <code>iconField</code> or <code>iconFunction</code>
+   defined by the Carousel.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">item</span>:Object</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code></td>
+</tr>
+</table>
+</div>
+<a name="itemToLabel()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemToLabel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public override function itemToLabel(item:Object):String</code><p>
+   Retrieves the label text that the renderer displays for the given
+   data object based on the <code>labelField</code> or <code>labelFunction</code>
+   defined by the Carousel.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">item</span>:Object</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>String</code></td>
+</tr>
+</table>
+</div>
+<a name="itemToSource()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemToSource</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function itemToSource(item:Object):Object</code><p>
+   Retrieves the image source that the renderer displays for the given
+   data object based on the <code>sourceField</code> or <code>sourceFunction</code>
+   defined by the Carousel. Generally, this value is the URL to an image
+   or SWF file to be displayed in a UILoader.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">item</span>:Object</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code></td>
+</tr>
+</table>
+</div>
+<a name="moveSelectionHorizontally()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">moveSelectionHorizontally</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected override function moveSelectionHorizontally(code:uint, shiftKey:Boolean, ctrlKey:Boolean):void</code><p>
+         </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">code</span>:uint</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">shiftKey</span>:Boolean</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">ctrlKey</span>:Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="scrollToIndex()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">scrollToIndex</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public override function scrollToIndex(newCaretIndex:int):void</code><p>
+         </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">newCaretIndex</span>:int</code></td>
+</tr>
+</table>
+</div>
+<a name="validateCellRenderers()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">validateCellRenderers</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>astra_carousel_internal function validateCellRenderers():void</code><p>
+   Informs the Carousel that the layout renderer has finished drawing
+   and that it may perform any garbage collection needed.
+   </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
