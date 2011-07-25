@@ -6,6 +6,7 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.PlayerStatusProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
+	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.strings.MessageStrings;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SourceType;
@@ -245,7 +246,16 @@ package com.kaltura.kdpfl.view.media
 					if(_mediaProxy.vo)
 					{
 						if( !sequenceProxy.vo.isInSequence)
-							kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height ); //load the thumnail of this media
+						{
+							if (_flashvars.loadThumbnailWithKs)
+							{
+								kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height , (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks ); //load the thumnail of this media
+							}
+							else
+							{
+								kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height );
+							}
+						}
 					}
 					if (_flashvars.autoPlay !="true" && !_mediaProxy.vo.singleAutoPlay)
 					{

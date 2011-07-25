@@ -108,7 +108,7 @@ package com.kaltura.kdpfl.view.media
 			
 		}
 		
-		public function loadThumbnail( url : String ,thumbWidth:Number, thumbHeight:Number) : void
+		public function loadThumbnail( url : String ,thumbWidth:Number, thumbHeight:Number , ks : String = "") : void
 		{
 			if(!url) return; //if someone send null we won't load it
 			
@@ -135,7 +135,7 @@ package com.kaltura.kdpfl.view.media
 			
 			addChild(_thumbnail);
 			
-			_thumbnail.load(url+"/width/"+thumbWidth+"/height/"+thumbHeight);
+			_thumbnail.load(url+"/width/"+thumbWidth+"/height/"+thumbHeight + (ks != "" ? "/ks/" + ks : ""));
 			
 		}
 		
