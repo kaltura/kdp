@@ -29,7 +29,7 @@ package com.kaltura.kdpfl
 		 * The current version of the KDP.
 		 */		
 
-		public var kdpVersion : String = "v3.5.9";
+		public var kdpVersion : String = "v3.5.9.1";
 
 
 		/**
