@@ -28,6 +28,8 @@ public class VolumeMediator extends Mediator
 
 	public static const NAME:String = "VolumeMediator";
 	protected var _layoutProxy:LayoutProxy;
+	
+	protected var _muted : Boolean = false;
 
 		 
 	public function VolumeMediator( viewComponent:Object=null )
@@ -63,7 +65,23 @@ public class VolumeMediator extends Mediator
 	protected function onVolumeChange( evt:Event ):void
 	{
 		//trace( "VOLUME CHANGE " + volumeBar.getVolume() );
-		sendNotification( NotificationType.CHANGE_VOLUME, volumeBar.getVolume() );
+		if (volumeBar.getVolume() != 0)
+		{
+			if (_muted)
+			{
+				_muted = false;
+				sendNotification( NotificationType.UNMUTE);
+			}
+			sendNotification( NotificationType.CHANGE_VOLUME, volumeBar.getVolume() );
+		}
+		else
+		{
+			if ( !_muted )
+			{
+				_muted = true;
+				sendNotification( NotificationType.MUTE);
+			}
+		}
 	}
 
 	override public function handleNotification( note:INotification ):void

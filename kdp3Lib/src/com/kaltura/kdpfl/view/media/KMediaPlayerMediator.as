@@ -219,6 +219,7 @@ package com.kaltura.kdpfl.view.media
 					NotificationType.DO_SWITCH,
 					NotificationType.CLEAN_MEDIA,
 					NotificationType.CHANGE_VOLUME,
+					NotificationType.MUTE,
 					NotificationType.MEDIA_READY,
 					NotificationType.MEDIA_LOAD_ERROR,
 					NotificationType.KDP_EMPTY,
@@ -245,7 +246,7 @@ package com.kaltura.kdpfl.view.media
 					
 					if(_mediaProxy.vo)
 					{
-						if( !sequenceProxy.vo.isInSequence)
+						if( !sequenceProxy.vo.isInSequence && !_flashvars.noThumbnail)
 						{
 							if (_flashvars.loadThumbnailWithKs)
 							{
@@ -506,6 +507,9 @@ package com.kaltura.kdpfl.view.media
 				case NotificationType.CHANGE_VOLUME:  //when the player asked to set new volume point
 					kMediaPlayer.volume = ( Number(note.getBody()) ); 
 				break;
+				case NotificationType.MUTE:
+					kMediaPlayer.volume  = 0;
+					break;
 				case NotificationType.KDP_READY:
 				case NotificationType.KDP_EMPTY:
 					var preloaderMediator : BufferAnimationMediator = facade.retrieveMediator( BufferAnimationMediator.NAME ) as BufferAnimationMediator;

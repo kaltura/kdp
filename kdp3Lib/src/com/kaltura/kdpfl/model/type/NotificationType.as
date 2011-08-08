@@ -321,5 +321,13 @@ package com.kaltura.kdpfl.model.type
 		  * entry/media in the KDP, and that it is ready to load alternate media/entries.
 		  */		 
 		 static public const READY_TO_LOAD					: String = "readyToLoad";
+		 /**
+		  * Notification fired when the player is muted
+		  */		 
+		 static public const MUTE								: String = "mute";
+		 /**
+		  * Notification fired when video is unmuted.
+		  */		 
+		 static public const UNMUTE								: String = "unmute";
 	}
 }
