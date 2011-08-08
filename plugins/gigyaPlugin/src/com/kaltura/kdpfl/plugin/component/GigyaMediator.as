@@ -1,6 +1,8 @@
 package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.commands.widget.WidgetAdd;
 	import com.kaltura.events.KalturaEvent;
+	import com.kaltura.kdpfl.model.type.EnableType;
+	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.types.KalturaWidgetSecurityType;
 	import com.kaltura.vo.KalturaWidget;
 	
@@ -74,7 +76,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 * @inheritDocs 
 		 */		
 		override public function listNotificationInterests():Array {
-			return ["playerReady", "mediaReady", "durationChange", "doGigya"];
+			return ["doGigya",NotificationType.HAS_OPENED_FULL_SCREEN];
 		}
 		
 		
@@ -182,6 +184,10 @@ package com.kaltura.kdpfl.plugin.component {
 					else {
 						(view as Gigya).showGigya();
 					}
+					break;
+				case NotificationType.HAS_OPENED_FULL_SCREEN:
+					(view as Gigya).hideGigya();
+					sendNotification( NotificationType.ENABLE_GUI ,{guiEnabled: true, enableType: EnableType.FULL} );
 					break;
 				
 			}
