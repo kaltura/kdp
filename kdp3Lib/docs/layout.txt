@@ -1,0 +1,146 @@
+Following is a summary of the layout building process within the KDP
+
+
+1. Fetch a layout xml
+	TODO: need to decsribe the different methods of providing the layout xml
+	
+
+2. Analyze the layout xml
+ 
+	1. Replace strings (listed in strings.txt)
+		Override flashvars strings with the strings located under the <Strings> node.
+		The strings will be overriden as strings.{string name}={value}
+		
+		<strings>
+			<string code="NO_MIX_PLUGIN_TITLE" text="N Plugin Mix" />
+			<string code="NO_MIX_PLUGIN" text="Para ver la entrada de mezcla, debe agregar el plugin de la mezcla a la uiconf XML" />
+		</strings>
+
+	2. Replace flashvars (listed in flashvars.txt)
+		Override flashvars variables with the ones located under the <uiVars> node
+		The variables will be overriden as strings.{string name}={value}
+		The overrideFlashvar attribute controls whether an existing flashvar will be overriden.
+
+	    <uiVars>
+	    	<var name="xxx" value="yyy" />
+	    	<var name="mediaProxy.imageDefaultDuration" value="10" overrideFlashvar="true" />
+	    </uiVars>
+		 
+	2. Add partner data variables from retrieved widget
+		When a KDP widget is shared, a new widget object is created. The new widget may contain data that should follow the widget.
+		An example could be a widget that needs to point back to the page it was shared from. The integrator would create a flashvars such as
+		homeUrl="....." and will set it when the html page loads.
+		When the widget is shared a special flashvar variable named 'pd' holds a comma separated lists of flashvars that need to be passed on
+		to the newly created widget.
+		In the above example the one should set pd=homeUrl.
+		When the kdp will request the new widget from Kaltura servers it will receive the homeUrl parameter. A custom button on the player can then
+		navigate to url pointed by the homeUrl variable.
+		
+	3. Convert all flashvars with dot syntax (e.g. watermark.path) to objects 
+		Replace all dotted flashvars with objects so that watermark.path turns into an object named watermark holding a property named path
+		 
+	4. Append plugins into actual layout from plugins section
+		Add the plugins section plugins to the layout
+		
+		<plugins>
+			<plugin id="{component id}" path="{plugin path}" relativeTo="{id of another component} position={[before,after,firstChild,lastChild]} />
+		</plugins>
+		
+		The path attribute is optional if the plugin is a Kaltura plugin which is hosted with the KDP under the plugins folder.
+		An optional className attribute can be provided in order to create builtin components (e.g. className="button" or className="label").  
+		
+	5. Append plugins into actual layout from flashvars
+		Repeat the previous phase but this time using flashvars.
+		 
+		{Plugin name}.plugin = true - Triggers the loading of the plugin. This will be the id of the plugin if and id wont be specified
+		{Plugin name}.path = path - The path from where to load the plugin, if not given the plugin will be loaded from kaltura's plugin path
+		{Plugin name}.relativeTo = id - Component id within the layout to position relative to
+		{Plugin name}.position = [before,after,firstChild,lastChild] - position relative to given component id
+		{Plugin name}.className = builtin class name - optional attribute used for adding built in components
+		{Plugin name}.pluginName = class name - in case the same plugin swf contains multiple plugins
+		{Plugin name}.loadingPolicy = {[wait,onDemand,noWait,preInitialize]} - instruct when to load the plugin.
+									wait - Do not enable GUI until the plugin is loaded.
+									onDemand - plugin must only be loaded if a specific component in the KDP demands it.
+									noWait- plugin is loaded in a non-synchronized way, the GUI becomes enabled even if the plugin has not yet loaded.
+									preInitialize - plugin is loaded before GUI is created.
+		{Plugin name}.asyncInit = [true/false] - flag indicating whether the plugin initialization process involves a-synchronous processes. If == true -> the plugin is required to report
+											that its initialization is complete (or failed) by firing the KPluginEvent.ASYNC_INIT_COMPLETE (KPluginEvent.ASYNC_INIT_FAILED).
+		{Plugin name}.{any additional attribute} = {value} - setting any additional attribute specific to the plugin
+		
+		The .plugin attribute instructs the KDP that the specific variable container is a plugin.
+		The id attribute for the plugin is set to the {Plugin Name}.
+		
+		Adding the same plugin twice is easy (e.g. top and bottom banner):
+		
+		topBanner.plugin=true&topBanner.path=banner.swf&topBanner.position=....
+		bottomBanner.plugin=true&bottomBanner.path=banner.swf&topBanner.position=....
+		 
+	6. Override KDP layout and other variables using flashvars
+		Override any attribute within the layout using flashvars
+	
+		{object name.attribute name} = {value}
+		
+		For example:
+		
+		myLabel.text={mediaProxy.entry.name} - binds (ties) the text of the myLabel component to the current playing entry name 
+		mediaProxy.imageDefaultDuration=3 - sets the default image duration in a playlist to 3 seconds
+		
+3. Layout sections
+	// todo add description
+
+	1. layout
+	2. screens
+	3. renderers
+	4. strings
+	5. plugins
+	6. uiVars
+	7. javaScript
+	8. extraData
+		1. GigyaUI
+		
+4. Layout components
+
+	1. Video (com.kaltura.kdpfl.view.media.KMediaPlayer)
+
+		bytesLoadedUpdateInterval = 1000
+			Interval in msecs for notifying KDP on progressive download bytes loaded progress
+	
+		currentTimeUpdateInterval = 500;
+			Interval in msecs for notifying KDP on media play time progress
+
+	2. Button (com.kaltura.kdpfl.view.controls.KButton)
+	
+	3. VBox (com.kaltura.kdpfl.view.containers.KVBox)
+	
+	4. HBox (com.kaltura.kdpfl.view.containers.KHBox)
+	
+	5. Canvas (com.kaltura.kdpfl.view.containers.KCanvas)
+	
+	6. Tile (com.kaltura.kdpfl.view.containers.KTile)
+	
+	8. Scrubber (com.kaltura.kdpfl.view.controls.KScrubber)
+	
+	9. VolumeBar (com.kaltura.kdpfl.view.controls.KVolumeBar)
+	
+	10. Label (com.kaltura.kdpfl.view.controls.KLabel)
+	
+	11. Timer (com.kaltura.kdpfl.view.controls.KTimer)
+	
+	12. Screens (com.kaltura.kdpfl.view.controls.Screens)
+	
+	13. Watermark (com.kaltura.kdpfl.view.controls.Watermark)
+	
+		padding = 0
+		path
+		position = topLeft [topLeft,topRight,bottomLeft,bottomRight]
+			Position of watermark
+			
+		clickPath =
+	
+	
+	14. Image (com.kaltura.kdpfl.view.media.KThumbnail",
+	
+	15. Spacer (fl.core.UIComponent",
+	
+	16.	FlavorCombo (com.kaltura.kdpfl.view.controls.KFlavorComboBox)
+			
