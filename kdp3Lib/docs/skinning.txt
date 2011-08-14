@@ -1,0 +1,103 @@
+KDP skinning
+
+button skinning:
+
+Glossary 
+1 - Skin assets - the assets that build the background of the button. There are up to 8 states : 
+up, over, down, disabled, selected up, selected over, selected down, selected disabled
+some buttons uses the selected states (play pause are actually the same button where seleted shows the pause and not selected is play. Same thing for full screen button)
+2 – Icons assets – the icons for the button. As the skin – the icons can appear as states icons, or one icon for all states. a button can get icon and/or  label
+3 – label is the text field that appear in the button (right/top/left/bottom according to the labelPlacement attribute). 
+
+There are more than one way to design a button in KDP3:
+
+Use the default style
++++++++++++++++++++++
+
+In this case you do nothing in terms of style attribute. A button without styleName or skin / styles attribute will get the default button skin as it is set in the skin.swf. This default skin can have all 8 states, and a label, and by definition – does not have icons. 
+
+Applying a styleName
+++++++++++++++++++++
+
+Setting a styleName to a button is as simples as that: 
+<Button … styleName=”myStyle” />
+In this case the KDP tries to find matching assets with the same postfix.
+It will try to set these assets as skin for that button: 
+•	Button_upSkin_myStyle
+•	Button_downSkin_myStyle
+•	Button_overSkin_myStyle
+•	Button_disabledSkin_myStyle
+•	Button_selectedUpSkin_myStyle
+•	Button_selectedOverSkin_myStyle
+•	Button_selectedDownSkin_myStyle
+•	Button_selectedDisabledSkin_myStyle
+These should be on the skin swf as assets on stage with matching linkages. The symbols name is irrelevant, but as best practice we recommend them to have the same name. If there are no such assets, the button will get a fallback skin that should be at every skin swf with the same structure but with the “default” postfix: 
+•	Button_upSkin_default
+•	Button_downSkin_default
+•	Button_overSkin_default
+•	Button_disabledSkin_default
+•	Button_selectedUpSkin_default
+•	Button_selectedOverSkin_default
+•	Button_selectedDownSkin_default
+•	Button_selectedDisabledSkin_default
+It will try to set these assets as matching icons:
+•	Button_upIcon_myStyle
+•	Button_overIcon_myStyle
+•	Button_downIcon_myStyle
+•	Button_disabledIcon_myStyle
+•	Button_selectedUpIcon_myStyle
+•	Button_selectedOverIcon_myStyle
+•	Button_selectedDownIcon_myStyle
+•	Button_selectedDisabledIcon_myStyle
+If there are no matching icons – there will not be any default icon. In this case there should be a label. 
+It will try to set text format copied from a movieclip containing a single text field. The KDP will copy all of its attributes (size, color, bold, italic, spacing, margins, justify etc’) and set it to the label of this button. Handling the font will be elaborated next. To make that – the movieclip that holds that textfield must have this linkage: 
+Button_Label_myStyle
+
+Applying direct assets
+++++++++++++++++++++++
+The 2nd way to Overrides and reuse:
+We can use the advantage of override to reuse assets without duplicate them on the skin. For example if we have 3 buttons with the same skin but with different icons we can use the styleName to set the skin, and override the icons by using different icons attributes in the ui xml: 
+<Button … styleName=”myStyle” 
+upIcon="someIcon" overIcon="someIcon" downIcon="someIcon" disabledIcon="someIcon"
+ selectedUpIcon="someIcon" selectedOverIcon="someIcon" selectedDownIcon="someIcon" selectedDisabledIcon="someIcon" /> 
+Though this example shows one icon for all states we can set up different icons for different states. 
+Same thing goes for skin override (TODO – check)
+Type (font) 
+Setting sizes of buttons. 
+The button of the KDP is actually an autosize button. This means that if the button has a label it will set its width automatically. This means that in some cases the width/height we want, and the actual width/height are not equal. For this, we have 4 attributes that might help us getting more accurate dimensions. The attributes are minWidth, maxWidth, minHeight, maxHeight. This buttons height for example will be 22 pixels height (or less) and will have 40 pix width even if its label is short or icon is small. 
+<Button … minWidth=”40” maxHeight=”22” />
+
+Commads & behavior
+There are 2 internals buttons commands – play and fullscreen. Both buttons are toggle buttons, means that when click they change their state to selected. This sais, when you design the skin & icons place the close full screen / pause to the selected state, and open fullscreen / play to the non selected. These 2 buttons have the code behind to command the KDP what to do in each state and click.
+In addition – there are 3 general click behavior:
+•	jsCall – call a JS function with or without arguments
+e.g. kClick=” jsCall('myJsFunc', mediaProxy.entry.id )"
+this click will call a js function called ‘myJsFunc’ and will pass it the current entry id
+•	navigate to an external url
+e.g. kClick="navigate('http://www.kaltura.com')"
+•	send notification to the KDP. The kdp has internal notification, like the events mechanism, and a button can send a notification with or without data 
+e.g. kClick="sendNotification('changeVolume',1)” 
+
+
+
+Containers skinning
+A container can get a rectangle skin asset. There is no default skin for containers. 
+To apply a skin asset to a container – use the styleName attribute on the Ui config
+e.g. <VBox id=”controllerContainer” width=”100%” styleName=”gradientBlack” … />
+This container will get the asset with the linkage “gradientBlack”
+This asset will be stretched / shrieked to the actual size of the container. This asset can also get  the flash 9 scale attribute.
+Scrubber skinning
+The scrubber has a pre defined structure that you need to use. Basically it has 3 assets for the scrubber, and 4 thumbnail (the scrubber handler) states. you don’t need to set the scrubber stylename. 
+For the background of the scrubber
+For the track highlight – the part over the background that marks the part already playerd – to the left of the thumbnail
+For the buffering – the part that indicates the media loading progress. 
+The 4 states of the scrubber thumbnails are:
+
+In case you don’t need a thumbnail visual graphic use a 0.01 transparent asset, so the user would be able to drag it. 
+
+Timers: 
+Timers are actually labels. You need to add a styleName to the timers attribute, and in the skin get the same asset linkage. Just a reminder – the asset should contain one (and only one) textfield with the design attributes (size, color, text align, padding etc’)
+
+
+
+
