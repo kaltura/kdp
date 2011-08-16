@@ -1,0 +1,219 @@
+KDP events:
+Passive events:
+Listed below are notifications fired by the KDP for INTERNAL purposes. Sending these notifications via external interface is a risk as it will very probably damage the KDP workflow. Most of these notifications are RESPONSES for loads and specific actions within the player. They are best LISTENED TO.
+1.	STARTUP - startUp
+	The first command that register the main proxys and main view mediator
+		
+2.	INITIATE_APP - initiatApp
+	Start the init macro commands
+3. 	SKIN_LOADED - skinLoaded
+	Dispatched when the skin is loaded 
+
+4. 	SKIN_LOAD_FAILED - skinLoadFailed
+	Skin load failed 
+
+5. 	ENTRY_READY - entryReady
+	The Entry is set
+
+6. 	ENTRY_FAILED - entryFailed
+	Get Entry failed
+
+7. 	SOURCE_READY - sourceReady
+When the source is ready we can set the media element to the media player
+	 
+8.	MEDIA_READY - mediaReady
+	The loadable media element has been constructed and awaits loading.
+
+9. 	ROOT_RESIZE – rootResize
+	The KDP has completed resizing
+
+10. 	MEDIA_VIEWABLE_CHANGE - mediaViewableChange
+Used to know when OSMF Media Player is viewable. Fired when triggered by OSMF event DISPLAY_OBJECT_CHANGE.
+		
+11.	PRE_1_START - pre1start
+Strictly INTERNAL notification fired to trigger custom advertising plug-in action into beginning to play a pre-roll sequence.
+
+12. 	POST_1_START - post1start
+Strictly INTERNAL notification fired to trigger custom advertising plug-in action into beginning to play a post-roll sequence.
+
+13. 	KDP_READY - kdpReady		
+Dispatched when the KDP is Ready – meaning that the layout has completed construction and a media was loaded into the media player.
+
+14.	KDP_EMPTY - kdpEmpty
+Dispatched when the KDP layout has completed construction, but no media was loaded into the media player.
+
+15. 	LAYOUT_READY - layoutReady		
+Dispatched when the init macro command is done and the layout has completed contruction.  
+
+16.	PLAYER_STATE_CHANGE - playerStateChange
+Indicates the state the player has ALREADY passed to - the states are “uninitialized”, “loading”, “ready”, “buffering”, “playing”, “paused”, and “playbackError”.
+	Body of the notification : playerState : String
+
+17. 	PLAYER_READY - playerReady
+	Dispatches when player ready with content loaded into the media player.
+
+18. 	PLAYER_PAUSED - playerPaused
+Sent when the player has paused the media (meaning the player is already in the “paused” state).
+
+19. 	PLAYER_PLAYED - playerPlayed
+Sent when the player has started playing the entry. (meaning the player is already in the “playing” state”).
+
+20.	PLAYER_SEEK_START - playerSeekStart
+Dispatched when the player seeking property changed to true - meaning, when the seek operation has already started.  
+
+21.	PLAYER_SEEK_END - playerSeekEnd
+Dispatched when the player seeking property changed to false – meaning the seek operation has already ended.
+
+22.	PLAYER_PLAY_END - playerPlayEnd
+Dispatched when the media has reached the end - meaning currentTime == duration
+
+23. 	PLAYER_UPDATE_PLAYHEAD - playerUpdatePlayhead
+Dispatched every time the entry time has updated - occurs at a regular interval of about 0.3 of a second.
+	Body of the notification : currentTime : Number;
+
+24.	VOLUME_CHANGED - volumeChanged
+Fired when the volume of the media has been changed in the OSMMF media player level (meaning the volume has actually changed).
+
+25.	BYTES_DOWNLOADED_CHANGE - bytesDownloadedChange
+	Notify the current and the previous value of bytesDownloaded 
+
+26.	BYTES_TOTAL_CHANGE - bytesTotalChange
+Dispatched by the player when the value of the property "bytesTotal" has changed. 
+
+27. 	BUFFER_PROGRESS - bufferProgress
+Dispatched when the player has buffered the limit of buffering time specified for it.
+
+28.	BUFFER_CHANGE - bufferChange	
+	Dispatched when the player start or stop buffering
+
+29. 	DURATION_CHANGE - durationChange
+The player dispatches this event when the duration of the media loaded into the OSMF media player has changed (for instance, when a new media is loaded). 
+
+30. 	HAS_CLOSED_FULL_SCREEN - hasCloseFullScreen
+	The player (already) left full-screen mode.
+
+31. 	HAS_OPENED_FULL_SCREEN - hasOpenedFullScreen
+	The player has (already) gone into full-screen mode.
+
+32.	SWITCHING_CHANGE - switchingChange
+Dispatched when the KDP has started or finished switching to a new bitrate flavor.
+
+33.	SCRUBBER_DRAG_START - scrubberDragStart
+	The user started dragging the scrubber.
+
+34.	SCRUBBER_DRAG_END - scrubberDragEnd
+	The user stopped dragging the scrubber.
+
+35. 	PLAYBACK_COMPLETE - fired when a media playing in the player (not an external swf) has finished playback.
+
+36. 	SEQUENCE_ITEM_PLAY_END - fired when a sequence plugin has finished playback (including any sub-sequence it had if any). This notification is also fired for external swf-s.
+
+37. 	PRE_SEQUENCE_COMPLETE - fired when the pre-sequence has finished playback.
+
+38. 	POST_SEQUENCE_COMPLETE - fired when the post-sequence has finished playback.
+
+39. READY_TO_PLAY - readyToPlay
+	The KDP has a valid entry object which is ready to be loaded as a media element and played. This notification is fired repeatedly at the end each CHANGE_MEDIA process.
+
+40. READY_TO_LOAD - readyToLoad
+	The KDP either does not have an entryID and has not loaded an entry object, or is prevented from playing the loaded entry (the entry in question is under access control, or has an unplayable moderation
+	status).
+
+41. MEDIA_LOADED - mediaLoaded
+	The KDP successfully loaded a media element into the OSMF media player and the element is ready to be played.
+
+42. METADATA_RECEIVED - metadataReceived
+	The metadata related to the entry has been retrieved.
+
+43. CHANGE_MEDIA_PROCESS_STARTED - changeMediaProcessStarted
+	Because the CHANGE_MEDIA notification is a trigger for a pureMVC command which delays all mediators handling the notification until the command is finished, this notification
+	is fired from the first command in the CHANGE_MEDIA macro-command, if a mediator must act as soon as the process started.
+
+44. SWITCHING_CHANGE_STARTED - switchingChangeStarted
+	Notification dispatched when the player has started switching to a different dynamic bitrate.
+    Body of the notification - {newIndex: [the index of the bitrate the player started switching to. If auto, send -1],newBitrate: [the bitrate the player started switching to. If auto, sned null]}		
+	
+45. SWITCHING_CHANGE_COMPLETE - switchingChangeComplete
+	Notification dispatched when the player has finished switching to a different dynamic bitrate.
+	Body of the notification - {currentIndex:[the index of the bitrate that the player finished switching to],currentBitrate: [the bitrate the player finished switching to]}		
+
+Advertising related events: (mainly for tracking purposes).
+
+39. 	BUMPER_STARTED = "bumperStarted" 
+	notification sent when a bumper video starts to play.
+
+40. 	BUMPER_CLICKED = "bumperClicked"
+	notification sent when a bumper video is clicked.
+
+41. 	AD_START = "adStart"
+	notification sent when an ad shows. 
+this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+ 
+42. 	AD_CLICK = "adClick" 
+	notification sent when an ad is clicked.
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+43.	 AD_END = "adEnd"
+	notification sent when a video ad ends.
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+44. FIRST_QUARTILE_OF_AD = "firstQuartileOfAd"
+	notification sent when a video ad reaches 25%
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+45. MID_OF_AD = "midOfAd"
+	notification sent when a video ad reaches 50%
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+46.	THIRD_QUARTILE_OF_AD = "ThirdQuartileOfAd"
+	notification sent when a video ad reaches 75%
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+
+
+Active events:
+
+The following are TRIGGER events, which means that they can be fired by the external interface to trigger the required result.
+
+1.	CHANGE_MEDIA - changeMedia
+	Start the init of change media macro commands
+	Body of notification is an object of the following structure : 
+	{entryId : String, flavorId : String, preferedFlavorBR (the selected bitrate for the entry) : Number}
+	
+2. 	CLEAN_MEDIA - cleanMedia
+	Cleans the media in case of change media and entryId== -1
+
+3. 	DO_PAUSE - doPause
+	Command the player to pause;
+
+4. 	DO_PLAY - doPlay
+	Command the player to play;
+
+5.	DO_STOP - doStop
+	Do stop command to the kplayer. Pause and move the playhead to 0
+
+6. 	DO_SEEK - doSeek
+	Do seek command to the kplayer. Additional data - number 
+
+7.	DO_SWITCH - doSwitch
+	Do switch command for switching manual switching between mbr streams within an rtmp dynamic stream resource 
+	Body of the notification is:
+	preferedFlavorBitrate : Number and carries the prefered bitrate to switch to.
+
+8.	OPEN_FULL_SCREEN - openFullScreen
+	open full screen
+
+9.	CLOSE_FULL_SCREEN - closeFullScreen
+	close full screen command
+
+10. CHANGE_VOLUME - changeVolume
+    change volume. Body of the notification - volume value (0 to 1)
+
+11.	ENABLE_GUI - enableGui
+	enable/disable gui. Addition data - Object{guiEnabled : Boolean,enableType : String}
+
+12.	ALERT - alert
+	Pop up an alert. arguments: message, title
+	
+13. REMOVE_ALERTS - removeAlerts
+	Removes all alerts currently displayed by the player.

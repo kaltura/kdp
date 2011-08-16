@@ -1,0 +1,1204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="UIComponent,fl.core.UIComponent,_allowDisable,tooltip,version,allowDisable,enabled,focusEnabled,focusManager,height,includeInLayout,mouseFocusEnabled,scaleX,scaleY,visible,width,x,y,clearStyle,drawFocus,drawNow,getFocus,getStyle,getStyleDefinition,getStyleValue,invalidate,mergeStyles,move,setFocus,setSize,setStyle,validateNow" name="keywords">
+<title>fl.core.UIComponent</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'UIComponent - kdp3Lib Documentation';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?fl/core/UIComponent.html&amp;fl/core/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;UIComponent</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a>&nbsp;| <a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class UIComponent"); titleBar_setSubNav(false,true,true,false,true,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">fl.core</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class UIComponent</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">UIComponent <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../images/inherit-arrow.gif"> flash.display.Sprite</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Subclasses</td><td><a href="../../com/yahoo/astra/fl/controls/AbstractButtonRow.html">AbstractButtonRow</a>, <a href="../../com/yahoo/astra/fl/managers/AlertManager.html">AlertManager</a>, <a href="../../com/yahoo/astra/fl/controls/carouselClasses/BoxCarouselRenderer.html">BoxCarouselRenderer</a>, <a href="../../com/yahoo/astra/fl/controls/containerClasses/ButtonBar.html">ButtonBar</a>, <a href="../../com/yahoo/astra/fl/charts/Chart.html">Chart</a>, <a href="../../com/yahoo/astra/fl/charts/skins/CircleSkin.html">CircleSkin</a>, <a href="../../com/yahoo/astra/fl/charts/DataTipRenderer.html">DataTipRenderer</a>, <a href="../../com/yahoo/astra/fl/charts/axes/DefaultAxisRenderer.html">DefaultAxisRenderer</a>, <a href="../../com/yahoo/astra/fl/charts/axes/DefaultGridLinesRenderer.html">DefaultGridLinesRenderer</a>, <a href="../../com/yahoo/astra/fl/controls/containerClasses/DialogBox.html">DialogBox</a>, <a href="../../com/yahoo/astra/fl/charts/skins/DiamondSkin.html">DiamondSkin</a>, <a href="../../com/kaltura/kdpfl/view/controls/KScrubber.html">KScrubber</a>, <a href="../../com/kaltura/kdpfl/view/controls/KTextField.html">KTextField</a>, <a href="../../com/kaltura/kdpfl/view/media/KThumbnail.html">KThumbnail</a>, <a href="../../com/kaltura/kdpfl/view/controls/KVolumeBar.html">KVolumeBar</a>, <a href="../../com/yahoo/astra/fl/controls/mediaPlayerClasses/MediaControlsView.html">MediaControlsView</a>, <a href="../../com/yahoo/astra/fl/controls/mediaPlayerClasses/MediaView.html">MediaView</a>, <a href="../../com/yahoo/astra/fl/controls/containerClasses/MessageBox.html">MessageBox</a>, <a href="../../com/yahoo/astra/fl/charts/skins/RectangleSkin.html">RectangleSkin</a>, <a href="../../com/yahoo/astra/fl/charts/series/Series.html">Series</a>, <a href="../../com/yahoo/astra/fl/charts/series/SeriesItemRenderer.html">SeriesItemRenderer</a>, <a href="../../com/yahoo/astra/fl/controls/carouselClasses/StackCarouselRenderer.html">StackCarouselRenderer</a>, <a href="../../com/yahoo/astra/fl/controls/TabBar.html">TabBar</a>, <a href="../../com/yahoo/astra/fl/charts/skins/TriangleSkin.html">TriangleSkin</a></td>
+</tr>
+</table>
+<p></p>
+      The UIComponent class is the base class for all visual components,
+      both interactive and noninteractive. Interactive components are defined
+      as components that receive user input such as keyboard or mouse activity.
+     Noninteractive components are used to display data; they do not respond
+     to user interaction. The ProgressBar and UILoader components are examples
+      of noninteractive components.
+           <p>The Tab and arrow keys can be used to move focus to and over an interactive component;
+      an interactive component can accept low-level events such as input from mouse and keyboard
+      devices. An interactive component can also be disabled so that it cannot receive
+      mouse and keyboard input.</p>
+          <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#allowDisable">allowDisable</a> : String<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#enabled">enabled</a> : Boolean<div class="summaryTableDescription">
+         Gets or sets a value that indicates whether the component can accept user interaction.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#focusEnabled">focusEnabled</a> : Boolean<div class="summaryTableDescription">
+         Gets or sets a Boolean value that indicates whether the component can receive focus 
+         after the user clicks it.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#focusManager">focusManager</a> : IFocusManager<div class="summaryTableDescription">
+         Gets or sets the FocusManager that controls focus for this component and its
+         peers.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#height">height</a> : Number<div class="summaryTableDescription">
+         Gets or sets the height of the component, in pixels.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#includeInLayout">includeInLayout</a> : Boolean<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#mouseFocusEnabled">mouseFocusEnabled</a> : Boolean<div class="summaryTableDescription">
+         Gets or sets a value that indicates whether the component can receive focus after 
+         the user clicks it.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#scaleX">scaleX</a> : Number<div class="summaryTableDescription">
+         Multiplies the current width of the component by a scale factor.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#scaleY">scaleY</a> : Number<div class="summaryTableDescription">
+         Multiplies the current height of the component by a scale factor.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#tooltip">tooltip</a> : String = ""<div class="summaryTableDescription">
+   use to save the string that the ToolTip will show 
+   </div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#version">version</a> : String = "3.0.0.16"<div class="summaryTableDescription">
+         The version number of the components.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#visible">visible</a> : Boolean<div class="summaryTableDescription">
+         Gets or sets a value that indicates whether the current component instance is visible.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#width">width</a> : Number<div class="summaryTableDescription">
+         Gets or sets the width of the component, in pixels.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#x">x</a> : Number<div class="summaryTableDescription">
+         Gets or sets the x coordinate that represents the position of the component along
+         the x axis within its parent container.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#y">y</a> : Number<div class="summaryTableDescription">
+         Gets or sets the y coordinate that represents the position of the component along 
+         the y axis within its parent container.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+</table>
+</div>
+<a name="protectedPropertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Properties</div>
+<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_allowDisable">_allowDisable</a> : Boolean = true<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#UIComponent()">UIComponent</a>()</div>
+<div class="summaryTableDescription">
+         Creates a new UIComponent component instance.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#clearStyle()">clearStyle</a>(style:String):void</div>
+<div class="summaryTableDescription">
+         Deletes a style property from this component instance.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#drawFocus()">drawFocus</a>(focused:Boolean):void</div>
+<div class="summaryTableDescription">
+         Shows or hides the focus indicator on this component.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#drawNow()">drawNow</a>():void</div>
+<div class="summaryTableDescription">
+         Initiates an immediate draw operation, without invalidating everything as <code>invalidateNow</code> does.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getFocus()">getFocus</a>():InteractiveObject</div>
+<div class="summaryTableDescription">
+         Retrieves the object that currently has focus.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getStyle()">getStyle</a>(style:String):Object</div>
+<div class="summaryTableDescription">
+         Retrieves a style property that is set in the style lookup 
+         chain of the component.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getStyleDefinition()">getStyleDefinition</a>():Object</div>
+<div class="summaryTableDescription">[static]
+         Retrieves the default style map for the current component.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#invalidate()">invalidate</a>(property:String, callLater:Boolean = true):void</div>
+<div class="summaryTableDescription">
+         Marks a property as invalid and redraws the component on the
+         next frame unless otherwise specified.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#mergeStyles()">mergeStyles</a>(... list):Object</div>
+<div class="summaryTableDescription">[static]
+         Merges the styles from multiple classes into one object.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#move()">move</a>(x:Number, y:Number):void</div>
+<div class="summaryTableDescription">
+         Moves the component to the specified position within its parent.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#setFocus()">setFocus</a>():void</div>
+<div class="summaryTableDescription">
+         Sets the focus to this component.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#setSize()">setSize</a>(width:Number, height:Number):void</div>
+<div class="summaryTableDescription">
+         Sets the component to the specified width and height.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#setStyle()">setStyle</a>(style:String, value:Object):void</div>
+<div class="summaryTableDescription">
+         Sets a style property on this component instance.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#validateNow()">validateNow</a>():void</div>
+<div class="summaryTableDescription">
+         Validates and updates the properties and layout of this object, redrawing it
+         if necessary.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getStyleValue()">getStyleValue</a>(name:String):Object</div>
+<div class="summaryTableDescription">
+         Returns the specified style for a component, considering all styles set on the global level, component level and instance level.</div>
+</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+</table>
+</div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:hide">hide</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+     Dispatched after the component visibility changes from visible to invisible.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:move">move</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+     Dispatched after the component is moved.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:resize">resize</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+     Dispatched after the component is resized.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:show">show</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+     Dispatched after the component visibility changes from invisible to visible.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+</table>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:disabledTextFormat"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">disabledTextFormat</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>flash.text.TextFormat<br>
+      The TextFormat object to use to render the component label when the button is disabled.
+            The default value is <code>TextFormat("_sans", 11, 0x999999, false, false, false, '', '', TextFormatAlign.LEFT, 0, 0, 0, 0)</code>.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:focusRectPadding"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">focusRectPadding</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+     The padding that separates the outside boundaries of the component from the
+     outside edges of the focus indicator, in pixels.
+           The default value is <code>2</code>.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:focusRectSkin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">focusRectSkin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Class<br>
+     The skin to be used to display focus indicators.
+           The default value is <code>focusRectSkin</code>.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:textFormat"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">textFormat</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>flash.text.TextFormat<br>
+      The TextFormat object to use to render the component label.
+            The default value is <code>TextFormat("_sans", 11, 0x000000, false, false, false, '', '', TextFormatAlign.LEFT, 0, 0, 0, 0)</code>.</td><td class="summaryTableOwnerCol">UIComponent</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="_allowDisable"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">_allowDisable</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var _allowDisable:Boolean = true</code>
+</div>
+<a name="allowDisable"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">allowDisable</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>allowDisable:String</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get allowDisable():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set allowDisable(value:String):void</code>
+<br>
+</div>
+<a name="enabled"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">enabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>enabled:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets a value that indicates whether the component can accept user interaction.
+         A value of <code>true</code> indicates that the component can accept user interaction; a
+         value of <code>false</code> indicates that it cannot. 
+                  </p><p>If you set the <code>enabled</code> property to <code>false</code>, the color of the 
+         container is dimmed and user input is blocked (with the exception of the Label and ProgressBar components).</p>
+                  <p>The default value is <code>true</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get enabled():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set enabled(value:Boolean):void</code>
+<br>
+</div>
+<a name="focusEnabled"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">focusEnabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>focusEnabled:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets a Boolean value that indicates whether the component can receive focus 
+         after the user clicks it. A value of <code>true</code> indicates that it can 
+         receive focus; a value of <code>false</code> indicates that it cannot.
+                  </p><p>If this property is <code>false</code>, focus is transferred to the first
+         parent whose <code>mouseFocusEnabled</code> property is set to <code>true</code>.</p>
+                  <p>The default value is <code>true</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get focusEnabled():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set focusEnabled(value:Boolean):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#mouseFocusEnabled" target="">mouseFocusEnabled</a>
+</div>
+</div>
+<a name="focusManager"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">focusManager</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>focusManager:IFocusManager</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the FocusManager that controls focus for this component and its
+         peers. Each pop-up component maintains its own focus loop and FocusManager instance.
+         Use this property to access the correct FocusManager for this component.
+                  </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get focusManager():IFocusManager</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set focusManager(value:IFocusManager):void</code>
+<br>
+</div>
+<a name="height"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">height</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>height:Number</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the height of the component, in pixels.
+                  </p><p>Setting this property causes a <code>resize</code> event to be
+         dispatched. See the <code>resize</code> event for detailed information
+         about when it is dispatched.</p>
+                  <p>If the <code>scaleY</code> property of the component is not 1.0, 
+         the height of the component that is obtained from its internal coordinates
+         will not match the height value from the parent coordinates. For example, 
+         a component that is 100 pixels in height and has a <code>scaleY</code> of 2 
+         has a value of 100 pixels in the parent, but internally stores a value 
+         indicating that it is 50 pixels in height.</p>
+         
+         <span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get height():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set height(value:Number):void</code>
+<br>
+</div>
+<a name="includeInLayout"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">includeInLayout</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>includeInLayout:Boolean</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get includeInLayout():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set includeInLayout(value:Boolean):void</code>
+<br>
+</div>
+<a name="mouseFocusEnabled"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">mouseFocusEnabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>mouseFocusEnabled:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets a value that indicates whether the component can receive focus after 
+         the user clicks it. A value of <code>true</code> indicates that it can receive 
+         focus; a value of <code>false</code> indicates that it cannot.
+                  </p><p>If this property is <code>false</code>, focus is transferred to the first 
+         parent whose <code>mouseFocusEnabled</code> property is set to <code>true</code>.</p>
+                  <p>The default value is <code>true</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get mouseFocusEnabled():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set mouseFocusEnabled(value:Boolean):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#focusEnabled" target="">focusEnabled</a>
+</div>
+</div>
+<a name="scaleX"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">scaleX</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>scaleX:Number</code>&nbsp;&nbsp;[read-write]<p>
+         Multiplies the current width of the component by a scale factor.
+                  </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get scaleX():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set scaleX(value:Number):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#scaleY" target="">scaleY</a>
+</div>
+</div>
+<a name="scaleY"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">scaleY</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>scaleY:Number</code>&nbsp;&nbsp;[read-write]<p>
+         Multiplies the current height of the component by a scale factor.
+                  </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get scaleY():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set scaleY(value:Number):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#scaleX" target="">scaleX</a>
+</div>
+</div>
+<a name="tooltip"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">tooltip</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var tooltip:String = ""</code><p>
+   use to save the string that the ToolTip will show 
+   </p></div>
+<a name="version"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">version</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var version:String = "3.0.0.16"</code><p>
+         The version number of the components.
+                  </p></div>
+<a name="visible"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">visible</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>visible:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets a value that indicates whether the current component instance is visible. 
+         A value of <code>true</code> indicates that the current component is visible; a value of 
+         <code>false</code> indicates that it is not.
+                  </p><p>When this property is set to <code>true</code>, the object dispatches a
+         <code>show</code> event. When this property is set to <code>false</code>, 
+         the object dispatches a <code>hide</code> event. In either case, 
+         the children of the object do not generate a <code>show</code> or 
+         <code>hide</code> event unless the object specifically writes an 
+         implementation to do so.</p>
+                  <p>The default value is <code>true</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get visible():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set visible(value:Boolean):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#event:hide" target="">hide</a>
+<br>
+<a href="../core/UIComponent.html#event:show" target="">show</a>
+</div>
+</div>
+<a name="width"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">width</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>width:Number</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the width of the component, in pixels.
+                  </p><p>Setting this property causes a <code>resize</code> event to be
+         dispatched. See the <code>resize</code> event for detailed information
+         about when it is dispatched.</p>
+                  <p>If the <code>scaleX</code> property of the component is not 1.0, 
+         the width of the component that is obtained from its internal coordinates
+         will not match the width value from the parent coordinates. For example, 
+         a component that is 100 pixels in width and has a <code>scaleX</code> of 2 
+         has a value of 100 pixels in the parent, but internally stores a value 
+         indicating that it is 50 pixels wide.</p>
+                  <span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get width():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set width(value:Number):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#height" target="">height</a>
+<br>
+<a href="../core/UIComponent.html#event:resize" target="">resize</a>
+</div>
+</div>
+<a name="x"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">x</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>x:Number</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the x coordinate that represents the position of the component along
+         the x axis within its parent container. This value is described in pixels and is 
+         calculated from the left.
+         
+         </p><p>Setting this property causes the <code>ComponentEvent.MOVE</code> event to be dispatched.</p>
+                  <p>The default value is <code>0</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get x():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set x(value:Number):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#move()" target="">move()</a>
+<br>
+<a href="../core/UIComponent.html#y" target="">y</a>
+</div>
+</div>
+<a name="y"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">y</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>y:Number</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the y coordinate that represents the position of the component along 
+         the y axis within its parent container. This value is described in pixels and is 
+         calculated from the top.
+         
+         </p><p>Setting this property causes the <code>move</code> event to be dispatched.</p>
+                  <span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get y():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set y(value:Number):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#move()" target="">move()</a>
+<br>
+<a href="../core/UIComponent.html#x" target="">x</a>
+</div>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="UIComponent()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">UIComponent</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function UIComponent()</code><p>
+         Creates a new UIComponent component instance.
+                  </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="clearStyle()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">clearStyle</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function clearStyle(style:String):void</code><p>
+         Deletes a style property from this component instance.
+         </p><p>This does not necessarily cause the <code>getStyle()</code> method
+         to return a value of <code>undefined</code>.</p>
+                  <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">style</span>:String</code> &mdash; The name of the style property.
+                  </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#getStyle()" target="">getStyle()</a>
+<br>
+<a href="../core/UIComponent.html#setStyle()" target="">setStyle()</a>
+</div>
+</div>
+<a name="drawFocus()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">drawFocus</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function drawFocus(focused:Boolean):void</code><p>
+         Shows or hides the focus indicator on this component.
+                  </p><p>The UIComponent class implements this method by creating and positioning
+         an instance of the class that is specified by the <code>focusSkin</code> style.</p>
+                  <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">focused</span>:Boolean</code> &mdash; Indicates whether to show or hide the focus indicator. 
+                        If this value is <code>true</code>, the focus indicator is shown; if this value
+                        is <code>false</code>, the focus indicator is hidden.
+                  </td>
+</tr>
+</table>
+</div>
+<a name="drawNow()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">drawNow</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function drawNow():void</code><p>
+         Initiates an immediate draw operation, without invalidating everything as <code>invalidateNow</code> does.
+                  </p></div>
+<a name="getFocus()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getFocus</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getFocus():InteractiveObject</code><p>
+         Retrieves the object that currently has focus. 
+                  </p><p>Note that this method does not necessarily return the component that
+         has focus. It may return the internal subcomponent of the component
+         that has focus. To get the component that has focus, use the
+         <code>focusManager.focus</code> property.</p>
+                  <p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>InteractiveObject</code> &mdash; The object that has focus; otherwise, this method returns <code>null</code>.
+                  </td>
+</tr>
+</table>
+</div>
+<a name="getStyle()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getStyle</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getStyle(style:String):Object</code><p>
+         Retrieves a style property that is set in the style lookup 
+         chain of the component.
+                  </p><p>The type that this method returns varies depending on the style
+         property that the method retrieves. The range of possible types includes
+         Boolean; String; Number; int; a uint for an RGB color; a Class for a skin; 
+         or any kind of object.</p>
+                  <p>If you call this method to retrieve a particular style property, 
+         it will be of a known type that you can store in a variable of the
+         same type. Type casting is not necessary. Instead, a simple assignment 
+         statement like the following will work:</p>
+                  <div class='listing'><pre>var backgroundColor:uint = getStyle("backgroundColor");</pre></div>
+                  <p>If the style property is not set in the style lookup chain, this method
+         returns a value of <code>undefined</code>. Note that <code>undefined</code> 
+         is a special value that is not the same as <code>false</code>, "", <code>NaN</code>, 
+         0, or <code>null</code>. No valid style value is ever <code>undefined</code>. 
+         You can use the static method <code>StyleManager.isValidStyleValue()</code> to 
+         test whether a value was set.</p>
+                  <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">style</span>:String</code> &mdash; The name of the style property.
+                  </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code> &mdash; Style value.
+                  </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#clearStyle()" target="">clearStyle()</a>
+<br>
+<a href="../core/UIComponent.html#setStyle()" target="">setStyle()</a>
+</div>
+</div>
+<a name="getStyleDefinition()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getStyleDefinition</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function getStyleDefinition():Object</code><p>
+         Retrieves the default style map for the current component. The style map contains
+         the type that is appropriate for the component, depending on the style that
+         the component uses. For example, the <code>disabledTextFormat</code> style 
+         contains a value of <code>null</code> or a TextFormat object. 
+         You can use these styles and call <code>setStyle()</code> on the current 
+         component. The following code overrides the default <code>disabledTextFormat</code> 
+         style on the specified component: 
+         <div class='listing'><pre>componentInstance.setStyle("disabledTextFormat", new TextFormat());</pre></div>
+         
+         </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code> &mdash; Default styles object.
+                  </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#getStyle()" target="">getStyle()</a>
+<br>
+<a href="../core/UIComponent.html#setStyle()" target="">setStyle()</a>
+<br>StyleManager</div>
+</div>
+<a name="getStyleValue()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getStyleValue</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function getStyleValue(name:String):Object</code><p>
+         Returns the specified style for a component, considering all styles set on the global level, component level and instance level. 
+                  </p><p>For example, if a component has a style set at the global level to <code>myStyle</code> and you call 
+         <code>getStyle("myStyle")</code> on an instance that does not have an instance setting, it returns null.  If you call 
+         <code>getStyleValue("myStyle")</code>, it returns "myStyle", because it is active at the global level.</p>
+                  <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">name</span>:String</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code></td>
+</tr>
+</table>
+</div>
+<a name="invalidate()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">invalidate</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function invalidate(property:String, callLater:Boolean = true):void</code><p>
+         Marks a property as invalid and redraws the component on the
+         next frame unless otherwise specified.
+                  </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">property</span>:String</code> &mdash; The property to be invalidated.
+                  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callLater</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; A Boolean value that indicates whether the
+                component should be redrawn on the next frame. The default
+                value is <code>true</code>.
+                  </td>
+</tr>
+</table>
+</div>
+<a name="mergeStyles()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">mergeStyles</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function mergeStyles(... list):Object</code><p>
+         Merges the styles from multiple classes into one object. 
+         If a style is defined in multiple objects, the first occurrence
+         that is found is used. 
+                  </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code>... <span class="label">list</span></code> &mdash; A comma-delimited list of objects that contain the default styles to be merged.
+                  </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code> &mdash; A default style object that contains the merged styles.
+                  </td>
+</tr>
+</table>
+</div>
+<a name="move()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">move</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function move(x:Number, y:Number):void</code><p>
+         Moves the component to the specified position within its parent. This has
+         the same effect as changing the component location by setting its  
+         <code>x</code> and <code>y</code> properties. Calling this method triggers 
+         the <code>ComponentEvent.MOVE</code> event to be dispatched.      
+                  </p><p>To override the <code>updateDisplayList()</code> method in a
+         custom component, use the <code>move()</code> method instead 
+         of setting the <code>x</code> and <code>y</code> properties. This is because 
+         a call to the <code>move()</code> method causes a <code>move</code> event object
+         to be dispatched immediately after the move operation is complete. In contrast, 
+         when you change the component location by setting the <code>x</code> and <code>y</code> 
+         properties, the event object is dispatched on the next screen refresh.</p>
+                  <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">x</span>:Number</code> &mdash; The x coordinate value that specifies the position of the component within its 
+                  parent, in pixels. This value is calculated from the left.
+                  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">y</span>:Number</code> &mdash; The y coordinate value that specifies the position of the component within its 
+                  parent, in pixels. This value is calculated from the top. 
+                  </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#x" target="">x</a>
+<br>
+<a href="../core/UIComponent.html#y" target="">y</a>
+</div>
+</div>
+<a name="setFocus()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">setFocus</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function setFocus():void</code><p>
+         Sets the focus to this component. The component may in turn give the focus
+         to a subcomponent.
+                  </p><p><strong>Note:</strong> Only the TextInput and TextArea components show
+         a focus indicator when this method sets the focus. All components show a focus
+         indicator when the user tabs to the component.</p>
+                  </div>
+<a name="setSize()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">setSize</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function setSize(width:Number, height:Number):void</code><p>
+         Sets the component to the specified width and height.
+                  </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">width</span>:Number</code> &mdash; The width of the component, in pixels.
+                  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">height</span>:Number</code> &mdash; The height of the component, in pixels.
+                  </td>
+</tr>
+</table>
+</div>
+<a name="setStyle()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">setStyle</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function setStyle(style:String, value:Object):void</code><p>
+         Sets a style property on this component instance. This style may 
+         override a style that was set globally.
+                  </p><p>Calling this method can result in decreased performance. 
+         Use it only when necessary.</p>
+                  <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">style</span>:String</code> &mdash; The name of the style property.
+                  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">value</span>:Object</code> &mdash; The value of the style.
+                  </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#getStyle()" target="">getStyle()</a>
+<br>
+<a href="../core/UIComponent.html#clearStyle()" target="">clearStyle()</a>
+</div>
+</div>
+<a name="validateNow()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">validateNow</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function validateNow():void</code><p>
+         Validates and updates the properties and layout of this object, redrawing it
+         if necessary. 
+                  </p><p>Properties that require substantial computation are normally not processed
+         until the script finishes executing. This is because setting one property could
+         require the processing of other properties. For example, setting the <code>width</code> 
+         property may require that the widths of the children or parent of the object also 
+         be recalculated. And if the script recalculates the width of the object more than 
+         once, these interdependent properties may also require recalculating. Use this
+         method to manually override this behavior.</p>
+                  </div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:hide"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hide</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>fl.events.ComponentEvent</code></a>
+<br>
+<p></p><p>
+     Dispatched after the component visibility changes from visible to invisible.
+          </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#event:show" target="">show</a>
+</div>
+</div>
+<a name="event:move"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">move</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>fl.events.ComponentEvent</code></a>
+<br>
+<p></p><p>
+     Dispatched after the component is moved.
+          </p></div>
+<a name="event:resize"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">resize</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>fl.events.ComponentEvent</code></a>
+<br>
+<p></p><p>
+     Dispatched after the component is resized.
+          </p></div>
+<a name="event:show"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">show</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>fl.events.ComponentEvent</code></a>
+<br>
+<p></p><p>
+     Dispatched after the component visibility changes from invisible to visible.
+          </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/UIComponent.html#event:hide" target="">hide</a>
+</div>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
