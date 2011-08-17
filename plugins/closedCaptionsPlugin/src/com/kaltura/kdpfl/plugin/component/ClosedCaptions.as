@@ -241,7 +241,7 @@ package com.kaltura.kdpfl.plugin.component
 					
 					currLine.start = _parseStrTime (resultElem.attribute ("begin") [0].toString ());
 					currLine.end = _parseStrTime (resultElem.attribute ("end") [0].toString ());
-					currLine.text = resultElem.text ()[0];
+					currLine.text = resultElem.text().toXMLString();
 					
 					_ccLines.push (currLine);
 				}
