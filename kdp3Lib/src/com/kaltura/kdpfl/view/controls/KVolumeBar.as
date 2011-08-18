@@ -649,7 +649,7 @@ public dynamic class KVolumeBar extends UIComponent implements IComponent
 		}
 	}
 	/**
-	 * Override the enabled setter/getter - in case the allowDisable property is set to <code>false</code>. 
+	 * Override the enabled setter/getter - in case the shouldDisable property is set to <code>false</code>. 
 	 * @param arg0 new value for the Volume Bar's <code>enabled</code> property.
 	 * 
 	 */	
