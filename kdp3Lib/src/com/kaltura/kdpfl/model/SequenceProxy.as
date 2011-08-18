@@ -274,13 +274,16 @@ package com.kaltura.kdpfl.model
 		 */		
 		public function initPreIndex() : void
 		{
-			if (vo.preSequenceArr.length > 0)
+			if (vo.preSequenceArr)
 			{
-				vo.preCurrentIndex = 0;
-			}
-			else
-			{
-				vo.preCurrentIndex = -1;
+				if (vo.preSequenceArr.length > 0)
+				{
+					vo.preCurrentIndex = 0;
+				}
+				else
+				{
+					vo.preCurrentIndex = -1;
+				}
 			}
 		}
 		
@@ -291,12 +294,15 @@ package com.kaltura.kdpfl.model
 		 */		
 		public function initPostIndex() : void
 		{
-			if (vo.postSequenceArr.length > 0 )
+			if (vo.postSequenceArr)
 			{
-				vo.postCurrentIndex = 0;
-			}
-			else{
-				vo.postCurrentIndex = -1
+				if (vo.postSequenceArr.length > 0 )
+				{
+					vo.postCurrentIndex = 0;
+				}
+				else{
+					vo.postCurrentIndex = -1
+				}
 			}
 		}
 		
