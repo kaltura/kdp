@@ -379,7 +379,7 @@ package com.kaltura.kdpfl.view.media
 					//this means that this is a live stream and it is broadcasting now
 					cleanMedia();
 					_mediaProxy.vo.isOffline = false;
-					if (_mediaProxy.vo.singleAutoPlay) {
+					if (_mediaProxy.vo.singleAutoPlay || _flashvars.autoPlay == "true") {
 						sendNotification(NotificationType.DO_PLAY);
 						_mediaProxy.vo.singleAutoPlay = false;
 					}
