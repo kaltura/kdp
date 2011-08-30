@@ -127,8 +127,14 @@ package com.kaltura.kdpfl.plugin.component {
 		 * Holder for internal companion ads 
 		 */
 		private var companionHolder:UIComponent;
-			
-		
+		/**
+		 * Maximum days for this ad to be live 
+		 */		
+		public var maxAgeForAds:Number = 0;
+		/**
+		 * The creationDate of this entry 
+		 */		
+		public var creationDate:Number = 0;
 		/**
 		 * Constructor.
 		 * @param viewComponent
@@ -359,11 +365,23 @@ package com.kaltura.kdpfl.plugin.component {
 		 * for prerolls and postrolls, we need to trigger ads manually.
 		 */
 		public function forceStart():void {
-			var sequenceManager:IProxy = facade.retrieveProxy("sequenceProxy");
-			if (sequenceManager["sequenceContext"] == SequenceContextType.PRE) {
-				sendNotification(preSequenceNotificationStartName);
-			} else if (sequenceManager["sequenceContext"] == SequenceContextType.POST) {
-				sendNotification(postSequenceNotificationStartName);
+			var destinationDate:Date = new Date();
+			destinationDate.setDate(destinationDate.getDate() - maxAgeForAds);
+			
+			var nd:Date = new Date ();
+			nd.setTime(creationDate*1000);
+			if( int(destinationDate.time/1000) <= creationDate  || maxAgeForAds==0)
+			{
+				var sequenceManager:IProxy = facade.retrieveProxy("sequenceProxy");
+				if (sequenceManager["sequenceContext"] == SequenceContextType.PRE) {
+					sendNotification(preSequenceNotificationStartName);
+				} else if (sequenceManager["sequenceContext"] == SequenceContextType.POST) {
+					sendNotification(postSequenceNotificationStartName);
+				}
+			}
+			else
+			{
+				sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END)
 			}
 		}
 
@@ -382,6 +400,7 @@ package com.kaltura.kdpfl.plugin.component {
 								NotificationType.PLAYER_UPDATE_PLAYHEAD,
 								NotificationType.VOLUME_CHANGED,
 								NotificationType.LAYOUT_READY,
+								NotificationType.MEDIA_READY,
 								NotificationType.CHANGE_MEDIA_PROCESS_STARTED
 			];
 			return notify;
@@ -419,6 +438,10 @@ package com.kaltura.kdpfl.plugin.component {
 						initAdManager();
 					}
 					break;
+				case NotificationType.MEDIA_READY:
+					var entry:Object = ((facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry);
+					creationDate = entry["createdAt"];
+				break;
 			}
 		}
 

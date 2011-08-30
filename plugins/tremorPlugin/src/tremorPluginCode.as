@@ -1,9 +1,5 @@
 /**
  * tremorPlugin
- *
- * @langversion 3.0
- * @playerversion Flash 9.0.28.0
- * @author Ofer Chesler / www.homsys.co.il
  */ 
 package {
 	//import com.kaltura.kdpfl.plugin.IPlugin;
@@ -46,6 +42,7 @@ package {
 		public var preSequence : int;
 		public var postSequence : int;
 		public var progId : String;
+		public var maxAgeForAds : int = 0;
 		
 		private var _adManager:IAdManager;
 				
@@ -85,7 +82,7 @@ package {
 
 			_tremorMediator.preSequence = preSequence;
 			_tremorMediator.postSequence = postSequence;
-			
+			_tremorMediator.maxAgeForAds = maxAgeForAds; 
 			//set parameters in mediator
 			for (var key:String in _configValues)
 			{

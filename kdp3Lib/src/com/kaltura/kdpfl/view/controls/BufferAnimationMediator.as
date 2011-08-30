@@ -121,7 +121,10 @@ package com.kaltura.kdpfl.view.controls
 				
 				//in case we are trying to connect to a live stream but it is not on air yet
 				case NotificationType.LIVE_ENTRY:
-					spinner.visible = true;
+					if (_flashvars.hideSpinnerOnOffline=="true")
+						spinner.visible = false;
+					else
+						spinner.visible = true;
 				break;
 				
 				//in case the live stream we are trying to connect to was found to be on air

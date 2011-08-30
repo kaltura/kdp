@@ -42,7 +42,7 @@
 			public function set port(p:String):void {
 				_port= p;
 			}
-			public function get protocol():String {
+			override public function get protocol():String {
 				return _protocol;
 			}
 			public function set protocol(p:String):void {
