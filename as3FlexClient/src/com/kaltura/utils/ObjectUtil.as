@@ -30,8 +30,10 @@ package com.kaltura.utils
 			var arr : Array = new Array();
 			var classInfo:XML = describeType(obj);
 			
-			for each (var v:XML in classInfo..accessor) 
-			arr.push( v.@name.toString() );
+			var accessors:XMLList = classInfo..accessor.(@declaredBy != "mx.utils::ObjectProxy"); 
+			for each (var v:XML in accessors) {
+				arr.push( v.@name.toString() );
+			}
 			
 			return arr;
 		}
