@@ -1,0 +1,91 @@
+<project name="AntTest" default="compile" basedir=".">
+ 
+	 <property name="FLEX_HOME" value="C:/program files (x86)/Adobe/Adobe Flash Builder 4/sdks/3.5.0/" />
+	 <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+	 
+	<property name="v_kdp" value="3.5.10"/>
+    <property name="src" value="src"/>  
+    <property name="build" value="build-release"/>
+     
+    <target name="init">
+        <mkdir dir="${v_kdp}"/> 
+    	<mkdir dir="${v_kdp}\plugins"/>
+    </target>
+    <target name="compile" depends="clean,init">
+    	<fb.exportReleaseBuild failonerror="true" project="KDP3" destdir="${build}"/> 
+    	<copy todir="${v_kdp}" file="..\KDP3\${build}\kdp3.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="adaptvas3Plugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\adaptvas3Plugin\${build}\adaptvas3Plugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="adaptvPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\adaptvPlugin\${build}\adaptvPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="advanceSeekPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\advanceSeekPlugin\${build}\advanceSeekPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="annotationsPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\annotationsPlugin\${build}\annotationsPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="audioDescription_plugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\audioDescription_plugin\${build}\audioDescriptionPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="bumperPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\bumperPlugin\${build}\bumperPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="captureThumbnailPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\captureThumbnailPlugin\${build}\captureThumbnailPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="carouselPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\carouselPlugin\${build}\carouselPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="closedcaptions_plugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\closedcaptions_plugin\${build}\closedCaptionsPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="cuePointPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\cuePointPlugin\${build}\cuePointPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="downloadPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\downloadPlugin\${build}\downloadPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="eyewonderPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\eyewonderPlugin\${build}\eyewonderPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="faderPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\faderPlugin\${build}\faderPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="genericOSMFPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\genericOSMFPlugin\${build}\genericOSMFPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="gigyaPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\gigyaPlugin\${build}\gigyaPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="kalturaMixPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\kalturaMixPlugin\${build}\kalturaMixPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="listPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\listPlugin\${build}\listPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="metaDataPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\metaDataPlugin\${build}\metaDataPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="moderationPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\moderationPlugin\${build}\moderationPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="omniturePlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\omniturePlugin\${build}\omniturePlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="overlayPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\overlayPlugin\${build}\overlayPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="PlaylistApiPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\playlistApiPlugin\${build}\playlistAPIPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="plymediaPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plymediaPlugin\${build}\plymediaPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="pptWidgetAPIPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\pptWidgetAPIPlugin\${build}\pptWidgetAPIPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="pptWidgetScreenPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\pptWidgetScreenPlugin\${build}\pptWidgetScreenPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="pptWidgetScrubberPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\pptWidgetScrubberPlugin\${build}\pptWidgetScrubberPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="search_plugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\search_plugin\${build}\searchPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="shortcuts508_plugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\shortcuts508_plugin\${build}\shortcuts508Plugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="starsPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\starsPlugin\${build}\starsPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="statisticsPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\statisticsPlugin\${build}\statisticsPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="tabBarPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\tabBarPlugin\${build}\tabBarPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="tremorPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\tremorPlugin\${build}\tremorPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="vastPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\vastPlugin\${build}\vastPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="volume508_plugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\volume508_plugin\${build}\volume508Plugin.swf"/>
+    </target>
+ 
+    <target name="clean" description="Deletes Created Dir">
+          <delete dir="${v_kdp}"/> 
+    </target>
+ 
+</project>
