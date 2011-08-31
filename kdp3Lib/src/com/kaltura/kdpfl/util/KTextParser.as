@@ -418,7 +418,9 @@ package com.kaltura.kdpfl.util
 					f.ready = true;
 
 					// call function for setting its value right now
-					var result:* = f.callFunction();
+					var result:*;
+					if (prop != "kClick")
+						result = f.callFunction();
 
 					// if we're executing the function we may have several of them separated by ";".
 					// just execute and dont return the value
