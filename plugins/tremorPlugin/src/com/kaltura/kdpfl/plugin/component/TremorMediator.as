@@ -219,7 +219,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		private function onAdsError(evt:Event):void {
 			enableControls();
-			sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
+			//sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
 		}
 		
 		
