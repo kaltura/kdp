@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- flex-extract-classes.xml -->
+<project name="FlexBuildProperties" basedir=".">       	
+	
+	<import file="machine-properties.xml"/>
+	
+	<!-- The following properties are static -->
+	<property name="dir.kaltura.artifacts" value="${dir.kaltura.cihome}/artifacts" description="Kaltura CI artifacts directory" />
+	<property name="dir.kaltura.bin" value="${dir.kaltura.artifacts}/bin" description="Kaltura CI bin output directory" />
+	<property name="dir.kaltura.resources" value="${dir.kaltura.cihome}/resources" description="Kaltura CI resources directory" />
+	<property name="dir.kaltura.ant" value="${dir.kaltura.resources}/ant" description="Kaltura ant resources directory" />
+	<property name="dir.kaltura.flexlibs" value="${dir.kaltura.resources}/flexlibs" description="Kaltura flex external libs directory" />
+	<property name="flex.compile.debug" value="false" description="Default build is with debug=false" />
+	
+	<!-- Define the flex ant tasks -->
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+		
+	<import file="flex-extract-classes.xml" />	
+</project>
