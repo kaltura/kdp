@@ -164,7 +164,7 @@ package com.kaltura.delegates {
 			var kalsig:String = getMD5Checksum(call);
 			
 			//create the service request for normal calls
-			var url : String = _config.protocol + _config.domain +"/"+_config.srvUrl+"?service="+call.service+"&action="+call.action;
+			var url : String = _config.protocol + _config.domain +"/"+_config.srvUrl+"?service="+call.service+"&action="+call.action+"&kalsig="+kalsig;
 			
 			if( _call.method == URLRequestMethod.GET )url += "&";
 			
@@ -172,7 +172,7 @@ package com.kaltura.delegates {
 			req.contentType = "application/x-www-form-urlencoded";
 			req.method = call.method; 
 			req.data = call.args; 
-
+			
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
 			loader.load(req);
 		}
