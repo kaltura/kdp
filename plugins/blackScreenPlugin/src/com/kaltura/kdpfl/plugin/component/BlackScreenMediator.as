@@ -25,26 +25,29 @@ package com.kaltura.kdpfl.plugin.component
 		override public function handleNotification(notification:INotification):void
 		{
 			
-				switch (notification.getName())
-				{
-					case NotificationType.PLAYER_UPDATE_PLAYHEAD:
-						var currentTime : Number = notification.getBody() as Number;
-						
-						if ((viewComponent as BlackScreenPluginCode).clipStartTime && (viewComponent as BlackScreenPluginCode).clipStartTime != -1 && isNaN(currentTime))
-						{
-							(viewComponent as BlackScreenPluginCode).showBlackLayer();
-						}
-						else if (((viewComponent as BlackScreenPluginCode).clipStartTime != -1 && currentTime < (viewComponent as BlackScreenPluginCode).clipStartTime) || (((viewComponent as BlackScreenPluginCode).clipEndTime != -1) && currentTime > (viewComponent as BlackScreenPluginCode).clipEndTime))
-						{
-							(viewComponent as BlackScreenPluginCode).showBlackLayer();
-						}
-						else
-						{
-							(viewComponent as BlackScreenPluginCode).hideBlackLayer();
-						}
-						break;
-
-				}
+			switch (notification.getName())
+			{
+				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
+					var currentTime : Number = notification.getBody() as Number;
+					
+					if ((viewComponent as BlackScreenPluginCode).clipStartTime && (viewComponent as BlackScreenPluginCode).clipStartTime != -1 && isNaN(currentTime))
+					{
+						sendNotification( NotificationType.MUTE );
+						(viewComponent as BlackScreenPluginCode).showBlackLayer();
+					}
+					else if (((viewComponent as BlackScreenPluginCode).clipStartTime != -1 && currentTime < (viewComponent as BlackScreenPluginCode).clipStartTime) || (((viewComponent as BlackScreenPluginCode).clipEndTime != -1) && currentTime > (viewComponent as BlackScreenPluginCode).clipEndTime))
+					{
+						sendNotification( NotificationType.MUTE );
+						(viewComponent as BlackScreenPluginCode).showBlackLayer();
+					}
+					else
+					{
+						sendNotification( NotificationType.UNMUTE );
+						(viewComponent as BlackScreenPluginCode).hideBlackLayer();
+					}
+					break;
+				
+			}
 		}
 	}
 }
