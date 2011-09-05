@@ -10,7 +10,9 @@ package com.kaltura.kdpfl.view.media
 	import flash.events.Event;
 	
 	import org.osmf.events.DisplayObjectEvent;
+	import org.osmf.events.MediaPlayerStateChangeEvent;
 	import org.osmf.media.MediaPlayer;
+	import org.osmf.media.MediaPlayerState;
 	
 	public dynamic class KMediaPlayer extends AdvancedLayoutPane implements IComponent
 	{
@@ -197,35 +199,32 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private function onDisplayObjectChange( event : DisplayObjectEvent ) : void
 		{
-			/*for (var i:int = 0; i < this.numChildren; i++ )
-			{
-				if (this.getChildAt(i) != this._bufferAnim && this.getChildAt(i) != this._thumbnail && this.getChildAt(i) != this._bgSprite)
-				{
-					this.removeChildAt(i);
-				}
-			}*/
-			//if view is enabled and the player is not in the display list already
+			
 			if( _player && event.newDisplayObject)
 			{
-				event.newDisplayObject.addEventListener( Event.ADDED_TO_STAGE , onNewElementAddedToStage );
+				
 				addChild(event.newDisplayObject);
 				
 			}
 			
-			
 			_player.addEventListener(DisplayObjectEvent.MEDIA_SIZE_CHANGE, onMediaSizeChange );
+			_player.addEventListener( MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, onMediaPlayerStateChange );
 		}
 		
-		private function onNewElementAddedToStage (e : Event) : void
+		private function onMediaPlayerStateChange (e : MediaPlayerStateChangeEvent) : void
 		{
-			/*for (var i:int = 0; i < this.numChildren-1; i++ )
+			if ( e.state == MediaPlayerState.PLAYING )
 			{
-				if (this.getChildAt(i) != this._bufferAnim && this.getChildAt(i) != this._thumbnail && this.getChildAt(i) != this._bgSprite)
+				for (var i:int = 0; i < this.numChildren-1; i++ )
 				{
-					this.removeChildAt(i);
+					if (this.getChildAt(i) != this._bufferAnim && this.getChildAt(i) != this._thumbnail && this.getChildAt(i) != this._bgSprite)
+					{
+						this.removeChildAt(i);
+					}
 				}
-			}*/
+			}
 		}
+		
 		
 		private function onMediaSizeChange (e : DisplayObjectEvent) : void
 		{
@@ -249,6 +248,8 @@ package com.kaltura.kdpfl.view.media
 				}
 				centerImages();
 			}
+			
+			
 		}
 		
 		public function setContentDimension(w:Number, h:Number):void
