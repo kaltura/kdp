@@ -84,7 +84,7 @@ package com.kaltura.kdpfl.view.media
 		{
 			if(imageUrl && imageUrl!=_url)
 			{
-				_url = url;
+				_url = imageUrl;
 				load( url );
 			}
 		}
