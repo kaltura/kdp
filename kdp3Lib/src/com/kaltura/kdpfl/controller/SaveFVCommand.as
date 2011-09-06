@@ -135,7 +135,9 @@ package com.kaltura.kdpfl.controller
 				flashvars.sourceType = SourceType.ENTRY_ID;
 							
 			if(!flashvars.streamerType)
+			{
 				flashvars.streamerType = StreamerType.HTTP;
+			}
 			
 			if (!flashvars.getCuePointsData || flashvars.getCuePointsData=="true")
 			{

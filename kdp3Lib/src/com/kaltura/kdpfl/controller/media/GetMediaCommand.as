@@ -319,6 +319,7 @@ package com.kaltura.kdpfl.controller.media
 							mediaProxy.vo.entryMetadata = metaDataObj;
 						}
 						sendNotification(NotificationType.METADATA_RECEIVED);
+						i++;
 					}
 				} 
 			}
@@ -364,6 +365,7 @@ package com.kaltura.kdpfl.controller.media
 					_mediaProxy.vo.entryCuePoints = cuePointsMap;
 					//Send notification regarding the cue points being received.
 					sendNotification( NotificationType.CUE_POINTS_RECEIVED, cuePointsMap );
+					i++;
 				}
 				
 			}
