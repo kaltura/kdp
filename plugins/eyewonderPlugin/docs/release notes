@@ -1,0 +1,11 @@
+changes in current version:
+---------------------------
+* new KDP sequence mechanism support
+* statistics notifications:
+	- ad start
+	- ad first quartile
+	- mid ad
+	- ad third quartile
+	- ad end
+	- ad clicked
+  
