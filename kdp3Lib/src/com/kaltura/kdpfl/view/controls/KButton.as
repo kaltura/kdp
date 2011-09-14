@@ -615,12 +615,21 @@ package com.kaltura.kdpfl.view.controls
 				"upSkin", "overSkin", "downSkin", "disabledSkin",
 				"selectedUpSkin", "selectedOverSkin", "selectedDownSkin", "selectedDisabledSkin");
 			
+			var emphasizedStyleName : String;
 			if (this.emphasized && emphasizedImages.indexOf(name) > -1)
 			{
-				name = "emphasized" + name.substr(0, 1).toUpperCase() + name.substr(1);
+				emphasizedStyleName = "emphasized" + name.substr(0, 1).toUpperCase() + name.substr(1);
 			}
 			
-			return super.getStyleValue (name);
+			var emphasizedStyle : Object = super.getStyleValue (emphasizedStyleName);
+			
+			if (!emphasizedStyle)
+			{
+				return super.getStyleValue( name);
+			}
+			
+			return emphasizedStyle;
+			
 		}
 		
 		override protected function focusInHandler(event:FocusEvent):void

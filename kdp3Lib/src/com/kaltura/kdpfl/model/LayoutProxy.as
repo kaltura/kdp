@@ -369,7 +369,7 @@ package com.kaltura.kdpfl.model
 			delete (tempXml.@path);
 			delete (tempXml.@styleName);
 			delete (tempXml.@command);
-			delete (tempXml.@kclick);
+			delete (tempXml.@kClick);
 			delete (tempXml.@width);
 			delete (tempXml.@height);
 
