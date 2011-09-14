@@ -1,0 +1,530 @@
+<layout id="full" skinPath="assets/skin_light.swf‬">
+	<HBox id="topLevel" width="100%" height="100%">
+		<VBox id="player" width="100%" height="100%" styleName="black">
+			<Plugin id="statistics" width="0%" height="0%" includeInLayout="false" statsDis="{media.vo.isLive}"/>
+			<Plugin id="playlistAPI" width="0%" height="0%" includeInLayout="false" 
+				selectedDataProvider="{tabBar.selectedDataProvider}" />
+
+			<Plugin id="kalturaMix" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand" disableUrlHashing="true" />
+			<Plugin id="download" width="0%" height="0%" includeInLayout="false"/>
+			
+			<Plugin id="captureThumbnail" width="0%" height="0%" includeInLayout="false"/>
+			<!--Plugin id="vast" numPreroll="1" prerollInterval="2" prerollStartWith="1" 
+					prerollUrl="http://demo.scanscout.com/product/vastExamples/vast1RegularLinear.xml" preSequence="1" postSequence="1" includeInLayout="false" 
+					numPostroll="1" postrollInterval="2" postrollStartWith="1" postrollUrl="http://d1.openx.org/fc.php?zones=pre-roll=110637&script=bannerTypeHtml:vastInlineBannerTypeHtml:vastInlineHtml&source=&format=vast&charset=UTF_8&nz=1&r=1274794587906&"
+					flashCompanions="playlist:300:250" htmlCompanions="banner1:720:90"/-->
+			<HBox id="TopTitleScreen" width="100%" height="30" styleName="darkBg">
+				<Label height="18" id="movieName" 
+					text="xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+					dynamicColor="true" color1="0xFF0000" 
+					font="TimesNewRoman"
+					styleName="movieName" 
+					width="100%"  /> <!-- text="{mediaProxy.entry.name}" -->
+					
+			</HBox>		
+						
+			<Canvas height="100%" width="100%" id="PlayerHolder" styleName="black" >	
+				<Video id="video" width="100%" height="100%" mantainAspectRatio="false" />
+				<Label id="remainingTime" height="18" width="100%" text="Video starts in {sequenceProxy.timeRemaining} seconds" font="TimesNewRoman"
+					styleName="movieName" dynamicColor="true" color1="0xFF0000"/>
+				<Screens id="screensLayer" width="100%" height="100%" 
+					mouseOverTarget = "{PlayerHolder}"
+					styleName="clickThrough"
+					startScreenId="startScreen" 
+					startScreenOverId="startScreen" 
+					pauseScreenOverId="startScreen" 
+					pauseScreenId="startScreen" 
+					playScreenOverId="startScreen" 
+					endScreenId="startScreen" 								
+					endScreenOverId="startScreen" />	
+					
+				<Watermark id="watermark" width="100%" height="100%" 
+					watermarkPath="http://www.kaltura.com/content/uiconf/kaltura/generic/kaltura_watermark.png"
+					watermarkClickPath="http://www.kaltura.com/" watermarkPosition="topRight"/>
+				
+				<Plugin id="tremor" width="100%" height="100%" preSequence="1" postSequence="1"
+					progId="4c19d3ffb12d7" />
+				
+				
+				<!-- 4b744cb6a6c89		Pre-Roll
+		   4b744cd5e26c9		Overlay
+		   4b744cec3728f		All Timeline Positions
+		   4b744d0bcc2d7		All Timeline Positions with Opening Slate
+		   4b744d253d9b6		Runtime Midroll & Overlay Cue Points
+		   4b9037e69b549 		post-roll ads 
+		   4c19d3ffb12d7 all   
+			4c1a1c25270b5 mid, overlay -->
+				
+				<!-- <Plugin id="plymedia" width="100%" height="100%" />				
+     			<Plugin id="bumper" 
+                    bumperEntryID="0_xdu3hyvm" 
+                    clickurl="http://flashoo.co.il"
+                    playOnce="true"
+                    preSequence="2" 
+                    width="100%" height="100%" />
+				<Plugin id="tremor" progId="4a1294f4b728d" 
+					preSequence="1" postSequence="1" 
+					width="100%" height="100%" /> 
+				<Plugin id="adaptv" key="integration_test" 
+    				preSequence="1" postSequence="1" 
+     				width="100%" height="100%" />
+     			<Plugin id="gigya" width="100%" height="100%"
+					shareEmailBody="Hi,&lt;br&gt;I watched this video and thought you'd enjoy it too. &lt;br&gt;$URL$ to watch.&lt;br&gt; $sender$" 
+					shareEmailSubject="Take a look at this video" />
+
+				<Plugin id="stars" width="100%" height="100%" rating="-1"/>
+				<Plugin id="eyewonder" width="100%" height="100%" postSequence="1" preSequence="1"                          
+preroll="http://cdn1.eyewonder.com/200125/754851/1149206/1149206_tag.xml?ewbust=[timestamp]"
+      midroll="http://cdn1.eyewonder.com/200125/754851/1149206/1149206_tag.xml?ewbust=[timestamp]" 
+      postroll="http://cdn1.eyewonder.com/200125/754851/1149206/1149206_tag.xml?ewbust=[timestamp]"
+      overlay="http://cdn1.eyewonder.com/200125/754851/1149218/1149218_tag.xml?ewbust=[timestamp]"
+      volume="100"
+      overlayDelay="5"
+      showOverlayAt="10"
+      showMidrollAt="50%" />-->
+
+
+     				
+				<VBox id="offlineMessageHolder" 
+	     			verticalAlign="middle" horizontalAlign="center" 
+	     			includeInLayout="false"
+				    width="100%" height="100%" >
+				    <Spacer height="100%" />
+				    <Spacer height="100%" />
+				    <Label 
+				      id="offlineMessage" styleName="offlineMessage"
+				      text="{mediaProxy.entry.offlineMessage}" visible="{mediaProxy.isOffline}"
+				      width="100%" height="30"/> <!-- mediaProxy.entry.offlineMessage-->
+			     	<Spacer height="100%" />
+		    	</VBox>
+		    	<Button id="skipBtn" visible="{sequenceProxy.isAdSkip}" includeInLayout="{sequenceProxy.isAdSkip}" type="labelButton" color1="0xFFFF00"
+					color2="0xFF00FF"									
+					height="22" 
+					label="Skip Ad" 
+					styleName="controllerScreen" allowDisable="false" kClick="sendNotification('sequenceSkipNext')"/>
+			</Canvas>
+			
+			<HBox id="ControllerScreenHolder" 
+				width="100%" height="30"
+				verticalAlign="middle"
+				buttonType="iconButton"
+			 	styleName="darkBg" >
+			<HBox id="ControllerScreen" 
+				width="100%" height="30"
+				horizontalGap="9" 
+				verticalAlign="middle"
+			 	styleName="darkBg" >
+				<Button id="playBtnControllerScreen" command="play"
+					buttonType="iconButton"
+					color1="0xFF0000"
+					color2="0xFF0000"
+					icon="playIcon" 
+					upIcon="playIcon" 
+					overIcon="playIcon" 
+					downIcon="playIcon" 
+					disabeledIcon="playIcon" 
+					upTooltip="Play"
+					selectedUpIcon="pauseIcon"  
+					selectedOverIcon="pauseIcon"  
+					selectedDownIcon="pauseIcon"  
+					selectedDisabledIcon="pauseIcon"  
+					selectedTooltip="Pause"
+					allowDisable="true"
+					/>
+				<Button id="liveToggleStatus"
+					toggle="true"
+					color1="0xFF0000"
+					color2="0xFF0000"
+					upIcon="onAirIcon" 
+					overIcon="onAirIcon" 
+					downIcon="onAirIcon" 
+					disabeledIcon="onAirIcon" 
+					selectedUpIcon="offlineIcon"  
+					selectedOverIcon="offlineIcon"  
+					selectedDownIcon="offlineIcon"  
+					selectedDisabledIcon="offlineIcon"  
+					isSelected="{mediaProxy.isOffline}"
+					visible="{mediaProxy.isLive}"
+					includeInLayout="{mediaProxy.isLive}"
+					mouseEnable="false"
+					useHandCursor=""
+					/>
+				<Button id="previous" 
+					color1="0xFF0000"
+					color2="0xFF0000"
+					kClick="sendNotification('playlistPlayPrevious')"
+					height="22" 
+					buttonType="iconButton"	
+					styleName="controllerScreen" 
+					icon="PreviousIcon" 
+					/>
+				<Button id="next" 
+					color1="0xFF0000"
+					color2="0xFF0000"
+					kClick="sendNotification('playlistPlayNext')"
+					height="22"
+					buttonType="iconButton"	
+					icon="NextIcon" 
+					styleName="controllerScreen" 
+					  />
+				<VBox id="scrubberContainer" width="100%" height="30" verticalAlign="middle" verticalGap="-3" notVisible="{mediaProxy.isLive}">
+					<Spacer height="10" />	
+					<Scrubber id="scrubber" width="100%" height="10"  styleName="" 	color1="0xFF0000" color2="0xFF0000"	 />
+					<HBox width="100%">
+						<Timer id="timerControllerScreen2" styleName="timerProgressLeft" format="mm:ss" height="12" width="60"/>	
+					</HBox>
+				</VBox>
+				<VolumeBar id="volumeBar" styleName="volumeBtn" width="20"
+					buttonType="iconButton"
+					color1="0xFF0000"
+					color2="0xFF0000"					
+				 />
+				
+				<Button id="shareBtnControllerScreen" 
+					label=""
+					buttonType="iconButton"		
+					color1="0xFF0000"
+					color2="0xFF0000"							
+					kClick="sendNotification('doGigya')"
+					focusRectPadding="0"
+					height="22"  
+					styleName="controllerScreen" 
+					icon="shareIcon"  />
+				<FlavorCombo id="flavorCombo"  width="90" streamerType="{mediaProxy.deliveryType}"
+					flavorDataProvider="{mediaProxy.kalturaMediaFlavorArray}" autoMessage="Automatically switches between bitrates"
+					styleName="_kdp" color1="0xFF0000" hdOn="hdOn" hdOff="hdOff" selectedMessage="Cheese" autoString="AutoHD"
+					preferedFlavorBR="{mediaProxy.preferedFlavorBR}" tooltip="{flavorCombo.selectedMessage}" />
+					
+				<Button id="fullScreenBtnControllerScreen" command="fullScreen"
+					buttonType="labelButton"	
+					color1="0xFFFF00"
+					color2="0xFF00FF"									
+					height="22" 
+					label="FS" 
+					styleName="controllerScreen"
+				/>	
+				<Button id="captureThumbBtnControllerScreen" kClick="sendNotification('captureThumbnail')" height="22" buttonType="iconButton" icon="thumbIcon" styleName="controllerScreen" k_buttonType="buttonIconControllerArea" tooltip="Use current frame as the video thumbnail" color1="11184810" color2="16777215" color3="16777215" color4="11184810" color5="0" font="Arial" />
+
+			</HBox>
+				<Spacer width="9" />	
+				<Button 
+					id="kalturaLogo" 
+					height="50" 
+					width="100"
+					kClick="navigate('http://www.kaltura.com')"
+					styleName="controllerScreen"
+					icon ="kalturaLogo" />
+				<Spacer width="10" />	
+			</HBox>
+			
+		</VBox>
+			<VBox id="playlist" width="280" height="100%" 
+			styleName="List_background_default"
+			hideInFullScreen="true"  >
+				<VBox id="playlisTab" width="100%" height="26" 
+					styleName="tabBg"
+					rightArrowIcon="List_scrollRightArrowUp_default_icon" 
+					leftArrowIcon="List_scrollLeftArrowUp_default_icon" 
+					buttonType="iconButton"
+					hideInFullScreen="true"  >
+					<Spacer height="8" />
+					<Plugin id="tabBar" width="100%" height="26" color1="0xBCBCBC"
+						color2="0xFF0000"	
+		   				dataProvider="{playlistAPI.multiPlaylistDataProvider}" />
+				</VBox>
+				<Spacer height="8" />			
+				<HBox id="playlistPadding" width="100%" height="100%" styleName="List_background_default">
+					<Spacer width="8" />
+					<Plugin id="list" width="100%" height="100%" styleName="List_background_default"
+						dataProvider="{playlistAPI.dataProvider}" excludeMe="true"
+						itemRenderer="playlistItemRenderer" />
+					<Spacer width="8" />
+				</HBox> 
+				<Spacer height="8" />
+			</VBox>
+	</HBox>
+	
+	<screens>
+		<screen id="startScreen">
+				<VBox id="startContainer" width="100%" height="100%" 
+					verticalAlign="middle" horizontalAlign="center" >
+					<Spacer width="100%" />
+					<Tile id="startTile" width="100%" verticalGap="10" verticalAlign="middle" horizontalAlign="center" >
+					
+						<Button id="onVideoPlayBtnStartScreen" 
+							command="play"
+							labelPlacement="top"
+							label="abcdABCD" 
+							color5="0xFF0000"
+							styleName="onScreenBtn" 
+							upIcon="playIcon" 
+							overIcon="playIcon" 
+							downIcon="playIcon" 
+							disabeledIcon="playIcon" 
+							selectedUpIcon="playIcon"  
+							selectedOverIcon="playIcon"  
+							selectedDownIcon="playIcon"  
+							selectedDisabledIcon="playIcon" 
+							buttonType="onScreenButton" 
+						/>		
+						<Button id="editBtnStartScreen"
+							color5="0xFF0000"
+							kClick="jsCall('gotoEditorWindow', mediaProxy.entry.id )" 
+							label="abcdABCD" 
+							labelPlacement="top"
+							buttonType="onScreenButton" 
+							styleName="onScreenBtn" 
+							upIcon ="remixIcon" 
+						/>
+							
+						<Button id="shareBtnStartScreen" 
+							color5="0xFF0000"
+							kClick="sendNotification('doGigya')"
+							buttonType="onScreenButton" 
+							labelPlacement="top"
+							label="Share" 
+							styleName="onScreenBtn" 
+							upIcon ="shareIcon"	
+						/>
+						</Tile>
+					<Spacer width="100%" />
+				</VBox>
+		</screen>
+	</screens>
+	
+	<renderers>
+		<renderer id="playlistItemRenderer">
+			<HBox height="100%" width="100%" x="10" y="10" verticalAlign="top" paddingTop="6">
+				<Image id="playlistItemImage" height="48" width="72" url="{this.thumbnailUrl}" tooltip="{this.name}"/>
+				<VBox height="100%" width="100%" id="playlistItemRendererCanvas" >
+					<HBox id="nameAndDuration" width="100%" >	
+						<Label id="testlabel2" height="18" width="100%" text="{this.name}"  styleName="itemRendererLabel" />
+						<Label id="testlabel3" height="18" width="60" text="{formatDate(this.duration, 'NN:SS')}" styleName="itemRendererLabel" />
+					</HBox> 		
+					<Label id="testlabel5" height="18" width="115" text="{this.entryId}" styleName="itemRendererLabel" />
+				</VBox>	
+			</HBox> 		
+		</renderer>
+	</renderers>
+	
+	<strings>
+		<string code="NO_MIX_PLUGIN_TITLE" text="N Plugin Mix" />
+		<string code="NO_MIX_PLUGIN" text="Para ver la entrada de mezcla, debe agregar el plugin de la mezcla a la uiconf XML" />
+	</strings>
+	
+	<extraData>
+      <GigyaUI theme="dark">
+        <config>
+          <display showEmail="true" useTransitions="true"
+          showBookmark="true" codeBoxHeight="auto"
+          showCodeBox="true" showCloseButton="true"
+          networksWithCodeBox=""
+          networksToHide="livespaces, piczo, orkut, pageflakes, vox, tagged, hi5, wordpress, multiply"
+          networksToShow="myspace, facebook, bebo, blogger, freewebs, livejournal, blackplanet, myyearbook, typepad, xanga, igoogle, netvibes, migente, friendster"
+          bookmarksToShow="googlebookmarks,delicious,digg,facebookshare,newsvine,reddit,twitter,ask,myaol,slashdot,skimbit,simpy,blogmarks,spurl,linkagogo,Magnolia,faves,segnalo,netvouz,blinklist,dropjack,feedmelinks" />
+          <body>
+            <background frame-color="#BFBFBF"
+            background-color="#292929" frame-thickness="0"
+            gradient-color-begin="#292929"
+            gradient-color-end="#292929"
+            corner-roundness="0;0;0;0" />
+            <controls corner-roundness="4;4;4;4"
+            gradient-color-begin="#EAEAEA"
+            gradient-color-end="#F4F4F4" bold="false">
+              <snbuttons type="textUnder" frame-color="#666666"
+              background-color="#292929" over-frame-color="#FFFFFF"
+              color="#BFBFBF" gradient-color-begin="#666666"
+              gradient-color-end="Transparent" size="10"
+              bold="false" down-frame-color="#666666"
+              down-gradient-color-begin="Transparent"
+              over-gradient-color-end="#ffffff"
+              down-gradient-color-end="#666666"
+              over-color="#ffffff" down-color="#ffffff"
+              over-bold="false">
+                <more frame-color="#A4DBFF"
+                over-frame-color="#A4DBFF"
+                gradient-color-begin="#F4F4F4"
+                gradient-color-end="#BBE4FF"
+                over-gradient-color-begin="#A4DBFF"
+                over-gradient-color-end="#F4F4F4" />
+                <previous frame-color="#BBE4FF"
+                over-frame-color="#A4DBFF"
+                gradient-color-begin="#FFFFFF"
+                gradient-color-end="#A4DBFF"
+                over-gradient-color-begin="#A4DBFF"
+                over-gradient-color-end="#F4F4F4" />
+              </snbuttons>
+              <textboxes frame-color="#CACACA"
+              background-color="#292929" color="#757575"
+              gradient-color-begin="#292929"
+              gradient-color-end="#292929" bold="false">
+                <codeboxes color="#808080" frame-color="#6A6A6A"
+                background-color="#606060"
+                gradient-color-begin="Transparent"
+                gradient-color-end="Transparent" size="10" />
+                <inputs frame-color="#6a6a6a" color="#808080"
+                gradient-color-begin="Transparent"
+                gradient-color-end="Transparent" />
+                <dropdowns list-item-over-color="#52A4DA"
+                frame-color="#6a6a6a" background-color="#292929"
+                color="#808080" gradient-color-begin="#292929"
+                gradient-color-end="#292929" />
+              </textboxes>
+              <buttons frame-color="#6a6a6a"
+              background-color="Transparent"
+              gradient-color-begin="#666666"
+              gradient-color-end="Transparent" color="#FFFFFF"
+              frame-thickness="1" size="12" bold="false"
+              over-frame-color="#FFFFFF" down-frame-color="#6a6a6a"
+              over-gradient-color-begin="#666666"
+              down-gradient-color-begin="Transparent"
+              over-gradient-color-end="#353535"
+              down-gradient-color-end="Transparent" over-size="12"
+              over-bold="false">
+                <post-buttons frame-color="#6a6a6a"
+                gradient-color-end="Transparent" />
+              </buttons>
+              <listboxes frame-color="#CACACA"
+              corner-roundness="4;4;4;4"
+              gradient-color-begin="#F4F4F4"
+              gradient-color-end="#FFFFFF" />
+              <checkboxes checkmark-color="#FFFFC8"
+              frame-color="#6a6a6a"
+              down-gradient-color-begin="#292929"
+              down-gradient-color-end="#292929"
+              background-color="#292929" corner-roundness="3;3;3;3"
+              gradient-color-begin="Transparent"
+              gradient-color-end="Transparent"
+              over-background-color="#292929"
+              down-background-color="#292929" />
+              <servicemarker gradient-color-begin="Transparent"
+              gradient-color-end="#666666" />
+              <tooltips frame-thickness="0" color="#292929"
+              gradient-color-begin="#FFFFFF"
+              gradient-color-end="#FFFFC8" size="10"
+              frame-color="#FFDBA4" />
+            </controls>
+            <texts color="808080">
+              <privacy color="#808080" />
+              <headers color="#FFFFFF" bold="false" />
+              <labels color="#FFFFFF" bold="false" />
+              <messages color="#202020" background-color="#FFFFA4"
+              frame-thickness="0" corner-roundness="4;4;4;4" />
+              <links color="#FFFFFF" underline="false"
+              over-color="#666666" down-color="#666666"
+              down-bold="false" />
+            </texts>
+          </body>
+        </config>
+      </GigyaUI>
+      
+          <GigyaUI theme="light">
+      <config>
+        <display showEmail="true" useTransitions="true"
+        showBookmark="true" codeBoxHeight="auto" showCodeBox="true"
+        showCloseButton="true" networksWithCodeBox=""
+        networksToHide="livespaces, piczo, orkut, pageflakes, vox, tagged, hi5, wordpress, multiply"
+        networksToShow="myspace, facebook, bebo, blogger, freewebs, livejournal, blackplanet, myyearbook, typepad, xanga, igoogle, netvibes, migente, friendster"
+        bookmarksToShow="googlebookmarks,delicious,digg,facebookshare,newsvine,reddit,twitter,ask,myaol,slashdot,skimbit,simpy,blogmarks,spurl,linkagogo,Magnolia,faves,segnalo,netvouz,blinklist,dropjack,feedmelinks" />
+        <body>
+          <background frame-color="#BFBFBF"
+          background-color="#292929" frame-thickness="0"
+          gradient-color-begin="#292929"
+          gradient-color-end="#292929"
+          corner-roundness="0;0;0;0" />
+          <controls corner-roundness="4;4;4;4"
+          gradient-color-begin="#EAEAEA"
+          gradient-color-end="#F4F4F4" bold="false">
+            <snbuttons type="textUnder" frame-color="#666666"
+            background-color="#292929" over-frame-color="#FFFFFF"
+            color="#BFBFBF" gradient-color-begin="#666666"
+            gradient-color-end="Transparent" size="10" bold="false"
+            down-frame-color="#666666"
+            down-gradient-color-begin="Transparent"
+            over-gradient-color-end="#ffffff"
+            down-gradient-color-end="#666666" over-color="#ffffff"
+            down-color="#ffffff" over-bold="false">
+              <more frame-color="#A4DBFF"
+              over-frame-color="#A4DBFF"
+              gradient-color-begin="#F4F4F4"
+              gradient-color-end="#BBE4FF"
+              over-gradient-color-begin="#A4DBFF"
+              over-gradient-color-end="#F4F4F4" />
+              <previous frame-color="#BBE4FF"
+              over-frame-color="#A4DBFF"
+              gradient-color-begin="#FFFFFF"
+              gradient-color-end="#A4DBFF"
+              over-gradient-color-begin="#A4DBFF"
+              over-gradient-color-end="#F4F4F4" />
+            </snbuttons>
+            <textboxes frame-color="#CACACA"
+            background-color="#292929" color="#757575"
+            gradient-color-begin="#292929"
+            gradient-color-end="#292929" bold="false">
+              <codeboxes color="#808080" frame-color="#6A6A6A"
+              background-color="#606060"
+              gradient-color-begin="Transparent"
+              gradient-color-end="Transparent" size="10" />
+              <inputs frame-color="#6a6a6a" color="#808080"
+              gradient-color-begin="Transparent"
+              gradient-color-end="Transparent" />
+              <dropdowns list-item-over-color="#52A4DA"
+              frame-color="#6a6a6a" background-color="#292929"
+              color="#808080" gradient-color-begin="#292929"
+              gradient-color-end="#292929" />
+            </textboxes>
+            <buttons frame-color="#6a6a6a"
+            background-color="Transparent"
+            gradient-color-begin="#666666"
+            gradient-color-end="Transparent" color="#FFFFFF"
+            frame-thickness="1" size="12" bold="false"
+            over-frame-color="#FFFFFF" down-frame-color="#6a6a6a"
+            over-gradient-color-begin="#666666"
+            down-gradient-color-begin="Transparent"
+            over-gradient-color-end="#353535"
+            down-gradient-color-end="Transparent" over-size="12"
+            over-bold="false">
+              <post-buttons frame-color="#6a6a6a"
+              gradient-color-end="Transparent" />
+            </buttons>
+            <listboxes frame-color="#CACACA"
+            corner-roundness="4;4;4;4"
+            gradient-color-begin="#F4F4F4"
+            gradient-color-end="#FFFFFF" />
+            <checkboxes checkmark-color="#FFFFC8"
+            frame-color="#6a6a6a"
+            down-gradient-color-begin="#292929"
+            down-gradient-color-end="#292929"
+            background-color="#292929" corner-roundness="3;3;3;3"
+            gradient-color-begin="Transparent"
+            gradient-color-end="Transparent"
+            over-background-color="#292929"
+            down-background-color="#292929" />
+            <servicemarker gradient-color-begin="Transparent"
+            gradient-color-end="#666666" />
+            <tooltips frame-thickness="0" color="#292929"
+            gradient-color-begin="#FFFFFF"
+            gradient-color-end="#FFFFC8" size="10"
+            frame-color="#FFDBA4" />
+          </controls>
+          <texts color="808080">
+            <privacy color="#808080" />
+            <headers color="#FFFFFF" bold="false" />
+            <labels color="#FFFFFF" bold="false" />
+            <messages color="#202020" background-color="#FFFFA4"
+            frame-thickness="0" corner-roundness="4;4;4;4" />
+            <links color="#FFFFFF" underline="false"
+            over-color="#666666" down-color="#666666"
+            down-bold="false" />
+          </texts>
+        </body>
+      </config>
+    </GigyaUI>
+      
+    </extraData>	
+    <uiVars>
+	    <var key="video.keepAspectRatio" value="true"/>
+	    <var key="pictureDefaultDuration" value="2"/>
+	    <var key="autoMute" value="false"/>
+    </uiVars>
+</layout>
