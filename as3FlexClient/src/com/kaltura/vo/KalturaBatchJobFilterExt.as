@@ -1,0 +1,28 @@
+package com.kaltura.vo
+{
+	import com.kaltura.vo.KalturaBatchJobFilter;
+
+	[Bindable]
+	public dynamic class KalturaBatchJobFilterExt extends KalturaBatchJobFilter
+	{
+		/** 
+		* 		* */ 
+		public var jobTypeAndSubTypeIn : String = null;
+
+		override public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = super.getUpdateableParamKeys();
+			arr.push('jobTypeAndSubTypeIn');
+			return arr;
+		}
+
+		override public function getInsertableParamKeys():Array
+		{
+			var arr : Array;
+			arr = super.getInsertableParamKeys();
+			return arr;
+		}
+
+	}
+}
