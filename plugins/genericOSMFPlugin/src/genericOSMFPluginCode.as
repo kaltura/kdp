@@ -4,6 +4,7 @@ package
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.KPluginEvent;
+	import com.kaltura.kdpfl.plugin.component.OSMFPluginMediator;
 	import com.kaltura.kdpfl.util.URLUtils;
 	
 	import fl.core.UIComponent;
@@ -29,6 +30,10 @@ package
 		
 		protected var _pluginURL : String = "";
 		protected var _localMediaFactory : DefaultMediaFactory;
+		protected var _streamerType : String;
+		protected var _mediaFactoryIds : String;
+		
+		protected var _mediator : OSMFPluginMediator;
 		
 		/**
 		 * A-sync init of the Plugin - this function begins an a-sync load process of the 
@@ -38,6 +43,10 @@ package
 		 */		
 		public function initializePlugin(facade:IFacade):void
 		{
+			_mediator =  new OSMFPluginMediator (null, this);
+			
+			facade.registerMediator( _mediator );
+			
 			if (pluginURL)
 			{
 				_localMediaFactory = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.mediaFactory;
@@ -99,5 +108,32 @@ package
 		{
 			_pluginURL = value;
 		}
+		[Bindable]
+		public function get streamerType():String
+		{
+			return _streamerType;
+		}
+
+		public function set streamerType(value:String):void
+		{
+			_streamerType = value;
+		}
+
+		public function get localMediaFactory():DefaultMediaFactory
+		{
+			return _localMediaFactory;
+		}
+		[Bindable]
+		public function get mediaFactoryIds():String
+		{
+			return _mediaFactoryIds;
+		}
+
+		public function set mediaFactoryIds(value:String):void
+		{
+			_mediaFactoryIds = value;
+		}
+
+
 	}
 }
