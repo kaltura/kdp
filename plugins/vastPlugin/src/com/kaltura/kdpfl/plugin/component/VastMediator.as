@@ -115,7 +115,7 @@ package com.kaltura.kdpfl.plugin.component
 							}
 						}
 						
-						if ( !_playedFirstMidroll && (_pluginCode as vastPluginCode).showFirstMidrollAt <= Number(notification.getBody()) )
+						if ( !_playedFirstMidroll && (_pluginCode as vastPluginCode).showFirstMidrollAt && (_pluginCode as vastPluginCode).showFirstMidrollAt <= Number(notification.getBody()) )
 						{
 							_playedFirstMidroll = true;
 							
@@ -133,11 +133,11 @@ package com.kaltura.kdpfl.plugin.component
 					}
 					break;
 				case NotificationType.PLAYER_PLAYED:
-					if (_loadedFirstOverlayVAST)
+					if (_playedFirstMidroll && _vastMidrollTimer)
 						_vastMidrollTimer.start();
 					break;
 				case NotificationType.PLAYER_PAUSED:
-					if (_loadedFirstOverlayVAST)
+					if (_playedFirstMidroll && _vastMidrollTimer)
 						_vastMidrollTimer.stop();
 					break;
 				case "vastStartedPlaying":

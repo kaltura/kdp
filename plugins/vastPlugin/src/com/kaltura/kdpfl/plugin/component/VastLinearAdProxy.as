@@ -241,7 +241,6 @@ package com.kaltura.kdpfl.plugin.component {
 			playerMediator["player"].addEventListener(MediaErrorEvent.MEDIA_ERROR, onVastAdError);
 			playerMediator["cleanMedia"]();
 			//_playingAd.addEventListener("traitAdd", onAdPlayable);
-			playerMediator["player"]["media"] = _playingAd;
 			var sequenceProxy : Object = facade.retrieveProxy("sequenceProxy");
 			
 			if (_playingAdClickThru) {
@@ -254,6 +253,7 @@ package com.kaltura.kdpfl.plugin.component {
 							 {timeSlot: getContextString(_currentSequenceContext)});
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
+			playerMediator["player"]["media"] = _playingAd;
 		}
 		
 		/**
@@ -266,9 +266,7 @@ package com.kaltura.kdpfl.plugin.component {
 			var mediaProxy : MediaProxy = facade.retrieveProxy( MediaProxy.NAME ) as MediaProxy;
 			(mediaProxy.vo.media as KSwitchingProxyElement).secondaryMediaElement = _playingAd;
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
-			//_playingAd.addEventListener("traitAdd", onAdPlayable);
-			(mediaProxy.vo.media as KSwitchingProxyElement).switchElements();
-			
+
 			if (_playingAdClickThru) {
 				playerMediator["kMediaPlayer"].addEventListener(MouseEvent.CLICK, onAdClick);
 			}
@@ -276,6 +274,8 @@ package com.kaltura.kdpfl.plugin.component {
 				{timeSlot: getContextString(_currentSequenceContext)});
 			
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
+			
+			(mediaProxy.vo.media as KSwitchingProxyElement).switchElements();
 		}
 		
 		//Once the ad mediaElement has a time trait, it is safe to show the notice message.
