@@ -146,7 +146,15 @@ package com.kaltura.kdpfl.view.media
 			
 			addChild(_thumbnail);
 			
-			_thumbnail.load(url+"?width="+thumbWidth+"&height="+thumbHeight + (ks != "" ? "&ks=" + ks : ""));
+			if ( url.indexOf( "thumbnail/entry_id" ) != -1 )
+			{
+				_thumbnail.load(url + "/width/" + thumbWidth+"/height/" + thumbHeight + (ks != "" ? "/ks/" + ks : ""));
+			}
+			else
+			{
+				_thumbnail.load( url );
+			}
+			
 			
 		}
 		
