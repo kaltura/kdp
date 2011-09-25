@@ -1,0 +1,369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="ChangeWatcher,mx.binding.utils.ChangeWatcher,canWatch,getEvents,getValue,isWatching,reset,setHandler,unwatch" name="keywords">
+<title>mx.binding.utils.ChangeWatcher</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'ChangeWatcher - kdp3Lib Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?mx/binding/utils/ChangeWatcher.html&amp;mx/binding/utils/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;ChangeWatcher</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class ChangeWatcher"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">mx.binding.utils</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class ChangeWatcher</td>
+</tr>
+</table>
+<p></p>
+  The ChangeWatcher class defines utility methods
+  that you can use with bindable Flex properties.
+  These methods let you define an event handler that is executed
+  whenever a bindable property is updated.
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#ChangeWatcher()">ChangeWatcher</a>(access:Object, handler:Function, commitOnly:Boolean = false, next:<a href="ChangeWatcher.html">ChangeWatcher</a> = null)</div>
+<div class="summaryTableDescription">
+      Constructor.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#canWatch()">canWatch</a>(host:Object, name:String, commitOnly:Boolean = false):Boolean</div>
+<div class="summaryTableDescription">[static]
+      Lets you determine if the host exposes a data-binding event
+      on the property.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getEvents()">getEvents</a>(host:Object, name:String, commitOnly:Boolean = false):Object</div>
+<div class="summaryTableDescription">[static]
+      Returns all the binding events for all bindable properties
+      in the host object.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getValue()">getValue</a>():Object</div>
+<div class="summaryTableDescription">
+      Retrieves the current value of the watched property or property chain,
+      or null if the host object is null.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#isWatching()">isWatching</a>():Boolean</div>
+<div class="summaryTableDescription">
+      Returns <code>true</code> if each watcher in the chain is attached
+      to at least one change event.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#reset()">reset</a>(newHost:Object):void</div>
+<div class="summaryTableDescription">
+      Resets this ChangeWatcher instance to use a new host object.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#setHandler()">setHandler</a>(handler:Function):void</div>
+<div class="summaryTableDescription">
+      Sets the handler function.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#unwatch()">unwatch</a>():void</div>
+<div class="summaryTableDescription">
+      Detaches this ChangeWatcher instance, and its handler function,
+      from the current host.</div>
+</td><td class="summaryTableOwnerCol">ChangeWatcher</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="ChangeWatcher()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ChangeWatcher</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function ChangeWatcher(access:Object, handler:Function, commitOnly:Boolean = false, next:<a href="ChangeWatcher.html">ChangeWatcher</a> = null)</code><p>
+      Constructor.
+      Not for public use. This method is called only from the <code>watch()</code> method.
+      See the <code>watch()</code> method for parameter usage.
+     </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">access</span>:Object</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">handler</span>:Function</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">commitOnly</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">next</span>:<a href="ChangeWatcher.html">ChangeWatcher</a></code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="canWatch()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">canWatch</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function canWatch(host:Object, name:String, commitOnly:Boolean = false):Boolean</code><p>
+      Lets you determine if the host exposes a data-binding event
+      on the property.
+           </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">host</span>:Object</code> &mdash; The host of the property.
+      See the <code>watch()</code> method for more information.
+           </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">name</span>:String</code> &mdash; The name of the property, or property chain.
+      See the <code>watch()</code> method for more information.
+           </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">commitOnly</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Set to <code>true</code> if the handler
+      should be called only on committing change events.
+      See the <code>watch()</code> method for more information.
+           </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash; <code>true</code> if <code>host</code> exposes
+      any change events on <code>name</code>.
+     </td>
+</tr>
+</table>
+</div>
+<a name="getEvents()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getEvents</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function getEvents(host:Object, name:String, commitOnly:Boolean = false):Object</code><p>
+      Returns all the binding events for all bindable properties
+      in the host object.
+           </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">host</span>:Object</code> &mdash; The host of the property.
+      See the <code>watch()</code> method for more information.
+           </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">name</span>:String</code> &mdash; The name of the property, or property chain.
+      See the <code>watch()</code> method for more information.
+           </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">commitOnly</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Controls inclusion of non-committing
+      change events in the returned value.
+           </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code> &mdash; Object of the form <code>{ eventName: isCommitting, ... }</code>
+      containing all change events for the property.
+     </td>
+</tr>
+</table>
+</div>
+<a name="getValue()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getValue</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getValue():Object</code><p>
+      Retrieves the current value of the watched property or property chain,
+      or null if the host object is null.
+      For example:
+      <pre>
+      watch(obj, ["a","b","c"], ...).getValue() === obj.a.b.c
+      </pre>
+           </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code> &mdash; The current value of the watched property or property chain.
+     </td>
+</tr>
+</table>
+</div>
+<a name="isWatching()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">isWatching</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function isWatching():Boolean</code><p>
+      Returns <code>true</code> if each watcher in the chain is attached
+      to at least one change event.
+      Note that the <code>isWatching()</code> method
+      varies with host, since different hosts may expose different change
+      events for the watcher's chosen property.
+           </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash; <code>true</code> if each watcher in the chain is attached
+      to at least one change event.
+     </td>
+</tr>
+</table>
+</div>
+<a name="reset()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">reset</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function reset(newHost:Object):void</code><p>
+      Resets this ChangeWatcher instance to use a new host object.
+      You can call this method to reuse a watcher instance
+      on a different host.
+           </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">newHost</span>:Object</code> &mdash; The new host of the property.
+      See the <code>watch()</code> method for more information.
+     </td>
+</tr>
+</table>
+</div>
+<a name="setHandler()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">setHandler</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function setHandler(handler:Function):void</code><p>
+      Sets the handler function.
+           </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">handler</span>:Function</code> &mdash; The handler function. This argument must not be null.
+     </td>
+</tr>
+</table>
+</div>
+<a name="unwatch()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">unwatch</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function unwatch():void</code><p>
+      Detaches this ChangeWatcher instance, and its handler function,
+      from the current host.
+      You can use the <code>reset()</code> method to reattach
+      the ChangeWatcher instance, or watch the same property
+      or chain on a different host object.
+     </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
