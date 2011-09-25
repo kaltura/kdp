@@ -1,0 +1,16 @@
+package com.kaltura.delegates.user
+{
+	import com.kaltura.config.KalturaConfig;
+	import com.kaltura.net.KalturaCall;
+	import com.kaltura.delegates.WebDelegateBase;
+	import flash.utils.getDefinitionByName;
+
+	public class UserListDelegate extends WebDelegateBase
+	{
+		public function UserListDelegate(call:KalturaCall, config:KalturaConfig)
+		{
+			super(call, config);
+		}
+
+	}
+}

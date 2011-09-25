@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="asdoc" default="main" basedir="./">
+	<target name="main" depends="clean,compile" description="full build of asdocs"/>
+	<target name="clean" description="delete old asdoc">
+		<delete includeemptydirs="true" failonerror="false">
+    		<fileset dir="docs/asdoc" includes="**/*"/>
+	  	</delete>
+	</target>
+	<target name="compile" depends="clean" description="write asdocs">
+		<mkdir dir="docs/asdoc"/>
+		<exec executable="C:\Program Files\Adobe\Adobe Flash Builder 4\sdks\3.5.0\bin\asdoc.exe" failonerror="true">
+			<arg line='-source-path src'/>
+			<arg line='-doc-sources src'/>
+			<arg line='-external-library-path ./libs ../kdp3Lib/bin'/>
+			<!--arg line='-keep-xml'/>
+			<arg line='-lenient'/-->
+			<arg line='-main-title "AdvanceSeek Plugin Documentation"' />
+			<arg line='-window-title "AdvanceSeek Plugin Documentation"' />
+			<arg line='-output docs/asdoc' />
+		</exec>
+	</target>
+</project>

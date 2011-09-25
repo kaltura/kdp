@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="SequenceVO,com.kaltura.kdpfl.model.vo.SequenceVO,activeMidrollPlugin,isAdLoaded,isAdSkip,isInSequence,mainMediaVO,midrollArr,postCurrentIndex,postSequenceArr,postSequenceComplete,postSequenceCount,preCurrentIndex,preSequenceArr,preSequenceComplete,preSequenceCount,timeRemaining" name="keywords">
+<title>com.kaltura.kdpfl.model.vo.SequenceVO</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'SequenceVO - kdp3Lib Documentation';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?com/kaltura/kdpfl/model/vo/SequenceVO.html&amp;com/kaltura/kdpfl/model/vo/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;SequenceVO</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class SequenceVO"); titleBar_setSubNav(false,true,false,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.kaltura.kdpfl.model.vo</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class SequenceVO</td>
+</tr>
+</table>
+<p></p>
+  Class SequenceVO holds parameters related to the KDP sequence mechanism. 
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#activeMidrollPlugin">activeMidrollPlugin</a> : <a href="../../plugin/IMidrollSequencePlugin.html">IMidrollSequencePlugin</a>
+<div class="summaryTableDescription">
+   Property containing the current midroll plugin playing in the player.</div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#isAdLoaded">isAdLoaded</a> : Boolean = false<div class="summaryTableDescription">
+   Property signifying whether the sequencePlugin lined up to play has loaded.</div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#isAdSkip">isAdSkip</a> : Boolean = false<div class="summaryTableDescription">
+   roperty signifying whether the sequencePlugin lined up to play can be skipped; 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#isInSequence">isInSequence</a> : Boolean<div class="summaryTableDescription">
+   lag signifying whether we are currently playing in a sequence (pre or post) 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#mainMediaVO">mainMediaVO</a> : <a href="../vo/MediaVO.html">MediaVO</a>
+<div class="summaryTableDescription">
+   The original MediaVO for the main entry .</div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#midrollArr">midrollArr</a> : Array<div class="summaryTableDescription">
+   Array containing references to the PluginCode files of the sequence plugins that can play midrolls 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#postCurrentIndex">postCurrentIndex</a> : int = -1<div class="summaryTableDescription">
+   ndex of the current position in the post sequence array, initially set to -1.</div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#postSequenceArr">postSequenceArr</a> : Array<div class="summaryTableDescription">
+   Array containing refereces to the PluginCode-s of the sequence plugins in the post sequence 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#postSequenceComplete">postSequenceComplete</a> : Boolean = false<div class="summaryTableDescription">
+   Flag indicating whether the post sequence is complete
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#postSequenceCount">postSequenceCount</a> : Number = 0<div class="summaryTableDescription">
+   Number of post-sequence ads.</div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#preCurrentIndex">preCurrentIndex</a> : int = -1<div class="summaryTableDescription">
+   Index of the current position in the pre sequence array, initially set to -1.</div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#preSequenceArr">preSequenceArr</a> : Array<div class="summaryTableDescription">
+   Array containing references to the PluginCode files of the sequence plugins in the pre-sequence 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#preSequenceComplete">preSequenceComplete</a> : Boolean = false<div class="summaryTableDescription">
+   Flag indicating whether the pre-sequence is complete
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#preSequenceCount">preSequenceCount</a> : Number = 0<div class="summaryTableDescription">
+   Number of pre-sequence ads.</div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#timeRemaining">timeRemaining</a> : Number<div class="summaryTableDescription">
+   he time remaining to the ad playing in the MediaPlayer 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceVO</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="activeMidrollPlugin"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">activeMidrollPlugin</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var activeMidrollPlugin:<a href="../../plugin/IMidrollSequencePlugin.html">IMidrollSequencePlugin</a></code><p>
+   Property containing the current midroll plugin playing in the player. The running assumptions are:
+   a. There is only 1 midroll plugin playing at a given time
+   b. The only way that this midroll is of interest to us is if it's playing in the KDP MediaPlayer.
+   </p></div>
+<a name="isAdLoaded"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">isAdLoaded</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var isAdLoaded:Boolean = false</code><p>
+   Property signifying whether the sequencePlugin lined up to play has loaded. 
+   </p></div>
+<a name="isAdSkip"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">isAdSkip</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var isAdSkip:Boolean = false</code><p>
+   roperty signifying whether the sequencePlugin lined up to play can be skipped; 
+   </p></div>
+<a name="isInSequence"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">isInSequence</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var isInSequence:Boolean</code><p>
+   lag signifying whether we are currently playing in a sequence (pre or post) 
+   </p></div>
+<a name="mainMediaVO"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">mainMediaVO</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var mainMediaVO:<a href="../vo/MediaVO.html">MediaVO</a></code><p>
+   The original MediaVO for the main entry . Saved once in the bginning of the pre-sequence (or post-sequence)
+   </p></div>
+<a name="midrollArr"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">midrollArr</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var midrollArr:Array</code><p>
+   Array containing references to the PluginCode files of the sequence plugins that can play midrolls 
+   </p></div>
+<a name="postCurrentIndex"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">postCurrentIndex</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var postCurrentIndex:int = -1</code><p>
+   ndex of the current position in the post sequence array, initially set to -1. 
+   </p></div>
+<a name="postSequenceArr"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">postSequenceArr</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var postSequenceArr:Array</code><p>
+   Array containing refereces to the PluginCode-s of the sequence plugins in the post sequence 
+   </p></div>
+<a name="postSequenceComplete"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">postSequenceComplete</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var postSequenceComplete:Boolean = false</code><p>
+   Flag indicating whether the post sequence is complete
+   </p></div>
+<a name="postSequenceCount"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">postSequenceCount</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var postSequenceCount:Number = 0</code><p>
+   Number of post-sequence ads.
+   </p></div>
+<a name="preCurrentIndex"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">preCurrentIndex</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var preCurrentIndex:int = -1</code><p>
+   Index of the current position in the pre sequence array, initially set to -1. 
+   </p></div>
+<a name="preSequenceArr"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">preSequenceArr</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var preSequenceArr:Array</code><p>
+   Array containing references to the PluginCode files of the sequence plugins in the pre-sequence 
+   </p></div>
+<a name="preSequenceComplete"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">preSequenceComplete</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var preSequenceComplete:Boolean = false</code><p>
+   Flag indicating whether the pre-sequence is complete
+   </p></div>
+<a name="preSequenceCount"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">preSequenceCount</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var preSequenceCount:Number = 0</code><p>
+   Number of pre-sequence ads.
+   </p></div>
+<a name="timeRemaining"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">timeRemaining</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var timeRemaining:Number</code><p>
+   he time remaining to the ad playing in the MediaPlayer 
+   </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
