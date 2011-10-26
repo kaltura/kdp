@@ -1,0 +1,616 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<meta content="FormDataManager,com.yahoo.astra.managers.FormDataManager,collectedData,dataSource,errorString,failedData,functionValidationFailed,functionValidationPassed,addItem,addTrigger,collectData,removeItem,removeTrigger" name="keywords">
+<title>com.yahoo.astra.managers.FormDataManager</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'FormDataManager - kdp3Lib Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?com/yahoo/astra/managers/FormDataManager.html&amp;com/yahoo/astra/managers/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;FormDataManager</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class FormDataManager"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.yahoo.astra.managers</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class FormDataManager</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">FormDataManager <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td><a href="IFormDataManager.html">IFormDataManager</a></td>
+</tr>
+</table>
+<p></p>
+  Collects user input data and validate it before you submit the data to the server. 
+  Astra does not provide a separate validation class, but there are compatible validation classes available from Adobe. 
+  Another option for the validation is the mx.validators distributed in the Flex SDK. For convenient use of Flex validators, you can use the Astra <code>MXValidatorHelper</code> class. 
+  Flex MXvalidator provides a variety of validation types and detailed error messages. However, the use of the MXvalidator will increase your overall file size by approximately 20K.
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>The following code shows a use of <code>FormDataManager</code>:
+  <div class='listing'><pre>
+    import fl.controls.Button;
+    import fl.controls.TextInput;
+    import com.adobe.as3Validators.as3DataValidation;
+    import com.yahoo.astra.containers.formClasses.FormItem;
+    import com.yahoo.astra.events.FormDataManagerEvent;
+    import com.yahoo.astra.fl.utils.FlValueParser;
+    import com.yahoo.astra.managers.FormDataManager;
+    
+    // Make sure that you have TextInput and Button component in your library
+    var nameTextInput:TextInput = new TextInput();
+    var nameFormItem : FormItem = new FormItem("Name", nameTextInput);
+    this.addChild(nameFormItem);
+    
+    var emailTextInput : TextInput = new TextInput();
+    var emailFormItem : FormItem = new FormItem("Email", emailTextInput);
+    emailFormItem.required = true;
+    emailFormItem.y = 30;
+    this.addChild(emailFormItem);
+    
+    var submitButton : Button = new Button();
+    submitButton.label="SUBMIT";
+    submitButton.y = 60;
+    this.addChild(submitButton);
+    
+    // Init FormDataManager with FlValueParser.
+    var formDataManager : FormDataManager = new FormDataManager(FlValueParser);
+    formDataManager.functionValidationPassed = handlerValidationPassed;
+    formDataManager.functionValidationFailed = handlerValidationFailed;
+    formDataManager.addTrigger(submitButton, handlerDataCollectionSuccess, handlerDataCollectionFail);
+    
+    var validator : as3DataValidation = new as3DataValidation();
+    formDataManager.dataSource = [{ id: "name", source:nameTextInput},
+    { id:"email", source:emailTextInput, required:true, validator:validator.isEmail, eventTargetObj:emailFormItem }];
+    
+    // This will be called when eventTargetObj receives FormDataManagerEvent.VALIDATION_PASSED
+    function handlerValidationPassed(e : FormDataManagerEvent):void {
+     trace("required collectedData:", e.collectedData.toString());
+     if (e.target is FormItem) {
+     // If the eventTargetObj is FormItem, hide the requiredIndicator(.
+      var formItemRequiredIndicator : DisplayObject = (e.target as FormItem).requiredIndicator;
+      if (formItemRequiredIndicator) formItemRequiredIndicator.visible = false;
+     }
+    }
+    
+    // This will be called when eventTargetObj receives FormDataManagerEvent.VALIDATION_FAILED
+    function handlerValidationFailed(e : FormDataManagerEvent):void {
+     trace("required errorMessage:", e.errorMessage.toString());
+     if (e.target is FormItem) {
+     // If the eventTargetObj is FormItem, show the requiredIndicator(.
+      var formItemRequiredIndicator : DisplayObject = (e.target as FormItem).requiredIndicator;
+     if (formItemRequiredIndicator) formItemRequiredIndicator.visible = true;
+     }
+    }
+    // Below will be called when all the required fields are passed validation(FormDataManagerEvent.DATACOLLECTION_SUCCESS).
+    function handlerDataCollectionSuccess(e : FormDataManagerEvent) {
+     for (var i:String in FormDataManager.collectedData) {
+      trace("SUCCESS ",i + " : " + FormDataManager.collectedData[i] + "\n");
+      // "SUCCESS ", email : address&#64;yahoo.com  
+     }
+    }
+    // Below will be called when there is any invalid required field(FormDataManagerEvent.DATACOLLECTION_FAIL).
+    function handlerDataCollectionFail(e : FormDataManagerEvent) {
+     for (var i:String in FormDataManager.failedData) {
+      trace("FAIL ",i + " :: " + FormDataManager.failedData[i] + "\n");
+      // "FAIL ", email : Missing an &#64; character in your email address.  
+     }
+    }
+  </pre></div>
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../utils/ValueParser.html" target="">com.yahoo.astra.utils.ValueParser</a>
+<br>
+<a href="../fl/utils/FlValueParser.html" target="">com.yahoo.astra.fl.utils.FlValueParser</a>
+<br>
+<a href="../utils/MXValidationHelper.html" target="">com.yahoo.astra.utils.MXValidationHelper</a>
+<br>
+<a href="http://code.google.com/p/flash-validators" target="mm_external">http://code.google.com/p/flash-validators</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#collectedData">collectedData</a> : Object<div class="summaryTableDescription">[static]
+   Collection of form input data variables object array.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#dataSource">dataSource</a> : Object<div class="summaryTableDescription">
+   Gets or sets the data to be shown and validated in <code>Form</code>.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#errorString">errorString</a> : String<div class="summaryTableDescription">
+   Gets and sets the text representing error.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#failedData">failedData</a> : Object<div class="summaryTableDescription">[static]
+   Collection of error messages object array.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#functionValidationFailed">functionValidationFailed</a> : Function<div class="summaryTableDescription">
+   Gets and sets the method to be called as a handler function, when validation is failed(FormDataManagerEvent.VALIDATION_FAILED).</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#functionValidationPassed">functionValidationPassed</a> : Function<div class="summaryTableDescription">
+   Sets the method to be called as a handler function, when validation is success(FormDataManagerEvent.VALIDATION_PASSED).</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#FormDataManager()">FormDataManager</a>(customValuePaser:Class = null)</div>
+<div class="summaryTableDescription">
+   Constructor.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addItem()">addItem</a>(id:String, source:Object, property:Object = null, required:Boolean = false, validation:Function = null, validatorExtraParam:Object = null, eventTargetObj:DisplayObject = null, functionValidationPassed:Function = null, functionValidationFailed:Function = null, errorString:String = null):void</div>
+<div class="summaryTableDescription">
+   <p>Registers items into the FormDataManager with it's properties.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addTrigger()">addTrigger</a>(button:DisplayObject, functionDataCollectionSuccess:Function = null, functionDataCollectionFail:Function = null):void</div>
+<div class="summaryTableDescription">
+   Registers a button(DisplayObject) to trigger <code>collectData</code> by MouseEvent.CLICK event.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#collectData()">collectData</a>(e:MouseEvent = null):void</div>
+<div class="summaryTableDescription">
+   Starts collecting and validating data.</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeItem()">removeItem</a>(id:String):void</div>
+<div class="summaryTableDescription">
+   Unregisters items from the FormDataManager 
+   
+   </div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeTrigger()">removeTrigger</a>(button:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Unregisters the button(DisplayObject calling <code>collectData</code>).</div>
+</td><td class="summaryTableOwnerCol">FormDataManager</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="collectedData"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">collectedData</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>collectedData:Object</code>&nbsp;&nbsp;[read-write]<p>
+   Collection of form input data variables object array. 
+   The <code>"id"</code> will be the key and the user input from the <code>"source"</code> will be value of the array.(e.g. collectedData["zip"] = "94089")
+   You can loop over each value within the <code>collectedData</code> object instance by using a for..in loop.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get collectedData():Object</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set collectedData(value:Object):void</code>
+<br>
+<br>
+<span class="label">Example</span>
+<br>The following code configures shows usage of <code>collectedData</code>:
+   <div class='listing'><pre>
+   for (var i:String in FormDataManager.collectedData) {  
+    trace( i + " : " + FormDataManager.collectedData[i] + "\n");  
+   }
+   // state : CA
+   // zip :  94089
+   </pre></div>
+   
+   <p></p>
+</div>
+<a name="dataSource"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dataSource</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>dataSource:Object</code>&nbsp;&nbsp;[read-write]<p>
+   Gets or sets the data to be shown and validated in <code>Form</code>. 
+   <code>id</code>and <code>source</code> are required.
+   
+   </p><p><strong>Property Options:</strong></p>
+   <dl>
+    <dt><strong><code>id</code></strong> : String(or an Array of String)</dt>
+     <dd>The property of collected data.(e.g. id:"zip"  will be saved in FormDataManager as <code>FormDataManager.collectedData</code>["zip"] = "94089")</dd>
+    <dt><strong><code>source</code></strong> : Object(or Object Array)</dt>
+     <dd>The actual input source contains user input data.(e.g. source:stateComboBox  or  source:[stateComboBox, zipcodeInput])</dd>
+    <dt><strong><code>property</code></strong> : Object(or Object Array)</dt>
+     <dd>The additional property of <code>source</code>. If you defined <code>valuePaser</code> of FormDataManager as <code>FlValueParser</code>, don't need to set this property in general(e.g. source:[comboBox, textInput] , property:["abbreviation","text"]</dd>
+    <dt><strong><code>validator</code></strong> : Function(or Function Array)</dt>
+     <dd>The Function to validate the <code>source</code>.(e.g.  validator:validator.isZip)</dd>
+    <dt><strong><code>validatorExtraParam</code></strong> : Object(or Object Array)</dt>
+     <dd>The additional parameter of the <code>validator</code>.(e.g. validator:validator.isIntegerInRange, validatorExtraParam:[1, 20])</dd>
+    <dt><strong><code>required</code></strong> : Boolean(or Boolean Array)</dt>
+     <dd>The Boolean to decide to show required filed indicator(*) and apply validation(<code>validator</code>).(e.g. id:["stateComboBox", "zipcodeInput"], required:[false, true]) </dd>
+    <dt><strong><code>errorString</code></strong> : String</dt>
+     <dd>The String to show under the item(s) fail to validation when <code>showErrorMessageText</code> is set <code>true</code>. If there is existing <code>instructionText</code>, will be replaced by <code>errorString</code>.(e.g. errorString:"What kind of zipcode is that?.")</dd>
+    <dt><strong><code>targetObj</code></strong> : DisplayObject</dt>
+     <dd>The DisplayObject to listen <code>FormDataManagerEvent</code> type of <code>FormDataManagerEvent.VALIDATION_PASSED</code> and <code>FormDataManagerEvent.VALIDATION_FAILED</code></dd>
+    <dt><strong><code>functionValidationPassed</code></strong> : Function</dt>
+     <dd>The Function to be triggered for <code>FormDataManagerEvent</code> type of <code>FormDataManagerEvent.VALIDATION_PASSED</code></dd>
+    <dt><strong><code>functionValidationFailed</code></strong> : Function</dt>
+     <dd>The Function to be triggered for <code>FormDataManagerEvent</code> type of <code>FormDataManagerEvent.VALIDATION_FAILED</code></dd> 
+   </dl>
+   
+   <span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get dataSource():Object</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set dataSource(value:Object):void</code>
+<br>
+<br>
+<span class="label">Example</span>
+<br>The following code shows a use of <code>dataSource</code>:
+    <div class='listing'><pre>
+   formDataManager.dataSource = [
+    {id:"firstname", source:firstNameInput, validator:validator.isNotEmpty, required:true},
+    {id:"email", source:emailInput},
+    {id:"emailformat", source:radioGroup},
+    {id:"zipcode", source:zipcodeInput, validator:validator.isZip, required:true, eventTargetObj:zipcodeInput, functionValidationPassed:handlerZipPassed, functionValidationFailed:handlerZipFailed} ];
+   
+   function handlerZipPassed(e:FormDataManagerEvent) { trace("zipcode:"+e.collectedData) } ;
+   function handlerZipFailed(e:FormDataManagerEvent) { trace("zipcode Error:"+e.errorMessage) } ;
+   </pre></div>
+   
+   <p></p>
+</div>
+<a name="errorString"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">errorString</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>errorString:String</code>&nbsp;&nbsp;[read-write]<p>
+   Gets and sets the text representing error.
+   
+   </p><p>The default value is <code>"Invalid input"</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get errorString():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set errorString(value:String):void</code>
+<br>
+</div>
+<a name="failedData"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">failedData</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>failedData:Object</code>&nbsp;&nbsp;[read-write]<p>
+   Collection of error messages object array. 
+   Any error string from validation or default <code>errorString</code> will be collected as a object array with <code>"id"</code> as a key and the message as value.
+   
+    </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get failedData():Object</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set failedData(value:Object):void</code>
+<br>
+<br>
+<span class="label">Example</span>
+<br>The following code configures shows usage of <code>failedData</code>:
+   <div class='listing'><pre>
+   for (var i:String in FormDataManager.failedData) {  
+    trace( i + " : " + FormDataManager.failedData[i] + "\n");  
+   }
+   // zip : Unkown Zip type.
+   // email : The email address contains invalid characters.
+   </pre></div>
+   <p></p>
+</div>
+<a name="functionValidationFailed"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">functionValidationFailed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>functionValidationFailed:Function</code>&nbsp;&nbsp;[read-write]<p>
+   Gets and sets the method to be called as a handler function, when validation is failed(FormDataManagerEvent.VALIDATION_FAILED).
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get functionValidationFailed():Function</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set functionValidationFailed(value:Function):void</code>
+<br>
+</div>
+<a name="functionValidationPassed"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">functionValidationPassed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>functionValidationPassed:Function</code>&nbsp;&nbsp;[read-write]<p>
+   Sets the method to be called as a handler function, when validation is success(FormDataManagerEvent.VALIDATION_PASSED).
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get functionValidationPassed():Function</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set functionValidationPassed(value:Function):void</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="FormDataManager()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">FormDataManager</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function FormDataManager(customValuePaser:Class = null)</code><p>
+   Constructor.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">customValuePaser</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; IValuePaser Class. If there is no defined <code>customValuePaser</code>, <code>com.yahoo.astra.utils.ValuePaser</code> will be used to strip input data.
+   </td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="addItem()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addItem</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addItem(id:String, source:Object, property:Object = null, required:Boolean = false, validation:Function = null, validatorExtraParam:Object = null, eventTargetObj:DisplayObject = null, functionValidationPassed:Function = null, functionValidationFailed:Function = null, errorString:String = null):void</code><p>
+   </p><p>Registers items into the FormDataManager with it's properties.
+   Since FormDataManager collects and saves data as form of associative arrays, "id" will be used as a property of the array. (e.g. collectedData["zip"] = "94089")</p>
+   <code>id</code>and <code>source</code> are mandatory. 
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">id</span>:String</code> &mdash; String to be a property of the data array(collectedData or failedData)
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">source</span>:Object</code> &mdash; Object contains form input.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">property</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; Object property of the <code>source</code>.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">required</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Boolean determinds to be validated or not.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">validation</span>:Function</code> (default = <code>null</code>)<code></code> &mdash; Function to be used for validation of the <code>source</code>. 
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">validatorExtraParam</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; Object extra parameter(beside the first parameter) of the validation.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">eventTargetObj</span>:DisplayObject</code> (default = <code>null</code>)<code></code> &mdash; DisplayObject to be listen <code>FormDataManagerEvent</code> (<code>FormDataManagerEvent.VALIDATION_PASSED</code> and <code>FormDataManagerEvent.VALIDATION_FAILED</code>)
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">functionValidationPassed</span>:Function</code> (default = <code>null</code>)<code></code> &mdash; Function Object to be triggered when <code>eventTargetObj</code> gets <code>FormDataManagerEvent.VALIDATION_PASSED</code> event.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">functionValidationFailed</span>:Function</code> (default = <code>null</code>)<code></code> &mdash; Function Object to be triggered when <code>eventTargetObj</code> gets <code>FormDataManagerEvent.VALIDATION_FAILED</code> event.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">errorString</span>:String</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+</div>
+<a name="addTrigger()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addTrigger</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addTrigger(button:DisplayObject, functionDataCollectionSuccess:Function = null, functionDataCollectionFail:Function = null):void</code><p>
+   Registers a button(DisplayObject) to trigger <code>collectData</code> by MouseEvent.CLICK event.
+   Also sets <code>functionDataCollectionSuccess</code> and <code>functionDataCollectionFail</code> to be triggered when <code>FormDataManagerEvent.DATACOLLECTION_SUCCESS</code> or <code>FormDataManagerEvent.DATACOLLECTION_FAIL</code> happens.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">button</span>:DisplayObject</code> &mdash; DisplayObject button to be clicked.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">functionDataCollectionSuccess</span>:Function</code> (default = <code>null</code>)<code></code> &mdash; Function to be triggered when all the forms passed validation(<code>FormDataManagerEvent.DATACOLLECTION_SUCCESS</code>)
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">functionDataCollectionFail</span>:Function</code> (default = <code>null</code>)<code></code> &mdash; Function to be triggered when any the forms failed validation(<code>FormDataManagerEvent.DATACOLLECTION_FAIL</code>)
+   </td>
+</tr>
+</table>
+</div>
+<a name="collectData()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">collectData</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function collectData(e:MouseEvent = null):void</code><p>
+   Starts collecting and validating data.
+   If there is registered trigger(<code>addTrigger</code>), this function will be called by <code>MouseEvent.CLICK</code> event of the button.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">e</span>:MouseEvent</code> (default = <code>null</code>)<code></code> &mdash; MouseEvent
+   </td>
+</tr>
+</table>
+</div>
+<a name="removeItem()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeItem</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function removeItem(id:String):void</code><p>
+   Unregisters items from the FormDataManager 
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">id</span>:String</code> &mdash; String
+   </td>
+</tr>
+</table>
+</div>
+<a name="removeTrigger()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeTrigger</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function removeTrigger(button:DisplayObject):void</code><p>
+   Unregisters the button(DisplayObject calling <code>collectData</code>).
+   Also removes FormDataManagerEvent listeners : <code>FormDataManagerEvent.DATACOLLECTION_SUCCESS</code> and <code>FormDataManagerEvent.DATACOLLECTION_FAIL</code>.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">button</span>:DisplayObject</code> &mdash; DisplayObject
+   </td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
