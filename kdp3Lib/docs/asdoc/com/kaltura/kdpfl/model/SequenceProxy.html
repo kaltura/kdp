@@ -1,0 +1,613 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<meta content="SequenceProxy,com.kaltura.kdpfl.model.SequenceProxy,NAME,sequenceContext,vo,activateMidrollSequence,activePlugin,hasMediaElement,hasMediaLoaded,hasSequenceToPlay,hasSubSequence,initPostIndex,initPreIndex,playNextInSequence,populatePrePostArr,prePostInited,resolveProgress,restoreMainMedia,saveMainMedia" name="keywords">
+<title>com.kaltura.kdpfl.model.SequenceProxy</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'SequenceProxy - kdp3Lib Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?com/kaltura/kdpfl/model/SequenceProxy.html&amp;com/kaltura/kdpfl/model/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;SequenceProxy</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class SequenceProxy"); titleBar_setSubNav(true,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.kaltura.kdpfl.model</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class SequenceProxy</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">SequenceProxy <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../images/inherit-arrow.gif"> <a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../images/inherit-arrow.gif"> <a href="../../../../org/puremvc/as3/patterns/observer/Notifier.html">Notifier</a></td>
+</tr>
+</table>
+<p></p>
+  Class SequenceProxy manages everything that is related to the sequence mechanism - i.e the beginning of pre- and post- 
+  advertising sequences, resolving of progress after pre- or post- sequences have ended, etc.
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sequenceContext">sequenceContext</a> : String<div class="summaryTableDescription">[read-only]
+   Function for retrieval of the sequence context that is running currently.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#vo">vo</a> : <a href="vo/SequenceVO.html">SequenceVO</a>
+<div class="summaryTableDescription">[read-only]</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+</table>
+</div>
+<a name="protectedPropertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Properties</div>
+<div class="showHideLinks">
+<div class="hideInheritedProtectedProperty" id="hideInheritedProtectedProperty">
+<a onclick="javascript:setInheritedVisible(false,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Properties</a>
+</div>
+<div class="showInheritedProtectedProperty" id="showInheritedProtectedProperty">
+<a onclick="javascript:setInheritedVisible(true,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Properties</a>
+</div>
+</div>
+<table id="summaryTableProtectedProperty" class="summaryTable hideInheritedProtectedProperty" cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="hideInheritedProtectedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html#data">data</a> : Object<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a></td>
+</tr>
+<tr class="hideInheritedProtectedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../../../org/puremvc/as3/patterns/observer/Notifier.html#facade">facade</a> : <a href="../../../../org/puremvc/as3/interfaces/IFacade.html">IFacade</a>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/observer/Notifier.html">Notifier</a></td>
+</tr>
+<tr class="hideInheritedProtectedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html#proxyName">proxyName</a> : String<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a></td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<div class="showHideLinks">
+<div class="hideInheritedMethod" id="hideInheritedMethod">
+<a onclick="javascript:setInheritedVisible(false,'Method');" href="#methodSummary" class="showHideLink"><img src="../../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Public Methods</a>
+</div>
+<div class="showInheritedMethod" id="showInheritedMethod">
+<a onclick="javascript:setInheritedVisible(true,'Method');" href="#methodSummary" class="showHideLink"><img src="../../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Public Methods</a>
+</div>
+</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#SequenceProxy()">SequenceProxy</a>(proxyName:String = null, data:Object = null)</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#activateMidrollSequence()">activateMidrollSequence</a>(midrollPlugin:<a href="../plugin/IMidrollSequencePlugin.html">IMidrollSequencePlugin</a>):void</div>
+<div class="summaryTableDescription">
+   function which activates the sequence plugin's midroll sequence.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#activePlugin()">activePlugin</a>():<a href="../plugin/ISequencePlugin.html">ISequencePlugin</a>
+</div>
+<div class="summaryTableDescription">
+   Function which evaluates the current plugin being played in the sequence (pre/post) 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html#getData()">getData</a>():Object</div>
+<div class="summaryTableDescription">
+   Get the data object
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html#getProxyName()">getProxyName</a>():String</div>
+<div class="summaryTableDescription">
+   Get the proxy name
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a></td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hasMediaElement()">hasMediaElement</a>():Boolean</div>
+<div class="summaryTableDescription">
+   Function which checks whether the sequence plugin lined up to play plays withing the KDP or as an independent swf.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hasMediaLoaded()">hasMediaLoaded</a>():Boolean</div>
+<div class="summaryTableDescription">
+   Function checks whether the sequence plugin lined up to play
+   has been loaded into the MediaPlayer (this check is performed only if the
+   sequence plugin plays in the MediaPlayer of the KDP and not as a custom swf.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hasSequenceToPlay()">hasSequenceToPlay</a>():Boolean</div>
+<div class="summaryTableDescription">
+   Function evaluates whether there is are sequence items to play.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hasSubSequence()">hasSubSequence</a>():Boolean</div>
+<div class="summaryTableDescription">
+   Function returns whether the sequence plugin lined up to play
+   has a sub-sequence (For now, will only be implemented with VAST plugin.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#initPostIndex()">initPostIndex</a>():void</div>
+<div class="summaryTableDescription">
+   Function initiates the postsequence index to 0
+   on the condition that the player has post-sequence configured.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#initPreIndex()">initPreIndex</a>():void</div>
+<div class="summaryTableDescription">
+   Function evaluates the pre sequence index to 0
+   if the kdp has pre sequence configured.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html#onRegister()">onRegister</a>():void</div>
+<div class="summaryTableDescription">
+   Called by the Model when the Proxy is registered
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html#onRemove()">onRemove</a>():void</div>
+<div class="summaryTableDescription">
+   Called by the Model when the Proxy is removed
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a></td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#playNextInSequence()">playNextInSequence</a>():void</div>
+<div class="summaryTableDescription">
+   Function which plays the next sequence plugin lined up to play in either
+   the pre-sequenceor the post-sequence.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#populatePrePostArr()">populatePrePostArr</a>():void</div>
+<div class="summaryTableDescription">
+   unction to populate the pre and post sequence arrs on the  
+   SequenceVO with the appropriate configurations
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#prePostInited()">prePostInited</a>():Boolean</div>
+<div class="summaryTableDescription">
+   Function to check whether the pre and post sequences have been configured 
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#resolveProgress()">resolveProgress</a>():void</div>
+<div class="summaryTableDescription">
+   Function meant to resolve the onward progress of playback after the end
+   of a sequence plugin - whether the next plugin should be played or whether the
+   sequence (pre/post) has been completed 
+   
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#restoreMainMedia()">restoreMainMedia</a>():void</div>
+<div class="summaryTableDescription">
+   unction which restores the original mediaVO to the MediaProxy 
+   
+   </div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#saveMainMedia()">saveMainMedia</a>():void</div>
+<div class="summaryTableDescription">
+   unction which saves the main mediaVO as a property of the SequenceVO.</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../../../org/puremvc/as3/patterns/observer/Notifier.html#sendNotification()">sendNotification</a>(notificationName:String, body:Object = null, type:String = null):void</div>
+<div class="summaryTableDescription">
+   Create and send an <code>INotification</code>.</div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/observer/Notifier.html">Notifier</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html#setData()">setData</a>(data:Object):void</div>
+<div class="summaryTableDescription">
+   Set the data object
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../../../../org/puremvc/as3/patterns/proxy/Proxy.html">Proxy</a></td>
+</tr>
+</table>
+</div>
+<a name="constantSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Constants</div>
+<table id="summaryTableConstant" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#NAME">NAME</a> : String = "sequenceProxy"<div class="summaryTableDescription">[static]</div>
+</td><td class="summaryTableOwnerCol">SequenceProxy</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="sequenceContext"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sequenceContext</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>sequenceContext:String</code>&nbsp;&nbsp;[read-only]<p>
+   Function for retrieval of the sequence context that is running currently. 
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get sequenceContext():String</code>
+<br>
+</div>
+<a name="vo"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">vo</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>vo:<a href="vo/SequenceVO.html">SequenceVO</a></code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get vo():<a href="vo/SequenceVO.html">SequenceVO</a></code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="SequenceProxy()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">SequenceProxy</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function SequenceProxy(proxyName:String = null, data:Object = null)</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">proxyName</span>:String</code> (default = <code>null</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">data</span>:Object</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="activateMidrollSequence()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">activateMidrollSequence</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function activateMidrollSequence(midrollPlugin:<a href="../plugin/IMidrollSequencePlugin.html">IMidrollSequencePlugin</a>):void</code><p>
+   function which activates the sequence plugin's midroll sequence.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">midrollPlugin</span>:<a href="../plugin/IMidrollSequencePlugin.html">IMidrollSequencePlugin</a></code> &mdash; the sequence plugin sheduled to play a midroll.
+   
+   </td>
+</tr>
+</table>
+</div>
+<a name="activePlugin()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">activePlugin</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function activePlugin():<a href="../plugin/ISequencePlugin.html">ISequencePlugin</a></code><p>
+   Function which evaluates the current plugin being played in the sequence (pre/post) 
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../plugin/ISequencePlugin.html">ISequencePlugin</a></code></td>
+</tr>
+</table>
+</div>
+<a name="hasMediaElement()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hasMediaElement</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hasMediaElement():Boolean</code><p>
+   Function which checks whether the sequence plugin lined up to play plays withing the KDP or as an independent swf. 
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash; <code>true</code> if the plugin plays in the KDP; <code>false</code> otherwise.
+   
+   </td>
+</tr>
+</table>
+</div>
+<a name="hasMediaLoaded()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hasMediaLoaded</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hasMediaLoaded():Boolean</code><p>
+   Function checks whether the sequence plugin lined up to play
+   has been loaded into the MediaPlayer (this check is performed only if the
+   sequence plugin plays in the MediaPlayer of the KDP and not as a custom swf.
+   
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="hasSequenceToPlay()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hasSequenceToPlay</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hasSequenceToPlay():Boolean</code><p>
+   Function evaluates whether there is are sequence items to play. 
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash; returns <code>true</code> if there is anything left to play in 
+   the pre or post sequence arrays. Returns <code>false</code> otherwise.
+   
+   </td>
+</tr>
+</table>
+</div>
+<a name="hasSubSequence()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hasSubSequence</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hasSubSequence():Boolean</code><p>
+   Function returns whether the sequence plugin lined up to play
+   has a sub-sequence (For now, will only be implemented with VAST plugin.  
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash; <code>true</code> if the sequence plugin has any sequence of its own;
+   <code>false</script> otherwise.
+   
+   </td>
+</tr>
+</table>
+</div>
+<a name="initPostIndex()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">initPostIndex</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function initPostIndex():void</code><p>
+   Function initiates the postsequence index to 0
+   on the condition that the player has post-sequence configured. 
+   
+   </p></div>
+<a name="initPreIndex()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">initPreIndex</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function initPreIndex():void</code><p>
+   Function evaluates the pre sequence index to 0
+   if the kdp has pre sequence configured. 
+   
+   </p></div>
+<a name="playNextInSequence()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">playNextInSequence</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function playNextInSequence():void</code><p>
+   Function which plays the next sequence plugin lined up to play in either
+   the pre-sequenceor the post-sequence. 
+   
+   </p></div>
+<a name="populatePrePostArr()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">populatePrePostArr</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function populatePrePostArr():void</code><p>
+   unction to populate the pre and post sequence arrs on the  
+   SequenceVO with the appropriate configurations
+   </p></div>
+<a name="prePostInited()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">prePostInited</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function prePostInited():Boolean</code><p>
+   Function to check whether the pre and post sequences have been configured 
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash; True- if the pre and post arrs have been populated. false otherwise.
+   
+   </td>
+</tr>
+</table>
+</div>
+<a name="resolveProgress()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">resolveProgress</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function resolveProgress():void</code><p>
+   Function meant to resolve the onward progress of playback after the end
+   of a sequence plugin - whether the next plugin should be played or whether the
+   sequence (pre/post) has been completed 
+   
+   </p></div>
+<a name="restoreMainMedia()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">restoreMainMedia</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function restoreMainMedia():void</code><p>
+   unction which restores the original mediaVO to the MediaProxy 
+   
+   </p></div>
+<a name="saveMainMedia()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">saveMainMedia</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function saveMainMedia():void</code><p>
+   unction which saves the main mediaVO as a property of the SequenceVO. 
+   
+   </p></div>
+<a name="constantDetail"></a>
+<div class="detailSectionHeader">Constant detail</div>
+<a name="NAME"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">NAME</td><td class="detailHeaderType">constant</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const NAME:String = "sequenceProxy"</code>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
