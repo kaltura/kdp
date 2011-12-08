@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="KDP Builder" basedir=".">        
+	
+	<property file="build.properties" description="Load project build properties"/>
+	
+	<target name="build">
+		<echo>Compiling the plugins</echo>					
+		
+		<ant dir="adaptvPlugin" inheritAll="true" target="build"/>
+		<ant dir="advanceSeekPlugin" inheritAll="true" target="build"/>
+		<ant dir="bumperPlugin" inheritAll="true" target="build"/>
+		<ant dir="captureThumbnailPlugin" inheritAll="true" target="build"/>
+		<ant dir="downloadPlugin" inheritAll="true" target="build"/>
+		<ant dir="eyewonderPlugin" inheritAll="true" target="build"/>
+		<ant dir="faderPlugin" inheritAll="true" target="build"/>
+		<ant dir="gigyaPlugin" inheritAll="true" target="build"/>
+		<ant dir="googleAnalyticsPlugin" inheritAll="true" target="build"/>
+		<ant dir="kalturaMixPlugin" inheritAll="true" target="build"/>
+		<ant dir="listPlugin" inheritAll="true" target="build"/>
+		<ant dir="omniturePlugin" inheritAll="true" target="build"/>
+		<ant dir="overlayPlugin" inheritAll="true" target="build"/>
+		<ant dir="playlistApiPlugin" inheritAll="true" target="build"/>
+		<!--ant dir="playlistListPlugin" inheritAll="true" target="build"/-->
+		<ant dir="plymediaPlugin" inheritAll="true" target="build"/>
+		<ant dir="starsPlugin" inheritAll="true" target="build"/>
+		<ant dir="statisticsPlugin" inheritAll="true" target="build"/>
+		<ant dir="tabBarPlugin" inheritAll="true" target="build"/>
+		<ant dir="tremorPlugin" inheritAll="true" target="build"/>
+		<ant dir="vastPlugin" inheritAll="true" target="build"/>			
+	</target>
+</project>
