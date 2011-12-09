@@ -1,0 +1,855 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="Menu,com.yahoo.astra.fl.controls.Menu,closeOnMouseLeave,createAccessibilityImplementation,groups,parentMenuClickable,specifiedPoint,dataProvider,labelField,parentMenu,subMenus,createMenu,hide,initializeAccessibility,popUpMenu,setRendererStyle,setStyle,show" name="keywords">
+<title>com.yahoo.astra.fl.controls.Menu</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Menu - kdp3Lib Documentation';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?com/yahoo/astra/fl/controls/Menu.html&amp;com/yahoo/astra/fl/controls/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Menu</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a>&nbsp;| <a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Menu"); titleBar_setSubNav(false,true,true,false,true,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.yahoo.astra.fl.controls</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Menu</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Menu <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> fl.controls.List</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td><a href="../containers/IRendererContainer.html">IRendererContainer</a></td>
+</tr>
+</table>
+<p></p>
+  The Menu class creates an array of menus from an XML data provider.
+  Add the Menu to your library (either by dragging it onto the stage and then deleting it, or
+  dragging it directly to your library). Then call the static <code>Menu.createMenu(parent)</code> 
+  method to create a menu, and call <code>yourMenuInstance.show()</code> to display it.
+   <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#closeOnMouseLeave">closeOnMouseLeave</a> : Boolean<div class="summaryTableDescription">
+  Indicates whether the menu will close when the mouse leaves the stage.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#createAccessibilityImplementation">createAccessibilityImplementation</a> : Function<div class="summaryTableDescription">[static]
+ Placeholder for mixin by MenuAccImpl.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#dataProvider">dataProvider</a> : DataProvider<div class="summaryTableDescription">
+   Gets or sets the data model of the list of items to be viewed.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#groups">groups</a> : Object<div class="summaryTableDescription">
+  Object that contains arrays of groups.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#labelField">labelField</a> : String<div class="summaryTableDescription">
+      Name of the field in the items in the <code>dataProvider</code> 
+      Array to display as the label in the Menu.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#parentMenu">parentMenu</a> : <a href="../controls/Menu.html">Menu</a>
+<div class="summaryTableDescription">
+   The parent menu in a hierarchical chain of menus, where the current 
+   menu is a submenu of the parent.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#parentMenuClickable">parentMenuClickable</a> : Boolean<div class="summaryTableDescription">
+  Indicates whether or not a menu item with a submenu is clickable.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#specifiedPoint">specifiedPoint</a> : Point<div class="summaryTableDescription">
+  Coordinates indicating the ideal position of the menu.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#subMenus">subMenus</a> : Array<div class="summaryTableDescription">[read-only]
+   Get the current set of submenus for a Menu
+  </div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#Menu()">Menu</a>()</div>
+<div class="summaryTableDescription">
+      Constructor.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#createMenu()">createMenu</a>(inParent:DisplayObjectContainer, xmlDataProvider:Object = null):<a href="../controls/Menu.html">Menu</a>
+</div>
+<div class="summaryTableDescription">[static]
+      Creates and returns an instance of the Menu class.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hide()">hide</a>(useTween:Boolean = true):void</div>
+<div class="summaryTableDescription">
+   Hides the Menu control and any of its submenus if visible
+  </div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#popUpMenu()">popUpMenu</a>(menu:<a href="Menu.html">Menu</a>, parent:DisplayObjectContainer, dp:Object = null):void</div>
+<div class="summaryTableDescription">[static]
+      Sets the dataProvider of an existing Menu control and places the Menu 
+      control in the specified parent container.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#setRendererStyle()">setRendererStyle</a>(name:String, style:Object, column:uint = 0):void</div>
+<div class="summaryTableDescription">
+   Sets a style on the renderers in the list.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#setStyle()">setStyle</a>(style:String, value:Object):void</div>
+<div class="summaryTableDescription">
+   
+      </div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#show()">show</a>(xShow:Object = null, yShow:Object = null):void</div>
+<div class="summaryTableDescription">
+      Shows the Menu control.</div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#initializeAccessibility()">initializeAccessibility</a>():void</div>
+<div class="summaryTableDescription">
+       </div>
+</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+</table>
+</div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:change">change</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when a different item is selected in the Menu.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:itemClick">itemClick</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when the user clicks an item in the menu.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:itemRollOut">itemRollOut</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when the user rolls the pointer off a row.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:itemRollOver">itemRollOver</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when the user rolls the pointer over a row.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:menuHide">menuHide</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when a menu is hidden.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:menuShow">menuShow</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when a menu is shown
+  </td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+</table>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:bottomMargin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">bottomMargin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  The number of pixels for a bottom gutter to a menu when the stage to short to 
+  fit the menu. If the value were set to 0, the bottom of the menu would be 
+  flush with the bottom edge of the stage. 
+           The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:leftMargin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">leftMargin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  The number of pixels between the left edge of the menu and the left edge of 
+  the stage when the stage is too narrow to fit the menu. If the value were set 
+  to 0, the left edge of the menu would be flush with the left edge of the stage. 
+           The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:rightMargin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">rightMargin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  The number of pixels between the right edge of the menu and the right edge of 
+  the stage when the stage is too narrow to fit the menu. If the value were set 
+  to 0, the right edge of the menu would be flush with the left edge of the 
+  stage.  
+           The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:topMargin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">topMargin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  The number of pixels between the bottom of the menuBar and the top of the 
+  menu when the stage is to short to fit the menu. If the value were set to 0, 
+  the top of the menu would be flush with bottom edge of the menuBar. 
+           The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:xOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">xOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  The number of pixels that each submenu will appear to right of its parent 
+  menu. A negative value can be used to have the menus overlap. 
+           The default value is <code>-3</code>.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:yOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">yOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  The number of pixels that each submenu will appear below the top of its parent 
+  menu. A negative value can be used to have the menu appear above its parent 
+  menu.  
+        The default value is <code>3</code>.</td><td class="summaryTableOwnerCol">Menu</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="closeOnMouseLeave"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">closeOnMouseLeave</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var closeOnMouseLeave:Boolean</code><p>
+  Indicates whether the menu will close when the mouse leaves the stage.
+  </p></div>
+<a name="createAccessibilityImplementation"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">createAccessibilityImplementation</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var createAccessibilityImplementation:Function</code><p>
+ Placeholder for mixin by MenuAccImpl.
+ </p></div>
+<a name="dataProvider"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dataProvider</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>dataProvider:DataProvider</code>&nbsp;&nbsp;[read-write]<p>
+   Gets or sets the data model of the list of items to be viewed. 
+   A data provider can be shared by multiple list-based components. 
+   Changes to the data provider are immediately available to all components that use it as a data source.
+  
+   To use XML data, you should set the dataProvider as type <code>XMLDataProvider</code>:
+   <code>menu.dataProvider = new XMLDataProvider(someXML);</code>
+     </p><p>You can also use an array of objects in the format:
+   <code>
+  
+  var dp:Array = [
+    {
+     label:"top level item A",
+     data:
+     [ 
+      { label:"submenu A1" }, 
+      { label:"submenu A2" } 
+     ]
+    },
+    {
+     label:"top level item B"
+    },
+    {
+     label:"top level item C"
+    }
+  ];
+  
+  menu.dataProvider = new DataProvider(dp);
+   </code>
+  </p>
+
+   However, using the <code>createMenu()</code> method and passing in XML or an array will do this for you.
+   <p>The default value is <code>null</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get dataProvider():DataProvider</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set dataProvider(value:DataProvider):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../data/XMLDataProvider.html" target="">com.yahoo.astra.fl.data.XMLDataProvider</a>
+<br>
+<a href="../controls/Menu.html#labelField" target="">labelField</a>
+</div>
+</div>
+<a name="groups"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">groups</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var groups:Object</code><p>
+  Object that contains arrays of groups.  Used when menu items toggle with each other.
+  </p></div>
+<a name="labelField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">labelField</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>labelField:String</code>&nbsp;&nbsp;[read-write]<p>
+      Name of the field in the items in the <code>dataProvider</code> 
+      Array to display as the label in the Menu.
+      By default, the control uses a property named <code>label</code>
+      on each Array object and displays it.
+      </p><p>However, if the <code>dataProvider</code> items do not contain
+      a <code>label</code> property, you can set the <code>labelField</code>
+      property to use a different property.</p>
+          <span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get labelField():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set labelField(value:String):void</code>
+<br>
+</div>
+<a name="parentMenu"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">parentMenu</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>parentMenu:<a href="../controls/Menu.html">Menu</a></code>&nbsp;&nbsp;[read-write]<p>
+   The parent menu in a hierarchical chain of menus, where the current 
+   menu is a submenu of the parent.
+  
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get parentMenu():<a href="../controls/Menu.html">Menu</a></code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set parentMenu(value:<a href="../controls/Menu.html">Menu</a>):void</code>
+<br>
+</div>
+<a name="parentMenuClickable"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">parentMenuClickable</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var parentMenuClickable:Boolean</code><p>
+  Indicates whether or not a menu item with a submenu is clickable.
+  </p></div>
+<a name="specifiedPoint"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">specifiedPoint</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var specifiedPoint:Point</code><p>
+  Coordinates indicating the ideal position of the menu.  These are used to determine where 
+  to position the menu when the stage is resized outward.
+  </p></div>
+<a name="subMenus"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">subMenus</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>subMenus:Array</code>&nbsp;&nbsp;[read-only]<p>
+   Get the current set of submenus for a Menu
+  </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get subMenus():Array</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="Menu()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Menu</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function Menu()</code><p>
+      Constructor.
+           </p><p>Applications do not normally call the Menu constructor directly.
+      Call the <code>Menu.createMenu()</code> method.</p>
+   <p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Menu.html#createMenu()" target="">createMenu()</a>
+</div>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="createMenu()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">createMenu</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function createMenu(inParent:DisplayObjectContainer, xmlDataProvider:Object = null):<a href="../controls/Menu.html">Menu</a></code><p>
+      Creates and returns an instance of the Menu class. The Menu control's 
+      content is determined by the method's <code>xmlDataProvider</code> argument. The 
+      Menu control is placed in the parent container specified by the 
+      method's <code>parent</code> argument.
+     
+      This method does not show the Menu control. Instead, 
+      this method just creates the Menu control and allows for modifications
+      to be made to the Menu instance before the Menu is shown. To show the 
+      Menu, call the <code>Menu.show()</code> method.
+           </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">inParent</span>:DisplayObjectContainer</code> &mdash; A container that the PopUpManager uses to place the Menu 
+      control in. The Menu control may not actually be parented by this object.
+     
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">xmlDataProvider</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; The data provider for the Menu control. 
+      </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../controls/Menu.html">Menu</a></code> &mdash; 
+                        An instance of the Menu class. 
+           
+                        
+                     </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Menu.html#dataProvider" target="">dataProvider</a>
+<br>
+<a href="../controls/Menu.html#popUpMenu()" target="">popUpMenu()</a>
+<br>
+<a href="../data/XMLDataProvider.html" target="">com.yahoo.astra.fl.data.XMLDataProvider</a>
+</div>
+</div>
+<a name="hide()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hide</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hide(useTween:Boolean = true):void</code><p>
+   Hides the Menu control and any of its submenus if visible
+  </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">useTween</span>:Boolean</code> (default = <code>true</code>)<code></code></td>
+</tr>
+</table>
+</div>
+<a name="initializeAccessibility()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">initializeAccessibility</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected override function initializeAccessibility():void</code><p>
+       </p></div>
+<a name="popUpMenu()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">popUpMenu</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function popUpMenu(menu:<a href="Menu.html">Menu</a>, parent:DisplayObjectContainer, dp:Object = null):void</code><p>
+      Sets the dataProvider of an existing Menu control and places the Menu 
+      control in the specified parent container.
+      
+      This method does not show the Menu control; you must use the 
+      <code>Menu.show()</code> method to display the Menu control. 
+     
+      The <code>Menu.createMenu()</code> method uses this method.
+           </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">menu</span>:<a href="Menu.html">Menu</a></code> &mdash; Menu control to popup. 
+     
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">parent</span>:DisplayObjectContainer</code> &mdash; A container that the PopUpManager uses to place the Menu 
+      control in. The Menu control may not actually be parented by this object.
+      If you omit this property, the method sets the Menu control's parent to 
+      the stage. 
+     
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">dp</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; dataProvider object set on the popped up Menu. If you omit this 
+      property, the method sets the Menu data provider to a new, empty XML object.
+     </td>
+</tr>
+</table>
+</div>
+<a name="setRendererStyle()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">setRendererStyle</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public override function setRendererStyle(name:String, style:Object, column:uint = 0):void</code><p>
+   Sets a style on the renderers in the list.
+      </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">name</span>:String</code> &mdash; The name of the style to be set.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">style</span>:Object</code> &mdash; The value of the style to be set.
+                  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">column</span>:uint</code> (default = <code>0</code>)<code></code></td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Menu.html#clearRendererStyle()" target="">clearRendererStyle()</a>
+<br>
+<a href="../controls/Menu.html#getRendererStyle()" target="">getRendererStyle()</a>
+</div>
+</div>
+<a name="setStyle()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">setStyle</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public override function setStyle(style:String, value:Object):void</code><p>
+   
+      </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">style</span>:String</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">value</span>:Object</code></td>
+</tr>
+</table>
+</div>
+<a name="show()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">show</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function show(xShow:Object = null, yShow:Object = null):void</code><p>
+      Shows the Menu control. If the Menu control is not visible, this method 
+      places the Menu in the upper-left corner of the stage, resizes the Menu control as needed, 
+   and makes it visible.
+     
+      The x and y arguments of the <code>show()</code> method specify the 
+      coordinates of the upper-left corner of the Menu control relative to the 
+      stage, which is not necessarily the direct parent of the Menu control. 
+     
+      For example, if the Menu control is in a container, the x and y coordinates are 
+      relative to the stage, not the container.
+           </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">xShow</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; Horizontal location of the Menu control's upper-left 
+      corner (optional).
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">yShow</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; Vertical location of the Menu control's upper-left 
+      corner (optional).
+     </td>
+</tr>
+</table>
+</div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:change"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">change</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>flash.events.Event</code></a>
+<br>
+<p></p><p>
+ Dispatched when a different item is selected in the Menu.
+  </p></div>
+<a name="event:itemClick"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemClick</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../events/MenuEvent.html"><code>com.yahoo.astra.fl.events.MenuEvent</code></a>
+<br>
+<span class="label">MenuEvent.type property = </span><a href="../events/MenuEvent.html#ITEM_CLICK"><code>com.yahoo.astra.fl.events.MenuEvent.ITEM_CLICK</code></a>
+<br><p>
+ Dispatched when the user clicks an item in the menu. 
+  </p><p>
+      The MenuEvent.ITEM_CLICK event type constant indicates that the
+      user selected a menu item.
+           </p></div>
+<a name="event:itemRollOut"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemRollOut</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../events/MenuEvent.html"><code>com.yahoo.astra.fl.events.MenuEvent</code></a>
+<br>
+<span class="label">MenuEvent.type property = </span><a href="../events/MenuEvent.html#ITEM_ROLL_OUT"><code>com.yahoo.astra.fl.events.MenuEvent.ITEM_ROLL_OUT</code></a>
+<br><p>
+ Dispatched when the user rolls the pointer off a row.
+  </p><p>
+      The MenuEvent.ITEM_ROLL_OUT type constant indicates that
+      the mouse pointer rolled out of a menu item.
+           </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Menu.html#event:itemRollOver" target="">itemRollOver</a>
+</div>
+</div>
+<a name="event:itemRollOver"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemRollOver</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../events/MenuEvent.html"><code>com.yahoo.astra.fl.events.MenuEvent</code></a>
+<br>
+<span class="label">MenuEvent.type property = </span><a href="../events/MenuEvent.html#ITEM_ROLL_OVER"><code>com.yahoo.astra.fl.events.MenuEvent.ITEM_ROLL_OVER</code></a>
+<br><p>
+ Dispatched when the user rolls the pointer over a row.
+  </p><p>
+      The MenuEvent.ITEM_ROLL_OVER type constant indicates that
+      the mouse pointer rolled over a menu item.
+      </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Menu.html#event:itemRollOut" target="">itemRollOut</a>
+</div>
+</div>
+<a name="event:menuHide"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">menuHide</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../events/MenuEvent.html"><code>com.yahoo.astra.fl.events.MenuEvent</code></a>
+<br>
+<span class="label">MenuEvent.type property = </span><a href="../events/MenuEvent.html#MENU_HIDE"><code>com.yahoo.astra.fl.events.MenuEvent.MENU_HIDE</code></a>
+<br><p>
+ Dispatched when a menu is hidden.
+  </p><p>
+      The MenuEvent.MENU_HIDE event type constant indicates that
+      a menu or submenu closed.
+           </p></div>
+<a name="event:menuShow"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">menuShow</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../events/MenuEvent.html"><code>com.yahoo.astra.fl.events.MenuEvent</code></a>
+<br>
+<span class="label">MenuEvent.type property = </span><a href="../events/MenuEvent.html#MENU_SHOW"><code>com.yahoo.astra.fl.events.MenuEvent.MENU_SHOW</code></a>
+<br><p>
+ Dispatched when a menu is shown
+  </p><p>
+      The MenuEvent.MENU_SHOW type constant indicates that
+      the mouse pointer rolled a menu or submenu opened.
+           </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
