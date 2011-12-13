@@ -1,0 +1,640 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="FormItem,com.yahoo.astra.containers.formClasses.FormItem,errorString,horizontalGap,indicatorLocation,instructionText,instructionTextFormat,itemAlign,itemHorizontalGap,itemVerticalGap,labelAlign,labelTextFormat,labelWidth,required,requiredIndicator,showErrorMessageBox,showErrorMessageText,skin" name="keywords">
+<title>com.yahoo.astra.containers.formClasses.FormItem</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'FormItem - kdp3Lib Documentation';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?com/yahoo/astra/containers/formClasses/FormItem.html&amp;com/yahoo/astra/containers/formClasses/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;FormItem</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class FormItem"); titleBar_setSubNav(false,true,false,false,true,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.yahoo.astra.containers.formClasses</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class FormItem</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">FormItem <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> <a href="../../layout/LayoutContainer.html">LayoutContainer</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> flash.display.Sprite</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td><a href="IForm.html">IForm</a></td>
+</tr>
+</table>
+<p></p>
+  Defines a label and one or more children arranged horizontally or vertically. 
+  Similar to Flex FormItem, the label is vertically aligned with the first child in the FormItem container and is right-aligned in the region to the left of the container.
+  It is designed to be nested in a Form, but it can be used as a standalone class as desired.
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>The following code shows a use of <code>FormItem</code>:
+  <div class='listing'><pre>
+  
+  var addressInput_line_1:TextInput = new TextInput();
+  var addressInput_line_2:TextInput = new TextInput();
+  
+  var addressFormItem : FormItem = new FormItem("Address", addressInput_line_1, addressInput_line_2);
+  addressFormItem.itemAlign = FormLayoutStyle.VERTICAL;
+  addressFormItem.labelTextFormat = new TextFormat("Arial", 11, 0xFF00FF);
+  addressFormItem.labelWidth = 60;
+  addressFormItem.showErrorMessageBox = true;
+  addressFormItem.required = true;
+  </pre></div>
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">com.yahoo.astra.fl.containers.Form</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<div class="showHideLinks">
+<div class="hideInheritedProperty" id="hideInheritedProperty">
+<a onclick="javascript:setInheritedVisible(false,'Property');" href="#propertySummary" class="showHideLink"><img src="../../../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Public Properties</a>
+</div>
+<div class="showInheritedProperty" id="showInheritedProperty">
+<a onclick="javascript:setInheritedVisible(true,'Property');" href="#propertySummary" class="showHideLink"><img src="../../../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Public Properties</a>
+</div>
+</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../layout/LayoutContainer.html#autoMask">autoMask</a> : Boolean<div class="summaryTableDescription">
+   If true, the conent will automatically update the scrollRect to fit
+   the dimensions.</div>
+</td><td class="summaryTableOwnerCol"><a href="../../layout/LayoutContainer.html">LayoutContainer</a></td>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../layout/LayoutContainer.html#contentHeight">contentHeight</a> : Number<div class="summaryTableDescription">
+   
+   The height of the content displayed by the layout container.</div>
+</td><td class="summaryTableOwnerCol"><a href="../../layout/LayoutContainer.html">LayoutContainer</a></td>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../layout/LayoutContainer.html#contentWidth">contentWidth</a> : Number<div class="summaryTableDescription">
+   
+   The width of the content displayed by the layout container.</div>
+</td><td class="summaryTableOwnerCol"><a href="../../layout/LayoutContainer.html">LayoutContainer</a></td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#errorString">errorString</a> : String<div class="summaryTableDescription">
+   Sets and gets the text to be used for validation error.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#horizontalGap">horizontalGap</a> : Number<div class="summaryTableDescription">
+   The number of pixels in gaps between labels and items.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#indicatorLocation">indicatorLocation</a> : String<div class="summaryTableDescription">
+   <p>Sets and gets the location of required indicator(*) when the item is set to be required.</p>
+   <p>Acceptable values for the <code>indicatorLocation</code>: 
+   <dl>
+    <dt><strong><code>FormLayoutStyle.INDICATOR_LABEL_RIGHT</code></strong>(default) : between a label and items.</dt>
+    <dt><strong><code>FormLayoutStyle.INDICATOR_LEFT</code></strong> : left of a label.</dt>
+    <dt><strong><code>FormLayoutStyle.INDICATOR_RIGHT</code></strong> : right of items.</dt>
+   </dl>
+   </p>
+   </div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#instructionText">instructionText</a> : String<div class="summaryTableDescription">
+   Sets and gets an additional text label bottom of the item field
+   </div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#instructionTextFormat">instructionTextFormat</a> : TextFormat<div class="summaryTableDescription">
+   Gets and sets the <code>TextFormat</code> of the <code>instructionText</code>.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#itemAlign">itemAlign</a> : String<div class="summaryTableDescription">
+   <p>Set alignment of multiple items in a FormItem.</p>
+   <p>Acceptable values for the <code>itemAlign</code>: 
+   <dl>
+    <dt><strong><code>FormLayoutStyle.HORIZONTAL</code></strong>(default)</dt>
+    <dt><strong><code>FormLayoutStyle.VERTICAL</code></strong></dt>
+   </dl>
+   </p>
+   </div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#itemHorizontalGap">itemHorizontalGap</a> : Number<div class="summaryTableDescription">
+   The number of pixels in gaps between each items in a <code>FormItem</code> horizontaly.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#itemVerticalGap">itemVerticalGap</a> : Number<div class="summaryTableDescription">
+   The number of pixels in gaps between each items in a <code>FormItem</code> verticaly.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#labelAlign">labelAlign</a> : String<div class="summaryTableDescription">
+   <p>Alignment of labels in each FormItems.</p>
+   <p>Acceptable values for the <code>labelAlign</code>: 
+   <dl>
+    <dt><strong><code>FormLayoutStyle.RIGHT</code></strong>(default) : right end of label field.</dt>
+    <dt><strong><code>FormLayoutStyle.LEFT</code></strong> :  far left of <code>Form</code>.</dt>
+    <dt><strong><code>FormLayoutStyle.TOP</code></strong> : will be stacked vertically</dt>
+   </dl>
+   </p>
+   </div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#labelTextFormat">labelTextFormat</a> : TextFormat<div class="summaryTableDescription">
+   Gets and sets the <code>TextFormat</code> of the label.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#labelWidth">labelWidth</a> : Number<div class="summaryTableDescription">
+   Sets and gets the width of label field.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../layout/LayoutContainer.html#layoutMode">layoutMode</a> : <a href="../../layout/modes/ILayoutMode.html">ILayoutMode</a>
+<div class="summaryTableDescription">
+   
+   The layout algorithm used to display children of the layout container.</div>
+</td><td class="summaryTableOwnerCol"><a href="../../layout/LayoutContainer.html">LayoutContainer</a></td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#required">required</a> : Boolean<div class="summaryTableDescription">
+   Sets and gets the requirement of the item(s).</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#requiredIndicator">requiredIndicator</a> : DisplayObject<div class="summaryTableDescription">
+   Gets and sets DisplayObject of the required indicator.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#showErrorMessageBox">showErrorMessageBox</a> : Boolean<div class="summaryTableDescription">
+   Decides to present error result message box : a translucent gray box(alpha:.2 , color:0x666666) behind the item that failed to validation.<br>
+   
+   </div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#showErrorMessageText">showErrorMessageText</a> : Boolean<div class="summaryTableDescription">
+   Decides to present error result string: a error message returned from <code>FormDataManager</code> that failed to validate.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#skin">skin</a> : DisplayObject<div class="summaryTableDescription">
+   Background skin of FormItem.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<div class="showHideLinks">
+<div class="hideInheritedMethod" id="hideInheritedMethod">
+<a onclick="javascript:setInheritedVisible(false,'Method');" href="#methodSummary" class="showHideLink"><img src="../../../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Public Methods</a>
+</div>
+<div class="showInheritedMethod" id="showInheritedMethod">
+<a onclick="javascript:setInheritedVisible(true,'Method');" href="#methodSummary" class="showHideLink"><img src="../../../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Public Methods</a>
+</div>
+</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#FormItem()">FormItem</a>(... args)</div>
+<div class="summaryTableDescription">
+   Constructor.</div>
+</td><td class="summaryTableOwnerCol">FormItem</td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../layout/LayoutContainer.html#invalidateLayout()">invalidateLayout</a>():void</div>
+<div class="summaryTableDescription">
+   
+   Informs the layout container that it should update the layout of its
+   children.</div>
+</td><td class="summaryTableOwnerCol"><a href="../../layout/LayoutContainer.html">LayoutContainer</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../layout/LayoutContainer.html#validateLayout()">validateLayout</a>():void</div>
+<div class="summaryTableDescription">
+   
+   Immediately updates the layout of the container's children.</div>
+</td><td class="summaryTableOwnerCol"><a href="../../layout/LayoutContainer.html">LayoutContainer</a></td>
+</tr>
+</table>
+</div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<div class="showHideLinks">
+<div class="hideInheritedEvent" id="hideInheritedEvent">
+<a onclick="javascript:setInheritedVisible(false,'Event');" href="#eventSummary" class="showHideLink"><img src="../../../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Events</a>
+</div>
+<div class="showInheritedEvent" id="showInheritedEvent">
+<a onclick="javascript:setInheritedVisible(true,'Event');" href="#eventSummary" class="showHideLink"><img src="../../../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Events</a>
+</div>
+</div>
+<table id="summaryTableEvent" class="summaryTable hideInheritedEvent" cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="hideInheritedEvent">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../layout/LayoutContainer.html#event:layoutChange">layoutChange</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+   Dispatched when this container's layout changes.</td><td class="summaryTableOwnerCol"><a href="../../layout/LayoutContainer.html">LayoutContainer</a></td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="errorString"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">errorString</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>errorString:String</code>&nbsp;&nbsp;[read-write]<p>
+   Sets and gets the text to be used for validation error. 
+   
+   </p><p>The default value is <code>"Invalid input"</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get errorString():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set errorString(value:String):void</code>
+<br>
+</div>
+<a name="horizontalGap"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">horizontalGap</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>horizontalGap:Number</code>&nbsp;&nbsp;[read-write]<p>
+   The number of pixels in gaps between labels and items.
+   
+   </p><p>The default value is <code>FormLayoutStyle.DEFAULT_HORIZONTAL_GAP(6 px)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get horizontalGap():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set horizontalGap(value:Number):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../formClasses/FormLayoutStyle.html" target="">com.yahoo.astra.containers.formClasses.FormLayoutStyle</a>
+</div>
+</div>
+<a name="indicatorLocation"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">indicatorLocation</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>indicatorLocation:String</code>&nbsp;&nbsp;[read-write]<p>
+   </p><p>Sets and gets the location of required indicator(*) when the item is set to be required.</p>
+   <p>Acceptable values for the <code>indicatorLocation</code>: 
+   <dl>
+    <dt><strong><code>FormLayoutStyle.INDICATOR_LABEL_RIGHT</code></strong>(default) : between a label and items.</dt>
+    <dt><strong><code>FormLayoutStyle.INDICATOR_LEFT</code></strong> : left of a label.</dt>
+    <dt><strong><code>FormLayoutStyle.INDICATOR_RIGHT</code></strong> : right of items.</dt>
+   </dl>
+   </p>
+   <p>The default value is <code>FormLayoutStyle.DEFAULT_INDICATOR_LOCATION(FormLayoutStyle.RIGHT)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get indicatorLocation():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set indicatorLocation(value:String):void</code>
+<br>
+</div>
+<a name="instructionText"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">instructionText</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>instructionText:String</code>&nbsp;&nbsp;[read-write]<p>
+   Sets and gets an additional text label bottom of the item field
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get instructionText():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set instructionText(value:String):void</code>
+<br>
+</div>
+<a name="instructionTextFormat"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">instructionTextFormat</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>instructionTextFormat:TextFormat</code>&nbsp;&nbsp;[read-write]<p>
+   Gets and sets the <code>TextFormat</code> of the <code>instructionText</code>.
+   </p><p>The default value is <code>TextFormat("_sans", 10, 0x000000, false, false, false, "", "", TextFormatAlign.LEFT, 0, 0, 0, 0)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get instructionTextFormat():TextFormat</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set instructionTextFormat(value:TextFormat):void</code>
+<br>
+</div>
+<a name="itemAlign"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemAlign</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>itemAlign:String</code>&nbsp;&nbsp;[read-write]<p>
+   </p><p>Set alignment of multiple items in a FormItem.</p>
+   <p>Acceptable values for the <code>itemAlign</code>: 
+   <dl>
+    <dt><strong><code>FormLayoutStyle.HORIZONTAL</code></strong>(default)</dt>
+    <dt><strong><code>FormLayoutStyle.VERTICAL</code></strong></dt>
+   </dl>
+   </p>
+   <p>The default value is <code>FormLayoutStyle.DEFAULT_ITEM_ALIGN(FormLayoutStyle.HORIZONTAL)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get itemAlign():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set itemAlign(value:String):void</code>
+<br>
+</div>
+<a name="itemHorizontalGap"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemHorizontalGap</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>itemHorizontalGap:Number</code>&nbsp;&nbsp;[read-write]<p>
+   The number of pixels in gaps between each items in a <code>FormItem</code> horizontaly.
+   
+   </p><p>The default value is <code>FormLayoutStyle.DEFAULT_FORMITEM_HORIZONTAL_GAP(6px)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get itemHorizontalGap():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set itemHorizontalGap(value:Number):void</code>
+<br>
+</div>
+<a name="itemVerticalGap"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itemVerticalGap</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>itemVerticalGap:Number</code>&nbsp;&nbsp;[read-write]<p>
+   The number of pixels in gaps between each items in a <code>FormItem</code> verticaly.
+   
+   </p><p>The default value is <code>FormLayoutStyle.DEFAULT_FORMITEM_VERTICAL_GAP(6px)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get itemVerticalGap():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set itemVerticalGap(value:Number):void</code>
+<br>
+</div>
+<a name="labelAlign"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">labelAlign</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>labelAlign:String</code>&nbsp;&nbsp;[read-write]<p>
+   </p><p>Alignment of labels in each FormItems.</p>
+   <p>Acceptable values for the <code>labelAlign</code>: 
+   <dl>
+    <dt><strong><code>FormLayoutStyle.RIGHT</code></strong>(default) : right end of label field.</dt>
+    <dt><strong><code>FormLayoutStyle.LEFT</code></strong> :  far left of <code>Form</code>.</dt>
+    <dt><strong><code>FormLayoutStyle.TOP</code></strong> : will be stacked vertically</dt>
+   </dl>
+   </p>
+   <p>The default value is <code>FormLayoutStyle.DEFAULT_LABELALIGN(FormStyle.RIGHT)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get labelAlign():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set labelAlign(value:String):void</code>
+<br>
+</div>
+<a name="labelTextFormat"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">labelTextFormat</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>labelTextFormat:TextFormat</code>&nbsp;&nbsp;[read-write]<p>
+   Gets and sets the <code>TextFormat</code> of the label.
+   
+   </p><p>The default value is <code>TextFormat("_sans", 11, 0x000000, false, false, false, "", "", TextFormatAlign.LEFT, 0, 0, 0, 0)</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get labelTextFormat():TextFormat</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set labelTextFormat(value:TextFormat):void</code>
+<br>
+</div>
+<a name="labelWidth"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">labelWidth</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>labelWidth:Number</code>&nbsp;&nbsp;[read-write]<p>
+   Sets and gets the width of label field.
+   <code>Form</code> automatically matches the width of labels on the longest label among FormItems in it. 
+   However, if consistance width of label field needed, you can fix the size of the label by setting <code>labelWidth</code>.
+   
+   </p><p>The default value is <code>NaN</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get labelWidth():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set labelWidth(value:Number):void</code>
+<br>
+</div>
+<a name="required"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">required</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>required:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+   Sets and gets the requirement of the item(s).
+   Case of <code>true</code> Form inserts a red asterisk ( character on the spot that a <code>indicatorLocation</code> has specified. 
+   
+   </p><p>The default value is <code>false</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get required():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set required(value:Boolean):void</code>
+<br>
+</div>
+<a name="requiredIndicator"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">requiredIndicator</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>requiredIndicator:DisplayObject</code>&nbsp;&nbsp;[read-write]<p>
+   Gets and sets DisplayObject of the required indicator. Default is "*" in red(0xff0000). Set any DisplayObject to apply the skin of the indicator.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get requiredIndicator():DisplayObject</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set requiredIndicator(value:DisplayObject):void</code>
+<br>
+</div>
+<a name="showErrorMessageBox"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">showErrorMessageBox</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>showErrorMessageBox:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+   Decides to present error result message box : a translucent gray box(alpha:.2 , color:0x666666) behind the item that failed to validation.<br>
+   
+   </p><p>The default value is <code>false;</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get showErrorMessageBox():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set showErrorMessageBox(value:Boolean):void</code>
+<br>
+</div>
+<a name="showErrorMessageText"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">showErrorMessageText</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>showErrorMessageText:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+   Decides to present error result string: a error message returned from <code>FormDataManager</code> that failed to validate.
+   
+   </p><p>The default value is <code>false;</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get showErrorMessageText():Boolean</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set showErrorMessageText(value:Boolean):void</code>
+<br>
+</div>
+<a name="skin"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">skin</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>skin:DisplayObject</code>&nbsp;&nbsp;[read-write]<p>
+   Background skin of FormItem.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get skin():DisplayObject</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set skin(value:DisplayObject):void</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="FormItem()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">FormItem</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function FormItem(... args)</code><p>
+   Constructor.
+   The parameter can be either String or DisplayObject. 
+   If the first argument is <code>Sting</code>, it will be set as a label on leftside and any string afterward will be a label aligned with other DisplayObjects.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code>... <span class="label">args</span></code> &mdash; String or DisplayObjectsto be contained in the FormItem.
+   </td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
