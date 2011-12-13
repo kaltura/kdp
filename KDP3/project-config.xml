@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2005-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+	Kaltura's default flex-config, please mark which changes are important
+	
+-->
+
+<flex-config>
+
+	<output>bin/kdp3.swf</output>
+
+	<compiler>
+
+		<source-path>
+			<path-element>src</path-element>
+		</source-path>
+
+		<!--include-libraries -->
+			<!--library>../../bin/as3FlexClient.swc</library-->
+			<!--library>../../bin/kdp3Lib.swc</library -->
+			<!--library>../../bin/vendors/OSMF.swc</library-->
+		<!-- /include-libraries -->
+
+		<library-path dir="bin" append="true">
+				<path-element name="kdp3Lib.swc" />
+		</library-path>
+		<library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
+				<path-element name="*.swc" />
+			</library-path>
+			<library-path dir="${FLEX_HOME}/frameworks/libs/air" append="true">
+				<path-element name="*.swc" />
+			</library-path>
+			<library-path dir="${FLEX_HOME}/frameworks/libs/player/10" append="true">
+				<path-element name="playerglobal.swc" />
+			</library-path>
+
+	</compiler>
+
+</flex-config>
