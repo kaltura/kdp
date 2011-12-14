@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="asdoc" default="main" basedir="./">
+
+	<target name="main" depends="clean,compile" description="full build of asdocs"/>
+	<target name="clean">
+		<delete includeemptydirs="true">
+    		<fileset dir="docs/asdoc" includes="**/*"/>
+	  	</delete>
+	</target>
+	<target name="compile" depends="clean">
+		<mkdir dir="docs/asdoc"/>
+		<exec executable="C:\Program Files\Adobe\Adobe Flash Builder 4\sdks\3.5.0\bin\asdoc.exe" failonerror="true" >
+			<arg line='-source-path src'/>
+			<!--arg line='-keep-xml'/>
+			<arg line='-skip-xsl'/>
+			<arg line='-doc-sources src'/>
+			<arg line='-exclude-sources src/com/yahoo'/-->
+			<arg line='-doc-classes 
+	com.kaltura.kdpfl.ApplicationFacade
+    com.kaltura.kdpfl.component.ComponentData
+    com.kaltura.kdpfl.component.ComponentFactory
+    com.kaltura.kdpfl.component.IComponent
+    com.kaltura.kdpfl.controller.AssignBehaviorCommand
+    com.kaltura.kdpfl.controller.IResponder
+    com.kaltura.kdpfl.controller.InitMacroCommand
+    com.kaltura.kdpfl.controller.LayoutReadyCommand
+    com.kaltura.kdpfl.controller.LoadConfigCommand
+    com.kaltura.kdpfl.controller.LoadSkinCommand
+    com.kaltura.kdpfl.controller.ParseLayoutCommand
+    com.kaltura.kdpfl.controller.PlaybackCompleteCommand
+    com.kaltura.kdpfl.controller.SaveFVCommand
+    com.kaltura.kdpfl.controller.SequenceItemPlayEndCommand
+    com.kaltura.kdpfl.controller.SequenceSkipNextCommand
+    com.kaltura.kdpfl.controller.StartupCommand
+    com.kaltura.kdpfl.controller.media.GetMediaCommand
+    com.kaltura.kdpfl.controller.media.InitChangeMediaMacroCommand
+    com.kaltura.kdpfl.controller.media.InitMediaChangeProcessCommand
+    com.kaltura.kdpfl.controller.media.LiveStreamCommand
+    com.kaltura.kdpfl.controller.media.LoadMediaCommand
+    com.kaltura.kdpfl.controller.media.MediaReadyCommand
+    com.kaltura.kdpfl.controller.media.PostSequenceEndCommand
+    com.kaltura.kdpfl.controller.media.PreSequenceEndCommand
+    com.kaltura.kdpfl.events.DynamicEvent
+    com.kaltura.kdpfl.events.StyleEvent
+    com.kaltura.kdpfl.model.ConfigProxy
+    com.kaltura.kdpfl.model.ExternalInterfaceProxy
+    com.kaltura.kdpfl.model.FuncsProxy
+    com.kaltura.kdpfl.model.LayoutProxy
+    com.kaltura.kdpfl.model.MediaProxy
+    com.kaltura.kdpfl.model.SequenceProxy
+    com.kaltura.kdpfl.model.ServicesProxy
+    com.kaltura.kdpfl.model.strings.MessageStrings
+    com.kaltura.kdpfl.model.type.AdsNotificationTypes
+    com.kaltura.kdpfl.model.type.EnableType
+    com.kaltura.kdpfl.model.type.NotificationType
+    com.kaltura.kdpfl.model.type.SequenceContextType
+    com.kaltura.kdpfl.model.type.SourceType
+    com.kaltura.kdpfl.model.type.StreamerType
+    com.kaltura.kdpfl.model.vo.ConfigVO
+    com.kaltura.kdpfl.model.vo.ExternalInterfaceVO
+    com.kaltura.kdpfl.model.vo.LayoutVO
+    com.kaltura.kdpfl.model.vo.MediaVO
+    com.kaltura.kdpfl.model.vo.SequenceVO
+    com.kaltura.kdpfl.plugin.IPlugin
+    com.kaltura.kdpfl.plugin.IPluginFactory
+    com.kaltura.kdpfl.plugin.ISequencePlugin
+    com.kaltura.kdpfl.plugin.Plugin
+    com.kaltura.kdpfl.plugin.PluginLoader
+    com.kaltura.kdpfl.plugin.PluginManager
+    com.kaltura.kdpfl.style.FontManager
+    com.kaltura.kdpfl.style.KStyleLoader
+    com.kaltura.kdpfl.style.KStyleManager
+    com.kaltura.kdpfl.style.TextFormatManager
+    com.kaltura.kdpfl.util.Cloner
+    com.kaltura.kdpfl.util.DateTimeUtils
+    com.kaltura.kdpfl.util.Functor
+    com.kaltura.kdpfl.util.KTextParser
+    com.kaltura.kdpfl.util.ObjectUtils
+    com.kaltura.kdpfl.util.URLProccessing
+    com.kaltura.kdpfl.util.URLUtils
+    com.kaltura.kdpfl.util.XMLUtils
+    com.kaltura.kdpfl.view.ExternalInterfaceMediator
+    com.kaltura.kdpfl.view.MainViewMediator
+    com.kaltura.kdpfl.view.RootMediator
+    com.kaltura.kdpfl.view.containers.KCanvas
+    com.kaltura.kdpfl.view.containers.KHBox
+    com.kaltura.kdpfl.view.containers.KTile
+    com.kaltura.kdpfl.view.containers.KVBox
+    com.kaltura.kdpfl.view.controls.AlertMediator
+    com.kaltura.kdpfl.view.controls.ComboFlavorMediator
+    com.kaltura.kdpfl.view.controls.FullscreenMediator
+    com.kaltura.kdpfl.view.controls.FuncWrapper
+    com.kaltura.kdpfl.view.controls.KButton
+    com.kaltura.kdpfl.view.controls.KComboBox
+    com.kaltura.kdpfl.view.controls.KFlavorComboBox
+    com.kaltura.kdpfl.view.controls.KLabel
+    com.kaltura.kdpfl.view.controls.KScrubber
+    com.kaltura.kdpfl.view.controls.KSlider
+    com.kaltura.kdpfl.view.controls.KTimer
+    com.kaltura.kdpfl.view.controls.KVolumeBar
+    com.kaltura.kdpfl.view.controls.PlayMediator
+    com.kaltura.kdpfl.view.controls.PreLoader
+    com.kaltura.kdpfl.view.controls.PreLoaderMediator
+    com.kaltura.kdpfl.view.controls.Screens
+    com.kaltura.kdpfl.view.controls.ScreensMediator
+    com.kaltura.kdpfl.view.controls.ScrubberMediator
+    com.kaltura.kdpfl.view.controls.TimerMediator
+    com.kaltura.kdpfl.view.controls.ToolTipManager
+    com.kaltura.kdpfl.view.controls.VolumeMediator
+    com.kaltura.kdpfl.view.controls.Watermark
+    com.kaltura.kdpfl.view.controls.WatermarkMediator
+    com.kaltura.kdpfl.view.media.KMediaPlayer
+    com.kaltura.kdpfl.view.media.KMediaPlayerMediator
+    com.kaltura.kdpfl.view.media.KThumbnail
+    com.kaltura.kdpfl.view.media.PostLiveStreamAssist
+    com.kaltura.osmf.buffering.DualThresholdBufferingProxyElement
+    com.kaltura.osmf.image.TimedImageAdapter
+    com.kaltura.osmf.image.TimedImageElement
+    com.kaltura.osmf.image.TimedImagePlayTrait
+    com.kaltura.osmf.image.TimedImageTimeTrait
+    com.kaltura.osmf.kaltura.KalturaBaseEntryResource
+    com.kaltura.puremvc.as3.patterns.mediator.MultiMediator
+    com.kaltura.puremvc.as3.patterns.mediator.SequenceMultiMediator
+    com.yahoo.astra.containers.formClasses.FormLayoutStyle
+    com.yahoo.astra.fl.charts.BarChart
+    com.yahoo.astra.fl.charts.ICategoryChart
+    com.yahoo.astra.fl.charts.LineChart
+    com.yahoo.astra.fl.charts.StackedBarChart
+    com.yahoo.astra.fl.charts.axes.IStackingAxis
+    com.yahoo.astra.fl.charts.axes.ScaleType
+    com.yahoo.astra.fl.charts.legend.LegendItemData
+    com.yahoo.astra.fl.charts.series.ColumnSeries
+    com.yahoo.astra.fl.charts.series.StackedBarSeries
+    com.yahoo.astra.fl.charts.skins.IProgrammaticSkin
+    com.yahoo.astra.fl.charts.skins.TriangleSkin
+    com.yahoo.astra.fl.controls.Carousel
+    com.yahoo.astra.fl.controls.TabBar
+    com.yahoo.astra.fl.controls.autoCompleteClasses.AutoCompleteCellRenderer
+    com.yahoo.astra.fl.controls.carouselClasses.CarouselCellRenderer
+    com.yahoo.astra.fl.controls.carouselClasses.ICarouselLayoutRenderer
+    com.yahoo.astra.fl.controls.carouselClasses.SlidingCarouselRenderer
+    com.yahoo.astra.fl.controls.carouselClasses.StackCarouselRenderer
+    com.yahoo.astra.fl.controls.carouselClasses.astra_carousel_internal
+    com.yahoo.astra.fl.controls.containerClasses.AutoSizeButton
+    com.yahoo.astra.fl.controls.containerClasses.ButtonBar
+    com.yahoo.astra.fl.controls.containerClasses.DialogBox
+    com.yahoo.astra.fl.controls.containerClasses.MessageBox
+    com.yahoo.astra.fl.controls.containerClasses.TitleBar
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.AudioClip
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.IMediaClip
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.IMediaController
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.IMediaView
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.IconButton
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.MediaController
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.MediaControlsView
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.MediaInfoView
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.MediaScrubberView
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.MediaView
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.MuteToggleButton
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.PlayPauseToggleButton
+    com.yahoo.astra.fl.controls.mediaPlayerClasses.VolumeSlider
+    com.yahoo.astra.fl.controls.menuBarClasses.MenuButton
+    com.yahoo.astra.fl.controls.menuBarClasses.MenuButtonRow
+    com.yahoo.astra.fl.controls.menuClasses.MenuCellRenderer
+    com.yahoo.astra.fl.controls.tabBarClasses.TabButton
+    com.yahoo.astra.fl.controls.treeClasses.BranchNode
+    com.yahoo.astra.fl.controls.treeClasses.LeafNode
+    com.yahoo.astra.fl.controls.treeClasses.RootNode
+    com.yahoo.astra.fl.controls.treeClasses.TNode
+    com.yahoo.astra.fl.controls.treeClasses.TreeCellRenderer
+    com.yahoo.astra.fl.controls.treeClasses.TreeDataProvider
+    com.yahoo.astra.fl.data.XMLDataProvider
+    com.yahoo.astra.fl.events.DropdownEvent
+    com.yahoo.astra.fl.events.MediaEvent
+    com.yahoo.astra.fl.events.MenuButtonRowEvent
+    com.yahoo.astra.fl.events.MenuEvent
+    com.yahoo.astra.fl.events.TabBarEvent
+    com.yahoo.astra.fl.events.TreeEvent
+    com.yahoo.astra.fl.managers.AlertManager
+    com.yahoo.astra.fl.managers.PopUpManager
+    com.yahoo.astra.fl.utils.FlValueParser
+    com.yahoo.astra.fl.utils.UIComponentUtil
+    com.yahoo.astra.fl.utils.XMLUtil
+    com.yahoo.astra.layout.ILayoutContainer
+    com.yahoo.astra.layout.LayoutContainer
+    com.yahoo.astra.layout.LayoutManager
+    com.yahoo.astra.layout.events.LayoutEvent
+    com.yahoo.astra.layout.modes.BaseLayoutMode
+    com.yahoo.astra.layout.modes.BorderConstraints
+    com.yahoo.astra.layout.modes.BorderLayout
+    com.yahoo.astra.layout.modes.BoxLayout
+    com.yahoo.astra.layout.modes.FlowLayout
+    com.yahoo.astra.layout.modes.HorizontalAlignment
+    com.yahoo.astra.layout.modes.IAdvancedLayoutMode
+    com.yahoo.astra.layout.modes.ILayoutMode
+    com.yahoo.astra.layout.modes.LayoutModeUtil
+    com.yahoo.astra.layout.modes.PercentageSizeUtil
+    com.yahoo.astra.layout.modes.TileLayout
+    com.yahoo.astra.layout.modes.VerticalAlignment
+    com.yahoo.astra.managers.FormDataManager
+    com.yahoo.astra.managers.IFormDataManager
+    com.yahoo.astra.utils.AxisLabelUtil
+    com.yahoo.astra.utils.DateUtil
+    com.yahoo.astra.utils.DisplayObjectUtil
+    com.yahoo.astra.utils.DynamicRegistration
+    com.yahoo.astra.utils.GeomUtil
+    com.yahoo.astra.utils.GraphicsUtil
+    com.yahoo.astra.utils.IValueParser
+    com.yahoo.astra.utils.InstanceFactory
+    com.yahoo.astra.utils.MXValidationHelper
+    com.yahoo.astra.utils.NumberUtil
+    com.yahoo.astra.utils.TextUtil
+    com.yahoo.astra.utils.TimeUnit
+    com.yahoo.astra.utils.ValueParser
+    fl.core.UIComponent
+    mx.binding.ArrayElementWatcher
+    mx.binding.BindabilityInfo
+    mx.binding.Binding
+    mx.binding.BindingManager
+    mx.binding.EvalBindingResponder
+    mx.binding.FunctionReturnWatcher
+    mx.binding.IBindingClient
+    mx.binding.IWatcherSetupUtil
+    mx.binding.PropertyWatcher
+    mx.binding.RepeatableBinding
+    mx.binding.RepeaterComponentWatcher
+    mx.binding.RepeaterItemWatcher
+    mx.binding.StaticPropertyWatcher
+    mx.binding.Watcher
+    mx.binding.XMLWatcher
+    mx.binding.utils.BindingUtils
+    mx.binding.utils.ChangeWatcher
+    mx.collections.IList
+    mx.core.EventPriority
+    mx.core.IPropertyChangeNotifier
+    mx.core.IUID
+    mx.events.CollectionEvent
+    mx.events.PropertyChangeEvent
+    mx.events.PropertyChangeEventKind
+    mx.utils.Base64Encoder
+    mx.utils.DescribeTypeCache
+    mx.utils.DescribeTypeCacheRecord
+    mx.utils.IXMLNotifiable
+    mx.utils.ObjectProxy
+    mx.utils.ObjectUtil
+    mx.utils.UIDUtil
+    mx.utils.XMLNotifier
+    mx.utils.object_proxy
+    org.puremvc.as3.core.Controller
+    org.puremvc.as3.core.Model
+    org.puremvc.as3.core.View
+    org.puremvc.as3.interfaces.IAsyncCommand
+    org.puremvc.as3.interfaces.ICommand
+    org.puremvc.as3.interfaces.IController
+    org.puremvc.as3.interfaces.IFacade
+    org.puremvc.as3.interfaces.IMediator
+    org.puremvc.as3.interfaces.IModel
+    org.puremvc.as3.interfaces.INotification
+    org.puremvc.as3.interfaces.INotifier
+    org.puremvc.as3.interfaces.IObserver
+    org.puremvc.as3.interfaces.IProxy
+    org.puremvc.as3.interfaces.IView
+    org.puremvc.as3.patterns.command.AsyncCommand
+    org.puremvc.as3.patterns.command.AsyncMacroCommand
+    org.puremvc.as3.patterns.command.MacroCommand
+    org.puremvc.as3.patterns.command.SimpleCommand
+    org.puremvc.as3.patterns.facade.Facade
+    org.puremvc.as3.patterns.mediator.Mediator
+    org.puremvc.as3.patterns.observer.Notification
+    org.puremvc.as3.patterns.observer.Notifier
+    org.puremvc.as3.patterns.observer.Observer
+    org.puremvc.as3.patterns.proxy.Proxy'/>
+			
+			<arg line='-external-library-path ./libs ../as3FlexClient/bin ../vendors/OSMF/bin "C:\Program Files\Adobe\Adobe Flash Builder 4\sdks\3.5.0\frameworks\libs\player\10\playerglobal.swc"'/>
+			
+			<!--arg line='-lenient'/-->
+			<arg line='-main-title "kdp3Lib Documentation"' />
+			<arg line='-window-title "kdp3Lib Documentation"' />
+			<arg line='-output docs/asdoc' />
+		</exec>
+		<zip destfile="bin\kdp3Lib.swc" update="true">
+			<zipfileset dir="docs\asdoc" prefix="docs">
+				<include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+</project>
