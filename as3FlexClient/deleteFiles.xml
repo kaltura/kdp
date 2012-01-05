@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="delete" default="main" basedir="./">
+
+	<target name="main" depends="clean" />
+	<target name="clean">
+		<delete includeemptydirs="true">
+    		<fileset dir="src/com/kaltura" includes="**/*"/>
+	  	</delete>
+	</target>
+	
+
+</project>

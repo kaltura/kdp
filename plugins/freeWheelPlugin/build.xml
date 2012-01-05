@@ -1,0 +1,60 @@
+<project name="KDPPlugin" basedir="." default="player-as3">
+	<property name="REPO_ROOT" value="${basedir}/../.."/>
+	<property name="TOOLS_HOME" value="${REPO_ROOT}/tools"/>
+	<property name="SDK_PLATFORM" value="as3"/>
+  	<!--property name="PLAYER_API_TARGET" value="OsmfPluginAPI.swc"/-->
+  	<property name="PLAYER_CLASS" value="FreeWheelPlugin"/>
+  	<property name="PLAYER_TARGET" value="KDPPlugin.swf"/>
+	<property name="TARGET_VERSION" value="10"/>
+  	<import file="${REPO_ROOT}/common/build.xml"/>
+  	
+  	<property name="kdp3lib" value="kdp3Lib_dev.swc" />
+  	<condition property="osmf_swc_name" value="OSMF.logging.swc" else="OSMF.swc">
+		<istrue value="${DEBUG}" />
+	</condition>
+	<echo>Using OSMF lib: ${osmf_swc_name}</echo>
+
+	<!-- override this target to add CONFIG::LOGGING definition -->
+	<target name="build-player-as3" depends="info,tasks-as3,mkdirs,rdk-as3">
+    <echo>Build KDP Plugin</echo>
+		<echo>Building ${SDK_PLATFORM} ${PLAYER_TARGET} FP${TARGET_VERSION} ${VERSION}(${RDK_VERSION})</echo>
+		<property name="COMMON_DIR" value="${basedir}/../common"/>
+		<echo file="${OUTPUT}/PLAYER_CLASS">${PLAYER_CLASS}</echo>
+		<replaceregexp file="${OUTPUT}/PLAYER_CLASS" match="\." replace="/" flags="g"/>
+		<loadfile property="PLAYER_FILE" srcFile="${OUTPUT}/PLAYER_CLASS" />
+		<delete file="${OUTPUT}/PLAYER_CLASS" quiet="true" />
+		<property name="FLEX_CONFIG" value="${FLEX_HOME}/frameworks/flex-config.xml"/>
+		<mxmlc
+			file="${basedir}/src/${PLAYER_FILE}.as" 
+			output="${OUTPUT}/${PLAYER_TARGET}"
+			compiler.optimize="true"
+			compiler.accessible="true"
+			compiler.debug="${DEBUG}"
+			compiler.verbose-stacktraces="${DEBUG}"
+			incremental="false">
+			<load-config filename="${REPO_ROOT}/common/fp${TARGET_VERSION}.xml"/>
+			<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${TARGET_VERSION}" append="false">
+				<include name="*.swc"/>
+			</compiler.external-library-path>
+			<compiler.define name="BUILD::Version" value="'${VERSION}'"/>
+			<compiler.define name="BUILD::RDK_Version" value="'${RDK_VERSION}'"/>
+			<compiler.define name="CONFIG::LOGGING" value="${DEBUG}"/>
+			<compiler.include-libraries dir="${SDK_DIR}/as3/build" append="true">
+				<include name="AdManagerLoader.swc"/>
+			</compiler.include-libraries>
+			<compiler.include-libraries dir="${basedir}/lib" append="true">
+				<include name="${kdp3lib}"/>
+			</compiler.include-libraries>
+			<compiler.include-libraries dir="${basedir}/lib" append="true">
+				<include name="${osmf_swc_name}"/>
+			</compiler.include-libraries>
+			<compiler.include-libraries dir="${OUTPUT}" append="true">
+				<include name="${PLAYER_API_TARGET}"/>
+			</compiler.include-libraries>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${COMMON_DIR}/src"/>
+			<compiler.define name="CONFIG::FLASH_10_1" value="false"/>
+			<!-- <source-path path-element="${FLASH_HOME}/Configuration/ActionScript 3.0/Classes"/> -->
+		</mxmlc>
+	</target>
+</project>
