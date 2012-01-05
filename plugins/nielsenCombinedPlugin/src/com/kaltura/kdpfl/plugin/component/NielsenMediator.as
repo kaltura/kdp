@@ -101,16 +101,16 @@ package com.kaltura.kdpfl.plugin.component
 					ggCom.getInstance().PM(11,0);
 					break;
 				case NotificationType.PLAYER_PLAY_END:
-						//FIx issue where sometimes player became uninitialized
-						// and current time was 0
-						var timeToSend:String = (_media.msDuration / 1000).toFixed(2);
-						if(_lastStateMedia != 'unloaded')
-						{
-							ggCom.getInstance().PM(7, timeToSend);
-							_lastStateMedia = 'unloaded';
-						}
-						ggCom.getInstance().PM(4, timeToSend, "content");
-						_lastState = 'playerPlayEnd';
+					//FIx issue where sometimes player became uninitialized
+					// and current time was 0
+					var timeToSend:String = (_media.msDuration / 1000).toFixed(2);
+					if(_lastStateMedia != 'unloaded')
+					{
+						ggCom.getInstance().PM(7, timeToSend);
+						_lastStateMedia = 'unloaded';
+					}
+					ggCom.getInstance().PM(4, timeToSend, "content");
+					_lastState = 'playerPlayEnd';
 					break;
 				case NotificationType.PLAYER_PAUSED:
 					if(_lastState == 'playerPlayed')
@@ -121,7 +121,7 @@ package com.kaltura.kdpfl.plugin.component
 					break;
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					if (_sequenceProxy.vo.isInSequence)
-						_adPlayhead = _playheadPosition;
+						_adPlayhead = Number((note.getBody() as Number).toFixed(2));
 					else {
 						_playheadPosition = note.getBody() as Number;
 						_playheadPosition = Number(_playheadPosition.toFixed(2));
@@ -242,14 +242,14 @@ package com.kaltura.kdpfl.plugin.component
 						ggCom.getInstance( ).PM( 16, currentTime);
 					break;
 				/*case NotificationType.PLAYBACK_COMPLETE:
-					this._adPlayhead = _durationAds;
-					this.sendAdStop();
-					break;*/
+				this._adPlayhead = _durationAds;
+				this.sendAdStop();
+				break;*/
 				case NotificationType.SEQUENCE_SKIP_NEXT:
 					this.sendAdStop();
 					break;
 				case AdsNotificationTypes.AD_END:
-					_adPlayhead = this._durationAds;
+					//	_adPlayhead = this._durationAds;
 					if(_lastStateAds == 'adPlay')
 						ggCom.getInstance().PM(7, _adPlayhead);
 					ggCom.getInstance().PM(4, _adPlayhead, _adType);
@@ -263,7 +263,7 @@ package com.kaltura.kdpfl.plugin.component
 						_lastStateMedia = 'mediaInfoSent';
 						_lastState = "playerPlayed";
 						_lastSegmentInfoSent = _seg;
-					//	_firstVideoPlay = true;
+						//	_firstVideoPlay = true;
 					}
 					break;
 				case AdsNotificationTypes.FIRST_QUARTILE_OF_AD:
@@ -278,7 +278,7 @@ package com.kaltura.kdpfl.plugin.component
 				case NotificationType.DURATION_CHANGE:
 					var noteBodyDC:Object = note.getBody();
 					//if(_lastState == AdsNotificationTypes.AD_START)
-						//_durationAds = noteBodyDC.newValue;
+					//_durationAds = noteBodyDC.newValue;
 					_lastState = 'durationChange';
 					trace("noteBodyDC =="+noteBodyDC.newValue);
 					break;
@@ -315,7 +315,7 @@ package com.kaltura.kdpfl.plugin.component
 					_duration = this._cuePoints[c_seg] - this._cuePoints[c_seg-1];
 			var adxml:XML = <videoInfo></videoInfo>;
 			adxml.appendChild(<length>{_duration.toFixed(2)}</length>);
-								
+			
 			var returnString:String;
 			var objIndexArr:Array;
 			var value:Object;

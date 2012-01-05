@@ -30,11 +30,24 @@ package
 		private var _nielsenMediator:NielsenMediator;
 		
 		private var _content_url:String;
-
+		
+		private var _ggSwfAddress:String;
+		
 		public function nielsenCombinedPluginCode()
 		{
 			//TODO: implement function
 			super();
+		}
+		
+		[Bindable]
+		public function get ggSwfAddress():String
+		{
+			return _ggSwfAddress;
+		}
+		
+		public function set ggSwfAddress(value:String):void
+		{
+			_ggSwfAddress = value;
 		}
 		
 		[Bindable]
@@ -47,14 +60,14 @@ package
 		{
 			return _content_url;
 		}
-
+		
 		public function set content_url(value:String):void
 		{
 			_content_url = value;
 			if (_nielsenMediator)
 				_nielsenMediator.contentUrl = _content_url;
 		}
-
+		
 		public function initializePlugin(facade:IFacade):void
 		{
 			this._nolggGlobalParams = {
@@ -70,7 +83,8 @@ package
 					sfcode: this.sfcode,
 					cisuffix: this.cisuffix,
 					prod: this.prod,
-					nolTags: this.nolTags
+					nolTags: this.nolTags,
+					swfAddress: this.ggSwfAddress
 			};
 			trace("Nielsen/Kaltura Plugin Loaded");
 			

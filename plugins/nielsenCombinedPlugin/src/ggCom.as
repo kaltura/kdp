@@ -33,7 +33,7 @@ package
       prod: "vc",
       pd: "",
       sid: "",
-      tfid: ""      
+      tfid: "" 
    }; 
    
    public var _ldrParams:String;
@@ -77,7 +77,7 @@ package
      if (lip["tfid"] != null)
         _nolggGlobalParams.tfid = lip['tfid'];
 	 if (lip["nolTags"] != null)
-		 _ldrParams = lip['nolTags'];   
+		 _ldrParams = lip['nolTags'];     
    }
    
 		private static var ggComInstance:ggCom = null;
@@ -134,10 +134,17 @@ package
 			if ( ggComInstance == null ) 
 			{
 				var baseCode:String;
-				if(param && param['sfcode'])
-					baseCode = param['sfcode'];
+				var swfAddress:String;
+				if(param)
+				{
+					if (param['sfcode'])
+						baseCode = param['sfcode'];
+					if (param['swfAddress'])
+						swfAddress = param['swfAddress']
+				}
+					
 				ggComCreate = true;
-				ggComInstance = new ggCom( baseCode );
+				ggComInstance = new ggCom( baseCode, swfAddress );
 				ggComCreate = false;
 			}
 			return ggComInstance;
@@ -153,14 +160,22 @@ package
 		/**
 		 *  Instantiate ggCom
 		 */
-		public function ggCom( baseCode:String = null ) 
+		public function ggCom( baseCode:String = null, swfAddress:String = null ) 
 		{ 
 			trace('ggCom Built');
 			if ( !ggComCreate )   
         		return;
 			if(baseCode)
 				_nolggGlobalParams.sfcode = baseCode;
-			GGSWFADDRESS = "http://secure-" + _nolggGlobalParams.sfcode + ".imrworldwide.com/novms/gn/3/ggce380.swf"; 
+		
+			if (swfAddress && swfAddress!='')
+			{
+				GGSWFADDRESS = swfAddress;
+			}
+			else
+			{
+				GGSWFADDRESS = "http://secure-" + _nolggGlobalParams.sfcode + ".imrworldwide.com/novms/gn/3/ggce380.swf"; 
+			}
 	     	//GGSWFADDRESS = "http://gg-dev.glanceguide.com/beacons/as/3/ggce380.swf"; 
 	     	//GGSWFADDRESS = "http://localhost/ggce360.swf";      
 			Security.allowDomain( "*" );
@@ -248,5 +263,6 @@ package
 			ggLoader = new Loader( );
 			ggLoader.load( new URLRequest( GGSWFLOADERRORADDRESS + "?clientid=" + _nolggGlobalParams.clientid + "&code=ggLoadFailed&cts=" + new Date( ).getTimezoneOffset( ) / -60 + "," + new Date( ).getTime( )));
 		}
+		
 	}
 }
