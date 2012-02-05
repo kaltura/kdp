@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>PlaylistApiPlugin</name>
+	<comment></comment>
+	<projects>
+		<project>Akamai</project>
+		<project>as3FlexClient</project>
+		<project>kdp3Lib</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/KDP3/bin-debug/plugins</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>
