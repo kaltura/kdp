@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" version="1">
+  <includeClasses>
+    <classEntry path="com.eyewonder.instream.InstreamFramework"/>
+    <classEntry path="com.eyewonder.instream.UIFConfig"/>
+    <classEntry path="com.eyewonder.instream.base.AdContainerParent"/>
+    <classEntry path="com.eyewonder.instream.base.IInstreamFrameworkBase"/>
+    <classEntry path="com.eyewonder.instream.base.InstreamFrameworkBase"/>
+    <classEntry path="com.eyewonder.instream.cartridge.IVendorCartridge"/>
+    <classEntry path="com.eyewonder.instream.cartridge.MyPublisherCartridge"/>
+    <classEntry path="com.eyewonder.instream.cartridge.MyVendorCartridge"/>
+    <classEntry path="com.eyewonder.instream.cartridge.base.PublisherCartridgeBase"/>
+    <classEntry path="com.eyewonder.instream.debugger.UIFDebugMessage"/>
+    <classEntry path="com.eyewonder.instream.debugger.UIFSendToPanel"/>
+    <classEntry path="com.eyewonder.instream.events.UIFControlEvent"/>
+    <classEntry path="com.eyewonder.instream.events.UIFEvent"/>
+    <classEntry path="com.eyewonder.instream.events.UIFEventDispatcher"/>
+    <classEntry path="com.eyewonder.instream.events.UIFTrackEvent"/>
+    <classEntry path="com.eyewonder.instream.events.UIFVastEvent"/>
+    <classEntry path="com.eyewonder.instream.model.UIFConfigBase"/>
+    <classEntry path="com.eyewonder.instream.modules.AdCountdown"/>
+    <classEntry path="com.eyewonder.instream.modules.InstreamFrameworkUtility"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.VASTVideoAdModule"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.events.AudioStateEvent"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.events.BandwidthEvent"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.events.PlaybackStateEvent"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.events.VideoStreamConnectorEvent"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.utility.AdTagService"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.utility.CacheBuster"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.utility.RequestQueue"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.utility.RunLoop"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.VAST.utility.VASTClickThru"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.base.IVideoAdModule"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdModule.base.VideoAdModule"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdScreenModule.base.IVideoAdScreenModule"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdScreenModule.events.ChosenMediaFileEvent"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdScreenModule.ewVideoAdScreen.BandwidthDetect"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdScreenModule.ewVideoAdScreen.EWVideoAdScreenModule"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdScreenModule.ewVideoAdScreen.NetConnection"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdScreenModule.ewVideoAdScreen.VideoPlayer"/>
+    <classEntry path="com.eyewonder.instream.modules.videoAdScreenModule.ewVideoAdScreen.VideoStreamConnector"/>
+    <classEntry path="com.eyewonder.instream.parser.EWParser"/>
+    <classEntry path="com.eyewonder.instream.parser.IParser"/>
+    <classEntry path="com.eyewonder.instream.parser.Parser"/>
+    <classEntry path="com.eyewonder.instream.parser.VASTParser"/>
+    <classEntry path="com.eyewonder.instream.parser.VastTranslator"/>
+    <classEntry path="com.eyewonder.instream.parser.base.ITagParserBase"/>
+    <classEntry path="com.eyewonder.instream.parser.base.ReminderListBase"/>
+    <classEntry path="com.eyewonder.instream.parser.base.ReminderUnitBase"/>
+    <classEntry path="com.eyewonder.instream.parser.base.TagParserBase"/>
+    <classEntry path="com.eyewonder.instream.parser.errors.Errors"/>
+    <classEntry path="com.eyewonder.instream.parser.errors.ParserErrors"/>
+    <classEntry path="com.eyewonder.instream.parser.events.ParserErrorEvent"/>
+    <classEntry path="com.eyewonder.instream.parser.events.ParserEvent"/>
+    <classEntry path="com.eyewonder.instream.parser.ew.ReminderList"/>
+    <classEntry path="com.eyewonder.instream.parser.ew.ReminderUnit"/>
+    <classEntry path="com.eyewonder.instream.parser.loaderObject.LoaderObject"/>
+    <classEntry path="com.eyewonder.instream.players.AdManager"/>
+    <classEntry path="com.eyewonder.instream.players.AdTypes"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
