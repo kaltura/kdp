@@ -1,0 +1,500 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="Tree,com.yahoo.astra.fl.controls.Tree,closedBranchIconField,createAccessibilityImplementation,leafIconField,openBranchIconField,dataProvider,labelField,closeAllNodes,exposeNode,findNode,initializeAccessibility,openAllNodes,showNode,toggleNode" name="keywords">
+<title>com.yahoo.astra.fl.controls.Tree</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Tree - kdp3Lib Documentation';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?com/yahoo/astra/fl/controls/Tree.html&amp;com/yahoo/astra/fl/controls/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Tree</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Tree"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.yahoo.astra.fl.controls</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Tree</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Tree <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> fl.controls.List</td>
+</tr>
+</table>
+<p></p>
+  The Tree class creates a List-based Tree component that displays hierarchical information.
+  The Tree rendering is achieved via a custom TreeDataProvider that receives and parses an XML data structure,
+  the TreeNode data structure, and a supplied TreeCellRenderer (though other CellRenderers can be used in lieu 
+  of the default one.)
+   <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="treeClasses/TreeDataProvider.html" target="">com.yahoo.astra.fl.controls.treeClasses.TreeDataProvider</a>
+<br>
+<a href="treeClasses/TreeCellRenderer.html" target="">com.yahoo.astra.fl.controls.treeClasses.TreeCellRenderer</a>
+<br>
+<a href="treeClasses/TNode.html" target="">com.yahoo.astra.fl.controls.treeClasses.TNode</a>
+<br>
+<a href="treeClasses/BranchNode.html" target="">com.yahoo.astra.fl.controls.treeClasses.BranchNode</a>
+<br>
+<a href="treeClasses/LeafNode.html" target="">com.yahoo.astra.fl.controls.treeClasses.LeafNode</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#closedBranchIconField">closedBranchIconField</a> : String = "closedBranchIcon"<div class="summaryTableDescription">
+  The name of the field in the data object that contains information about an icon to use for a closed branch node
+  </div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#createAccessibilityImplementation">createAccessibilityImplementation</a> : Function<div class="summaryTableDescription">[static]
+  Placeholder for mixin by TreeAccImpl.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#dataProvider">dataProvider</a> : DataProvider<div class="summaryTableDescription">
+      Gets or sets the data model of the Tree of items to be displayed.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#labelField">labelField</a> : String<div class="summaryTableDescription">
+         Gets or sets the name of the field in the <code>dataProvider</code> object 
+         to be displayed as the label for the TextInput field and drop-down list.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#leafIconField">leafIconField</a> : String = "leafIcon"<div class="summaryTableDescription">
+  The name of the field in the data object that contains information about an icon to use for a leaf node
+  </div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#openBranchIconField">openBranchIconField</a> : String = "openBranchIcon"<div class="summaryTableDescription">
+  The name of the field in the data object that contains information about an icon to use for an open branch node
+  </div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#Tree()">Tree</a>()</div>
+<div class="summaryTableDescription">
+      Creates and returns an instance of the Tree class.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#closeAllNodes()">closeAllNodes</a>():void</div>
+<div class="summaryTableDescription">
+      Closes all nodes at all levels in the Tree.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#exposeNode()">exposeNode</a>(fieldName:String, fieldValue:String):<a href="treeClasses/TNode.html">TNode</a>
+</div>
+<div class="summaryTableDescription">
+      Finds the first instance of the node in the tree where
+   the value in the field designated by <code>fieldName</code>
+   is equal to <code>fieldValue</code> and opens all parent nodes 
+   of the found node, so that the found node becomes visible.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#findNode()">findNode</a>(fieldName:String, fieldValue:String):<a href="treeClasses/TNode.html">TNode</a>
+</div>
+<div class="summaryTableDescription">
+      Finds the first instance of the node in the tree where
+   the value in the field designated by <code>fieldName</code>
+   is equal to <code>fieldValue</code>
+        </div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#openAllNodes()">openAllNodes</a>():void</div>
+<div class="summaryTableDescription">
+      Opens all nodes at all levels in the Tree.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#showNode()">showNode</a>(foundNode:<a href="treeClasses/TNode.html">TNode</a>):int</div>
+<div class="summaryTableDescription">
+      Opens all parent nodes of a specified node, so that the specified
+   node becomes visible.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#toggleNode()">toggleNode</a>(node:<a href="treeClasses/BranchNode.html">BranchNode</a>):void</div>
+<div class="summaryTableDescription">
+   Toggles a specified branch node to change state:
+   if the node is open, it would close, and vice versa.</div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#initializeAccessibility()">initializeAccessibility</a>():void</div>
+<div class="summaryTableDescription">
+       </div>
+</td><td class="summaryTableOwnerCol">Tree</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="closedBranchIconField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">closedBranchIconField</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var closedBranchIconField:String = "closedBranchIcon"</code><p>
+  The name of the field in the data object that contains information about an icon to use for a closed branch node
+  </p></div>
+<a name="createAccessibilityImplementation"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">createAccessibilityImplementation</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var createAccessibilityImplementation:Function</code><p>
+  Placeholder for mixin by TreeAccImpl.
+  </p></div>
+<a name="dataProvider"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dataProvider</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>dataProvider:DataProvider</code>&nbsp;&nbsp;[read-write]<p>
+      Gets or sets the data model of the Tree of items to be displayed. 
+   The Tree dataProvider is required to be of type TreeDataProvider. 
+   Changes to the data provider are immediately available to all Tree 
+   components that use it as a data source. 
+           </p><p>The default value is <code>null</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get dataProvider():DataProvider</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set dataProvider(value:DataProvider):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="treeClasses/TreeDataProvider.html" target="">com.yahoo.astra.fl.controls.treeClasses.TreeDataProvider</a>
+</div>
+</div>
+<a name="labelField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">labelField</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>labelField:String</code>&nbsp;&nbsp;[read-write]<p>
+         Gets or sets the name of the field in the <code>dataProvider</code> object 
+         to be displayed as the label for the TextInput field and drop-down list. 
+            </p><p>By default, the component displays the <code>label</code> property 
+   of each <code>dataProvider</code> item. If the <code>dataProvider</code> 
+   items do not contain a <code>label</code> property, you can set the 
+   <code>labelField</code> property to use a different property.</p>
+                  <p><strong>Note:</strong> The <code>labelField</code> property is not used 
+         if the <code>labelFunction</code> property is set to a callback function.</p>
+         
+         <p>The default value is <code>"label"</code>.</p>
+<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get labelField():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set labelField(value:String):void</code>
+<br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../controls/Tree.html#labelFunction" target="">labelFunction</a>
+</div>
+</div>
+<a name="leafIconField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">leafIconField</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var leafIconField:String = "leafIcon"</code><p>
+  The name of the field in the data object that contains information about an icon to use for a leaf node
+  </p></div>
+<a name="openBranchIconField"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">openBranchIconField</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var openBranchIconField:String = "openBranchIcon"</code><p>
+  The name of the field in the data object that contains information about an icon to use for an open branch node
+  </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="Tree()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Tree</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function Tree()</code><p>
+      Creates and returns an instance of the Tree class. The Tree control's content
+   is determined by assigning a TreeDataProvider to the dataProvider field of
+   the Tree class.
+     
+      To display the Tree, add it as a child to your current display list or drag an instance
+   of the Tree onto Stage.
+           </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="treeClasses/TreeDataProvider.html" target="">com.yahoo.astra.fl.controls.treeClasses.TreeDataProvider</a>
+</div>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="closeAllNodes()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">closeAllNodes</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function closeAllNodes():void</code><p>
+      Closes all nodes at all levels in the Tree. 
+          </p></div>
+<a name="exposeNode()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">exposeNode</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function exposeNode(fieldName:String, fieldValue:String):<a href="treeClasses/TNode.html">TNode</a></code><p>
+      Finds the first instance of the node in the tree where
+   the value in the field designated by <code>fieldName</code>
+   is equal to <code>fieldValue</code> and opens all parent nodes 
+   of the found node, so that the found node becomes visible.
+        </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">fieldName</span>:String</code> &mdash; The name of the field in the node object to check.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">fieldValue</span>:String</code> &mdash; The value to look for in the specified field.
+     </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="treeClasses/TNode.html">TNode</a></code> &mdash; 
+                        A node that contains the given value in the specified field; or null if
+   no such node is found.
+       
+                        
+                     </td>
+</tr>
+</table>
+</div>
+<a name="findNode()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">findNode</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function findNode(fieldName:String, fieldValue:String):<a href="treeClasses/TNode.html">TNode</a></code><p>
+      Finds the first instance of the node in the tree where
+   the value in the field designated by <code>fieldName</code>
+   is equal to <code>fieldValue</code>
+        </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">fieldName</span>:String</code> &mdash; The name of the field in the node object to check.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">fieldValue</span>:String</code> &mdash; The value to look for in the specified field.
+     </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="treeClasses/TNode.html">TNode</a></code> &mdash; 
+                        A node that contains the given value in the specified field; or null if
+   no such node is found.
+       
+                        
+                     </td>
+</tr>
+</table>
+</div>
+<a name="initializeAccessibility()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">initializeAccessibility</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected override function initializeAccessibility():void</code><p>
+       </p></div>
+<a name="openAllNodes()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">openAllNodes</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function openAllNodes():void</code><p>
+      Opens all nodes at all levels in the Tree. 
+          </p></div>
+<a name="showNode()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">showNode</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function showNode(foundNode:<a href="treeClasses/TNode.html">TNode</a>):int</code><p>
+      Opens all parent nodes of a specified node, so that the specified
+   node becomes visible.
+        </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">foundNode</span>:<a href="treeClasses/TNode.html">TNode</a></code> &mdash; The node to be made visible.
+     </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>int</code> &mdash; The index of the node in the current view of the Tree (this is the
+   absolute index: i.e., the number of the nodes visible above the specified node.)
+       </td>
+</tr>
+</table>
+</div>
+<a name="toggleNode()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">toggleNode</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function toggleNode(node:<a href="treeClasses/BranchNode.html">BranchNode</a>):void</code><p>
+   Toggles a specified branch node to change state:
+   if the node is open, it would close, and vice versa.
+   </p><p>This method is deprecated. Use <code>BranchNode.openNode()</code> 
+   and <code>BranchNode.closeNode()</code> instead.</p>
+        <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">node</span>:<a href="treeClasses/BranchNode.html">BranchNode</a></code> &mdash; The node that should be triggered.
+     </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="treeClasses/BranchNode.html" target="">com.yahoo.astra.fl.controls.treeClasses.BranchNode</a>
+</div>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
