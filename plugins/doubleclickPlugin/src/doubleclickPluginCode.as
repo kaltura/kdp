@@ -100,6 +100,7 @@ package
 		private var _netStreams:Array;
 		public var trackCuePoints:String="true";
 		public var cmsId:String;
+		private var _myWidth:Number;
 		public function set channels(val:String):void{
 			_channels			= val.split(","); 
 		}
@@ -130,7 +131,7 @@ package
 			_doubleclickMediator.eventDispatcher.addEventListener(DoubleclickMediator.INIT_POSTROLL, onPostRoll);
 			_doubleclickMediator.eventDispatcher.addEventListener(DoubleclickMediator.INIT_MIDROLL, onMidRoll);
 			_doubleclickMediator.eventDispatcher.addEventListener(NotificationType.VOLUME_CHANGED, onVolumeChange);
-			_doubleclickMediator.eventDispatcher.addEventListener(NotificationType.PLAYBACK_COMPLETE, onPlaybackComplete);
+			//			_doubleclickMediator.eventDispatcher.addEventListener(NotificationType.PLAYBACK_COMPLETE, onPlaybackComplete);
 			_doubleclickMediator.preSequence = preSequence;
 			_doubleclickMediator.postSequence = postSequence;
 			facade.registerMediator(_doubleclickMediator);
@@ -162,21 +163,20 @@ package
 			}			
 		}
 		private function onAdTimer(e:TimerEvent):void{
-			_facade.sendNotification(NotificationType.PLAYER_UPDATE_PLAYHEAD,_adNetStream.time);
+			_facade.sendNotification("adUpdatePlayhead",_adNetStream.time);
 		}
-		
-		
-		
 		
 		private function onPreRoll(e:Event):void{
 			onLoadAd();
 		}
 		private function onPostRoll(e:Event):void{
-			//some ads dont' qualify as postroll
-			if(adType !=  AdsRequestType.TEXT_OVERLAY &&
+			//if using adRule play that instead of loading ad
+			if(_adsListManager && _adsListManager.hasAdBreak(AdBreakTypes.POSTROLL))
+				_adsListManager.initAdBreak(AdBreakTypes.POSTROLL);
+			else if(adType !=  AdsRequestType.TEXT_OVERLAY &&
 				adType != AdsRequestType.TEXT &&
 				adType != AdsRequestType.TEXT_OR_GRAPHICAL &&
-				adType != AdsRequestType.TEXT_FULL_SLOT)
+				adType != AdsRequestType.TEXT_FULL_SLOT)//some ads dont' qualify as postroll
 				onLoadAd();
 		}
 		private function onMidRoll(e:Event):void{
@@ -216,6 +216,10 @@ package
 			playHeadTimer.reset();
 			playHeadTimer.stop();
 			
+			unloadAds();
+		}
+		
+		private function unloadAds():void{
 			//clear overlay ads
 			while(_overlayAdsManager.length > 0){
 				if(this.contains(_overlayAdsManager[0]))
@@ -227,11 +231,6 @@ package
 			}
 			
 			//clear video ads
-			/*
-			for each (var manager:AdsManager in _videoAdsManager){
-			manager.unload();
-			manager 	= null;
-			}*/
 			while(_videoAdsManager.length > 0){
 				_videoAdsManager[0].unload();
 				_videoAdsManager[0]	= null;
@@ -249,13 +248,135 @@ package
 			}
 		}
 		
-		private var _myWidth:Number;
 		override public function set width(value:Number):void
 		{
 			_myWidth = value;
 			super.width = value;
 			updateSizes();
 		}	
+		
+		/**
+		 * Function to start playing the plugin content - each plugin implements this differently
+		 * 
+		 */		
+		public function start () : void{
+			_doubleclickMediator.forceStart();
+		}
+		
+		/**
+		 * Creates the AdsLoader object if its not present
+		 * and request ads using the AdsLoader object.
+		 */
+		private function loadAd():void {
+			log("DOUBLECLICK#loadAd");
+			//TODO:hack remove later
+			adsLoader = new AdsLoader();
+			_adLoaders.push(adsLoader);
+			adsLoader.addEventListener(AdsLoadedEvent.ADS_LOADED, onAdsLoaded);
+			adsLoader.addEventListener(AdsListLoadedEvent.LOADED, onAdsListLoaded);
+			adsLoader.addEventListener(AdErrorEvent.AD_ERROR, onAdError);
+			
+			adsLoader.requestAds(createAdsRequest());
+		}
+		
+		
+		private function onAdsListLoaded(adsListEvent:AdsListLoadedEvent):void{
+			log("DOUBLECLICK#onAdsListLoaded");
+			playHeadTimer.addEventListener(TimerEvent.TIMER, onPlayHeadTimer);
+			kMediaPlayer			= (_facade["bindObject"]["video"] as KMediaPlayer);
+			playHeadTimer.start();
+			checkForAd(adsListEvent);
+		}
+		
+		private function onPlayHeadTimer(e:TimerEvent):void{
+			//trace(kMediaPlayer.player.currentTime);
+			_playHead["time"]		= kMediaPlayer.player.currentTime;
+		}
+		
+		private function checkForAd(adsListEvent:AdsListLoadedEvent = null):void{
+			log("DOUBLECLICK#checkForAd-begin1");
+			//e.getAdsListManager();
+			//var adsListManager:AdsListManager;
+			_playHead					= {time:kMediaPlayer.player.currentTime};
+			_adsListManager 			= adsListEvent.getAdsListManager(_playHead);
+			
+			// This event is raised when either a mid-roll ad list is automatically
+			// triggered based on the content playhead or manually with the 
+			// initAdBreak when the ad list is a pre-roll or post-roll ad list
+			_adsListManager.addEventListener(AdBreaksInitializedEvent.INITIALIZED, adBreaksInitializedEventHandler);
+			// Raised when an error or empty ad list is returned
+			_adsListManager.addEventListener(AdErrorEvent.AD_ERROR, adErrorHandler);
+			
+			// Initialize preroll ad break if it's present.
+			if(_adsListManager.hasAdBreak(AdBreakTypes.PREROLL)){
+				_adsListManager.initAdBreak(AdBreakTypes.PREROLL);
+			}
+			
+			log("DOUBLECLICK#checkForAd-end");
+		}
+		
+		//flag indicating if adbreak is from ad list or cuepoint. 
+		private var _isAdRuleMidBreak:Boolean	= false;
+		
+		private function adBreaksInitializedEventHandler(event:AdBreaksInitializedEvent):void{
+			log("DOUBLECLICK#adBreaksInitializedEventHandler2	-	TOTAL ADS:xxxxxx");
+			if(_playHead["time"] < kMediaPlayer.player.duration)
+				_isAdRuleMidBreak		= true;
+			
+			_doubleclickMediator.pauseDisablePlayer();
+			log("DOUBLECLICK#adBreaksInitializedEventHandler2	-	TOTAL ADS:"+event.adBreaks[0].adsManagers.length);
+			var adBreaks:Array = event.adBreaks;
+			// If there's more than 1 ad break, means video player's playhead moved
+			// ahead over more than 1 ad break. This would be a common case when user
+			// seeks forward. It's up to publisher to choose to play 1st, last or all
+			// ad breaks. We pick the first ad break.
+			// In this example, I load the first ad break only.
+			if (!isArrayEmpty(adBreaks)) {
+				_pendingAdsManagers = _pendingAdsManagers.concat(
+					event.adBreaks[0].adsManagers);
+				playNextAdBreakAdsManager();
+			}
+		}
+		
+		/**
+		 * @return <code>true</code> if the array is empty or null.
+		 */
+		public static function isArrayEmpty(array:Array):Boolean {
+			return array == null || array.length == 0;
+		}
+		
+		
+		private function playNextAdBreakAdsManager():void {
+			log("DOUBLECLICK#playNextAdBreakAdsManager");
+			
+			var nextAdsManager:AdsManager;
+			
+			// There can be more than 1 ads manager to play ads back to back. For
+			// now video and overlays can't be mixed with one exception, overlay
+			// can be the last ads manager in a list of video ads managers.
+			if (!isArrayEmpty(_pendingAdsManagers)) {
+				// Pick the first ads manager to play.
+				nextAdsManager = _pendingAdsManagers.shift();
+				
+				// If we hit a non-linear, play the content, then the ad.
+				if( (nextAdsManager.type == AdsManagerTypes.FLASH) && 
+					( nextAdsManager.ads != null ) && 
+					( nextAdsManager.ads.length > 0 ) ) {
+					var ad:Ad = nextAdsManager.ads[0];
+					
+					if(!ad.linear) {
+						onVideoAdComplete();
+					}
+				}
+				constructAdManager(nextAdsManager);
+				
+			} else {
+				log("No ad breaks left, if this is the end after the post-roll and " +
+					"content, you may want to bring up another window.");
+			}
+			
+		}
+		
 		
 		/**
 		 *  
@@ -309,6 +430,8 @@ package
 		private function unloadAd(adsManager:AdsManager):void {
 			try {
 				if (adsManager) {
+					log("[DOUBLECLICK] - unload ad");
+					adsManager.unload();
 					removeListeners(adsManager);
 					removeAdsManagerListeners(adsManager);
 				}
@@ -360,15 +483,21 @@ package
 		private function createAdsRequest():AdsRequest {
 			var request:AdsRequest	= new AdsRequest();
 			
-			request.adSlotHeight			= this.height;
+			request.adSlotHeight			= _facade["bindObject"]["video"].height;
 			
-			request.adSlotWidth				= this.width;
+			request.adSlotWidth				= _facade["bindObject"]["video"].width;
 			
-			//use adTagUrl property if value exist else use ad break opporunity tag url. 
+			request.adSlotHorizontalAlignment	= _facade["bindObject"]["video"].width;
+			request.adSlotVerticalAlignment		= _facade["bindObject"]["video"].height;
+			
+			//use adTagUrl property if value exist else use ad break opporunity tag url.
 			if(hasValue(adTagUrl))
 				request.adTagUrl			= adTagUrl;
-			else
+			else if(adOppTagUrl != ""){
 				request.adTagUrl			= adOppTagUrl;
+				adOppTagUrl					= "";
+			}
+			
 			
 			if(hasValue(adType))
 				request.adType				= AdsRequestType[adType.toUpperCase()];
@@ -433,6 +562,9 @@ package
 		}
 		
 		private function constructAdManager(adsManager:AdsManager):void {
+			//TODO:hack remove later
+			this.visible	= true;
+			_facade.sendNotification(AdsNotificationTypes.AD_START);
 			adsManager.addEventListener(AdErrorEvent.AD_ERROR, onAdError);
 			adsManager.addEventListener(AdEvent.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
 			adsManager.addEventListener(AdEvent.CONTENT_RESUME_REQUESTED, onContentResumeRequested);
@@ -455,7 +587,7 @@ package
 			} else if (adsManager.type == AdsManagerTypes.VIDEO) {
 				//addChild(video);
 				var videoAdsManager:VideoAdsManager = adsManager as VideoAdsManager;
-				//videoAdsManager.addEventListener(AdEvent.STARTED,onAdStarted);
+				videoAdsManager.addEventListener(AdEvent.STARTED,onAdStarted);
 				videoAdsManager.addEventListener(AdEvent.STOPPED,onVideoAdStopped);
 				videoAdsManager.addEventListener(AdEvent.PAUSED, onVideoAdPaused);
 				videoAdsManager.addEventListener(AdEvent.COMPLETE, onVideoAdComplete);
@@ -474,16 +606,16 @@ package
 				
 				//dispatching adStart notification here because AdEvent.STARTED is fired off multiple times.
 				//will follow up with google on this. 
-				_facade.sendNotification(AdsNotificationTypes.AD_START);
 			} 
 		}
 		
 		
 		private function onVideoAdComplete(e:AdEvent = null):void{
+			log("[DOUBLECLICK] onVideoAdComplete");
 			for each(var adManager:AdsManager in _videoAdsManager){
 				unloadAd(adManager);
 			}
-			
+			_facade.sendNotification(AdsNotificationTypes.AD_END);
 			//if more videos in pendingAdsManager play next item
 			if (!isArrayEmpty(_pendingAdsManagers)) {
 				playNextAdBreakAdsManager();
@@ -495,14 +627,17 @@ package
 				
 				clearVideo();
 				
-				_facade.sendNotification(AdsNotificationTypes.AD_END);
 				_facade.sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
+				_doubleclickMediator.enableControls();
 				if(_isAdRuleMidBreak){
 					_doubleclickMediator.playEnablePlayer();
 					_isAdRuleMidBreak		= false;
 				}else{	
 					_facade.sendNotification("enableGui", {guiEnabled: true, enableType: "full"});
 				}
+				//TODO:hack remove later
+				this.visible	= false;
+				unloadAds();
 			}
 			
 		}
@@ -566,7 +701,7 @@ package
 		
 		
 		private function onAdStarted(event:AdEvent):void {
-			log("[DOUBLECLICK] sent : db adsManager sent "+event.type);
+			log("[DOUBLECLICK] sent!!! : db adsManager sent "+event.type);
 		}
 		
 		private function onAdClicked(event:AdEvent):void {
@@ -667,133 +802,12 @@ package
 		}
 		
 		
-		/**
-		 * Function to start playing the plugin content - each plugin implements this differently
-		 * 
-		 */		
-		public function start () : void{
-			_doubleclickMediator.forceStart();
-		}
 		
-		/**
-		 * Creates the AdsLoader object if its not present
-		 * and request ads using the AdsLoader object.
-		 */
-		private function loadAd():void {
-			adsLoader = new AdsLoader();
-			_adLoaders.push(adsLoader);
-			adsLoader.addEventListener(AdsLoadedEvent.ADS_LOADED, onAdsLoaded);
-			adsLoader.addEventListener(AdsListLoadedEvent.LOADED, onAdsListLoaded);
-			adsLoader.addEventListener(AdErrorEvent.AD_ERROR, onAdError);
-			
-			adsLoader.requestAds(createAdsRequest());
-		}
-		
-		
-		private function onAdsListLoaded(adsListEvent:AdsListLoadedEvent):void{
-			playHeadTimer.addEventListener(TimerEvent.TIMER, onPlayHeadTimer);
-			kMediaPlayer			= (_facade["bindObject"]["video"] as KMediaPlayer);
-			playHeadTimer.start();
-			checkForAd(adsListEvent);
-		}
-		
-		private function onPlayHeadTimer(e:TimerEvent):void{
-			_playHead["time"]		= kMediaPlayer.player.currentTime;
-			//			log("DOUBLECLICK#onPlayHeadTimer::: 	"+_playHead["time"]);
-		}
-		
-		private function onPlaybackComplete(e:Event):void{
-			if(_adsListManager.hasAdBreak(AdBreakTypes.POSTROLL)){
-				_adsListManager.initAdBreak(AdBreakTypes.POSTROLL);
-			}
-		}
-		
-		private function checkForAd(adsListEvent:AdsListLoadedEvent = null):void{
-			//e.getAdsListManager();
-			//var adsListManager:AdsListManager;
-			_playHead					= {time:kMediaPlayer.player.currentTime};
-			_adsListManager 			= adsListEvent.getAdsListManager(_playHead);
-			
-			// This event is raised when either a mid-roll ad list is automatically
-			// triggered based on the content playhead or manually with the 
-			// initAdBreak when the ad list is a pre-roll or post-roll ad list
-			_adsListManager.addEventListener(AdBreaksInitializedEvent.INITIALIZED, adBreaksInitializedEventHandler);
-			
-			// Raised when an error or empty ad list is returned
-			_adsListManager.addEventListener(AdErrorEvent.AD_ERROR, adErrorHandler);
-			
-			// Initialize preroll ad break if it's present.
-			if(_adsListManager.hasAdBreak(AdBreakTypes.PREROLL)){
-				_adsListManager.initAdBreak(AdBreakTypes.PREROLL);
-			}
-			//	log("DOUBLECLICK#onAdsListLoaded");
-		}
-		
-		//flag indicating if adbreak is from ad list or cuepoint. 
-		private var _isAdRuleMidBreak:Boolean	= false;
-		
-		private function adBreaksInitializedEventHandler(event:AdBreaksInitializedEvent):void{
-			if(_playHead["time"] < kMediaPlayer.player.duration)
-				_isAdRuleMidBreak		= true;
-			
-			_doubleclickMediator.pauseDisablePlayer();
-			log("DOUBLECLICK#adBreaksInitializedEventHandler	-	TOTAL ADS:"+event.adBreaks[0].adsManagers.length);
-			var adBreaks:Array = event.adBreaks;
-			// If there's more than 1 ad break, means video player's playhead moved
-			// ahead over more than 1 ad break. This would be a common case when user
-			// seeks forward. It's up to publisher to choose to play 1st, last or all
-			// ad breaks. We pick the first ad break.
-			// In this example, I load the first ad break only.
-			if (!isArrayEmpty(adBreaks)) {
-				_pendingAdsManagers = _pendingAdsManagers.concat(
-					event.adBreaks[0].adsManagers);
-				playNextAdBreakAdsManager();
-			}
-		}
-		
-		/**
-		 * @return <code>true</code> if the array is empty or null.
-		 */
-		public static function isArrayEmpty(array:Array):Boolean {
-			return array == null || array.length == 0;
-		}
-		
-		
-		private function playNextAdBreakAdsManager():void {
-			log("DOUBLECLICK#playNextAdBreakAdsManager");
-			
-			var nextAdsManager:AdsManager;
-			
-			// There can be more than 1 ads manager to play ads back to back. For
-			// now video and overlays can't be mixed with one exception, overlay
-			// can be the last ads manager in a list of video ads managers.
-			if (!isArrayEmpty(_pendingAdsManagers)) {
-				// Pick the first ads manager to play.
-				nextAdsManager = _pendingAdsManagers.shift();
-				
-				// If we hit a non-linear, play the content, then the ad.
-				if( (nextAdsManager.type == AdsManagerTypes.FLASH) && 
-					( nextAdsManager.ads != null ) && 
-					( nextAdsManager.ads.length > 0 ) ) {
-					var ad:Ad = nextAdsManager.ads[0];
-					
-					if(!ad.linear) {
-						onVideoAdComplete();
-					}
-				}
-				constructAdManager(nextAdsManager);
-				
-			} else {
-				log("No ad breaks left, if this is the end after the post-roll and " +
-					"content, you may want to bring up another window.");
-			}
-			
-		}
 		
 		
 		
 		private function adErrorHandler(adErrorEvent:AdErrorEvent):void{
-			
+			log("[DOUBLECLICK]#adErrorHandler");
 			var adError:AdError = adErrorEvent.error;
 			
 			log("message: " + adError.errorMessage);
@@ -806,7 +820,7 @@ package
 		}
 		
 		private function hasValue(val:String):Boolean{
-			return (val != "" && val != "undefined")?true:false;
+			return (val != "" && val != "undefined" && val != null)?true:false;
 		}
 		
 		/**

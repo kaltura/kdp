@@ -31,6 +31,7 @@ package com.kaltura.kdpfl.plugin.component
 		public static const INIT_POSTROLL:String	= "initPostRoll";
 		public static const INIT_PREROLL:String		= "initPreRoll";
 		public static const INIT_MIDROLL:String		= "initMidRoll";
+		public static const INIT_ADRULE:String		= "initAdRule";
 		// DO NOT change the following consts values, they match the ones in statistics plugin
 		public static const PRE:String = "preroll";
 		public static const MID:String = "midroll";
@@ -117,8 +118,7 @@ package com.kaltura.kdpfl.plugin.component
 				NotificationType.ENABLE_GUI,
 				NotificationType.PLAYBACK_COMPLETE,
 				NotificationType.CHANGE_MEDIA_PROCESS_STARTED,
-				NotificationType.VOLUME_CHANGED,
-				"playerPlayed"
+				NotificationType.VOLUME_CHANGED
 			];
 			return notificationsArray;
 		}
@@ -128,7 +128,7 @@ package com.kaltura.kdpfl.plugin.component
 		 */		
 		private var _isNewLoad:Boolean	= false;
 		private var _played:Boolean		= false;
-		private var _lastId:String;
+		private var _lastId:String		= "";
 		private var _lastSeek:Number;
 		
 		private var sequenceProxy:SequenceProxy;
@@ -161,10 +161,12 @@ package com.kaltura.kdpfl.plugin.component
 				case NotificationType.CHANGE_MEDIA:
 					initAdManager();
 					break;
-				
+				/*
 				case NotificationType.PLAYBACK_COMPLETE:
-					this.eventDispatcher.dispatchEvent(new Event(NotificationType.PLAYBACK_COMPLETE));
-					break;
+				trace("PLAYBACK COMPLETE::: 	"+sequenceProxy["vo"]["isInSequence"]);
+				//this.eventDispatcher.dispatchEvent(new Event(NotificationType.PLAYBACK_COMPLETE));
+				break;
+				*/
 				case NotificationType.AD_OPPORTUNITY:
 					trace("MY CUEPOINT:::::: 		"+
 						note.getBody().cuePoint.title, 
@@ -172,48 +174,53 @@ package com.kaltura.kdpfl.plugin.component
 						note.getBody().cuePoint.sourceUrl,
 						note.getBody().cuePoint.adType,
 						note.getBody().cuePoint.endTime,
-						note.getBody().cuePoint.duration);
-					
-					
-					
-					if (_plugin.trackCuePoints == "true" && note.getBody().cuePoint.title == AD_PROVIDER)
-					{
-						_adContext = note.getBody().context;
-						
-						var cuePoint : KalturaAdCuePoint = note.getBody().cuePoint as KalturaAdCuePoint;
-						switch ( _adContext )
+						note.getBody().cuePoint.duration);					
+					//if adTagURL exists ignore cuepoints from the KMC. 
+					//doubleclick will monitor netstream to display ads base on the netstream. 
+					if(!_plugin.adTagUrl)
+						onAdOpportunity(note.getBody());
+					break;
+			}
+		}
+		
+		private function onAdOpportunity(cpData:Object):void{
+			if (_plugin.trackCuePoints == "true" && cpData.cuePoint.title == AD_PROVIDER)
+			{
+				_adContext = cpData.context;
+				
+				var cuePoint : KalturaAdCuePoint = cpData.cuePoint as KalturaAdCuePoint;
+				switch ( _adContext )
+				{
+					case SequenceContextType.PRE:
+						if (cuePoint.adType == KalturaAdType.VIDEO)
 						{
-							case SequenceContextType.PRE:
-								if (cuePoint.adType == KalturaAdType.VIDEO)
-								{
-									//_plugin.prerollUrlArr.push( cuePoint.sourceUrl );
-									if ( cuePoint.adType == KalturaAdType.VIDEO)
-									{
-										_plugin.adOppTagUrl	= cuePoint.sourceUrl;
-										_plugin.adType		= "video";
-										sequenceProxy.vo.preSequenceArr.push(_plugin);
-									}
-									else if(cuePoint.adType == KalturaAdType.OVERLAY)
-									{
-										sendNotification ("changeOverlayDisplayDuration" , {newDuration : (cuePoint.endTime - cuePoint.startTime)});
-										_plugin.adType		= "text_or_graphical"; //covers text overlays, text full slot, graphical overlay, or graphical full slot ads.
-										_plugin.adOppTagUrl	= cuePoint.sourceUrl;
-										_plugin.loadNonLinearAd();
-									}
-								}
-								break;
-							case SequenceContextType.POST:
-								if (cuePoint.adType == KalturaAdType.VIDEO)
-								{
-									//_plugin.postrollUrlArr.push( cuePoint.sourceURL );
-									sequenceProxy.vo.postSequenceArr.push(_plugin);
-								}
-								break;
-							case SequenceContextType.MID:
-								resolveMidrollAd( cuePoint , sequenceProxy);
-								break;                                                                                                                                                                             
+							//_plugin.prerollUrlArr.push( cuePoint.sourceUrl );
+							if ( cuePoint.adType == KalturaAdType.VIDEO)
+							{
+								_plugin.adOppTagUrl	= cuePoint.sourceUrl;
+								_plugin.adType		= "video";
+								sequenceProxy.vo.preSequenceArr.push(_plugin);
+							}
+							else if(cuePoint.adType == KalturaAdType.OVERLAY)
+							{
+								sendNotification ("changeOverlayDisplayDuration" , {newDuration : (cuePoint.endTime - cuePoint.startTime)});
+								_plugin.adType		= "text_or_graphical"; //covers text overlays, text full slot, graphical overlay, or graphical full slot ads.
+								_plugin.adOppTagUrl	= cuePoint.sourceUrl;
+								_plugin.loadNonLinearAd();
+							}
 						}
-					}
+						break;
+					case SequenceContextType.POST:
+						if (cuePoint.adType == KalturaAdType.VIDEO)
+						{
+							//_plugin.postrollUrlArr.push( cuePoint.sourceURL );
+							sequenceProxy.vo.postSequenceArr.push(_plugin);
+						}
+						break;
+					case SequenceContextType.MID:
+						resolveMidrollAd( cuePoint , sequenceProxy);
+						break;                                                                                                                                                                             
+				}
 			}
 		}
 		
@@ -298,6 +305,11 @@ package com.kaltura.kdpfl.plugin.component
 			facade.sendNotification("doPlay");
 		}
 		
+		private function adRule():void{
+			disableControls();
+			eventDispatcher.dispatchEvent(new Event(INIT_ADRULE));
+		}
+		
 		/**
 		 * show midroll ads
 		 */
@@ -313,6 +325,10 @@ package com.kaltura.kdpfl.plugin.component
 				facade.sendNotification("enableGui", {guiEnabled: false, enableType: "full"});
 		}
 		
+		public function enableControls():void{
+			if (!_controlsEnabled) 
+				facade.sendNotification("enableGui", {guiEnabled: true, enableType: "full"});
+		}
 		
 		private function sendBeacon(event:String):void{
 			eventDispatcher.dispatchEvent(new Event(event));
