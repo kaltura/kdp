@@ -13,7 +13,7 @@ package com.kaltura.kdpfl.plugin.component {
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
-
+	
 	/**
 	 * Class StatisticsPluginMediator is responsible for "catching" the KDP notifications and translating them to the appropriate statistics events.
 	 * @author Hila
@@ -26,8 +26,8 @@ package com.kaltura.kdpfl.plugin.component {
 		 * Mediator name 
 		 */		
 		public static const NAME:String = "statisticsMediator";
-
-
+		
+		
 		public var statsDomain : String;
 		
 		private var _flashvars : Object;
@@ -114,7 +114,7 @@ package com.kaltura.kdpfl.plugin.component {
 		private var _isNewLoad:Boolean = false;
 		
 		private var _kc : KalturaClient;
-
+		
 		/**
 		 * Constructor 
 		 * @param disStats - boolean signifying that the statistics should no be dispatched.
@@ -123,10 +123,10 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		public function StatisticsMediator(disStats:Boolean, viewComponent:Object = null) {
 			super(NAME, viewComponent);
-
+			
 			statsDis = disStats;
 		}
-
+		
 		/**
 		 * Function returns the array of KDP notifications that the Mediator listens for. 
 		 * @return array of the notifications that interest the Mediator.
@@ -139,7 +139,6 @@ package com.kaltura.kdpfl.plugin.component {
 				"playerUpdatePlayhead",  
 				"playerPlayed", 
 				"mediaReady", 
-				"durationChange", 
 				"playerSeekStart", 
 				"playerSeekEnd", 
 				"scrubberDragStart", 
@@ -177,8 +176,8 @@ package com.kaltura.kdpfl.plugin.component {
 			config.clientTag = facade.retrieveProxy("servicesProxy")["kalturaClient"]["clientTag"];
 			_kc = new KalturaClient(config);
 		}
-
-
+		
+		
 		/**
 		 * Function creates a statistics callback and initiates it with the basic data from the KDP.
 		 * @param ks	session id 
@@ -211,7 +210,7 @@ package com.kaltura.kdpfl.plugin.component {
 			kse.referrer = escape(unescape(kse.referrer));
 			return kse;
 		}
-
+		
 		/**
 		 * Function checks whether a progress statistics event should be dispathced.
 		 * @param currPosition	current playhead position
@@ -220,19 +219,19 @@ package com.kaltura.kdpfl.plugin.component {
 		 * 
 		 */
 		private function percentStatsChanged(currPosition:Number, duration:int):int {
-
+			
 			var percent:Number = 0;
 			var seekPercent:Number = 0;
-
+			
 			if (_inDrag || _inFF) {
 				return int.MIN_VALUE;
 			}
-
+			
 			if (duration > 0) {
 				percent = currPosition / duration;
 				seekPercent = _lastSeek / duration;
 			}
-
+			
 			if (!_p25Once && Math.round(percent * 100) >= 25 && seekPercent < 0.25) {
 				_p25Once = true;
 				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_25;
@@ -249,10 +248,10 @@ package com.kaltura.kdpfl.plugin.component {
 				_p100Once = true;
 				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_100;
 			}
-
+			
 			return int.MIN_VALUE;
 		}
-
+		
 		/**
 		 *  Function responsible for dispatching the appropriate statistics event according to the notification fired by the KDP.
 		 * @param note notification fired by the KDP and caught by the Mediator.
@@ -305,14 +304,14 @@ package com.kaltura.kdpfl.plugin.component {
 						_fullScreen = false;
 						_normalScreen = true;
 						break;
-	
+					
 					case "kdpEmpty":
 						if (_ready)
 							return;
 						kse.eventType = com.kaltura.types.KalturaStatsEventType.WIDGET_LOADED;
 						_ready = true;
 						break;
-	
+					
 					case "playerPlayed":
 						
 						
@@ -327,16 +326,21 @@ package com.kaltura.kdpfl.plugin.component {
 							kse.eventType = com.kaltura.types.KalturaStatsEventType.PLAY;
 							_played = true;
 						}
-	
+						
 						break;
-	
-	
+					
+					
 					case "mediaReady":
 						
 						if (kse.entryId) {
 							if (_lastId != kse.entryId) {
 								_played = false;
 								_lastId = kse.entryId;
+								_hasSeeked = false;
+								_p25Once = false;
+								_p50Once = false;
+								_p75Once = false;
+								_p100Once = false;
 								_isNewLoad = true;
 								kse.eventType = com.kaltura.types.KalturaStatsEventType.MEDIA_LOADED;
 							}
@@ -346,42 +350,31 @@ package com.kaltura.kdpfl.plugin.component {
 							}
 						}
 						break;
-	
-					case "durationChange":
-						if (_lastId != kse.entryId) {
-							_hasSeeked = false;
-							_p25Once = false;
-							_p50Once = false;
-							_p75Once = false;
-							_p100Once = false;
-						}
-						return;
-						break;
-	
+					
 					case "playerSeekEnd":
 						_inSeek = false;
 						return;
 						break;
-	
+					
 					case "scrubberDragStart":
 						_inDrag = true;
 						return;
 						break;
-	
+					
 					case "scrubberDragEnd":
 						_inDrag = false;
 						_inSeek = false;
 						return;
 						break;
-	
+					
 					case "playerUpdatePlayhead":
 						
-							kse.eventType = percentStatsChanged(data as Number, kse.duration);
-							if (kse.eventType < 0) {
-								return; // negative number means no need to change update
-							}
-							break;
-	
+						kse.eventType = percentStatsChanged(data as Number, kse.duration);
+						if (kse.eventType < 0) {
+							return; // negative number means no need to change update
+						}
+						break;
+					
 					case "kdpReady":
 						// Ready should not occur more than once
 						if (_ready)
@@ -414,7 +407,7 @@ package com.kaltura.kdpfl.plugin.component {
 						break;
 				}
 			}
-					
+			
 			function handleAdsNotifications ()  : void
 			{
 				
@@ -479,7 +472,7 @@ package com.kaltura.kdpfl.plugin.component {
 								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_25;
 								break;
 							case "overlay":
-	//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
+								//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
 								break;
 						}
 						break;
@@ -496,7 +489,7 @@ package com.kaltura.kdpfl.plugin.component {
 								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_50;
 								break;
 							case "overlay":
-	//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
+								//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
 								break;
 						}
 						break;
@@ -513,7 +506,7 @@ package com.kaltura.kdpfl.plugin.component {
 								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_75;
 								break;
 							case "overlay":
-	//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
+								//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
 								break;
 						}
 						break;
@@ -521,11 +514,11 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			
 		}
-
-
+		
+		
 		public function get view():DisplayObject {
 			return viewComponent as DisplayObject;
 		}
-
+		
 	}
 }
