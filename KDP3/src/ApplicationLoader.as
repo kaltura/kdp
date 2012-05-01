@@ -14,8 +14,6 @@ package {
 	import flash.system.SecurityDomain;
 	import flash.utils.getDefinitionByName;
 	
-	import org.osmf.events.LoaderEvent;
-	
 	
 	/**
 	 * @class ApplicationLoader
@@ -85,7 +83,12 @@ package {
 			Security.allowDomain("*");
 			super();
 			stop();
-			loaderInfo.addEventListener(Event.COMPLETE, go);
+			//fix issue with FF 3.6 & wmode!="window": we already loaded the application
+			if (loaderInfo.bytesLoaded == loaderInfo.bytesTotal)
+				go();
+			else
+				loaderInfo.addEventListener(Event.COMPLETE, go);
+
 			if (stage) {
 				loadPreloader(null);
 			}
@@ -192,7 +195,7 @@ package {
 		/**
 		 * Starts the real application by creating an instance of kdp3.
 		 */
-		protected function go(e:Event):void {
+		protected function go(e:Event = null):void {
 			_isGoing = true;
 			loaderInfo.removeEventListener(Event.COMPLETE, go);
 			nextFrame();
