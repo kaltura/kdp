@@ -137,7 +137,10 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private var _mediaStartPlayFrom:Number = -1;
 
-		
+		/**
+		 * indicates if we are in the process of re-loading live stream entry 
+		 */		
+		private var _reloadingLiveStream:Boolean = false;
 		/**
 		 * Constructor 
 		 * @param name
@@ -718,7 +721,17 @@ package com.kaltura.kdpfl.view.media
 		{
 			if (player.canPlay)
 			{
-				if (_useParallelElement && (player.media is ParallelElement))
+				//fixes a bug with Wowza and live stream: resume doesn't work, we should re-load the media
+				if ( (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
+					&& (_flashvars.reloadOnPlayLS && _flashvars.reloadOnPlayLS == "true")
+					&& _prevState == PAUSED
+					&& !_reloadingLiveStream)
+				{
+					_reloadingLiveStream = true;
+					_mediaProxy.prepareMediaElement();
+					_mediaProxy.loadWithMediaReady();			
+				}
+				else if (_useParallelElement && (player.media is ParallelElement))
 				{
 					var mainMedia:MediaElement = (player.media as ParallelElement).getChildAt(0) as MediaElement;
 					var playTrait:PlayTrait = mainMedia.getTrait(MediaTraitType.PLAY) as PlayTrait;
@@ -905,6 +918,8 @@ package com.kaltura.kdpfl.view.media
 						_isPrePlaySeekInProgress = false;
 					}
 				
+					if (_reloadingLiveStream)
+						_reloadingLiveStream = false;
 					
 					break;
 				case MediaPlayerState.PLAYBACK_ERROR:
