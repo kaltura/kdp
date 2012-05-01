@@ -220,9 +220,10 @@ package com.kaltura.kdpfl.model
 							break;
 					}
 					var elem:MediaElement = vo.mediaFactory.createMediaElement(resource);
-					if (elem is VideoElement) {
-						(elem as VideoElement).smoothing = true;
+					if (elem.hasOwnProperty("smoothing")) {
+						elem["smoothing"] = true;
 					}
+					
 					vo.media = new DualThresholdBufferingProxyElement(vo.deliveryType == StreamerType.LIVE ? vo.initialLiveBufferTime :vo.initialBufferTime,vo.deliveryType == StreamerType.LIVE ? vo.expandedLiveBufferTime : vo.expandedBufferTime, elem);	
 					break;
 				case SourceType.F4M:
@@ -306,6 +307,23 @@ package com.kaltura.kdpfl.model
 		}
 		
 		/**
+		 * Getter for the MediaElement of the media.
+		 * @return VideoElement
+		 * 
+		 */        
+		public function get mediaElement () : MediaElement
+		{
+			var media : MediaElement = vo.media;
+			
+			while (media is ProxyElement)
+			{
+				media = (media as ProxyElement).proxiedElement;
+			} 
+			
+			return media;
+		}
+		
+		/**
 		 * Function initiates the load of the video file that belongs to the Media Element,
 		 * and indicates that a MEDIA_READY notification should be sent when the process is complete.
 		 * 
@@ -347,11 +365,12 @@ package com.kaltura.kdpfl.model
 			{
 				
 				_isElementLoaded = true;
-				if (videoElement)
+				if (mediaElement)
 				{
-					videoElement.smoothing = true;
-					if (videoElement.client)
-						videoElement.client.addHandler(NetStreamCodes.ON_META_DATA, onMetadata);
+					if (mediaElement.hasOwnProperty("smoothing"))
+						mediaElement["smoothing"] = true;
+					if (mediaElement.hasOwnProperty("client") && mediaElement["client"])
+						mediaElement["client"].addHandler(NetStreamCodes.ON_META_DATA, onMetadata);
 				}
 				if (_sendMediaReady)
 				{
