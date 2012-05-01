@@ -151,9 +151,15 @@ package com.kaltura.kdpfl.view.controls
 					{
 						if (textField.textWidth <= w)
 						{
-							textField.text = textField.text.slice(0, textField.text.length-4);
-							textField.text = textField.text.slice(0, textField.text.lastIndexOf(" "));
+							var origText:String = textField.text;
 							textField.text = textField.text.concat(truncationIndicator);
+							//in case adding truncationIndicator caused the string to be too long
+							if (textField.textWidth > w)
+							{
+								origText = origText.slice(0, origText.length - truncationIndicator.length);
+								origText = origText.slice(0, origText.lastIndexOf(" "));
+								textField.text = origText.concat(origText, truncationIndicator);
+							}
 							return;
 						}
 						else
