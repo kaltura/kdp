@@ -14,6 +14,7 @@ package com.kaltura.kdpfl.controller
 	import com.kaltura.kdpfl.util.URLUtils;
 	import com.kaltura.kdpfl.view.RootMediator;
 	import com.kaltura.kdpfl.view.controls.KTrace;
+	import com.kaltura.net.KalturaCall;
 	import com.kaltura.vo.KalturaMediaEntry;
 	
 	import flash.external.ExternalInterface;
@@ -160,7 +161,10 @@ package com.kaltura.kdpfl.controller
 			{
 				flashvars.getCuePointsData="true";
 			}
-			
+			if (flashvars.clientDefaultMethod)
+			{
+				KalturaCall.defaultMethod = flashvars.clientDefaultMethod;
+			}
 			
 			mediaProxy.vo.deliveryType = flashvars.streamerType;	
 			//Retrieval of the Bitrate cookie value.

@@ -615,11 +615,6 @@ package com.kaltura.kdpfl.controller
 			
 			// override layout and proxy variables using flashvars
 			overrideAttributes(xml);
-			
-			if (_flashvars.clientDefaultMethod)
-			{
-				KalturaCall.defaultMethod = _flashvars.clientDefaultMethod;
-			}
 			 
 			_layoutProxy.vo.layoutXML = xml.child(0)[0];
 			
