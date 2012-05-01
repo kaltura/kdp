@@ -287,7 +287,7 @@ package com.kaltura.kdpfl.view
 			
 			customContextMenu.hideBuiltInItems();
 			
-			if (!_flashvars.emptyContextMenu)
+			if (!_flashvars.emptyContextMenu || _flashvars.emptyContextMenu!="true")
 			{
 				var menuItem:ContextMenuItem = new ContextMenuItem( "kdp version: " + ApplicationFacade.getInstance().kdpVersion );
 				
