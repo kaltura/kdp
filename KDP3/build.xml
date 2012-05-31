@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="KDP3 Builder" basedir=".">    
+    
+	<import file="${flex-build}" description="Import common kaltura build targets like flex-extract-classes"/>      
+	<property file="build.properties" description="Load project build properties"/>
+
+	<target name="build" depends="clean, init, compile">
+		<echo>Copy the kdp</echo>
+		<copy todir="${solution.bin}" file="${project.outputfile}"/>
+		<copy todir="${solution.bin}" file="${basedir}/html-template/AC_OETags.js" flatten="true"/>
+		<copy todir="${solution.bin}" file="${basedir}/html-template/playerProductInstall.swf" flatten="true"/>
+		<copy todir="${solution.bin}" file="${basedir}/html-template/ci_skin.swf" flatten="true"/>
+		<copy file="${basedir}/html-template/ci_config.xml" tofile="${solution.bin}/config.xml"/>
+		<copy file="${basedir}/html-template/ci_html-template.html" tofile="${solution.bin}/manual_sanity_tester.html"/>
+		<echo>Project built successfully</echo>
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${project.bin}" description="Make sure there is a bin directory"/>
+	</target>
+	
+	<target name="compile">
+		<echo>Compiling ${project.outputfile}</echo>
+		<mxmlc file="${project.asfile}" output="${project.outputfile}" 
+			   link-report="${solution.reportfile}" debug="false" >            
+			<load-config filename="${project.configfile}"/>
+			<load-config filename="${solution.configfile}"/>
+			<library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
+				<include name="*.swc" />
+			</library-path>
+			<library-path dir="${FLEX_HOME}/frameworks/libs/air" append="true">
+				<include name="*.swc" />
+			</library-path>
+			<library-path dir="${FLEX_HOME}/frameworks/libs/player/10" append="true">
+				<include name="*.swc" />
+			</library-path>
+
+		    <!--define name="CONFIG::debugging" value="false"/>
+
+		    <define name="CONFIG::release" value="true"/-->
+ 		   <!--compiler.library-path dir="${FLEX_HOME}/frameworks/libs" append="true"
+		        <exclude name="automation_charts.swc" />
+				<exclude name="qtp.swc" />
+				<exclude name="rcp.swc" />
+				<exclude name="charts.swc" />
+				<exclude name="datavisualization.swc" />
+				<exclude name="framework.swc" />
+				<exclude name="automation.swc" />
+				<exclude name="automation_dmv.swc" />
+				<exclude name="automation_flashflexkit.swc" />
+				<exclude name="automation_agent.swc" />
+				<exclude name="air/*.*" />
+         	</compiler.library-path-->
+        </mxmlc>
+    </target>
+	
+    <target name="clean">
+		<echo>Deleting ${project.bin}</echo>			
+        <delete dir="${project.bin}" failonerror="false"/>
+    </target>	
+</project>
