@@ -154,15 +154,19 @@ package
 			switch (sourceType)
 			{
 				case RelatedEntriesSourceType.AUTOMATIC:
-					sourceData = automaticPlaylistId;
 				case RelatedEntriesSourceType.GLOBAL_PLAYLIST:
-					sourceData = playlistSourceData;
+					if (sourceType == RelatedEntriesSourceType.AUTOMATIC)
+						sourceData = automaticPlaylistId;
+					else
+						sourceData = playlistSourceData;
 					kalturaCall = new PlaylistExecute(sourceData);
 					break;
 				case RelatedEntriesSourceType.ENTRY_IDS:
-					sourceData = entryIdsSourceData;
 				case RelatedEntriesSourceType.REFERENCE_IDS:
-					sourceData = referenceIdsSourceData;
+					if (sourceType == RelatedEntriesSourceType.ENTRY_IDS)
+						sourceData = entryIdsSourceData;
+					else
+						sourceData = referenceIdsSourceData;
 					var filter:KalturaBaseEntryFilter = new KalturaBaseEntryFilter();
 					if (sourceType == RelatedEntriesSourceType.ENTRY_IDS)
 					{
