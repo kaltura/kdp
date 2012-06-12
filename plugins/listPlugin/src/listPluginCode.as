@@ -28,6 +28,7 @@ package
 		private var _itemRendererId:String;
 		public var rowHeight:Number = 80;	
 		public var listDisabledAlpha:Number = 0.3;
+		public var excludeFromDisableGUI:Boolean = true;
 		
 		/**
 		 * by fixing hard-coded styles we broke backward compatibility, so if we are using old templates we will 
