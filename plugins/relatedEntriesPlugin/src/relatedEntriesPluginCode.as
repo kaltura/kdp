@@ -136,6 +136,8 @@ package
 			_facade = facade;
 			_mediator = new RelatedEntriesMediator(this);
 			_facade.registerMediator(_mediator);
+			var mediaProxy:MediaProxy = _facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			mediaProxy.vo.supportImageDuration = true;
 		}
 		
 		public function setSkin(styleName:String, setSkinSize:Boolean=false):void
