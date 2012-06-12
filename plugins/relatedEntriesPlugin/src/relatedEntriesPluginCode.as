@@ -321,21 +321,28 @@ package
 		 */		
 		public function startTimer():void
 		{
-			if (!_timeRemainingTimer)
+			if (autoPlayDelay==0)
 			{
-				_timeRemainingTimer = new Timer(1000, autoPlayDelay);
-				_timeRemainingTimer.addEventListener(TimerEvent.TIMER, onTimer, false, 0, true);
-				_timeRemainingTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete, false, 0, true);
+				onTimerComplete();
 			}
 			else
 			{
-				_timeRemainingTimer.repeatCount = autoPlayDelay;
-				_timeRemainingTimer.reset();
+				if (!_timeRemainingTimer)
+				{
+					_timeRemainingTimer = new Timer(1000, autoPlayDelay);
+					_timeRemainingTimer.addEventListener(TimerEvent.TIMER, onTimer, false, 0, true);
+					_timeRemainingTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete, false, 0, true);
+				}
+				else
+				{
+					_timeRemainingTimer.repeatCount = autoPlayDelay;
+					_timeRemainingTimer.reset();
+				}
+				
+				timeRemaining = autoPlayDelay;
+				_timeRemainingTimer.start();
+				isTimerRunning = true;
 			}
-			
-			timeRemaining = autoPlayDelay;
-			_timeRemainingTimer.start();
-			isTimerRunning = true;
 		}
 		
 		/**
@@ -369,7 +376,7 @@ package
 			timeRemaining = _timeRemainingTimer.repeatCount - _timeRemainingTimer.currentCount;
 		}
 		
-		private function onTimerComplete(event:TimerEvent):void
+		private function onTimerComplete(event:TimerEvent = null):void
 		{
 			timeRemaining = 0;
 			isTimerRunning = false;
