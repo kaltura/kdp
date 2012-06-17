@@ -227,7 +227,7 @@ package com.kaltura.kdpfl.view.controls
 					}
 				}
 				
-				if (usePixels)
+				/*if (usePixels)
 				{
 					var labelArr:Array = (data.label as String).split(" ");
 					if (labelArr.length == 2)
@@ -235,7 +235,7 @@ package com.kaltura.kdpfl.view.controls
 						return labelArr[0] + "\n" + labelArr[1] //prefix, new line, pixels 	
 					}					
 				}
-				return data.label;
+				return data.label;*/
 			}
 			return data.label;
 		}
