@@ -174,8 +174,6 @@ package
 		override public function set enabled(value:Boolean):void
 		{
 			_klist.enabled = value;
-
-
 		}
 		
 	}
