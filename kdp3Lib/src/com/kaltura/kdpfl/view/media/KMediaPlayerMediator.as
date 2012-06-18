@@ -454,6 +454,7 @@ package com.kaltura.kdpfl.view.media
 					}
 					break;
 				case NotificationType.CLEAN_MEDIA:
+					_mediaProxy.vo.media = null;
 					cleanMedia();
 					kMediaPlayer.hideThumbnail();
 					break;
@@ -1261,7 +1262,7 @@ package com.kaltura.kdpfl.view.media
 			//we don't need to clean the media if it's empty	
 			if(!player.media) return;
 			
-			if (player.media.hasOwnProperty("cleanMedia"))
+			if (player.media.hasOwnProperty("cleanMedia") || player.state == MediaPlayerState.PLAYING)
 				sendNotification( NotificationType.DO_STOP );
 			
 			if(player.displayObject)
