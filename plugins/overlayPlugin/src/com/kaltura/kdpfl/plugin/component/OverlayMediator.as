@@ -159,7 +159,7 @@ package com.kaltura.kdpfl.plugin.component {
 					}
 					break;
 
-				case "doPause":
+				case "doPause":				
 					if (_overlayIntervalTimer && _overlayIntervalTimer.running) {
 						_overlayIntervalTimer.stop();
 					}
@@ -316,6 +316,9 @@ package com.kaltura.kdpfl.plugin.component {
 		 *
 		 */
 		private function startOverlayIntervalTimer():void {
+			if (isNaN((viewComponent as overlayPluginCode).overlayInterval))
+				return;
+			
 			if (!_overlayIntervalTimer) {
 				_overlayIntervalTimer = new Timer((viewComponent as overlayPluginCode).overlayInterval * 1000, 1);
 			}
