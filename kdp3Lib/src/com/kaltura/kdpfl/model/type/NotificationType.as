@@ -288,6 +288,7 @@ package com.kaltura.kdpfl.model.type
 		 static public const SEQUENCE_ITEM_PLAY_START  :String = "sequenceItemPlayStart";	
 		 /**
 		  * Signifies the end of a media in the player (no idea which entry)
+		  * Body: context- pre/mid/post/main the context of the media that was completed
 		  */		 
 		 static public const PLAYBACK_COMPLETE       :String = "playbackComplete";
 		 /**

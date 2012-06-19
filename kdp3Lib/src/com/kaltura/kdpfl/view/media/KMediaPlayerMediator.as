@@ -1218,7 +1218,7 @@ package com.kaltura.kdpfl.view.media
 					_loadMediaOnPlay = true;
 				}	
 				
-				sendNotification(NotificationType.PLAYBACK_COMPLETE);
+				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
 						
 			}
 
