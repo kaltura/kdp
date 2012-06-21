@@ -350,7 +350,9 @@ package com.kaltura.kdpfl.view.controls
 							usedPixelsArr[heightIndex] = true;
 						}
 						var prefix:String = (sortedFlavorArray[i].height > HD_LIMIT) ? hdPrefix : sdPrefix;
-						label = prefix + label + pixelsPostFix
+						label = prefix + label;
+						if (label!= lowHeight)
+							label += pixelsPostFix;
 					}
 					else
 					{
