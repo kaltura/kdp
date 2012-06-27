@@ -14,9 +14,10 @@ package com.kaltura.kdpfl.plugin.component
 	public class TabBarKdp3 extends Sprite 
 	{
 		public var tabBar:TabBar; 
-		public var prevBut:KButton = new KButton();
-		public var nextBut:KButton = new KButton();
+		public var prevBut:KButton;
+		public var nextBut:KButton;
 		public var padding:Number = 5;
+		private var _height:Number;
 		
 		private var _tabData:Array;
 		private var _localProvider:DataProvider = null;
@@ -25,23 +26,31 @@ package com.kaltura.kdpfl.plugin.component
 		
 		
 		public function TabBarKdp3() 
-		{		
+		{	
+			prevBut = new KButton();
+			nextBut = new KButton();
+			
+			prevBut.visible = false;
+			nextBut.visible = false;
+			
 			onComplete(null);
-			prevBut.label = "";
+			
 			prevBut.buttonMode = true;
 			prevBut.useHandCursor = true;
-			prevBut.move(0, 0);
+			prevBut.move(0, 0);	
+			//hack that aligns the buttons to the middle
+			prevBut.label="   ";
 			prevBut.addEventListener(MouseEvent.CLICK, onPrevClicked);
-			addChild(prevBut);	
+			prevBut.height = _height;
+			addChild(prevBut);
 			
-			nextBut.label = "";
 			nextBut.buttonMode = true;
-			nextBut.useHandCursor = true;
+			nextBut.useHandCursor = true;	
+			//hack that aligns the buttons to the middle
+			nextBut.label="   ";
 			nextBut.addEventListener(MouseEvent.CLICK, onNextClicked);
-			addChild(nextBut);	
-
-			nextBut.visible = false;
-			prevBut.visible = false;	
+			nextBut.height = _height;
+			addChild(nextBut);		
 			
 		}
 		
@@ -90,6 +99,7 @@ package com.kaltura.kdpfl.plugin.component
 		private function onComplete(ev:Event):void
 		{
 			this.tabBar = new TabBar(); 
+			tabBar.height = _height;
 			tabBar.useHandCursor = true;
 			tabBar.mouseChildren = true;
 			tabBar.buttonMode = true;
@@ -98,7 +108,8 @@ package com.kaltura.kdpfl.plugin.component
 				this.tabBar.dataProvider = _localProvider;
 			}
 			//this.tabBar.selectedIndex = 0;
-			this.tabBar.move(prevBut.width,0);
+			if (prevBut.visible)
+				this.tabBar.move(prevBut.width,0);
 			this.tabBar.autoSizeTabsToTextWidth = true;
 
 			this.tabBar.addEventListener( Event.CHANGE, tabBarChangeHandler );
@@ -118,7 +129,8 @@ package com.kaltura.kdpfl.plugin.component
 			{
 				tabBar.scrollRect = new Rectangle(0, 0, value - nextBut.width - prevBut.width - (padding*2), 200);
 				tabBar.width =  value - nextBut.width - prevBut.width - (padding*2);
-				tabBar.move(prevBut.width ,0);
+				if (prevBut.visible)
+					tabBar.move(prevBut.width ,0);
 				nextBut.move(value-nextBut.width,0);			
 			}
 			else
@@ -140,7 +152,8 @@ package com.kaltura.kdpfl.plugin.component
 				else
 				{
 					nextBut.visible = true;
-					prevBut.visible = true;				
+					prevBut.visible = true;
+					this.tabBar.move(prevBut.width,0);
 				}
 			}
 		}
@@ -189,6 +202,23 @@ package com.kaltura.kdpfl.plugin.component
 				// so we dispath it manualy
 				tabBar.dispatchEvent(new Event(Event.CHANGE));
 			}
+		}
+		
+		override public function set height(value:Number):void 
+		{
+			_height = value;
+			
+			if (tabBar)
+				tabBar.height = value;
+			
+			prevBut.height = value;
+			nextBut.height = value;
+			
+		}
+		
+		override public function get height () : Number
+		{
+			return _height;
 		}
 	}
 }

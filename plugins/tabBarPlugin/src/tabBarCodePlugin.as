@@ -64,8 +64,11 @@ package
 		 */		
 		public function initializePlugin( facade : IFacade ) : void
 		{
+			var tabBar3:TabBarKdp3 = new TabBarKdp3();
+			tabBar3.height = this.height;
 			// Register Mideator
-			_tabBarKdp3Mediator = new TabBarKdp3Mediator( new TabBarKdp3() );
+			_tabBarKdp3Mediator = new TabBarKdp3Mediator( tabBar3 );
+			
 			
 			if (_dataProvider != null)
 			{
@@ -186,6 +189,11 @@ package
 		
 		override public function set height(value:Number):void
 		{
+			super.height= value;
+			if (_tabBarKdp3Mediator && _tabBarKdp3Mediator.view)
+			{
+				_tabBarKdp3Mediator.view.height = value;				
+			}
 		}					
 	
 		[Bindable]
