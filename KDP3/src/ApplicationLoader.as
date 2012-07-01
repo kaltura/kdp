@@ -9,11 +9,13 @@ package {
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
+	import flash.events.TimerEvent;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 	import flash.system.Security;
 	import flash.system.SecurityDomain;
+	import flash.utils.Timer;
 	import flash.utils.getDefinitionByName;
 	
 	
@@ -78,6 +80,17 @@ package {
 		 * will be used in case we loaded the preloader before flashvars were set 
 		 */		
 		private var _preloaderContent:Object;
+		
+		private var _kdp3Timer:Timer;
+		
+		/**
+		 * in case kdp3 class wasn't found will start a timer with this delay 
+		 */		
+		public static const KDP3_LOAD_TIMER_DELAY:int = 100;
+		/**
+		 * in case kdp3 class wasn't found will start a timer and run this amount of times
+		 */
+		public static const KDP3_LOAD_TIMER_TRIES:int = 30;
 		
 		
 		
@@ -213,8 +226,7 @@ package {
 			_ldr.contentLoaderInfo.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, clearListeners, false);
 			_ldr.contentLoaderInfo.removeEventListener(Event.INIT, clearListeners, false);
 		}
-		
-		
+
 		/**
 		 * Starts the real application by creating an instance of kdp3.
 		 */
@@ -223,8 +235,32 @@ package {
 			loaderInfo.removeEventListener(Event.COMPLETE, go);
 			nextFrame();
 			
-			var mainClass:Class = Class(getDefinitionByName("kdp3"));
+			var mainClass:Class;
+			
+			try 
+			{
+				mainClass = Class(getDefinitionByName("kdp3"));
+			}
+			catch (e:Error)
+			{
+				//fix bug on linux & FF, after load, kdp3 class wasn't ready yet
+				trace ("kdp3 class wasn't found");
+				if (!_kdp3Timer)
+				{
+					_kdp3Timer = new Timer(KDP3_LOAD_TIMER_DELAY, KDP3_LOAD_TIMER_TRIES);
+					_kdp3Timer.addEventListener(TimerEvent.TIMER, go);
+					_kdp3Timer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
+					_kdp3Timer.start();
+				}
+			}
+			
 			if (mainClass) {
+				if (_kdp3Timer)
+				{
+					_kdp3Timer.stop();
+					onTimerComplete();
+					trace ("found kdp3 class");
+				}
 				_app = new mainClass();
 				(_app as DisplayObject).addEventListener(Event.ADDED_TO_STAGE, onAppAddedToStage);
 				addChild(_app as DisplayObject);
@@ -235,6 +271,16 @@ package {
 				if (_shouldInit) {
 					_app.init(_kml);
 				}
+			}
+		}
+		
+		private function onTimerComplete(event:TimerEvent = null) : void
+		{
+			_kdp3Timer.removeEventListener(TimerEvent.TIMER, go);
+			_kdp3Timer.removeEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
+			if (event)
+			{
+				trace ("kdp3 timer complete. Failed to load kdp3");
 			}
 		}
 		
