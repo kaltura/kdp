@@ -342,7 +342,7 @@ package com.kaltura.kdpfl.view.controls
 							label = lowHeight;
 						else
 						{
-							label = HEIGHT_ARRAY[heightIndex];
+							label = HEIGHT_ARRAY[heightIndex] + pixelsPostFix;
 							//if we already inserted such height, it was with heighest bitrate (the array is sorted), so we won't insert this value too
 							if (usedPixelsArr[heightIndex])
 								continue;
@@ -351,8 +351,6 @@ package com.kaltura.kdpfl.view.controls
 						}
 						var prefix:String = (sortedFlavorArray[i].height > HD_LIMIT) ? hdPrefix : sdPrefix;
 						label = prefix + label;
-						if (label!= lowHeight)
-							label += pixelsPostFix;
 					}
 					else
 					{
