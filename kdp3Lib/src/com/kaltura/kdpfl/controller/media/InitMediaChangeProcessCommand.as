@@ -119,12 +119,12 @@ package com.kaltura.kdpfl.controller.media
 				else
 					mediaProxy.vo.preferedFlavorBR = note.preferedFlavorBR;
 			}
-			else if (!flashvars.disableBitrateCookie)
+			else if (!flashvars.disableBitrateCookie || flashvars.disableBitrateCookie=="false")
 			{
 				var flavorCookie : SharedObject;
 				try
 				{
-					flavorCookie = SharedObject.getLocal("kaltura");
+					flavorCookie = SharedObject.getLocal("Kaltura");
 				}
 				catch (e : Error)
 				{

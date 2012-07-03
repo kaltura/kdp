@@ -24,6 +24,7 @@ package com.kaltura.kdpfl.view.media
 	import flash.events.TimerEvent;
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
+	import flash.utils.flash_proxy;
 	import flash.utils.setTimeout;
 	
 	import org.osmf.elements.ParallelElement;
@@ -461,6 +462,14 @@ package com.kaltura.kdpfl.view.media
 				case NotificationType.DO_SWITCH:
 					var preferedFlavorBR:int = int(note.getBody());
 					
+					//if we switch before the player is playing return
+					if(player.state == MediaPlayerState.UNINITIALIZED)
+					{
+						//send CHANGE_PREFERRED_BITRATE so the HD will be ready to play it...
+						sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: preferedFlavorBR});
+						return;
+					}
+					
 					if(player.isDynamicStream) // rtmp adaptive mbr
 					{
 						//we need to set the mediaProxy prefered 
@@ -481,19 +490,17 @@ package com.kaltura.kdpfl.view.media
 							}
 							else 
 							{
-								_mediaProxy.vo.autoSwitchFlavors = player.autoDynamicStreamSwitch = false;
 								KTrace.getInstance().log("Disable Auto Switch");
-								KTrace.getInstance().log("Found stream index:", foundStreamIndex);
-								KTrace.getInstance().log("Current stream index: ", player.currentDynamicStreamIndex);
-								
+								_mediaProxy.vo.autoSwitchFlavors = player.autoDynamicStreamSwitch = false;
 								var foundStreamIndex:int = kMediaPlayer.findStreamByBitrate(preferedFlavorBR);
+			
 								if (foundStreamIndex != player.currentDynamicStreamIndex)
-								{				
+								{
+									KTrace.getInstance().log("Found stream index:", foundStreamIndex);
+									KTrace.getInstance().log("Current stream index: ", player.currentDynamicStreamIndex);
 									_doSwitchSent = true;
-									if (player.currentDynamicStreamIndex != foundStreamIndex)
-									{
-										player.switchDynamicStreamIndex(foundStreamIndex);
-									}
+									player.switchDynamicStreamIndex(foundStreamIndex);
+									
 									sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {newIndex: foundStreamIndex, newBitrate: foundStreamIndex != -1 ? player.getBitrateForDynamicStreamIndex(foundStreamIndex): null} );
 								}
 							}
@@ -676,7 +683,23 @@ package com.kaltura.kdpfl.view.media
 						_isPrePlaySeek = false;
 					}
 					break;
-
+				
+				case NotificationType.CHANGE_PREFERRED_BITRATE:
+					var curIndex : int = _mediaProxy.findDynamicStreamIndexByProp( note.getBody().bitrate );
+					if ((curIndex > -1) && (curIndex < _mediaProxy.vo.kalturaMediaFlavorArray.length) )
+					{
+						_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[curIndex].bitrate;
+						_mediaProxy.prepareMediaElement();
+						if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK)
+							sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : curIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );			
+					}
+					else
+					{
+						var oldIndex : int = _mediaProxy.findDynamicStreamIndexByProp( _mediaProxy.vo.preferedFlavorBR );
+						sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : oldIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
+					}
+					
+					break;
 			}
 		}
 		

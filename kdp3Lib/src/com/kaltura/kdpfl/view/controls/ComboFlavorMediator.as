@@ -17,7 +17,14 @@ package com.kaltura.kdpfl.view.controls
 	 */
 	public class ComboFlavorMediator extends MultiMediator
 	{
-	
+		/**
+		 * indicates if currently there's a switch in progress 
+		 */		
+		private var _isSwitching:Boolean = false;
+		/**
+		 * previous tooltip message 
+		 */		
+		private var _prevMessage:String = "";
 		
 		/**
 		 * Constructor.
@@ -39,7 +46,9 @@ package com.kaltura.kdpfl.view.controls
 			var re_arr : Array = [NotificationType.SWITCHING_CHANGE_STARTED,
 								  NotificationType.SWITCHING_CHANGE_COMPLETE,
 								  NotificationType.MEDIA_READY,
-								  NotificationType.LAYOUT_READY];
+								  NotificationType.LAYOUT_READY,
+								  NotificationType.DO_PAUSE,
+								  NotificationType.DO_PLAY];
 			return re_arr;
 		}
 		
@@ -54,10 +63,16 @@ package com.kaltura.kdpfl.view.controls
 					{
 						comboBox.selectedMessage = comboBox.autoMessage;
 					}
+					else if (note_body.newIndex == -2)
+					{
+						comboBox.selectedMessage = comboBox.bitrateDetectionMessage;
+					}
 					else
 					{
 						comboBox.selectedMessage = comboBox.switchingMessage;
 					}
+					comboBox.hideDropdown();
+					_isSwitching = true;
 					break;
 				case NotificationType.SWITCHING_CHANGE_COMPLETE:
 					comboBox.enabled = true;
@@ -65,13 +80,29 @@ package com.kaltura.kdpfl.view.controls
 					var matchedItem:Object = comboBox.getItemByBitrate(roundedBitrate);
 					if (matchedItem)
 						comboBox.selectedMessage = matchedItem.label;
+					_isSwitching = false;
 					break;
 				case NotificationType.MEDIA_READY:
-					comboBox.determineEnabled();
+					comboBox.determineEnabled(_isSwitching);
 					break;
 				case NotificationType.PLAYER_PLAY_END:
 					comboBox.enabled = true;
 					comboBox.selectedMessage = comboBox.selectedItem.label;
+					break;
+				case NotificationType.DO_PAUSE:
+					if (_isSwitching)
+					{
+						_prevMessage = comboBox.selectedMessage;
+						comboBox.selectedMessage = comboBox.switchPausedMessage;			
+					}
+					break;
+				case NotificationType.DO_PLAY:
+					//set the previous message
+					if (_isSwitching && _prevMessage!="")
+					{
+						comboBox.selectedMessage =_prevMessage;
+						_prevMessage = "";		
+					}
 					break;
 			}
 		}

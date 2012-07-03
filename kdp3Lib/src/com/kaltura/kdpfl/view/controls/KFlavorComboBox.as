@@ -42,7 +42,7 @@ package com.kaltura.kdpfl.view.controls
 		/**
 		 * Property holds the value of the string displayed in the Combgo Box when the switch to the selected bitrate is in process
 		 */		
-		private var _switchingMessage : String = "Switch in progress..."
+		private var _switchingMessage : String = "Switch in Progress..."
 		/**
 		 * The post-fix displayed in the Combo Box. For instance, if the post fix is "k" then the displayed string will be bitrate+k.
 		 */		
@@ -76,7 +76,7 @@ package com.kaltura.kdpfl.view.controls
 		/**
 		 * The tooltip for the <code>_autoString</code>.
 		 */		
-		private var _autoMessage : String = "Automatically switches between bitrates";
+		private var _autoMessage : String = "Automatically Switches Between Bitrates";
 		
 		public var kisOpen : Boolean = false;
 		
@@ -125,6 +125,10 @@ package com.kaltura.kdpfl.view.controls
 		public var lastSelectedIndex:int;
 		
 		public var usePixels:Boolean;
+		
+		private var _bitrateDetectionMessage:String = "Detecting Your Bandwidth";
+		
+		private var _switchPausedMessage:String = "Switching is Paused";
 	
 		/**
 		 * Constructor 
@@ -162,6 +166,39 @@ package com.kaltura.kdpfl.view.controls
 				dataProvider.replaceItemAt(item, dataProvider.length -1)
 			}
 		}
+		
+		[Bindable]
+		public function get bitrateDetectionMessage():String
+		{
+			return _bitrateDetectionMessage;
+		}
+		
+		/**
+		 * The message that will be displayd as the tooltip when bitrate detection is in progress 
+		 * @param value
+		 * 
+		 */		
+		public function set bitrateDetectionMessage(value:String):void
+		{
+			_bitrateDetectionMessage = value;
+		}
+		
+		[Bindable]
+		public function get switchPausedMessage():String
+		{
+			return _switchPausedMessage;
+		}
+		
+		/**
+		 * The message that will be displayed as the tooltip when player is paused during switching process 
+		 * @param value
+		 * 
+		 */		
+		public function set switchPausedMessage(value:String):void
+		{
+			_switchPausedMessage = value;
+		}
+
 
 		/**
 		 * On mouse rollover remove redundant listeners 
@@ -197,7 +234,7 @@ package com.kaltura.kdpfl.view.controls
 		 * @param evt - TimerEvent
 		 * 
 		 */	
-		protected function hideDropdown( evt:TimerEvent=null ):void
+		public function hideDropdown( evt:TimerEvent=null ):void
 		{
 			_dropdownTimer.removeEventListener( TimerEvent.TIMER, hideDropdown );
 			_dropdownTimer.reset();
@@ -512,9 +549,9 @@ package com.kaltura.kdpfl.view.controls
 			_switchingMessage = value;
 		}
 		
-		public function determineEnabled () : void
+		public function determineEnabled (isSwitching:Boolean = false) : void
 		{
-			if (!this._flavorArray || !this._flavorArray.length)
+			if (!this._flavorArray || !this._flavorArray.length || isSwitching)
 			{
 				this.enabled = false;
 			}

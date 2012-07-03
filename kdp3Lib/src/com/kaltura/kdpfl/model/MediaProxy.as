@@ -53,6 +53,17 @@ package com.kaltura.kdpfl.model
 	public class MediaProxy extends Proxy
 	{
 		public static const NAME:String = "mediaProxy";
+		
+		/**
+		 * default buffer length to be used when playing with HD Akamai plugin 
+		 */		
+		public static const DEFAULT_HD_BUFFER_LENGTH:int = 20;
+		
+		/**
+		 * represents the starting bitrate index, if exists
+		 */		
+		public var startingIndex:int;
+		
 		public var shouldCreateSwitchingProxy : Boolean = true;
 		
 		private var _sendMediaReady : Boolean;
@@ -138,7 +149,20 @@ package com.kaltura.kdpfl.model
 						else 
 						{
 							f4mLoader.initialIndex = preferedIndex;	
+							startingIndex = preferedIndex;
 						}
+					}
+					
+					if (vo.deliveryType == StreamerType.HDNETWORK)
+					{
+						//set buffer length
+						var bufferLength:int = DEFAULT_HD_BUFFER_LENGTH;
+						if (_flashvars.hdnetworkBufferLength && _flashvars.hdnetworkBufferLength!="")
+						{
+							bufferLength = _flashvars.hdnetworkBufferLength;
+						}
+						addAkamaiMetadata (resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH, bufferLength);
+
 					}
 					
 					f4mLoader.useRtmptFallbacks = _flashvars.useRtmptFallback == "false" ? false : true;				
@@ -387,7 +411,7 @@ package com.kaltura.kdpfl.model
 		public function loadWithoutMediaReady (doPlay : Boolean = false) : void
 		{
 			_isElementLoaded = false;
-			vo.media.addEventListener(MediaErrorEvent.MEDIA_ERROR, onError)
+			vo.media.addEventListener(MediaErrorEvent.MEDIA_ERROR, onError);
 			vo.playOnLoad = doPlay;
 			_sendMediaReady = false;
 			sendNotification(NotificationType.SOURCE_READY);
@@ -496,31 +520,64 @@ package com.kaltura.kdpfl.model
 		 * @return the DynamicStreamingItem index. if a matching stream wasnt found return -1 (auto)
 		 * 
 		 */
-		public function findDynamicStreamIndexByProp(prefPropValue : int , propName : String="bitrate") : int
+		public function findDynamicStreamIndexByProp(preferedBitrate : int , propName : String="bitrate") : int
 		{
 			var foundStreamIndex:int = -1;
-			var foundStreamPropValue:int = -1;
+			if (!vo.kalturaMediaFlavorArray)
+				return foundStreamIndex;
 			
-			if (vo.resource is DynamicStreamingResource)
+			if (vo.kalturaMediaFlavorArray.length > 0)
 			{
-				var streams:Vector.<DynamicStreamingItem> = (vo.resource as DynamicStreamingResource).streamItems; 
-				for(var i:int = 0; i < streams.length; i++)
+				for(var i:int = 0; i < vo.kalturaMediaFlavorArray.length; i++)
 				{
-					var h:Number = streams[i][propName];
-					h = Math.round(h/100) * 100;
-					if (h == prefPropValue)
+					var lastb:Number;
+					if(i!=0)
 					{
-						foundStreamPropValue = h;
+						lastb = vo.kalturaMediaFlavorArray[i-1].bitrate;
+						lastb = Math.round(lastb/100) * 100;
+					}
+					
+					var b:Number = vo.kalturaMediaFlavorArray[i].bitrate;
+					b = Math.round(b/100) * 100;
+					
+					if (b == preferedBitrate)
+					{
+						//if we found it set it and leave
 						foundStreamIndex = i;
+						return foundStreamIndex;
+					}
+					else if(i == 0 && preferedBitrate < b)
+					{
+						//if the first is bigger then the prefered bitrate set it and leave
+						foundStreamIndex = i;
+						return foundStreamIndex;
+					}
+					else if( lastb && preferedBitrate < b  && preferedBitrate > lastb )
+					{
+						//if the prefered bit rate is between the last index and the current choose the closer one
+						var topDelta : int = b - preferedBitrate;
+						var bottomDelta : int = preferedBitrate - lastb;
+						if(topDelta<=bottomDelta)
+						{
+							foundStreamIndex = i;
+							return foundStreamIndex;
+						}
+						else
+						{
+							foundStreamIndex = i-1;
+							return foundStreamIndex;
+						}
+					}
+					else if(i == vo.kalturaMediaFlavorArray.length-1 && preferedBitrate >= b)
+					{
+						//if this is the last index and the prefered bitrate is still bigger then the last one
+						foundStreamIndex = i;
+						return foundStreamIndex;
 					}
 				}
-				
-				// if a stream was found set it as the new prefered height 	
-				if (foundStreamPropValue!=-1)
-					vo.preferedFlavorBR = foundStreamPropValue;
 			}
 			
-			return foundStreamIndex;
+			return foundStreamIndex;	
 		}
 		
 		/**
@@ -621,25 +678,42 @@ package com.kaltura.kdpfl.model
 			return foundStreamIndex;
 		}
 		
+		/**
+		 * set starting index for hdnetwork streamerType 
+		 * @param bitrate
+		 * @param resource
+		 * 
+		 */		
 		public function setHdNetworkPreferredBitrate(bitrate:int, resource:URLResource):void {
 			var preferedIndex:int = getFlavorByBitrate(bitrate);
 			
-			if (preferedIndex!=-1 && resource) {
-				
-				var metadata:Metadata = resource.getMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE) as Metadata;	
-				// if not created a new metadata object is created
-				if (metadata == null)
-				{
-					metadata = new Metadata();
-				}					
-				//Adding type and value to metadataobject
-				metadata.addValue(AkamaiStrings.AKAMAI_METDATA_KEY_MBR_STARTING_INDEX, preferedIndex);
-				resource.addMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE, metadata);	
-				
+			if (preferedIndex!=-1 && resource) 
+			{
+				addAkamaiMetadata(resource, AkamaiStrings.AKAMAI_METDATA_KEY_MBR_STARTING_INDEX, preferedIndex);
+				startingIndex = preferedIndex;
 				//to display correct value in KFlavorComboBox
 				sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : preferedIndex, newBitrate: (vo.kalturaMediaFlavorArray[preferedIndex] as KalturaFlavorAsset).bitrate}  );
-			}
-			
+			}	
+		}
+		
+		/**
+		 * This function will add akamai metadata to the given resource with the given key and value 
+		 * @param resource
+		 * @param key
+		 * @param value
+		 * 
+		 */		
+		private function addAkamaiMetadata(resource:URLResource, key:String, value:int) :  void 
+		{
+			var metadata:Metadata = resource.getMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE) as Metadata;	
+			// if not created a new metadata object is created
+			if (metadata == null)
+			{
+				metadata = new Metadata();
+			}					
+			//Adding type and value to metadataobject
+			metadata.addValue(key, value);
+			resource.addMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE, metadata);	
 		}
 		
 	}

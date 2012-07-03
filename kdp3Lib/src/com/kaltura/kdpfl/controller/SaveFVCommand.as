@@ -170,28 +170,31 @@ package com.kaltura.kdpfl.controller
 			
 			mediaProxy.vo.deliveryType = flashvars.streamerType;	
 			//Retrieval of the Bitrate cookie value.
-			var flavorCookie : SharedObject;
-			try
+			if (!flashvars.disableBitrateCookie || flashvars.disableBitrateCookie=="false")
 			{
-				flavorCookie = SharedObject.getLocal("Kaltura");
-			}
-			catch (e: Error)
-			{
-				KTrace.getInstance().log("no permissions to access partner's file system");
-				//trace ("no permissions to access partner's file system");
-				return;
-			}
-			var propertyName:String = mediaProxy.vo.displayFlavorPixels ? "preferedFlavorHeight" : "preferedFlavorBR";
-			if(flavorCookie && flavorCookie.data[propertyName])
-			{
-				if (flavorCookie.data[propertyName] == -1 && mediaProxy.vo.deliveryType != StreamerType.HTTP)
+				var flavorCookie : SharedObject;
+				try
 				{
-					mediaProxy.vo.autoSwitchFlavors = true;
+					flavorCookie = SharedObject.getLocal("Kaltura");
 				}
-				else
+				catch (e: Error)
 				{
-					mediaProxy.vo.preferedFlavorBR = flavorCookie.data[propertyName];
+					KTrace.getInstance().log("no permissions to access partner's file system");
+					return;
 				}
+				var propertyName:String = mediaProxy.vo.displayFlavorPixels ? "preferedFlavorHeight" : "preferedFlavorBR";
+				if(flavorCookie && flavorCookie.data[propertyName])
+				{
+					if (flavorCookie.data[propertyName] == -1 && mediaProxy.vo.deliveryType != StreamerType.HTTP)
+					{
+						mediaProxy.vo.autoSwitchFlavors = true;
+					}
+					else
+					{
+						mediaProxy.vo.preferedFlavorBR = flavorCookie.data[propertyName];
+					}
+				}
+				
 			}
 			
 			if (flashvars.enableStageVideo && flashvars.enableStageVideo=="true")

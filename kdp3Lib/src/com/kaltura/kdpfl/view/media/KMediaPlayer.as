@@ -43,6 +43,8 @@ package com.kaltura.kdpfl.view.media
 		}
 		
 		private var _keepAspectRatio:Boolean= true;
+		
+		[Bindable]
 		public function get keepAspectRatio() : String { return _keepAspectRatio.toString(); }
 		public function set keepAspectRatio(value:String):void
 		{
@@ -50,6 +52,14 @@ package com.kaltura.kdpfl.view.media
 				_keepAspectRatio=true;			
 			else
 				_keepAspectRatio=false;
+			
+			
+			//If thumbnail is visible and the aspect ratio is changed change the thumb size
+			////////////
+			onMediaSizeChange(null);
+			this.width = _width;
+			this.height = _height;
+			///////////
 		}
 		
 		private var _mediaWidth:Number;
@@ -272,9 +282,25 @@ package com.kaltura.kdpfl.view.media
 		
 		private function onMediaSizeChange (e : DisplayObjectEvent) : void
 		{
-			_player.removeEventListener(DisplayObjectEvent.MEDIA_SIZE_CHANGE, onMediaSizeChange );
-			_mediaHeight = e.newHeight;
-			_mediaWidth = e.newWidth;
+			if (!_player)
+				return;
+			
+			if (e)
+			{
+				_player.removeEventListener(DisplayObjectEvent.MEDIA_SIZE_CHANGE, onMediaSizeChange );
+				_mediaHeight = e.newHeight;
+				_mediaWidth = e.newWidth;
+			}
+			else if (_player.displayObject)
+			{
+				//if for some resone binding havn't occured on time of the event we will get here
+				_mediaHeight = _player.displayObject.height;
+				_mediaWidth = _player.displayObject.width;	
+			}
+			else
+			{
+				return;
+			}
 			
 			if(_mediaHeight && _mediaWidth && !isNaN(_mediaHeight) && !isNaN(_mediaWidth) )
 			{
@@ -464,23 +490,58 @@ package com.kaltura.kdpfl.view.media
 		public function findStreamByBitrate (preferedBitrate : int) : int
 		{
 			var foundStreamIndex:int = -1;
-			var foundStreamPropValue:int = -1;
 			
 			if (_player.numDynamicStreams > 0)
 			{
 				for(var i:int = 0; i < _player.numDynamicStreams; i++)
 				{
+					var lastb:Number;
+					if(i!=0)
+						lastb = _player.getBitrateForDynamicStreamIndex(i-1);
+					
 					var b:Number = _player.getBitrateForDynamicStreamIndex(i);
 					b = Math.round(b/100) * 100;
+					
 					if (b == preferedBitrate)
 					{
-						foundStreamPropValue = b;
+						//if we found it set it and leave
 						foundStreamIndex = i;
+						return foundStreamIndex;
+					}
+					else if(i == 0 && preferedBitrate < b)
+					{
+						//if the first is bigger then the prefered bitrate set it and leave
+						foundStreamIndex = i;
+						return foundStreamIndex;
+					}
+					else if( lastb && preferedBitrate < b  && preferedBitrate > lastb )
+					{
+						//if the prefered bit rate is between the last index and the current choose the closer one
+						var topDelta : int = b - preferedBitrate;
+						var bottomDelta : int = preferedBitrate - lastb;
+						if(topDelta<=bottomDelta)
+						{
+							foundStreamIndex = i;
+							return foundStreamIndex;
+						}
+						else
+						{
+							foundStreamIndex = i-1;
+							return foundStreamIndex;
+						}
+					}
+					else if(i == _player.numDynamicStreams-1 && preferedBitrate >= b)
+					{
+						//if this is the last index and the prefered bitrate is still bigger then the last one
+						foundStreamIndex = i;
+						return foundStreamIndex;
 					}
 				}
 				
-				// if a stream was found set it as the new prefered bitrate 				
-				(ApplicationFacade.getInstance().retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.preferedFlavorBR = preferedBitrate;
+				// if a stream was found set it as the new prefered bitrate 
+				//[BOAZ] - i have disabled the line below due to this function finding stream and not setting it
+				// if you want to set stream set it after you call findStreamByBitrate from outside.
+				//(ApplicationFacade.getInstance().retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.preferedFlavorBR = preferedBitrate;
 			}
 			
 			return foundStreamIndex;
