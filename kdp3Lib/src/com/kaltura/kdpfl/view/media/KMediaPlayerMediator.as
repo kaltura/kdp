@@ -287,7 +287,8 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.HAS_OPENED_FULL_SCREEN,
 				NotificationType.HAS_CLOSED_FULL_SCREEN,
 				NotificationType.CHANGE_PREFERRED_BITRATE,
-				NotificationType.VIDEO_METADATA_RECEIVED
+				NotificationType.VIDEO_METADATA_RECEIVED,
+				NotificationType.PLAYER_PLAY_END
 			];
 		}
 		
@@ -699,6 +700,11 @@ package com.kaltura.kdpfl.view.media
 						sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : oldIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
 					}
 					
+					break;
+				
+				case NotificationType.PLAYER_PLAY_END:
+					cleanMedia();
+					kMediaPlayer.showThumbnail();
 					break;
 			}
 		}
