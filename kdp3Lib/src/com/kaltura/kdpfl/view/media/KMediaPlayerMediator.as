@@ -1285,7 +1285,7 @@ package com.kaltura.kdpfl.view.media
 			//we don't need to clean the media if it's empty	
 			if(!player.media) return;
 			
-			if (player.media.hasOwnProperty("cleanMedia") || player.state == MediaPlayerState.PLAYING)
+			if (player.media.hasOwnProperty("cleanMedia") || (player.state == MediaPlayerState.PLAYING && !_isIntelliSeeking))
 				sendNotification( NotificationType.DO_STOP );
 			
 			if(player.displayObject)
