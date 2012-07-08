@@ -2,6 +2,7 @@ package com.kaltura.kdpfl.plugin.component {
 
 	
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	
@@ -358,7 +359,9 @@ package com.kaltura.kdpfl.plugin.component {
 		 */
 		private function onVastAdError(e:MediaErrorEvent):void {
 			trace("A problem occured when playing this ad : " + e.error);
-			signalEnd();
+			var sequenceProxy : SequenceProxy = facade.retrieveProxy( SequenceProxy.NAME ) as SequenceProxy;
+			if (sequenceProxy.vo.isInSequence)
+				signalEnd();
 		}
 
 
