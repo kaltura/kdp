@@ -39,11 +39,11 @@ package com.kaltura.kdpfl.plugin.component
 					_pluginCode.loadEntries();
 					break;
 				case RelatedEntriesNotificationType.NEXT_UP_ITEM_CHANGED:
+				case RelatedEntriesNotificationType.RELATED_ITEM_CLICKED:
 					var newIndex:int = notification.getBody().index;
 					_pluginCode.setUpNext(newIndex);
-					break;
-				case RelatedEntriesNotificationType.RELATED_ITEM_CLICKED:
-					_pluginCode.startAction();
+					if (notification.getName()==RelatedEntriesNotificationType.RELATED_ITEM_CLICKED)
+						_pluginCode.startAction();
 					break;
 				case "relatedVisibilityChanged":
 					if (_pluginCode.autoPlay)
