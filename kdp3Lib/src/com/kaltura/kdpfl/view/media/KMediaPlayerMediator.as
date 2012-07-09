@@ -703,6 +703,7 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.PLAYER_PLAY_END:
+					_mediaProxy.vo.singleAutoPlay = false;
 					cleanMedia();
 					kMediaPlayer.showThumbnail();
 					break;
