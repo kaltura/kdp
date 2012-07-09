@@ -4,9 +4,9 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.kdpfl.plugin.component.tile.KTileItem;
 	
 	import fl.data.DataProvider;
+	import fl.events.ListEvent;
 	
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 
 	public class TileView extends AbstractView
 	{
@@ -36,7 +36,7 @@ package com.kaltura.kdpfl.plugin.component
 			{
 				_kTile.dataProvider = dataProvider;				
 			}
-			_kTile.addEventListener( MouseEvent.CLICK , onTileItemClick, false, 0, true );
+			_kTile.addEventListener(ListEvent.ITEM_CLICK , onTileItemClick, false, 0, true );
 			_kTile.addEventListener( Event.CHANGE, onTileChange, false, 0, true );
 			addChild( _kTile );	
 			
@@ -138,9 +138,9 @@ package com.kaltura.kdpfl.plugin.component
 			} 
 		} 
 		
-		private function onTileItemClick(event:MouseEvent):void 
+		private function onTileItemClick(event:ListEvent):void 
 		{
-			selectedIndex = _kTile.selectedIndex;
+			selectedIndex = event.index;	
 			dispatchEvent(new Event(AbstractView.ITEM_CLICKED));
 		}
 

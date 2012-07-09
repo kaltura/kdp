@@ -5,8 +5,8 @@ package com.kaltura.kdpfl.plugin.component
 
 	public class AbstractView extends UIComponent
 	{
-		public static const ITEM_CLICKED:String = "itemClicked";
-		public static const ITEM_CHANGED:String = "itemChanged";
+		public static const ITEM_CLICKED:String = "relatedItemClicked";
+		public static const ITEM_CHANGED:String = "relatedItemChanged";
 		private var _itemRendererXML:XML;
 
 		private var _dataProvider:DataProvider;
