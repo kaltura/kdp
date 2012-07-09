@@ -19,6 +19,7 @@ package {
 		private var _configValues:Array = new Array();
 
 		private var _defaultBookmarkURL:String;
+		public var lang:String;
 
 		/**
 		 * Constructor
@@ -50,6 +51,8 @@ package {
 			_gigyaMediator = new GigyaMediator(new Gigya());
 			if(_defaultBookmarkURL)
 				_gigyaMediator.defaultBookmarkURL = _defaultBookmarkURL; 
+			if(lang)
+				_gigyaMediator.lang = lang; 
 			//set parameters in mediator
 			for (var key:String in _configValues) {
 				try {

@@ -21,6 +21,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 * Mediator name 
 		 */		
 		public static const NAME:String = "gigyaMediator";
+		public var lang:String;
 		
 		// pass the module id to the Share menu 
 		private static const MODULE_ID:String = 'cfg';
@@ -217,6 +218,9 @@ package com.kaltura.kdpfl.plugin.component {
 			// Step 4 - This code assigns the configurations you set in our site to the Share menu configuration object 
 			_cfg['width'] = (viewComponent as DisplayObject).parent.parent.width;
 			_cfg['height'] = (viewComponent as DisplayObject).parent.parent.height;
+			if(lang)
+				_cfg['lang'] = lang;
+			
 			_cfg['UIConfig'] = '<config><display showEmail="true" showBookmark="true" /></body></config>';
 			// so the link would be in the front page of facebook 
 			_cfg['useFacebookMystuff']='false';
