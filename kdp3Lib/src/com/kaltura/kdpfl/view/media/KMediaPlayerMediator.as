@@ -510,7 +510,8 @@ package com.kaltura.kdpfl.view.media
 					}
 					else // change media
 					{
-						_mediaProxy.vo.singleAutoPlay = true;
+						if (player.state == MediaPlayerState.PLAYING || player.state == MediaPlayerState.BUFFERING)
+							_mediaProxy.vo.singleAutoPlay = true;
 						_mediaProxy.vo.isFlavorSwitching = true;
 						sendNotification( NotificationType.CHANGE_MEDIA, {entryId: _mediaProxy.vo.entry.id, flavorId: null, preferedFlavorBR: preferedFlavorBR });
 					}
