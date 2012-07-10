@@ -81,7 +81,7 @@ package com.kaltura.kdpfl.plugin.component {
 		override public function listNotificationInterests():Array {
 			var notes:Array = ["mediaReady", "playerUpdatePlayhead", "changeMedia", 
 				"playerPlayEnd", "doPlay", "doPause", "showOverlayOnCuePoint",
-				"changeOverlayDisplayDuration" ];
+				"changeOverlayDisplayDuration", "midSequenceComplete" ];
 			return notes;
 		}
 
@@ -96,7 +96,7 @@ package com.kaltura.kdpfl.plugin.component {
 
 			// If we are currently playing either pre-roll or post-roll sequences, 
 			// there is no need for any overlay logic.
-			if (sequenceProxy["vo"]["isInSequence"]) {
+			if (sequenceProxy["vo"]["isInSequence"] && notification.getName()!="midSequenceComplete") {
 				if (_overlayIsShowing) {
 					overlayMC.lowerBanner();
 				}
@@ -131,8 +131,6 @@ package com.kaltura.kdpfl.plugin.component {
 					break;
 
 				case "doPlay":
-					if (sequenceProxy["vo"]["isInSequence"])
-						return;
 					if (!firedStart && (viewComponent as overlayPluginCode).currentOverlayConfig) {
 						firedStart = true;
 						fireTrackingEvent("start");
@@ -181,6 +179,12 @@ package com.kaltura.kdpfl.plugin.component {
 					if (newDuration && newDuration > 0)
 						(viewComponent as overlayPluginCode).displayDuration = newDuration;
 					
+					break;
+				
+				case "midSequenceComplete" :
+					if (!_overlayIsShowing && _overlayIntervalTimer && !_overlayIntervalTimer.running) {
+						_overlayIntervalTimer.start();
+					}
 					break;
 			}
 
