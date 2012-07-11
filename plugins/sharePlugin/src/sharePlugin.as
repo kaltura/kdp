@@ -28,6 +28,9 @@ package
 	public class sharePlugin extends KVBox implements IPluginFactory, IPlugin 
 	{
 		
+		
+		public var servicePath:String = "/index.php/extwidget/openGraph/wid/";
+		
 		public var ar:AssetsRefferencer;
 		public var pubid:String;
 		
@@ -106,6 +109,9 @@ package
 				uiconfId = config.vo.flashvars.uiConfId;
 			}
 			
+			
+			
+			
 			//skip 2nd addWidget for the same entry
 			if(entryId && entryId == advancedShareMediator.entry.id && !_hadError )
 			{
@@ -126,11 +132,29 @@ package
 			
 			var fv:Object = config.getData().flashvars;
 			
+			var basePath:String =  config.vo.flashvars.httpProtocol + config.vo.flashvars.host
+			basePath+=servicePath;
+			
+			landingPagePrefix = basePath;
+			
 			kw.entryId = entry_id;
 			// the uiconf that will be the new widget uiconf
-			kw.uiConfId = int(player_id); //kw.uiConfId = int(uiconfId);  
-			kw.sourceWidgetId = config["vo"]["kw"]["id"]; //"_1";// 
-			kw.partnerData = createWidgetPartnerData(fv);
+			kw.uiConfId = int(player_id); //kw.uiConfId = int(uiconfId); 
+			try
+			{
+				kw.sourceWidgetId = config["vo"]["kw"]["id"]; //"_1";// 
+			} 
+			catch(error:Error) 
+			{
+			}
+			try
+			{
+				kw.partnerData = createWidgetPartnerData(fv);
+			} 
+			catch(error:Error) 
+			{
+				
+			}
 			kw.securityType = KalturaWidgetSecurityType.NONE;
 			
 			//add widget			
@@ -201,6 +225,13 @@ package
 			directEmbed =  whtml;
 			if(_refferencer.hasOwnProperty("directEmbed"))
 				(_refferencer["directEmbed"] as KLabel).text = directEmbed;
+			
+			
+			
+			
+			
+			
+			
 			if(landingPagePrefix)
 				directLink = landingPagePrefix + widgetId ; 
 			 else
