@@ -28,6 +28,8 @@ package com.kaltura.kdfl.plugin {
 		private var postBumper:BumperPluginCode;
 		private var postBumperIndex:uint;
 		private var _sequenceProxy:SequenceProxy;
+		private var _mediaProxy:MediaProxy;
+		
 		/**
 		 * Constructor
 		 * @param viewComponent	the view component for this mediator
@@ -35,7 +37,8 @@ package com.kaltura.kdfl.plugin {
 		public function BumperMediator(viewComponent:Object = null) {
 			super(viewComponent);
 			bumper.addEventListener(Bumper.NAVIGATE, navigate, false, 0, true);
-			_sequenceProxy = facade.retrieveProxy("sequenceProxy") as SequenceProxy;
+			_sequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
+			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 		}
 		
 
@@ -44,8 +47,7 @@ package com.kaltura.kdfl.plugin {
 		 * Sets the default image duration.
 		 */
 		override public function onRegister():void {
-			var mediaProxy:Object = facade.retrieveProxy("mediaProxy");
-			mediaProxy.vo.supportImageDuration = true;
+			_mediaProxy.vo.supportImageDuration = true;
 			super.onRegister();
 		}
 
@@ -66,7 +68,6 @@ package com.kaltura.kdfl.plugin {
 		 */
 		override public function listNotificationInterests():Array {
 			var notify:Array = new Array(NotificationType.PLAYER_PLAYED, 
-										NotificationType.DO_PLAY, 
 										NotificationType.SEQUENCE_ITEM_PLAY_END,
 										NotificationType.MEDIA_LOADED,
 										NotificationType.MEDIA_READY,
@@ -84,20 +85,9 @@ package com.kaltura.kdfl.plugin {
 		 */
 		override public function handleNotification(note:INotification):void {
 			var config:Object = facade.retrieveProxy("configProxy");
-			var media:Object = facade.retrieveProxy("mediaProxy");
-			
 			
 			var data:Object = note.getBody();
-			switch (note.getName()) {
-				case NotificationType.DO_PLAY:
-					if (media.vo.entry.id == bumper.bumperEntryID) {
-						bumper.enabled = true;
-						enableGUI(false);
-						bumper.trackClicks = true;
-					}
-					break;
-				
-				
+			switch (note.getName()) {			
 				case "playlistFirstEntry":
 					if(wrapPlaylist)
 						removePostrollFromPostSequence();
@@ -114,13 +104,14 @@ package com.kaltura.kdfl.plugin {
 				
 				
 				case NotificationType.MEDIA_READY:
-					if (media.vo.entry.id == bumper.bumperEntryID) {
+					if (_mediaProxy.vo.entry.id == bumper.bumperEntryID && _sequenceProxy.vo.isInSequence) {
 						sendNotification(NotificationType.DO_PLAY);
 					}
 					break;
 				case NotificationType.MEDIA_LOADED:
-					if (media.vo.entry.id == bumper.bumperEntryID && !_playedOnce) {
+					if (_mediaProxy.vo.entry.id == bumper.bumperEntryID && _sequenceProxy.vo.isInSequence && !_playedOnce) {
 						_playedOnce = true;
+						_sequenceProxy.vo.isAdLoaded = true;
 						var playerMediator : Object = facade.retrieveMediator("kMediaPlayerMediator");
 						playerMediator.playContent();
 					}
@@ -214,9 +205,10 @@ package com.kaltura.kdfl.plugin {
 			}
 			else
 			{
-				var mediaProxy : MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
-				
-				mediaProxy.loadWithMediaReady();
+				bumper.enabled = true;
+				enableGUI(false);
+				bumper.trackClicks = true;
+				_mediaProxy.loadWithMediaReady();
 				
 			}
 		}
@@ -241,6 +233,10 @@ package com.kaltura.kdfl.plugin {
 				bumper.trackClicks = false;
 				enableGUI(true);
 				bumper.enabled = false;
+				if (_mediaProxy.vo.entry.id == bumper.bumperEntryID)
+				{
+					sendNotification(NotificationType.DO_SEEK, 0);
+				}
 			}
 		}
 
