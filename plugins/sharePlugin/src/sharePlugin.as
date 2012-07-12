@@ -54,7 +54,7 @@ package
 		public var twitterLabel:String = "Twitter     ";
 		public var deliciousLabel:String = "Delicious";
 		
-		public var landingPagePrefix:String = "http://www.kaltura.com/openGraph/wid/" ;
+		public var landingPagePrefix:String = "" ;
 		
 		public var copyButtonWidth:Number = 110;
 		public var copyButtonHeight:Number = 18;
