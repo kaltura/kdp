@@ -25,7 +25,7 @@ package
 	
 	import org.puremvc.as3.interfaces.IFacade;
 	
-	public class sharePlugin extends KVBox implements IPluginFactory, IPlugin 
+	public class kalturaSharePlugin extends KVBox implements IPluginFactory, IPlugin 
 	{
 		
 		
@@ -91,7 +91,7 @@ package
 		
 		
 		
-		public function sharePlugin()
+		public function kalturaSharePlugin()
 		{
 		}
 		/**

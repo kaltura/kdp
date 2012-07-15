@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>advanceSharePlugin</name>
+	<name>kalturaSharePlugin</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -18,7 +18,7 @@
 		<link>
 			<name>bin-debug</name>
 			<type>2</type>
-			<locationURI>DOCUMENTS/KDP3/bin-debug/plugins</locationURI>
+			<location>C:/workspaces/kdp/KDP3/bin-debug/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>

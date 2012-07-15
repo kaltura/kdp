@@ -14,13 +14,13 @@ package
 	{
 		public static const NAME:String = "advancedShareMediator";
 		
-		private var _advancedSharePlugin:sharePlugin; 
+		private var _advancedSharePlugin:kalturaSharePlugin; 
 		
 		public var entry:KalturaBaseEntry;
 		public var metadata:Object;
 		public var mediaProxy:MediaProxy
 		
-		public function AdvancedShareMediator(asp:sharePlugin=null)
+		public function AdvancedShareMediator(asp:kalturaSharePlugin=null)
 		{
 			_advancedSharePlugin = asp;
 			
