@@ -8,7 +8,6 @@ package com.kaltura.kdpfl.view.controls
 	import fl.controls.Label;
 	
 	import flash.text.Font;
-	import flash.text.TextField;
 	import flash.text.TextFormat;
 
 	/**
@@ -138,55 +137,58 @@ package com.kaltura.kdpfl.view.controls
 			
 			var truncationIndicator:String = "...";
 			
+			if (width == 0)
+				return false;
+			
 			var w:Number = width;
+			validateNow();
 			
 			// Need to check if we should truncate, but it 
 			// could be due to rounding error.  Let's check that it's not.
 			// Examples of rounding errors happen with "South Africa" and "Game"
 			// with verdana.ttf.
-			if (untruncatedText != null)
+			if (untruncatedText && textField.textWidth + TEXT_WIDTH_PADDING > w + 0.00000000000001)
 			{
-				if (untruncatedText != "" && textField.textWidth + TEXT_WIDTH_PADDING > w + 0.00000000000001)
+				function recursiveTruncate () : void
 				{
-					function recursiveTruncate () : void
+					if (textField.textWidth <= w)
 					{
-						if (textField.textWidth <= w)
+						var origText:String = textField.text;
+						textField.text = textField.text.concat(truncationIndicator);
+						//in case adding truncationIndicator caused the string to be too long
+						if (textField.textWidth > w)
 						{
-							var origText:String = textField.text;
-							textField.text = textField.text.concat(truncationIndicator);
-							//in case adding truncationIndicator caused the string to be too long
-							if (textField.textWidth > w)
-							{
-								origText = origText.slice(0, origText.length - truncationIndicator.length);
-								origText = origText.slice(0, origText.lastIndexOf(" "));
-								textField.text = origText.concat(origText, truncationIndicator);
-							}
-							return;
+							origText = origText.slice(0, origText.lastIndexOf(" "));
+							textField.text = origText.concat(truncationIndicator);
+
 						}
-						else
-						{
-							textField.text =  textField.text.slice(0, textField.text.lastIndexOf(" "));
-							recursiveTruncate ()
-						}
+						return;
+						
 					}
-					
-					recursiveTruncate ();
-					
-					this.tooltip = untruncatedText;
-					_isTruncate = true;
-					return true;
+					else
+					{
+						textField.text =  textField.text.slice(0, textField.text.lastIndexOf(" "));
+						recursiveTruncate ();
+					}
 				}
-				else if(_isTruncate)
-				{
-					// if the text is Truncate and now the Label size is changed
-					// and we don't need a truncat text now we will return to untruncated text
-					_isTruncate = false;
-					super.text = untruncatedText;
-				}
+				
+				recursiveTruncate ();
+
+				this.tooltip = untruncatedText;
+				_isTruncate = true;
+				return true;
 			}
-			
+			else if(_isTruncate)
+			{
+				// if the text is Truncate and now the Label size is changed
+				// and we don't need a truncat text now we will return to untruncated text
+				_isTruncate = false;
+				super.text = untruncatedText;
+			}
+		
 			this.tooltip = "";
 			return false;
+
 		}
 		/**
 		 * html text property of the Label. 
