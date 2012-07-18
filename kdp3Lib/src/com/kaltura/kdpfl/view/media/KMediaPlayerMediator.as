@@ -680,6 +680,7 @@ package com.kaltura.kdpfl.view.media
 						//for rtmp the seek will be performed after player is in "playing" state
 						if (_mediaProxy.vo.deliveryType == StreamerType.HTTP && _mediaProxy.vo.keyframeValuesArray)
 						{
+							_pausedPending = true;
 							doIntelliSeek(_offset);
 						}		
 						_isPrePlaySeek = false;
@@ -937,10 +938,9 @@ package com.kaltura.kdpfl.view.media
 						_prevState = "";
 					}
 				
-					//the movie started, pre play seek has now ended.
-					if (_isPrePlaySeekInProgress)
+					//the movie started, pre play seek has now ended (unless we are still waiting for videoMetadataRecieved)
+					if (_isPrePlaySeekInProgress && !_isPrePlaySeek)
 					{
-						
 						if (_mediaProxy.vo.deliveryType != StreamerType.HTTP && player.canSeek)
 						{
 							//fix a bug with akamai HD plugin, we can't call player.seek immediately
