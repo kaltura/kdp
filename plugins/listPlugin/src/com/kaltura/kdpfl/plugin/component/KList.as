@@ -161,7 +161,7 @@ public class KList extends List implements IComponent
 	{
 		super.draw();
 		//move the list and locate the scroll on the left side
-		if (leftScrollBar && verticalScrollBar)
+		if (leftScrollBar && verticalScrollBar && verticalScrollBar.visible)
 		{
 			var lastChild:Sprite = getChildAt(numChildren - 1) as Sprite;
 			if (lastChild)
