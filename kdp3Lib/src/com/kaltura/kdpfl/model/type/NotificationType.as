@@ -448,5 +448,9 @@ package com.kaltura.kdpfl.model.type
 		  * status taken from PluginStatus enum class 
 		  */		 
 		 static public const PLUGINS_READY : String = "pluginsReady";
+		 /**
+		  * Notification fired when mediaElement was created and saved on mediaProxyVo 
+		  */		 
+		 static public const MEDIA_ELEMENT_READY : String = "mediaElementReady";
 	}
 }

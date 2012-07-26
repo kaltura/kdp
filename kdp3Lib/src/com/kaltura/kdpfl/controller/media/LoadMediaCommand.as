@@ -169,13 +169,11 @@ package com.kaltura.kdpfl.controller.media
 		{
 			if (!_mediaProxy.vo.isMediaDisabled)
 			{
-				_mediaProxy.prepareMediaElement();
+				_mediaProxy.shouldConfigurePlayback = true;
 				(facade.retrieveProxy( PlayerStatusProxy.NAME ) as PlayerStatusProxy).dispatchKDPReady();
 				sendNotification( NotificationType.MEDIA_READY);
-				
 				sendNotification(NotificationType.READY_TO_PLAY);
-				
-				configurePlayback();
+				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
 				
 			}
 			else
@@ -185,35 +183,6 @@ package com.kaltura.kdpfl.controller.media
 				sendNotification(NotificationType.READY_TO_LOAD);
 			}
 		}
-		/**
-		 * Function to determine whether the player is in autoPlay mode and should load and play the entry's video element
-		 * or hold off.
-		 * 
-		 */		
-		private function configurePlayback () : void
-		{
-			var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
-			
-			if (! _mediaProxy.vo.isMediaDisabled)
-			{
-				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
-				if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
-				{
-					_mediaProxy.prepareMediaElement();
-					sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
-					sendNotification(NotificationType.LIVE_ENTRY, _mediaProxy.vo.resource);
-				}
-			}
-			
-			if ((_flashvars.autoPlay == "true" || _mediaProxy.vo.singleAutoPlay) && !_mediaProxy.vo.isMediaDisabled && (! sequenceProxy.vo.isInSequence))
-			{
-				if (_mediaProxy.vo.singleAutoPlay)
-					_mediaProxy.vo.singleAutoPlay = false;
-				sendNotification(NotificationType.DO_PLAY);
-			}
-			
-		}
-		
 		
 	}
 }

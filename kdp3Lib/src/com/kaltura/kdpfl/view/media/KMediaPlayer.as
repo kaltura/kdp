@@ -153,7 +153,7 @@ package com.kaltura.kdpfl.view.media
 			
 		}
 		
-		public function loadThumbnail( url : String ,thumbWidth:Number, thumbHeight:Number , ks : String = "") : void
+		public function loadThumbnail( url : String ,thumbWidth:Number, thumbHeight:Number , ks : String = null, referrer:String = null) : void
 		{
 			if(!url) return; //if someone send null we won't load it
 			
@@ -184,14 +184,12 @@ package com.kaltura.kdpfl.view.media
 			
 			addChild(_thumbnail);
 			
+			var thumbUrl:String = url;	
 			if ( url.indexOf( "thumbnail/entry_id" ) != -1 )
 			{
-				_thumbnail.load(url + "/width/" + thumbWidth+"/height/" + thumbHeight + (ks != "" ? "/ks/" + ks : ""));
+				thumbUrl += "/width/" + thumbWidth+"/height/" + thumbHeight + (ks? "/ks/" + ks : "") + (referrer? "?referrer=" + referrer : "");
 			}
-			else
-			{
-				_thumbnail.load( url );
-			}
+			_thumbnail.load(thumbUrl);
 			
 		}
 		

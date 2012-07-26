@@ -1,9 +1,9 @@
 package com.kaltura.kdpfl.model
 {
 	import com.akamai.osmf.utils.AkamaiStrings;
-	import com.akamai.rss.Media;
 	import com.kaltura.KalturaClient;
 	import com.kaltura.kdpfl.model.strings.MessageStrings;
+	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SourceType;
 	import com.kaltura.kdpfl.model.type.StreamerType;
@@ -25,6 +25,10 @@ package com.kaltura.kdpfl.model
 	import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.vo.KalturaMixEntry;
 	
+	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	
 	import mx.utils.Base64Encoder;
 	
 	import org.osmf.elements.F4MElement;
@@ -39,7 +43,6 @@ package com.kaltura.kdpfl.model
 	import org.osmf.media.MediaResourceBase;
 	import org.osmf.media.URLResource;
 	import org.osmf.metadata.Metadata;
-	import org.osmf.net.DynamicStreamingItem;
 	import org.osmf.net.DynamicStreamingResource;
 	import org.osmf.net.NetStreamCodes;
 	import org.osmf.net.StreamType;
@@ -57,8 +60,7 @@ package com.kaltura.kdpfl.model
 		/**
 		 * default buffer length to be used when playing with HD Akamai plugin 
 		 */		
-		public static const DEFAULT_HD_BUFFER_LENGTH:int = 20;
-		
+		public static const DEFAULT_HD_BUFFER_LENGTH:int = 20;	
 		/**
 		 * represents the starting bitrate index, if exists
 		 */		
@@ -70,6 +72,12 @@ package com.kaltura.kdpfl.model
 		private var _flashvars : Object;
 		private var _client : KalturaClient;
 		private var _isElementLoaded : Boolean;
+		/**
+		 * indicates if after prepareMediaElement function is done, we should continue to "ConfigurePlayback" function 
+		 */		
+		public var shouldConfigurePlayback:Boolean;
+		
+		namespace xmlns = "http://ns.adobe.com/f4m/1.0";
 		
 		/**
 		 *Constructor 
@@ -134,43 +142,6 @@ package com.kaltura.kdpfl.model
 						storageProfileId = (vo.availableStorageProfiles[0] as StorageProfileVO).storageProfileId;
 					}
 					
-					resource = new StreamingURLResource (getManifestUrl(seekFrom, storageProfileId));
-					addMetadataToResource(resource);
-					var f4mLoader : F4MLoader = new F4MLoader(vo.mediaFactory);
-					
-					//to set initial flavor we should disable auto switch, we return it after first play
-					(facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.autoDynamicStreamSwitch = false;
-					var preferedIndex:int = getFlavorByBitrate(vo.preferedFlavorBR);
-					if (preferedIndex!=-1) {
-						if (vo.deliveryType == StreamerType.HDNETWORK) 
-						{
-							setHdNetworkPreferredBitrate(vo.preferedFlavorBR, resource as URLResource);
-						}
-						else 
-						{
-							f4mLoader.initialIndex = preferedIndex;	
-							startingIndex = preferedIndex;
-						}
-					}
-					
-					if (vo.deliveryType == StreamerType.HDNETWORK)
-					{
-						//set buffer length
-						var bufferLength:int = DEFAULT_HD_BUFFER_LENGTH;
-						if (_flashvars.hdnetworkBufferLength && _flashvars.hdnetworkBufferLength!="")
-						{
-							bufferLength = _flashvars.hdnetworkBufferLength;
-						}
-						addAkamaiMetadata (resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH, bufferLength);
-
-					}
-					
-					f4mLoader.useRtmptFallbacks = _flashvars.useRtmptFallback == "false" ? false : true;				
-					var f4mElem : F4MElement = new F4MElement (resource as URLResource, f4mLoader) ;
-					
-					var adaptedElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.deliveryType == StreamerType.LIVE ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.deliveryType == StreamerType.LIVE ? vo.expandedLiveBufferTime : vo.expandedBufferTime), f4mElem);
-					vo.media = adaptedElement;
-					
 					//When using a mix entry the load is still done using flvclipper
 					if (vo.entry is KalturaMixEntry)
 					{
@@ -211,8 +182,34 @@ package com.kaltura.kdpfl.model
 							vo.media = imageElement;	
 						} 
 					}
-					
+					else
+					{
+						var manifestUrl:String = getManifestUrl(seekFrom, storageProfileId); 
+
+						//indicates we should parse manifest ourselves (used for playing HDS for example)
+						if (_flashvars.twoPhaseManifest && _flashvars.twoPhaseManifest=="true")
+						{
+							if (vo.deliveryType == StreamerType.HDNETWORK)
+							{
+								manifestUrl = manifestUrl.replace("hdnetwork", "hdnetworkmanifest");
+							}
+							var urlLoader:URLLoader = new URLLoader();
+							urlLoader.addEventListener(Event.COMPLETE, onUrlComplete);
+							urlLoader.load(new URLRequest(manifestUrl));
+						}
+						else
+						{
+							if (vo.deliveryType == StreamerType.HDNETWORK)
+							{
+								manifestUrl = manifestUrl.replace("hdnetwork", "hdnetworksmil");
+								manifestUrl = manifestUrl.replace(".f4m",".smil");
+							}
+							createElement(manifestUrl);
+						}
+						return;
+					}
 					break;
+				
 				case SourceType.URL:
 					switch (vo.deliveryType)
 					{
@@ -255,8 +252,8 @@ package com.kaltura.kdpfl.model
 					vo.media = new DualThresholdBufferingProxyElement(vo.deliveryType == StreamerType.LIVE ? vo.initialLiveBufferTime :vo.initialBufferTime,vo.deliveryType == StreamerType.LIVE ? vo.expandedLiveBufferTime : vo.expandedBufferTime, elem);	
 					break;
 				case SourceType.F4M:
-					var manifestUrl : String  = vo.entry.dataUrl;
-					resource = new StreamingURLResource(manifestUrl);
+					var entryManifestUrl : String  = vo.entry.dataUrl;
+					resource = new StreamingURLResource(entryManifestUrl);
 					addMetadataToResource(resource);
 					var f4mElement : F4MElement = new F4MElement (resource as URLResource, new F4MLoader(vo.mediaFactory));
 					var dtbpElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.deliveryType == StreamerType.LIVE ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.deliveryType == StreamerType.LIVE ? vo.expandedLiveBufferTime : vo.expandedBufferTime), f4mElement);
@@ -264,21 +261,58 @@ package com.kaltura.kdpfl.model
 					break;
 			}
 			
-			vo.resource = resource;
+			saveResourceAndMedia(resource);
+		}
+		
+		/**
+		 * creates the proper media element according to the given resourceUrl 
+		 * @param resourceUrl
+		 * 
+		 */		
+		private function createElement(resourceUrl:String):void {
+			var resource:MediaResourceBase;
+			var preferedIndex:int = getFlavorByBitrate(vo.preferedFlavorBR);	
 			
-			if (shouldCreateSwitchingProxy)
+			if (vo.deliveryType == StreamerType.HDNETWORK)
 			{
-				//wrap the media element created above in a KSwitcingProxy in order to enable midrolls.
-				var switchingMediaElement : KSwitchingProxyElement = new KSwitchingProxyElement();
-				switchingMediaElement.mainMediaElement = vo.media;
-				//set the KSwitcingProxyElement as the vo.media
-				vo.media = switchingMediaElement;
-				//add event listener for a switch between the main and secondary elements in the KSwitcingProxyElement.
-				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_PERFORMED, onSwitchPerformed );
-				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_COMPLETED, onSwitchCompleted );
-				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_FAILED, onSwitchFailed );
+				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
 				
+				if (preferedIndex!=-1) 
+				{
+					setHdNetworkPreferredBitrate(vo.preferedFlavorBR, resource as URLResource);
+				}
+				//set buffer length
+				var bufferLength:int = DEFAULT_HD_BUFFER_LENGTH;
+				if (_flashvars.hdnetworkBufferLength && _flashvars.hdnetworkBufferLength!="")
+				{
+					bufferLength = _flashvars.hdnetworkBufferLength;
+				}
+				addAkamaiMetadata (resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH, bufferLength);
+
+				var element:MediaElement = vo.mediaFactory.createMediaElement(resource);
+				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement( vo.initialBufferTime, vo.expandedBufferTime, element);
+				vo.media = adaptedHDElement;		
+			}			
+			else
+			{
+				resource = new StreamingURLResource(resourceUrl);
+				addMetadataToResource(resource);
+				var f4mLoader : F4MLoader = new F4MLoader(vo.mediaFactory);
+				//to set initial flavor we should disable auto switch, we return it after first play
+				(facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.autoDynamicStreamSwitch = false;
+				if (preferedIndex!=-1)
+				{
+					f4mLoader.initialIndex = preferedIndex;	
+					startingIndex = preferedIndex;
+				}
+				f4mLoader.useRtmptFallbacks = _flashvars.useRtmptFallback == "false" ? false : true;				
+				var f4mElem : F4MElement = new F4MElement (resource as URLResource, f4mLoader) ;
+				
+				var adaptedElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.deliveryType == StreamerType.LIVE ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.deliveryType == StreamerType.LIVE ? vo.expandedLiveBufferTime : vo.expandedBufferTime), f4mElem);
+				vo.media = adaptedElement;				
 			}
+			
+			saveResourceAndMedia(resource);
 		}
 		
 		/**
@@ -349,7 +383,7 @@ package com.kaltura.kdpfl.model
 			}
 			return null;
 		}
-			
+		
 		
 		public function set videoElement (newElem : VideoElement) : void
 		{
@@ -703,7 +737,7 @@ package com.kaltura.kdpfl.model
 		 * @param value
 		 * 
 		 */		
-		private function addAkamaiMetadata(resource:URLResource, key:String, value:int) :  void 
+		private function addAkamaiMetadata(resource:URLResource, key:String, value:Object) :  void 
 		{
 			var metadata:Metadata = resource.getMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE) as Metadata;	
 			// if not created a new metadata object is created
@@ -714,6 +748,83 @@ package com.kaltura.kdpfl.model
 			//Adding type and value to metadataobject
 			metadata.addValue(key, value);
 			resource.addMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE, metadata);	
+		}
+		
+		
+		/**
+		 * This is used when playing HDS content. We will parse the URL we get from the server and play it. 
+		 * @param event
+		 * 
+		 */		
+		private function onUrlComplete(event: Event): void
+		{
+			(event.target as URLLoader).removeEventListener(Event.COMPLETE, onUrlComplete);
+			
+			var manifest : XML = new XML((event.target as URLLoader).data);
+			var children : XMLList = manifest.xmlns::media;
+			var _resourceUrl:String = children[0].@url;
+			
+			createElement(_resourceUrl);
+		}
+		
+		
+		
+		/**
+		 * Function to determine whether the player is in autoPlay mode and should load and play the entry's video element
+		 * or hold off.
+		 * 
+		 */		
+		private function configurePlayback () : void
+		{
+			shouldConfigurePlayback = false;
+			
+			var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
+			
+			if (!vo.isMediaDisabled)
+			{
+				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
+				if (vo.entry is KalturaLiveStreamEntry || vo.deliveryType == StreamerType.LIVE)
+				{
+					prepareMediaElement();
+					sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
+					sendNotification(NotificationType.LIVE_ENTRY, vo.resource);
+				}
+			}
+			
+			if ((_flashvars.autoPlay == "true" || vo.singleAutoPlay) && !vo.isMediaDisabled && (! sequenceProxy.vo.isInSequence))
+			{
+				if (vo.singleAutoPlay)
+					vo.singleAutoPlay = false;
+				sendNotification(NotificationType.DO_PLAY);
+			}
+			
+		}
+		
+		/**
+		 * This function ends the prepareMediaElement flow. Will save resource to mediaVo, create proper media elemenet and dispatch media ready if needed. 
+		 * @return 
+		 * 
+		 */		
+		private function saveResourceAndMedia(resource:MediaResourceBase) : void
+		{
+			vo.resource = resource;
+			
+			if (shouldCreateSwitchingProxy)
+			{
+				//wrap the media element created above in a KSwitcingProxy in order to enable midrolls.
+				var switchingMediaElement : KSwitchingProxyElement = new KSwitchingProxyElement();
+				switchingMediaElement.mainMediaElement = vo.media;
+				//set the KSwitcingProxyElement as the vo.media
+				vo.media = switchingMediaElement;
+				//add event listener for a switch between the main and secondary elements in the KSwitcingProxyElement.
+				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_PERFORMED, onSwitchPerformed );
+				
+			}
+			
+			if (shouldConfigurePlayback)
+				configurePlayback();
+			
+			sendNotification(NotificationType.MEDIA_ELEMENT_READY);
 		}
 		
 	}

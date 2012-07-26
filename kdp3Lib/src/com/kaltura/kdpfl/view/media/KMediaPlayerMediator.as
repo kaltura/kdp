@@ -20,12 +20,15 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.vo.KalturaMixEntry;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
 	import flash.utils.flash_proxy;
 	import flash.utils.setTimeout;
+	
+	import mx.utils.Base64Encoder;
 	
 	import org.osmf.elements.ParallelElement;
 	import org.osmf.events.AudioEvent;
@@ -141,6 +144,10 @@ package com.kaltura.kdpfl.view.media
 		 * indicates if we are in the process of re-loading live stream entry 
 		 */		
 		private var _reloadingLiveStream:Boolean = false;
+		/**
+		 *indicates of we should listen for mediaElementReady 
+		 */		
+		private var _waitForMediaElement:Boolean = false;
 		
 		/**
 		 * Constructor 
@@ -288,7 +295,8 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.HAS_CLOSED_FULL_SCREEN,
 				NotificationType.CHANGE_PREFERRED_BITRATE,
 				NotificationType.VIDEO_METADATA_RECEIVED,
-				NotificationType.PLAYER_PLAY_END
+				NotificationType.PLAYER_PLAY_END,
+				NotificationType.MEDIA_ELEMENT_READY
 			];
 		}
 		
@@ -307,14 +315,23 @@ package com.kaltura.kdpfl.view.media
 					{
 						if( !_sequenceProxy.vo.isInSequence && !_flashvars.noThumbnail)
 						{
-							if (_flashvars.loadThumbnailWithKs)
+							var ksForThumb:String;
+							var referrefForThumb:String;
+							if (_flashvars.loadThumbnailWithKs && _flashvars.loadThumbnailWithKs=="true")
 							{
-								kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height , (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks ); //load the thumnail of this media
+								ksForThumb = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks;
 							}
-							else
+							if (_flashvars.loadThumbnailWithReferrer && _flashvars.loadThumbnailWithReferrer=="true")
 							{
-								kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height );
+								if(_flashvars.referrer && _flashvars.referrer != '')
+								{
+									var b64 : Base64Encoder = new Base64Encoder();
+									b64.encode( _flashvars.referrer );
+									referrefForThumb = b64.toString();
+								}
 							}
+									
+							kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height, ksForThumb, referrefForThumb );
 						}
 					}
 					if (_flashvars.autoPlay !="true" && !_mediaProxy.vo.singleAutoPlay)
@@ -352,98 +369,26 @@ package com.kaltura.kdpfl.view.media
 					}
 					break;
 				case NotificationType.DO_PLAY: //when the player asked to play	
-					if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
+					//first, load the media, if we didn't load it yet
+					if (_mediaProxy.shouldConfigurePlayback)
 					{
-						if (_mediaProxy.vo.isOffline)
-						{
-							return;
-						}
+						sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
+						_waitForMediaElement = true;
+						_mediaProxy.prepareMediaElement();
 					}
-					//hide the thumbnail 
-					//if this is Audio and not blocked entry countinue to show the Thumbnail
-					if(_mediaProxy.vo.entry.mediaType==KalturaMediaType.AUDIO && !_blockThumb &&!_sequenceProxy.vo.isInSequence)
+					else
 					{
-						kMediaPlayer.showThumbnail();
-					}
-					else //else hide the thumbnail
-					{
-						kMediaPlayer.hideThumbnail();
-					}
-					if(!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.entry.id &&
-						_mediaProxy.vo.entry.id!= "-1" && _sequenceProxy.hasSequenceToPlay() && !_isPrePlaySeekInProgress)
-					{
-						_sequenceProxy.vo.isInSequence = true;
-						_sequenceProxy.playNextInSequence();
-						return;
-					}
-					else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media)
-					{
-						if (_mediaProxy.vo.preferedFlavorBR && _mediaProxy.vo.deliveryType!=StreamerType.HDNETWORK)
-						{
-							_mediaProxy.vo.switchDue = true; //TODO: CHECK do we still need it?
-						}
-						_mediaProxy.loadWithMediaReady();
-						return;
-					}
-					else if(_mediaProxy.vo.entry is KalturaMixEntry && 
-						player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["isReadyForLoad"] &&
-						!player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["isSpriteLoaded"])
-					{
-						player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["loadAssets"]();
-						_mixLoaded = true;
-						
-						/////////////////////////////////////////////
-						//TODO: why we need to send play again ? we should change thos if else statment and use return if needed, 
-						//but to send DO_PLAY again it's a bug 
-						sendNotification(NotificationType.DO_PLAY); 
-						/////////////////////////////////////////////
-					}
-					else if(player.canPlay) 
-					{
-						var timeTrait : TimeTrait = _mediaProxy.vo.media.getTrait(MediaTraitType.TIME) as TimeTrait;
-						
-						if( _mediaProxy.vo.entryExtraData && !_mediaProxy.vo.entryExtraData.isAdmin && 
-							(_mediaProxy.vo.entryExtraData.isCountryRestricted ||
-								!_mediaProxy.vo.entryExtraData.isScheduledNow ||
-								_mediaProxy.vo.entryExtraData.isSiteRestricted ||
-								(_mediaProxy.vo.entryExtraData.isSessionRestricted && _mediaProxy.vo.entryExtraData.previewLength <= 0)))
-						{
-							return;
-						}
-						
-						//if it's Entry and the entry id empty or equal -1 don't play
-						if( _flashvars.sourceType == SourceType.ENTRY_ID &&
-							(_mediaProxy.vo.entry.id == null || _mediaProxy.vo.entry.id == "-1"))
-						{
-							KTrace.getInstance().log("invalid entry id", _mediaProxy.vo.entry.id);
-							return;
-						} 
-						
-						if(player.currentTime >= _duration){
-							sendNotification(NotificationType.DO_REPLAY);
-							//sendNotification(NotificationType.DO_SEEK,0);
-							player.addEventListener(TimeEvent.COMPLETE, onTimeComplete);
-							
-						}
-						
-						//if we did intelligent seek and reach the end of the movie we must load the new url
-						//back form 0 before we can play
-						if(_loadMediaOnPlay)
-						{
-							_loadMediaOnPlay = false;
-							_mediaProxy.prepareMediaElement();
-							_mediaProxy.loadWithMediaReady();
-							return;		
-						}
-						playContent();
-					}
-					else //not playable
-					{
-						//if we play image that not support duration we should act like we play somthing static
-						if(	_mediaProxy.vo.entry is KalturaMediaEntry && _mediaProxy.vo.entry.mediaType==KalturaMediaType.IMAGE)				
-							sendNotification( NotificationType.PLAYER_PLAYED);	
+						onDoPlay();
 					}
 					
+					break;
+				
+				case NotificationType.MEDIA_ELEMENT_READY:
+					if (_waitForMediaElement)
+					{
+						_waitForMediaElement = false;	
+						onDoPlay();
+					}
 					break;
 				
 				case LiveStreamCommand.LIVE_STREAM_READY: 
@@ -729,6 +674,106 @@ package com.kaltura.kdpfl.view.media
 			_intelliSeekStart = _offset;
 			sendNotification( NotificationType.INTELLI_SEEK,{intelliseekTo: _offset} );
 		}
+		
+		
+		private function onDoPlay():void
+		{		
+			if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
+			{
+				if (_mediaProxy.vo.isOffline)
+				{
+					return;
+				}
+			}
+			//hide the thumbnail 
+			//if this is Audio and not blocked entry countinue to show the Thumbnail
+			if(_mediaProxy.vo.entry.mediaType==KalturaMediaType.AUDIO && !_blockThumb &&!_sequenceProxy.vo.isInSequence)
+			{
+				kMediaPlayer.showThumbnail();
+			}
+			else //else hide the thumbnail
+			{
+				kMediaPlayer.hideThumbnail();
+			}
+			if(!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.entry.id &&
+				_mediaProxy.vo.entry.id!= "-1" && _sequenceProxy.hasSequenceToPlay() && !_isPrePlaySeekInProgress)
+			{
+				_sequenceProxy.vo.isInSequence = true;
+				_sequenceProxy.playNextInSequence();
+				return;
+			}
+			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media)
+			{
+				if (_mediaProxy.vo.preferedFlavorBR && _mediaProxy.vo.deliveryType!=StreamerType.HDNETWORK)
+				{
+					_mediaProxy.vo.switchDue = true; //TODO: CHECK do we still need it?
+				}
+				_mediaProxy.loadWithMediaReady();
+				return;
+			}
+			else if(_mediaProxy.vo.entry is KalturaMixEntry && 
+				player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["isReadyForLoad"] &&
+				!player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["isSpriteLoaded"])
+			{
+				player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["loadAssets"]();
+				_mixLoaded = true;
+				
+				/////////////////////////////////////////////
+				//TODO: why we need to send play again ? we should change thos if else statment and use return if needed, 
+				//but to send DO_PLAY again it's a bug 
+				sendNotification(NotificationType.DO_PLAY); 
+				/////////////////////////////////////////////
+			}
+			else if(player.canPlay) 
+			{
+				var timeTrait : TimeTrait = _mediaProxy.vo.media.getTrait(MediaTraitType.TIME) as TimeTrait;
+				
+				if( _mediaProxy.vo.entryExtraData && !_mediaProxy.vo.entryExtraData.isAdmin && 
+					(_mediaProxy.vo.entryExtraData.isCountryRestricted ||
+						!_mediaProxy.vo.entryExtraData.isScheduledNow ||
+						_mediaProxy.vo.entryExtraData.isSiteRestricted ||
+						(_mediaProxy.vo.entryExtraData.isSessionRestricted && _mediaProxy.vo.entryExtraData.previewLength <= 0)))
+				{
+					return;
+				}
+				
+				//if it's Entry and the entry id empty or equal -1 don't play
+				if( _flashvars.sourceType == SourceType.ENTRY_ID &&
+					(_mediaProxy.vo.entry.id == null || _mediaProxy.vo.entry.id == "-1"))
+				{
+					KTrace.getInstance().log("invalid entry id", _mediaProxy.vo.entry.id);
+					return;
+				} 
+				
+				if(player.currentTime >= _duration){
+					sendNotification(NotificationType.DO_REPLAY);
+					//sendNotification(NotificationType.DO_SEEK,0);
+					player.addEventListener(TimeEvent.COMPLETE, onTimeComplete);
+					
+				}
+				
+				//if we did intelligent seek and reach the end of the movie we must load the new url
+				//back form 0 before we can play
+				if(_loadMediaOnPlay)
+				{
+					_loadMediaOnPlay = false;
+					_mediaProxy.prepareMediaElement();
+					_mediaProxy.loadWithMediaReady();
+					return;		
+				}
+				playContent();
+			}
+			else //not playable
+			{
+				//if we play image that not support duration we should act like we play somthing static
+				if(	_mediaProxy.vo.entry is KalturaMediaEntry && _mediaProxy.vo.entry.mediaType==KalturaMediaType.IMAGE)				
+					sendNotification( NotificationType.PLAYER_PLAYED);	
+			}
+			
+		}
+		
+		
+		
 		
 		/**
 		 * Get a reference to the kMediaPlayer

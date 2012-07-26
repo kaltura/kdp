@@ -193,6 +193,9 @@ Miscellaneous
     loadThumbnailWithKs = [true/false]
     	Flag indicating whether the KDP should append the KS to the thumbnail request. Default value "false" to take advantage of caching.
     	
+     loadThumbnailWithReferrer = [true/false]
+    	Flag indicating whether the KDP should append the referrer to the thumbnail request. Default value "false".
+    	
     noThumbnail = [true/false]
     	Flag indicating whether the KDP should forgo loading the thumbnail.
     	
