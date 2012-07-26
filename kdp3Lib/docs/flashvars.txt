@@ -88,6 +88,9 @@ Media delivery
 		
 	ignoreStreamerTypeForSeek = [true/false]
 		when set to true, the KDP will call OSMF player.seek, even when in http and appear to be intelliseek
+		
+	twoPhaseManifest = [true/false]
+		when set to true, KDP will parse the manifest f4m itself, and create the resource from the returned media url. (Will be used to play HDS)
 		              
 Miscellaneous
 -------------
