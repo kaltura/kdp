@@ -30,6 +30,7 @@ package com.kaltura.delegates {
 	import com.kaltura.config.IKalturaConfig;
 	import com.kaltura.config.KalturaConfig;
 	import com.kaltura.core.KClassFactory;
+	import com.kaltura.encryption.MD5;
 	import com.kaltura.errors.KalturaError;
 	import com.kaltura.events.KalturaEvent;
 	import com.kaltura.net.KalturaCall;
@@ -157,13 +158,41 @@ package com.kaltura.delegates {
 			//call.setRequestArgument("kalsig", getMD5Checksum(call));
 		}
 		
+		protected function getMD5Checksum(call:KalturaCall):String
+		{
+			var props:Array = new Array();
+			for each(var prop:String in call.args)
+			props.push(prop);
+			
+			props.push("service");
+			props.push("action");
+			props.sort();
+			
+			var s:String;
+			for each(prop in props)
+			{
+				s += prop;
+				
+				if (prop == "service")
+					s += call.service;
+				else if (prop == "action")
+					s += call.action;
+				else
+					s += call.args[prop];
+			}
+			
+			return MD5.encrypt(s);
+		}
+		
 		protected function sendRequest():void {
 			
 			//construct the loader
 			createURLLoader();
+			//Create signature hash.
+			var kalsig:String = getMD5Checksum(call);
 			
 			//create the service request for normal calls
-			var url : String = _config.protocol + _config.domain +"/"+_config.srvUrl+"?service="+call.service+"&action="+call.action;
+			var url : String = _config.protocol + _config.domain +"/"+_config.srvUrl+"?service="+call.service+"&action="+call.action+"&kalsig="+kalsig;
 			
 			if( _call.method == URLRequestMethod.GET )url += "&";
 			
