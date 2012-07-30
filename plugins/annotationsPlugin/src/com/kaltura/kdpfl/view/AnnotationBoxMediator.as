@@ -53,6 +53,8 @@ package com.kaltura.kdpfl.view {
 		protected var _shouldPause:Boolean = false;
 
 		private var _annotationToDelete:Annotation;
+		
+		private var _flashvars:Object;
 
 		/**
 		 * Saved annotations shared object prefix.
@@ -65,6 +67,10 @@ package com.kaltura.kdpfl.view {
 			createListeners();
 		}
 
+		override public function onRegister():void
+		{
+			_flashvars = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
+		}
 
 		protected function createListeners():void {
 			var box:AnnotationsBox = (viewComponent as annotationsPluginCode).annotationsBox; 
@@ -94,7 +100,7 @@ package com.kaltura.kdpfl.view {
 			var currentTime:Number;
 			var currEntryId:String = facade.retrieveProxy("mediaProxy")["vo"]["entry"]["id"];
 
-			_partnerId = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars.partnerId;
+			_partnerId = _flashvars.partnerId;
 			switch (name) {
 				case NotificationType.PLAYER_PLAYED:
 					// if this is the first time the player played and it was because of a click
@@ -462,14 +468,14 @@ package com.kaltura.kdpfl.view {
 		 *
 		 */
 		protected function saveAnnotationsToLocalObject(e:Event = null):void {
-			if ((viewComponent as annotationsPluginCode).useSharedObject) {
+			if (_flashvars.allowCookies=="true" && (viewComponent as annotationsPluginCode).useSharedObject) {
 				_unsavedAnnotationSO = (viewComponent as annotationsPluginCode).annotationsBox.getAllObjectsInFieldAsArray("annotation");
 				try {
 					SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).data.savedAnnotations = _unsavedAnnotationSO;
 					SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).flush();
 				}
 				catch (e:Error) {
-
+					trace ("Could not save annotation to cookie: No access to user's file system");
 				}
 			}
 		}
@@ -552,12 +558,15 @@ package com.kaltura.kdpfl.view {
 
 
 		protected function resetCookieForSessionId():void {
-			try {
-				SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).data.savedAnnotations = null;
-				SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).flush();
-			}
-			catch (e:Error) {
-
+			if (_flashvars.allowCookies=="true")
+			{
+				try {
+					SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).data.savedAnnotations = null;
+					SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).flush();
+				}
+				catch (e:Error) {
+					trace ("Could not save annotation to cookie: No access to user's file system");
+				}
 			}
 		}
 
