@@ -58,6 +58,8 @@ package com.kaltura.kdpfl.plugin.component
 		 */		
 		private var _playedPlayed:Boolean = false;
 		
+		private var _configProxy:ConfigProxy;
+		
 		private var _prevTime:Number;
 		private var _prevBytesLoaded:int;
 		private var _forceBitrate:int;
@@ -112,7 +114,7 @@ package com.kaltura.kdpfl.plugin.component
 						((mediaProxy.vo.entry is KalturaMediaEntry) && (int(mediaProxy.vo.entry.mediaType)==KalturaMediaType.IMAGE)))
 						break;
 					trace("bitrate detection:", notification.getName());
-					var configProxy:ConfigProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
+					_configProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
 					if ((viewComponent as bitrateDetectionPluginCode).useFlavorCookie)
 					{
 						var flavorCookie : SharedObject;
@@ -160,14 +162,13 @@ package com.kaltura.kdpfl.plugin.component
 			trace ("bitrate detection: start download");
 			if (!(viewComponent as bitrateDetectionPluginCode).downloadUrl)
 				return;
-			
-			var configProxy:ConfigProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
+
 			var mediaProxy:MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 			//disable autoPlay - will change it back once the bitrate detection will finish
-			if (configProxy.vo.flashvars.autoPlay == "true")
+			if (_configProxy.vo.flashvars.autoPlay == "true")
 			{
 				trace ("bitrate detection: was auto play");
-				configProxy.vo.flashvars.autoPlay = "false";
+				_configProxy.vo.flashvars.autoPlay = "false";
 				_wasAutoPlay = true;
 			}
 			if (mediaProxy.vo.singleAutoPlay) 
@@ -238,28 +239,29 @@ package com.kaltura.kdpfl.plugin.component
 				
 			}
 			
-			
-			
-
 			sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: bitrateVal});
 
 			_bandwidth = bitrateVal;
 			
 			//write to cookie
-			var flavorCookie : SharedObject;
-			try
+			if (_configProxy.vo.flashvars.allowCookies=="true")
 			{
-				flavorCookie = SharedObject.getLocal("kaltura");
+				var flavorCookie : SharedObject;
+				try
+				{
+					flavorCookie = SharedObject.getLocal("kaltura");
+				}
+				catch (e : Error)
+				{
+					trace("No access to user's file system");
+				}
+				if (flavorCookie && flavorCookie.data)
+				{
+					flavorCookie.data.preferedFlavorBR = bitrateVal;
+					flavorCookie.flush();
+				}
 			}
-			catch (e : Error)
-			{
-				trace("No access to user's file system");
-			}
-			if (flavorCookie && flavorCookie.data)
-			{
-				flavorCookie.data.preferedFlavorBR = bitrateVal;
-				flavorCookie.flush();
-			}
+			
 			
 			finishDownloadProcess();	
 		}
@@ -300,8 +302,7 @@ package com.kaltura.kdpfl.plugin.component
 				var sequenceProxy:SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 				if (_wasAutoPlay) 
 				{	
-					var configProxy:ConfigProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
-					configProxy.vo.flashvars.autoPlay = "true";	
+					_configProxy.vo.flashvars.autoPlay = "true";	
 				}
 				else 
 				{
