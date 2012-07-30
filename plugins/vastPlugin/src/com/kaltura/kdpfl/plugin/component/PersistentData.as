@@ -16,12 +16,14 @@ package com.kaltura.kdpfl.plugin.component
 		 */
 		private var _so:SharedObject;
 		
+		private var _config:Object
+		
 		public function PersistentData(){}
 		
 		
 		public function init(facade:IFacade) :void {
-			var config:Object = facade.retrieveProxy("configProxy");
-			_so = SharedObject.getLocal(_soName + config.vo.kuiConf.id);
+			_config = facade.retrieveProxy("configProxy");
+			_so = SharedObject.getLocal(_soName + _config.vo.kuiConf.id);
 		}
 		
 		
@@ -58,7 +60,8 @@ package com.kaltura.kdpfl.plugin.component
 			pd.prerollFirstShow = false;
 			pd.postrollEntries = 1;
 			pd.postrollFirstShow = false;
-			_so.flush();
+			if (_config.vo.flashvars.allowCookies=="true")
+				_so.flush();
 		}
 		
 		/**
@@ -70,7 +73,8 @@ package com.kaltura.kdpfl.plugin.component
 			pd.prerollEntries = o.prerollEntries;
 			pd.postrollFirstShow = o.postrollFirstShow;
 			pd.postrollEntries = o.postrollEntries;
-			_so.flush();
+			if (_config.vo.flashvars.allowCookies=="true")
+				_so.flush();
 		}
 		
 		
