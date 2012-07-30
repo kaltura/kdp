@@ -217,7 +217,7 @@ package com.kaltura.kdpfl.plugin.component
 							switchActiveCCFile( ccObj );
 						}
 						
-						if ( ccObj.language )
+						if (_flashvars.allowCookies=="true" && ccObj.language )
 						{
 							try
 							{
