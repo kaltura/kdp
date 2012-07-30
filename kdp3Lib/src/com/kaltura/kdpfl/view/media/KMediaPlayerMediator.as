@@ -571,19 +571,22 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.VOLUME_CHANGED_END: //change volume process ended, save to cookie if possible
-					var volumeCookie : SharedObject;
-					try
+					if (_flashvars.allowCookies=="true")
 					{
-						volumeCookie= SharedObject.getLocal("KalturaVolume");
-					}
-					catch (e : Error)
-					{
-						KTrace.getInstance().log("No access to user's file system");
-					}
-					if (volumeCookie)
-					{
-						volumeCookie.data.volume = kMediaPlayer.volume;
-						volumeCookie.flush();
+						var volumeCookie : SharedObject;
+						try
+						{
+							volumeCookie= SharedObject.getLocal("KalturaVolume");
+						}
+						catch (e : Error)
+						{
+							KTrace.getInstance().log("No access to user's file system");
+						}
+						if (volumeCookie)
+						{
+							volumeCookie.data.volume = kMediaPlayer.volume;
+							volumeCookie.flush();
+						}
 					}
 					break;
 				
@@ -595,6 +598,29 @@ package com.kaltura.kdpfl.view.media
 					{
 						sendNotification(NotificationType.CHANGE_VOLUME, 0);	
 					}
+					//check if kdp is allowed to save cookies
+					if (!_flashvars.allowCookies || _flashvars.allowCookies=="true")
+					{
+						var cookie : SharedObject;
+						try
+						{
+							cookie = SharedObject.getLocal("KalturaCookies");
+						}
+						catch (e: Error)
+						{
+							KTrace.getInstance().log("no permissions to access partner's file system");
+							return;
+						}
+						if (cookie.data.allowCookies && cookie.data.allowCookies==true)
+						{
+							_flashvars.allowCookies = "true";
+						}
+						else
+						{
+							sendNotification(NotificationType.ALERT, {title: MessageStrings.getString('ALLOW_COOKIES_TITLE'), message: MessageStrings.getString('ALLOW_COOKIES'), buttons: [MessageStrings.getString('ALLOW'), MessageStrings.getString('DISALLOW')], callbackFunction: setAllowCookies, props: {buttonSpacing: 5}});
+						}
+					}
+
 					break;
 				
 				case NotificationType.HAS_OPENED_FULL_SCREEN:
@@ -654,6 +680,38 @@ package com.kaltura.kdpfl.view.media
 					cleanMedia();
 					kMediaPlayer.showThumbnail();
 					break;
+			}
+		}
+		
+		/**
+		 * callback function on "set cookies" alert.
+		 * Will set allowCookies flashvar accordingly. 
+		 * @param evt
+		 * 
+		 */		
+		private function setAllowCookies(evt:Event):void 
+		{
+			if (evt.target.label==MessageStrings.getString('ALLOW'))
+			{
+				_flashvars.allowCookies = "true";
+				var cookie : SharedObject;
+				try
+				{
+					cookie= SharedObject.getLocal("KalturaCookies");
+				}
+				catch (e : Error)
+				{
+					KTrace.getInstance().log("No access to user's file system");
+				}
+				if (cookie)
+				{
+					cookie.data.allowCookies = true;
+					cookie.flush();
+				}
+			}
+			else
+			{
+				_flashvars.allowCookies = "false";
 			}
 		}
 		

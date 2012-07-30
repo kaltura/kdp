@@ -1,5 +1,6 @@
 package com.kaltura.kdpfl.view.controls
 {
+	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
@@ -27,6 +28,11 @@ package com.kaltura.kdpfl.view.controls
 		private var _prevMessage:String = "";
 		
 		/**
+		 * kdp flashvars 
+		 */		
+		private var _flashvars:Object;
+		
+		/**
 		 * Constructor.
 		 * @param viewComponent
 		 * 
@@ -38,6 +44,12 @@ package com.kaltura.kdpfl.view.controls
 			comboBox.addEventListener( KFlavorComboBox.DATA_PROVIDER_CHANGE , onDataProviderChange );
 			comboBox.addEventListener(Event.OPEN, onComboBoxOpen);
 			comboBox.addEventListener(Event.CLOSE, onComboBoxClose);
+		}
+		
+		override public function onRegister():void
+		{
+			_flashvars = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;	
+			super.onRegister();
 		}
 		
 		
@@ -164,23 +176,26 @@ package com.kaltura.kdpfl.view.controls
 				comboBox.selectedMessage = comboBox.selectedItem.label;
 			}
 
-			var flavorCookie : SharedObject;
-			try
+			if (_flashvars.allowCookies=="true" && saveToCookie)
 			{
-				flavorCookie = SharedObject.getLocal("Kaltura");
-			}
-			catch (e : Error)
-			{
-				KTrace.getInstance().log("No access to user's file system");
-			}
-			if (saveToCookie && flavorCookie && flavorCookie.data)
-			{
-				if (comboBox.usePixels)
-					flavorCookie.data.preferedFlavorHeight = preferedFlavorHeight;
-				else
-					flavorCookie.data.preferedFlavorBR = preferedFlavorBitrate;
-				
-				flavorCookie.flush();
+				var flavorCookie : SharedObject;
+				try
+				{
+					flavorCookie = SharedObject.getLocal("Kaltura");
+				}
+				catch (e : Error)
+				{
+					KTrace.getInstance().log("No access to user's file system");
+				}
+				if (flavorCookie && flavorCookie.data)
+				{
+					if (comboBox.usePixels)
+						flavorCookie.data.preferedFlavorHeight = preferedFlavorHeight;
+					else
+						flavorCookie.data.preferedFlavorBR = preferedFlavorBitrate;
+					
+					flavorCookie.flush();
+				}
 			}
 			//call do switch
 			sendNotification( NotificationType.DO_SWITCH , preferedFlavorBitrate );

@@ -90,6 +90,7 @@ package com.kaltura.kdpfl.view.controls
 				return;
 			}
 			super.text = untruncatedText = value;	
+			validateNow();
 			runTruncateToFit();
 		}
 		
@@ -101,6 +102,7 @@ package com.kaltura.kdpfl.view.controls
 			}
 			
 			super.width = arg0;
+			validateNow();
 			runTruncateToFit();
 		}
 		
@@ -141,7 +143,7 @@ package com.kaltura.kdpfl.view.controls
 				return false;
 			
 			var w:Number = width;
-			validateNow();
+			//validateNow();
 			
 			// Need to check if we should truncate, but it 
 			// could be due to rounding error.  Let's check that it's not.

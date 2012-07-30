@@ -63,6 +63,7 @@ package com.kaltura.kdpfl.model.strings
 		private static var SERVICE_GET_EXTRA_ERROR_TITLE : String = "Error Get Extra Data";
 		private static var NO_CONTENT_TITLE : String 			= "No Content";
 		private static var ACCESS_RESTRICTED_TITLE 		: String = "Access Restricted";
+		private static var ALLOW_COOKIES_TITLE 			: String = "Allow Cookies";
 		
 		private static var UNAUTHORIZED_DOMAIN  			: String = "We're sorry, this content is only available on certain domains.";
 		private static var UNAUTHORIZED_COUNTRY 			: String = "We're sorry, this content is only available in certain countries.";
@@ -88,5 +89,8 @@ package com.kaltura.kdpfl.model.strings
 		private static var NO_MIX_PLUGIN					: String = "In order to view mix entry, you must add the mix plugin to the UiConf xml";
 		private static var NO_CONTENT					: String = "No Content";
 		private static var ACCESS_RESTRICTED			: String = "We're sorry, access to this content is restricted.";
+		private static var ALLOW_COOKIES				: String = "Video player will save cookies on your computer";
+		private static var ALLOW						: String = "Allow";
+		private static var DISALLOW						: String = "Disallow  ";
 	}
 }
