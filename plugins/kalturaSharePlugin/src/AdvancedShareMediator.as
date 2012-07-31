@@ -2,6 +2,7 @@ package
 {
 	import com.kaltura.KalturaClient;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.vo.KalturaBaseEntry;
@@ -68,7 +69,9 @@ package
 					
 					break;
 				case NotificationType.MEDIA_READY:
-					entry = mediaProxy.vo.entry
+					//ignore bumper
+					if (!(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
+						entry = mediaProxy.vo.entry
 					break;
 			}
 		}
