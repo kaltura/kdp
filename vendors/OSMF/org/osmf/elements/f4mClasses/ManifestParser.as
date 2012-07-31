@@ -363,15 +363,18 @@ package org.osmf.elements.f4mClasses
 			else if (value.media.length > 1)
 			{
 				var baseURL:String = value.baseURL != null ? value.baseURL : manifestFolder;
+				var hasQuery:Boolean = false;
 				if (baseURL)
 				{
 					//ignore params on base URL
 					var dynamicBaseUrlWithNoParams:Array = baseURL.split("?"); 	
+					hasQuery = (dynamicBaseUrlWithNoParams.length > 1);
 					var splittedDynamicBaseUrl : Array = dynamicBaseUrlWithNoParams[0].split("/");
 					numAppInstances = splittedDynamicBaseUrl.length - 4 > 0 ? splittedDynamicBaseUrl.length - 4 : 0;
 				}
 				
-				baseURL = URL.normalizeRootURL(baseURL);
+				if (!hasQuery)
+					baseURL = URL.normalizeRootURL(baseURL);
 				serverBaseURLs = new Vector.<String>();
 				serverBaseURLs.push(baseURL);
 				
