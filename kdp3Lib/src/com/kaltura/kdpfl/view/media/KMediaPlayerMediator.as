@@ -617,7 +617,8 @@ package com.kaltura.kdpfl.view.media
 						}
 						else
 						{
-							sendNotification(NotificationType.ALERT, {title: MessageStrings.getString('ALLOW_COOKIES_TITLE'), message: MessageStrings.getString('ALLOW_COOKIES'), buttons: [MessageStrings.getString('ALLOW'), MessageStrings.getString('DISALLOW')], callbackFunction: setAllowCookies, props: {buttonSpacing: 5}});
+							if (!_flashvars.hideCookiesAlert || _flashvars.hideCookiesAlert=="false")
+								sendNotification(NotificationType.ALERT, {title: MessageStrings.getString('ALLOW_COOKIES_TITLE'), message: MessageStrings.getString('ALLOW_COOKIES'), buttons: [MessageStrings.getString('ALLOW'), MessageStrings.getString('DISALLOW')], callbackFunction: setAllowCookies, props: {buttonSpacing: 5}});
 						}
 					}
 
