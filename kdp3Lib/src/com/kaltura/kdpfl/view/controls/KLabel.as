@@ -143,7 +143,6 @@ package com.kaltura.kdpfl.view.controls
 				return false;
 			
 			var w:Number = width;
-			//validateNow();
 			
 			// Need to check if we should truncate, but it 
 			// could be due to rounding error.  Let's check that it's not.
