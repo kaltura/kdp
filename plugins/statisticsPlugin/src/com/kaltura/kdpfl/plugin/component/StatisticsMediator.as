@@ -4,6 +4,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.config.KalturaConfig;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.AdsNotificationTypes;
+	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.types.KalturaStatsEventType;
 	import com.kaltura.vo.KalturaStatsEvent;
 	
@@ -11,6 +12,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import flash.net.URLRequestMethod;
 	import flash.utils.ByteArray;
 	
+	import org.osmf.media.MediaPlayerState;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 
@@ -114,6 +116,13 @@ package com.kaltura.kdpfl.plugin.component {
 		private var _isNewLoad:Boolean = false;
 		
 		private var _kc : KalturaClient;
+		
+		private var _bufferStarted:Boolean = false;
+		
+		/**
+		 * if set to true buffer_start and buffer_end events won't be sent 
+		 */		
+		public var bufferStatsDis:Boolean = false;
 
 		/**
 		 * Constructor 
@@ -134,26 +143,24 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		override public function listNotificationInterests():Array {
 			return [
-				"hasOpenedFullScreen", 
-				"hasCloseFullScreen", 
-				"playerUpdatePlayhead",  
-				"playerPlayed", 
-				"mediaReady", 
-				"playerSeekStart", 
-				"playerSeekEnd", 
-				"scrubberDragStart", 
-				"scrubberDragEnd", 
-				"playerPaused", 
-				"playerPlayEnd", 
-				"playerStateChange", 
-				"changeMedia", 
-				"kdpReady",
-				"kdpEmpty",
+				NotificationType.HAS_OPENED_FULL_SCREEN, 
+				NotificationType.HAS_CLOSED_FULL_SCREEN, 
+				NotificationType.PLAYER_UPDATE_PLAYHEAD,  
+				NotificationType.PLAYER_PLAYED, 
+				NotificationType.MEDIA_READY,  
+				NotificationType.PLAYER_SEEK_END, 
+				NotificationType.SCRUBBER_DRAG_START, 
+				NotificationType.SCRUBBER_DRAG_END, 
+				NotificationType.PLAYER_STATE_CHANGE, 
+				NotificationType.KDP_READY,
+				NotificationType.KDP_EMPTY,
+				NotificationType.DO_SEEK, 
 				"gotoEditorWindow", 
 				"doDownload", 
-				"doGigya", 
-				"doSeek", 
-				"gotoContributorWindow", 
+				"doGigya",
+				"showAdvancedShare",
+				"gotoContributorWindow",
+				"flagForReview",
 				AdsNotificationTypes.AD_START, 
 				AdsNotificationTypes.AD_CLICK, 
 				AdsNotificationTypes.BUMPER_STARTED, 
@@ -299,14 +306,14 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				switch (note.getName()) 
 				{
-					case "hasOpenedFullScreen":
+					case NotificationType.HAS_OPENED_FULL_SCREEN:
 						if (_fullScreen == false) {
 							kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_FULL_SCREEN;
 						}
 						_fullScreen = true;
 						_normalScreen = false;
 						break;
-					case "hasCloseFullScreen":
+					case NotificationType.HAS_CLOSED_FULL_SCREEN:
 						if (_normalScreen == false) {
 							kse.eventType = com.kaltura.types.KalturaStatsEventType.CLOSE_FULL_SCREEN;
 						}
@@ -314,14 +321,14 @@ package com.kaltura.kdpfl.plugin.component {
 						_normalScreen = true;
 						break;
 	
-					case "kdpEmpty":
+					case NotificationType.KDP_EMPTY:
 						if (_ready)
 							return;
 						kse.eventType = com.kaltura.types.KalturaStatsEventType.WIDGET_LOADED;
 						_ready = true;
 						break;
 	
-					case "playerPlayed":
+					case NotificationType.PLAYER_PLAYED:
 						
 						
 						//In the case of a bumper entry, the bumper has already reported PLAYER_PLAYED for the 
@@ -339,7 +346,7 @@ package com.kaltura.kdpfl.plugin.component {
 						break;
 	
 	
-					case "mediaReady":
+					case NotificationType.MEDIA_READY:
 						
 						if (kse.entryId) {
 							if (_lastId != kse.entryId) {
@@ -360,23 +367,23 @@ package com.kaltura.kdpfl.plugin.component {
 						}
 						break;
 					
-					case "playerSeekEnd":
+					case NotificationType.PLAYER_SEEK_END:
 						_inSeek = false;
 						return;
 						break;
 	
-					case "scrubberDragStart":
+					case NotificationType.SCRUBBER_DRAG_START:
 						_inDrag = true;
 						return;
 						break;
 	
-					case "scrubberDragEnd":
+					case NotificationType.SCRUBBER_DRAG_END:
 						_inDrag = false;
 						_inSeek = false;
 						return;
 						break;
 	
-					case "playerUpdatePlayhead":
+					case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 						
 							kse.eventType = percentStatsChanged(data as Number, kse.duration);
 							if (kse.eventType < 0) {
@@ -384,7 +391,7 @@ package com.kaltura.kdpfl.plugin.component {
 							}
 							break;
 	
-					case "kdpReady":
+					case NotificationType.KDP_READY:
 						// Ready should not occur more than once
 						if (_ready)
 							return;
@@ -398,12 +405,13 @@ package com.kaltura.kdpfl.plugin.component {
 						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_DOWNLOAD;
 						break;
 					case "doGigya":
+					case "showAdvancedShare":
 						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_VIRAL;
 						break;
 					case "flagForReview":
 						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_REPORT;
 						break;
-					case "doSeek":
+					case NotificationType.DO_SEEK:
 						if (_inDrag && !_inSeek) {
 							kse.eventType = com.kaltura.types.KalturaStatsEventType.SEEK;
 						}
@@ -411,8 +419,28 @@ package com.kaltura.kdpfl.plugin.component {
 						_inSeek = true;
 						_hasSeeked = true;
 						break;
+					
 					case "gotoContributorWindow":
 						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_UPLOAD;
+						break;
+					
+					case NotificationType.PLAYER_STATE_CHANGE:
+						if (!bufferStatsDis)
+						{
+							if (note.getBody() == MediaPlayerState.BUFFERING)
+							{
+								if (!_bufferStarted)
+								{
+									kse.eventType = KalturaStatsEventType.BUFFER_START;
+									_bufferStarted = true;
+								}
+							}
+							else if (_bufferStarted)
+							{
+								kse.eventType = KalturaStatsEventType.BUFFER_END;
+								_bufferStarted = false;
+							}
+						}	
 						break;
 				}
 			}

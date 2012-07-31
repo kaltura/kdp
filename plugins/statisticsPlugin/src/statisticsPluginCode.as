@@ -28,6 +28,11 @@ package {
 		
 		public var statsDomain : String;
 		
+		/**
+		 * set true to disable Buffer_start and Buffer_end stats 
+		 */		
+		public var bufferStatsDis:Boolean;
+		
 		
 		/**
 		 * Constructor 
@@ -48,6 +53,7 @@ package {
 				statsDomain = embeddedString;
 			_statisticsMediator = new StatisticsMediator(statsDis);
 			_statisticsMediator.statsDomain = statsDomain;
+			_statisticsMediator.bufferStatsDis = bufferStatsDis;
 			facade.registerMediator( _statisticsMediator);
 		}
 		
