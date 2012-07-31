@@ -4,10 +4,10 @@ package {
 	import com.kaltura.osmf.kalturaMix.KalturaMixElement;
 	import com.kaltura.osmf.kalturaMix.KalturaMixPluginInfo;
 	import com.kaltura.osmf.kalturaMix.KalturaMixSprite;
-
+	
 	import flash.display.Sprite;
 	import flash.system.Security;
-
+	
 	import org.osmf.elements.*;
 	import org.osmf.media.PluginInfoResource;
 	import org.osmf.media.pluginClasses.PluginManager;
