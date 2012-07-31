@@ -55,6 +55,11 @@ package com.kaltura.kdpfl.controller
 	import flash.utils.getQualifiedClassName;
 	import com.yahoo.astra.containers.formClasses.RequiredIndicator;
 	import com.kaltura.kdpfl.view.controls.KTrace;
+	import org.osmf.utils.OSMFSettings;
+	import com.kaltura.kdpfl.model.ExternalInterfaceProxy;
+	import flash.external.ExternalInterface;
+	import flash.net.SharedObject;
+	import com.kaltura.kdpfl.model.type.StreamerType;
 
 	/**
 	 * This class handles the retrieval of the player groundwork - the KS (Kaltura Session),KWidget and the uiConf.xml
@@ -606,6 +611,78 @@ package com.kaltura.kdpfl.controller
 			{
 				addLayoutVars(XML(kw.partnerData).uiVars.children());
 			}
+			
+			//if the flashvars say to disable any call to the ExternalInterface API we will do it here
+			var extProxy : ExternalInterfaceProxy = facade.retrieveProxy( ExternalInterfaceProxy.NAME ) as ExternalInterfaceProxy;
+			//default will be without ExternalInterface. to turn this thing on we will have to get a specific flashvar
+			//enabeling it 
+			extProxy.vo.enabled = false;
+			if(_flashvars.externalInterfaceDisabled == "false" || _flashvars.externalInterfaceDisabled == "0")
+			{
+				extProxy.vo.enabled = true;
+				extProxy.jsCallBackReadyFunc = _flashvars.jsCallBackReadyFunc;
+				extProxy.registerKDPCallbacks();
+				
+				if (_flashvars.jsTraces=="true")
+					KTrace.getInstance().jsCallback = true;
+			}
+			//in this case if external interface enabled will look for referrer, otherwise referrer will be empty
+			if (_flashvars.disableReferrerOverride == "true") {
+				if (_flashvars.externalInterfaceDisabled == "false" || _flashvars.externalInterfaceDisabled == "0")
+				{
+					var foundReferer:String = ExternalInterface.call('window.location.href.toString');
+					_flashvars.referrer = foundReferer ? foundReferer : "";
+				}
+				else
+				{
+					_flashvars.referrer = '';			
+				}
+			}
+			
+			//determines whether to use enableStageVideo OSMF feature
+			if (_flashvars.enableStageVideo && _flashvars.enableStageVideo=="true")
+			{
+				OSMFSettings.enableStageVideo = true;
+			}
+			else
+			{
+				OSMFSettings.enableStageVideo = false;
+			}
+			
+			if (_flashvars.clientDefaultMethod)
+			{
+				KalturaCall.defaultMethod = _flashvars.clientDefaultMethod;
+			}
+			
+			_mediaProxy.vo.deliveryType = _flashvars.streamerType;	
+			//Retrieval of the Bitrate cookie value.
+			if (!_flashvars.disableBitrateCookie || _flashvars.disableBitrateCookie=="false")
+			{
+				var flavorCookie : SharedObject;
+				try
+				{
+					flavorCookie = SharedObject.getLocal("Kaltura");
+				}
+				catch (e: Error)
+				{
+					KTrace.getInstance().log("no permissions to access partner's file system");
+					return;
+				}
+				var propertyName:String = _mediaProxy.vo.displayFlavorPixels ? "preferedFlavorHeight" : "preferedFlavorBR";
+				if(flavorCookie && flavorCookie.data[propertyName])
+				{
+					if (flavorCookie.data[propertyName] == -1 && _mediaProxy.vo.deliveryType != StreamerType.HTTP)
+					{
+						_mediaProxy.vo.autoSwitchFlavors = true;
+					}
+					else
+					{
+						_mediaProxy.vo.preferedFlavorBR = flavorCookie.data[propertyName];
+					}
+				}
+				
+			}
+			
 			
 			// convert all flashvars with dot syntax (e.g. watermark.path) to objects
 			buildFlashvarsTree();

@@ -3,7 +3,6 @@ package com.kaltura.kdpfl.controller
 	import com.kaltura.config.KalturaConfig;
 	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.model.ConfigProxy;
-	import com.kaltura.kdpfl.model.ExternalInterfaceProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.strings.MessageStrings;
@@ -13,14 +12,8 @@ package com.kaltura.kdpfl.controller
 	import com.kaltura.kdpfl.model.vo.ConfigVO;
 	import com.kaltura.kdpfl.util.URLUtils;
 	import com.kaltura.kdpfl.view.RootMediator;
-	import com.kaltura.kdpfl.view.controls.KTrace;
-	import com.kaltura.net.KalturaCall;
 	import com.kaltura.vo.KalturaMediaEntry;
 	
-	import flash.external.ExternalInterface;
-	import flash.net.SharedObject;
-	
-	import org.osmf.utils.OSMFSettings;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 
@@ -80,18 +73,6 @@ package com.kaltura.kdpfl.controller
 			
 			//backward compatibility in old wrong syntax
 			if(flashvars.referer && !flashvars.referrer ) flashvars.referrer = flashvars.referer;
-			//in this case if external interface enabled will look for referrer, otherwise referrer will be empty
-			if (flashvars.disableReferrerOverride == "true") {
-				if (flashvars.externalInterfaceDisabled == "false")
-				{
-					var foundReferer:String = ExternalInterface.call('window.location.href.toString');
-					flashvars.referrer = foundReferer ? foundReferer : "";
-				}
-				else
-				{
-					flashvars.referrer = '';			
-				}
-			}
 			
 			//set application flashvars to be the global flashvars
 			rm.root["flashvars"] = flashvars; 
@@ -99,22 +80,12 @@ package com.kaltura.kdpfl.controller
 			//create the kaltura client by passing it the configuration object base on the flashvars
 			setKalturaClientConfig( flashvars );
 			
-			//if the flashvars say to disable any call to the ExternalInterface API we will do it here
-			var extProxy : ExternalInterfaceProxy = facade.retrieveProxy( ExternalInterfaceProxy.NAME ) as ExternalInterfaceProxy;
-			//default will be without ExternalInterface. to turn this thing on we will have to get a specific flashvar
-			//enabeling it 
-			extProxy.vo.enabled = false;
+
 			if(flashvars.externalInterfaceDisabled == "false" || flashvars.externalInterfaceDisabled == "0")
 			{
 				if(!flashvars.jsCallBackReadyFunc){
 					flashvars.jsCallBackReadyFunc = "jsCallbackReady";
 				}
-				extProxy.vo.enabled = true;
-				extProxy.jsCallBackReadyFunc = flashvars.jsCallBackReadyFunc;
-				extProxy.registerKDPCallbacks();
-				
-				if (flashvars.jsTraces=="true")
-					KTrace.getInstance().jsCallback = true;
 			} 
 			
 			if(flashvars.fileSystemMode == "true" || flashvars.fileSystemMode == "1" )
@@ -162,50 +133,6 @@ package com.kaltura.kdpfl.controller
 			{
 				flashvars.getCuePointsData="true";
 			}
-			
-			if (flashvars.clientDefaultMethod)
-			{
-				KalturaCall.defaultMethod = flashvars.clientDefaultMethod;
-			}
-			
-			mediaProxy.vo.deliveryType = flashvars.streamerType;	
-			//Retrieval of the Bitrate cookie value.
-			if (!flashvars.disableBitrateCookie || flashvars.disableBitrateCookie=="false")
-			{
-				var flavorCookie : SharedObject;
-				try
-				{
-					flavorCookie = SharedObject.getLocal("Kaltura");
-				}
-				catch (e: Error)
-				{
-					KTrace.getInstance().log("no permissions to access partner's file system");
-					return;
-				}
-				var propertyName:String = mediaProxy.vo.displayFlavorPixels ? "preferedFlavorHeight" : "preferedFlavorBR";
-				if(flavorCookie && flavorCookie.data[propertyName])
-				{
-					if (flavorCookie.data[propertyName] == -1 && mediaProxy.vo.deliveryType != StreamerType.HTTP)
-					{
-						mediaProxy.vo.autoSwitchFlavors = true;
-					}
-					else
-					{
-						mediaProxy.vo.preferedFlavorBR = flavorCookie.data[propertyName];
-					}
-				}
-				
-			}
-			
-			if (flashvars.enableStageVideo && flashvars.enableStageVideo=="true")
-			{
-				OSMFSettings.enableStageVideo = true;
-			}
-			else
-			{
-				OSMFSettings.enableStageVideo = false;
-			}
-			
 		}
 		
 		
