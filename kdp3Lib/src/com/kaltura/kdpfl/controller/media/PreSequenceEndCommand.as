@@ -1,8 +1,11 @@
 package com.kaltura.kdpfl.controller.media
 {
+	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.kdpfl.view.media.KMediaPlayer;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -20,8 +23,20 @@ package com.kaltura.kdpfl.controller.media
 			sequenceProxy.vo.isInSequence = false;
 			sequenceProxy.vo.preCurrentIndex = -1;
 			sequenceProxy.vo.preSequenceComplete = true;
-			var mediaProxy : MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
-			sendNotification(NotificationType.DO_PLAY);
+			var flashvars:Object = (facade.retrieveProxy( ConfigProxy.NAME ) as ConfigProxy).vo.flashvars;
+			if (!flashvars.pauseAfterPreSequence || flashvars.pauseAfterPreSequence=="false")
+			{
+				sendNotification(NotificationType.DO_PLAY);				
+			}
+			else
+			{
+				sendNotification(NotificationType.DO_PAUSE);	
+				var mediaMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
+				mediaMediator.cleanMedia();
+				//reset timer
+				sendNotification(NotificationType.PLAYER_UPDATE_PLAYHEAD, 0);
+				mediaMediator.kMediaPlayer.showThumbnail();
+			}
 			
 		}
 	}
