@@ -23,6 +23,7 @@ package
 	import com.kaltura.vo.KalturaBaseEntry;
 	import com.kaltura.vo.KalturaBaseEntryFilter;
 	import com.kaltura.vo.KalturaBaseEntryListResponse;
+	import com.kaltura.kdpfl.util.URLUtils;
 	
 	import fl.core.UIComponent;
 	import fl.data.DataProvider;
@@ -218,6 +219,11 @@ package
 				{
 					if (entry.id != entryId) //current entry shouldn't be part of related entries
 					{
+						if (entry.thumbnailUrl && entry.thumbnailUrl.indexOf( "thumbnail/entry_id" ) != -1)
+						{
+							entry.thumbnailUrl +=  URLUtils.getThumbURLPostfix((_facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars, 
+								(_facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks);
+						}
 						var relatedEntry:RelatedEntryVO = new RelatedEntryVO(entry);
 						dpArray.push(relatedEntry);
 					}
