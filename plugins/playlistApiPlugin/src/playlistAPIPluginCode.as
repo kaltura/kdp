@@ -6,6 +6,8 @@ package {
 	import com.akamai.rss.Media;
 	import com.kaltura.base.types.MediaTypes;
 	import com.kaltura.events.KalturaEvent;
+	import com.kaltura.kdpfl.model.ConfigProxy;
+	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.component.KDataProvider;
@@ -13,6 +15,7 @@ package {
 	import com.kaltura.kdpfl.plugin.component.PlaylistEntryVO;
 	import com.kaltura.kdpfl.plugin.type.PlaylistNotificationType;
 	import com.kaltura.kdpfl.util.Functor;
+	import com.kaltura.kdpfl.util.URLUtils;
 	import com.kaltura.utils.KConfigUtil;
 	import com.kaltura.vo.KalturaPlayableEntry;
 	
@@ -22,6 +25,7 @@ package {
 	import flash.events.Event;
 	
 	import org.puremvc.as3.interfaces.IFacade;
+	import org.puremvc.as3.patterns.facade.Facade;
 	
 	/**
 	 * playlistAPIPluginCode needs to be dynamic so it can receive 
@@ -251,7 +255,15 @@ package {
 				}
 				kalturaEntry.duration = parseInt(contentTo.duration);
 				if (itemTo.media.thumbnail)
+				{
 					kalturaEntry.thumbnailUrl = itemTo.media.thumbnail.url;
+					if (kalturaEntry.thumbnailUrl.indexOf( "thumbnail/entry_id" ) != -1)
+					{
+						kalturaEntry.thumbnailUrl +=  URLUtils.getThumbURLPostfix((Facade.getInstance().retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars, 
+						(Facade.getInstance().retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks);
+					}
+					
+				}
 				kalturaEntry.name = itemTo.media.title;
 				kalturaEntry.description = itemTo.media.description;
 				kalturaEntry['partnerLandingPage'] = itemTo.link;
