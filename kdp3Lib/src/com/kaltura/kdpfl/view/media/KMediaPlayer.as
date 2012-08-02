@@ -3,6 +3,7 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.component.IComponent;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.util.URLUtils;
 	import com.kaltura.kdpfl.view.controls.BufferAnimation;
 	import com.kaltura.kdpfl.view.controls.KTrace;
 	import com.yahoo.astra.fl.containers.layoutClasses.AdvancedLayoutPane;
@@ -153,7 +154,7 @@ package com.kaltura.kdpfl.view.media
 			
 		}
 		
-		public function loadThumbnail( url : String ,thumbWidth:Number, thumbHeight:Number , ks : String = null, referrer:String = null) : void
+		public function loadThumbnail( url : String ,thumbWidth:Number, thumbHeight:Number , ks : String = null, flashvars:Object = null) : void
 		{
 			if(!url) return; //if someone send null we won't load it
 			
@@ -187,7 +188,7 @@ package com.kaltura.kdpfl.view.media
 			var thumbUrl:String = url;	
 			if ( url.indexOf( "thumbnail/entry_id" ) != -1 )
 			{
-				thumbUrl += "/width/" + thumbWidth+"/height/" + thumbHeight + (ks? "/ks/" + ks : "") + (referrer? "?referrer=" + referrer : "");
+				thumbUrl += "/width/" + thumbWidth+"/height/" + thumbHeight + URLUtils.getThumbURLPostfix(flashvars, ks);
 			}
 			_thumbnail.load(thumbUrl);
 			

@@ -632,6 +632,7 @@ package com.kaltura.kdpfl.controller
 				{
 					var foundReferer:String = ExternalInterface.call('window.location.href.toString');
 					_flashvars.referrer = foundReferer ? foundReferer : "";
+					
 				}
 				else
 				{

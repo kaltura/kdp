@@ -315,23 +315,9 @@ package com.kaltura.kdpfl.view.media
 					{
 						if( !_sequenceProxy.vo.isInSequence && !_flashvars.noThumbnail)
 						{
-							var ksForThumb:String;
-							var referrefForThumb:String;
-							if (_flashvars.loadThumbnailWithKs && _flashvars.loadThumbnailWithKs=="true")
-							{
-								ksForThumb = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks;
-							}
-							if (_flashvars.loadThumbnailWithReferrer && _flashvars.loadThumbnailWithReferrer=="true")
-							{
-								if(_flashvars.referrer && _flashvars.referrer != '')
-								{
-									var b64 : Base64Encoder = new Base64Encoder();
-									b64.encode( _flashvars.referrer );
-									referrefForThumb = b64.toString();
-								}
-							}
-									
-							kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height, ksForThumb, referrefForThumb );
+							//set b64referrer here, in case referrer has changed when entry was set
+							setB64Referrer();		
+							kMediaPlayer.loadThumbnail( _mediaProxy.vo.entry.thumbnailUrl,_mediaProxy.vo.entry.width,_mediaProxy.vo.entry.height, (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks, _flashvars );
 						}
 					}
 					if (_flashvars.autoPlay !="true" && !_mediaProxy.vo.singleAutoPlay)
@@ -590,8 +576,9 @@ package com.kaltura.kdpfl.view.media
 					}
 					break;
 				
-				case NotificationType.KDP_READY:
 				case NotificationType.KDP_EMPTY:
+				case NotificationType.KDP_READY:
+					setB64Referrer();
 					var preloaderMediator : BufferAnimationMediator = facade.retrieveMediator( BufferAnimationMediator.NAME ) as BufferAnimationMediator;
 					kMediaPlayer.bufferSprite = preloaderMediator.spinner; 
 					if(_autoMute)
@@ -1426,6 +1413,19 @@ package com.kaltura.kdpfl.view.media
 			return _isIntelliSeeking;
 		}
 		
+		/**
+		 * set b64Referrer and save it to flashvars 
+		 * 
+		 */		
+		private function setB64Referrer():void
+		{
+			if (_flashvars.referrer)
+			{
+				var b64 : Base64Encoder = new Base64Encoder();
+				b64.encode( _flashvars.referrer );
+				_flashvars.b64Referrer = b64.toString();	
+			}
+		}
 	
 	}
 }

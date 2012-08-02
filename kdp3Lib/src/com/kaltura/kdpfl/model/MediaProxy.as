@@ -29,8 +29,6 @@ package com.kaltura.kdpfl.model
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
-	import mx.utils.Base64Encoder;
-	
 	import org.osmf.elements.F4MElement;
 	import org.osmf.elements.F4MLoader;
 	import org.osmf.elements.ImageElement;
@@ -126,12 +124,7 @@ package com.kaltura.kdpfl.model
 					{
 						protocol = (_flashvars.httpProtocol as String).replace("://", "");
 					}
-					if(_flashvars.referrer && _flashvars.referrer != '')
-					{
-						var b64 : Base64Encoder = new Base64Encoder();
-						b64.encode( _flashvars.referrer );
-						_flashvars.b64Referrer = b64.toString();
-					}
+				
 					var storageProfileId : String;
 					if (_flashvars.storageId && _flashvars.storageId != "")
 					{

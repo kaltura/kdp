@@ -73,6 +73,29 @@ package com.kaltura.kdpfl.util
 			strippedUrl = protocol + "://" + strippedUrl;
 			return strippedUrl
 		}
+		
+		/**
+		 * returns the postfix that should be added to thumbnail request, according to given flashvar 
+		 * @param flashvars kdp flashvars
+		 * @param ks current client ks
+		 * @return 
+		 * 
+		 */		
+		public static function getThumbURLPostfix( flashvars:Object, ks:String = null) : String
+		{
+			var postfix:String = "";
+			
+			if (!flashvars)
+				return postfix;
+			
+			if (ks && flashvars.loadThumbnailWithKs && flashvars.loadThumbnailWithKs=="true")
+				postfix = "/ks/" + ks;
+			
+			if (flashvars.b64Referrer && flashvars.loadThumbnailWithReferrer && flashvars.loadThumbnailWithReferrer=="true")
+				postfix += "?referrer=" + flashvars.b64Referrer;
+			
+			return postfix;
+		}
 	}
 
 }
