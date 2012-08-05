@@ -71,9 +71,9 @@ package com.kaltura.kdpfl.model
 		private var _client : KalturaClient;
 		private var _isElementLoaded : Boolean;
 		/**
-		 * indicates if after prepareMediaElement function is done, we should continue to "ConfigurePlayback" function 
+		 * indicates if this is a new media and we should wait for mediaElementReady notification
 		 */		
-		public var shouldConfigurePlayback:Boolean;
+		public var shouldWaitForElement:Boolean;
 		
 		namespace xmlns = "http://ns.adobe.com/f4m/1.0";
 		
@@ -616,7 +616,7 @@ package com.kaltura.kdpfl.model
 		 */		
 		public function getManifestUrl(seekFrom :uint = 0, storageProfileId : String = null):String {
 			//Media Manifest construction
-			var entryManifestUrl : String = _flashvars.httpProtocol + _flashvars.host + "/p/" + _flashvars.partnerId + "/sp/" + _flashvars.subpId + "/playManifest/entryId/" + vo.entry.id + ((_flashvars.deliveryCode) ? "/deliveryCode/" + _flashvars.deliveryCode : "") + ((vo.deliveryType == StreamerType.HTTP && vo.selectedFlavorId) ? "/flavorId/" + vo.selectedFlavorId : "") + (seekFrom ? "/seekFrom/" + seekFrom*1000 : "") + "/format/" + (vo.deliveryType != StreamerType.LIVE ? vo.deliveryType : "rtmp") + "/protocol/" + (vo.mediaProtocol) + (_flashvars.cdnHost ? "/cdnHost/" + _flashvars.cdnHost : "") + (storageProfileId ? "/storageId/" + storageProfileId : "") + (_client.ks ? "/ks/" + _client.ks : "") + (_flashvars.uiConfId ? "/uiConfId/" + _flashvars.uiConfId : "") + (_flashvars.referrerSig ? "/referrerSig/" + _flashvars.referrerSig : "") + "/a/a.f4m" + "?"+ (_flashvars.b64Referrer ? "referrer=" + _flashvars.b64Referrer : "") ;
+			var entryManifestUrl : String = _flashvars.httpProtocol + _flashvars.host + "/p/" + _flashvars.partnerId + "/sp/" + _flashvars.subpId + "/playManifest/entryId/" + vo.entry.id + ((_flashvars.deliveryCode) ? "/deliveryCode/" + _flashvars.deliveryCode : "") + ((vo.deliveryType == StreamerType.HTTP && vo.selectedFlavorId) ? "/flavorId/" + vo.selectedFlavorId : "") + (seekFrom ? "/seekFrom/" + seekFrom*1000 : "") + "/format/" + (vo.deliveryType != StreamerType.LIVE ? vo.deliveryType : "rtmp") + "/protocol/" + (vo.mediaProtocol) + (_flashvars.cdnHost ? "/cdnHost/" + _flashvars.cdnHost : "") + (storageProfileId ? "/storageId/" + storageProfileId : "") + (_client.ks ? "/ks/" + _client.ks : "") + (_flashvars.uiConfId ? "/uiConfId/" + _flashvars.uiConfId : "") + (_flashvars.referrerSig ? "/referrerSig/" + _flashvars.referrerSig : "") + (_flashvars.flavorTags ? "/tags/" + _flashvars.flavorTags : "") + "/a/a.f4m" + "?"+ (_flashvars.b64Referrer ? "referrer=" + _flashvars.b64Referrer : "") ;
 			//in case it was configured to add additional parameter to manifest URL
 			if (_flashvars.manifestParam && _flashvars.manifestParamValue)
 			{
@@ -767,15 +767,12 @@ package com.kaltura.kdpfl.model
 		 * or hold off.
 		 * 
 		 */		
-		private function configurePlayback () : void
-		{
-			shouldConfigurePlayback = false;
-			
+		public function configurePlayback () : void
+		{	
 			var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			
 			if (!vo.isMediaDisabled)
 			{
-				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
 				if (vo.entry is KalturaLiveStreamEntry || vo.deliveryType == StreamerType.LIVE)
 				{
 					prepareMediaElement();
@@ -814,8 +811,8 @@ package com.kaltura.kdpfl.model
 				
 			}
 			
-			if (shouldConfigurePlayback)
-				configurePlayback();
+			if (shouldWaitForElement)
+				shouldWaitForElement = false;
 			
 			sendNotification(NotificationType.MEDIA_ELEMENT_READY);
 		}

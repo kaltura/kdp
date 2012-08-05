@@ -169,11 +169,13 @@ package com.kaltura.kdpfl.controller.media
 		{
 			if (!_mediaProxy.vo.isMediaDisabled)
 			{
-				_mediaProxy.shouldConfigurePlayback = true;
+				_mediaProxy.shouldWaitForElement = true;
 				(facade.retrieveProxy( PlayerStatusProxy.NAME ) as PlayerStatusProxy).dispatchKDPReady();
 				sendNotification( NotificationType.MEDIA_READY);
 				sendNotification(NotificationType.READY_TO_PLAY);
 				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
+				
+				_mediaProxy.configurePlayback();
 				
 			}
 			else

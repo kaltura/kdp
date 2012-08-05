@@ -356,7 +356,7 @@ package com.kaltura.kdpfl.view.media
 					break;
 				case NotificationType.DO_PLAY: //when the player asked to play	
 					//first, load the media, if we didn't load it yet
-					if (_mediaProxy.shouldConfigurePlayback)
+					if (_mediaProxy.shouldWaitForElement)
 					{
 						sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
 						_waitForMediaElement = true;
@@ -373,6 +373,7 @@ package com.kaltura.kdpfl.view.media
 					if (_waitForMediaElement)
 					{
 						_waitForMediaElement = false;	
+						sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
 						onDoPlay();
 					}
 					break;
@@ -664,7 +665,6 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.PLAYER_PLAY_END:
-					_mediaProxy.vo.singleAutoPlay = false;
 					cleanMedia();
 					kMediaPlayer.showThumbnail();
 					break;
