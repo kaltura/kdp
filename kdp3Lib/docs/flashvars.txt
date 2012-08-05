@@ -91,6 +91,9 @@ Media delivery
 		
 	twoPhaseManifest = [true/false]
 		when set to true, KDP will parse the manifest f4m itself, and create the resource from the returned media url. (Will be used to play HDS)
+
+	flavorTags = [string]
+		when this flashvar is set, KDP will add "tags" parameter to playmanifest call. PlayManifest will return only flavors tagged with the providede string.
 		              
 Miscellaneous
 -------------
