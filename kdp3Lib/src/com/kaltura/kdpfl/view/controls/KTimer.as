@@ -80,6 +80,15 @@ public dynamic class KTimer extends KLabel
 		}
 	}
 	/**
+	 * reset duration to 0 
+	 * 
+	 */	
+	public function resetDuration () : void
+	{
+		_duration = 0;
+		updateText();
+	}
+	/**
 	 * controls the type of the timer. There are 2 possible types: "both" for a timer that can show both ascending and descending time, and 
 	 * "backwards", which can only show descending time. 
 	 * @return 

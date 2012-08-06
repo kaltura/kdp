@@ -50,6 +50,11 @@ public class TimerMediator extends MultiMediator
 				timer.setDuration( value );
 				timer.setTime( 0 );
 				break;
+			
+			case NotificationType.CLEAN_MEDIA:
+				timer.resetDuration();
+				timer.setTime(0);
+				break;
 		}
 	}
 	
@@ -59,6 +64,7 @@ public class TimerMediator extends MultiMediator
 				NotificationType.PLAYER_UPDATE_PLAYHEAD,
 				NotificationType.DURATION_CHANGE,
 				NotificationType.ENTRY_READY,
+				NotificationType.CLEAN_MEDIA
 			   ];
 	}
 			

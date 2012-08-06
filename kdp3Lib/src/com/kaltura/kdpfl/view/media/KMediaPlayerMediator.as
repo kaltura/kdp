@@ -389,8 +389,12 @@ package com.kaltura.kdpfl.view.media
 					break;
 				case NotificationType.CLEAN_MEDIA:
 					_mediaProxy.vo.media = null;
+					//if we were explicitly asked to change media, first pause
+					sendNotification(NotificationType.DO_PAUSE);
 					cleanMedia();
 					kMediaPlayer.hideThumbnail();
+					//disable GUI
+					sendNotification( NotificationType.ENABLE_GUI , {guiEnabled : false , enableType : EnableType.CONTROLS} );
 					break;
 				case NotificationType.DO_SWITCH:
 					var preferedFlavorBR:int = int(note.getBody());
