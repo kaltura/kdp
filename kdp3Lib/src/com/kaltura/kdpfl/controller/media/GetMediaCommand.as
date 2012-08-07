@@ -64,6 +64,11 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.commands.metadataProfile.MetadataProfileGet;
 	import com.kaltura.vo.KalturaAccessControlBlockAction;
 	import com.kaltura.vo.KalturaString;
+	import com.kaltura.commands.flavorAsset.FlavorAssetList;
+	import com.kaltura.vo.KalturaFlavorAssetListResponse;
+	import com.kaltura.vo.KalturaAssetFilter;
+	import com.kaltura.vo.KalturaFlavorAssetFilter;
+	import com.kaltura.types.KalturaFlavorAssetStatus;
 
  
 
@@ -141,14 +146,32 @@ package com.kaltura.kdpfl.controller.media
 						_isRefid = false;	
 						var getEntry : BaseEntryGet = new BaseEntryGet( entryId );
 						mr.addAction( getEntry );
-						ind ++;
 					}
+
+					ind ++;
 					
-					var getFlavors:FlavorAssetGetWebPlayableByEntryId = new FlavorAssetGetWebPlayableByEntryId(_mediaProxy.vo.entry.id);
-					if (_isRefid) {
-						mr.addRequestParam(ind + ":entryId","{1:result:objects:0:id}");
+					//if we were asked for flavors with specific tags
+					if (_flashvars.flavorTags)
+					{
+						var listFlavorsFilter:KalturaFlavorAssetFilter = new KalturaFlavorAssetFilter();	
+						listFlavorsFilter.tagsLike = _flashvars.flavorTags;
+						listFlavorsFilter.statusEqual = KalturaFlavorAssetStatus.READY;
+						listFlavorsFilter.entryIdEqual = _mediaProxy.vo.entry.id;
+						if (_isRefid) {
+							mr.addRequestParam(ind + ":filter:entryIdEqual","{1:result:objects:0:id}");
+						}
+						
+						var listFlavors:FlavorAssetList = new FlavorAssetList(listFlavorsFilter);
+						mr.addAction(listFlavors);
 					}
-					mr.addAction(getFlavors);
+					else
+					{
+						var getFlavors:FlavorAssetGetWebPlayableByEntryId = new FlavorAssetGetWebPlayableByEntryId(_mediaProxy.vo.entry.id);
+						if (_isRefid) {
+							mr.addRequestParam(ind + ":entryId","{1:result:objects:0:id}");
+						}
+						mr.addAction(getFlavors);
+					}			
 					ind ++;
 					
 					var keedp : KalturaEntryContextDataParams = new KalturaEntryContextDataParams();
@@ -310,7 +333,31 @@ package com.kaltura.kdpfl.controller.media
 			}
 			else
 			{
-				_mediaProxy.vo.kalturaMediaFlavorArray = arr[i];
+				if (_flashvars.flavorTags)
+				{
+					//the list returns strings that contain the given tag, so look for an exact match
+					var resultArray:Array = (arr[i] as KalturaFlavorAssetListResponse).objects;
+					var flavorsArray:Array = new Array();
+					if (resultArray)
+					{
+						for (var ind:int = 0; ind<resultArray.length; ind++)
+						{
+							var tagsArr:Array = (resultArray[ind] as KalturaFlavorAsset).tags.split(",");
+							for each (var s:String in tagsArr)
+							{
+								if (s==_flashvars.flavorTags)
+								{
+									flavorsArray.push(resultArray[ind]);
+									break;
+								}
+							}
+						}
+					}
+					_mediaProxy.vo.kalturaMediaFlavorArray = flavorsArray;
+					
+				}
+				else
+					_mediaProxy.vo.kalturaMediaFlavorArray = arr[i];
 			} 
 			
 			++i;

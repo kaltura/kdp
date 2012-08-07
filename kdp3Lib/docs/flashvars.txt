@@ -93,7 +93,7 @@ Media delivery
 		when set to true, KDP will parse the manifest f4m itself, and create the resource from the returned media url. (Will be used to play HDS)
 
 	flavorTags = [string]
-		when this flashvar is set, KDP will add "tags" parameter to playmanifest call. PlayManifest will return only flavors tagged with the providede string.
+		when this flashvar is set, KDP will add "tags" parameter to playmanifest call. PlayManifest will return only flavors tagged with the provided string. Currently only a signel flavo is supported.
 		              
 Miscellaneous
 -------------
@@ -237,6 +237,12 @@ Miscellaneous
     
     enableStageVideo = [true / false]
     	when set to true, OSMF stage video will be enabled (false by default, relevant from KDP v3.6 and up)
+    	
+    allowCookies = [true / false]
+    	determines whetehr to allow KDP to save flash cookies. Default value is true
+    
+    alertForCookies = [true / false]
+    	if set to true, "allow cookies" alert will be displayed if user hasn't allowed cookies in a previous session. Default value is false.
     	                                
 Components & Plug-ins attributes
 --------------------------------
