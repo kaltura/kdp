@@ -590,8 +590,14 @@ package com.kaltura.kdpfl.view.media
 					{
 						sendNotification(NotificationType.CHANGE_VOLUME, 0);	
 					}
+					//default should allow cookies
+					if (!_flashvars.allowCookies)
+					{
+						_flashvars.allowCookies="true";
+					}
+					
 					//check if kdp is allowed to save cookies
-					if (!_flashvars.allowCookies || _flashvars.allowCookies=="true")
+					if (_flashvars.alertForCookies && _flashvars.alertForCookies=="true")
 					{
 						var cookie : SharedObject;
 						try
@@ -609,8 +615,7 @@ package com.kaltura.kdpfl.view.media
 						}
 						else
 						{
-							if (!_flashvars.hideCookiesAlert || _flashvars.hideCookiesAlert=="false")
-								sendNotification(NotificationType.ALERT, {title: MessageStrings.getString('ALLOW_COOKIES_TITLE'), message: MessageStrings.getString('ALLOW_COOKIES'), buttons: [MessageStrings.getString('ALLOW'), MessageStrings.getString('DISALLOW')], callbackFunction: setAllowCookies, props: {buttonSpacing: 5}});
+							sendNotification(NotificationType.ALERT, {title: MessageStrings.getString('ALLOW_COOKIES_TITLE'), message: MessageStrings.getString('ALLOW_COOKIES'), buttons: [MessageStrings.getString('ALLOW'), MessageStrings.getString('DISALLOW')], callbackFunction: setAllowCookies, props: {buttonSpacing: 5}});
 						}
 					}
 
