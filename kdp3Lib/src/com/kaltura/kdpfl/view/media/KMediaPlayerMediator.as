@@ -630,7 +630,8 @@ package com.kaltura.kdpfl.view.media
 					if ((curIndex > -1) && (curIndex < _mediaProxy.vo.kalturaMediaFlavorArray.length) )
 					{
 						_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[curIndex].bitrate;
-						_mediaProxy.prepareMediaElement();
+						if (!_mediaProxy.shouldWaitForElement)
+							_mediaProxy.prepareMediaElement();
 						if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK)
 							sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : curIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );			
 					}
