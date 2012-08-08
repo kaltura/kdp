@@ -20,12 +20,10 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.vo.KalturaMixEntry;
 	
 	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
-	import flash.utils.flash_proxy;
 	import flash.utils.setTimeout;
 	
 	import mx.utils.Base64Encoder;
@@ -590,35 +588,6 @@ package com.kaltura.kdpfl.view.media
 					{
 						sendNotification(NotificationType.CHANGE_VOLUME, 0);	
 					}
-					//default should allow cookies
-					if (!_flashvars.allowCookies)
-					{
-						_flashvars.allowCookies="true";
-					}
-					
-					//check if kdp is allowed to save cookies
-					if (_flashvars.alertForCookies && _flashvars.alertForCookies=="true")
-					{
-						var cookie : SharedObject;
-						try
-						{
-							cookie = SharedObject.getLocal("KalturaCookies");
-						}
-						catch (e: Error)
-						{
-							KTrace.getInstance().log("no permissions to access partner's file system");
-							return;
-						}
-						if (cookie.data.allowCookies && cookie.data.allowCookies==true)
-						{
-							_flashvars.allowCookies = "true";
-						}
-						else
-						{
-							sendNotification(NotificationType.ALERT, {title: MessageStrings.getString('ALLOW_COOKIES_TITLE'), message: MessageStrings.getString('ALLOW_COOKIES'), buttons: [MessageStrings.getString('ALLOW'), MessageStrings.getString('DISALLOW')], callbackFunction: setAllowCookies, props: {buttonSpacing: 5}});
-						}
-					}
-
 					break;
 				
 				case NotificationType.HAS_OPENED_FULL_SCREEN:
@@ -680,37 +649,7 @@ package com.kaltura.kdpfl.view.media
 			}
 		}
 		
-		/**
-		 * callback function on "set cookies" alert.
-		 * Will set allowCookies flashvar accordingly. 
-		 * @param evt
-		 * 
-		 */		
-		private function setAllowCookies(evt:Event):void 
-		{
-			if (evt.target.label==MessageStrings.getString('ALLOW'))
-			{
-				_flashvars.allowCookies = "true";
-				var cookie : SharedObject;
-				try
-				{
-					cookie= SharedObject.getLocal("KalturaCookies");
-				}
-				catch (e : Error)
-				{
-					KTrace.getInstance().log("No access to user's file system");
-				}
-				if (cookie)
-				{
-					cookie.data.allowCookies = true;
-					cookie.flush();
-				}
-			}
-			else
-			{
-				_flashvars.allowCookies = "false";
-			}
-		}
+		
 		
 		/**
 		 * intelli seek to the given value

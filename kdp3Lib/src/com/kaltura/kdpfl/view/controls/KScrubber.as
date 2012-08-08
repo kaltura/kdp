@@ -119,6 +119,11 @@ public dynamic class KScrubber extends UIComponent implements IComponent
 	protected var _allowMouseClicks : Boolean = true;
 	
 	/**
+	 * indicates if after the next draw we should display the display the scrubber as completed (and not reset it) 
+	 */	
+	public var progressComplete:Boolean = false;
+	
+	/**
 	 * @private
 	 */
 	protected static var defaultStyles:Object =
@@ -358,7 +363,7 @@ public dynamic class KScrubber extends UIComponent implements IComponent
 	 */
 	protected function drawProgressIndicator():void
 	{
-		//trace(" >>>>>>>>>>> drawProgressIndicator")
+		//KTrace.getInstance().log(" >>>>>>>>>>> drawProgressIndicator");
 		var oldIndicator:Sprite = _progressIndicator;
 		var oldClickStrip:Sprite = _clickStrip;
 		_progressIndicator = getDisplayObjectInstance(getStyleValue("progressIndicatorSkin")) as Sprite;
@@ -391,7 +396,14 @@ public dynamic class KScrubber extends UIComponent implements IComponent
 		{
 			removeChild( oldIndicator );
 			removeChild( oldClickStrip );
-		}		
+		}	
+		
+		if (progressComplete)
+		{
+			//fill the progress bar
+			setPosition(duration);
+			progressComplete = false;
+		}
 	}
 		
 	protected function drawLayout():void

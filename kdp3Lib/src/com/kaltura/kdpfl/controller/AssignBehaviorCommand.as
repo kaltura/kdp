@@ -104,8 +104,6 @@ package com.kaltura.kdpfl.controller
 				}
 			}
 			
-			var sequenceProxy : SequenceProxy = facade.retrieveProxy( SequenceProxy.NAME ) as SequenceProxy;
-			
 			facade.registerCommand( NotificationType.PRE_SEQUENCE_COMPLETE , PreSequenceEndCommand );
 
 			facade.registerCommand( NotificationType.POST_SEQUENCE_COMPLETE , PostSequenceEndCommand );

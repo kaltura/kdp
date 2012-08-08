@@ -33,8 +33,6 @@ package com.kaltura.kdpfl.controller.media
 				sendNotification(NotificationType.DO_PAUSE);	
 				var mediaMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 				mediaMediator.cleanMedia();
-				//reset timer
-				sendNotification(NotificationType.PLAYER_UPDATE_PLAYHEAD, 0);
 				mediaMediator.kMediaPlayer.showThumbnail();
 			}
 			

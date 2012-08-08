@@ -127,9 +127,8 @@ public class ScrubberMediator extends Mediator
 				
 			case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					var position:Number = note.getBody() as Number;
-					
 					scrubber.setPosition( position );
-				
+
 			break;
 
 			case NotificationType.DURATION_CHANGE:
@@ -144,8 +143,8 @@ public class ScrubberMediator extends Mediator
 			case NotificationType.BYTES_DOWNLOADED_CHANGE:
 				_bytesLoaded = note.getBody().newValue;
 				var loadProgress:Number = _bytesLoaded/_bytesTotal;
-				scrubber.setLoadProgress( loadProgress );
-			break;
+				scrubber.setLoadProgress( loadProgress );					
+				break;
 			case NotificationType.INTELLI_SEEK:
 				var startLoadFrom : Number = note.getBody().intelliseekTo;
 				var percentIntelli : Number = startLoadFrom/scrubber.duration;
@@ -158,6 +157,12 @@ public class ScrubberMediator extends Mediator
 			case NotificationType.ENTRY_READY:
 				var entry:object = note.getBody();
 				scrubber.duration = entry is KalturaPlayableEntry ? (entry as KalturaPlayableEntry).duration : 0;  
+				break;
+			
+			case NotificationType.POST_SEQUENCE_COMPLETE:
+				//tell the scrubber that it should be drawn as progress complete
+				//fix a bug where calling enableGUI reset the scrubber position to the start
+				scrubber.progressComplete = true;
 				break;
 		}
 	}
@@ -174,7 +179,8 @@ public class ScrubberMediator extends Mediator
 				NotificationType.BYTES_DOWNLOADED_CHANGE,
 				NotificationType.INTELLI_SEEK,
 				NotificationType.CHANGE_MEDIA,
-				NotificationType.ENTRY_READY
+				NotificationType.ENTRY_READY,
+				NotificationType.POST_SEQUENCE_COMPLETE
 			   ];
 	}
 			

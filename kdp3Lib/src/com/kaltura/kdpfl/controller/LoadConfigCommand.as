@@ -640,6 +640,12 @@ package com.kaltura.kdpfl.controller
 				}
 			}
 			
+			//default should allow cookies
+			if (!_flashvars.allowCookies)
+			{
+				_flashvars.allowCookies="true";
+			}
+			
 			//determines whether to use enableStageVideo OSMF feature
 			if (_flashvars.enableStageVideo && _flashvars.enableStageVideo=="true")
 			{
