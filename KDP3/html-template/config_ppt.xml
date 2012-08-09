@@ -1,0 +1,252 @@
+<layout id="full" skinPath="/content/uiconf/kaltura/pptWidget/kpwSkin/v3.4.8.2/skin.swf">
+	<!-- config viewer -->
+	<HBox id="topLevel" width="100%" height="100%" paddingTop="0">
+		<VBox id="player" width="100%" height="100%" styleName="black" paddingTop="0">
+			<!-- hiding header:
+				 <HBox id="header" styleName="headerBg" height="42" width="100%" verticalAlign="top" paddingTop="0" paddingBottom="10">
+				 <Label id="headerTitle" width="100%" height="25" text="{mediaProxy.entry.name}" styleName="movieName" />
+				 <VBox id="closeBtnContainer" horizontalAlign="center" width="30">
+				 <Spacer height="8" />
+				 <Button id="closeBtn" kClick="sendNotification('pptWidgetConfirmClose')"
+				 icon="closeIc0n" buttonType="iconButton" />
+				 </VBox>
+				 </HBox>
+			-->
+			<Plugin id="kalturaMix" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand"/>
+			<Plugin id="statistics" width="0%" height="0%" includeInLayout="false"/>
+			<Canvas id="playerCanvas" height="100%" width="100%">
+				<HBox height="100%" width="100%" id="PlayerHolderWrapper" horizontalAlign="center" verticalAlign="top"
+					  paddingRight="4" horizontalGap="4" paddingTop="1">
+					<Canvas id="pptWidgetScreenWrapper" width="100%" height="100%" styleName="black"
+							includeInLayout="{pptWidgetAPI.showOnlyVideo}" visible="{pptWidgetAPI.showOnlyVideo}">
+						<Plugin id="pptWidgetAPI" includeInLayout="false" gallerySize="{carousel.numOfSlidesPerScreen}"
+								decreasedBitmapSize="{carousel.itemSize}"/>
+						<Plugin id="pptWidgetScreen" presentationMC="{pptWidgetAPI.presentationMovieClip}"
+								presentationPath="{pptWidgetAPI.presentationPath}"
+								currentFrame="{pptWidgetAPI.currentFrame}" width="100%" height="100%"/>
+
+					</Canvas>
+					<VBox height="100%" width="100%" id="PlayerPlayerHolder" paddingTop="12" horizontalAlign="center"
+						  includeInLayout="{pptWidgetAPI.showOnlyPPT}" visible="{pptWidgetAPI.showOnlyPPT}">
+						<Canvas height="70%" width="100%" id="PlayerHolder" styleName="black">
+							<Video id="video" width="100%" height="100%" mantainAspectRatio="false"/>
+
+							<VBox id="offlineMessageHolder" verticalAlign="middle" horizontalAlign="center"
+								  includeInLayout="false" width="100%" height="100%">
+								<Spacer height="100%"/>
+
+								<Spacer height="100%"/>
+								<Label id="offlineMessage" styleName="offlineMessage"
+									   text="{mediaProxy.entry.offlineMessage}" visible="{mediaProxy.isOffline}"
+									   width="100%" height="30"/>
+								<Spacer height="100%"/>
+							</VBox>
+							<Screens id="screensLayer" width="100%" height="100%" mouseOverTarget="{PlayerHolder}"
+									 styleName="clickThrough" startScreenId="startScreen"
+									 startScreenOverId="startScreen" pauseScreenOverId="pauseScreen"
+									 pauseScreenId="pauseScreen" playScreenOverId="playScreen" endScreenId="endScreen"
+									 endScreenOverId="endScreen"/>
+						</Canvas>
+						<Spacer height="10"/>
+
+						<HBox id="speakerNameContainer" width="100%" height="18" paddingLeft="9" paddingRight="6"
+							  horizontalAlign="center" visible="{configProxy.flashvars.speakerName}">
+							<HBox id="speakerNameContainer" width="100%" height="18" styleName="speakerCaptionBG"
+								  paddingLeft="9" paddingRight="6" horizontalAlign="center">
+								<Label id="speakerNameCaption" width="100%" height="100%"
+									   text="{configProxy.flashvars.speakerName}" styleName="itemRendererLabel"/>
+							</HBox>
+						</HBox>
+					</VBox>
+				</HBox>
+
+				<HBox id="expandShrinkButtonContainer" width="100%" height="50" paddingTop="17" paddingLeft="20">
+					<VBox id="expandPPTButtonContainer" width="100%" height="30" horizontalAlign="left"
+						  includeInLayout="{pptWidgetAPI.showOnlyVideo}" visible="{pptWidgetAPI.showOnlyVideo}">
+						<HBox id="expandPptBG" width="32" height="28" styleName="shrinkExpandSkin"
+							  horizontalAlign="center" verticalAlign="middle">
+							<Button id="expandPPT" buttonType="iconButton" toggle="true" icon="expand_ico"
+									downIcon="expand_ico" overIcon="expand_ico" disabledIcon="expand_ico"
+									selectedUpIcon="shrink_ico" selectedDownIcon="shrink_ico"
+									selectedOverIcon="shrink_ico" selectedDisabledIcon="shrink_ico"
+									kClick="sendNotification('showOnlyPPT')"/>
+
+
+						</HBox>
+					</VBox>
+					<VBox id="expandVideoButtonContainer" width="100%" height="100%"
+						  includeInLayout="{pptWidgetAPI.showOnlyPPT}" horizontalAlign="right"
+						  visible="{pptWidgetAPI.showOnlyPPT}">
+						<HBox id="expandVideoBG" width="32" height="28" styleName="shrinkExpandSkin"
+							  horizontalAlign="center" verticalAlign="middle">
+							<Button id="expandVideo" buttonType="iconButton" toggle="true" icon="expand_ico"
+									downIcon="expand_ico" overIcon="expand_ico" disabledIcon="expand_ico"
+									selectedUpIcon="shrink_ico" selectedDownIcon="shrink_ico"
+									selectedOverIcon="shrink_ico" selectedDisabledIcon="shrink_ico"
+									kClick="sendNotification('showOnlyVideo')" upSkin="shrinkExpandSkin"/>
+						</HBox>
+					</VBox>
+					<Spacer width="20"/>
+
+				</HBox>
+			</Canvas>
+			<VBox height="20%" width="100%" verticalAlign="middle" paddingRight="2">
+				<VBox id="carouselContainer" height="68" width="100%" verticalAlign="middle" styleName="galleryBg">
+					<Spacer height="4"/>
+					<HBox height="60" width="100%" verticalAlign="middle">
+						<Button minHeight="50" id="prevCarousel" kClick="sendNotification('carouselPrev')"
+								buttonType="iconButton" icon="galleryPrev"/>
+						<Plugin id="carousel" height="100%" width="100%" itemSize="58" imagePadding="4"
+								horizontalGap="20"
+								presentationPath="{pptWidgetAPI.presentationPath}"
+								dataProvider="{pptWidgetAPI.carouselDataProvider}"/>
+						<Button minHeight="50" id="nextCarousel" kClick="sendNotification('carouselNext')"
+								buttonType="iconButton" icon="galleryNexxt"/>
+					</HBox>
+					<Spacer height="3"/>
+				</VBox>
+
+			</VBox>
+
+			<VBox id="ControllerScreenHolder" width="100%" height="64" styleName="darkBg">
+				<Spacer height="3"/>
+				<HBox id="scrubberContainer" width="100%">
+					<Spacer width="10"/>
+					<Timer id="timerControllerScreen2" width="48" height="18" styleName="timerProgressLeft"
+						   format="mm:ss" timerType="backwards"/>
+					<Spacer width="8"/>
+
+					<Plugin id="pptWidgetScrubber" width="100%" height="20"
+							hasSelectedMarker="false" syncPointVisibility="false"/>
+					<Timer id="timerControllerScreen2" width="48" height="18" styleName="timerProgressRight"
+						   format="mm:ss" timerType="total"/>
+					<Spacer width="5"/>
+				</HBox>
+				<Spacer height="5"/>
+				<Canvas width="100%" height="32">
+					<HBox width="100%" height="100%" horizontalGap="3" horizontalAlign="center" verticalAlign="middle">
+						<Button minWidth="50" minHeight="24" id="syncPrevButton"
+								kClick="sendNotification('pptWidgetPrevSlide')" icon="PreviousIcon"
+								styleName="controllerScreen"/>
+						<Button minWidth="58" minHeight="33" id="playBtnControllerScreen" command="play"
+								focusRectPadding="0" icon="playIcon" overIcon="playIcon" downIcon="playIcon"
+								disabeledIcon="playIcon" selectedUpIcon="pauseIcon" selectedOverIcon="pauseIcon"
+								selectedDownIcon="pauseIcon" selectedDisabledIcon="pauseIcon"
+								k_buttonType="buttonIconControllerArea" selectedTooltip="Pause" upTooltip="Play"/>
+
+						<Button minWidth="50" minHeight="24" id="syncNextButton"
+								kClick="sendNotification('pptWidgetNextSlide')" icon="NextIcon"
+								styleName="controllerScreen"/>
+
+
+					</HBox>
+					<HBox id="ControllerScreen" width="100%" height="100%" horizontalGap="9" paddingLeft="10"
+						  verticalAlign="middle">
+
+
+
+						<Button minWidth="128" textPadding="3" id="syncVideoSlideButton"
+								kClick="sendNotification('pptWidgetAddMark')" label="Sync Video/Slide" icon="plusIcon"
+								styleName="secondary" visible="{pptWidgetAPI.adminMode}"
+								enabled="{pptWidgetAPI.enablePPTControls}"/>
+						<Button minWidth="88" textPadding="3" id="syncRemoveButton"
+								kClick="sendNotification('pptWidgetRemoveMark')" label="Remove" icon="removeIcon"
+								styleName="secondary" visible="{pptWidgetAPI.adminMode}"
+								enabled="{pptWidgetAPI.isMarkSelected}"/>
+						<Button minWidth="80" textPadding="3" id="syncSaveButton"
+								kClick="sendNotification('pptWidgetSave')" label="Save" icon="saveIcon"
+								enabled="{pptWidgetAPI.shouldSave}" styleName="secondary"
+								visible="{pptWidgetAPI.adminMode}"/>
+						<Spacer width="100%"/>
+						<!--Button minWidth="92" minHeight="33" id="toggleCarousel" kClick="sendNotification('pptWidgetToggleVisibility')"
+							 focusRectPadding="0" icon="ico_show" toggle="true" textPadding="3"
+							 overIcon="ico_show" downIcon="ico_show" disabeledIcon="ico_show"
+							 selectedUpIcon="ico_hide" selectedOverIcon="ico_hide" styleName="secondary"
+							 selectedDownIcon="ico_hide" selectedDisabledIcon="ico_hide" visible="{pptWidgetAPI.adminMode}" selected="{pptWidgetAPI.toggleGallery}"/-->
+						<Spacer width="3"/>
+
+						<VolumeBar id="volumeBar" styleName="volumeBtn" tooltip="Change volume" verticalDistance="15"
+								   font="Arial"/>
+						<Spacer width="3"/>
+						<Button id="kalturaLogo" height="50" width="100" buttonType="iconButton"
+								kClick="navigate('http://www.kaltura.com')" styleName="controllerScreen"
+								icon="kalturaLogo"/>
+						<Spacer width="10"/>
+					</HBox>
+				</Canvas>
+			</VBox>
+		</VBox>
+
+	</HBox>
+	<screens>
+		<screen id="startScreen">
+			<VBox id="startContainer" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+				<Spacer width="100%"/>
+				<Tile id="startTile" width="100%" verticalGap="10" verticalAlign="middle" horizontalAlign="center">
+					<Button id="onVideoPlayBtnStartScreen" command="play" buttonType="onScreenButton"
+							labelPlacement="top" label="Play" styleName="onScreenBtn" upIcon="playIcon"
+							overIcon="playIcon" downIcon="playIcon" disabeledIcon="playIcon" selectedUpIcon="playIcon"
+							selectedOverIcon="playIcon" selectedDownIcon="playIcon" selectedDisabledIcon="playIcon"
+							k_buttonType="buttonIconControllerArea" tooltip="Play video" color1="3355443" color2="0"
+							color3="10066329" color4="16777215" color5="0" font="Arial"/>
+				</Tile>
+				<Spacer width="100%"/>
+
+			</VBox>
+		</screen>
+		<screen id="pauseScreen">
+			<VBox id="pauseContainer" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+				<Spacer height="100%"/>
+				<Tile id="startTile" width="100%" verticalGap="10" verticalAlign="middle" horizontalAlign="center">
+					<Button id="onVideoPlayBtnPauseScreen" command="play" buttonType="onScreenButton"
+							labelPlacement="top" label="Play" styleName="onScreenBtn" upIcon="playIcon"
+							overIcon="playIcon" downIcon="playIcon" disabeledIcon="playIcon" selectedUpIcon="playIcon"
+							selectedOverIcon="playIcon" selectedDownIcon="playIcon" selectedDisabledIcon="playIcon"
+							k_buttonType="buttonIconControllerArea" tooltip="Play video" color1="3355443" color2="0"
+							color3="10066329" color4="16777215" color5="0" font="Arial"/>
+				</Tile>
+				<Spacer height="100%"/>
+
+			</VBox>
+		</screen>
+		<screen id="playScreen">
+			<VBox id="playContainer" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+				<Spacer height="100%"/>
+				<Tile id="startTile" width="100%" verticalGap="10" verticalAlign="middle" horizontalAlign="center">
+				</Tile>
+				<Spacer height="100%"/>
+			</VBox>
+
+		</screen>
+		<screen id="endScreen">
+			<VBox id="startContainer" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+				<Spacer height="100%"/>
+				<Tile id="startTile" width="100%" verticalGap="10" verticalAlign="middle" horizontalAlign="center">
+					<Button id="replayBtnEndScreen" kClick="sendNotification('doSeek','0');sendNotification('doPlay')"
+							buttonType="onScreenButton" labelPlacement="top" label="Replay" styleName="onScreenBtn"
+							upIcon="replayIcon" k_buttonType="buttonIconControllerArea" tooltip="Replay"
+							color1="3355443" color2="0" color3="10066329" color4="16777215" color5="0" font="Arial"/>
+				</Tile>
+				<Spacer height="100%"/>
+			</VBox>
+		</screen>
+	</screens>
+	<renderers>
+		<!-- -->
+	</renderers>
+	<strings>
+		<!--string key="NO_PPT_SWF" value="PPT unable to load"/>
+			 <string key="NO_MIX_PLUGIN" value="The player is unable to load the PPT file"/-->
+	</strings>
+	<extraData>
+		<!-- -->
+	</extraData>
+	<uiVars>
+		<var key="aboutPlayer" value="Kaltura Video Presentation Widget" overrideFlashvar="true"/>
+		<var key="externalInterfaceDisabled" value="false" overrideFlashvar="true"/>
+		<var key="strings.ENTRY_REJECTED_TITLE" value="Video%20Cannot%20Be%20Presented" overrideFlashvar="true"/>
+		<var key="speakerNameContainer.visible" value="false" overrideFlashvar="true"/>
+		<var key="speakerNameContainer.includeInLayout" value="false" overrideFlashvar="true"/>
+		<var key="adminMode" value="false" overrideFlashvar="true"/>
+	</uiVars>
+</layout>
