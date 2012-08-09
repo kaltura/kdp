@@ -76,7 +76,7 @@ package com.kaltura.kdpfl.plugin
 		 * loads a single KDP plugin 
 		 * @param url the url from which the plugis is loaded
 		 * @param pluginName the name of the plugin
-		 * @param loadingPolicy the loading policy of the plugin (preInitialize, onDemand, wiat, noWait).
+		 * @param loadingPolicy the loading policy of the plugin (preInitialize, onDemand, wait, noWait).
 		 * @param asyncInit flag indicating whether the Manager should wait until the plugin itself reports its initialize process as complete (if the plugin makes an async load on its <code>initializePlugin</code> function.
 		 * @param fileSystemMode - flag indicating whether the KDP is running in the user's file system or from a remote server.
 		 * @return Plugin

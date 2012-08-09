@@ -244,6 +244,19 @@ package com.kaltura.kdpfl.model
 			return (firstObjValue || secondObjValue);
 		}
 		
+		/**
+		 * This function compares between value1 and value2 
+		 * @param value1
+		 * @param value2
+		 * @return 
+		 * 
+		 */		
+		public function equal(value1:*, value2:*) : Boolean
+		{
+			if(value1 == value2)
+				return true;
+			return false;
+		}
 		
 		
 		
