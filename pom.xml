@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.kaltura</groupId>
+    <artifactId>kaltura-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <description>FlexSample</description>
+
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <flex.mojos.maven.version>3.5.0</flex.mojos.maven.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <flexunit.version>4.0-rc-1</flexunit.version>
+        <flexmojos.version>3.7.1</flexmojos.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <flex.sdk.version>3.5.0.12683</flex.sdk.version>
+        <flex.version>3.5.0.12683</flex.version>
+        <!--<player.version>9</player.version>-->
+        <isFlex4>false</isFlex4>
+        <isFlex3>true</isFlex3>
+        <suffix>-flex3</suffix>
+        <maven.test.failure.ignore>true</maven.test.failure.ignore>
+        <!--<maven.test.skip>true</maven.test.skip>-->
+    </properties>
+    <modules>
+        <module>KDP_test</module>
+
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonatype.flexmojos</groupId>
+                    <artifactId>flexmojos-maven-plugin</artifactId>
+                    <version>${flexmojos.version}</version>
+                    <extensions>true</extensions>
+                                <configuration>
+                                   <headlessServer>true</headlessServer>
+                                   <verboseStacktraces>true</verboseStacktraces>
+                                </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.adobe.flex.framework</groupId>
+                            <artifactId>flex-framework</artifactId>
+                            <version>${flex.version}</version>
+                            <type>pom</type>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.adobe.flex</groupId>
+                            <artifactId>compiler</artifactId>
+                            <version>${flex.version}</version>
+                            <type>pom</type>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>com.adobe.flex.framework</groupId>
+                            <artifactId>playerglobal</artifactId>
+                            <type>swc</type>
+                            <version>${flex.version}</version>
+                            <classifier>10</classifier>
+                        </dependency>
+
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.adobe.flex.framework</groupId>
+                <artifactId>flex-framework</artifactId>
+                <version>${flex.version}</version>
+                <type>pom</type>
+                <exclusions>
+                <exclusion>
+                    <groupId>com.adobe.flex.framework</groupId>
+                    <artifactId>playerglobal</artifactId>
+                </exclusion>
+            </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.flexunit</groupId>
+                <artifactId>flexunit</artifactId>
+                <version>${flexunit.version}</version>
+                <type>swc</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.adobe.flex.framework</groupId>
+                <artifactId>playerglobal</artifactId>
+                <type>swc</type>
+                <version>${flex.version}</version>
+                <classifier>10</classifier>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <repositories>
+        <repository>
+            <id>sonatype-repository</id>
+            <url>http://repository.sonatype.org/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>flexgroup-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>flexgroup-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
