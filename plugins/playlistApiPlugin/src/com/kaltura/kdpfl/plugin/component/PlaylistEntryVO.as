@@ -63,5 +63,23 @@ package com.kaltura.kdpfl.plugin.component
 		{
 			return entry.entryId;
 		}
+
+		public function get tags():String{
+			return entry.tags;
+		}
+
+		public function get categories():String{
+			return entry.categories;
+		}
+
+		public function get createdAt():int{
+			return entry.createdAt;
+		}
+		
+		public function get userScreenName():String
+		{
+			return entry.userScreenName;
+		}
+		
 	}
 }
