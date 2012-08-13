@@ -391,8 +391,11 @@ package com.kaltura.kdpfl.view.media
 					sendNotification(NotificationType.DO_PAUSE);
 					cleanMedia();
 					kMediaPlayer.hideThumbnail();
-					//disable GUI
-					sendNotification( NotificationType.ENABLE_GUI , {guiEnabled : false , enableType : EnableType.CONTROLS} );
+					//disable GUI (if its not already disabled)
+					if (!_mediaProxy.vo.isMediaDisabled)
+					{
+						sendNotification( NotificationType.ENABLE_GUI , {guiEnabled : false , enableType : EnableType.CONTROLS} );
+					}
 					break;
 				case NotificationType.DO_SWITCH:
 					var preferedFlavorBR:int = int(note.getBody());
