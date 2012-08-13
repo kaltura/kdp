@@ -57,7 +57,7 @@ package com.kaltura.kdpfl.plugin.component
 						"closedCaptionsClicked",
 						"changedClosedCaptions",
 						"layoutReady",
-						"showHideClosedCaptions",
+						ClosedCaptionsNotifications.SHOW_HIDE_CLOSED_CAPTIONS,
 						"closedCaptionsSelected",
 						"closedCaptionsSwitched",
 						"newClosedCaptionsData",
@@ -91,9 +91,6 @@ package com.kaltura.kdpfl.plugin.component
 				case "mediaLoaded":
 					addTextHandler();
 					
-					break;
-				case "showHideClosedCaptions":
-					(viewComponent as ClosedCaptions).visible = !(viewComponent as ClosedCaptions).visible;
 					break;
 				case "mediaReady":
 				case "changedClosedCaptions":
