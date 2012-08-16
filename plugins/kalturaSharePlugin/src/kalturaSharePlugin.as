@@ -61,6 +61,11 @@ package
 		public var padding:Number = 10;
 		public var showNetworks:Boolean = true;
 		public var showEmbed:Boolean = true;
+		public var showLink:Boolean = true;
+		public var showTwitter:Boolean = true;
+		public var showFacebook:Boolean = true;
+		public var showLinkedIn:Boolean = true;
+		public var showWordpress:Boolean = true;
 		
 		[Bindable]
 		public var directLink:String;
@@ -306,12 +311,17 @@ package
 			headerHbox.addChild(btn);
 			
 			//link
-			var linkBox:KVBox = buildOneBox("directLink",linkLabel );
-			addChild(linkBox);
+			if (showLink)
+			{
+				var linkBox:KVBox = buildOneBox("directLink",linkLabel );
+				addChild(linkBox);
+			}
 			
-			var embedBox:KVBox = buildOneBox("directEmbed",embedLabel );
-			if(showEmbed)
+			if (showEmbed)
+			{
+				var embedBox:KVBox = buildOneBox("directEmbed",embedLabel );
 				addChild(embedBox);
+			}
 			
 			if(showNetworks)
 			{
@@ -348,13 +358,21 @@ package
 			hbox2.horizontalGap = 10;
 			hbox2.width = width  - 20  ;
 			
-			hbox.addChild(createButton(facebookLabel , "fb_ico" ,"facebook" ));
-			hbox.addChild(createButton(twitterLabel,"tweeter_ico" , "twitter"));
-			hbox2.addChild(createButton(LinkedInLabel,"linkedin_icon" , "linkedin"));
-			hbox2.addChild(createButton(WordpressLabel,"wp_icon" , "wordpress"));
+			if (showFacebook)
+				hbox.addChild(createButton(facebookLabel , "fb_ico" ,"facebook" ));
+			if (showTwitter)
+				hbox.addChild(createButton(twitterLabel,"tweeter_ico" , "twitter"));
+			if (showLinkedIn)
+				hbox2.addChild(createButton(LinkedInLabel,"linkedin_icon" , "linkedin"));
+			if (showWordpress)
+				hbox2.addChild(createButton(WordpressLabel,"wp_icon" , "wordpress"));
 			
-			vbox.addChild(hbox)
-			vbox.addChild(hbox2)
+			//add hbox only if it has networks 
+			if (hbox.numChildren)
+				vbox.addChild(hbox)
+					
+			if (hbox2.numChildren)		
+				vbox.addChild(hbox2)
 			
 			return vbox;
 		}
