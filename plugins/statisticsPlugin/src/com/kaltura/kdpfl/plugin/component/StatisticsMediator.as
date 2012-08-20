@@ -286,7 +286,18 @@ package com.kaltura.kdpfl.plugin.component {
 			
 			if (sequenceProxy.vo.isInSequence)
 			{
-				handleAdsNotifications();
+				//bumper plugin case - send play & play through statistics
+				if (sequenceProxy.activePlugin() && 
+					sequenceProxy.activePlugin().sourceType=="entryId" && 
+					(note.getName()==NotificationType.MEDIA_READY || note.getName()==NotificationType.PLAYER_PLAYED || note.getName()==NotificationType.PLAYER_UPDATE_PLAYHEAD))
+				{
+					handleMainContentNotifications();
+					
+				}
+				else
+				{
+					handleAdsNotifications();
+				}
 			}
 			else
 			{
@@ -340,6 +351,10 @@ package com.kaltura.kdpfl.plugin.component {
 						
 						if (_isNewLoad && !_played) {
 							kse.eventType = com.kaltura.types.KalturaStatsEventType.PLAY;
+							_p25Once = false;
+							_p50Once = false;
+							_p75Once = false;
+							_p100Once = false;
 							_played = true;
 						}
 	
@@ -353,10 +368,6 @@ package com.kaltura.kdpfl.plugin.component {
 								_played = false;
 								_lastId = kse.entryId;
 								_hasSeeked = false;
-								_p25Once = false;
-								_p50Once = false;
-								_p75Once = false;
-								_p100Once = false;
 								_isNewLoad = true;
 								kse.eventType = com.kaltura.types.KalturaStatsEventType.MEDIA_LOADED;
 							}
