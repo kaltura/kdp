@@ -395,6 +395,7 @@ package com.kaltura.kdpfl.view.media
 					if (!_mediaProxy.vo.isMediaDisabled)
 					{
 						sendNotification( NotificationType.ENABLE_GUI , {guiEnabled : false , enableType : EnableType.CONTROLS} );
+						_mediaProxy.vo.isMediaDisabled = true;
 					}
 					break;
 				case NotificationType.DO_SWITCH:
