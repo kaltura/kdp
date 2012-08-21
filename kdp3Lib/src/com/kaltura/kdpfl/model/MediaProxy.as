@@ -141,6 +141,7 @@ package com.kaltura.kdpfl.model
 						resource = new URLResource(vo.entry.dataUrl);
 						addMetadataToResource(resource);
 						vo.media = vo.mediaFactory.createMediaElement(new KalturaBaseEntryResource( vo.entry ));
+						break;
 					}	
 					
 					//when loading a media entry we still use the flvclipper
