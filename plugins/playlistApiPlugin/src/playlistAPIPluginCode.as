@@ -135,6 +135,12 @@ package {
 		public var playlistAutoInsert:Boolean = true;
 		
 		/**
+		 * restart playlist from the beginning after last item was reached. 
+		 */
+		public var loop:Boolean		= false;
+		
+		
+		/**
 		 * start playing the playlist from this item index
 		 */		
 		public var initItemIndex:int = 0;
@@ -379,6 +385,10 @@ package {
 			if (_dataProvider && _dataProvider.selectedIndex == _dataProvider.length-1)
 			{
 				_playlistAPIMediator.sendNotification(PlaylistNotificationType.PLAYLIST_DONE);
+				if(loop){
+					_dataProvider.selectedIndex = 0;
+					return;
+				}
 			}
 			if (_dataProvider && _dataProvider.selectedIndex < _dataProvider.length - 1)
 			{
