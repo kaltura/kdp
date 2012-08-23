@@ -175,9 +175,12 @@ package com.kaltura.kdpfl.controller.media
 					ind ++;
 					
 					var keedp : KalturaEntryContextDataParams = new KalturaEntryContextDataParams();
-					keedp.referrer = _flashvars.referrer;
-					
+					keedp.referrer = _flashvars.referrer;	
 					keedp.streamerType = _flashvars.streamerType;
+					if (_flashvars.flavorTags)
+					{
+						keedp.flavorTags = 	_flashvars.flavorTags;
+					}
 					
 					var getExtraData : BaseEntryGetContextData = new BaseEntryGetContextData( _mediaProxy.vo.entry.id , keedp );
 					if (_isRefid) {
