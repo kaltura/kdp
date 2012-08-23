@@ -30,9 +30,14 @@ package com.kaltura.commands.attachmentAsset
 	import com.kaltura.delegates.attachmentAsset.AttachmentAssetServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves attachment by its id
+	 * 
+	 **/
 	public class AttachmentAssetServe extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param attachmentAssetId String
 		 **/

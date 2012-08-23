@@ -31,9 +31,14 @@ package com.kaltura.commands.partner
 	import com.kaltura.delegates.partner.PartnerUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update details and settings of an existing partner
+	 * 
+	 **/
 	public class PartnerUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param partner KalturaPartner
 		 * @param allowEmpty Boolean

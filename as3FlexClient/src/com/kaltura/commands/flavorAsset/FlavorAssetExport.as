@@ -30,9 +30,12 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.delegates.flavorAsset.FlavorAssetExportDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class FlavorAssetExport extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param assetId String
 		 * @param storageProfileId int

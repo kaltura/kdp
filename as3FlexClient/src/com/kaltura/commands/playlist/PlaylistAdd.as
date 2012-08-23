@@ -31,9 +31,15 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new playlist
+	 * Note that all entries used in a playlist will become public and may appear in KalturaNetwork
+	 * 
+	 **/
 	public class PlaylistAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param playlist KalturaPlaylist
 		 * @param updateStats Boolean

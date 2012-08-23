@@ -32,9 +32,14 @@ package com.kaltura.commands.permissionItem
 	import com.kaltura.delegates.permissionItem.PermissionItemListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Lists permission item objects that are associated with an account.
+	 * 
+	 **/
 	public class PermissionItemList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaPermissionItemFilter
 		 * @param pager KalturaFilterPager

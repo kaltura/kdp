@@ -30,9 +30,14 @@ package com.kaltura.commands.bulkUpload
 	import com.kaltura.delegates.bulkUpload.BulkUploadServeLogDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * serveLog action returan the original file.
+	 * 
+	 **/
 	public class BulkUploadServeLog extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

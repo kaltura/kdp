@@ -30,9 +30,14 @@ package com.kaltura.commands.storageProfile
 	import com.kaltura.delegates.storageProfile.StorageProfileGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get storage profile by id
+	 * 
+	 **/
 	public class StorageProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param storageProfileId int
 		 **/

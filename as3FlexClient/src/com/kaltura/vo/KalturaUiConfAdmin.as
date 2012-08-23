@@ -32,8 +32,9 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaUiConfAdmin extends KalturaUiConf
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isPublic : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -50,6 +51,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

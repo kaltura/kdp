@@ -30,9 +30,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve a metadata profile object by id
+	 * 
+	 **/
 	public class MetadataProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

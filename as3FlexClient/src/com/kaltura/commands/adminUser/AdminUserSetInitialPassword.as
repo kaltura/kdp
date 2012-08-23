@@ -30,9 +30,14 @@ package com.kaltura.commands.adminUser
 	import com.kaltura.delegates.adminUser.AdminUserSetInitialPasswordDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Set initial users password
+	 * 
+	 **/
 	public class AdminUserSetInitialPassword extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param hashKey String
 		 * @param newPassword String

@@ -31,10 +31,13 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.thumbAsset.ThumbAssetAddFromImageDelegate;
 
+	/**
+	 **/
 	public class ThumbAssetAddFromImage extends KalturaFileCall
 	{
 		public var fileData:Object;
 
+		
 		/**
 		 * @param entryId String
 		 * @param fileData Object - FileReference or ByteArray

@@ -31,9 +31,14 @@ package com.kaltura.commands.auditTrail
 	import com.kaltura.delegates.auditTrail.AuditTrailAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add an audit trail object and audit trail content associated with Kaltura object
+	 * 
+	 **/
 	public class AuditTrailAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param auditTrail KalturaAuditTrail
 		 **/

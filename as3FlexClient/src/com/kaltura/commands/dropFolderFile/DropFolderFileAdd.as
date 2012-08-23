@@ -31,9 +31,14 @@ package com.kaltura.commands.dropFolderFile
 	import com.kaltura.delegates.dropFolderFile.DropFolderFileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add a new KalturaDropFolderFile object
+	 * 
+	 **/
 	public class DropFolderFileAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param dropFolderFile KalturaDropFolderFile
 		 **/

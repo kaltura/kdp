@@ -30,9 +30,14 @@ package com.kaltura.commands.category
 	import com.kaltura.delegates.category.CategoryUnlockCategoriesDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Unlock categories
+	 * 
+	 **/
 	public class CategoryUnlockCategories extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 **/
 		public function CategoryUnlockCategories(  )

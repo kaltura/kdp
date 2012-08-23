@@ -31,9 +31,14 @@ package com.kaltura.commands.report
 	import com.kaltura.delegates.report.ReportGetTotalDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * report getTotal action allows to get a graph data for a specific report.
+	 * 
+	 **/
 	public class ReportGetTotal extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param reportType int
 		 * @param reportInputFilter KalturaReportInputFilter

@@ -31,9 +31,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update an existing metadata object
+	 * 
+	 **/
 	public class MetadataProfileUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param metadataProfile KalturaMetadataProfile

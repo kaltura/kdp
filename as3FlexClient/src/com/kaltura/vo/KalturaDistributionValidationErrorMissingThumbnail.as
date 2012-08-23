@@ -34,8 +34,8 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDistributionValidationErrorMissingThumbnail extends KalturaDistributionValidationError
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var dimensions : KalturaDistributionThumbDimensions;
 
 		override public function getUpdateableParamKeys():Array
@@ -52,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

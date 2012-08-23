@@ -30,9 +30,15 @@ package com.kaltura.commands.documents
 	import com.kaltura.delegates.documents.DocumentsConvertPptToSwfDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * This will queue a batch job for converting the document file to swf
+	 * Returns the URL where the new swf will be available
+	 * 
+	 **/
 	public class DocumentsConvertPptToSwf extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

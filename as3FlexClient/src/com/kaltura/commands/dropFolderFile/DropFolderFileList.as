@@ -32,9 +32,14 @@ package com.kaltura.commands.dropFolderFile
 	import com.kaltura.delegates.dropFolderFile.DropFolderFileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List KalturaDropFolderFile objects
+	 * 
+	 **/
 	public class DropFolderFileList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaDropFolderFileFilter
 		 * @param pager KalturaFilterPager

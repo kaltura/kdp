@@ -30,9 +30,14 @@ package com.kaltura.commands.category
 	import com.kaltura.delegates.category.CategoryIndexDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Index Category by id
+	 * 
+	 **/
 	public class CategoryIndex extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param shouldUpdate Boolean

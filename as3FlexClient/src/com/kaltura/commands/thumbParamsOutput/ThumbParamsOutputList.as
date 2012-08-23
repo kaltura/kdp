@@ -32,9 +32,14 @@ package com.kaltura.commands.thumbParamsOutput
 	import com.kaltura.delegates.thumbParamsOutput.ThumbParamsOutputListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List thumb params output objects by filter and pager
+	 * 
+	 **/
 	public class ThumbParamsOutputList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaThumbParamsOutputFilter
 		 * @param pager KalturaFilterPager

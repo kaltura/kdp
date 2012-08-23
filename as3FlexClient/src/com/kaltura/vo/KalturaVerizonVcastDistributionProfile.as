@@ -32,48 +32,48 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaVerizonVcastDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpHost : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpLogin : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpPass : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var providerName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var providerId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var entitlement : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var priority : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowStreaming : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var streamingPriceCode : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowDownload : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var downloadPriceCode : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -100,6 +100,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

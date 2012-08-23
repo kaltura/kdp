@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get media entry by ID.
+	 * 
+	 **/
 	public class MediaGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param version int

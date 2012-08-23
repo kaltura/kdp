@@ -32,60 +32,62 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaFtpDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDistributionProtocol
+		 **/
 		public var protocol : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var host : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var port : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var basePath : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var username : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var password : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var passphrase : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpPublicKey : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpPrivateKey : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var disableMetadata : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var metadataXslt : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var metadataFilenameXslt : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flavorAssetFilenameXslt : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbnailAssetFilenameXslt : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -115,6 +117,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

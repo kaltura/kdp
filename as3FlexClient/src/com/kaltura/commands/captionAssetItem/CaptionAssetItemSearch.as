@@ -33,9 +33,14 @@ package com.kaltura.commands.captionAssetItem
 	import com.kaltura.delegates.captionAssetItem.CaptionAssetItemSearchDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Search caption asset items by filter, pager and free text
+	 * 
+	 **/
 	public class CaptionAssetItemSearch extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryFilter KalturaBaseEntryFilter
 		 * @param captionAssetItemFilter KalturaCaptionAssetItemFilter

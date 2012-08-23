@@ -31,9 +31,15 @@ package com.kaltura.commands.stats
 	import com.kaltura.delegates.stats.StatsKmcCollectDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Will collect the kmcEvent sent form the KMC client
+	 * // this will actually be an empty function because all events will be sent using GET and will anyway be logged in the apache log
+	 * 
+	 **/
 	public class StatsKmcCollect extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param kmcEvent KalturaStatsKmcEvent
 		 **/

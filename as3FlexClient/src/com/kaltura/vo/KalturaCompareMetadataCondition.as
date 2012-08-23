@@ -32,17 +32,19 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCompareMetadataCondition extends KalturaCompareCondition
 	{
-		/** 
-		* May contain the full xpath to the field in three formats
-	 1. Slashed xPath, e.g. /metadata/myElementName
-	 2. Using local-name function, e.g. /[local-name()='metadata']/[local-name()='myElementName']
-	 3. Using only the field name, e.g. myElementName, it will be searched as //myElementName
-	 		* */ 
+		/**
+		 * May contain the full xpath to the field in three formats
+		 * 1. Slashed xPath, e.g. /metadata/myElementName
+		 * 2. Using local-name function, e.g. /[local-name()='metadata']/[local-name()='myElementName']
+		 * 3. Using only the field name, e.g. myElementName, it will be searched as //myElementName
+		 * 
+		 **/
 		public var xPath : String = null;
 
-		/** 
-		* Metadata profile id
-	 		* */ 
+		/**
+		 * Metadata profile id
+		 * 
+		 **/
 		public var profileId : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -60,6 +62,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

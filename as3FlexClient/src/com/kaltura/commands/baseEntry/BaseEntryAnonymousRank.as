@@ -30,9 +30,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryAnonymousRankDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Anonymously rank an entry, no validation is done on duplicate rankings.
+	 * 
+	 **/
 	public class BaseEntryAnonymousRank extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param rank int

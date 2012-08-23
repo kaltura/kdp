@@ -31,9 +31,14 @@ package com.kaltura.commands.documents
 	import com.kaltura.delegates.documents.DocumentsAddFromUploadedFileDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new document entry after the specific document file was uploaded and the upload token id exists
+	 * 
+	 **/
 	public class DocumentsAddFromUploadedFile extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param documentEntry KalturaDocumentEntry
 		 * @param uploadTokenId String

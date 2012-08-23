@@ -30,9 +30,14 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.delegates.flavorAsset.FlavorAssetConvertDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add and convert new Flavor Asset for Entry with specific Flavor Params
+	 * 
+	 **/
 	public class FlavorAssetConvert extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param flavorParamsId int

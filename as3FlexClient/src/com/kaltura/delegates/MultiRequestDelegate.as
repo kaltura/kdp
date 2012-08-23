@@ -63,7 +63,6 @@ package com.kaltura.delegates
 				xml +="</result></result>";
 				//fix weird issue with chrome: sometimes res XML contained empty nodes because the xml string had "\n"
 				xml = xml.replace(/>\n/g, ">");
-				
 				var res : XML = new XML(xml);
 				try {
 					var obj : Object = (myInst as WebDelegateBase).parse( res );

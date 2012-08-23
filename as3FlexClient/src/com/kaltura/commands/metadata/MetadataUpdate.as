@@ -30,9 +30,14 @@ package com.kaltura.commands.metadata
 	import com.kaltura.delegates.metadata.MetadataUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update an existing metadata object with new XML content
+	 * 
+	 **/
 	public class MetadataUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param xmlData String

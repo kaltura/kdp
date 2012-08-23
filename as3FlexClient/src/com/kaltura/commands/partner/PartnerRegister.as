@@ -31,14 +31,20 @@ package com.kaltura.commands.partner
 	import com.kaltura.delegates.partner.PartnerRegisterDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Create a new Partner object
+	 * 
+	 **/
 	public class PartnerRegister extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param partner KalturaPartner
 		 * @param cmsPassword String
+		 * @param templatePartnerId int
 		 **/
-		public function PartnerRegister( partner : KalturaPartner,cmsPassword : String='' )
+		public function PartnerRegister( partner : KalturaPartner,cmsPassword : String='',templatePartnerId : int=int.MIN_VALUE )
 		{
 			service= 'partner';
 			action= 'register';
@@ -51,6 +57,8 @@ package com.kaltura.commands.partner
 			valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('cmsPassword');
 			valueArr.push(cmsPassword);
+			keyArr.push('templatePartnerId');
+			valueArr.push(templatePartnerId);
 			applySchema(keyArr, valueArr);
 		}
 

@@ -32,9 +32,12 @@ package com.kaltura.commands.storageProfile
 	import com.kaltura.delegates.storageProfile.StorageProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class StorageProfileList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaStorageProfileFilter
 		 * @param pager KalturaFilterPager

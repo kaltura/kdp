@@ -30,9 +30,12 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryExportDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class BaseEntryExport extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param storageProfileId int

@@ -32,24 +32,26 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAuditTrailFileSyncCreateInfo extends KalturaAuditTrailInfo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var version : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var objectSubType : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var dc : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var original : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaAuditTrailFileSyncType
+		 **/
 		public var fileType : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -70,6 +72,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

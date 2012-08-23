@@ -32,9 +32,14 @@ package com.kaltura.commands.flavorParams
 	import com.kaltura.delegates.flavorParams.FlavorParamsListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List Flavor Params by filter with paging support (By default - all system default params will be listed too)
+	 * 
+	 **/
 	public class FlavorParamsList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaFlavorParamsFilter
 		 * @param pager KalturaFilterPager

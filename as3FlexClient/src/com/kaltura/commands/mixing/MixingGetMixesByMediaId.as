@@ -30,9 +30,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingGetMixesByMediaIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get the mixes in which the media entry is included
+	 * 
+	 **/
 	public class MixingGetMixesByMediaId extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mediaEntryId String
 		 **/

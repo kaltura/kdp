@@ -32,8 +32,8 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaStringValue extends KalturaValue
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var value : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -50,6 +50,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

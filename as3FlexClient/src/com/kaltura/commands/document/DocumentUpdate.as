@@ -31,9 +31,14 @@ package com.kaltura.commands.document
 	import com.kaltura.delegates.document.DocumentUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update document entry. Only the properties that were set will be updated.
+	 * 
+	 **/
 	public class DocumentUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param documentEntry KalturaDocumentEntry

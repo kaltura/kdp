@@ -30,9 +30,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get mix entry by id.
+	 * 
+	 **/
 	public class MixingGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param version int

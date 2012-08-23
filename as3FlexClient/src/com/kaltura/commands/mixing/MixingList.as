@@ -32,9 +32,15 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List entries by filter with paging support.
+	 * Return parameter is an array of mix entries.
+	 * 
+	 **/
 	public class MixingList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaMixEntryFilter
 		 * @param pager KalturaFilterPager

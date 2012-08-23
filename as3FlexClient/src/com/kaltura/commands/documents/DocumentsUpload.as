@@ -31,10 +31,15 @@ package com.kaltura.commands.documents
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.documents.DocumentsUploadDelegate;
 
+	/**
+	 * Upload a document file to Kaltura, then the file can be used to create a document entry.
+	 * 
+	 **/
 	public class DocumentsUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
+		
 		/**
 		 * @param fileData Object - FileReference or ByteArray
 		 **/

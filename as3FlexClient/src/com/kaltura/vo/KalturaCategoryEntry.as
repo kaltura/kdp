@@ -28,31 +28,42 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaCategoryEntry extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoryId : int = int.MIN_VALUE;
 
-		/** 
-		* User id
-	 		* */ 
+		/**
+		 * entry id
+		 * 
+		 **/
 		public var entryId : String = null;
 
-		/** 
-		* Creation date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * Creation date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* The full ids of the Category
-	 		* */ 
+		/**
+		 * The full ids of the Category
+		 * 
+		 **/
 		public var categoryFullIds : String = null;
 
+		/**
+		 * CategroyEntry status
+		 * 
+		 * @see com.kaltura.types.KalturaCategoryEntryStatus
+		 **/
+		public var status : int = int.MIN_VALUE;
+
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -63,14 +74,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

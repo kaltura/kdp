@@ -31,9 +31,14 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.delegates.uiConf.UiConfAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * UIConf Add action allows you to add a UIConf to Kaltura DB
+	 * 
+	 **/
 	public class UiConfAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param uiConf KalturaUiConf
 		 **/

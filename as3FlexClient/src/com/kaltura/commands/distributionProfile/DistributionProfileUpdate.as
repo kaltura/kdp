@@ -31,9 +31,14 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.delegates.distributionProfile.DistributionProfileUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update Distribution Profile by id
+	 * 
+	 **/
 	public class DistributionProfileUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param distributionProfile KalturaDistributionProfile

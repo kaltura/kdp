@@ -30,9 +30,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryGetByIdsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get an array of KalturaBaseEntry objects by a comma-separated list of ids.
+	 * 
+	 **/
 	public class BaseEntryGetByIds extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryIds String
 		 **/

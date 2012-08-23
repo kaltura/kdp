@@ -30,9 +30,15 @@ package com.kaltura.commands.session
 	import com.kaltura.delegates.session.SessionStartDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Start a session with Kaltura's server.
+	 * The result KS is the session key that you should pass to all services that requires a ticket.
+	 * 
+	 **/
 	public class SessionStart extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param secret String
 		 * @param userId String

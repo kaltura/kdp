@@ -32,44 +32,45 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaGenericDistributionProviderActionBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var genericDistributionProviderIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var genericDistributionProviderIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDistributionAction
+		 **/
 		public var actionEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var actionIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -95,6 +96,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

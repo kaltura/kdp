@@ -30,9 +30,14 @@ package com.kaltura.commands.attachmentAsset
 	import com.kaltura.delegates.attachmentAsset.AttachmentAssetGetUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get download URL for the asset
+	 * 
+	 **/
 	public class AttachmentAssetGetUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param storageId int

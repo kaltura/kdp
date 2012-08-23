@@ -32,117 +32,134 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaFlavorParams extends KalturaAssetParams
 	{
-		/** 
-		* The video codec of the Flavor Params
-	 		* */ 
+		/**
+		 * The video codec of the Flavor Params
+		 * 
+		 * @see com.kaltura.types.KalturaVideoCodec
+		 **/
 		public var videoCodec : String = null;
 
-		/** 
-		* The video bitrate (in KBits) of the Flavor Params
-	 		* */ 
+		/**
+		 * The video bitrate (in KBits) of the Flavor Params
+		 * 
+		 **/
 		public var videoBitrate : int = int.MIN_VALUE;
 
-		/** 
-		* The audio codec of the Flavor Params
-	 		* */ 
+		/**
+		 * The audio codec of the Flavor Params
+		 * 
+		 * @see com.kaltura.types.KalturaAudioCodec
+		 **/
 		public var audioCodec : String = null;
 
-		/** 
-		* The audio bitrate (in KBits) of the Flavor Params
-	 		* */ 
+		/**
+		 * The audio bitrate (in KBits) of the Flavor Params
+		 * 
+		 **/
 		public var audioBitrate : int = int.MIN_VALUE;
 
-		/** 
-		* The number of audio channels for "downmixing"
-	 		* */ 
+		/**
+		 * The number of audio channels for "downmixing"
+		 * 
+		 **/
 		public var audioChannels : int = int.MIN_VALUE;
 
-		/** 
-		* The audio sample rate of the Flavor Params
-	 		* */ 
+		/**
+		 * The audio sample rate of the Flavor Params
+		 * 
+		 **/
 		public var audioSampleRate : int = int.MIN_VALUE;
 
-		/** 
-		* The desired width of the Flavor Params
-	 		* */ 
+		/**
+		 * The desired width of the Flavor Params
+		 * 
+		 **/
 		public var width : int = int.MIN_VALUE;
 
-		/** 
-		* The desired height of the Flavor Params
-	 		* */ 
+		/**
+		 * The desired height of the Flavor Params
+		 * 
+		 **/
 		public var height : int = int.MIN_VALUE;
 
-		/** 
-		* The frame rate of the Flavor Params
-	 		* */ 
+		/**
+		 * The frame rate of the Flavor Params
+		 * 
+		 **/
 		public var frameRate : int = int.MIN_VALUE;
 
-		/** 
-		* The gop size of the Flavor Params
-	 		* */ 
+		/**
+		 * The gop size of the Flavor Params
+		 * 
+		 **/
 		public var gopSize : int = int.MIN_VALUE;
 
-		/** 
-		* The list of conversion engines (comma separated)
-	 		* */ 
+		/**
+		 * The list of conversion engines (comma separated)
+		 * 
+		 **/
 		public var conversionEngines : String = null;
 
-		/** 
-		* The list of conversion engines extra params (separated with "|")
-	 		* */ 
+		/**
+		 * The list of conversion engines extra params (separated with "|")
+		 * 
+		 **/
 		public var conversionEnginesExtraParams : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var twoPass : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var deinterlice : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var rotate : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var operators : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var engineVersion : int = int.MIN_VALUE;
 
-		/** 
-		* The container format of the Flavor Params
-	 		* */ 
+		/**
+		 * The container format of the Flavor Params
+		 * 
+		 * @see com.kaltura.types.KalturaContainerFormat
+		 **/
 		public var format : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var aspectRatioProcessingMode : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var forceFrameToMultiplication16 : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var isGopInSec : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var videoConstantBitrate : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var videoBitrateTolerance : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var clipOffset : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var clipDuration : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -183,6 +200,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

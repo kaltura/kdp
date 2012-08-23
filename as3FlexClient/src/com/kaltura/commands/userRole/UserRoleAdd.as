@@ -31,9 +31,14 @@ package com.kaltura.commands.userRole
 	import com.kaltura.delegates.userRole.UserRoleAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds a new user role object to the account.
+	 * 
+	 **/
 	public class UserRoleAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userRole KalturaUserRole
 		 **/

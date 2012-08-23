@@ -32,62 +32,63 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaBulkUploadResultUser extends KalturaBulkUploadResult
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
+		public var userId : String = null;
+
+		/**
+		 **/
 		public var screenName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var email : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var description : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tags : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var dateOfBirth : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var country : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var state : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var city : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var zip : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var gender : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var firstName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var lastName : String = null;
-
-		/** 
-		* 		* */ 
-		public var isAdmin : Boolean;
 
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('userId');
 			arr.push('screenName');
 			arr.push('email');
 			arr.push('description');
@@ -100,7 +101,6 @@ package com.kaltura.vo
 			arr.push('gender');
 			arr.push('firstName');
 			arr.push('lastName');
-			arr.push('isAdmin');
 			return arr;
 		}
 
@@ -110,6 +110,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

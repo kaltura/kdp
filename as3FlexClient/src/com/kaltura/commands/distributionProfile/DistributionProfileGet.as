@@ -30,9 +30,14 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.delegates.distributionProfile.DistributionProfileGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get Distribution Profile by id
+	 * 
+	 **/
 	public class DistributionProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

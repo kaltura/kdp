@@ -32,16 +32,17 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaGenericXsltSyndicationFeed extends KalturaGenericSyndicationFeed
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var xslt : String = null;
 
-		/** 
-		* This parameter determines which custom metadata fields of type related-entry should be
-	 expanded to contain the kaltura MRSS feed of the related entry. Related-entry fields not
-	 included in this list will contain only the related entry id.
-	 This property contains a list xPaths in the Kaltura MRSS.
-	 		* */ 
+		/**
+		 * This parameter determines which custom metadata fields of type related-entry should be
+		 * expanded to contain the kaltura MRSS feed of the related entry. Related-entry fields not
+		 * included in this list will contain only the related entry id.
+		 * This property contains a list xPaths in the Kaltura MRSS.
+		 * 
+		 **/
 		public var itemXpathsToExtend : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +60,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

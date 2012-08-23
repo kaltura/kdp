@@ -28,36 +28,38 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaTag extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var id : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tag : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaTaggedObjectType
+		 **/
 		public var taggedObjectType : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var instanceCount : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -66,14 +68,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

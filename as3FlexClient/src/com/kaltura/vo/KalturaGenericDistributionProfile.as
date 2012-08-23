@@ -40,32 +40,32 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaGenericDistributionProfile extends KalturaDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var genericProviderId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var submitAction : KalturaGenericDistributionProfileAction;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updateAction : KalturaGenericDistributionProfileAction;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var deleteAction : KalturaGenericDistributionProfileAction;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fetchReportAction : KalturaGenericDistributionProfileAction;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updateRequiredEntryFields : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updateRequiredMetadataXPaths : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -88,6 +88,5 @@ package com.kaltura.vo
 			arr.push('genericProviderId');
 			return arr;
 		}
-
 	}
 }

@@ -32,44 +32,44 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaMetroPcsDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpHost : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpLogin : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpPass : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpPath : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var providerName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var providerId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var copyright : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var entitlements : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var rating : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var itemType : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -95,6 +95,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

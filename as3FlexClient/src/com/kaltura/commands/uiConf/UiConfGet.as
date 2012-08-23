@@ -30,9 +30,14 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.delegates.uiConf.UiConfGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve a UIConf by id
+	 * 
+	 **/
 	public class UiConfGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

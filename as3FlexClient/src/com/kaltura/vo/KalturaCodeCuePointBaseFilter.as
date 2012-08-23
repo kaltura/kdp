@@ -32,52 +32,52 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCodeCuePointBaseFilter extends KalturaCuePointFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var codeLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var codeMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var codeMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var codeEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var codeIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var descriptionLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var descriptionMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var descriptionMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endTimeGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endTimeLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var durationGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var durationLessThanOrEqual : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -105,6 +105,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

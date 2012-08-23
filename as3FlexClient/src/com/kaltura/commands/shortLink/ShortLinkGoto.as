@@ -30,9 +30,14 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.delegates.shortLink.ShortLinkGotoDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves short link
+	 * 
+	 **/
 	public class ShortLinkGoto extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param proxy Boolean

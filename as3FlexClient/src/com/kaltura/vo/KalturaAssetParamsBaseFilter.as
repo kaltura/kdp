@@ -32,20 +32,21 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAssetParamsBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var systemNameEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var systemNameIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaNullableBoolean
+		 **/
 		public var isSystemDefaultEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsEqual : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +66,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

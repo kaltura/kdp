@@ -30,9 +30,14 @@ package com.kaltura.commands.EmailIngestionProfile
 	import com.kaltura.delegates.EmailIngestionProfile.EmailIngestionProfileGetByEmailAddressDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve a EmailIngestionProfile by email address
+	 * 
+	 **/
 	public class EmailIngestionProfileGetByEmailAddress extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param emailAddress String
 		 **/

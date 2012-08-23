@@ -32,108 +32,111 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDropFolderBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var nameLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDropFolderType
+		 **/
 		public var typeEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var typeIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDropFolderStatus
+		 **/
 		public var statusEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var statusIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var conversionProfileIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var conversionProfileIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var dcEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var dcIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var pathLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDropFolderFileHandlerType
+		 **/
 		public var fileHandlerTypeEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fileHandlerTypeIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fileNamePatternsLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fileNamePatternsMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fileNamePatternsMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -175,6 +178,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

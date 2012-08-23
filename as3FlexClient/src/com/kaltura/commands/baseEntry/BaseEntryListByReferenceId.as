@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryListByReferenceIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List base entries by filter according to reference id
+	 * 
+	 **/
 	public class BaseEntryListByReferenceId extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param refId String
 		 * @param pager KalturaFilterPager

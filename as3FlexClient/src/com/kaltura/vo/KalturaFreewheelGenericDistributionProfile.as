@@ -32,48 +32,50 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaFreewheelGenericDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var apikey : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var email : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpPass : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpLogin : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var contentOwner : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var upstreamVideoId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var upstreamNetworkName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var upstreamNetworkId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoryId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var replaceGroup : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var replaceAirDates : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -100,6 +102,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -31,10 +31,15 @@ package com.kaltura.commands.metadata
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.metadata.MetadataUpdateFromFileDelegate;
 
+	/**
+	 * Update an existing metadata object with new XML file
+	 * 
+	 **/
 	public class MetadataUpdateFromFile extends KalturaFileCall
 	{
 		public var xmlFile:Object;
 
+		
 		/**
 		 * @param id int
 		 * @param xmlFile Object - FileReference or ByteArray

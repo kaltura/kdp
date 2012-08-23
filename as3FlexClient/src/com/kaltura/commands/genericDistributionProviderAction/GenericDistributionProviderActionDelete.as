@@ -30,9 +30,14 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete Generic Distribution Provider Action by id
+	 * 
+	 **/
 	public class GenericDistributionProviderActionDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

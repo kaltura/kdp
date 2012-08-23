@@ -30,9 +30,15 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserDisableLoginDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Disables a user's ability to log into a partner account using an email address and a password.
+	 * You may use either a userId or a loginId parameter for this action.
+	 * 
+	 **/
 	public class UserDisableLogin extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userId String
 		 * @param loginId String

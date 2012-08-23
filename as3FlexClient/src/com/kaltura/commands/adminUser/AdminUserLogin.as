@@ -30,9 +30,14 @@ package com.kaltura.commands.adminUser
 	import com.kaltura.delegates.adminUser.AdminUserLoginDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get an admin session using admin email and password (Used for login to the KMC application)
+	 * 
+	 **/
 	public class AdminUserLogin extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param email String
 		 * @param password String

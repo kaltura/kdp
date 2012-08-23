@@ -32,9 +32,14 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List virus scan profile objects by filter and pager
+	 * 
+	 **/
 	public class VirusScanProfileList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaVirusScanProfileFilter
 		 * @param pager KalturaFilterPager

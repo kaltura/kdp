@@ -32,60 +32,62 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaVirusScanProfileBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var nameEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var nameLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaVirusScanProfileStatus
+		 **/
 		public var statusEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var statusIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaVirusScanEngineType
+		 **/
 		public var engineTypeEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var engineTypeIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -115,6 +117,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

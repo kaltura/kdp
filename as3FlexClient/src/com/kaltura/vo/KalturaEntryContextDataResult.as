@@ -28,68 +28,80 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaEntryContextDataResult extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isSiteRestricted : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isCountryRestricted : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isSessionRestricted : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isIpAddressRestricted : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isUserAgentRestricted : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var previewLength : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isScheduledNow : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isAdmin : Boolean;
 
-		/** 
-		* http/rtmp/hdnetwork
-	 		* */ 
+		/**
+		 * http/rtmp/hdnetwork
+		 * 
+		 **/
 		public var streamerType : String = null;
 
-		/** 
-		* http/https, rtmp/rtmpe
-	 		* */ 
+		/**
+		 * http/https, rtmp/rtmpe
+		 * 
+		 **/
 		public var mediaProtocol : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var storageProfilesXML : String = null;
 
-		/** 
-		* Array of messages as received from the access control rules that invalidated
-	 		* */ 
+		/**
+		 * Array of messages as received from the access control rules that invalidated
+		 * 
+		 **/
 		public var accessControlMessages : Array = null;
 
-		/** 
-		* Array of actions as received from the access control rules that invalidated
-	 		* */ 
+		/**
+		 * Array of actions as received from the access control rules that invalidated
+		 * 
+		 **/
 		public var accessControlActions : Array = null;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -111,14 +123,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

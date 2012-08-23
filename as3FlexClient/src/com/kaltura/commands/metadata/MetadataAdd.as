@@ -30,9 +30,14 @@ package com.kaltura.commands.metadata
 	import com.kaltura.delegates.metadata.MetadataAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add a metadata object and metadata content associated with Kaltura object
+	 * 
+	 **/
 	public class MetadataAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param metadataProfileId int
 		 * @param objectType String

@@ -32,12 +32,12 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAvnDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedTitle : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -54,6 +54,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

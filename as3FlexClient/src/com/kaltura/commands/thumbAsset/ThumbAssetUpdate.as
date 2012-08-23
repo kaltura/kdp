@@ -31,9 +31,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update thumbnail asset
+	 * 
+	 **/
 	public class ThumbAssetUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param thumbAsset KalturaThumbAsset

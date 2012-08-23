@@ -30,13 +30,19 @@ package com.kaltura.commands.category
 	import com.kaltura.delegates.category.CategoryDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete a Category
+	 * 
+	 **/
 	public class CategoryDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
+		 * @param moveEntriesToParentCategory int
 		 **/
-		public function CategoryDelete( id : int )
+		public function CategoryDelete( id : int,moveEntriesToParentCategory : int=1 )
 		{
 			service= 'category';
 			action= 'delete';
@@ -46,6 +52,8 @@ package com.kaltura.commands.category
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
+			keyArr.push('moveEntriesToParentCategory');
+			valueArr.push(moveEntriesToParentCategory);
 			applySchema(keyArr, valueArr);
 		}
 

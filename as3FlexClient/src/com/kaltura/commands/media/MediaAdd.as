@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add entry
+	 * 
+	 **/
 	public class MediaAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entry KalturaMediaEntry
 		 **/

@@ -32,24 +32,30 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAttachmentAsset extends KalturaAsset
 	{
-		/** 
-		* The filename of the attachment asset content
-	 		* */ 
+		/**
+		 * The filename of the attachment asset content
+		 * 
+		 **/
 		public var filename : String = null;
 
-		/** 
-		* Attachment asset title
-	 		* */ 
+		/**
+		 * Attachment asset title
+		 * 
+		 **/
 		public var title : String = null;
 
-		/** 
-		* The attachment format
-	 		* */ 
+		/**
+		 * The attachment format
+		 * 
+		 * @see com.kaltura.types.KalturaAttachmentType
+		 **/
 		public var format : String = null;
 
-		/** 
-		* The status of the asset
-	 		* */ 
+		/**
+		 * The status of the asset
+		 * 
+		 * @see com.kaltura.types.KalturaAttachmentAssetStatus
+		 **/
 		public var status : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -68,6 +74,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaListFlagsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List all pending flags for the media entry
+	 * 
+	 **/
 	public class MediaListFlags extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param pager KalturaFilterPager

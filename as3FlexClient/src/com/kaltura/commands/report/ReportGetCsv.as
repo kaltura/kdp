@@ -30,9 +30,12 @@ package com.kaltura.commands.report
 	import com.kaltura.delegates.report.ReportGetCsvDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class ReportGetCsv extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param params Array

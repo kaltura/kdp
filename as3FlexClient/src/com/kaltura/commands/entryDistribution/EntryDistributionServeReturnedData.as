@@ -30,9 +30,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionServeReturnedDataDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves entry distribution returned data
+	 * 
+	 **/
 	public class EntryDistributionServeReturnedData extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param actionType int

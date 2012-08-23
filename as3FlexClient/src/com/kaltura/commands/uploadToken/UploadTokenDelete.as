@@ -30,9 +30,14 @@ package com.kaltura.commands.uploadToken
 	import com.kaltura.delegates.uploadToken.UploadTokenDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Deletes the upload token by upload token id
+	 * 
+	 **/
 	public class UploadTokenDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param uploadTokenId String
 		 **/

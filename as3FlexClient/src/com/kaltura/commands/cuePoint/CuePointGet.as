@@ -30,9 +30,14 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.delegates.cuePoint.CuePointGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve an CuePoint object by id
+	 * 
+	 **/
 	public class CuePointGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

@@ -36,12 +36,12 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaConversionProfileAssetParamsFilter extends KalturaConversionProfileAssetParamsBaseFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var conversionProfileIdFilter : KalturaConversionProfileFilter;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var assetParamsIdFilter : KalturaAssetParamsFilter;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -28,28 +28,30 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaUploadResponse extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var uploadTokenId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fileSize : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaUploadErrorCode
+		 **/
 		public var errorCode : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var errorDescription : String = null;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -62,14 +64,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

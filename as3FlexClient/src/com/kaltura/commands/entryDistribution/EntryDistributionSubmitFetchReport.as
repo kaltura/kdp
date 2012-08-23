@@ -30,9 +30,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionSubmitFetchReportDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Submits Entry Distribution report request
+	 * 
+	 **/
 	public class EntryDistributionSubmitFetchReport extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

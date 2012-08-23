@@ -31,10 +31,15 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionAddResultsTransformFromFileDelegate;
 
+	/**
+	 * Add MRSS transform file to generic distribution provider action
+	 * 
+	 **/
 	public class GenericDistributionProviderActionAddResultsTransformFromFile extends KalturaFileCall
 	{
 		public var transformFile:Object;
 
+		
 		/**
 		 * @param id int
 		 * @param transformFile Object - FileReference or ByteArray

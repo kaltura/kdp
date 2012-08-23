@@ -32,8 +32,9 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAuditTrailChangeXmlNode extends KalturaAuditTrailChangeItem
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaAuditTrailChangeXmlNodeType
+		 **/
 		public var type : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -50,6 +51,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -30,9 +30,14 @@ package com.kaltura.commands.dropFolderFile
 	import com.kaltura.delegates.dropFolderFile.DropFolderFileIgnoreDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Set the KalturaDropFolderFile status to ignore (KalturaDropFolderFileStatus::IGNORE)
+	 * 
+	 **/
 	public class DropFolderFileIgnore extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param dropFolderFileId int
 		 **/

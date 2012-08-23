@@ -30,9 +30,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileServeViewDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves metadata profile view file
+	 * 
+	 **/
 	public class MetadataProfileServeView extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

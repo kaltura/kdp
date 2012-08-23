@@ -30,9 +30,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves metadata profile XSD file
+	 * 
+	 **/
 	public class MetadataProfileServe extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

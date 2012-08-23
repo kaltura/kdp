@@ -32,9 +32,14 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List available playlists
+	 * 
+	 **/
 	public class PlaylistList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaPlaylistFilter
 		 * @param pager KalturaFilterPager

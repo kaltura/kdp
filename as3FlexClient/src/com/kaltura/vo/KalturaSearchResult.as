@@ -32,48 +32,49 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaSearchResult extends KalturaSearch
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var id : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var title : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var description : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tags : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var url : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sourceLink : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var credit : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaLicenseType
+		 **/
 		public var licenseType : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flashPlaybackType : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fileExt : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -100,6 +101,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

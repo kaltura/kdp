@@ -31,9 +31,14 @@ package com.kaltura.commands.EmailIngestionProfile
 	import com.kaltura.delegates.EmailIngestionProfile.EmailIngestionProfileUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update an existing EmailIngestionProfile
+	 * 
+	 **/
 	public class EmailIngestionProfileUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param EmailIP KalturaEmailIngestionProfile

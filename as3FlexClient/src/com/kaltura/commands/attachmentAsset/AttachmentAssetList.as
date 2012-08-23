@@ -32,9 +32,14 @@ package com.kaltura.commands.attachmentAsset
 	import com.kaltura.delegates.attachmentAsset.AttachmentAssetListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List attachment Assets by filter and pager
+	 * 
+	 **/
 	public class AttachmentAssetList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaAssetFilter
 		 * @param pager KalturaFilterPager

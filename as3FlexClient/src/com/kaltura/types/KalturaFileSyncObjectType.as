@@ -41,5 +41,6 @@ package com.kaltura.types
 		public static const GENERIC_DISTRIBUTION_ACTION : String = 'contentDistribution.GenericDistributionAction';
 		public static const ENTRY_DISTRIBUTION : String = 'contentDistribution.EntryDistribution';
 		public static const DISTRIBUTION_PROFILE : String = 'contentDistribution.DistributionProfile';
+		public static const EMAIL_NOTIFICATION_TEMPLATE : String = 'emailNotification.EmailNotificationTemplate';
 	}
 }

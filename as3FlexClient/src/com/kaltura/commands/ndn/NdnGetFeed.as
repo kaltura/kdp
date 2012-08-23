@@ -30,9 +30,12 @@ package com.kaltura.commands.ndn
 	import com.kaltura.delegates.ndn.NdnGetFeedDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class NdnGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param distributionProfileId int
 		 * @param hash String

@@ -30,9 +30,14 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.delegates.flavorAsset.FlavorAssetGetByEntryIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get Flavor Assets for Entry
+	 * 
+	 **/
 	public class FlavorAssetGetByEntryId extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

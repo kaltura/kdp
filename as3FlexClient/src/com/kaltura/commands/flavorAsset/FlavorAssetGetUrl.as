@@ -30,9 +30,14 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.delegates.flavorAsset.FlavorAssetGetUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get download URL for the asset
+	 * 
+	 **/
 	public class FlavorAssetGetUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param storageId int

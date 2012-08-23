@@ -32,9 +32,14 @@ package com.kaltura.commands.captionParams
 	import com.kaltura.delegates.captionParams.CaptionParamsListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List Caption Params by filter with paging support (By default - all system default params will be listed too)
+	 * 
+	 **/
 	public class CaptionParamsList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaCaptionParamsFilter
 		 * @param pager KalturaFilterPager

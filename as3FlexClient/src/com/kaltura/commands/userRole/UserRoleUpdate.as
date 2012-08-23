@@ -31,9 +31,14 @@ package com.kaltura.commands.userRole
 	import com.kaltura.delegates.userRole.UserRoleUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Updates an existing user role object.
+	 * 
+	 **/
 	public class UserRoleUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userRoleId int
 		 * @param userRole KalturaUserRole

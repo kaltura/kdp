@@ -32,20 +32,20 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaIdeticDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpPath : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var username : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var password : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var domain : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -46,6 +46,8 @@ package com.kaltura.types
 		public static const APPLEHTTP : String = 'applehttp';
 		public static const SWF : String = 'swf';
 		public static const PDF : String = 'pdf';
+		public static const BMP : String = 'bmp';
+		public static const PNG : String = 'png';
 		public static const JPG : String = 'jpg';
 	}
 }

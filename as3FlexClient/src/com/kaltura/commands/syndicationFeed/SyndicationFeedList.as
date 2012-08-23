@@ -32,9 +32,14 @@ package com.kaltura.commands.syndicationFeed
 	import com.kaltura.delegates.syndicationFeed.SyndicationFeedListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List Syndication Feeds by filter with paging support
+	 * 
+	 **/
 	public class SyndicationFeedList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaBaseSyndicationFeedFilter
 		 * @param pager KalturaFilterPager

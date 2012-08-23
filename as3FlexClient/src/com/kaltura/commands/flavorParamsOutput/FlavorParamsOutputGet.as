@@ -30,9 +30,14 @@ package com.kaltura.commands.flavorParamsOutput
 	import com.kaltura.delegates.flavorParamsOutput.FlavorParamsOutputGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get flavor params output object by ID
+	 * 
+	 **/
 	public class FlavorParamsOutputGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

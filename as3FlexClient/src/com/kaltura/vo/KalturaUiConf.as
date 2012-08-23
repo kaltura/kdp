@@ -28,99 +28,106 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaUiConf extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var id : int = int.MIN_VALUE;
 
-		/** 
-		* Name of the uiConf, this is not a primary key
-	 		* */ 
+		/**
+		 * Name of the uiConf, this is not a primary key
+		 * 
+		 **/
 		public var name : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var description : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaUiConfObjType
+		 **/
 		public var objType : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var objTypeAsString : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var width : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var height : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var htmlParams : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var swfUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var confFilePath : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var confFile : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var confFileFeatures : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var confVars : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var useCdn : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tags : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var swfUrlVersion : String = null;
 
-		/** 
-		* Entry creation date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * Entry creation date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* Entry creation date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * Entry creation date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaUiConfCreationMode
+		 **/
 		public var creationMode : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var html5Url : String = null;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -144,14 +151,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

@@ -33,5 +33,6 @@ package com.kaltura.types
 		public static const RESIZE_WITH_PADDING : int = 2;
 		public static const CROP : int = 3;
 		public static const CROP_FROM_TOP : int = 4;
+		public static const RESIZE_WITH_FORCE : int = 5;
 	}
 }

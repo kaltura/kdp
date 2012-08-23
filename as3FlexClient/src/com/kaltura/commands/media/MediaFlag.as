@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaFlagDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Flag inappropriate media entry for moderation
+	 * 
+	 **/
 	public class MediaFlag extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param moderationFlag KalturaModerationFlag
 		 **/

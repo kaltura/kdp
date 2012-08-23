@@ -31,9 +31,14 @@ package com.kaltura.commands.accessControlProfile
 	import com.kaltura.delegates.accessControlProfile.AccessControlProfileUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update access control profile by id
+	 * 
+	 **/
 	public class AccessControlProfileUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param accessControlProfile KalturaAccessControlProfile

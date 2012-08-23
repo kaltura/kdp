@@ -30,9 +30,14 @@ package com.kaltura.commands.accessControlProfile
 	import com.kaltura.delegates.accessControlProfile.AccessControlProfileDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete access control profile by id
+	 * 
+	 **/
 	public class AccessControlProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

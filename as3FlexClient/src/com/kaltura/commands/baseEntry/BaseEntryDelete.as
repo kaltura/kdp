@@ -30,9 +30,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete an entry.
+	 * 
+	 **/
 	public class BaseEntryDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

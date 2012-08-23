@@ -31,9 +31,14 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.delegates.distributionProfile.DistributionProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new Distribution Profile
+	 * 
+	 **/
 	public class DistributionProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param distributionProfile KalturaDistributionProfile
 		 **/

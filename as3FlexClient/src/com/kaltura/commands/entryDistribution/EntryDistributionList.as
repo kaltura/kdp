@@ -32,9 +32,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List all distribution providers
+	 * 
+	 **/
 	public class EntryDistributionList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaEntryDistributionFilter
 		 * @param pager KalturaFilterPager

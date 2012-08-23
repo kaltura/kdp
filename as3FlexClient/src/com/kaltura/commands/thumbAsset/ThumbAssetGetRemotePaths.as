@@ -30,9 +30,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetGetRemotePathsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get remote storage existing paths for the asset
+	 * 
+	 **/
 	public class ThumbAssetGetRemotePaths extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

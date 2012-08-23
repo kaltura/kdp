@@ -28,84 +28,89 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaBulkUpload extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var id : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var uploadedBy : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var uploadedByUserId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var uploadedOn : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var numOfEntries : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaBatchJobStatus
+		 **/
 		public var status : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var logFileUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var csvFileUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var bulkFileUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaBulkUploadType
+		 **/
 		public var bulkUploadType : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var results : Array = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var error : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaBatchJobErrorTypes
+		 **/
 		public var errorType : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var errorNumber : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fileName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var description : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var numOfObjects : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaBulkUploadObjectType
+		 **/
 		public var bulkUploadObjectType : String = null;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -132,14 +137,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

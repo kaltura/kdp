@@ -31,10 +31,15 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.metadataProfile.MetadataProfileUpdateViewsFromFileDelegate;
 
+	/**
+	 * Update an existing metadata object views file
+	 * 
+	 **/
 	public class MetadataProfileUpdateViewsFromFile extends KalturaFileCall
 	{
 		public var viewsFile:Object;
 
+		
 		/**
 		 * @param id int
 		 * @param viewsFile Object - FileReference or ByteArray

@@ -30,9 +30,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionRetrySubmitDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retries last submit action
+	 * 
+	 **/
 	public class EntryDistributionRetrySubmit extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete a media entry.
+	 * 
+	 **/
 	public class MediaDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

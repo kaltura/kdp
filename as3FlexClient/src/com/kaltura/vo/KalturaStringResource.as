@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaStringResource extends KalturaContentResource
 	{
-		/** 
-		* Textual content
-	 		* */ 
+		/**
+		 * Textual content
+		 * 
+		 **/
 		public var content : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -30,9 +30,14 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.delegates.uiConf.UiConfCloneDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Clone an existing UIConf
+	 * 
+	 **/
 	public class UiConfClone extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

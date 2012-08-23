@@ -32,44 +32,46 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaConversionProfileAssetParamsBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var conversionProfileIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var conversionProfileIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var assetParamsIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var assetParamsIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaFlavorReadyBehaviorType
+		 **/
 		public var readyBehaviorEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var readyBehaviorIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaAssetParamsOrigin
+		 **/
 		public var originEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var originIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var systemNameEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var systemNameIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -95,6 +97,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

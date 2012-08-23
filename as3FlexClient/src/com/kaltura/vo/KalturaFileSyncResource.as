@@ -32,24 +32,28 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaFileSyncResource extends KalturaContentResource
 	{
-		/** 
-		* The object type of the file sync object 
-	 		* */ 
+		/**
+		 * The object type of the file sync object
+		 * 
+		 **/
 		public var fileSyncObjectType : int = int.MIN_VALUE;
 
-		/** 
-		* The object sub-type of the file sync object 
-	 		* */ 
+		/**
+		 * The object sub-type of the file sync object
+		 * 
+		 **/
 		public var objectSubType : int = int.MIN_VALUE;
 
-		/** 
-		* The object id of the file sync object 
-	 		* */ 
+		/**
+		 * The object id of the file sync object
+		 * 
+		 **/
 		public var objectId : String = null;
 
-		/** 
-		* The version of the file sync object 
-	 		* */ 
+		/**
+		 * The version of the file sync object
+		 * 
+		 **/
 		public var version : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -69,6 +73,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -30,9 +30,14 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistGetStatsFromContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve playlist statistics
+	 * 
+	 **/
 	public class PlaylistGetStatsFromContent extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param playlistType int
 		 * @param playlistContent String

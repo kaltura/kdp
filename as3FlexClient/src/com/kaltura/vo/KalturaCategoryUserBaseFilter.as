@@ -32,61 +32,72 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCategoryUserBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoryIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoryIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var userIdEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var userIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaCategoryUserPermissionLevel
+		 **/
 		public var permissionLevelEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var permissionLevelIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaCategoryUserStatus
+		 **/
 		public var statusEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var statusIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaUpdateMethodType
+		 **/
 		public var updateMethodEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updateMethodIn : String = null;
+
+		/**
+		 **/
+		public var categoryFullIdsStartsWith : String = null;
+
+		/**
+		 **/
+		public var categoryFullIdsEqual : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -106,6 +117,8 @@ package com.kaltura.vo
 			arr.push('updatedAtLessThanOrEqual');
 			arr.push('updateMethodEqual');
 			arr.push('updateMethodIn');
+			arr.push('categoryFullIdsStartsWith');
+			arr.push('categoryFullIdsEqual');
 			return arr;
 		}
 
@@ -115,6 +128,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

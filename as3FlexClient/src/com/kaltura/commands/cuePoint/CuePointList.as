@@ -32,9 +32,14 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.delegates.cuePoint.CuePointListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List cue point objects by filter and pager
+	 * 
+	 **/
 	public class CuePointList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaCuePointFilter
 		 * @param pager KalturaFilterPager

@@ -30,9 +30,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete an existing metadata profile
+	 * 
+	 **/
 	public class MetadataProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

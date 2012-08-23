@@ -31,9 +31,14 @@ package com.kaltura.commands.syndicationFeed
 	import com.kaltura.delegates.syndicationFeed.SyndicationFeedAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new Syndication Feed
+	 * 
+	 **/
 	public class SyndicationFeedAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param syndicationFeed KalturaBaseSyndicationFeed
 		 **/

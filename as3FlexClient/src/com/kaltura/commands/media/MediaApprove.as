@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaApproveDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Approve the media entry and mark the pending flags (if any) as moderated (this will make the entry playable)
+	 * 
+	 **/
 	public class MediaApprove extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

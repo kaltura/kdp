@@ -31,9 +31,14 @@ package com.kaltura.commands.EmailIngestionProfile
 	import com.kaltura.delegates.EmailIngestionProfile.EmailIngestionProfileAddMediaEntryDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * add KalturaMediaEntry from email ingestion
+	 * 
+	 **/
 	public class EmailIngestionProfileAddMediaEntry extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mediaEntry KalturaMediaEntry
 		 * @param uploadTokenId String

@@ -30,9 +30,14 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserLoginDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Logs a user into a partner account with a partner ID, a partner user ID (puser), and a user password.
+	 * 
+	 **/
 	public class UserLogin extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param partnerId int
 		 * @param userId String

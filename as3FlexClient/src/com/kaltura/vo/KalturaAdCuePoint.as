@@ -32,29 +32,32 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAdCuePoint extends KalturaCuePoint
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaAdProtocolType
+		 **/
 		public var protocolType : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sourceUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaAdType
+		 **/
 		public var adType : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var title : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endTime : int = int.MIN_VALUE;
 
-		/** 
-		* Duration in milliseconds
-	 		* */ 
+		/**
+		 * Duration in milliseconds
+		 * 
+		 **/
 		public var duration : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -75,6 +78,5 @@ package com.kaltura.vo
 			arr.push('protocolType');
 			return arr;
 		}
-
 	}
 }

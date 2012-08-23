@@ -30,9 +30,14 @@ package com.kaltura.commands.uploadToken
 	import com.kaltura.delegates.uploadToken.UploadTokenGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get upload token by id
+	 * 
+	 **/
 	public class UploadTokenGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param uploadTokenId String
 		 **/

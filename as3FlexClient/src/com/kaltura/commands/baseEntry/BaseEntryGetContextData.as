@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryGetContextDataDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * This action delivers entry-related data, based on the user's context: access control, restriction, playback format and storage information.
+	 * 
+	 **/
 	public class BaseEntryGetContextData extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param contextDataParams KalturaEntryContextDataParams

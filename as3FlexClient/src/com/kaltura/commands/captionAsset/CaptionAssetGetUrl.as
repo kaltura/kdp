@@ -30,9 +30,14 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.delegates.captionAsset.CaptionAssetGetUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get download URL for the asset
+	 * 
+	 **/
 	public class CaptionAssetGetUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param storageId int

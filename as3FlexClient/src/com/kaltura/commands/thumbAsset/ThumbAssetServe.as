@@ -30,9 +30,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves thumbnail by its id
+	 * 
+	 **/
 	public class ThumbAssetServe extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param thumbAssetId String
 		 * @param version int

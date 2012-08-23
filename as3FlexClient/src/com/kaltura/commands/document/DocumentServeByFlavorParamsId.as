@@ -30,9 +30,14 @@ package com.kaltura.commands.document
 	import com.kaltura.delegates.document.DocumentServeByFlavorParamsIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves the file content
+	 * 
+	 **/
 	public class DocumentServeByFlavorParamsId extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param flavorParamsId String

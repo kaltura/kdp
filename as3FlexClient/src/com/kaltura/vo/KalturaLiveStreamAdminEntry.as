@@ -32,24 +32,28 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaLiveStreamAdminEntry extends KalturaLiveStreamEntry
 	{
-		/** 
-		* The broadcast primary ip
-	 		* */ 
+		/**
+		 * The broadcast primary ip
+		 * 
+		 **/
 		public var encodingIP1 : String = null;
 
-		/** 
-		* The broadcast secondary ip
-	 		* */ 
+		/**
+		 * The broadcast secondary ip
+		 * 
+		 **/
 		public var encodingIP2 : String = null;
 
-		/** 
-		* The broadcast password
-	 		* */ 
+		/**
+		 * The broadcast password
+		 * 
+		 **/
 		public var streamPassword : String = null;
 
-		/** 
-		* The broadcast username
-	 		* */ 
+		/**
+		 * The broadcast username
+		 * 
+		 **/
 		public var streamUsername : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -68,6 +72,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

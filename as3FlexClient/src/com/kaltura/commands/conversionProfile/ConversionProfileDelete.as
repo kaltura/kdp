@@ -30,9 +30,14 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.delegates.conversionProfile.ConversionProfileDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete Conversion Profile by ID
+	 * 
+	 **/
 	public class ConversionProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

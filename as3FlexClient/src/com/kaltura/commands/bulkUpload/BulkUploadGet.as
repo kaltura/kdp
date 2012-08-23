@@ -30,9 +30,14 @@ package com.kaltura.commands.bulkUpload
 	import com.kaltura.delegates.bulkUpload.BulkUploadGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get bulk upload batch job by id
+	 * 
+	 **/
 	public class BulkUploadGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

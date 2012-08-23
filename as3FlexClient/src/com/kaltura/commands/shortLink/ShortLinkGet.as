@@ -30,9 +30,14 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.delegates.shortLink.ShortLinkGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve an short link object by id
+	 * 
+	 **/
 	public class ShortLinkGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

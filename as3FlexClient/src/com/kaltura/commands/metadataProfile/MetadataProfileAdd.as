@@ -31,9 +31,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add a metadata profile object and metadata profile content associated with Kaltura object type
+	 * 
+	 **/
 	public class MetadataProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param metadataProfile KalturaMetadataProfile
 		 * @param xsdData String

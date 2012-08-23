@@ -30,9 +30,14 @@ package com.kaltura.commands.permissionItem
 	import com.kaltura.delegates.permissionItem.PermissionItemGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieves a permission item object using its ID.
+	 * 
+	 **/
 	public class PermissionItemGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param permissionItemId int
 		 **/

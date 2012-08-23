@@ -32,9 +32,16 @@ package com.kaltura.commands.userRole
 	import com.kaltura.delegates.userRole.UserRoleListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Lists user role objects that are associated with an account.
+	 * Blocked user roles are listed unless you use a filter to exclude them.
+	 * Deleted user roles are not listed unless you use a filter to include them.
+	 * 
+	 **/
 	public class UserRoleList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaUserRoleFilter
 		 * @param pager KalturaFilterPager

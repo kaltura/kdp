@@ -30,9 +30,14 @@ package com.kaltura.commands.adminUser
 	import com.kaltura.delegates.adminUser.AdminUserUpdatePasswordDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update admin user password and email
+	 * 
+	 **/
 	public class AdminUserUpdatePassword extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param email String
 		 * @param password String

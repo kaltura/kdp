@@ -30,9 +30,14 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.delegates.categoryUser.CategoryUserGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get CategoryUser by id
+	 * 
+	 **/
 	public class CategoryUserGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param categoryId int
 		 * @param userId String

@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAddFromEntryDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Copy entry into new entry
+	 * 
+	 **/
 	public class MediaAddFromEntry extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param sourceEntryId String
 		 * @param mediaEntry KalturaMediaEntry

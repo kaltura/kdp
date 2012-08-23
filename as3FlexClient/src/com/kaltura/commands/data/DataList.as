@@ -32,9 +32,14 @@ package com.kaltura.commands.data
 	import com.kaltura.delegates.data.DataListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List data entries by filter with paging support.
+	 * 
+	 **/
 	public class DataList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaDataEntryFilter
 		 * @param pager KalturaFilterPager

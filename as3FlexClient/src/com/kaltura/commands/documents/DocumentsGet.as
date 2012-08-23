@@ -30,9 +30,14 @@ package com.kaltura.commands.documents
 	import com.kaltura.delegates.documents.DocumentsGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get document entry by ID.
+	 * 
+	 **/
 	public class DocumentsGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param version int

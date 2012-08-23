@@ -30,9 +30,14 @@ package com.kaltura.commands.accessControlProfile
 	import com.kaltura.delegates.accessControlProfile.AccessControlProfileGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get access control profile by id
+	 * 
+	 **/
 	public class AccessControlProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

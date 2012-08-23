@@ -31,9 +31,14 @@ package com.kaltura.commands.documents
 	import com.kaltura.delegates.documents.DocumentsAddFromFlavorAssetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Copy flavor asset into new entry
+	 * 
+	 **/
 	public class DocumentsAddFromFlavorAsset extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param sourceFlavorAssetId String
 		 * @param documentEntry KalturaDocumentEntry

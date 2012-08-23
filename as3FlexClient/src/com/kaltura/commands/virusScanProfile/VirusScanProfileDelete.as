@@ -30,9 +30,14 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Mark the virus scan profile as deleted
+	 * 
+	 **/
 	public class VirusScanProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param virusScanProfileId int
 		 **/

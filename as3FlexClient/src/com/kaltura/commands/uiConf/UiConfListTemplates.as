@@ -32,9 +32,14 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.delegates.uiConf.UiConfListTemplatesDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * retrieve a list of available template UIConfs
+	 * 
+	 **/
 	public class UiConfListTemplates extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaUiConfFilter
 		 * @param pager KalturaFilterPager

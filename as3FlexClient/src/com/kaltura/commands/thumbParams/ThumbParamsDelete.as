@@ -30,9 +30,14 @@ package com.kaltura.commands.thumbParams
 	import com.kaltura.delegates.thumbParams.ThumbParamsDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete Thumb Params by ID
+	 * 
+	 **/
 	public class ThumbParamsDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

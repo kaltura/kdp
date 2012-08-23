@@ -30,9 +30,14 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserUpdateLoginDataDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Updates a user's login data: email, password, name.
+	 * 
+	 **/
 	public class UserUpdateLoginData extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param oldLoginId String
 		 * @param password String

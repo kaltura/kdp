@@ -31,9 +31,15 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAddContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add content to media entry which is not yet associated with content (therefore is in status NO_CONTENT).
+	 * If the requirement is to replace the entry's associated content, use action updateContent.
+	 * 
+	 **/
 	public class MediaAddContent extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param resource KalturaResource

@@ -32,9 +32,12 @@ package com.kaltura.commands.tag
 	import com.kaltura.delegates.tag.TagSearchDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class TagSearch extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param tagFilter KalturaTagFilter
 		 * @param pager KalturaFilterPager

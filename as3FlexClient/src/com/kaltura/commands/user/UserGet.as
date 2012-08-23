@@ -30,9 +30,14 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieves a user object for a specified user ID.
+	 * 
+	 **/
 	public class UserGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userId String
 		 **/

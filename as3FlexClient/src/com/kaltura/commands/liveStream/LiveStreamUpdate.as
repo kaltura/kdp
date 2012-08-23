@@ -31,9 +31,14 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.delegates.liveStream.LiveStreamUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update live stream entry. Only the properties that were set will be updated.
+	 * 
+	 **/
 	public class LiveStreamUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param liveStreamEntry KalturaLiveStreamAdminEntry

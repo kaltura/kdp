@@ -32,41 +32,46 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaLiveStreamEntry extends KalturaMediaEntry
 	{
-		/** 
-		* The message to be presented when the stream is offline
-	 		* */ 
+		/**
+		 * The message to be presented when the stream is offline
+		 * 
+		 **/
 		public var offlineMessage : String = null;
 
-		/** 
-		* The stream id as provided by the provider
-	 		* */ 
+		/**
+		 * The stream id as provided by the provider
+		 * 
+		 **/
 		public var streamRemoteId : String = null;
 
-		/** 
-		* The backup stream id as provided by the provider
-	 		* */ 
+		/**
+		 * The backup stream id as provided by the provider
+		 * 
+		 **/
 		public var streamRemoteBackupId : String = null;
 
-		/** 
-		* Array of supported bitrates
-	 		* */ 
+		/**
+		 * Array of supported bitrates
+		 * 
+		 **/
 		public var bitrates : Array = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var primaryBroadcastingUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var secondaryBroadcastingUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var streamName : String = null;
 
-		/** 
-		* The stream url
-	 		* */ 
+		/**
+		 * The stream url
+		 * 
+		 **/
 		public var streamUrl : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -88,6 +93,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

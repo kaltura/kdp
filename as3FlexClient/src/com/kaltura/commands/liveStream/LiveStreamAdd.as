@@ -31,9 +31,15 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.delegates.liveStream.LiveStreamAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds new live stream entry.
+	 * The entry will be queued for provision.
+	 * 
+	 **/
 	public class LiveStreamAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param liveStreamEntry KalturaLiveStreamAdminEntry
 		 * @param sourceType String

@@ -31,9 +31,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add thumbnail asset
+	 * 
+	 **/
 	public class ThumbAssetAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param thumbAsset KalturaThumbAsset

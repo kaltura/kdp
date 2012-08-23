@@ -31,9 +31,15 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds a new mix.
+	 * If the dataContent is null, a default timeline will be created.
+	 * 
+	 **/
 	public class MixingAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mixEntry KalturaMixEntry
 		 **/

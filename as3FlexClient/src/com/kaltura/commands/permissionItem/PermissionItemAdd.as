@@ -31,9 +31,15 @@ package com.kaltura.commands.permissionItem
 	import com.kaltura.delegates.permissionItem.PermissionItemAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds a new permission item object to the account.
+	 * This action is available only to Kaltura system administrators.
+	 * 
+	 **/
 	public class PermissionItemAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param permissionItem KalturaPermissionItem
 		 **/

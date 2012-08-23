@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaTimeContextField extends KalturaIntegerField
 	{
-		/** 
-		* Time offset in seconds since current time
-	 		* */ 
+		/**
+		 * Time offset in seconds since current time
+		 * 
+		 **/
 		public var offset : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

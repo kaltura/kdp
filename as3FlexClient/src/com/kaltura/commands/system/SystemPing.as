@@ -30,9 +30,12 @@ package com.kaltura.commands.system
 	import com.kaltura.delegates.system.SystemPingDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class SystemPing extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 **/
 		public function SystemPing(  )

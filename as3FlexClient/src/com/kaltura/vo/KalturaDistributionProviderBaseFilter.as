@@ -32,12 +32,13 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDistributionProviderBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDistributionProviderType
+		 **/
 		public var typeEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var typeIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -55,6 +56,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

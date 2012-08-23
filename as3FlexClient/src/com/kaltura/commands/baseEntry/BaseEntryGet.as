@@ -30,9 +30,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get base entry by ID.
+	 * 
+	 **/
 	public class BaseEntryGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param version int

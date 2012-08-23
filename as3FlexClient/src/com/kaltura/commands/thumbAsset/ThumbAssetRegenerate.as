@@ -30,9 +30,12 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetRegenerateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class ThumbAssetRegenerate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param thumbAssetId String
 		 **/

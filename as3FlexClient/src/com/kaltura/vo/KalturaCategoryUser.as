@@ -28,51 +28,68 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaCategoryUser extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoryId : int = int.MIN_VALUE;
 
-		/** 
-		* User id
-	 		* */ 
+		/**
+		 * User id
+		 * 
+		 **/
 		public var userId : String = null;
 
-		/** 
-		* Partner id
-	 		* */ 
+		/**
+		 * Partner id
+		 * 
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* Permission level
-	 		* */ 
+		/**
+		 * Permission level
+		 * 
+		 * @see com.kaltura.types.KalturaCategoryUserPermissionLevel
+		 **/
 		public var permissionLevel : int = int.MIN_VALUE;
 
-		/** 
-		* Status
-	 		* */ 
+		/**
+		 * Status
+		 * 
+		 * @see com.kaltura.types.KalturaCategoryUserStatus
+		 **/
 		public var status : int = int.MIN_VALUE;
 
-		/** 
-		* CategoryUser creation date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * CategoryUser creation date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* CategoryUser update date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * CategoryUser update date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
-		/** 
-		* Update method can be either manual or automatic to distinguish between manual operations (for example in KMC) on automatic - using bulk upload 
-	 		* */ 
+		/**
+		 * Update method can be either manual or automatic to distinguish between manual operations (for example in KMC) on automatic - using bulk upload
+		 * 
+		 * @see com.kaltura.types.KalturaUpdateMethodType
+		 **/
 		public var updateMethod : int = int.MIN_VALUE;
 
+		/**
+		 * The full ids of the Category
+		 * 
+		 **/
+		public var categoryFullIds : String = null;
+
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -83,8 +100,8 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
@@ -93,6 +110,5 @@ package com.kaltura.vo
 			arr.push('userId');
 			return arr;
 		}
-
 	}
 }

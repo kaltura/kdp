@@ -71,5 +71,6 @@ package com.kaltura.types
 		public static const DROP_FOLDER_WATCHER : String = 'dropFolder.DropFolderWatcher';
 		public static const DROP_FOLDER_HANDLER : String = 'dropFolder.DropFolderHandler';
 		public static const PARSE_CAPTION_ASSET : String = 'captionSearch.parseCaptionAsset';
+		public static const EVENT_NOTIFICATION_HANDLER : String = 'eventNotification.EventNotificationHandler';
 	}
 }

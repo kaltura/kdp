@@ -28,156 +28,166 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaUser extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var id : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var screenName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fullName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var email : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var dateOfBirth : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var country : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var state : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var city : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var zip : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbnailUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var description : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tags : String = null;
 
-		/** 
-		* Admin tags can be updated only by using an admin session
-	 		* */ 
+		/**
+		 * Admin tags can be updated only by using an admin session
+		 * 
+		 **/
 		public var adminTags : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaGender
+		 **/
 		public var gender : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaUserStatus
+		 **/
 		public var status : int = int.MIN_VALUE;
 
-		/** 
-		* Creation date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * Creation date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* Last update date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * Last update date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
-		/** 
-		* Can be used to store various partner related data as a string 
-	 		* */ 
+		/**
+		 * Can be used to store various partner related data as a string
+		 * 
+		 **/
 		public var partnerData : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var indexedPartnerDataInt : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var indexedPartnerDataString : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var storageSize : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var password : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var firstName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var lastName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isAdmin : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var lastLoginTime : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var statusUpdatedAt : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var deletedAt : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var loginEnabled : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var roleIds : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var roleNames : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var isAccountOwner : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowedPartnerIds : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowedPartnerPackages : String = null;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -209,8 +219,8 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
@@ -219,6 +229,5 @@ package com.kaltura.vo
 			arr.push('password');
 			return arr;
 		}
-
 	}
 }

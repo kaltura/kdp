@@ -32,13 +32,17 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaEndUserReportInputFilter extends KalturaReportInputFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var application : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var userIds : String = null;
+
+		/**
+		 **/
+		public var playbackContext : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -46,6 +50,7 @@ package com.kaltura.vo
 			arr = super.getUpdateableParamKeys();
 			arr.push('application');
 			arr.push('userIds');
+			arr.push('playbackContext');
 			return arr;
 		}
 
@@ -55,6 +60,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

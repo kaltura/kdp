@@ -30,9 +30,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingCloneDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Clones an existing mix.
+	 * 
+	 **/
 	public class MixingClone extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

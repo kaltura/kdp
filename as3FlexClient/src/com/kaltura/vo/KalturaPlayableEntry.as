@@ -32,39 +32,47 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaPlayableEntry extends KalturaBaseEntry
 	{
-		/** 
-		* Number of plays
-	 		* */ 
+		/**
+		 * Number of plays
+		 * 
+		 **/
 		public var plays : int = int.MIN_VALUE;
 
-		/** 
-		* Number of views
-	 		* */ 
+		/**
+		 * Number of views
+		 * 
+		 **/
 		public var views : int = int.MIN_VALUE;
 
-		/** 
-		* The width in pixels
-	 		* */ 
+		/**
+		 * The width in pixels
+		 * 
+		 **/
 		public var width : int = int.MIN_VALUE;
 
-		/** 
-		* The height in pixels
-	 		* */ 
+		/**
+		 * The height in pixels
+		 * 
+		 **/
 		public var height : int = int.MIN_VALUE;
 
-		/** 
-		* The duration in seconds
-	 		* */ 
+		/**
+		 * The duration in seconds
+		 * 
+		 **/
 		public var duration : int = int.MIN_VALUE;
 
-		/** 
-		* The duration in miliseconds
-	 		* */ 
+		/**
+		 * The duration in miliseconds
+		 * 
+		 **/
 		public var msDuration : int = int.MIN_VALUE;
 
-		/** 
-		* The duration type (short for 0-4 mins, medium for 4-20 mins, long for 20+ mins)
-	 		* */ 
+		/**
+		 * The duration type (short for 0-4 mins, medium for 4-20 mins, long for 20+ mins)
+		 * 
+		 * @see com.kaltura.types.KalturaDurationType
+		 **/
 		public var durationType : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -81,6 +89,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

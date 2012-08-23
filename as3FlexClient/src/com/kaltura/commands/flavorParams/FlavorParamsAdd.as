@@ -31,9 +31,14 @@ package com.kaltura.commands.flavorParams
 	import com.kaltura.delegates.flavorParams.FlavorParamsAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new Flavor Params
+	 * 
+	 **/
 	public class FlavorParamsAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param flavorParams KalturaFlavorParams
 		 **/

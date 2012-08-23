@@ -31,10 +31,15 @@ package com.kaltura.commands.metadata
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.metadata.MetadataAddFromFileDelegate;
 
+	/**
+	 * Allows you to add a metadata object and metadata file associated with Kaltura object
+	 * 
+	 **/
 	public class MetadataAddFromFile extends KalturaFileCall
 	{
 		public var xmlFile:Object;
 
+		
 		/**
 		 * @param metadataProfileId int
 		 * @param objectType String

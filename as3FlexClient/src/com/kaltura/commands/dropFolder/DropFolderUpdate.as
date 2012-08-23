@@ -31,9 +31,14 @@ package com.kaltura.commands.dropFolder
 	import com.kaltura.delegates.dropFolder.DropFolderUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update an existing KalturaDropFolder object
+	 * 
+	 **/
 	public class DropFolderUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param dropFolderId int
 		 * @param dropFolder KalturaDropFolder

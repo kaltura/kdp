@@ -30,9 +30,14 @@ package com.kaltura.commands.annotation
 	import com.kaltura.delegates.annotation.AnnotationDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * delete cue point by id, and delete all children cue points
+	 * 
+	 **/
 	public class AnnotationDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

@@ -31,9 +31,14 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update exisitng virus scan profile, it is possible to update the virus scan profile id too
+	 * 
+	 **/
 	public class VirusScanProfileUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param virusScanProfileId int
 		 * @param virusScanProfile KalturaVirusScanProfile

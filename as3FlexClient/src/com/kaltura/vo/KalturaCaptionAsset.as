@@ -32,39 +32,51 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCaptionAsset extends KalturaAsset
 	{
-		/** 
-		* The Caption Params used to create this Caption Asset
-	 		* */ 
+		/**
+		 * The Caption Params used to create this Caption Asset
+		 * 
+		 **/
 		public var captionParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* The language of the caption asset content
-	 		* */ 
+		/**
+		 * The language of the caption asset content
+		 * 
+		 * @see com.kaltura.types.KalturaLanguage
+		 **/
 		public var language : String = null;
 
-		/** 
-		* The language of the caption asset content
-	 		* */ 
+		/**
+		 * The language of the caption asset content
+		 * 
+		 * @see com.kaltura.types.KalturaLanguageCode
+		 **/
 		public var languageCode : String = null;
 
-		/** 
-		* Is default caption asset of the entry
-	 		* */ 
+		/**
+		 * Is default caption asset of the entry
+		 * 
+		 * @see com.kaltura.types.KalturaNullableBoolean
+		 **/
 		public var isDefault : int = int.MIN_VALUE;
 
-		/** 
-		* Friendly label
-	 		* */ 
+		/**
+		 * Friendly label
+		 * 
+		 **/
 		public var label : String = null;
 
-		/** 
-		* The caption format
-	 		* */ 
+		/**
+		 * The caption format
+		 * 
+		 * @see com.kaltura.types.KalturaCaptionType
+		 **/
 		public var format : String = null;
 
-		/** 
-		* The status of the asset
-	 		* */ 
+		/**
+		 * The status of the asset
+		 * 
+		 * @see com.kaltura.types.KalturaCaptionAssetStatus
+		 **/
 		public var status : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -85,6 +97,5 @@ package com.kaltura.vo
 			arr.push('format');
 			return arr;
 		}
-
 	}
 }

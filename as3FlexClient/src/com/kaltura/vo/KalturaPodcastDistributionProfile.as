@@ -32,16 +32,16 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaPodcastDistributionProfile extends KalturaDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var xsl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var metadataProfileId : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -31,9 +31,15 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAddFromUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds new media entry by importing an HTTP or FTP URL.
+	 * The entry will be queued for import and then for conversion.
+	 * 
+	 **/
 	public class MediaAddFromUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mediaEntry KalturaMediaEntry
 		 * @param url String

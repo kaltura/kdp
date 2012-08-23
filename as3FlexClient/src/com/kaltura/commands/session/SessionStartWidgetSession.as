@@ -30,9 +30,14 @@ package com.kaltura.commands.session
 	import com.kaltura.delegates.session.SessionStartWidgetSessionDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Start a session for Kaltura's flash widgets
+	 * 
+	 **/
 	public class SessionStartWidgetSession extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param widgetId String
 		 * @param expiry int

@@ -32,9 +32,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List metadata profile objects by filter and pager
+	 * 
+	 **/
 	public class MetadataProfileList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaMetadataProfileFilter
 		 * @param pager KalturaFilterPager

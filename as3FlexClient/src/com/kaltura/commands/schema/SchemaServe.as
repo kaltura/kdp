@@ -30,9 +30,14 @@ package com.kaltura.commands.schema
 	import com.kaltura.delegates.schema.SchemaServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves the requested XSD according to the type and name.
+	 * 
+	 **/
 	public class SchemaServe extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param type String
 		 **/

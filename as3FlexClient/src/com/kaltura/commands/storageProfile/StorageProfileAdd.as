@@ -31,9 +31,14 @@ package com.kaltura.commands.storageProfile
 	import com.kaltura.delegates.storageProfile.StorageProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds a storage profile to the Kaltura DB.
+	 * 
+	 **/
 	public class StorageProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param storageProfile KalturaStorageProfile
 		 **/

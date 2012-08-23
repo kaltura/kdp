@@ -30,9 +30,14 @@ package com.kaltura.commands.dropFolderFile
 	import com.kaltura.delegates.dropFolderFile.DropFolderFileDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Mark the KalturaDropFolderFile object as deleted
+	 * 
+	 **/
 	public class DropFolderFileDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param dropFolderFileId int
 		 **/

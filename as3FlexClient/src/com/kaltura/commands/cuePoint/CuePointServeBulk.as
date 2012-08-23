@@ -32,9 +32,14 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.delegates.cuePoint.CuePointServeBulkDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Download multiple cue points objects as XML definitions
+	 * 
+	 **/
 	public class CuePointServeBulk extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaCuePointFilter
 		 * @param pager KalturaFilterPager

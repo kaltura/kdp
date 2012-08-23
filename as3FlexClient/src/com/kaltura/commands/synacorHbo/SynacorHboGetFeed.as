@@ -30,9 +30,12 @@ package com.kaltura.commands.synacorHbo
 	import com.kaltura.delegates.synacorHbo.SynacorHboGetFeedDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class SynacorHboGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param distributionProfileId int
 		 * @param hash String

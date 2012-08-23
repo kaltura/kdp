@@ -31,9 +31,14 @@ package com.kaltura.commands.flavorParams
 	import com.kaltura.delegates.flavorParams.FlavorParamsUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update Flavor Params by ID
+	 * 
+	 **/
 	public class FlavorParamsUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param flavorParams KalturaFlavorParams

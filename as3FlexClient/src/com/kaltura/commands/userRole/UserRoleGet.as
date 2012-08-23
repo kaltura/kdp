@@ -30,9 +30,14 @@ package com.kaltura.commands.userRole
 	import com.kaltura.delegates.userRole.UserRoleGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieves a user role object using its ID.
+	 * 
+	 **/
 	public class UserRoleGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userRoleId int
 		 **/

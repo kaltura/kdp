@@ -30,9 +30,14 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserResetPasswordDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Reset user's password and send the user an email to generate a new one.
+	 * 
+	 **/
 	public class UserResetPassword extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param email String
 		 **/

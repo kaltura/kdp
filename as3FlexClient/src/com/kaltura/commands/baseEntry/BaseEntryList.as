@@ -32,9 +32,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List base entries by filter with paging support.
+	 * 
+	 **/
 	public class BaseEntryList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaBaseEntryFilter
 		 * @param pager KalturaFilterPager

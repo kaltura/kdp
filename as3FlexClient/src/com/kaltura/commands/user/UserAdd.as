@@ -31,9 +31,15 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds a new user to an existing account in the Kaltura database.
+	 * Input param $id is the unique identifier in the partner's system.
+	 * 
+	 **/
 	public class UserAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param user KalturaUser
 		 **/

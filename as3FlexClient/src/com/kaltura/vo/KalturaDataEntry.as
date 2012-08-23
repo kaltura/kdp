@@ -32,14 +32,17 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDataEntry extends KalturaBaseEntry
 	{
-		/** 
-		* The data of the entry
-	 		* */ 
+		/**
+		 * The data of the entry
+		 * 
+		 **/
 		public var dataContent : String = null;
 
-		/** 
-		* indicator whether to return the object for get action with the dataContent field.
-	 		* */ 
+		/**
+		 * indicator whether to return the object for get action with the dataContent field.
+		 * 
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var retrieveDataContentByGet : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -57,6 +60,5 @@ package com.kaltura.vo
 			arr.push('retrieveDataContentByGet');
 			return arr;
 		}
-
 	}
 }

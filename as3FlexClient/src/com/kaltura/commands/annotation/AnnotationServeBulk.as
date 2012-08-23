@@ -32,9 +32,14 @@ package com.kaltura.commands.annotation
 	import com.kaltura.delegates.annotation.AnnotationServeBulkDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Download multiple cue points objects as XML definitions
+	 * 
+	 **/
 	public class AnnotationServeBulk extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaCuePointFilter
 		 * @param pager KalturaFilterPager

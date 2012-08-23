@@ -32,9 +32,14 @@ package com.kaltura.commands.report
 	import com.kaltura.delegates.report.ReportGetUrlForReportAsCsvDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * will create a Csv file for the given report and return the URL to access it
+	 * 
+	 **/
 	public class ReportGetUrlForReportAsCsv extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param reportTitle String
 		 * @param reportText String

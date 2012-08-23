@@ -32,28 +32,28 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaReportBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var systemNameEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var systemNameIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -75,6 +75,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

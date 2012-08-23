@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaRejectDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Reject the media entry and mark the pending flags (if any) as moderated (this will make the entry non playable)
+	 * 
+	 **/
 	public class MediaReject extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaApproveReplaceDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Approves media replacement
+	 * 
+	 **/
 	public class MediaApproveReplace extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

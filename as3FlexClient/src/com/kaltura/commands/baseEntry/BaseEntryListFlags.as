@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryListFlagsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List all pending flags for the entry.
+	 * 
+	 **/
 	public class BaseEntryListFlags extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param pager KalturaFilterPager

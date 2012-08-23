@@ -30,9 +30,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete Entry Distribution by id
+	 * 
+	 **/
 	public class EntryDistributionDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

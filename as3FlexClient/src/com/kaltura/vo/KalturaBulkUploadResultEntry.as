@@ -32,73 +32,90 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaBulkUploadResultEntry extends KalturaBulkUploadResult
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var entryId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var title : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var description : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tags : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var url : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var contentType : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var conversionProfileId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var accessControlProfileId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var category : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var scheduleStartDate : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var scheduleEndDate : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var entryStatus : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbnailUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var thumbnailSaved : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sshPrivateKey : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sshPublicKey : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sshKeyPassphrase : String = null;
+
+		/**
+		 **/
+		public var creatorId : String = null;
+
+		/**
+		 **/
+		public var entitledUsersEdit : String = null;
+
+		/**
+		 **/
+		public var entitledUsersPublish : String = null;
+
+		/**
+		 **/
+		public var ownerId : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -121,6 +138,10 @@ package com.kaltura.vo
 			arr.push('sshPrivateKey');
 			arr.push('sshPublicKey');
 			arr.push('sshKeyPassphrase');
+			arr.push('creatorId');
+			arr.push('entitledUsersEdit');
+			arr.push('entitledUsersPublish');
+			arr.push('ownerId');
 			return arr;
 		}
 
@@ -130,6 +151,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

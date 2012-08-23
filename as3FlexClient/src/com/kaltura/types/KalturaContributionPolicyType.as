@@ -30,6 +30,6 @@ package com.kaltura.types
 	public class KalturaContributionPolicyType
 	{
 		public static const ALL : int = 1;
-		public static const MODERATOR : int = 2;
+		public static const MEMBERS_WITH_CONTRIBUTION_PERMISSION : int = 2;
 	}
 }

@@ -30,9 +30,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete a mix entry.
+	 * 
+	 **/
 	public class MixingDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

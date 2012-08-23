@@ -32,9 +32,15 @@ package com.kaltura.commands.uploadToken
 	import com.kaltura.delegates.uploadToken.UploadTokenListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List upload token by filter with pager support.
+	 * When using a user session the service will be restricted to users objects only.
+	 * 
+	 **/
 	public class UploadTokenList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaUploadTokenFilter
 		 * @param pager KalturaFilterPager

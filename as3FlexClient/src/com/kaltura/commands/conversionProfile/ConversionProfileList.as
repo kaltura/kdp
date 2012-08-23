@@ -32,9 +32,14 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.delegates.conversionProfile.ConversionProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List Conversion Profiles by filter with paging support
+	 * 
+	 **/
 	public class ConversionProfileList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaConversionProfileFilter
 		 * @param pager KalturaFilterPager

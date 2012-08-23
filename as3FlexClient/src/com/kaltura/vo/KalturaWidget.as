@@ -28,61 +28,77 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaWidget extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var id : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sourceWidgetId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var rootWidgetId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var entryId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var uiConfId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaWidgetSecurityType
+		 **/
 		public var securityType : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var securityPolicy : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
-		/** 
-		* Can be used to store various partner related data as a string 
-	 		* */ 
+		/**
+		 * Can be used to store various partner related data as a string
+		 * 
+		 **/
 		public var partnerData : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var widgetHTML : String = null;
 
+		/**
+		 * Should enforce entitlement on feed entries
+		 * 
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var enforceEntitlement : Boolean;
+
+		/**
+		 * Set privacy context for search entries that assiged to private and public categories within a category privacy context.
+		 * 
+		 **/
+		public var privacyContext : String = null;
+
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -93,18 +109,19 @@ package com.kaltura.vo
 			arr.push('securityType');
 			arr.push('securityPolicy');
 			arr.push('partnerData');
+			arr.push('enforceEntitlement');
+			arr.push('privacyContext');
 			return arr;
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

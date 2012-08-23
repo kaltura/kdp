@@ -30,9 +30,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get Entry Distribution by id
+	 * 
+	 **/
 	public class EntryDistributionGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

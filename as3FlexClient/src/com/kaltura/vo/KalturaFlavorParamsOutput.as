@@ -32,28 +32,28 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaFlavorParamsOutput extends KalturaFlavorParams
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flavorParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var commandLinesStr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flavorParamsVersion : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flavorAssetId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flavorAssetVersion : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var readyBehavior : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -75,6 +75,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

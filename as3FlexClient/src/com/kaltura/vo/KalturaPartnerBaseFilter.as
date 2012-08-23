@@ -32,52 +32,57 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaPartnerBaseFilter extends KalturaFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
+		public var idNotIn : String = null;
+
+		/**
+		 **/
 		public var nameLike : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var nameMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var nameMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var nameEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaPartnerStatus
+		 **/
 		public var statusEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var statusIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerPackageEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerPackageGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerPackageLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerNameDescriptionWebsiteAdminNameAdminEmailLike : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -86,6 +91,7 @@ package com.kaltura.vo
 			arr = super.getUpdateableParamKeys();
 			arr.push('idEqual');
 			arr.push('idIn');
+			arr.push('idNotIn');
 			arr.push('nameLike');
 			arr.push('nameMultiLikeOr');
 			arr.push('nameMultiLikeAnd');
@@ -105,6 +111,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

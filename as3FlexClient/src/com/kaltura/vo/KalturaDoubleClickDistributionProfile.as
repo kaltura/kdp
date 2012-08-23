@@ -32,28 +32,28 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDoubleClickDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelTitle : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelLink : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelDescription : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var cuePointsProvider : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var itemsPerPage : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -74,6 +74,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

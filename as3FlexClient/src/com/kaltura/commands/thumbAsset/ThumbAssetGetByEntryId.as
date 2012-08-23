@@ -30,9 +30,12 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetGetByEntryIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class ThumbAssetGetByEntryId extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

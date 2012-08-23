@@ -28,38 +28,39 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaFeatureStatus extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
-		public var statusType : int = int.MIN_VALUE;
+		/**
+		 * @see com.kaltura.types.KalturaFeatureStatusType
+		 **/
+		public var type : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var value : int = int.MIN_VALUE;
 
 		/** 
-		* 		* */ 
-		public var statusValue : int = int.MIN_VALUE;
-
-		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
-			arr.push('statusType');
-			arr.push('statusValue');
+			arr.push('type');
+			arr.push('value');
 			return arr;
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

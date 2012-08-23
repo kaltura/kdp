@@ -32,12 +32,13 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCaptionParamsBaseFilter extends KalturaAssetParamsFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaCaptionType
+		 **/
 		public var formatEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var formatIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -55,6 +56,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

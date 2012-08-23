@@ -28,44 +28,47 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaGenericDistributionProfileAction extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDistributionProtocol
+		 **/
 		public var protocol : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var serverUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var serverPath : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var username : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var password : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var ftpPassiveMode : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var httpFieldName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var httpFileName : String = null;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -82,14 +85,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

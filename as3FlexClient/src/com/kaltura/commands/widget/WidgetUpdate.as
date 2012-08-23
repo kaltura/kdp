@@ -31,9 +31,14 @@ package com.kaltura.commands.widget
 	import com.kaltura.delegates.widget.WidgetUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update exisiting widget
+	 * 
+	 **/
 	public class WidgetUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param widget KalturaWidget

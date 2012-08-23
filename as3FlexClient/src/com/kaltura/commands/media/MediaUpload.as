@@ -31,10 +31,15 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.media.MediaUploadDelegate;
 
+	/**
+	 * Upload a media file to Kaltura, then the file can be used to create a media entry.
+	 * 
+	 **/
 	public class MediaUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
+		
 		/**
 		 * @param fileData Object - FileReference or ByteArray
 		 **/

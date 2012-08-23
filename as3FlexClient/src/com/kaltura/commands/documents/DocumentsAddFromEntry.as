@@ -31,9 +31,14 @@ package com.kaltura.commands.documents
 	import com.kaltura.delegates.documents.DocumentsAddFromEntryDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Copy entry into new entry
+	 * 
+	 **/
 	public class DocumentsAddFromEntry extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param sourceEntryId String
 		 * @param documentEntry KalturaDocumentEntry

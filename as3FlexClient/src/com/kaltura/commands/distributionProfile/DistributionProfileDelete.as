@@ -30,9 +30,14 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.delegates.distributionProfile.DistributionProfileDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete Distribution Profile by id
+	 * 
+	 **/
 	public class DistributionProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

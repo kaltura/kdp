@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaPreviewRestriction extends KalturaSessionRestriction
 	{
-		/** 
-		* The preview restriction length 
-	 		* */ 
+		/**
+		 * The preview restriction length
+		 * 
+		 **/
 		public var previewLength : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

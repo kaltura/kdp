@@ -28,57 +28,68 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaUploadToken extends BaseFlexVo
 	{
-		/** 
-		* Upload token unique ID
-	 		* */ 
+		/**
+		 * Upload token unique ID
+		 * 
+		 **/
 		public var id : String = null;
 
-		/** 
-		* Partner ID of the upload token
-	 		* */ 
+		/**
+		 * Partner ID of the upload token
+		 * 
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* User id for the upload token
-	 		* */ 
+		/**
+		 * User id for the upload token
+		 * 
+		 **/
 		public var userId : String = null;
 
-		/** 
-		* Status of the upload token
-	 		* */ 
+		/**
+		 * Status of the upload token
+		 * 
+		 * @see com.kaltura.types.KalturaUploadTokenStatus
+		 **/
 		public var status : int = int.MIN_VALUE;
 
-		/** 
-		* Name of the file for the upload token, can be empty when the upload token is created and will be updated internally after the file is uploaded
-	 		* */ 
+		/**
+		 * Name of the file for the upload token, can be empty when the upload token is created and will be updated internally after the file is uploaded
+		 * 
+		 **/
 		public var fileName : String = null;
 
-		/** 
-		* File size in bytes, can be empty when the upload token is created and will be updated internally after the file is uploaded
-	 		* */ 
+		/**
+		 * File size in bytes, can be empty when the upload token is created and will be updated internally after the file is uploaded
+		 * 
+		 **/
 		public var fileSize : Number = Number.NEGATIVE_INFINITY;
 
-		/** 
-		* Uploaded file size in bytes, can be used to identify how many bytes were uploaded before resuming
-	 		* */ 
+		/**
+		 * Uploaded file size in bytes, can be used to identify how many bytes were uploaded before resuming
+		 * 
+		 **/
 		public var uploadedFileSize : Number = Number.NEGATIVE_INFINITY;
 
-		/** 
-		* Creation date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * Creation date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* Last update date as Unix timestamp (In seconds)
-	 		* */ 
+		/**
+		 * Last update date as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -87,8 +98,8 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
@@ -97,6 +108,5 @@ package com.kaltura.vo
 			arr.push('fileSize');
 			return arr;
 		}
-
 	}
 }

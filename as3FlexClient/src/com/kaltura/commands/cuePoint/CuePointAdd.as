@@ -31,9 +31,14 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.delegates.cuePoint.CuePointAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add an cue point object associated with an entry
+	 * 
+	 **/
 	public class CuePointAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param cuePoint KalturaCuePoint
 		 **/

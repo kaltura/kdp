@@ -30,9 +30,14 @@ package com.kaltura.commands.dropFolderFile
 	import com.kaltura.delegates.dropFolderFile.DropFolderFileUpdateStatusDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update status of KalturaDropFolderFile
+	 * 
+	 **/
 	public class DropFolderFileUpdateStatus extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param dropFolderFileId int
 		 * @param status int

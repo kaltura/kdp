@@ -31,9 +31,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Count mix entries by filter.
+	 * 
+	 **/
 	public class MixingCount extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaMediaEntryFilter
 		 **/

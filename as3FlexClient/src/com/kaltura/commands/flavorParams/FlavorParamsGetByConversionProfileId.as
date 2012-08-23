@@ -30,9 +30,14 @@ package com.kaltura.commands.flavorParams
 	import com.kaltura.delegates.flavorParams.FlavorParamsGetByConversionProfileIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get Flavor Params by Conversion Profile ID
+	 * 
+	 **/
 	public class FlavorParamsGetByConversionProfileId extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param conversionProfileId int
 		 **/

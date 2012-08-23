@@ -31,9 +31,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update Entry Distribution by id
+	 * 
+	 **/
 	public class EntryDistributionUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param entryDistribution KalturaEntryDistribution

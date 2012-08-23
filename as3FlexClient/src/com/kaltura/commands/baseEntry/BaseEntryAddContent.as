@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryAddContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Attach content resource to entry in status NO_MEDIA
+	 * 
+	 **/
 	public class BaseEntryAddContent extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param resource KalturaResource

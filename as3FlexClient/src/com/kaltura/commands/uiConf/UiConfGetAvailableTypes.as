@@ -30,9 +30,14 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.delegates.uiConf.UiConfGetAvailableTypesDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve a list of all available versions by object type
+	 * 
+	 **/
 	public class UiConfGetAvailableTypes extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 **/
 		public function UiConfGetAvailableTypes(  )

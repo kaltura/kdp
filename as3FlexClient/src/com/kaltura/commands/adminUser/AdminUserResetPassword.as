@@ -30,9 +30,14 @@ package com.kaltura.commands.adminUser
 	import com.kaltura.delegates.adminUser.AdminUserResetPasswordDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Reset admin user password and send it to the users email address
+	 * 
+	 **/
 	public class AdminUserResetPassword extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param email String
 		 **/

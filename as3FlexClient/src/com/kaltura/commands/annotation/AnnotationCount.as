@@ -31,9 +31,14 @@ package com.kaltura.commands.annotation
 	import com.kaltura.delegates.annotation.AnnotationCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * count cue point objects by filter
+	 * 
+	 **/
 	public class AnnotationCount extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaCuePointFilter
 		 **/

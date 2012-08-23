@@ -31,9 +31,14 @@ package com.kaltura.commands.uploadToken
 	import com.kaltura.delegates.uploadToken.UploadTokenAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds new upload token to upload a file
+	 * 
+	 **/
 	public class UploadTokenAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param uploadToken KalturaUploadToken
 		 **/

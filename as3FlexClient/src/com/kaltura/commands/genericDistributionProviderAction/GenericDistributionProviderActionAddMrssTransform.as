@@ -30,9 +30,14 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionAddMrssTransformDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add MRSS transform file to generic distribution provider action
+	 * 
+	 **/
 	public class GenericDistributionProviderActionAddMrssTransform extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param xslData String

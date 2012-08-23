@@ -32,84 +32,87 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaYouTubeDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var username : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var notificationEmail : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpHost : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpLogin : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpPublicKey : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpPrivateKey : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sftpBaseDir : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ownerName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var defaultCategory : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowComments : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowEmbedding : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowRatings : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var allowResponses : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var commercialPolicy : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ugcPolicy : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var target : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var adServerPartnerId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var enableAdServer : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var allowPreRollAds : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var allowPostRollAds : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -145,6 +148,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

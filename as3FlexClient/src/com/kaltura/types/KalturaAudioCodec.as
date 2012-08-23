@@ -37,6 +37,7 @@ package com.kaltura.types
 		public static const WMAPRO : String = 'wmapro';
 		public static const AMRNB : String = 'amrnb';
 		public static const MPEG2 : String = 'mpeg2';
+		public static const AC3 : String = 'ac3';
 		public static const COPY : String = 'copy';
 	}
 }

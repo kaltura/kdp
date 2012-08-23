@@ -30,9 +30,12 @@ package com.kaltura.commands.attachmentAsset
 	import com.kaltura.delegates.attachmentAsset.AttachmentAssetDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class AttachmentAssetDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param attachmentAssetId String
 		 **/

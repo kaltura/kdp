@@ -30,9 +30,14 @@ package com.kaltura.commands.notification
 	import com.kaltura.delegates.notification.NotificationGetClientNotificationDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Return the notifications for a specific entry id and type
+	 * 
+	 **/
 	public class NotificationGetClientNotification extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param type int

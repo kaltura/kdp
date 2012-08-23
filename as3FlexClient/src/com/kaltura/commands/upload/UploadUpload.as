@@ -31,10 +31,13 @@ package com.kaltura.commands.upload
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.upload.UploadUploadDelegate;
 
+	/**
+	 **/
 	public class UploadUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
+		
 		/**
 		 * @param fileData Object - FileReference or ByteArray
 		 **/

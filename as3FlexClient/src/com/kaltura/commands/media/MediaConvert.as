@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaConvertDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Convert entry
+	 * 
+	 **/
 	public class MediaConvert extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param conversionProfileId int

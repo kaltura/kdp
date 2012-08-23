@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaUploadedFileTokenResource extends KalturaDataCenterContentResource
 	{
-		/** 
-		* Token that returned from upload.upload action or uploadToken.add action. 
-	 		* */ 
+		/**
+		 * Token that returned from upload.upload action or uploadToken.add action.
+		 * 
+		 **/
 		public var token : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

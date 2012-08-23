@@ -33,6 +33,8 @@ package com.kaltura.types
 		public static const DEPTH_DESC : String = '-depth';
 		public static const NAME_ASC : String = '+name';
 		public static const NAME_DESC : String = '-name';
+		public static const FULL_NAME_ASC : String = '+fullName';
+		public static const FULL_NAME_DESC : String = '-fullName';
 		public static const ENTRIES_COUNT_ASC : String = '+entriesCount';
 		public static const ENTRIES_COUNT_DESC : String = '-entriesCount';
 		public static const CREATED_AT_ASC : String = '+createdAt';
@@ -41,7 +43,11 @@ package com.kaltura.types
 		public static const UPDATED_AT_DESC : String = '-updatedAt';
 		public static const DIRECT_ENTRIES_COUNT_ASC : String = '+directEntriesCount';
 		public static const DIRECT_ENTRIES_COUNT_DESC : String = '-directEntriesCount';
+		public static const MEMBERS_COUNT_ASC : String = '+membersCount';
+		public static const MEMBERS_COUNT_DESC : String = '-membersCount';
 		public static const PARTNER_SORT_VALUE_ASC : String = '+partnerSortValue';
 		public static const PARTNER_SORT_VALUE_DESC : String = '-partnerSortValue';
+		public static const DIRECT_SUB_CATEGORIES_COUNT_ASC : String = '+directSubCategoriesCount';
+		public static const DIRECT_SUB_CATEGORIES_COUNT_DESC : String = '-directSubCategoriesCount';
 	}
 }

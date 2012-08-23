@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Generic add entry, should be used when the uploaded entry type is not known.
+	 * 
+	 **/
 	public class BaseEntryAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entry KalturaBaseEntry
 		 * @param type String

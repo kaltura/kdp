@@ -30,9 +30,14 @@ package com.kaltura.commands.data
 	import com.kaltura.delegates.data.DataDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete a data entry.
+	 * 
+	 **/
 	public class DataDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

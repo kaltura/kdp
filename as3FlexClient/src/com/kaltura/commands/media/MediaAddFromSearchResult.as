@@ -32,9 +32,15 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAddFromSearchResultDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds new media entry by importing the media file from a search provider.
+	 * This action should be used with the search service result.
+	 * 
+	 **/
 	public class MediaAddFromSearchResult extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mediaEntry KalturaMediaEntry
 		 * @param searchResult KalturaSearchResult

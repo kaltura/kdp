@@ -31,10 +31,15 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.metadataProfile.MetadataProfileUpdateDefinitionFromFileDelegate;
 
+	/**
+	 * Update an existing metadata object definition file
+	 * 
+	 **/
 	public class MetadataProfileUpdateDefinitionFromFile extends KalturaFileCall
 	{
 		public var xsdFile:Object;
 
+		
 		/**
 		 * @param id int
 		 * @param xsdFile Object - FileReference or ByteArray

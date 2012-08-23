@@ -30,9 +30,14 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionAddResultsTransformDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add results transform file to generic distribution provider action
+	 * 
+	 **/
 	public class GenericDistributionProviderActionAddResultsTransform extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param transformData String

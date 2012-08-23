@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaUpdateThumbnailFromUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update entry thumbnail using url
+	 * 
+	 **/
 	public class MediaUpdateThumbnailFromUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param url String

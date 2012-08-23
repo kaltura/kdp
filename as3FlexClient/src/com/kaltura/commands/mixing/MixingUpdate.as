@@ -31,9 +31,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update mix entry. Only the properties that were set will be updated.
+	 * 
+	 **/
 	public class MixingUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param mixEntry KalturaMixEntry

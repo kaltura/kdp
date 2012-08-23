@@ -32,9 +32,14 @@ package com.kaltura.commands.auditTrail
 	import com.kaltura.delegates.auditTrail.AuditTrailListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List audit trail objects by filter and pager
+	 * 
+	 **/
 	public class AuditTrailList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaAuditTrailFilter
 		 * @param pager KalturaFilterPager

@@ -30,9 +30,14 @@ package com.kaltura.commands.metadata
 	import com.kaltura.delegates.metadata.MetadataServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Serves metadata XML file
+	 * 
+	 **/
 	public class MetadataServe extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

@@ -32,9 +32,14 @@ package com.kaltura.commands.accessControlProfile
 	import com.kaltura.delegates.accessControlProfile.AccessControlProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List access control profiles by filter and pager
+	 * 
+	 **/
 	public class AccessControlProfileList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaAccessControlProfileFilter
 		 * @param pager KalturaFilterPager

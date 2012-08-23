@@ -30,9 +30,14 @@ package com.kaltura.commands.auditTrail
 	import com.kaltura.delegates.auditTrail.AuditTrailGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve an audit trail object by id
+	 * 
+	 **/
 	public class AuditTrailGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

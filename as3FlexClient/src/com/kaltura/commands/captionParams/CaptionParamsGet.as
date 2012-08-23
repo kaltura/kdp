@@ -30,9 +30,14 @@ package com.kaltura.commands.captionParams
 	import com.kaltura.delegates.captionParams.CaptionParamsGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get Caption Params by ID
+	 * 
+	 **/
 	public class CaptionParamsGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

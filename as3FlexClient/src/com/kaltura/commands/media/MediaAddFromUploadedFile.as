@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAddFromUploadedFileDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new entry after the specific media file was uploaded and the upload token id exists
+	 * 
+	 **/
 	public class MediaAddFromUploadedFile extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mediaEntry KalturaMediaEntry
 		 * @param uploadTokenId String

@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaUpdateContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Replace content associated with the media entry.
+	 * 
+	 **/
 	public class MediaUpdateContent extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param resource KalturaResource

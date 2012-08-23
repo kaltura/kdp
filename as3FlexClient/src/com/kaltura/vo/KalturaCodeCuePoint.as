@@ -32,21 +32,22 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCodeCuePoint extends KalturaCuePoint
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var code : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var description : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endTime : int = int.MIN_VALUE;
 
-		/** 
-		* Duration in milliseconds
-	 		* */ 
+		/**
+		 * Duration in milliseconds
+		 * 
+		 **/
 		public var duration : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +66,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

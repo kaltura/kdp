@@ -30,9 +30,12 @@ package com.kaltura.commands.search
 	import com.kaltura.delegates.search.SearchExternalLoginDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class SearchExternalLogin extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param searchSource int
 		 * @param userName String

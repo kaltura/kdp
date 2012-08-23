@@ -32,20 +32,21 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDocumentEntryBaseFilter extends KalturaBaseEntryFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDocumentType
+		 **/
 		public var documentTypeEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var documentTypeIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var assetParamsIdsMatchOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var assetParamsIdsMatchAnd : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +66,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

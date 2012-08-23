@@ -32,17 +32,24 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaBaseEntryFilter extends KalturaBaseEntryBaseFilter
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var freeText : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaNullableBoolean
+		 **/
 		public var isRoot : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoriesFullNameIn : String = null;
+
+		/**
+		 * all entries within this categoy or in child categories
+		 * 
+		 **/
+		public var categoryAncestorIdIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -51,6 +58,7 @@ package com.kaltura.vo
 			arr.push('freeText');
 			arr.push('isRoot');
 			arr.push('categoriesFullNameIn');
+			arr.push('categoryAncestorIdIn');
 			return arr;
 		}
 
@@ -60,6 +68,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

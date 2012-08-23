@@ -30,9 +30,14 @@ package com.kaltura.commands.partner
 	import com.kaltura.delegates.partner.PartnerListFeatureStatusDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List partner's current processes' statuses
+	 * 
+	 **/
 	public class PartnerListFeatureStatus extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 **/
 		public function PartnerListFeatureStatus(  )

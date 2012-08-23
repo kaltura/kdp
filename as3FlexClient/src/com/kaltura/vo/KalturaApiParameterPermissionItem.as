@@ -32,16 +32,17 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaApiParameterPermissionItem extends KalturaPermissionItem
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var object : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var parameter : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaApiParameterPermissionItemAction
+		 **/
 		public var action : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -60,6 +61,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

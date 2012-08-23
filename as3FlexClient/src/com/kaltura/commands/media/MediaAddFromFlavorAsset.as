@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAddFromFlavorAssetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Copy flavor asset into new entry
+	 * 
+	 **/
 	public class MediaAddFromFlavorAsset extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param sourceFlavorAssetId String
 		 * @param mediaEntry KalturaMediaEntry

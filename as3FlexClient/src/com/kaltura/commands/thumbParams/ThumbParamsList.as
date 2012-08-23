@@ -32,9 +32,14 @@ package com.kaltura.commands.thumbParams
 	import com.kaltura.delegates.thumbParams.ThumbParamsListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List Thumb Params by filter with paging support (By default - all system default params will be listed too)
+	 * 
+	 **/
 	public class ThumbParamsList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaThumbParamsFilter
 		 * @param pager KalturaFilterPager

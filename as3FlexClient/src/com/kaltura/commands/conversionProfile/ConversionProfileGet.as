@@ -30,9 +30,14 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.delegates.conversionProfile.ConversionProfileGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get Conversion Profile by ID
+	 * 
+	 **/
 	public class ConversionProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

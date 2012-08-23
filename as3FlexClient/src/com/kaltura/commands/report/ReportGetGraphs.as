@@ -31,9 +31,14 @@ package com.kaltura.commands.report
 	import com.kaltura.delegates.report.ReportGetGraphsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * report getGraphs action allows to get a graph data for a specific report.
+	 * 
+	 **/
 	public class ReportGetGraphs extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param reportType int
 		 * @param reportInputFilter KalturaReportInputFilter

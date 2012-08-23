@@ -31,9 +31,14 @@ package com.kaltura.commands.attachmentAsset
 	import com.kaltura.delegates.attachmentAsset.AttachmentAssetSetContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update content of attachment asset
+	 * 
+	 **/
 	public class AttachmentAssetSetContent extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param contentResource KalturaContentResource

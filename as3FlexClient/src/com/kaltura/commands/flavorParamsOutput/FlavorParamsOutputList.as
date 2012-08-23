@@ -32,9 +32,14 @@ package com.kaltura.commands.flavorParamsOutput
 	import com.kaltura.delegates.flavorParamsOutput.FlavorParamsOutputListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List flavor params output objects by filter and pager
+	 * 
+	 **/
 	public class FlavorParamsOutputList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaFlavorParamsOutputFilter
 		 * @param pager KalturaFilterPager

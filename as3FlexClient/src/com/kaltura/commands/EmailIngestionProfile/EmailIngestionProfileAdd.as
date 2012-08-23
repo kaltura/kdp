@@ -31,9 +31,14 @@ package com.kaltura.commands.EmailIngestionProfile
 	import com.kaltura.delegates.EmailIngestionProfile.EmailIngestionProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * EmailIngestionProfile Add action allows you to add a EmailIngestionProfile to Kaltura DB
+	 * 
+	 **/
 	public class EmailIngestionProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param EmailIP KalturaEmailIngestionProfile
 		 **/

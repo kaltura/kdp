@@ -30,9 +30,14 @@ package com.kaltura.commands.data
 	import com.kaltura.delegates.data.DataGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get data entry by ID.
+	 * 
+	 **/
 	public class DataGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param version int

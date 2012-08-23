@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Count base entries by filter.
+	 * 
+	 **/
 	public class BaseEntryCount extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaBaseEntryFilter
 		 **/

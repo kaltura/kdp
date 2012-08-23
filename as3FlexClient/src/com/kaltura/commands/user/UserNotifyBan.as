@@ -30,9 +30,14 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserNotifyBanDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Notifies that a user is banned from an account.
+	 * 
+	 **/
 	public class UserNotifyBan extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userId String
 		 **/

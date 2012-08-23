@@ -31,9 +31,14 @@ package com.kaltura.commands.data
 	import com.kaltura.delegates.data.DataAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds a new data entry
+	 * 
+	 **/
 	public class DataAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param dataEntry KalturaDataEntry
 		 **/

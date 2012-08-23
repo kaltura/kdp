@@ -32,9 +32,14 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.delegates.flavorAsset.FlavorAssetListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List Flavor Assets by filter and pager
+	 * 
+	 **/
 	public class FlavorAssetList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaAssetFilter
 		 * @param pager KalturaFilterPager

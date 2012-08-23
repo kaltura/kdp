@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaWebcamTokenResource extends KalturaDataCenterContentResource
 	{
-		/** 
-		* Token that returned from media server such as FMS or red5. 
-	 		* */ 
+		/**
+		 * Token that returned from media server such as FMS or red5.
+		 * 
+		 **/
 		public var token : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

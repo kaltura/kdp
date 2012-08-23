@@ -32,295 +32,325 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaBaseEntryBaseFilter extends KalturaFilter
 	{
-		/** 
-		* This filter should be in use for retrieving only a specific entry (identified by its entryId).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving only a specific entry (identified by its entryId).
+		 * 
+		 **/
 		public var idEqual : String = null;
 
-		/** 
-		* This filter should be in use for retrieving few specific entries (string should include comma separated list of entryId strings).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving few specific entries (string should include comma separated list of entryId strings).
+		 * 
+		 **/
 		public var idIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var idNotIn : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It should include only one string to search for in entry names (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It should include only one string to search for in entry names (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var nameLike : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry names, while applying an OR logic to retrieve entries that contain at least one input string (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry names, while applying an OR logic to retrieve entries that contain at least one input string (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var nameMultiLikeOr : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry names, while applying an AND logic to retrieve entries that contain all input strings (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry names, while applying an AND logic to retrieve entries that contain all input strings (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var nameMultiLikeAnd : String = null;
 
-		/** 
-		* This filter should be in use for retrieving entries with a specific name.
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving entries with a specific name.
+		 * 
+		 **/
 		public var nameEqual : String = null;
 
-		/** 
-		* This filter should be in use for retrieving only entries which were uploaded by/assigned to users of a specific Kaltura Partner (identified by Partner ID).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving only entries which were uploaded by/assigned to users of a specific Kaltura Partner (identified by Partner ID).
+		 * 
+		 **/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* This filter should be in use for retrieving only entries within Kaltura network which were uploaded by/assigned to users of few Kaltura Partners  (string should include comma separated list of PartnerIDs)
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving only entries within Kaltura network which were uploaded by/assigned to users of few Kaltura Partners  (string should include comma separated list of PartnerIDs)
+		 * 
+		 **/
 		public var partnerIdIn : String = null;
 
-		/** 
-		* This filter parameter should be in use for retrieving only entries, uploaded by/assigned to a specific user (identified by user Id).
-	 		* */ 
+		/**
+		 * This filter parameter should be in use for retrieving only entries, uploaded by/assigned to a specific user (identified by user Id).
+		 * 
+		 **/
 		public var userIdEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var creatorIdEqual : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It should include only one string to search for in entry tags (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It should include only one string to search for in entry tags (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var tagsLike : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, while applying an OR logic to retrieve entries that contain at least one input string (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, while applying an OR logic to retrieve entries that contain at least one input string (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var tagsMultiLikeOr : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, while applying an AND logic to retrieve entries that contain all input strings (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, while applying an AND logic to retrieve entries that contain all input strings (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var tagsMultiLikeAnd : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It should include only one string to search for in entry tags set by an ADMIN user (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It should include only one string to search for in entry tags set by an ADMIN user (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var adminTagsLike : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, set by an ADMIN user, while applying an OR logic to retrieve entries that contain at least one input string (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, set by an ADMIN user, while applying an OR logic to retrieve entries that contain at least one input string (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var adminTagsMultiLikeOr : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, set by an ADMIN user, while applying an AND logic to retrieve entries that contain all input strings (no wildcards, spaces are treated as part of the string).
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries. It could include few (comma separated) strings for searching in entry tags, set by an ADMIN user, while applying an AND logic to retrieve entries that contain all input strings (no wildcards, spaces are treated as part of the string).
+		 * 
+		 **/
 		public var adminTagsMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoriesMatchAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoriesMatchOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoriesIdsMatchAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var categoriesIdsMatchOr : String = null;
 
-		/** 
-		* This filter should be in use for retrieving only entries, at a specific {		* */ 
+		/**
+		 * This filter should be in use for retrieving only entries, at a specific {
+		 * @see com.kaltura.types.KalturaEntryStatus
+		 **/
 		public var statusEqual : String = null;
 
-		/** 
-		* This filter should be in use for retrieving only entries, not at a specific {		* */ 
+		/**
+		 * This filter should be in use for retrieving only entries, not at a specific {
+		 * @see com.kaltura.types.KalturaEntryStatus
+		 **/
 		public var statusNotEqual : String = null;
 
-		/** 
-		* This filter should be in use for retrieving only entries, at few specific {		* */ 
+		/**
+		 * This filter should be in use for retrieving only entries, at few specific {
+		 **/
 		public var statusIn : String = null;
 
-		/** 
-		* This filter should be in use for retrieving only entries, not at few specific {		* */ 
+		/**
+		 * This filter should be in use for retrieving only entries, not at few specific {
+		 **/
 		public var statusNotIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaEntryModerationStatus
+		 **/
 		public var moderationStatusEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaEntryModerationStatus
+		 **/
 		public var moderationStatusNotEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var moderationStatusIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var moderationStatusNotIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaEntryType
+		 **/
 		public var typeEqual : String = null;
 
-		/** 
-		* This filter should be in use for retrieving entries of few {		* */ 
+		/**
+		 * This filter should be in use for retrieving entries of few {
+		 **/
 		public var typeIn : String = null;
 
-		/** 
-		* This filter parameter should be in use for retrieving only entries which were created at Kaltura system after a specific time/date (standard timestamp format).
-	 		* */ 
+		/**
+		 * This filter parameter should be in use for retrieving only entries which were created at Kaltura system after a specific time/date (standard timestamp format).
+		 * 
+		 **/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* This filter parameter should be in use for retrieving only entries which were created at Kaltura system before a specific time/date (standard timestamp format).
-	 		* */ 
+		/**
+		 * This filter parameter should be in use for retrieving only entries which were created at Kaltura system before a specific time/date (standard timestamp format).
+		 * 
+		 **/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var totalRankLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var totalRankGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var groupIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* This filter should be in use for retrieving specific entries while search match the input string within all of the following metadata attributes: name, description, tags, adminTags.
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries while search match the input string within all of the following metadata attributes: name, description, tags, adminTags.
+		 * 
+		 **/
 		public var searchTextMatchAnd : String = null;
 
-		/** 
-		* This filter should be in use for retrieving specific entries while search match the input string within at least one of the following metadata attributes: name, description, tags, adminTags.
-	 		* */ 
+		/**
+		 * This filter should be in use for retrieving specific entries while search match the input string within at least one of the following metadata attributes: name, description, tags, adminTags.
+		 * 
+		 **/
 		public var searchTextMatchOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var accessControlIdEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var accessControlIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var startDateGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var startDateLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var startDateGreaterThanOrEqualOrNull : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var startDateLessThanOrEqualOrNull : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endDateGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endDateLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endDateGreaterThanOrEqualOrNull : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var endDateLessThanOrEqualOrNull : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var referenceIdEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var referenceIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var replacingEntryIdEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var replacingEntryIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var replacedEntryIdEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var replacedEntryIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaEntryReplacementStatus
+		 **/
 		public var replacementStatusEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var replacementStatusIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerSortValueGreaterThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerSortValueLessThanOrEqual : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var rootEntryIdEqual : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var rootEntryIdIn : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsNameMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsAdminTagsMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsAdminTagsNameMultiLikeOr : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsNameMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsAdminTagsMultiLikeAnd : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var tagsAdminTagsNameMultiLikeAnd : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -404,6 +434,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

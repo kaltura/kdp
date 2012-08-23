@@ -31,9 +31,15 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Updates an existing user object.
+	 * You can also use this action to update the userId.
+	 * 
+	 **/
 	public class UserUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userId String
 		 * @param user KalturaUser

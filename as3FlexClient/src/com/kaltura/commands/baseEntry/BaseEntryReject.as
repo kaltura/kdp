@@ -30,9 +30,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryRejectDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Reject the entry and mark the pending flags (if any) as moderated (this will make the entry non-playable).
+	 * 
+	 **/
 	public class BaseEntryReject extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

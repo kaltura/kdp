@@ -32,9 +32,14 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.delegates.categoryUser.CategoryUserListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List all categories
+	 * 
+	 **/
 	public class CategoryUserList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaCategoryUserFilter
 		 * @param pager KalturaFilterPager

@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryFlagDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Flag inappropriate entry for moderation.
+	 * 
+	 **/
 	public class BaseEntryFlag extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param moderationFlag KalturaModerationFlag
 		 **/

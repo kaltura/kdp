@@ -32,9 +32,14 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.delegates.captionAsset.CaptionAssetListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List caption Assets by filter and pager
+	 * 
+	 **/
 	public class CaptionAssetList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaAssetFilter
 		 * @param pager KalturaFilterPager

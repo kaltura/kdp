@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAuthenticatedCondition extends KalturaCondition
 	{
-		/** 
-		* The privelege needed to remove the restriction
-	 		* */ 
+		/**
+		 * The privelege needed to remove the restriction
+		 * 
+		 **/
 		public var privileges : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

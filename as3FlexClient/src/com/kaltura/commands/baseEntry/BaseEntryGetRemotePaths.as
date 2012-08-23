@@ -30,9 +30,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryGetRemotePathsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get remote storage existing paths for the asset.
+	 * 
+	 **/
 	public class BaseEntryGetRemotePaths extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

@@ -31,9 +31,14 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.delegates.conversionProfile.ConversionProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new Conversion Profile
+	 * 
+	 **/
 	public class ConversionProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param conversionProfile KalturaConversionProfile
 		 **/

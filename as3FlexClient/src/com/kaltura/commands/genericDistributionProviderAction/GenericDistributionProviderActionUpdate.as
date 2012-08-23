@@ -31,9 +31,14 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update Generic Distribution Provider Action by id
+	 * 
+	 **/
 	public class GenericDistributionProviderActionUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param genericDistributionProviderAction KalturaGenericDistributionProviderAction

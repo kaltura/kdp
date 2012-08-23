@@ -32,9 +32,11 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCountryCondition extends KalturaMatchCondition
 	{
-		/** 
-		* The ip geo coder engine to be used
-	 		* */ 
+		/**
+		 * The ip geo coder engine to be used
+		 * 
+		 * @see com.kaltura.types.KalturaGeoCoderType
+		 **/
 		public var geoCoderType : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +53,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

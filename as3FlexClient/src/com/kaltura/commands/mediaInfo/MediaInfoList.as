@@ -32,9 +32,14 @@ package com.kaltura.commands.mediaInfo
 	import com.kaltura.delegates.mediaInfo.MediaInfoListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List media info objects by filter and pager
+	 * 
+	 **/
 	public class MediaInfoList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaMediaInfoFilter
 		 * @param pager KalturaFilterPager

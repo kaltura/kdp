@@ -32,9 +32,14 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.delegates.shortLink.ShortLinkListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List short link objects by filter and pager
+	 * 
+	 **/
 	public class ShortLinkList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaShortLinkFilter
 		 * @param pager KalturaFilterPager

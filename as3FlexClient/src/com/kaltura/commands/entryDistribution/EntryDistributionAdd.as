@@ -31,9 +31,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new Entry Distribution
+	 * 
+	 **/
 	public class EntryDistributionAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryDistribution KalturaEntryDistribution
 		 **/

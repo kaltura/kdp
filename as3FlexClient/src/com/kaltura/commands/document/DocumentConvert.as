@@ -30,9 +30,14 @@ package com.kaltura.commands.document
 	import com.kaltura.delegates.document.DocumentConvertDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Convert entry
+	 * 
+	 **/
 	public class DocumentConvert extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param conversionProfileId int

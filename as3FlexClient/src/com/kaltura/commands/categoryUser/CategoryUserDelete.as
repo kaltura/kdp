@@ -30,9 +30,14 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.delegates.categoryUser.CategoryUserDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete a CategoryUser
+	 * 
+	 **/
 	public class CategoryUserDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param categoryId int
 		 * @param userId String

@@ -30,14 +30,19 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryIndexDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Index an entry by id.
+	 * 
+	 **/
 	public class BaseEntryIndex extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param shouldUpdate Boolean
 		 **/
-		public function BaseEntryIndex( id : String,shouldUpdate : Boolean )
+		public function BaseEntryIndex( id : String,shouldUpdate : Boolean=true )
 		{
 			service= 'baseentry';
 			action= 'index';

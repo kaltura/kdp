@@ -28,134 +28,142 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaStorageProfile extends BaseFlexVo
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var id : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var name : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var systemName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var desciption : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaStorageProfileStatus
+		 **/
 		public var status : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaStorageProfileProtocol
+		 **/
 		public var protocol : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var storageUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var storageBaseDir : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var storageUsername : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var storagePassword : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var storageFtpPassiveMode : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var deliveryHttpBaseUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var deliveryRmpBaseUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var deliveryIisBaseUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var minFileSize : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var maxFileSize : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flavorParamsIds : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var maxConcurrentConnections : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var pathManagerClass : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var pathManagerParams : Array = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var urlManagerClass : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var urlManagerParams : Array = null;
 
-		/** 
-		* No need to create enum for temp field
-	 		* */ 
+		/**
+		 * No need to create enum for temp field
+		 * 
+		 **/
 		public var trigger : int = int.MIN_VALUE;
 
-		/** 
-		* Delivery Priority
-	 		* */ 
+		/**
+		 * Delivery Priority
+		 * 
+		 **/
 		public var deliveryPriority : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaStorageProfileDeliveryStatus
+		 **/
 		public var deliveryStatus : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var rtmpPrefix : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaStorageProfileReadyBehavior
+		 **/
 		public var readyBehavior : int = int.MIN_VALUE;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -190,14 +198,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

@@ -32,44 +32,44 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaNdnDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelTitle : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelLink : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelDescription : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelLanguage : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelCopyright : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelImageTitle : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelImageUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelImageLink : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var itemMediaRating : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -94,6 +94,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

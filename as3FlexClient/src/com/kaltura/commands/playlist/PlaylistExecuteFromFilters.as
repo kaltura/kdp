@@ -30,9 +30,14 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistExecuteFromFiltersDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Revrieve playlist for playing purpose, based on media entry filters
+	 * 
+	 **/
 	public class PlaylistExecuteFromFilters extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filters Array
 		 * @param totalResults int

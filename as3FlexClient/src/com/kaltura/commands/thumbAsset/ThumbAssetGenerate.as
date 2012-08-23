@@ -31,9 +31,12 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetGenerateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class ThumbAssetGenerate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param thumbParams KalturaThumbParams

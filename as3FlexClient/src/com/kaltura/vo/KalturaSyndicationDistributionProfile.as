@@ -32,12 +32,12 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaSyndicationDistributionProfile extends KalturaDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var xsl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedId : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -54,6 +54,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

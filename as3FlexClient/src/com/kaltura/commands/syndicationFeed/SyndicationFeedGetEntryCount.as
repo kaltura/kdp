@@ -30,9 +30,14 @@ package com.kaltura.commands.syndicationFeed
 	import com.kaltura.delegates.syndicationFeed.SyndicationFeedGetEntryCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * get entry count for a syndication feed
+	 * 
+	 **/
 	public class SyndicationFeedGetEntryCount extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param feedId String
 		 **/

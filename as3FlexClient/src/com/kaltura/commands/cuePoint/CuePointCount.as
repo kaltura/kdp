@@ -31,9 +31,14 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.delegates.cuePoint.CuePointCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * count cue point objects by filter
+	 * 
+	 **/
 	public class CuePointCount extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaCuePointFilter
 		 **/

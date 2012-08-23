@@ -31,9 +31,12 @@ package com.kaltura.commands.stats
 	import com.kaltura.delegates.stats.StatsReportKceErrorDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class StatsReportKceError extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param kalturaCEError KalturaCEError
 		 **/

@@ -30,9 +30,14 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.delegates.captionAsset.CaptionAssetGetRemotePathsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get remote storage existing paths for the asset
+	 * 
+	 **/
 	public class CaptionAssetGetRemotePaths extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

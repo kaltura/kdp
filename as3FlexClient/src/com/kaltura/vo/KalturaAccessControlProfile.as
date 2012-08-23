@@ -28,56 +28,66 @@
 package com.kaltura.vo
 {
 	import com.kaltura.vo.BaseFlexVo;
+
 	[Bindable]
 	public dynamic class KalturaAccessControlProfile extends BaseFlexVo
 	{
-		/** 
-		* The id of the Access Control Profile
-	 		* */ 
+		/**
+		 * The id of the Access Control Profile
+		 * 
+		 **/
 		public var id : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var partnerId : int = int.MIN_VALUE;
 
-		/** 
-		* The name of the Access Control Profile
-	 		* */ 
+		/**
+		 * The name of the Access Control Profile
+		 * 
+		 **/
 		public var name : String = null;
 
-		/** 
-		* System name of the Access Control Profile
-	 		* */ 
+		/**
+		 * System name of the Access Control Profile
+		 * 
+		 **/
 		public var systemName : String = null;
 
-		/** 
-		* The description of the Access Control Profile
-	 		* */ 
+		/**
+		 * The description of the Access Control Profile
+		 * 
+		 **/
 		public var description : String = null;
 
-		/** 
-		* Creation time as Unix timestamp (In seconds) 
-	 		* */ 
+		/**
+		 * Creation time as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var createdAt : int = int.MIN_VALUE;
 
-		/** 
-		* Update time as Unix timestamp (In seconds) 
-	 		* */ 
+		/**
+		 * Update time as Unix timestamp (In seconds)
+		 * 
+		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
-		/** 
-		* True if this access control profile is the partner default
-	 		* */ 
+		/**
+		 * True if this access control profile is the partner default
+		 * 
+		 * @see com.kaltura.types.KalturaNullableBoolean
+		 **/
 		public var isDefault : int = int.MIN_VALUE;
 
-		/** 
-		* Array of access control rules
-	 		* */ 
+		/**
+		 * Array of access control rules
+		 * 
+		 **/
 		public var rules : Array = null;
 
 		/** 
-		* a list of attributes which may be updated on this object 
-		* */ 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -91,14 +101,13 @@ package com.kaltura.vo
 		}
 
 		/** 
-		* a list of attributes which may only be inserted when initializing this object 
-		* */ 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
 		}
-
 	}
 }

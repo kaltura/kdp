@@ -30,9 +30,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionValidateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Validates Entry Distribution by id for submission
+	 * 
+	 **/
 	public class EntryDistributionValidate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

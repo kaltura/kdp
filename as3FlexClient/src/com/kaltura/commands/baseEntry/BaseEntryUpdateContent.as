@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryUpdateContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update the content resource associated with the entry.
+	 * 
+	 **/
 	public class BaseEntryUpdateContent extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param resource KalturaResource

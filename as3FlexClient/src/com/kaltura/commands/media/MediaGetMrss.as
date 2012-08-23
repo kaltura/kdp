@@ -30,9 +30,15 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaGetMrssDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get MRSS by entry id
+	 * XML will return as an escaped string
+	 * 
+	 **/
 	public class MediaGetMrss extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

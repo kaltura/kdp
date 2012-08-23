@@ -32,24 +32,24 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaSynacorHboDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedTitle : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedSubtitle : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedLink : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedAuthorName : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -69,6 +69,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -30,9 +30,14 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve an virus scan profile object by id
+	 * 
+	 **/
 	public class VirusScanProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param virusScanProfileId int
 		 **/

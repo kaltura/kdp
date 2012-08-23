@@ -30,9 +30,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingRequestFlatteningDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Request a new flattening job, flattening is used to convert a video mix to a video file.
+	 * 
+	 **/
 	public class MixingRequestFlattening extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param fileFormat String

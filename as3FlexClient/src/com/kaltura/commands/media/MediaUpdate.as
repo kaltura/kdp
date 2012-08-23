@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update media entry. Only the properties that were set will be updated.
+	 * 
+	 **/
 	public class MediaUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param mediaEntry KalturaMediaEntry

@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaEvalBooleanField extends KalturaBooleanField
 	{
-		/** 
-		* PHP code
-	 		* */ 
+		/**
+		 * PHP code
+		 * 
+		 **/
 		public var code : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

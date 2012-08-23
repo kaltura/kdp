@@ -30,9 +30,12 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.delegates.captionAsset.CaptionAssetGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class CaptionAssetGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param captionAssetId String
 		 **/

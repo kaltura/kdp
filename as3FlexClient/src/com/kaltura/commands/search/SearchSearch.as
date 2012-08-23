@@ -32,9 +32,14 @@ package com.kaltura.commands.search
 	import com.kaltura.delegates.search.SearchSearchDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Search for media in one of the supported media providers
+	 * 
+	 **/
 	public class SearchSearch extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param search KalturaSearch
 		 * @param pager KalturaFilterPager

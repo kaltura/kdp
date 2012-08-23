@@ -31,9 +31,14 @@ package com.kaltura.commands.genericDistributionProvider
 	import com.kaltura.delegates.genericDistributionProvider.GenericDistributionProviderAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new Generic Distribution Provider
+	 * 
+	 **/
 	public class GenericDistributionProviderAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param genericDistributionProvider KalturaGenericDistributionProvider
 		 **/

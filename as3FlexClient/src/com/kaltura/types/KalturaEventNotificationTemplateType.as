@@ -29,5 +29,6 @@ package com.kaltura.types
 {
 	public class KalturaEventNotificationTemplateType
 	{
+		public static const EMAIL : String = 'emailNotification.Email';
 	}
 }

@@ -31,9 +31,14 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.delegates.conversionProfile.ConversionProfileUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update Conversion Profile by ID
+	 * 
+	 **/
 	public class ConversionProfileUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param conversionProfile KalturaConversionProfile

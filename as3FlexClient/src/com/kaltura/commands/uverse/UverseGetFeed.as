@@ -30,9 +30,12 @@ package com.kaltura.commands.uverse
 	import com.kaltura.delegates.uverse.UverseGetFeedDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class UverseGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param distributionProfileId int
 		 * @param hash String

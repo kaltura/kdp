@@ -30,9 +30,12 @@ package com.kaltura.commands.timeWarner
 	import com.kaltura.delegates.timeWarner.TimeWarnerGetFeedDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class TimeWarnerGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param distributionProfileId int
 		 * @param hash String

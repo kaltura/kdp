@@ -31,9 +31,14 @@ package com.kaltura.commands.storageProfile
 	import com.kaltura.delegates.storageProfile.StorageProfileUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update storage profile by id
+	 * 
+	 **/
 	public class StorageProfileUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param storageProfileId int
 		 * @param storageProfile KalturaStorageProfile

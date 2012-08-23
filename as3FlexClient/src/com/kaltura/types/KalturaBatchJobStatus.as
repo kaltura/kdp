@@ -41,5 +41,6 @@ package com.kaltura.types
 		public static const RETRY : int = 9;
 		public static const FATAL : int = 10;
 		public static const DONT_PROCESS : int = 11;
+		public static const FINISHED_PARTIALLY : int = 12;
 	}
 }

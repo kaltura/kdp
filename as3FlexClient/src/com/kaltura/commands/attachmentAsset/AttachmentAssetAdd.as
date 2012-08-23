@@ -31,9 +31,14 @@ package com.kaltura.commands.attachmentAsset
 	import com.kaltura.delegates.attachmentAsset.AttachmentAssetAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add attachment asset
+	 * 
+	 **/
 	public class AttachmentAssetAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param attachmentAsset KalturaAttachmentAsset

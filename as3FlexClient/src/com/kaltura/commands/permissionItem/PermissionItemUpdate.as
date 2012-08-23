@@ -31,9 +31,15 @@ package com.kaltura.commands.permissionItem
 	import com.kaltura.delegates.permissionItem.PermissionItemUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Updates an existing permission item object.
+	 * This action is available only to Kaltura system administrators.
+	 * 
+	 **/
 	public class PermissionItemUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param permissionItemId int
 		 * @param permissionItem KalturaPermissionItem

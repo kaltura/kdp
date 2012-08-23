@@ -30,9 +30,14 @@ package com.kaltura.commands.stats
 	import com.kaltura.delegates.stats.StatsReportErrorDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Use this action to report errors to the kaltura server.
+	 * 
+	 **/
 	public class StatsReportError extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param errorCode String
 		 * @param errorMessage String

@@ -32,9 +32,14 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.delegates.uiConf.UiConfListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve a list of available UIConfs
+	 * 
+	 **/
 	public class UiConfList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaUiConfFilter
 		 * @param pager KalturaFilterPager

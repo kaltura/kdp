@@ -32,9 +32,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List Thumbnail Assets by filter and pager
+	 * 
+	 **/
 	public class ThumbAssetList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaAssetFilter
 		 * @param pager KalturaFilterPager

@@ -31,9 +31,14 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.delegates.shortLink.ShortLinkAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add a short link object
+	 * 
+	 **/
 	public class ShortLinkAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param shortLink KalturaShortLink
 		 **/

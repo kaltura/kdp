@@ -30,9 +30,14 @@ package com.kaltura.commands.mixing
 	import com.kaltura.delegates.mixing.MixingAppendMediaEntryDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Appends a media entry to a the end of the mix timeline, this will save the mix timeline as a new version.
+	 * 
+	 **/
 	public class MixingAppendMediaEntry extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mixEntryId String
 		 * @param mediaEntryId String

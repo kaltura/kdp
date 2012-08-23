@@ -32,20 +32,20 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaFtpDropFolder extends KalturaRemoteDropFolder
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var host : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var port : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var username : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var password : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -32,9 +32,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List media entries by filter with paging support.
+	 * 
+	 **/
 	public class MediaList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaMediaEntryFilter
 		 * @param pager KalturaFilterPager

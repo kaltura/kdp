@@ -31,9 +31,14 @@ package com.kaltura.commands.permission
 	import com.kaltura.delegates.permission.PermissionAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Adds a new permission object to the account.
+	 * 
+	 **/
 	public class PermissionAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param permission KalturaPermission
 		 **/

@@ -30,9 +30,14 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.delegates.liveStream.LiveStreamGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get live stream entry by ID.
+	 * 
+	 **/
 	public class LiveStreamGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param version int

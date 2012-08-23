@@ -30,9 +30,14 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.delegates.entryDistribution.EntryDistributionSubmitUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Submits Entry Distribution changes to the remote destination
+	 * 
+	 **/
 	public class EntryDistributionSubmitUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

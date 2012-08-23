@@ -31,9 +31,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Count media entries by filter.
+	 * 
+	 **/
 	public class MediaCount extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaMediaEntryFilter
 		 **/

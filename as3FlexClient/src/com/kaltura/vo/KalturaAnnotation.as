@@ -32,22 +32,24 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAnnotation extends KalturaCuePoint
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var parentId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var text : String = null;
 
-		/** 
-		* End time in milliseconds
-	 		* */ 
+		/**
+		 * End time in milliseconds
+		 * 
+		 **/
 		public var endTime : int = int.MIN_VALUE;
 
-		/** 
-		* Duration in milliseconds
-	 		* */ 
+		/**
+		 * Duration in milliseconds
+		 * 
+		 **/
 		public var duration : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -66,6 +68,5 @@ package com.kaltura.vo
 			arr.push('parentId');
 			return arr;
 		}
-
 	}
 }

@@ -30,9 +30,14 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.delegates.metadataProfile.MetadataProfileRevertDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update an existing metadata object definition file
+	 * 
+	 **/
 	public class MetadataProfileRevert extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param toVersion int

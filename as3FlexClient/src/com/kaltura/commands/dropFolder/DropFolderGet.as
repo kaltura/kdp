@@ -30,9 +30,14 @@ package com.kaltura.commands.dropFolder
 	import com.kaltura.delegates.dropFolder.DropFolderGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve a KalturaDropFolder object by ID
+	 * 
+	 **/
 	public class DropFolderGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param dropFolderId int
 		 **/

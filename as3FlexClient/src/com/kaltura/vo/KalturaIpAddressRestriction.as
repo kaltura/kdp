@@ -32,14 +32,17 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaIpAddressRestriction extends KalturaBaseRestriction
 	{
-		/** 
-		* Ip address restriction type (Allow or deny)
-	 		* */ 
+		/**
+		 * Ip address restriction type (Allow or deny)
+		 * 
+		 * @see com.kaltura.types.KalturaIpAddressRestrictionType
+		 **/
 		public var ipAddressRestrictionType : int = int.MIN_VALUE;
 
-		/** 
-		* Comma separated list of ip address to allow to deny 
-	 		* */ 
+		/**
+		 * Comma separated list of ip address to allow to deny
+		 * 
+		 **/
 		public var ipAddressList : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -57,6 +60,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

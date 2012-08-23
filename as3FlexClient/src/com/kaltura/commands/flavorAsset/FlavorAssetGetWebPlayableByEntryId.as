@@ -30,9 +30,14 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.delegates.flavorAsset.FlavorAssetGetWebPlayableByEntryIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get web playable Flavor Assets for Entry
+	 * 
+	 **/
 	public class FlavorAssetGetWebPlayableByEntryId extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

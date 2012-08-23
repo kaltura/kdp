@@ -30,9 +30,14 @@ package com.kaltura.commands.thumbParamsOutput
 	import com.kaltura.delegates.thumbParamsOutput.ThumbParamsOutputGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get thumb params output object by ID
+	 * 
+	 **/
 	public class ThumbParamsOutputGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

@@ -31,9 +31,14 @@ package com.kaltura.commands.accessControl
 	import com.kaltura.delegates.accessControl.AccessControlAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new Access Control Profile
+	 * 
+	 **/
 	public class AccessControlAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param accessControl KalturaAccessControl
 		 **/

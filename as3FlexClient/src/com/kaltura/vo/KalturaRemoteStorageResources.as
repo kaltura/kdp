@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaRemoteStorageResources extends KalturaContentResource
 	{
-		/** 
-		* Array of remote stoage resources 
-	 		* */ 
+		/**
+		 * Array of remote stoage resources
+		 * 
+		 **/
 		public var resources : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

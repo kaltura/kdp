@@ -31,9 +31,15 @@ package com.kaltura.commands.widget
 	import com.kaltura.delegates.widget.WidgetAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new widget, can be attached to entry or kshow
+	 * SourceWidget is ignored.
+	 * 
+	 **/
 	public class WidgetAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param widget KalturaWidget
 		 **/

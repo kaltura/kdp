@@ -32,33 +32,39 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaContentDistributionSearchItem extends KalturaSearchItem
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var noDistributionProfiles : Boolean;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var distributionProfileId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaEntryDistributionSunStatus
+		 **/
 		public var distributionSunStatus : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaEntryDistributionFlag
+		 **/
 		public var entryDistributionFlag : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaEntryDistributionStatus
+		 **/
 		public var entryDistributionStatus : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
 		public var hasEntryDistributionValidationErrors : Boolean;
 
-		/** 
-		* Comma seperated validation error types
-	 		* */ 
+		/**
+		 * Comma seperated validation error types
+		 * 
+		 **/
 		public var entryDistributionValidationErrors : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -81,6 +87,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

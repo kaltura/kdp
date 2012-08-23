@@ -32,16 +32,18 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDropFolderContentFileHandlerConfig extends KalturaDropFolderFileHandlerConfig
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaDropFolderContentFileHandlerMatchPolicy
+		 **/
 		public var contentMatchPolicy : int = int.MIN_VALUE;
 
-		/** 
-		* Regular expression that defines valid file names to be handled.
-	 The following might be extracted from the file name and used if defined:
-	 - (?P<referenceId>\w+) - will be used as the drop folder file's parsed slug.
-	 - (?P<flavorName>\w+)  - will be used as the drop folder file's parsed flavor.
-	 		* */ 
+		/**
+		 * Regular expression that defines valid file names to be handled.
+		 * The following might be extracted from the file name and used if defined:
+		 * - (?P<referenceId>\w+) - will be used as the drop folder file's parsed slug.
+		 * - (?P<flavorName>\w+)  - will be used as the drop folder file's parsed flavor.
+		 * 
+		 **/
 		public var slugRegex : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +61,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

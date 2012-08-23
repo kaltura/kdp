@@ -30,9 +30,14 @@ package com.kaltura.commands.widget
 	import com.kaltura.delegates.widget.WidgetGetDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get widget by id
+	 * 
+	 **/
 	public class WidgetGet extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

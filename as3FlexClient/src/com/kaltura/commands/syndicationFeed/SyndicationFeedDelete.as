@@ -30,9 +30,14 @@ package com.kaltura.commands.syndicationFeed
 	import com.kaltura.delegates.syndicationFeed.SyndicationFeedDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete Syndication Feed by ID
+	 * 
+	 **/
 	public class SyndicationFeedDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

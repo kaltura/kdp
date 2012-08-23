@@ -30,9 +30,14 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileScanDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Scan flavor asset according to virus scan profile
+	 * 
+	 **/
 	public class VirusScanProfileScan extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param flavorAssetId String
 		 * @param virusScanProfileId int

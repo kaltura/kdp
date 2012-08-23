@@ -30,9 +30,14 @@ package com.kaltura.commands.permission
 	import com.kaltura.delegates.permission.PermissionGetCurrentPermissionsDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieves a list of permissions that apply to the current KS.
+	 * 
+	 **/
 	public class PermissionGetCurrentPermissions extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 **/
 		public function PermissionGetCurrentPermissions(  )

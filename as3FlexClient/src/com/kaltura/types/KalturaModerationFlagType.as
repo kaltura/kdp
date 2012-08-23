@@ -33,5 +33,7 @@ package com.kaltura.types
 		public static const VIOLENT_REPULSIVE : int = 2;
 		public static const HARMFUL_DANGEROUS : int = 3;
 		public static const SPAM_COMMERCIALS : int = 4;
+		public static const COPYRIGHT : int = 5;
+		public static const TERMS_OF_USE_VIOLATION : int = 6;
 	}
 }

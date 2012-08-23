@@ -31,9 +31,14 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.delegates.shortLink.ShortLinkUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update exisitng short link
+	 * 
+	 **/
 	public class ShortLinkUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param shortLink KalturaShortLink

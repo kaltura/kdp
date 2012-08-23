@@ -30,9 +30,12 @@ package com.kaltura.commands.report
 	import com.kaltura.delegates.report.ReportExecuteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class ReportExecute extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param params Array

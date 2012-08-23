@@ -30,9 +30,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.delegates.thumbAsset.ThumbAssetGetUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Get download URL for the asset
+	 * 
+	 **/
 	public class ThumbAssetGetUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param storageId int

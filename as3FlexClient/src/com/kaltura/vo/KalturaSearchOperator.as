@@ -32,12 +32,13 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaSearchOperator extends KalturaSearchItem
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaSearchOperatorType
+		 **/
 		public var type : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var items : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -55,6 +56,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

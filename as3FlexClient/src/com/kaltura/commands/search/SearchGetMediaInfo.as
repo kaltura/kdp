@@ -31,9 +31,15 @@ package com.kaltura.commands.search
 	import com.kaltura.delegates.search.SearchGetMediaInfoDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve extra information about media found in search action
+	 * Some providers return only part of the fields needed to create entry from, use this action to get the rest of the fields.
+	 * 
+	 **/
 	public class SearchGetMediaInfo extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param searchResult KalturaSearchResult
 		 **/

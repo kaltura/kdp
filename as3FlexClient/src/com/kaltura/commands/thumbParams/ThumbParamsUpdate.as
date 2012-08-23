@@ -31,9 +31,14 @@ package com.kaltura.commands.thumbParams
 	import com.kaltura.delegates.thumbParams.ThumbParamsUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update Thumb Params by ID
+	 * 
+	 **/
 	public class ThumbParamsUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param thumbParams KalturaThumbParams

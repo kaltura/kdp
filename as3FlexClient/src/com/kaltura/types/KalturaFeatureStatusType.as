@@ -29,6 +29,10 @@ package com.kaltura.types
 {
 	public class KalturaFeatureStatusType
 	{
-		public static const CATEGORY_LOCK : int = 1;
+		public static const LOCK_CATEGORY : int = 1;
+		public static const CATEGORY : int = 2;
+		public static const CATEGORY_ENTRY : int = 3;
+		public static const ENTRY : int = 4;
+		public static const CATEGORY_USER : int = 5;
 	}
 }

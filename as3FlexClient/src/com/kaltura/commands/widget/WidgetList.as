@@ -32,9 +32,14 @@ package com.kaltura.commands.widget
 	import com.kaltura.delegates.widget.WidgetListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve a list of available widget depends on the filter given
+	 * 
+	 **/
 	public class WidgetList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaWidgetFilter
 		 * @param pager KalturaFilterPager

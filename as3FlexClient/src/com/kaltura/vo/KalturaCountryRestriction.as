@@ -32,14 +32,17 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaCountryRestriction extends KalturaBaseRestriction
 	{
-		/** 
-		* Country restriction type (Allow or deny)
-	 		* */ 
+		/**
+		 * Country restriction type (Allow or deny)
+		 * 
+		 * @see com.kaltura.types.KalturaCountryRestrictionType
+		 **/
 		public var countryRestrictionType : int = int.MIN_VALUE;
 
-		/** 
-		* Comma separated list of country codes to allow to deny 
-	 		* */ 
+		/**
+		 * Comma separated list of country codes to allow to deny
+		 * 
+		 **/
 		public var countryList : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -57,6 +60,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

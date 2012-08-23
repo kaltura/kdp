@@ -31,9 +31,14 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
+	 * 
+	 **/
 	public class VirusScanProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param virusScanProfile KalturaVirusScanProfile
 		 **/

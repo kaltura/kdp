@@ -31,9 +31,15 @@ package com.kaltura.commands.widget
 	import com.kaltura.delegates.widget.WidgetCloneDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add widget based on existing widget.
+	 * Must provide valid sourceWidgetId
+	 * 
+	 **/
 	public class WidgetClone extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param widget KalturaWidget
 		 **/

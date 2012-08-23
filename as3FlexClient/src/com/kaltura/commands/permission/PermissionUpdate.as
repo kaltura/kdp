@@ -31,9 +31,14 @@ package com.kaltura.commands.permission
 	import com.kaltura.delegates.permission.PermissionUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Updates an existing permission object.
+	 * 
+	 **/
 	public class PermissionUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param permissionName String
 		 * @param permission KalturaPermission

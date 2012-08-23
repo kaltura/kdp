@@ -31,9 +31,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryAddFromUploadedFileDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Generic add entry using an uploaded file, should be used when the uploaded entry type is not known.
+	 * 
+	 **/
 	public class BaseEntryAddFromUploadedFile extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entry KalturaBaseEntry
 		 * @param uploadTokenId String

@@ -32,12 +32,12 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaMetadataSearchItem extends KalturaSearchOperator
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var metadataProfileId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var orderBy : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -55,6 +55,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

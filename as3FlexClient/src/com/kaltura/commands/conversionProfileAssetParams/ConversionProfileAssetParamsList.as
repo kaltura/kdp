@@ -32,9 +32,14 @@ package com.kaltura.commands.conversionProfileAssetParams
 	import com.kaltura.delegates.conversionProfileAssetParams.ConversionProfileAssetParamsListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Lists asset parmas of conversion profile by ID
+	 * 
+	 **/
 	public class ConversionProfileAssetParamsList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaConversionProfileAssetParamsFilter
 		 * @param pager KalturaFilterPager

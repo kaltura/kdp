@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaUrlResource extends KalturaContentResource
 	{
-		/** 
-		* Remote URL, FTP, HTTP or HTTPS 
-	 		* */ 
+		/**
+		 * Remote URL, FTP, HTTP or HTTPS
+		 * 
+		 **/
 		public var url : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

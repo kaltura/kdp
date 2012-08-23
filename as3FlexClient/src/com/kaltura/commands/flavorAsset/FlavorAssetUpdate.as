@@ -31,9 +31,14 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.delegates.flavorAsset.FlavorAssetUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update flavor asset
+	 * 
+	 **/
 	public class FlavorAssetUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param flavorAsset KalturaFlavorAsset

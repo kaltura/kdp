@@ -30,9 +30,15 @@ package com.kaltura.commands.metadata
 	import com.kaltura.delegates.metadata.MetadataAddFromBulkDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Allows you to add a metadata xml data from remote URL.
+	 * Enables different permissions than addFromUrl action.
+	 * 
+	 **/
 	public class MetadataAddFromBulk extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param metadataProfileId int
 		 * @param objectType String

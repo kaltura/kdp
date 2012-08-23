@@ -31,9 +31,14 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.delegates.categoryUser.CategoryUserAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Add new CategoryUser
+	 * 
+	 **/
 	public class CategoryUserAdd extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param categoryUser KalturaCategoryUser
 		 **/

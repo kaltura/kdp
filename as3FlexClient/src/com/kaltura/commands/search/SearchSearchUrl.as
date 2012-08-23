@@ -30,9 +30,16 @@ package com.kaltura.commands.search
 	import com.kaltura.delegates.search.SearchSearchUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Search for media given a specific URL
+	 * Kaltura supports a searchURL action on some of the media providers.
+	 * This action will return a KalturaSearchResult object based on a given URL (assuming the media provider is supported)
+	 * 
+	 **/
 	public class SearchSearchUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param mediaType int
 		 * @param url String

@@ -30,9 +30,14 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.delegates.categoryUser.CategoryUserDeactivateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * reject CategoryUser
+	 * 
+	 **/
 	public class CategoryUserDeactivate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param categoryId int
 		 * @param userId String

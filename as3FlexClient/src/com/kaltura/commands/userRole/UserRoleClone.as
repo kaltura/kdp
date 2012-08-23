@@ -30,9 +30,14 @@ package com.kaltura.commands.userRole
 	import com.kaltura.delegates.userRole.UserRoleCloneDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Creates a new user role object that is a duplicate of an existing role.
+	 * 
+	 **/
 	public class UserRoleClone extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param userRoleId int
 		 **/

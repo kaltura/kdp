@@ -32,16 +32,16 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaUverseClickToOrderDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var backgroundImageWide : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var backgroundImageStandard : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

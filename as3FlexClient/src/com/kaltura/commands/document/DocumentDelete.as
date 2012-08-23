@@ -30,9 +30,14 @@ package com.kaltura.commands.document
 	import com.kaltura.delegates.document.DocumentDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete a document entry.
+	 * 
+	 **/
 	public class DocumentDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 **/

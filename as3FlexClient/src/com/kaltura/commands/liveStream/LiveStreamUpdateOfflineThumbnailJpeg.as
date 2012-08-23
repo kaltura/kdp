@@ -31,10 +31,15 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.liveStream.LiveStreamUpdateOfflineThumbnailJpegDelegate;
 
+	/**
+	 * Update live stream entry thumbnail using a raw jpeg file
+	 * 
+	 **/
 	public class LiveStreamUpdateOfflineThumbnailJpeg extends KalturaFileCall
 	{
 		public var fileData:Object;
 
+		
 		/**
 		 * @param entryId String
 		 * @param fileData Object - FileReference or ByteArray

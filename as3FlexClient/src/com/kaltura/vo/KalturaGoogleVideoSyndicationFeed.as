@@ -32,8 +32,9 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaGoogleVideoSyndicationFeed extends KalturaBaseSyndicationFeed
 	{
-		/** 
-		* 		* */ 
+		/**
+		 * @see com.kaltura.types.KalturaGoogleSyndicationFeedAdultValues
+		 **/
 		public var adultContent : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -50,6 +51,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

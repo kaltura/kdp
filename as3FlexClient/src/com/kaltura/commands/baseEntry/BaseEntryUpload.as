@@ -31,10 +31,15 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.baseEntry.BaseEntryUploadDelegate;
 
+	/**
+	 * Upload a file to Kaltura, that can be used to create an entry.
+	 * 
+	 **/
 	public class BaseEntryUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
+		
 		/**
 		 * @param fileData Object - FileReference or ByteArray
 		 **/

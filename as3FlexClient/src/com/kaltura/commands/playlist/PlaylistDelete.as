@@ -30,9 +30,14 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete existing playlist
+	 * 
+	 **/
 	public class PlaylistDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 **/

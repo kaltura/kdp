@@ -31,9 +31,14 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.delegates.cuePoint.CuePointUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update cue point by id
+	 * 
+	 **/
 	public class CuePointUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param cuePoint KalturaCuePoint

@@ -30,9 +30,14 @@ package com.kaltura.commands.data
 	import com.kaltura.delegates.data.DataServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * serve action returan the file from dataContent field.
+	 * 
+	 **/
 	public class DataServe extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param version int

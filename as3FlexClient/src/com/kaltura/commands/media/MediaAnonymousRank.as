@@ -30,9 +30,14 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaAnonymousRankDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Anonymously rank a media entry, no validation is done on duplicate rankings
+	 * 
+	 **/
 	public class MediaAnonymousRank extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param rank int

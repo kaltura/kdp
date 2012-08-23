@@ -31,10 +31,15 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.baseEntry.BaseEntryUpdateThumbnailJpegDelegate;
 
+	/**
+	 * Update entry thumbnail using a raw jpeg file.
+	 * 
+	 **/
 	public class BaseEntryUpdateThumbnailJpeg extends KalturaFileCall
 	{
 		public var fileData:Object;
 
+		
 		/**
 		 * @param entryId String
 		 * @param fileData Object - FileReference or ByteArray

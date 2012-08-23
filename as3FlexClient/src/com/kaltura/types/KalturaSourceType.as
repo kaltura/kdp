@@ -35,5 +35,6 @@ package com.kaltura.types
 		public static const SEARCH_PROVIDER : String = '6';
 		public static const AKAMAI_LIVE : String = '29';
 		public static const MANUAL_LIVE_STREAM : String = '30';
+		public static const LIMELIGHT_LIVE : String = 'limeLight.LIVE_STREAM';
 	}
 }

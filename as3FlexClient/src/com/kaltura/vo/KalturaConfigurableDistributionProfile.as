@@ -32,12 +32,12 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaConfigurableDistributionProfile extends KalturaDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var fieldConfigArray : Array = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var itemXpathsToExtend : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -55,6 +55,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

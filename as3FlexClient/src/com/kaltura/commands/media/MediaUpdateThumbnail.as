@@ -30,9 +30,15 @@ package com.kaltura.commands.media
 	import com.kaltura.delegates.media.MediaUpdateThumbnailDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update media entry thumbnail by a specified time offset (In seconds)
+	 * If flavor params id not specified, source flavor will be used by default
+	 * 
+	 **/
 	public class MediaUpdateThumbnail extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param timeOffset int

@@ -32,9 +32,14 @@ package com.kaltura.commands.documents
 	import com.kaltura.delegates.documents.DocumentsListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List document entries by filter with paging support.
+	 * 
+	 **/
 	public class DocumentsList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaDocumentEntryFilter
 		 * @param pager KalturaFilterPager

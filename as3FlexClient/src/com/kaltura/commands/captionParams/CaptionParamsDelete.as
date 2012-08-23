@@ -30,9 +30,14 @@ package com.kaltura.commands.captionParams
 	import com.kaltura.delegates.captionParams.CaptionParamsDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete Caption Params by ID
+	 * 
+	 **/
 	public class CaptionParamsDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 **/

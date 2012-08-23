@@ -32,9 +32,16 @@ package com.kaltura.commands.user
 	import com.kaltura.delegates.user.UserListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Lists user objects that are associated with an account.
+	 * Blocked users are listed unless you use a filter to exclude them.
+	 * Deleted users are not listed unless you use a filter to include them.
+	 * 
+	 **/
 	public class UserList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaUserFilter
 		 * @param pager KalturaFilterPager

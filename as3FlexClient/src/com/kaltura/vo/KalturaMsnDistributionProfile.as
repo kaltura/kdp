@@ -32,64 +32,64 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaMsnDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var username : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var password : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var domain : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var csId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var source : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sourceFriendlyName : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var pageGroup : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var sourceFlavorParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var wmvFlavorParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var flvFlavorParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var slFlavorParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var slHdFlavorParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var msnvideoCat : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var msnvideoTop : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var msnvideoTopCat : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -120,6 +120,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

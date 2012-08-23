@@ -32,24 +32,24 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaThumbParamsOutput extends KalturaThumbParams
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbParamsId : int = int.MIN_VALUE;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbParamsVersion : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbAssetId : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var thumbAssetVersion : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var rotate : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -70,6 +70,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

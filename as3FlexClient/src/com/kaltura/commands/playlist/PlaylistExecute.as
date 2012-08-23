@@ -30,9 +30,14 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistExecuteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Retrieve playlist for playing purpose
+	 * 
+	 **/
 	public class PlaylistExecute extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param detailed String

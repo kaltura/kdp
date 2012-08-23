@@ -31,5 +31,6 @@ package com.kaltura.types
 	{
 		public static const API : int = 1;
 		public static const KMC : int = 2;
+		public static const APP : int = 3;
 	}
 }

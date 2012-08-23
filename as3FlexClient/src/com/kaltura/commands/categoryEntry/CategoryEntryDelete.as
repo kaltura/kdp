@@ -30,9 +30,14 @@ package com.kaltura.commands.categoryEntry
 	import com.kaltura.delegates.categoryEntry.CategoryEntryDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Delete CategoryEntry
+	 * 
+	 **/
 	public class CategoryEntryDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param categoryId int

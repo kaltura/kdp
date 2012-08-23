@@ -31,9 +31,15 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update existing playlist
+	 * Note - you cannot change playlist type. updated playlist must be of the same type.
+	 * 
+	 **/
 	public class PlaylistUpdate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param playlist KalturaPlaylist

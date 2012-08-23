@@ -30,9 +30,14 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.delegates.baseEntry.BaseEntryUpdateThumbnailFromUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Update entry thumbnail using url.
+	 * 
+	 **/
 	public class BaseEntryUpdateThumbnailFromUrl extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param entryId String
 		 * @param url String

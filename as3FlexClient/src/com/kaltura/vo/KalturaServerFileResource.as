@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaServerFileResource extends KalturaDataCenterContentResource
 	{
-		/** 
-		* Full path to the local file 
-	 		* */ 
+		/**
+		 * Full path to the local file
+		 * 
+		 **/
 		public var localFilePath : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

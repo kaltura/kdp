@@ -30,9 +30,14 @@ package com.kaltura.commands.permission
 	import com.kaltura.delegates.permission.PermissionDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Deletes an existing permission object.
+	 * 
+	 **/
 	public class PermissionDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param permissionName String
 		 **/

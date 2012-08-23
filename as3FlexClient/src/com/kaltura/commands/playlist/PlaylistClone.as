@@ -31,9 +31,14 @@ package com.kaltura.commands.playlist
 	import com.kaltura.delegates.playlist.PlaylistCloneDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Clone an existing playlist
+	 * 
+	 **/
 	public class PlaylistClone extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id String
 		 * @param newPlaylist KalturaPlaylist

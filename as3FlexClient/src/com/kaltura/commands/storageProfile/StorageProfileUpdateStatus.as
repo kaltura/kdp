@@ -30,9 +30,12 @@ package com.kaltura.commands.storageProfile
 	import com.kaltura.delegates.storageProfile.StorageProfileUpdateStatusDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class StorageProfileUpdateStatus extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param storageId int
 		 * @param status int

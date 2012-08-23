@@ -30,9 +30,15 @@ package com.kaltura.commands.permissionItem
 	import com.kaltura.delegates.permissionItem.PermissionItemDeleteDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Deletes an existing permission item object.
+	 * This action is available only to Kaltura system administrators.
+	 * 
+	 **/
 	public class PermissionItemDelete extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param permissionItemId int
 		 **/

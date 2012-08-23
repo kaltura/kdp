@@ -32,9 +32,16 @@ package com.kaltura.commands.partner
 	import com.kaltura.delegates.partner.PartnerListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List partners by filter with paging support
+	 * Current implementation will only list the sub partners of the partner initiating the api call (using the current KS).
+	 * This action is only partially implemented to support listing sub partners of a VAR partner.
+	 * 
+	 **/
 	public class PartnerList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaPartnerFilter
 		 * @param pager KalturaFilterPager

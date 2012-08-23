@@ -32,9 +32,16 @@ package com.kaltura.commands.permission
 	import com.kaltura.delegates.permission.PermissionListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Lists permission objects that are associated with an account.
+	 * Blocked permissions are listed unless you use a filter to exclude them.
+	 * Blocked permissions are listed unless you use a filter to exclude them.
+	 * 
+	 **/
 	public class PermissionList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaPermissionFilter
 		 * @param pager KalturaFilterPager

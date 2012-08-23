@@ -32,28 +32,28 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAttUverseDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var feedUrl : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpHost : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpUsername : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpPassword : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var ftpPath : String = null;
 
-		/** 
-		* 		* */ 
+		/**
+		 **/
 		public var channelTitle : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -74,6 +74,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

@@ -30,9 +30,15 @@ package com.kaltura.commands.metadata
 	import com.kaltura.delegates.metadata.MetadataInvalidateDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * Mark existing metadata as invalid
+	 * Used by batch metadata transform
+	 * 
+	 **/
 	public class MetadataInvalidate extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param id int
 		 * @param version int

@@ -32,9 +32,10 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaAssetsParamsResourceContainers extends KalturaResource
 	{
-		/** 
-		* Array of resources associated with asset params ids
-	 		* */ 
+		/**
+		 * Array of resources associated with asset params ids
+		 * 
+		 **/
 		public var resources : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +52,5 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			return arr;
 		}
-
 	}
 }

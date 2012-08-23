@@ -32,9 +32,12 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.delegates.distributionProfile.DistributionProfileListByPartnerDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 **/
 	public class DistributionProfileListByPartner extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaPartnerFilter
 		 * @param pager KalturaFilterPager

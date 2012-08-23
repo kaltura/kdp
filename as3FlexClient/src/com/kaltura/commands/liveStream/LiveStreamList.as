@@ -32,9 +32,14 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.delegates.liveStream.LiveStreamListDelegate;
 	import com.kaltura.net.KalturaCall;
 
+	/**
+	 * List live stream entries by filter with paging support.
+	 * 
+	 **/
 	public class LiveStreamList extends KalturaCall
 	{
 		public var filterFields : String;
+		
 		/**
 		 * @param filter KalturaLiveStreamEntryFilter
 		 * @param pager KalturaFilterPager
