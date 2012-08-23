@@ -181,8 +181,6 @@ package
 		*/
 		private function onDoPause(e:Event):void{
 			//(_facade.retrieveMediator("kMediaPlayerMediator") as KMediaPlayerMediator).player;
-			
-			trace("AM I IN SEQUENCE:::::"+(_facade.retrieveProxy("sequenceProxy") as SequenceProxy).vo.isInSequence);
 			for each (var ns:NetStream in _netStreams){
 				ns.pause();
 			}			
@@ -195,7 +193,9 @@ package
 		
 		private function onAdLoaded(event:AdLoadedEvent):void {
 			if(event.ad.type	== AdsManagerTypes.VIDEO || event.ad.type == "VAST"){
+			//	trace("MY AD EVENT::::: :	"+event.);
 				//retain reference to each netstream
+				//trace("MY AD URL:::: 	"+(event.currentTarget as VideoAdsManager).ads);
 				_adNetStream				= event.netStream;
 				
 				var vidClientObject:Object	= new Object();
@@ -219,6 +219,7 @@ package
 		
 		private function onAdMetaData(data:Object):void{
 			_videoMetadata		= data;
+
 			resizeVideo();
 		}
 		
@@ -829,9 +830,16 @@ package
 			}
 		}
 		
+		private var _mediaUrl:String;
 		
 		private function onAdStarted(event:AdEvent):void {
 			log("[DOUBLECLICK]#onAdStarted : db adsManager sent "+event.type);
+			trace("MY ADS MANAGER::: 	"+(event.currentTarget as VideoAdsManager).ads[0].mediaUrl);
+			if((event.currentTarget as VideoAdsManager).ads[0].mediaUrl){
+				_mediaUrl		= (event.currentTarget as VideoAdsManager).ads[0].mediaUrl;
+			}else{
+				_mediaUrl		= "unknown media url";
+			}
 		}
 		
 		public var wasAdSkipped:Boolean	= false;
@@ -1016,7 +1024,7 @@ package
 		 * @return The function returns the entry id of the plugin media. If the plugin does not play
 		 * 			a kaltura-based entry, the return value is the URL of the media of the plugin.
 		 */		
-		public function get entryId () : String{log("[DOUBLECLICK] plugin: entryId()");return "0_kjvoet76";}
+		public function get entryId () : String{log("[DOUBLECLICK] plugin: entryId()");return _mediaUrl;}
 		
 		/**
 		 * Function for retrieving the source type of the plugin media (url or entryId) 
@@ -1024,7 +1032,7 @@ package
 		 * Otherwise the return value is <code>url</script>
 		 * 
 		 */		
-		public function get sourceType () : String{log("[DOUBLECLICK] plugin: sourceType()");return "entryId";}
+		public function get sourceType () : String{log("[DOUBLECLICK] plugin: sourceType()");return "url";}
 		/**
 		 * Function to retrieve the MediaElement the plugin will play in the KDP. 
 		 * @return returns the MediaElement that the plugin will play in the KDP. 
