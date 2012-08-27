@@ -202,7 +202,7 @@ package {
 		public function loadPlaylist(name:String, url:String):void {
 			
 			if (_dataProvider) {
-				_dataProvider.removeEventListener(Event.CHANGE, onChangeItem, false);
+				_dataProvider.removeEventListener(Event.CHANGE, onChangeItem);
 			}
 			//if we already have a selected data provider we will reset the selectedIndex
 			if (_dataProvider && _dataProvider.length != 0)
@@ -227,8 +227,8 @@ package {
 			}
 			else {
 				dataProvider = _multiDataProviders[filteredUrl];
+				_dataProvider.addEventListener(Event.CHANGE, onChangeItem, false, 0, true);
 				createItems(_dataProvider.selectedIndex);
-				_dataProvider.addEventListener(Event.CHANGE, onChangeItem, false);
 				_playlistAPIMediator.sendNotification(PlaylistNotificationType.PLAYLIST_READY);
 			}
 		}
@@ -353,7 +353,7 @@ package {
 			if (_started) {
 				_playlistAPIMediator.setMediaProxySingleAutoPlay(true);
 			}
-			if (!_dataProvider.selectedIndex) {
+			if (isNaN(_dataProvider.selectedIndex)) {
 				_dataProvider.selectedIndex = 0;
 			}
 			sendChangeMedia(_dataProvider.selectedIndex);

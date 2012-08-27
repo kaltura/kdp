@@ -85,6 +85,7 @@ package com.kaltura.kdpfl.plugin.component {
 					if (name && url)
 					{
 						playlistAPI.resetNewPlaylist();
+						playlistAPI.clearFilters();
 						playlistAPI.loadPlaylist(name, url);
 					}
 					else
