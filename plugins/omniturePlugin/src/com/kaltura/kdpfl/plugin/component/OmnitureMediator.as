@@ -214,6 +214,7 @@ package com.kaltura.kdpfl.plugin.component
 				NotificationType.PLAYER_PLAY_END,
 				NotificationType.CHANGE_MEDIA,
 				"doGigya",
+				"showAdvancedShare",
 				"doDownload",
 				"watermarkClick",
 				NotificationType.DO_PLAY,
@@ -287,6 +288,7 @@ package com.kaltura.kdpfl.plugin.component
 					sendGeneralNotification(SAVE_EVENT);
 				break; 
 				case "doGigya":
+				case "showAdvancedShare":
 					sendGeneralNotification(SHARE_EVENT);
 				break; 
 				case NotificationType.MEDIA_READY:
