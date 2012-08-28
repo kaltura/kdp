@@ -123,6 +123,8 @@ public dynamic class KScrubber extends UIComponent implements IComponent
 	 */	
 	public var progressComplete:Boolean = false;
 	
+	private var _lastPosition:Number = 0;
+	
 	/**
 	 * @private
 	 */
@@ -426,7 +428,6 @@ public dynamic class KScrubber extends UIComponent implements IComponent
 		_clickStrip.y = _durationIndicator.y;
 //		_scrubButton.height = _scrubButton.width = height/2;
 		_thumb.y = (height - _thumb.height)/2;	
-		_range = width - _thumb.width;
 		// this displayobject is the buffering sprite
 		if(_loadIndicator && color1!=-1)
 			KColorUtil.colorDisplayObject(_loadIndicator , color1);
@@ -469,6 +470,8 @@ public dynamic class KScrubber extends UIComponent implements IComponent
 			{
 				_thumb.x  = _progressIndicator.width = 0;
 			}
+			
+			_lastPosition = value;
 		}
 	}	
 	
@@ -705,11 +708,14 @@ public dynamic class KScrubber extends UIComponent implements IComponent
 				this._loadIndicator.width = this._loadIndicator.width*(value/super.width);
 			}
 			
+			super.width = value;
+			
 			if (this._progressIndicator)
 			{
-				this._progressIndicator.width = this._progressIndicator.width*(value/super.width);
+				//re-position progress and thumb with the new width
+				setPosition(_lastPosition);
 			}
-			super.width = value;
+			
 		}
 	}
 	
