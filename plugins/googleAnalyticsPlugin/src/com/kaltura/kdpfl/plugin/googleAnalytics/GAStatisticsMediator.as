@@ -49,6 +49,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 			"kdpReady",
 			"doDownload",
 			"doGigya",
+			"showAdvancedShare",
 			"adEnd",
 			"adStart",
 			"doSeek",
@@ -283,6 +284,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 					value	= 1;
 					break;
 				case "doGigya":
+				case "showAdvancedShare":
 					value	= 1;
 					break;
 				case "doSeek":
