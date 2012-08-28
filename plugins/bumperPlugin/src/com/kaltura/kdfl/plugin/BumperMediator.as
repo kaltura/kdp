@@ -74,7 +74,8 @@ package com.kaltura.kdfl.plugin {
 										"playlistFirstEntry",
 										"playlistMiddleEntry",
 										"playlistLastEntry",
-										NotificationType.CHANGE_MEDIA_PROCESS_STARTED);
+										NotificationType.CHANGE_MEDIA_PROCESS_STARTED,
+										NotificationType.DO_PLAY);
 			return notify;
 		}
 
@@ -139,6 +140,13 @@ package com.kaltura.kdfl.plugin {
 					}
 					break;
 
+				case NotificationType.DO_PLAY:
+					if (_mediaProxy.vo.entry.id == bumper.bumperEntryID && _sequenceProxy.vo.isInSequence && !_playedOnce) {
+						bumper.enabled = true;
+						enableGUI(false);
+						bumper.trackClicks = true;	
+					}
+					break;
 
 
 			}
