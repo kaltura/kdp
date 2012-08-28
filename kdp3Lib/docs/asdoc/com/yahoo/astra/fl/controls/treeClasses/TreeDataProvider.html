@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../../print.css" type="text/css" media="print">
+<meta content="TreeDataProvider,com.yahoo.astra.fl.controls.treeClasses.TreeDataProvider,BRANCH_NODE,CLOSED_NODE,LEAF_NODE,OPEN_NODE,ROOT_NODE,rootNode,toggleNode" name="keywords">
+<title>com.yahoo.astra.fl.controls.treeClasses.TreeDataProvider</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'TreeDataProvider - kdp3Lib Documentation';
+				var baseRef = '../../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../../all-classes.html')" href="../../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../../all-classes.html')" href="../../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../../index-list.html')" href="../../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../../index.html?com/yahoo/astra/fl/controls/treeClasses/TreeDataProvider.html&amp;com/yahoo/astra/fl/controls/treeClasses/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;TreeDataProvider</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class TreeDataProvider"); titleBar_setSubNav(true,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.yahoo.astra.fl.controls.treeClasses</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class TreeDataProvider</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">TreeDataProvider <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../../images/inherit-arrow.gif"> fl.data.DataProvider</td>
+</tr>
+</table>
+<p></p>
+  The TreeDataProvider class provides methods and properties that allow you to query and modify
+  the data in a Tree Component.
+    <p>A <em>TreeDataProvider</em> is the current linear representation of the state of the Tree component.
+  However, even if some nodes are not visible, the TreeDataProvider holds information about them in member
+  fields of the visible nodes. For example, consider the following tree: 
+  <p>
+  &lt;node&nbsp;label=\&quot;Folder&nbsp;1\&quot;&gt;
+  <br />&nbsp;&nbsp;&nbsp;&lt;node&nbsp;label=\&quot;File&nbsp;1\&quot;/&gt;
+  <br />&nbsp;&nbsp;&nbsp;&lt;node&nbsp;label=\&quot;File&nbsp;2\&quot;/&gt;
+  <br />&lt;/node&gt;
+  <br />&lt;node&nbsp;label=\&quot;Folder&nbsp;2\&quot;&gt;
+  <br />&nbsp;&nbsp;&nbsp;&lt;node&nbsp;label=\&quot;File&nbsp;3\&quot;/&gt;
+  <br />&nbsp;&nbsp;&nbsp;&lt;node&nbsp;label=\&quot;File&nbsp;4\&quot;/&gt;
+  <br />&lt;/node&gt;
+  </p>
+  <p>When the TreeDataProvider is initialized with the XML shown above, it will contain two items: one with label 
+  "Folder 1", and one with label "Folder 2". However, each of these items will have a number of fields that tie
+  them to the Tree structure. These fields are: <em>nodeType</em> (either branch or leaf), <em>nodeState</em>
+  (either open or closed), <em>nodeLevel</em> (the depth within the tree), and <em>nodeChildren</em> (a set of 
+  references to all of the node's children, if applicable. In the example, the node with label "Folder 1" will 
+  have <em>nodeType</em> set to "branch node", <em>nodeState</em> set to "closed node", <em>nodeLevel</em> to 0, 
+  and <em>nodeChildren</em> would contain references to nodes with labels "File 1" and "File 2".
+  </p><p>
+  When the node "Folder 1" is expanded, the <em>TreeDataProvider</em> will contain 4 items: "Folder 1", "File 1", 
+  "File 2", "Folder 2".
+  </p>
+    <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#rootNode">rootNode</a> : <a href="../treeClasses/TNode.html">TNode</a>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#TreeDataProvider()">TreeDataProvider</a>(value:Object = null)</div>
+<div class="summaryTableDescription">
+   Creates a new TreeDataProvider object using an instance of XML object as data source.</div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#toggleNode()">toggleNode</a>(nodeIndex:int):void</div>
+<div class="summaryTableDescription"> 
+   Toggles the node state of a branch node.</div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+</table>
+</div>
+<a name="constantSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Constants</div>
+<table id="summaryTableConstant" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#BRANCH_NODE">BRANCH_NODE</a> : String = "branchNode"<div class="summaryTableDescription">[static]
+  A constant used for populating the <em>nodeType</em> field.</div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#CLOSED_NODE">CLOSED_NODE</a> : String = "closedNode"<div class="summaryTableDescription">[static]
+  A constant used for populating the <em>nodeState</em> field.</div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#LEAF_NODE">LEAF_NODE</a> : String = "leafNode"<div class="summaryTableDescription">[static]
+  A constant used for populating the <em>nodeType</em> field.</div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#OPEN_NODE">OPEN_NODE</a> : String = "openNode"<div class="summaryTableDescription">[static]
+  A constant used for populating the <em>nodeState</em> field.</div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#ROOT_NODE">ROOT_NODE</a> : String = "rootNode"<div class="summaryTableDescription">[static]
+  A constant used for populating the <em>nodeType</em> field.</div>
+</td><td class="summaryTableOwnerCol">TreeDataProvider</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="rootNode"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">rootNode</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var rootNode:<a href="../treeClasses/TNode.html">TNode</a></code>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="TreeDataProvider()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">TreeDataProvider</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function TreeDataProvider(value:Object = null)</code><p>
+   Creates a new TreeDataProvider object using an instance of XML object as data source. 
+   The hierarchical structure of the XML object is reproduced in the Tree as parent-child
+   relationships between Objects. Each XML node is converted into an Object, and its attributes
+   are converted to fields within the Object. In addition, the following values are populated 
+   for each node: 
+   </p><p><em>nodeType</em> - Can be either <em>BRANCH_NODE</em> or <em>LEAF_NODE</em>. Represents
+   whether a Node has any children.</p>
+   <p><em>nodeState</em> - If the node is a <em>BRANCH_NODE</em>, represents whether it's currently
+   open or closed. The value can be either <em>OPEN_NODE</em> or <em>CLOSED_NODE</em></p>
+   <p><em>nodeLevel</em> - The depth of the Node within the Tree. Can be used for indenting the node
+   by the cell renderer.</p>
+   <p><em>nodeChildren</em> - An Array of pointers to the objects representing children of the current node.</p>
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">value</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; The XML data that is used to create the DataProvider.
+   </td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="toggleNode()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">toggleNode</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function toggleNode(nodeIndex:int):void</code><p> 
+   Toggles the node state of a branch node. If the node is currently open, it becomes closed; and vice versa.
+   The effect on the dataProvider is as follows: if the node is being opened, all of its children are added
+   to the dataProvider below the node; if the node is being closed, all of its children are removed from the
+   dataProvider.
+   </p><p>The state of the child nodes of the current node is preserved; that is, if a child node of the current node
+   is a branch node and was open when its parent node was closed, it will be open when the parent node is 
+   reopened.</p>
+       <p>This method is deprecated. Use <code>BranchNode.openNode()</code> and <code>BranchNode.closeNode()</code> instead.</p>
+      <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">nodeIndex</span>:int</code> &mdash; The dataProvider index of the node to be toggled.
+                </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../treeClasses/BranchNode.html" target="">com.yahoo.astra.fl.controls.treeClasses.BranchNode</a>
+</div>
+</div>
+<a name="constantDetail"></a>
+<div class="detailSectionHeader">Constant detail</div>
+<a name="BRANCH_NODE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">BRANCH_NODE</td><td class="detailHeaderType">constant</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const BRANCH_NODE:String = "branchNode"</code><p>
+  A constant used for populating the <em>nodeType</em> field.
+     </p></div>
+<a name="CLOSED_NODE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">CLOSED_NODE</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const CLOSED_NODE:String = "closedNode"</code><p>
+  A constant used for populating the <em>nodeState</em> field.
+     </p></div>
+<a name="LEAF_NODE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">LEAF_NODE</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const LEAF_NODE:String = "leafNode"</code><p>
+  A constant used for populating the <em>nodeType</em> field.
+     </p></div>
+<a name="OPEN_NODE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">OPEN_NODE</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const OPEN_NODE:String = "openNode"</code><p>
+  A constant used for populating the <em>nodeState</em> field.
+     </p></div>
+<a name="ROOT_NODE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ROOT_NODE</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const ROOT_NODE:String = "rootNode"</code><p>
+  A constant used for populating the <em>nodeType</em> field.
+  </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

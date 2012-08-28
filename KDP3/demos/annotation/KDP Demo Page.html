@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<script language="javascript">
+			var kdp3;
+			function jsCallbackReady(object) {
+				kdp3=document.getElementById(object);
+				kdp3.addJsListener('feedbackSessionSubmitted', 'feedbackSessionSubmitted');
+				kdp3.addJsListener('annotationSaved', 'annotationSaved');
+				kdp3.addJsListener('annotationDeleted', 'annotationDeleted');
+				
+ 
+				
+				
+			}
+			function resetAnnotationTool() {
+				kdp3.sendNotification('resetAnnotationsComponent');
+				kdp3.setKDPAttribute('annotations','userMode','editable');
+			}
+			
+			function setSubmissionTarget(value) {
+				kdp3.setKDPAttribute('annotations','submissionTarget',value);
+			}
+			
+			function loadXMLFBDraftSession() {
+				kdp3.sendNotification ('loadFeedbackSession' , {feedbackSession:'<annotations id="string" status="draft" entryId="1_kvbpmf32" partnerId="356021"><annotation><createdAt/><updatedAt/><text>annotation1</text><startTime>13</startTime><endTime/><userId/></annotation><annotation><createdAt/><updatedAt/><text>annotation2</text><startTime>20</startTime><endTime/><userId/></annotation></annotations>'});
+			}
+			
+			function loadXMLFBFinalSession() {
+				kdp3.sendNotification ('loadFeedbackSession' , {feedbackSession:'<annotations id="string" status="final" entryId="1_kvbpmf32" partnerId="356021"><annotation><createdAt/><updatedAt/><text>annotation1</text><startTime>13</startTime><endTime/><userId/></annotation><annotation><createdAt/><updatedAt/><text>annotation2</text><startTime>20</startTime><endTime/><userId/></annotation></annotations>'});
+			}
+			
+			function loadKalturaFBsession() {
+				kdp3.sendNotification ('loadFeedbackSession', {sessionId: '1_kk4r23up'} );
+			
+			}
+			function feedbackSessionSubmitted(object) {
+				document.getElementById('feedbackXml').innerHTML = 'Event: feedbackSessionSubmitted' + "\n" + object.feedbackSessionXML;
+				
+			}
+			function annotationSaved(object) {
+				document.getElementById('feedbackXml').innerHTML = 'Event: annotationSaved' + "\n" + object.feedbackSessionXML;
+			}
+			function annotationDeleted(object) {
+				document.getElementById('feedbackXml').innerHTML = 'Event: annotationDeleted' + "\n" + object.feedbackSessionXML;
+			}
+			
+		</script>
+	</head>
+	
+	<center>
+	<body>
+		
+		<br><br><br>
+		<object id="kaltura_player_1307110128"
+		name="kaltura_player_1307110128"
+		type="application/x-shockwave-flash" allowFullScreen="true"
+		allowNetworking="all" allowScriptAccess="always" height="700"
+		width="600" bgcolor="#000000" xmlns:dc="http://purl.org/dc/terms/"
+		xmlns:media="http://search.yahoo.com/searchmonkey/media/"
+		rel="media:video"
+		resource="http://www.kaltura.com/index.php/kwidget/cache_st/1307110128/wid/_356021/uiconf_id/4785301/entry_id/1_kvbpmf32"
+		data="http://www.kaltura.com/index.php/kwidget/cache_st/1307110128/wid/_356021/uiconf_id/4785301/entry_id/1_kvbpmf32">
+ 
+		  <param name="allowFullScreen" value="true" />
+		  <param name="allowNetworking" value="all" />
+		  <param name="allowScriptAccess" value="always" />
+		  <param name="bgcolor" value="#000000" />
+		  <param name="flashVars" value="debugMode=true&amp;externalInterfaceEnabled=false&amp;annotations.maxChars=200&amp;annotations.submissionTarget=localDB&amp;" />
+		  <param name="movie"
+		  value="http://www.kaltura.com/index.php/kwidget/cache_st/1307110128/wid/_356021/uiconf_id/4785301/entry_id/1_kvbpmf32" />
+		  <a href="http://corp.kaltura.com">video platform</a>
+		  <a href="http://corp.kaltura.com/video_platform/video_management">
+		  video management</a>
+		  <a href="http://corp.kaltura.com/solutions/video_solution">video
+		  solutions</a>
+		  <a href="http://corp.kaltura.com/video_platform/video_publishing">
+		  video player</a>
+		  <a rel="media:thumbnail"
+		  href="http://cdnsecakmi.kaltura.com/p/356021/sp/35602100/thumbnail/entry_id/1_kvbpmf32/width/120/height/90/bgcolor/000000/type/2">
+		  </a>
+		  <span property="dc:description" content=""></span>
+		  <span property="media:title"
+		  content="Sample Big Buck Bunny Trailer (HD)"></span>
+		  <span property="media:width" content="500"></span>
+		  <span property="media:height" content="400"></span>
+		  <span property="media:type"
+		  content="application/x-shockwave-flash"></span>
+		</object>
+		
+		<textarea id="feedbackXml" rows="43" cols ="70"></textarea>
+		<br><br/>
+		
+		<button id="targetSetterBtn" onClick="setSubmissionTarget(targetTF.value)">Set Submission Target</button> 
+		<Input id="targetTF" type="text"/>
+		<br>
+		<button id="resetAnnotationTool" onClick="resetAnnotationTool()">Reset Tool to Editable Mode</button>
+		<button id="loadXMLFeedbackDraftSession" onClick="loadXMLFBDraftSession()">Load XML FB Session-Draft</button>
+		<button id="loadXMLFeedbackFinalSession" onClick="loadXMLFBFinalSession()">Load XML FB Session-Final</button>
+		<button id="loadKalturaFBSession" onClick="loadKalturaFBsession()">Load Kaltura FB session</button>
+		<br><br/>
+		
+		
+	</div>
+	</body>
+	</center>
+</html>
