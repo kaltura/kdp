@@ -243,6 +243,9 @@ Miscellaneous
     
     alertForCookies = [true / false]
     	if set to true, "allow cookies" alert will be displayed if user hasn't allowed cookies in a previous session. Default value is false.
+    	
+    adsOnReplay = [true / false]
+    	if set to true, ads will be shown on replay. Default is false.
     	                                
 Components & Plug-ins attributes
 --------------------------------
