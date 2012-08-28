@@ -21,6 +21,7 @@ package com.kaltura.kdpfl
 	
 	import mx.utils.ObjectProxy;
 	
+	import org.osmf.media.MediaPlayerState;
 	import org.puremvc.as3.interfaces.IFacade;
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.interfaces.IProxy;
@@ -136,7 +137,11 @@ package com.kaltura.kdpfl
 				if (s && s != "null") {
 					var curTime:Number = 0;
 					var kmediaPlayerMediator:KMediaPlayerMediator = retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
-					if (kmediaPlayerMediator && kmediaPlayerMediator.player)
+					if (kmediaPlayerMediator && 
+						kmediaPlayerMediator.player && 
+						kmediaPlayerMediator.player.state!=MediaPlayerState.LOADING &&
+						kmediaPlayerMediator.player.state!=MediaPlayerState.UNINITIALIZED &&
+						kmediaPlayerMediator.player.state!=MediaPlayerState.PLAYBACK_ERROR)
 					{
 						curTime = kmediaPlayerMediator.player.currentTime;
 					}

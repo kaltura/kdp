@@ -666,8 +666,6 @@ package com.kaltura.kdpfl.view.media
 		{	
 			_isIntelliSeeking = true;
 			_offset = value;
-			//_seekUrl=_mediaProxy.convertToIntSeek(_url,_offset)
-			//_mediaProxy.vo.entry.dataUrl=_seekUrl;
 			_mediaProxy.prepareMediaElement( _offset);
 			_mediaProxy.loadWithMediaReady();
 			_intelliSeekStart = _offset;

@@ -8,6 +8,7 @@ package com.kaltura.kdpfl.model
 	import com.kaltura.kdpfl.model.type.SourceType;
 	import com.kaltura.kdpfl.model.type.StreamerType;
 	import com.kaltura.kdpfl.model.vo.MediaVO;
+	import com.kaltura.kdpfl.model.vo.SequenceVO;
 	import com.kaltura.kdpfl.model.vo.StorageProfileVO;
 	import com.kaltura.kdpfl.util.KTextParser;
 	import com.kaltura.kdpfl.util.URLUtils;
@@ -802,13 +803,19 @@ package com.kaltura.kdpfl.model
 			
 			if (shouldCreateSwitchingProxy)
 			{
+			
 				//wrap the media element created above in a KSwitcingProxy in order to enable midrolls.
 				var switchingMediaElement : KSwitchingProxyElement = new KSwitchingProxyElement();
 				switchingMediaElement.mainMediaElement = vo.media;
 				//set the KSwitcingProxyElement as the vo.media
 				vo.media = switchingMediaElement;
+				//if its a new media and not a bumper entry
+				var sequenceVo:SequenceVO = (facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo;
+				if (!sequenceVo.isInSequence && !(facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).isIntelliSeeking)
+					sequenceVo.mainMediaVO = null;
 				//add event listener for a switch between the main and secondary elements in the KSwitcingProxyElement.
 				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_PERFORMED, onSwitchPerformed );
+				
 				
 			}
 			

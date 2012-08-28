@@ -1,5 +1,6 @@
 package com.kaltura.kdpfl.controller.media
 {
+	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
@@ -34,6 +35,12 @@ package com.kaltura.kdpfl.controller.media
 			else
 			{
 				sendNotification( NotificationType.PLAYER_PLAY_END );
+				var flashvars:Object = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
+				//if we want to display ads on replay, reset prerolls and postrolls
+				if (flashvars.adsOnReplay && flashvars.adsOnReplay=="true")
+				{
+					sequenceProxy.resetPrePostSequence()
+				}
 			}
 		}
 	}

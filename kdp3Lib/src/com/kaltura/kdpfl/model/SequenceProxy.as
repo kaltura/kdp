@@ -744,6 +744,16 @@ package com.kaltura.kdpfl.model
 			playNextInSequence();
 		}
 		
+		/**
+		 * reset presequence and postsequence states, as if they weren't played yet 
+		 * 
+		 */		
+		public function resetPrePostSequence():void 
+		{
+			initPreIndex();
+			vo.postSequenceComplete = false;
+		}
+		
 	}
 	
 	

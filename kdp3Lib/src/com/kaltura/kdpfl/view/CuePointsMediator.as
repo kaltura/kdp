@@ -54,6 +54,10 @@ package com.kaltura.kdpfl.view
 		 */		
 		private var _cuePointsMap : Object = new Object();
 		/**
+		 * The map of the current cue-points per this play session
+		 */		
+		private var _sessionCuePointsMap : Object = new Object();
+		/**
 		 * The KDP flashvars.
 		 */		
 		private var _flashvars : Object;
@@ -108,6 +112,7 @@ package com.kaltura.kdpfl.view
 					//don't change the notification.body, copy the object
 					ObjectUtil.copyObject(notification.getBody(), _cuePointsMap);
 					findPrePostSequence();
+					ObjectUtil.copyObject(_cuePointsMap, _sessionCuePointsMap);					
 					break;
 				case NotificationType.MEDIA_LOADED:
 					
@@ -117,8 +122,16 @@ package com.kaltura.kdpfl.view
 					break;
 				
 				case NotificationType.PLAYER_PLAY_END:
-					//_timelineMetadata.removeEventListener( TimelineMetadataEvent.MARKER_TIME_REACHED, onCuePointReached );
-					_reachedMediaEnd = true;
+					//in order to display midrolls again, reset _sessionCuePointMap
+					if (_flashvars.adsOnReplay && _flashvars.adsOnReplay=="true")
+					{
+						_reachedMediaEnd = false;
+						ObjectUtil.copyObject(_cuePointsMap, _sessionCuePointsMap);	
+					}
+					else
+					{
+						_reachedMediaEnd = true;
+					}
 					break;
 				
 				case NotificationType.CHANGE_MEDIA:
@@ -147,8 +160,7 @@ package com.kaltura.kdpfl.view
 			var startTimeInMS:Number = startTime * 1000;
 			
 			var shouldStartMidrollSequence : Boolean = false;
-			
-			for each (var cuePoint : KalturaCuePoint in _cuePointsMap[startTimeInMS])
+			for each (var cuePoint : KalturaCuePoint in _sessionCuePointsMap[startTimeInMS])
 			{
 				if ((cuePoint.type == KalturaCuePointType.AD || cuePoint is KalturaAdCuePoint) && !_reachedMediaEnd)
 				{
@@ -174,7 +186,7 @@ package com.kaltura.kdpfl.view
 				sequenceProxy.startMidSequence(false);;
 			}
 			
-			delete (_cuePointsMap[startTimeInMS]);
+			delete (_sessionCuePointsMap[startTimeInMS]);
 			
 		}
 		/**
