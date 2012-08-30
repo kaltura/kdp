@@ -1,9 +1,11 @@
 package
 {
+	import com.akamai.playeranalytics.AnalyticsPluginLoader;
 	import com.akamai.playeranalytics.osmf.OSMFCSMALoaderInfo;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.KPluginEvent;
+	import com.kaltura.kdpfl.plugin.akamaiMediaAnalyticsMediator;
 	
 	import fl.core.UIComponent;
 	
@@ -15,6 +17,14 @@ package
 	import org.osmf.media.PluginInfoResource;
 	import org.puremvc.as3.interfaces.IFacade;
 
+	/**
+	 * AkamaiMediaAnalytics pluging will send statistics to akamai. These statistics can be shown in Akamai Control: : https://control.akamai.com..
+	 * The plugin receives two mandatory fields: swfPath and configPath.
+	 * For example:
+	 * <Plugin id="akamaiMediaAnalytics" width="0%" height="0%" includeInLayout="false" asyncInit="true" swfPath="http://79423.analytics.edgesuite.net/csma/plugin/csma.swf" configPath="http://79423.analytics.edgesuite.net/csma/configuration/CSMASampleConfiguration.xml"/> 
+	 * @author michalr
+	 * 
+	 */	
 	public class akamaiMediaAnalyticsPluginCode extends UIComponent implements IPlugin
 	{
 		
@@ -49,6 +59,8 @@ package
 
 		public function initializePlugin(facade:IFacade):void
 		{
+			var mediator:akamaiMediaAnalyticsMediator = new akamaiMediaAnalyticsMediator();
+			facade.registerMediator(mediator);
 			
 			//Getting Static reference to Plugin.
 			var pluginInfoRef:Class = getDefinitionByName("com.akamai.playeranalytics.osmf.OSMFCSMALoaderInfo") as Class;
