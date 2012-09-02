@@ -288,13 +288,27 @@ package com.kaltura.kdpfl.controller.media
 					// the call was BaseEntryGet, use the result as is
 					entry = arr[i];
 				}
+				
 				_mediaProxy.vo.entry = entry;
-				if (entry is KalturaLiveStreamEntry){
+				
+				if(entry is KalturaLiveStreamEntry || _flashvars.streamerType == StreamerType.LIVE)
+				{
 					_mediaProxy.vo.deliveryType = StreamerType.LIVE;
+					_mediaProxy.vo.isLive = true;
+					_mediaProxy.vo.mediaProtocol = StreamerType.RTMP;
 				}
 				else
 				{
 					_mediaProxy.vo.deliveryType = _flashvars.streamerType;
+					_mediaProxy.vo.isLive = false;
+					if (_flashvars.mediaProtocol)
+					{
+						_mediaProxy.vo.mediaProtocol =  _flashvars.mediaProtocol;
+					}
+					else
+					{
+						_mediaProxy.vo.mediaProtocol = _mediaProxy.vo.deliveryType;
+					}
 				}
 			}
 			

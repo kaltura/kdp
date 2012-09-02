@@ -99,23 +99,7 @@ package com.kaltura.kdpfl.model
 			if (!_client)
 				_client = (facade.retrieveProxy( ServicesProxy.NAME ) as ServicesProxy ).kalturaClient as KalturaClient;
 			var resource:MediaResourceBase;
-			//vo.deliveryType = _flashvars.streamerType;
 			var sourceType : String = _flashvars.sourceType;
-			if(vo.entry is KalturaLiveStreamEntry || _flashvars.streamerType == StreamerType.LIVE){
-				vo.deliveryType = StreamerType.LIVE;
-				vo.isLive = true;
-			}
-			else{
-				vo.isLive = false;
-			}
-			if (!_flashvars.mediaProtocol)
-			{
-				vo.mediaProtocol = (vo.deliveryType != StreamerType.LIVE) ? vo.deliveryType : StreamerType.RTMP;
-			}
-			else
-			{
-				vo.mediaProtocol = (vo.deliveryType != StreamerType.LIVE) ? _flashvars.mediaProtocol : StreamerType.RTMP;
-			}
 			switch (sourceType) 
 			{
 				case SourceType.ENTRY_ID:

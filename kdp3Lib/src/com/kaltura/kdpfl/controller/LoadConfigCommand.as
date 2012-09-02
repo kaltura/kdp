@@ -230,7 +230,6 @@ package com.kaltura.kdpfl.controller
 					++i; //procced anyway
 					//TODO: Trace, Report, and notify the user
 					KTrace.getInstance().log("Error in Start Widget Session");
-//					trace("Error in Start Widget Session");
 					sendNotification( NotificationType.ALERT , {message: MessageStrings.getString("SERVICE_START_WIDGET_ERROR"), title: MessageStrings.getString("SERVICE_ERROR")} );
 				}
 				else
@@ -259,7 +258,6 @@ package com.kaltura.kdpfl.controller
 				++i; //procced anyway
 				//TODO: Trace, Report, and notify the user
 				KTrace.getInstance().log("Error in Get UIConf");
-				//trace("Error in Get UIConf");
 				sendNotification( NotificationType.ALERT , {message: MessageStrings.getString("SERVICE_GET_UICONF_ERROR"), title: MessageStrings.getString("SERVICE_ERROR")} );
 			}
 			else
@@ -281,7 +279,6 @@ package com.kaltura.kdpfl.controller
 		public function fault(data:Object):void
 		{
 			KTrace.getInstance().log("LoadConfigCommand==>fault");
-			//trace("LoadConfigCommand==>fault");
 			commandComplete(); //execute next command
 		}
 		
@@ -363,7 +360,6 @@ package com.kaltura.kdpfl.controller
 				if (xml == null)
 				{
 					KTrace.getInstance().log("ERROR: plugin ", pluginXML.@id, " - couldnt find relativeTo component " + relativeTo);
-					//trace("ERROR: plugin ", pluginXML.@id, " - couldnt find relativeTo component " + relativeTo);
 				}
 				else if (position == "before")
 				{
@@ -385,7 +381,6 @@ package com.kaltura.kdpfl.controller
 				}
 				else {
 					KTrace.getInstance().log("ERROR: plugin ", pluginXML.@id, " - invalid position " + position);
-					//trace("ERROR: plugin ", pluginXML.@id, " - invalid position " + position);
 				}
 			}
 			else
