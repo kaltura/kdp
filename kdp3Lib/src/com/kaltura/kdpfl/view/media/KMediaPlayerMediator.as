@@ -28,7 +28,6 @@ package com.kaltura.kdpfl.view.media
 	
 	import mx.utils.Base64Encoder;
 	
-	import org.osmf.elements.ParallelElement;
 	import org.osmf.events.AudioEvent;
 	import org.osmf.events.BufferEvent;
 	import org.osmf.events.DisplayObjectEvent;
@@ -38,12 +37,10 @@ package com.kaltura.kdpfl.view.media
 	import org.osmf.events.MediaPlayerCapabilityChangeEvent;
 	import org.osmf.events.MediaPlayerStateChangeEvent;
 	import org.osmf.events.TimeEvent;
-	import org.osmf.media.MediaElement;
 	import org.osmf.media.MediaPlayer;
 	import org.osmf.media.MediaPlayerState;
 	import org.osmf.traits.DynamicStreamTrait;
 	import org.osmf.traits.MediaTraitType;
-	import org.osmf.traits.PlayTrait;
 	import org.osmf.traits.TimeTrait;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
@@ -108,11 +105,6 @@ package com.kaltura.kdpfl.view.media
 		 * Flag indicating if do_switch was explicity call, this means we should set autoDynamicStreamSwitch to false 
 		 */		
 		private var _doSwitchSent:Boolean = false;
-		
-		/**
-		 * indicates if the media is parallel element and we should access the play trait directly 
-		 */		
-		private var _useParallelElement:Boolean = false;
 		
 		/**
 		 * timer to get video metadata 
@@ -468,21 +460,7 @@ package com.kaltura.kdpfl.view.media
 						}
 						if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
 						{
-							//requires to stop the playTrait directly
-							if (player.media is ParallelElement)
-							{
-								var mainMedia:MediaElement = (player.media as ParallelElement).getChildAt(0) as MediaElement;
-								var playTrait:PlayTrait = mainMedia.getTrait(MediaTraitType.PLAY) as PlayTrait;
-								if (playTrait)
-								{
-									playTrait.stop();
-									_useParallelElement = true;
-								}
-							}
-							else
-							{
-								player.stop();
-							}
+							player.stop();
 						}
 					}
 					break;
@@ -809,15 +787,6 @@ package com.kaltura.kdpfl.view.media
 					_reloadingLiveStream = true;
 					_mediaProxy.prepareMediaElement();
 					_mediaProxy.loadWithMediaReady();			
-				}
-				else if (_useParallelElement && (player.media is ParallelElement))
-				{
-					var mainMedia:MediaElement = (player.media as ParallelElement).getChildAt(0) as MediaElement;
-					var playTrait:PlayTrait = mainMedia.getTrait(MediaTraitType.PLAY) as PlayTrait;
-					if (playTrait)
-						playTrait.play();
-					
-					_useParallelElement = false;
 				}
 				else
 				{

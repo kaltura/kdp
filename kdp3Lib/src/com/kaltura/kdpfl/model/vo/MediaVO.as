@@ -230,5 +230,12 @@ package com.kaltura.kdpfl.model.vo
 		 */		
 		public var displayFlavorPixels:Boolean = false;
 		
+		[Bindable]
+		/**
+		 * When is set to true, the created mediaElement will be parallel element. It is mainly used to improve user experience when playing live stream 
+		 * and preroll - player will conect to liveStream during the preroll play
+		 */		
+		public var useParallelElement:Boolean = false;
+		
 	}
 }

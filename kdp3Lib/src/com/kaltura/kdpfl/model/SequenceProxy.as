@@ -5,7 +5,6 @@ package com.kaltura.kdpfl.model
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
-	import com.kaltura.kdpfl.model.type.StreamerType;
 	import com.kaltura.kdpfl.model.vo.MediaVO;
 	import com.kaltura.kdpfl.model.vo.SequenceVO;
 	import com.kaltura.kdpfl.plugin.IMidrollSequencePlugin;
@@ -13,26 +12,17 @@ package com.kaltura.kdpfl.model
 	import com.kaltura.kdpfl.plugin.Plugin;
 	import com.kaltura.kdpfl.util.Cloner;
 	import com.kaltura.kdpfl.view.controls.KTrace;
-	import com.kaltura.kdpfl.view.media.KMediaPlayer;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	import com.kaltura.vo.KalturaCuePoint;
-	import com.kaltura.vo.KalturaLiveStreamEntry;
 	
-	import org.osmf.elements.ParallelElement;
 	import org.osmf.elements.SWFElement;
-	import org.osmf.events.MediaElementEvent;
 	import org.osmf.events.MediaPlayerCapabilityChangeEvent;
 	import org.osmf.events.TimeEvent;
-	import org.osmf.layout.LayoutMetadata;
 	import org.osmf.media.MediaElement;
 	import org.osmf.media.MediaPlayer;
-	import org.osmf.traits.AudioTrait;
-	import org.osmf.traits.DisplayObjectTrait;
 	import org.osmf.traits.MediaTraitType;
-	import org.osmf.traits.PlayTrait;
 	import org.osmf.traits.TimeTrait;
-	import org.puremvc.as3.patterns.facade.Facade;
 	import org.puremvc.as3.patterns.proxy.Proxy;
 	
 	/**
@@ -87,21 +77,9 @@ package com.kaltura.kdpfl.model
 			}
 			
 			var player:MediaPlayer = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player;
-			if (player.media is ParallelElement) 
+			if (mediaVo.useParallelElement) 
 			{
-				var parallel:ParallelElement = player.media as ParallelElement;
-				//remove the preroll element
-				if (parallel.numChildren > 1) {
-					parallel.removeChildAt(0);
-				}
-				
-				//restore live stream
-				var mainMedia:MediaElement = parallel.getChildAt(0) as MediaElement;				
-				var audioTrait:AudioTrait = mainMedia.getTrait(MediaTraitType.AUDIO) as AudioTrait;
-				audioTrait.muted = false;
-				var displayTrait:DisplayObjectTrait = mainMedia.getTrait(MediaTraitType.DISPLAY_OBJECT) as DisplayObjectTrait;
-				displayTrait.displayObject.visible = true;
-			
+				sendNotification(NotificationType.RESTORE_MAIN_PARALLEL_ELEMENT);
 			}
 		}
 		
@@ -610,65 +588,21 @@ package com.kaltura.kdpfl.model
 			var mediaProxy:MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 			
 			//improve user experience: if we play live stream we can start connect to it during the preroll play
-			if ((mediaProxy.vo.entry is KalturaLiveStreamEntry || mediaProxy.vo.deliveryType == StreamerType.LIVE) && (sequenceContext == SequenceContextType.PRE))
+			if (mediaProxy.vo.useParallelElement && (sequenceContext == SequenceContextType.PRE))
 			{
-				var parallel:ParallelElement = new ParallelElement();
-				var mainMedia:MediaElement = mediaProxy.vo.media;
-				var prerollMedia:MediaElement = mediaElement;
-				
-				mainMedia.addEventListener(MediaElementEvent.TRAIT_ADD, onAudioAdd);
-				mainMedia.addEventListener(MediaElementEvent.TRAIT_ADD, onDisplayAdd);
-		
-				parallel.addChild(prerollMedia);
-				parallel.addChild(mainMedia);
-				playerMediator.player.media = parallel;
-				mediaProxy.vo.media  = parallel;
-				saveMainMedia();	
+				sendNotification(NotificationType.CREATE_PARALLEL_ELEMENT, {mediaElement: mediaElement});
 			}
 			else
 			{
 				playerMediator.player.media = mediaElement;				
 			}
-			enableGui(false);
-	
+			enableGui(false);	
 			shouldEndAd = true;
 			vo.isAdLoaded = true;
 			sendNotification(AdsNotificationTypes.AD_START, {timeSlot: sequenceContext});
 			playerMediator.playContent();
 
 			return true;		
-		}
-		
-		/**
-		 * for parallel elements: media audio trait was added, mute it during preroll play
-		 * @param e
-		 * 
-		 */		
-		private function onAudioAdd(e:MediaElementEvent):void 
-		{
-			if (e.traitType == MediaTraitType.AUDIO) 
-			{		
-				var audioTrait:AudioTrait = e.target.getTrait(MediaTraitType.AUDIO) as AudioTrait;
-				audioTrait.muted = true;
-				e.target.removeEventListener(MediaElementEvent.TRAIT_ADD, onAudioAdd);
-			}
-			
-		}
-		
-		/**
-		 * for parallel elements: media display trait was added, make it invisible during preroll play 
-		 * @param e
-		 * 
-		 */		
-		private function onDisplayAdd(e:MediaElementEvent):void 
-		{
-			if (e.traitType == MediaTraitType.DISPLAY_OBJECT) 
-			{		
-				var trait:DisplayObjectTrait = e.target.getTrait(MediaTraitType.DISPLAY_OBJECT) as DisplayObjectTrait;
-				trait.displayObject.visible = false;
-				e.target.removeEventListener(MediaElementEvent.TRAIT_ADD, onDisplayAdd);
-			}
-			
 		}
 		
 		/**

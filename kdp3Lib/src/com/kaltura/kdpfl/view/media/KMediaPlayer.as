@@ -1,17 +1,12 @@
 package com.kaltura.kdpfl.view.media
 {
-	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.component.IComponent;
-	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.util.URLUtils;
 	import com.kaltura.kdpfl.view.controls.BufferAnimation;
-	import com.kaltura.kdpfl.view.controls.KTrace;
 	import com.yahoo.astra.fl.containers.layoutClasses.AdvancedLayoutPane;
 	
 	import flash.display.Sprite;
-	import flash.events.Event;
 	
-	import org.osmf.elements.ParallelElement;
 	import org.osmf.events.DisplayObjectEvent;
 	import org.osmf.events.MediaPlayerStateChangeEvent;
 	import org.osmf.media.MediaPlayer;
@@ -429,18 +424,10 @@ package com.kaltura.kdpfl.view.media
 		{
 			if(_player.displayObject)
 			{
-				if (_player.media is ParallelElement)
-				{
-					_player.displayObject.x = movieX = 0;
-					_player.displayObject.y = movieY = 0;
-				}
-				else
-				{
-					_player.displayObject.x=(this.width-_player.displayObject.width)/2;
-					_player.displayObject.y=(this.height-_player.displayObject.height)/2;
-					movieX = _player.displayObject.x;
-					movieY = _player.displayObject.y;
-				}
+				_player.displayObject.x=(this.width-_player.displayObject.width)/2;
+				_player.displayObject.y=(this.height-_player.displayObject.height)/2;
+				movieX = _player.displayObject.x;
+				movieY = _player.displayObject.y;
 			}
 			if(_thumbnail)
 			{

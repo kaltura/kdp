@@ -452,5 +452,14 @@ package com.kaltura.kdpfl.model.type
 		  * Notification fired when mediaElement was created and saved on mediaProxyVo 
 		  */		 
 		 static public const MEDIA_ELEMENT_READY : String = "mediaElementReady";
+		 /**
+		  * Notification fired when the created mediaElement should be parallelElement 
+		  */		 
+		 static public const CREATE_PARALLEL_ELEMENT : String = "createParallelElement";
+		 /**
+		  * Notification fired when the player is playing parllel element and the main element should be restored
+		  */		 
+		 static public const RESTORE_MAIN_PARALLEL_ELEMENT : String = "restoreMainParallelElement";
+
 	}
 }
