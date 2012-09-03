@@ -45,12 +45,10 @@ package com.kaltura.kdpfl.plugin
 					var configProxy:ConfigProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
 					var entry:KalturaBaseEntry = _mediaProxy.vo.entry;
 					
-					AnalyticsPluginLoader.setData("title", entry.id);
-					
+					AnalyticsPluginLoader.setData("title", entry.name);
+					AnalyticsPluginLoader.setData("entryId", entry.id);
 					AnalyticsPluginLoader.setData("category", entry.categories);
-				
-					//since we don't have a partnerID field, we will send it as "subCategory"
-					AnalyticsPluginLoader.setData("subCategory", configProxy.vo.flashvars.partnerId);
+					AnalyticsPluginLoader.setData("partnerId", configProxy.vo.flashvars.partnerId);
 					
 					//find content type
 					if (entry is KalturaMediaEntry)
@@ -83,7 +81,7 @@ package com.kaltura.kdpfl.plugin
 				
 			
 				case NotificationType.SWITCHING_CHANGE_COMPLETE:
-					AnalyticsPluginLoader.setData("show", getFlavorIdByIndex(notification.getBody().newIndex));
+					AnalyticsPluginLoader.setData("flavorId", getFlavorIdByIndex(notification.getBody().newIndex));
 					break;
 				
 				case NotificationType.MEDIA_ELEMENT_READY:
@@ -98,9 +96,8 @@ package com.kaltura.kdpfl.plugin
 						flavorId = getFlavorIdByIndex(_mediaProxy.startingIndex);
 					}
 					
-					//since we don't have "flavor" field, we will send it as "show"
 					if (flavorId)
-						AnalyticsPluginLoader.setData("show", flavorId);
+						AnalyticsPluginLoader.setData("flavorId", flavorId);
 					
 					break;
 			}
