@@ -127,16 +127,6 @@ package
 		
 		private function getWidget(entry_id:String,player_id:String):void
 		{
-			if(dynamicLink)
-			{
-				directLink = dynamicLink;
-				if(_refferencer.hasOwnProperty("directLink"))
-					(_refferencer["directLink"] as KLabel).text = directLink; 
-				
-				return;
-			}
-			
-			
 			var kw:KalturaWidget = new KalturaWidget();
 			
 			var media:Object = facade.retrieveProxy("mediaProxy");
@@ -244,6 +234,14 @@ package
 			 else
 				directLink = "Plugin is not configured correctly. Generator page prefix is not set"; 
 
+			
+			if(dynamicLink)
+			{
+				directLink = dynamicLink;
+			}
+			
+			
+			
 			if(_refferencer.hasOwnProperty("directLink"))
 				(_refferencer["directLink"] as KLabel).text = directLink;
 
