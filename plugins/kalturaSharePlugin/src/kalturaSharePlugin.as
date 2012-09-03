@@ -70,6 +70,8 @@ package
 		[Bindable]
 		public var directLink:String;
 		[Bindable]
+		public var dynamicLink:String;
+		[Bindable]
 		public var directEmbed:String;
 		
 		public var wasPlayerPlaying:Boolean;
@@ -113,10 +115,6 @@ package
 				var config:Object = facade.retrieveProxy("configProxy");
 				uiconfId = config.vo.flashvars.uiConfId;
 			}
-			
-			
-			
-			
 			//skip 2nd addWidget for the same entry
 			if(entryId && entryId == advancedShareMediator.entry.id && !_hadError )
 			{
@@ -124,12 +122,21 @@ package
 			}
 			entryId = advancedShareMediator.entry.id;
 			getWidget(entryId , uiconfId);
-			return;
 		}
 		
 		
 		private function getWidget(entry_id:String,player_id:String):void
 		{
+			if(dynamicLink)
+			{
+				directLink = dynamicLink;
+				if(_refferencer.hasOwnProperty("directLink"))
+					(_refferencer["directLink"] as KLabel).text = directLink; 
+				
+				return;
+			}
+			
+			
 			var kw:KalturaWidget = new KalturaWidget();
 			
 			var media:Object = facade.retrieveProxy("mediaProxy");
@@ -231,18 +238,12 @@ package
 			if(_refferencer.hasOwnProperty("directEmbed"))
 				(_refferencer["directEmbed"] as KLabel).text = directEmbed;
 			
-			
-			
-			
-			
-			
-			
+						
 			if(landingPagePrefix)
 				directLink = landingPagePrefix + widgetId ; 
 			 else
 				directLink = "Plugin is not configured correctly. Generator page prefix is not set"; 
-			
-			
+
 			if(_refferencer.hasOwnProperty("directLink"))
 				(_refferencer["directLink"] as KLabel).text = directLink;
 

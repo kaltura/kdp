@@ -18,7 +18,7 @@
 		<link>
 			<name>bin-debug</name>
 			<type>2</type>
-			<location>C:/workspaces/kdp/KDP3/bin-debug/plugins</location>
+			<locationURI>DOCUMENTS/KDP3/bin-debug/plugins</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
