@@ -228,17 +228,7 @@ package com.kaltura.kdpfl.plugin.component
 			{
 				bitrateVal = _forceBitrate;
 			}
-			
-			//for testing - expose the # via JS
-			try
-			{
-				ExternalInterface.call('bitrateValue' , bitrateVal);
-			} 
-			catch(error:Error) 
-			{
-				
-			}
-			
+
 			sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: bitrateVal});
 
 			_bandwidth = bitrateVal;
