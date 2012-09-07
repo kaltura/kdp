@@ -93,6 +93,10 @@ package com.kaltura.kdpfl.plugin.component {
 						trace ("could not load playlist, kplName or kplUrl values are invalid");
 					}
 					break;
+				case NotificationType.CHANGE_MEDIA: {
+					playlistAPI.changeMedia(note.getBody().entryId);
+					break;
+				}
 			}
 		}
 
@@ -107,7 +111,8 @@ package com.kaltura.kdpfl.plugin.component {
 					PlaylistNotificationType.PLAYLIST_PLAY_NEXT,
 					NotificationType.KDP_EMPTY,
 					NotificationType.KDP_READY,
-					PlaylistNotificationType.LOAD_PLAYLIST
+					PlaylistNotificationType.LOAD_PLAYLIST,
+					NotificationType.CHANGE_MEDIA
 			];
 		}
 

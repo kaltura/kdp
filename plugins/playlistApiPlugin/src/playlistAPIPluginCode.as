@@ -105,7 +105,7 @@ package {
 		/**
 		 * @copy #searchDataProvider 
 		 */
-		private var _searchDataProvider:DataProvider;
+		private var _searchDataProvider:DataProvider; 
 		
 		/**
 		 * @copy #sortDataProvider
@@ -250,7 +250,8 @@ package {
 		private function mrssToMediaEntryArray():Array {
 			var itemToList:Array = _akamaiMRSS.itemArray;
 			var entries:Array = [];
-			
+			var fv:Object	= (Facade.getInstance().retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
+			var ks:String	= (Facade.getInstance().retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks;
 			for each (var itemTo:ItemTO in itemToList) {
 				var kalturaEntry:KalturaPlayableEntry = new KalturaPlayableEntry();
 				
@@ -363,6 +364,35 @@ package {
 		
 		
 		/**
+		 * When a media entry is changed, update the dataProvider if the entry exists in it.
+		 * @param entry String entry id
+		 */
+		public function changeMedia(entry:String):void {
+			if (_dataProvider) {
+				_dataProvider.removeEventListener(Event.CHANGE, onChangeItem, false);
+				
+				for(var i:int = 0; i < _dataProvider.length; i++) {
+					var item:Object = _dataProvider.getItemAt(i);
+					
+					if(entry == item.entryId) {
+						//Do nothing if this is already selected.
+						if(_dataProvider.selectedIndex != i) {
+							_dataProvider.selectedIndex = i;
+						}
+						break;
+					}
+				}
+				
+				if(i == _dataProvider.length) {
+					_dataProvider.selectedIndex = 0;
+				}
+				
+				_dataProvider.addEventListener(Event.CHANGE, onChangeItem, false, 0, true);
+			}
+		}
+		
+		
+		/**
 		 * Plays the next item in the dataprovider, until the end of the list. 
 		 * doesn't "wrap" the list. 
 		 */		
@@ -395,6 +425,12 @@ package {
 				_playlistAPIMediator.sendNotification(PlaylistNotificationType.PLAYLIST_AUTO_MOVE_NEXT);
 				_dataProvider.selectedIndex += 1;
 			}
+		}
+		
+		public function playFirst():void {
+			resetNewPlaylist();
+			_playlistAPIMediator.sendNotification(PlaylistNotificationType.PLAYLIST_AUTO_MOVE_NEXT);
+			_dataProvider.selectedIndex = 0;
 		}
 		
 		
