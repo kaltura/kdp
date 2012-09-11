@@ -47,8 +47,7 @@ package com.kaltura.kdpfl.plugin.component
 		
 		private var xmlns : Namespace;
 		private var xmlns_tts :Namespace;
-		private var xmlns_xml:Namespace;
-		
+	
 		private var _label:TextField;
 		private var _captionsURLLoader:URLLoader;
 		//map between captions URL and the parsed lines array of the file
@@ -62,8 +61,9 @@ package com.kaltura.kdpfl.plugin.component
 		private var _heightBeforeResize : Number;
 		private var _fontBeforeResize : int;
 		private var _fontFamily : String = "Arial";
-		
-		
+		//How ID key will look like in case it was passed as "xml:id"
+		private const defaultIdIdentifier:String = 'aaa:id="';
+			
 		private var _fullScreenRatio : Number;
 		
 		//ABC- specific
@@ -295,8 +295,18 @@ package com.kaltura.kdpfl.plugin.component
 						stylingObject = new Object();
 						for each (var style:XML in styles) {
 							var sname:String = style.@id.toString(); 
+
+							//in case id was passed as "xml:id" flash will turn it to "aaa:id". extract id value:
 							if (!sname) {
-								sname = style.@xmlns_xml::id.toString();// @xmlns_xml::id.toString();
+								//string represantation of the current style node
+								var styleSt:String = style.toXMLString();
+								//starting index of style id value
+								var startIndex:int = styleSt.indexOf(defaultIdIdentifier);
+								if (startIndex!=-1)
+								{
+									var styleSubSt:String = styleSt.substr(startIndex + defaultIdIdentifier.length);
+									sname = styleSubSt.substring(0, styleSubSt.indexOf('"'));		
+								}
 							}
 							stylingObject[sname] = {tf: xmlToTextFormat(style), backgroundColor: xmlToBGColor(style), showBGColor: shouldShowBGColor(style)};
 						}
