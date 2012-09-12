@@ -59,6 +59,11 @@ package com.kaltura.kdpfl.plugin.component
 			return entry.plays;
 		}
 
+		public function get votes():int
+		{
+			return entry.votes;
+		}
+
 		public function get entryId():String
 		{
 			return entry.entryId;
