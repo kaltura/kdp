@@ -250,8 +250,7 @@ package {
 		private function mrssToMediaEntryArray():Array {
 			var itemToList:Array = _akamaiMRSS.itemArray;
 			var entries:Array = [];
-			var fv:Object	= (Facade.getInstance().retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
-			var ks:String	= (Facade.getInstance().retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks;
+		
 			for each (var itemTo:ItemTO in itemToList) {
 				var kalturaEntry:KalturaPlayableEntry = new KalturaPlayableEntry();
 				
