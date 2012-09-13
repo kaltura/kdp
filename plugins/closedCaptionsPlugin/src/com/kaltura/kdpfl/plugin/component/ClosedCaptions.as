@@ -71,6 +71,9 @@ package com.kaltura.kdpfl.plugin.component {
 
 		private var _fullScreenRatio:Number;
 		
+		//How ID key will look like in case it was passed as "xml:id"
+		private const defaultIdIdentifier:String = 'aaa:id="';
+		
 		public function ClosedCaptions() {
 			this.addEventListener(ComponentEvent.RESIZE, setLabelSize);
 			_currentCCFile = new Array();
@@ -247,6 +250,18 @@ package com.kaltura.kdpfl.plugin.component {
 							var sname:String = style.@id.toString(); 
 							if (!sname) {
 								sname = style.@xmlns_xml::id.toString();
+							}
+							//in case id was passed as "xml:id" flash will turn it to "aaa:id". extract id value:
+							if (!sname) {
+								//string represantation of the current style node
+								var styleSt:String = style.toXMLString();
+								//starting index of style id value
+								var startIndex:int = styleSt.indexOf(defaultIdIdentifier);
+								if (startIndex!=-1)
+								{
+									var styleSubSt:String = styleSt.substr(startIndex + defaultIdIdentifier.length);
+									sname = styleSubSt.substring(0, styleSubSt.indexOf('"'));		
+								}
 							}
 							stylingObject[sname] = {tf: xmlToTextFormat(style), backgroundColor: xmlToBGColor(style), showBGColor: shouldShowBGColor(style)};
 						}
