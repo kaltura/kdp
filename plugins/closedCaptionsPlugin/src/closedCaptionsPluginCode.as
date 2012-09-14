@@ -10,7 +10,7 @@ package {
 	import flash.display.DisplayObject;
 	
 	import org.puremvc.as3.interfaces.IFacade;
-
+ 
 	public class closedCaptionsPluginCode extends UIComponent implements IPlugin
 	{
 		private var _attributeClosedCaptions : String;
@@ -34,8 +34,10 @@ package {
 		private var _fontColor : Number = 0xFFFFFF;
 		[Bindable]
 		public var hasCaptions:Boolean;
+
+		public var defaultLanguageKey:String;
 		
-		//Glow parameters
+		//Glow parameters 
 		private var _useGlow : Boolean;
 		private var _glowColor : Number;
 		private var _glowBlur : int;
@@ -65,8 +67,7 @@ package {
 			facade.registerMediator( _closedCaptionsMediator);
 			
 			addChild( _closedCaptionsMediator.view );
-			
-			
+						
 			//For testing:
 			
 			//availableCCFiles = [{url: "http://localhost/tt-captions.xml", type:"tt", label:"CC - TT", isDefault: true}, {type:"tx3g", label:"CC-embedded", trackId:"2"}]
@@ -195,7 +196,7 @@ package {
 			return _availableCCFilesLabels;
 		}
 
-		public function set availableCCFilesLabels(value:DataProvider):void
+		public function set availableCCFilesLabels(value:DataProvider):void 
 		{
 			_availableCCFilesLabels = value;
 		}

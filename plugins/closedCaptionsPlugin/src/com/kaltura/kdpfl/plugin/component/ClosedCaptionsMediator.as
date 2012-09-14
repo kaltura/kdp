@@ -303,13 +303,14 @@ package com.kaltura.kdpfl.plugin.component
 			else {
 				_closedCaptionsDefs.hasCaptions = false;
 			}
-			
-			sendNotification( ClosedCaptionsNotifications.CC_DATA_LOADED );
-			
+
 			if ( _closedCaptionsDefs.hasCaptions )
 			{
 				parseEntryCCData();
+				sendNotification( ClosedCaptionsNotifications.CC_DATA_LOADED );
 			}
+			
+			
 		}
 		
 		private function captionsListFault (e : KalturaEvent=null) : void
@@ -343,7 +344,7 @@ package com.kaltura.kdpfl.plugin.component
 				var ccLabelObject : Object = {label: ccObj.label};
 				
 				_closedCaptionsDefs.availableCCFilesLabels.addItem( ccLabelObject );
-				if (ccObj.isDefault >0)
+				if (ccObj.isDefault >0 || _closedCaptionsDefs.defaultLanguageKey.toLowerCase() == ccObj.languageCode)
 				{
 					_defaultFound = true;
 					ccFileToLoad = ccObj;
