@@ -799,6 +799,8 @@ package com.kaltura.kdpfl.model
 					sequenceVo.mainMediaVO = null;
 				//add event listener for a switch between the main and secondary elements in the KSwitcingProxyElement.
 				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_PERFORMED, onSwitchPerformed );
+				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_COMPLETED, onSwitchCompleted );
+				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_FAILED, onSwitchFailed );
 				
 				
 			}
