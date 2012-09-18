@@ -93,6 +93,7 @@ package
 		public function onListChange( evt:Event ):void
 		{ 
 			_dataProvider.selectedIndex = _klist.selectedIndex;
+			_facade.sendNotification("relatedItemClicked", {index: _klist.selectedIndex});
 			_klist.scrollToSelected();
 			
 		}
@@ -128,7 +129,6 @@ package
 				_dataProvider = data as IDataProvider;
 				_dataProvider.addEventListener( Event.CHANGE, onDataProviderItemChange, false, 0, true );
 				_klist.dataProvider = data;
-
 			}
 		}
 		
