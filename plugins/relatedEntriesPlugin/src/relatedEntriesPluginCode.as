@@ -17,6 +17,7 @@ package
 	import com.kaltura.kdpfl.plugin.component.RelatedEntriesSourceType;
 	import com.kaltura.kdpfl.plugin.component.RelatedEntryVO;
 	import com.kaltura.kdpfl.plugin.component.RelatedItemActionType;
+	import com.kaltura.kdpfl.plugin.component.KDataProvider;
 	import com.kaltura.kdpfl.util.Functor;
 	import com.kaltura.net.KalturaCall;
 	import com.kaltura.types.KalturaStatsFeatureType;
@@ -70,7 +71,7 @@ package
 		 * holds the relatedEntries array
 		 * 
 		 */		
-		public var dataProvider:DataProvider;
+		public var dataProvider:KDataProvider;
 		/**
 		 * default playlist ID. will be used when sourceType=automatic 
 		 */		
@@ -250,7 +251,7 @@ package
 				}
 				
 			}
-			dataProvider = new DataProvider(dpArray);
+			dataProvider = new KDataProvider(dpArray);
 			
 			_facade.sendNotification(RelatedEntriesNotificationType.RELATED_ENTRIES_LOADED);
 		}
