@@ -720,7 +720,7 @@ package com.kaltura.kdpfl.view.media
 					return;
 				} 
 				
-				if(player.currentTime >= _duration){
+				if(!player.currentTime && _hasPlayed && !_isIntelliSeeking){
 					sendNotification(NotificationType.DO_REPLAY);
 					//sendNotification(NotificationType.DO_SEEK,0);
 					player.addEventListener(TimeEvent.COMPLETE, onTimeComplete);
