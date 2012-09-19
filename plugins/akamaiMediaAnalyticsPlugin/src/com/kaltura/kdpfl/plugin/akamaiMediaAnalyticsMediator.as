@@ -33,7 +33,7 @@ package com.kaltura.kdpfl.plugin
 		
 		override public function listNotificationInterests():Array
 		{
-			return [NotificationType.MEDIA_READY, NotificationType.MEDIA_ELEMENT_READY, NotificationType.SWITCHING_CHANGE_COMPLETE];
+			return [NotificationType.MEDIA_READY, NotificationType.MEDIA_ELEMENT_READY];
 		}
 		
 		override public function handleNotification(notification:INotification):void
@@ -48,7 +48,7 @@ package com.kaltura.kdpfl.plugin
 					AnalyticsPluginLoader.setData("title", entry.name);
 					AnalyticsPluginLoader.setData("entryId", entry.id);
 					AnalyticsPluginLoader.setData("category", entry.categories);
-					AnalyticsPluginLoader.setData("partnerId", configProxy.vo.flashvars.partnerId);
+					AnalyticsPluginLoader.setData("publisherId", configProxy.vo.flashvars.partnerId);
 					
 					//find content type
 					if (entry is KalturaMediaEntry)
@@ -77,11 +77,6 @@ package com.kaltura.kdpfl.plugin
 					AnalyticsPluginLoader.setData("device", Capabilities.os );
 					AnalyticsPluginLoader.setData("playerId", configProxy.vo.flashvars.uiConfId);
 				
-					break;
-				
-			
-				case NotificationType.SWITCHING_CHANGE_COMPLETE:
-					AnalyticsPluginLoader.setData("flavorId", getFlavorIdByIndex(notification.getBody().newIndex));
 					break;
 				
 				case NotificationType.MEDIA_ELEMENT_READY:
