@@ -360,6 +360,13 @@ package com.kaltura.kdpfl.plugin.component
 				var selectNone : Object = {label : _closedCaptionsDefs.noneString};
 				
 				_closedCaptionsDefs.availableCCFilesLabels.addItemAt( selectNone , 0 );
+				
+				if (_closedCaptionsDefs.defaultLanguageKey==_closedCaptionsDefs.noneString)
+				{
+					_closedCaptionsDefs.currentCCFileIndex = 0;
+					(viewComponent as ClosedCaptions).visible = false;
+					return;
+				}
 			}
 			
 			if (ccFileToLoad)
