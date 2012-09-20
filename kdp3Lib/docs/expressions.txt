@@ -1,0 +1,101 @@
+Following is a summary of the expressions the KDP can evaluate.
+
+1. The KDP evaluates expressions in four cases:
+
+	1. A layout component is set with an expression
+		e.g. setting a label to show the current entry name
+		 	<Label text="{mediaProxy.entry.name}" />
+	
+	2. A layout component fires a command
+		e.g. clicking on a button should navigate to a url
+			<Button kClick="navigate(http://www.kaltura.com)" />
+	
+	3. An external script calls the evaluate function
+		e.g. retrieve the current entry name 
+	
+		kdp.evaluate("{mediaProxy.entry.name}")
+
+	4. An external script calls the setAttribute function
+		e.g. setting a lebel with the id topLabel to show the current entry name 
+		kdp.setAttribute("topLabel", "text", "{mediaProxy.entry.name}")
+	
+2. Expression types
+
+	1. Simple expression
+		A simple expression is a constant quoted string such as "My video player".
+		
+	2. Binding expression
+		A binding expression is re-evaluted everytime a part of the expression changes.
+		The binding parts of the expression are sorrounded by curly brackets.
+		
+		e.g. setting a label to show the current entry name
+		 	<Label text="{mediaProxy.entry.name}" />
+		 	
+		An expression can include both constant and binding parts:
+		 
+	 	<Label text="Name: {mediaProxy.entry.name} - {mediaProxy.entry.duration}" />
+	 	
+	 	Note: when evaluating a binding expression for firing a command or when it is requesed via the evaluate
+	 	external interface function the values are not binded but just evaluted at the time of the call. 
+	 	
+3. Scope
+	When an expression is used within an item renderer such as a playlist item the this keyword should be
+	used in order to instruct the KDP to retrieve the attribute of the curernt data provider.
+	
+	e.g. showing the name and thumbnail of a playlist item:
+	 	<Label text="{this.name}" />
+		<Image url="{this.thumbnailUrl}" />
+		
+4. Using functions
+	Expressions may include calling to an internal KDP function.
+	
+	e.g. formatting a the date of a playlist item
+		<Label text="{formatDate(this.duration, 'NN:SS')}" />
+		
+	or navigating to a given url
+		<Button kClick="navigate(http://www.kaltura.com)" />
+		
+	The functions are action script functions written under the FuncsProxy class.
+	A function can be written specifically under a data provider by specfiying an _owner property
+	under the data provider that will point to an object containing the function. 
+
+5. Available functions
+	The following functions are available through FuncsProxy
+	
+	1.	formatDate(dateObject:*, format:String):String
+		Format a date using a format string
+		//todo - list available format dates
+		
+		e.g. <Label text="{formatDate(this.duration, 'NN:SS')}" />
+		
+	2.	navigate(url:String, window:String = null):void
+		Request the browser to navigate to a url with a specified window
+		
+		e.g. <Button kClick="navigate(http://www.kaltura.com)" />
+		
+	3.	not
+		This function reverse a boolean value, or a string value with casting to boolean. 
+		param obj - the object to reverse
+		param defaultValue - the default in case a string is received and it is not 'true' and not 'false'
+		
+		e.g. <button id="myButton" visible="{not(video.player.playing)}" />
+		this example will hide the button whenever the video is playing, and show it when it is not playing
+		
+	4.	jsCall(...args):void
+		Call a javascript function
+		
+		e.g. <Button kClick="jsCall('alert', mediaProxy.entry.name)" />
+		
+		Javascript functions can be defined within the layout configuration xml under the "javaScript" node.
+		Each function is declared as an xml node with the id of the defined function.
+		The contents of the node is a CDATA section with the javascript code.
+		When the function is called the code within the CDATA section is concatenated with the call request
+		and evaluated using the eval javascript function 
+		   
+		<javaScript>
+  	 		<jsBlock id="returnDom">
+  	 			function returnDom(){ return document.domain }
+  			 </jsBlock>
+  		</javaScript>
+		
+		   

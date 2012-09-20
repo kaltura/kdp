@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- machine-properties.xml -->
+<project name="Machine Properties" basedir=".">    
+   	
+	<!-- Contains all the properties that may vary between machines -->
+	<property name="FLEX_HOME" value="/opt/flex" description="The flex sdk home directory, the name MUST be exactly FLEX_HOME because of the flex ant tasks" />
+	<property name="dir.kaltura.cihome" value="c:/ci" 
+description="Kaltura CI data root directory" />
+</project>
