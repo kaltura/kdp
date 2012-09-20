@@ -3,7 +3,7 @@
 	 <property name="FLEX_HOME" value="C:/Program Files (x86)/Adobe/Adobe Flash Builder 4/sdks/4.5.0" />
 	 <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 
-	<property name="v_kdp" value="3.6.3"/>
+	<property name="v_kdp" value="3.6.10"/>
     <property name="src" value="src"/>  
     <property name="build" value="build-release"/>
      
@@ -14,7 +14,7 @@
 	
 	<target name="build">
 		<length property="length" mode="each">
-     		 <fileset dir="${v_kdp}\plugins" >
+     		 <fileset dir="C:\workspaces\kdp\v3.6.10\plugins" >
 			<include name="**/*.swf"/>
 		   </fileset>
 	   </length>
@@ -112,12 +112,21 @@
     	<copy todir="${v_kdp}\plugins" file="..\plugins\nielsenCombinedPlugin\${build}\nielsenCombinedPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="nielsenVideoCensusPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\nielsenVideoCensusPlugin\${build}\nielsenVideoCensusPlugin.swf"/>
-    	<fb.exportReleaseBuild failonerror="true" project="relatedEntriesPlugin" destdir="${build}"/>
+    	<fb.exportReleaseBuild failonerror="true" project="kalturaSharePlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\kalturaSharePlugin\${build}\kalturaSharePlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="akamaiMediaAnalyticsPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\akamaiMediaAnalyticsPlugin\${build}\akamaiMediaAnalyticsPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="bitrateDetectionPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\bitrateDetectionPlugin\${build}\bitrateDetectionPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="doubleclickPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\doubleclickPlugin\${build}\doubleclickPlugin.swf"/>
+	 	<fb.exportReleaseBuild failonerror="true" project="relatedEntriesPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\relatedEntriesPlugin\${build}\relatedEntriesPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="relatedViewPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\relatedViewPlugin\${build}\relatedViewPlugin.swf"/>
-    	<fb.exportReleaseBuild failonerror="true" project="doubleclickPlugin" destdir="${build}"/>
-    	<copy todir="${v_kdp}\plugins" file="..\plugins\doubleclickPlugin\${build}\doubleclickPlugin.swf"/>   	
+    	<fb.exportReleaseBuild failonerror="true" project="parallelElementPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\parallelElementPlugin\${build}\parallelElementPlugin.swf"/>
+    	  	
     </target>
  
     <target name="clean" description="Deletes Created Dir">
