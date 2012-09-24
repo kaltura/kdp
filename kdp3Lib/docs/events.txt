@@ -1,0 +1,249 @@
+Following is a summary of the available events
+
+Each bullet lists the as3 constant name of the event and its actual string value (lower camelized) 
+
+1.	STARTUP - startUp
+	The first command that register the main proxys and main view mediator
+		
+2.	INITIATE_APP - initiatApp
+	Start the init macro commands
+		
+3. CHANGE_MEDIA - changeMedia
+	Start the init of change media macro commands
+	Body of notification is an object of the following structure : 
+	{entryId : String, flavorId : String, preferedFlavorBR (the selected bitrate for the entry) : Number}
+	
+4. CLEAN_MEDIA - cleanMedia
+	Cleans the media in case of change media and entryId== -1
+		
+5. SKIN_LOADED - skinLoaded
+	Dispatched when the skin is loaded 
+
+6. SKIN_LOAD_FAILED - skinLoadFailed
+	Skin load failed 
+
+7. ENTRY_READY - entryReady
+	The Entry is set
+
+8. ENTRY_FAILED - entryFailed
+	Get Entry failed
+
+9. SOURCE_READY - sourceReady
+	When the source is ready we can set the media element to the media player
+	 
+10.	LOAD_MEDIA - loadMedia
+	Start the init macro command of the KDP 
+
+11. MEDIA_LOADING - mediaLoading
+	The loadable media has begun loading..
+
+12.	MEDIA_READY - mediaReady
+	The loadable media has completed loading.
+
+13. MEDIA_UNLOADED - mediaUnloaded
+	The loadable media has begun unloading.
+
+14.	MEDIA_LOAD_ERROR - mediaLoadError
+	The loadable media has failed to complete loading.
+
+15. MEDIA_ERROR - mediaError
+	The play notify on media error
+		  
+16. ROOT_RESIZE - rootResize
+
+17. MEDIA_VIEWABLE_CHANGE - mediaViewableChange
+	Used mainlly to know when OSMF Media Player is viewable 
+		
+18.	PRE_1_START - pre1start
+	Sent in case there is more than one item in the sequence - this notification starts the first item in the sequence.
+
+19. POST_1_START - post1start
+	Sent in case there is some item sequenced to play after the main entry - this notification starts the first item queued up after the entry.
+		
+20. DO_PAUSE - doPause
+	Command the player to pause;
+
+21. DO_PLAY - doPlay
+	Command the player to play;
+
+22. DEPRECATED
+	DO_PLAY_ENTRY - doPlayEntry
+	This is the actually play command on the video player. It is an addition to the DoPlay
+	because of the pre session mechanism (pre roll ads, bumper)
+
+23.	DO_STOP - doStop
+	Do stop command to the kplayer. Pause and move the playhead to 0
+
+24. DO_SEEK - doSeek
+	Do seek command to the kplayer. Additional data - number 
+
+26.	DO_SWITCH - doSwitch
+	Do switch command for switching manual switching between mbr streams within an rtmp dynamic stream resource 
+	Body of the notification is:
+	preferedFlavorBitrate : Number and carries the prefered bitrate to switch to.
+
+27. KDP_READY - kdpReady		
+	Dispatched when the KDP is Ready  
+
+28.	KDP_EMPTY - kdpEmpty
+	Dispatched when the KDP is Ready and has no source loaded  
+
+29. LAYOUT_READY - layoutReady		
+	Dispatched when the init macro command is done and the layout is ready  
+
+30.	PLAYER_STATE_CHANGE - playerStateChange
+	Indicates the state the player has ALREADY passed to - the states are loading, ready, playing, buffering and paused.
+	Body of the notification : playerState : String
+
+31. PLAYER_READY - playerReady
+	Dispatches when player ready with content
+		 
+32. PLAYER_CONTAINER_READY - playerContainerReady
+	When the player mediator finish to register we can reffer to the player container from anywhere 
+
+33. PLAYER_PAUSED - playerPaused
+	Sent when the player has paused the media.
+
+34. PLAYER_PLAYED - playerPlayed
+	Sent when the player has started playing the entry.
+
+35.	PLAYER_SEEK_START - playerSeekStart
+	dispatched when the player seeking property changed to true - meaning, when the seek has started.  
+
+36.	PLAYER_SEEK_END - playerSeekEnd
+	dispatched when the player seeking property changed to false.  
+
+37.	PLAYER_PLAY_END - playerPlayEnd
+	Dispatched when the media has reached the end - meaning currentTime == duration
+
+39. PLAYER_UPDATE_PLAYHEAD - playerUpdatePlayhead
+	Dispatched every time the entry time has updated - occurs at a regular interval of about 0.3 of a second.
+	Body of the notification : currentTime : Number;
+
+40.	PLAYER_DIMENSION_CHANGE - playerDimensionChange
+	dispatches when the player width and/or  height properties have changed. 
+
+41. OPEN_FULL_SCREEN - openFullScreen
+	open full screen
+
+42.	CLOSE_FULL_SCREEN - closeFullScreen
+	close full screen command
+
+43. CHANGE_VOLUME - changeVolume
+	change volume. Body of the notification - volume value (0 to 1)
+
+44.	VOLUME_CHANGED - volumeChanged
+	Volume changed externally (by the osmf). Notification body - volume value (0 to 1)
+
+45. ENABLE_GUI - enableGui
+	enable/disable gui. Addition data - Object{guiEnabled : Boolean, enableType : String}
+
+46. NOT IMPLEMENTED
+	FAST_FORWARD - fastForward
+	fast forward the player. Addition data - times X (X2, X8, X4);
+
+47. NOT IMPLEMENTED
+	STOP_FAST_FORWARD - stopFastForward	
+ 	fast forward the player. Addition data - times X (X2, X8, X4);
+
+48.	BYTES_DOWNLOADED_CHANGE - bytesDownloadedChange
+	Notify the current and the previous value of bytesDownloaded 
+
+49.	BYTES_TOTAL_CHANGE - bytesTotalChange
+	Dispatched by the player when the value of the property "bytesTotal" has changed. 
+
+50. BUFFER_PROGRESS - bufferProgress
+	Dispatched when progress of player in case of image or video
+
+51.	BUFFER_CHANGE - bufferChange	
+	Dispatched when the player start or stop buffering 
+
+52.	PLAYER_DOWNLOAD_COMPLETE - playerDownloadComplete
+	Dispatched to notify of media download complete
+
+53.	NOT IMPLEMENTED
+	END_ENTRY_SESSION - endEntrySession
+	The end of entry session (with ads and/or extra content)
+
+54.	NOT IMPLEMENTED
+	END_PRE_SESSION - endPreSession
+	The end of pre entry session (the session that happens before the actual video playing)
+
+55.	NOT IMPLEMENTED
+	END_POST_SESSION - endPostSession
+	The end of post entry session (the session that happens after the actual video playing)
+
+56. DURATION_CHANGE - durationChange
+	The player dispatches this event when its duration property has changed 
+
+57. HAS_CLOSED_FULL_SCREEN - hasCloseFullScreen
+	the fullscreen has just closed
+
+58. HAS_OPENED_FULL_SCREEN - hasOpenedFullScreen
+	the fullscreen was just activated
+
+59.	SWITCHING_CHANGE - switchingChange
+	Dispatched when the kdp has started or finished switching to new bitrate.
+
+60.	SCRUBBER_DRAG_START - scrubberDragStart
+	The scrubber had started being dragged
+
+61.	static public const SCRUBBER_DRAG_END - scrubberDragEnd
+	The scrubber had stopped being dragged
+
+62.	ALERT - alert
+	Pop up an alert. arguments: message, title, buttons, callbackFunction, iconClass
+	
+	message - string containing the message to display in the alert
+	title - string containing the title of the alert
+	buttons - array of strings for the alert button labels
+	callbackFunction - the function which handles an alert button being clicked.
+	iconClass - string containing the name of the export class of the icon that the alert should display (should exist in the skin.swf file).
+	
+	
+63.	BUMPER_PLAY_END - bumperPlayEnd - DEPRECATED
+	notification sent when a bumper (kaltura entry that plays as part of a sequence) has finished playback.
+	
+64. PLAYBACK_COMPLETE - fired when a media playing in the player (not an external swf) has finished playback
+
+65. SEQUENCE_ITEM_PLAY_END - fired when a sequence plugin has finished playback (including sub sequence)
+
+66. PRE_SEQUENCE_COMPLETE - fired when the pre-sequence has finished playback
+
+67. POST_SEQUENCE_COMPLETE - fired when the post-sequence has finished playback
+
+68. SEQUENCE_SKIP_NEXT - fired when the "skip ad" button is pressed.
+
+
+Advertising related events:
+---------------------------
+
+69. BUMPER_STARTED = "bumperStarted" 
+	notification sent when a bumper video starts to play.
+
+70. BUMPER_CLICKED = "bumperClicked"
+	notification sent when a bumper video is clicked.
+
+71. AD_START = "adStart"
+	notification sent when an ad shows. 
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+ 
+72. AD_CLICK = "adClick" 
+	notification sent when an ad is clicked.
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+73. AD_END = "adEnd"
+	notification sent when a video ad ends.
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+74. FIRST_QUARTILE_OF_AD = "firstQuartileOfAd"
+	notification sent when a video ad reaches 25%
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+75. MID_OF_AD = "midOfAd"
+	notification sent when a video ad reaches 50%
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
+
+76. THIRD_QUARTILE_OF_AD = "ThirdQuartileOfAd"
+	notification sent when a video ad reaches 75%
+	this notification will have a data object {timeSlot:preroll/postroll/midroll/overlay}
