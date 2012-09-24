@@ -35,7 +35,7 @@ package {
 		[Bindable]
 		public var hasCaptions:Boolean;
 
-		public var defaultLanguageKey:String;
+		public var defaultLanguageKey:String = "";
 		
 		//Glow parameters 
 		private var _useGlow : Boolean;
