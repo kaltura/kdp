@@ -16,6 +16,9 @@ package com.kaltura.kdpfl.model
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	import com.kaltura.vo.KalturaCuePoint;
 	
+	//We include parallel element to support backward compatibility. This should be removed in the future, Once
+	//we know who is using CUSTOM vast and freeWheel plugins that might break if we remove this import.
+	import org.osmf.elements.ParallelElement; ParallelElement;
 	import org.osmf.elements.SWFElement;
 	import org.osmf.events.MediaPlayerCapabilityChangeEvent;
 	import org.osmf.events.TimeEvent;
