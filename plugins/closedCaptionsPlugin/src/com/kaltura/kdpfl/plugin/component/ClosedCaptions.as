@@ -248,7 +248,7 @@ package com.kaltura.kdpfl.plugin.component {
 						stylingObject = new Object();
 						for each (var style:XML in styles) {
 							var sname:String = style.@id.toString(); 
-							if (!sname) {
+							if (!sname && xmlns_xml) {
 								sname = style.@xmlns_xml::id.toString();
 							}
 							//in case id was passed as "xml:id" flash will turn it to "aaa:id". extract id value:
