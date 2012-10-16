@@ -5,7 +5,6 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
-	import com.kaltura.kdpfl.view.controls.KTrace;
 	import com.kaltura.types.KalturaMediaType;
 	import com.kaltura.vo.KalturaMediaEntry;
 	
@@ -14,8 +13,6 @@ package com.kaltura.kdpfl.plugin.component
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
-	import flash.external.ExternalInterface;
-	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.utils.Timer;
 	
@@ -115,35 +112,7 @@ package com.kaltura.kdpfl.plugin.component
 						break;
 					trace("bitrate detection:", notification.getName());
 					_configProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
-					if ((viewComponent as bitrateDetectionPluginCode).useFlavorCookie)
-					{
-						var flavorCookie : SharedObject;
-						try
-						{
-							//Check to see if we have a cookie
-							flavorCookie = SharedObject.getLocal("kaltura");
-						}
-						catch (e: Error)
-						{
-							//if not just start download
-							trace ("no permissions to access partner's file system");
-							startDownload();
-							return;
-						}
-						if (flavorCookie && flavorCookie.data)
-						{
-							//If we are in Auto Switch or the first time we run it - do the download test
-							if(!flavorCookie.data.preferedFlavorBR || (flavorCookie.data.preferedFlavorBR == -1))
-							{
-								startDownload();
-							}
-						}
-					}
-					//disable bitrate cookie--> start detection
-					else
-					{
-						startDownload();
-					}
+					startDownload();
 					break;
 				case NotificationType.PLAYER_PLAYED:
 					if(_bandwidth)
@@ -232,27 +201,7 @@ package com.kaltura.kdpfl.plugin.component
 			sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: bitrateVal});
 
 			_bandwidth = bitrateVal;
-			
-			//write to cookie
-			if (_configProxy.vo.flashvars.allowCookies=="true")
-			{
-				var flavorCookie : SharedObject;
-				try
-				{
-					flavorCookie = SharedObject.getLocal("kaltura");
-				}
-				catch (e : Error)
-				{
-					trace("No access to user's file system");
-				}
-				if (flavorCookie && flavorCookie.data)
-				{
-					flavorCookie.data.preferedFlavorBR = bitrateVal;
-					flavorCookie.flush();
-				}
-			}
-			
-			
+		
 			finishDownloadProcess();	
 		}
 		

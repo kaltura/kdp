@@ -41,6 +41,7 @@ package
 		[Bindable]
 		/**
 		 * Whether to use the saved flavor cookie 
+		 * DEPRECATED
 		 * @return 
 		 * 
 		 */		
