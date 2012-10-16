@@ -60,10 +60,12 @@ package com.kaltura.kdpfl.plugin.component
 		private var _prevTime:Number;
 		private var _prevBytesLoaded:int;
 		private var _forceBitrate:int;
+		private var _viewComp:bitrateDetectionPluginCode;
 		
 		public function BitrateDetectionMediator(viewComponentObject:Object = null , forceBitrate:int = 0)
 		{
 			_forceBitrate = forceBitrate;
+			_viewComp = viewComponentObject as bitrateDetectionPluginCode;
 			super(NAME, viewComponentObject);
 		}
 		
@@ -83,12 +85,6 @@ package com.kaltura.kdpfl.plugin.component
 		 
 		override public function handleNotification(notification:INotification):void
 		{
-			//check bitrate only before player played
-/*			if (_playedPlayed)
-			{
-				return;
-			}*/
-			
 			switch (notification.getName())
 			{
 				//in case the user switched the flavor manually 
@@ -109,8 +105,22 @@ package com.kaltura.kdpfl.plugin.component
 					var mediaProxy:MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 					if (!mediaProxy.vo.entry || 
 						((mediaProxy.vo.entry is KalturaMediaEntry) && (int(mediaProxy.vo.entry.mediaType)==KalturaMediaType.IMAGE)))
-						break;
-					trace("bitrate detection:", notification.getName());
+						return;
+					
+					if (_viewComp.runPreCheck)
+					{
+						if (mediaProxy.vo.kalturaMediaFlavorArray && mediaProxy.vo.kalturaMediaFlavorArray.length)
+						{
+							var highBR:int = mediaProxy.vo.kalturaMediaFlavorArray[mediaProxy.vo.kalturaMediaFlavorArray.length - 1].bitrate;
+							if ((highBR <= mediaProxy.vo.preferedFlavorBR) || (highBR - mediaProxy.vo.preferedFlavorBR)<=(highBR * 0.2)) 
+							{
+								trace ("***** no BW CHECK***");
+								//// if the last preferred bitrate is higher or equals (with 20% error range) to the current highest bitrate, 
+								//no need to perform BW check
+								return;
+							}
+						}
+					}
 					_configProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
 					startDownload();
 					break;
@@ -129,7 +139,7 @@ package com.kaltura.kdpfl.plugin.component
 		public function startDownload() : void 
 		{
 			trace ("bitrate detection: start download");
-			if (!(viewComponent as bitrateDetectionPluginCode).downloadUrl)
+			if (!_viewComp.downloadUrl)
 				return;
 
 			var mediaProxy:MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
@@ -153,11 +163,11 @@ package com.kaltura.kdpfl.plugin.component
 			_loader.contentLoaderInfo.addEventListener( Event.COMPLETE, downloadComplete );
 			_loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			_loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
-			_downloadTimer = new Timer ((viewComponent as bitrateDetectionPluginCode).downloadTimeoutMS, 1);
+			_downloadTimer = new Timer (_viewComp.downloadTimeoutMS, 1);
 			_downloadTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
 			sendNotification(NotificationType.ENABLE_GUI, {guiEnabled: false, enableType: EnableType.FULL});
 			sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {newIndex: -2,  newBitrate: null});  
-			_loader.load( new URLRequest( (viewComponent as bitrateDetectionPluginCode).downloadUrl + "?" + ( Math.random( ) * 100000 )) );
+			_loader.load( new URLRequest( _viewComp.downloadUrl + "?" + ( Math.random( ) * 100000 )) );
 			_downloadTimer.start();
 		}
 		

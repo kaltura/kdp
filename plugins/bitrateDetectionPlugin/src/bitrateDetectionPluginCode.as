@@ -19,6 +19,11 @@ package
 		private var _forceBitrate:int = 0;
 		private var _downloadUrl:String;
 		private var _useFlavorCookie:Boolean = false;
+		
+		/**
+		 * when true, BW won't be triggered automatically. Only if the highest available bitrate is higher than the previous preferred bitrate. 
+		 */		
+		public var runPreCheck:Boolean = false;
 
 		
 		public function bitrateDetectionPluginCode()
