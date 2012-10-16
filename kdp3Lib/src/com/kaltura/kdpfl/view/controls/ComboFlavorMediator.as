@@ -3,7 +3,6 @@ package com.kaltura.kdpfl.view.controls
 	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
-	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.puremvc.as3.patterns.mediator.MultiMediator;
 	
 	import flash.events.Event;
@@ -83,7 +82,7 @@ package com.kaltura.kdpfl.view.controls
 					{
 						comboBox.selectedMessage = comboBox.switchingMessage;
 					}
-					comboBox.hideDropdown();
+					comboBox.close();
 					_isSwitching = true;
 					break;
 				case NotificationType.SWITCHING_CHANGE_COMPLETE:
@@ -91,7 +90,10 @@ package com.kaltura.kdpfl.view.controls
 					var roundedBitrate:int =  Math.round(Number(note_body.newBitrate)/100) * 100;
 					var matchedItem:Object = comboBox.getItemByBitrate(roundedBitrate);
 					if (matchedItem)
+					{
 						comboBox.selectedMessage = matchedItem.label;
+						saveFlavorCookie(matchedItem.bitrate, matchedItem.value);
+					}
 					_isSwitching = false;
 					break;
 				case NotificationType.MEDIA_READY:
@@ -136,6 +138,7 @@ package com.kaltura.kdpfl.view.controls
 		private function onComboBoxClose ( e:Event) : void{
 			comboBox.kisOpen = false;
 		}
+	
 		/**
 		 * when the flavor combobox change an item, we should load the same entry with new flavor
 		 * currently we load new media and use change media 
@@ -146,7 +149,6 @@ package com.kaltura.kdpfl.view.controls
 		{
 			var preferedFlavorBitrate : int;
 			var preferedFlavorHeight : int;
-			var saveToCookie:Boolean = true;
 			//if we selected auto on / auto off
 			if(comboBox.selectedItem.value == -2)
 			{
@@ -157,7 +159,6 @@ package com.kaltura.kdpfl.view.controls
 					comboBox.selectedIndex = comboBox.lastSelectedIndex;
 					preferedFlavorBitrate = comboBox.dataProvider.getItemAt(comboBox.selectedIndex).bitrate;
 					//this flavor was selected automatically, so don't save to cookie
-					saveToCookie = false;
 					comboBox.selectedMessage = comboBox.selectedItem.label;
 					
 				}
@@ -176,30 +177,38 @@ package com.kaltura.kdpfl.view.controls
 				comboBox.selectedMessage = comboBox.selectedItem.label;
 			}
 
-			if (_flashvars.allowCookies=="true" && saveToCookie)
-			{
-				var flavorCookie : SharedObject;
-				try
-				{
-					flavorCookie = SharedObject.getLocal("Kaltura");
-				}
-				catch (e : Error)
-				{
-					KTrace.getInstance().log("No access to user's file system");
-				}
-				if (flavorCookie && flavorCookie.data)
-				{
-					if (comboBox.usePixels)
-						flavorCookie.data.preferedFlavorHeight = preferedFlavorHeight;
-					else
-						flavorCookie.data.preferedFlavorBR = preferedFlavorBitrate;
-					
-					flavorCookie.flush();
-				}
-			}
 			//call do switch
 			sendNotification( NotificationType.DO_SWITCH , preferedFlavorBitrate );
 		}
+		
+		
+		private function saveFlavorCookie( preferedFlavorBitrate:int, preferedFlavorHeight:int = 0): void
+		{
+			if (_flashvars.allowCookies!="true")
+				return;
+			
+			var flavorCookie : SharedObject;
+			try
+			{
+				flavorCookie = SharedObject.getLocal("Kaltura");
+			}
+			catch (e : Error)
+			{
+				KTrace.getInstance().log("No access to user's file system");
+			}
+			if (flavorCookie && flavorCookie.data)
+			{
+				if (comboBox.usePixels)
+					flavorCookie.data.preferedFlavorHeight = preferedFlavorHeight;
+				else
+					flavorCookie.data.preferedFlavorBR = preferedFlavorBitrate;
+				
+				flavorCookie.data.timeStamp = (new Date()).time;
+				flavorCookie.flush();
+			}
+		}
+		
+		
 		/**
 		 * Handler for event thrown when the data provider for the flavor selection combo-box changes. 
 		 * @param event

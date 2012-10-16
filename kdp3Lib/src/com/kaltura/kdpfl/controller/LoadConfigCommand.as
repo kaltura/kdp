@@ -70,6 +70,9 @@ package com.kaltura.kdpfl.controller
 	{
 		public static const LOCAL : String = "local";
 		public static const INJECT : String = "inject";
+		public static const DEFAULT_BW_INTERVAL:int = 1800;
+		
+
 		
 		private var _configProxy : ConfigProxy;
 		private var _layoutProxy : LayoutProxy;
@@ -657,6 +660,10 @@ package com.kaltura.kdpfl.controller
 			}
 			
 			_mediaProxy.vo.deliveryType = _flashvars.streamerType;	
+			//indicates if BW check is required
+			var doBWCheck:Boolean = true;
+			//inidicates if we need to perform flavors comparison before BW check
+			var doConditionalBWCheck:Boolean = false;
 			//Retrieval of the Bitrate cookie value.
 			if (!_flashvars.disableBitrateCookie || _flashvars.disableBitrateCookie=="false")
 			{
@@ -668,29 +675,71 @@ package com.kaltura.kdpfl.controller
 				catch (e: Error)
 				{
 					KTrace.getInstance().log("no permissions to access partner's file system");
-					return;
-				}
-				var propertyName:String = _mediaProxy.vo.displayFlavorPixels ? "preferedFlavorHeight" : "preferedFlavorBR";
-				if(flavorCookie && flavorCookie.data[propertyName])
-				{
-					if (flavorCookie.data[propertyName] == -1 && _mediaProxy.vo.deliveryType != StreamerType.HTTP)
-					{
-						_mediaProxy.vo.autoSwitchFlavors = true;
-					}
-					else
-					{
-						_mediaProxy.vo.preferedFlavorBR = flavorCookie.data[propertyName];
-					}
 				}
 				
+				
+				KTrace.getInstance().log("---check if we need BW detection");
+				if(flavorCookie && flavorCookie.data.preferedFlavorBR)
+				{	
+					//interval between bandwidth checks, in seconds
+					var bwInterval:int = _flashvars.bwInterval ? _flashvars.bwInterval : DEFAULT_BW_INTERVAL;
+					if (bwInterval && flavorCookie.data.timeStamp)
+					//check if the flavor cookie was saved in the confiugrable time interval
+					{
+						var diff:Number = (new Date()).time - flavorCookie.data.timeStamp;
+						if (diff <= Number(bwInterval * 1000))
+						{
+							KTrace.getInstance().log("---bw interval is still valid");
+							doBWCheck = false;
+						}
+					}
+
+					if (!doBWCheck)
+					{
+						//check if the last detected bitrate is still relevant with the current flavor set:
+						//if the last playing flavor was the highest available (with 20%  range of difference) then there might be more suitable flaor now
+						if (flavorCookie.data.lastHighestBR && (Math.abs(flavorCookie.data.preferedFlavorBR - flavorCookie.data.lastHighestBR))<=(flavorCookie.data.preferedFlavorBR * 0.2))
+						{
+							KTrace.getInstance().log("---preferredBR was the heighest possible, might need BW check");
+							//if the difference between the detected BW and the actual playing BW is too big (more than 50% out of the detected BR)
+							//we should perform BW check
+							if (flavorCookie.data.detectedBitrate && (0.5 * flavorCookie.data.detectedBitrate)>flavorCookie.data.preferedFlavorBR)
+							{
+								KTrace.getInstance().log("---difference between detected BR and preferred is too high, do BW check!");
+								doConditionalBWCheck = true;
+							}
+						}
+						
+						//maybe BW check is not required, save the value from the cookie
+						_mediaProxy.vo.preferedFlavorBR = flavorCookie.data.preferedFlavorBR;
+					}
+					
+				}
 			}
-			
 			
 			// convert all flashvars with dot syntax (e.g. watermark.path) to objects
 			buildFlashvarsTree();
 
 			// append plugins to the layout from flashvars and plugins segment within the layout xml			
 			appendPluginsToLayout(xml);
+			
+			if (doBWCheck || doConditionalBWCheck)
+			{
+				//load bitrate detection plugin, if it's in the config xml
+				var bwPlugin : XMLList = xml..Plugin.(@id=="bitrateDetection");
+				if (bwPlugin)
+				{
+					bwPlugin.@loadingPolicy = "wait";
+					KTrace.getInstance().log("!!! LOAD BW CHECK PLUGIN");
+					//we should load BW plugin, but maybe the detection is still unnecessary, tell the plugin to run check before
+					if (doConditionalBWCheck)
+					{
+						bwPlugin.@runPreCheck = "true";
+					}
+				}
+				
+				
+			}
 			
 			// override layout and proxy variables using flashvars
 			overrideAttributes(xml);

@@ -105,7 +105,7 @@ package com.kaltura.kdpfl.controller.media
 						}
 						
 						
-						_mediaProxy.vo.selectedFlavorId = foundFlavorId;//_mediaProxy.vo.kalturaMediaFlavorArray[flavorIndex].id;
+						_mediaProxy.vo.selectedFlavorId = foundFlavorId;
 						//if a stream was found set it as the new prefered height	
 						if (foundFlavorBR)
 							_mediaProxy.vo.preferedFlavorBR = int(foundFlavorBR);

@@ -11,6 +11,7 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SourceType;
 	import com.kaltura.kdpfl.model.type.StreamerType;
+	import com.kaltura.kdpfl.util.SharedObjectUtil;
 	import com.kaltura.kdpfl.view.controls.BufferAnimation;
 	import com.kaltura.kdpfl.view.controls.BufferAnimationMediator;
 	import com.kaltura.kdpfl.view.controls.KTrace;
@@ -92,7 +93,7 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private var _prevVolume:Number = 1;
 		/**
-		* in intelli seek - if we should pause after player goes to "playing state" 
+		 * in intelli seek - if we should pause after player goes to "playing state" 
 		 */
 		private var _pausedPending:Boolean = false;
 		/**
@@ -110,7 +111,7 @@ package com.kaltura.kdpfl.view.media
 		 * timer to get video metadata 
 		 */		
 		private var _metadataTimer:Timer;
-
+		
 		/**
 		 * indicates if the "doSeek" was sent before "doPlay" and KDP intiate the "doPlay" in order to load the entry. 
 		 */		
@@ -189,7 +190,7 @@ package com.kaltura.kdpfl.view.media
 			
 			//if an autoMute flashvar passed as true mute the volume 
 			if(_flashvars.autoMute == "true") _autoMute=true;
-		
+			
 			//add all the event listeners needed from video component to make the KDP works
 			player.addEventListener( DisplayObjectEvent.DISPLAY_OBJECT_CHANGE , onViewableChange );
 			player.addEventListener( DisplayObjectEvent.MEDIA_SIZE_CHANGE , onMediaSizeChange );		
@@ -324,7 +325,7 @@ package com.kaltura.kdpfl.view.media
 					cleanMedia(); //clean the media element if exist
 					
 					setSource(); //set the source to the player
-	
+					
 					break;
 				case NotificationType.CHANGE_MEDIA_PROCESS_STARTED:
 					//when we change the media we can reset the loadMediaOnPlay flag
@@ -396,8 +397,8 @@ package com.kaltura.kdpfl.view.media
 					//if we switch before the player is playing return
 					if(player.state == MediaPlayerState.UNINITIALIZED)
 					{
-						//send CHANGE_PREFERRED_BITRATE so the HD will be ready to play it...
-						sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: preferedFlavorBR});
+						//update preferred bitrate so the HD will be ready to play it...
+						changePreferredBitrate(preferedFlavorBR);
 						return;
 					}
 					
@@ -424,7 +425,7 @@ package com.kaltura.kdpfl.view.media
 								KTrace.getInstance().log("Disable Auto Switch");
 								_mediaProxy.vo.autoSwitchFlavors = player.autoDynamicStreamSwitch = false;
 								var foundStreamIndex:int = kMediaPlayer.findStreamByBitrate(preferedFlavorBR);
-			
+								
 								if (foundStreamIndex != player.currentDynamicStreamIndex)
 								{
 									KTrace.getInstance().log("Found stream index:", foundStreamIndex);
@@ -435,7 +436,7 @@ package com.kaltura.kdpfl.view.media
 									sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {newIndex: foundStreamIndex, newBitrate: foundStreamIndex != -1 ? player.getBitrateForDynamicStreamIndex(foundStreamIndex): null} );
 								}
 							}
-	
+							
 						}
 					}
 					else // change media
@@ -508,7 +509,7 @@ package com.kaltura.kdpfl.view.media
 						if(player.canSeek) player.seek( Number(note.getBody())  );
 						return;	
 					}
-						
+					
 					if ( (_mediaProxy.vo.entry is KalturaMixEntry) ||
 						(seekTo <= _loadedTime  && !_isIntelliSeeking))
 					{
@@ -542,23 +543,7 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.VOLUME_CHANGED_END: //change volume process ended, save to cookie if possible
-					if (_flashvars.allowCookies=="true")
-					{
-						var volumeCookie : SharedObject;
-						try
-						{
-							volumeCookie= SharedObject.getLocal("KalturaVolume");
-						}
-						catch (e : Error)
-						{
-							KTrace.getInstance().log("No access to user's file system");
-						}
-						if (volumeCookie)
-						{
-							volumeCookie.data.volume = kMediaPlayer.volume;
-							volumeCookie.flush();
-						}
-					}
+					SharedObjectUtil.writeToCookie("KalturaVolume", "volume", kMediaPlayer.volume, _flashvars.allowCookies);
 					break;
 				
 				case NotificationType.KDP_EMPTY:
@@ -608,21 +593,9 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.CHANGE_PREFERRED_BITRATE:
-					var curIndex : int = _mediaProxy.findDynamicStreamIndexByProp( note.getBody().bitrate );
-					if ((curIndex > -1) && (curIndex < _mediaProxy.vo.kalturaMediaFlavorArray.length) )
-					{
-						_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[curIndex].bitrate;
-						if (!_mediaProxy.shouldWaitForElement)
-							_mediaProxy.prepareMediaElement();
-						if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK)
-							sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : curIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );			
-					}
-					else
-					{
-						var oldIndex : int = _mediaProxy.findDynamicStreamIndexByProp( _mediaProxy.vo.preferedFlavorBR );
-						sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : oldIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
-					}
-					
+					//save the value from bitrate detection plugin:
+					SharedObjectUtil.writeToCookie("Kaltura", "detectedBitrate", note.getBody().bitrate, _flashvars.allowCookies); 
+					changePreferredBitrate(note.getBody().bitrate);
 					break;
 				
 				case NotificationType.PLAYER_PLAY_END:
@@ -632,6 +605,30 @@ package com.kaltura.kdpfl.view.media
 			}
 		}
 		
+		/**
+		 * This function should be used to update the preferred bitrate. In order to affect the starting index of the video it should be called before the first play of the video.
+		 * @param val
+		 * 
+		 */		
+		private function changePreferredBitrate(val:int):void 
+		{
+			var curIndex : int = _mediaProxy.findDynamicStreamIndexByProp(val);
+			if ((curIndex > -1) && (curIndex < _mediaProxy.vo.kalturaMediaFlavorArray.length) )
+			{
+				_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[curIndex].bitrate;
+				if (_mediaProxy.vo.deliveryType == StreamerType.HTTP)
+					_mediaProxy.vo.selectedFlavorId = _mediaProxy.vo.kalturaMediaFlavorArray[curIndex].id 
+				if (!_mediaProxy.shouldWaitForElement)
+					_mediaProxy.prepareMediaElement();		
+			}
+			else
+			{
+				curIndex = _mediaProxy.findDynamicStreamIndexByProp( _mediaProxy.vo.preferedFlavorBR );
+			}
+			
+			if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK)
+				sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : curIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
+		}
 		
 		
 		/**
@@ -837,7 +834,7 @@ package com.kaltura.kdpfl.view.media
 		private function onPlayerStateChange( event : MediaPlayerStateChangeEvent ) : void
 		{	
 			sendNotification( NotificationType.PLAYER_STATE_CHANGE , event.state );
-
+			
 			switch( event.state )
 			{
 				case MediaPlayerState.LOADING:
@@ -876,7 +873,7 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case MediaPlayerState.PLAYING: 
-					if(!_hasPlayed){
+					if(!_hasPlayed && !_sequenceProxy.vo.isInSequence){
 						_hasPlayed = true;
 						if (_flashvars.maxAllowedRegularBitrate && player.isDynamicStream) player.maxAllowedDynamicStreamIndex = kMediaPlayer.findStreamByBitrate( _flashvars.maxAllowedRegularBitrate );
 					}
@@ -909,7 +906,7 @@ package com.kaltura.kdpfl.view.media
 									startClip();
 									break;
 								}
-								//handle bug where the video metadata arrives after video starts to play
+									//handle bug where the video metadata arrives after video starts to play
 								else if (!_mediaProxy.vo.keyframeValuesArray && _mediaProxy.vo.deliveryType == StreamerType.HTTP)
 								{
 									_metadataTimer = new Timer(100);
@@ -925,21 +922,18 @@ package com.kaltura.kdpfl.view.media
 							}
 						}
 					}
-
+					
 					if(player.isDynamicStream && !_sequenceProxy.vo.isInSequence && !_doSwitchSent)
 					{
-						//If the player is playing RTMP content and the user switched bitrates before the entry started playing
-						// it causes a OSMF bug.  the bug is fixed by saving the switch until the play button is pressed
-						/*if(_mediaProxy.vo.switchDue)
-						{
-							_mediaProxy.vo.switchDue = false;
-							sendNotification(NotificationType.DO_SWITCH, _mediaProxy.vo.preferedFlavorBR);
-						}*/
-						
 						_mediaProxy.vo.autoSwitchFlavors = player.autoDynamicStreamSwitch = true;
 					}
-
+					
 					KTrace.getInstance().log("current index:",player.currentDynamicStreamIndex);
+					//workaround to display the bitrate that was automatically detected by akamai
+					if (_mediaProxy.vo.deliveryType != StreamerType.HTTP && _flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
+					{
+						_mediaProxy.notifyStartingIndexChanged(player.currentDynamicStreamIndex);
+					}
 					sendNotification( NotificationType.PLAYER_PLAYED );
 					
 					if (_pausedPending)
@@ -948,7 +942,7 @@ package com.kaltura.kdpfl.view.media
 						_pausedPending = false;
 						_prevState = "";
 					}
-				
+					
 					//the movie started, pre play seek has now ended (unless we are still waiting for videoMetadataRecieved)
 					if (_isPrePlaySeekInProgress && !_isPrePlaySeek)
 					{
@@ -957,16 +951,16 @@ package com.kaltura.kdpfl.view.media
 							//fix a bug with akamai HD plugin, we can't call player.seek immediately
 							if (_mediaProxy.vo.deliveryType == StreamerType.HDNETWORK)
 								setTimeout(seekToOffset, 1, _offset);
-							
+								
 							else
 								player.seek(_offset);
-
+							
 							//in case we will have preroll this will save the starting point
 							_mediaStartPlayFrom = _offset;
 						}
 						_isPrePlaySeekInProgress = false;
 					}
-				
+					
 					if (_reloadingLiveStream)
 						_reloadingLiveStream = false;
 					
@@ -1110,7 +1104,7 @@ package com.kaltura.kdpfl.view.media
 			if (player.temporal && !isNaN(event.time))
 			{
 				sendNotification( NotificationType.PLAYER_UPDATE_PLAYHEAD , event.time );
-			
+				
 				if (_sequenceProxy.vo.isInSequence)
 				{
 					var duration : Number = (player.media.getTrait(MediaTraitType.TIME) as TimeTrait).duration;
@@ -1261,9 +1255,9 @@ package com.kaltura.kdpfl.view.media
 				}	
 				
 				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
-						
+				
 			}
-
+			
 		}
 		/**
 		 * A MediaElement dispatches a MediaErrorEvent when it encounters an error.  
@@ -1274,7 +1268,7 @@ package com.kaltura.kdpfl.view.media
 		{
 			sendNotification( NotificationType.MEDIA_ERROR , {errorEvent: event} );
 		}
-	
+		
 		/**
 		 * 
 		 * @param event
@@ -1283,7 +1277,7 @@ package com.kaltura.kdpfl.view.media
 		private function onSwitchingChange( event : DynamicStreamEvent ) : void
 		{
 			KTrace.getInstance().log("DynamicStreamEvent ===> " , event.type , player.currentDynamicStreamIndex);
-
+			
 			if (!event.switching)
 			{
 				sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : player.currentDynamicStreamIndex, newBitrate: player.getBitrateForDynamicStreamIndex(player.currentDynamicStreamIndex)}  );
@@ -1346,6 +1340,6 @@ package com.kaltura.kdpfl.view.media
 				_flashvars.b64Referrer = b64.toString();	
 			}
 		}
-	
+		
 	}
 }

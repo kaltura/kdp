@@ -69,6 +69,7 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.vo.KalturaAssetFilter;
 	import com.kaltura.vo.KalturaFlavorAssetFilter;
 	import com.kaltura.types.KalturaFlavorAssetStatus;
+	import com.kaltura.kdpfl.util.SharedObjectUtil;
 
  
 
@@ -345,7 +346,6 @@ package com.kaltura.kdpfl.controller.media
 				else
 				{
 					_mediaProxy.vo.kalturaMediaFlavorArray = null;
-					//sendNotification(NotificationType.ALERT, {title: MessageStrings.getString("SERVICE_ERROR"), message:MessageStrings.getString("SERVICE_GET_FLAVORS_ERROR")} );
 				}
 			}
 			else
@@ -370,11 +370,18 @@ package com.kaltura.kdpfl.controller.media
 							}
 						}
 					}
+					flavorsArray.sortOn("bitrate", Array.NUMERIC);
 					_mediaProxy.vo.kalturaMediaFlavorArray = flavorsArray;
 					
 				}
 				else
+					//no need to sort in this case, the sort is being done on the server side
 					_mediaProxy.vo.kalturaMediaFlavorArray = arr[i];
+				
+				//save the highest bitrate available to cookie. This will be used to determine whether we should perform
+				//bandwidth check in the future
+				if (_mediaProxy.vo.kalturaMediaFlavorArray.length)
+					SharedObjectUtil.writeToCookie("Kaltura", "lastHighestBR", (_mediaProxy.vo.kalturaMediaFlavorArray[_mediaProxy.vo.kalturaMediaFlavorArray.length - 1] as KalturaFlavorAsset).bitrate, _flashvars.allowCookies);
 			} 
 			
 			++i;

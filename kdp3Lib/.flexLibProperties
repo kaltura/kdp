@@ -266,6 +266,7 @@
     <classEntry path="com.kaltura.kdpfl.model.type.DebugLevel"/>
     <classEntry path="com.kaltura.kdpfl.view.controls.KList"/>
     <classEntry path="com.kaltura.kdpfl.model.type.AdOpportunityType"/>
+    <classEntry path="com.kaltura.kdpfl.util.SharedObjectUtil"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

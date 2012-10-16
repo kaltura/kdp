@@ -61,6 +61,10 @@ package com.kaltura.kdpfl.model
 		 */		
 		public static const DEFAULT_HD_BUFFER_LENGTH:int = 20;	
 		/**
+		 * default bandwith check time in seconds
+		 */		
+		public static const DEFAULT_HD_BANDWIDTH_CHECK_TIME:int = 2;	
+		/**
 		 * represents the starting bitrate index, if exists
 		 */		
 		public var startingIndex:int;
@@ -75,6 +79,8 @@ package com.kaltura.kdpfl.model
 		 * indicates if this is a new media and we should wait for mediaElementReady notification
 		 */		
 		public var shouldWaitForElement:Boolean;
+		
+		private var _resource:URLResource;
 		
 		namespace xmlns = "http://ns.adobe.com/f4m/1.0";
 		
@@ -109,7 +115,7 @@ package com.kaltura.kdpfl.model
 					{
 						protocol = (_flashvars.httpProtocol as String).replace("://", "");
 					}
-				
+					
 					var storageProfileId : String;
 					if (_flashvars.storageId && _flashvars.storageId != "")
 					{
@@ -164,7 +170,7 @@ package com.kaltura.kdpfl.model
 					else
 					{
 						var manifestUrl:String = getManifestUrl(seekFrom, storageProfileId); 
-
+						
 						//indicates we should parse manifest ourselves (used for playing HDS for example)
 						if (_flashvars.twoPhaseManifest && _flashvars.twoPhaseManifest=="true")
 						{
@@ -256,10 +262,6 @@ package com.kaltura.kdpfl.model
 			{
 				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
 				
-				if (preferedIndex!=-1) 
-				{
-					setHdNetworkPreferredBitrate(vo.preferedFlavorBR, resource as URLResource);
-				}
 				//set buffer length
 				var bufferLength:int = DEFAULT_HD_BUFFER_LENGTH;
 				if (_flashvars.hdnetworkBufferLength && _flashvars.hdnetworkBufferLength!="")
@@ -267,10 +269,32 @@ package com.kaltura.kdpfl.model
 					bufferLength = _flashvars.hdnetworkBufferLength;
 				}
 				addAkamaiMetadata (resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH, bufferLength);
-
+				
+				if (_flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
+				{
+					var bwEstimationObject:Object = new Object();
+					bwEstimationObject.enabled = true;
+					if (_flashvars.hdnetworkBRDetectionTime && _flashvars.hdnetworkBRDetectionTime!="")
+					{
+						bwEstimationObject.bandwidthEstimationPeriodInSeconds = _flashvars.hdnetworkBRDetectionTime; 		
+					}
+					else
+					{
+						bwEstimationObject.bandwidthEstimationPeriodInSeconds = DEFAULT_HD_BANDWIDTH_CHECK_TIME;
+					}
+					
+					addAkamaiMetadata(resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_SET_BANDWIDTH_ESTIMATION_ENABLED, bwEstimationObject);
+				}
+				else if (preferedIndex!=-1) 
+				{
+					setHdNetworkPreferredBitrate(vo.preferedFlavorBR, resource as URLResource);
+				}
+			
+				
 				var element:MediaElement = vo.mediaFactory.createMediaElement(resource);
 				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement( vo.initialBufferTime, vo.expandedBufferTime, element);
-				vo.media = adaptedHDElement;		
+				vo.media = adaptedHDElement;	
+		
 			}			
 			else
 			{
@@ -293,6 +317,7 @@ package com.kaltura.kdpfl.model
 			
 			saveResourceAndMedia(resource);
 		}
+		
 		
 		/**
 		 * parses metadata from flashvars and add it to the given resource 
@@ -662,7 +687,6 @@ package com.kaltura.kdpfl.model
 			var foundStreamIndex:int = -1;
 			var flavorsArr:Array = vo.kalturaMediaFlavorArray;
 			if (flavorsArr && flavorsArr.length) {
-				flavorsArr.sortOn("bitrate", Array.NUMERIC);
 				for(var i:int = 0; i < flavorsArr.length; i++)
 				{
 					var b:int = (flavorsArr[i] as KalturaFlavorAsset).bitrate;
@@ -703,10 +727,20 @@ package com.kaltura.kdpfl.model
 			if (preferedIndex!=-1 && resource) 
 			{
 				addAkamaiMetadata(resource, AkamaiStrings.AKAMAI_METDATA_KEY_MBR_STARTING_INDEX, preferedIndex);
-				startingIndex = preferedIndex;
-				//to display correct value in KFlavorComboBox
-				sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : preferedIndex, newBitrate: (vo.kalturaMediaFlavorArray[preferedIndex] as KalturaFlavorAsset).bitrate}  );
+				notifyStartingIndexChanged(preferedIndex);
 			}	
+		}
+		
+		/**
+		 * Set the starting index and notify KFlavorComboBox on the new index 
+		 * @param index
+		 * 
+		 */		
+		public function notifyStartingIndexChanged(index:int):void 
+		{
+			startingIndex = index;
+			//to display correct value in KFlavorComboBox
+			sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : index, newBitrate: (vo.kalturaMediaFlavorArray[index] as KalturaFlavorAsset).bitrate}  );	
 		}
 		
 		/**
@@ -787,7 +821,6 @@ package com.kaltura.kdpfl.model
 			
 			if (shouldCreateSwitchingProxy)
 			{
-			
 				//wrap the media element created above in a KSwitcingProxy in order to enable midrolls.
 				var switchingMediaElement : KSwitchingProxyElement = new KSwitchingProxyElement();
 				switchingMediaElement.mainMediaElement = vo.media;

@@ -411,8 +411,10 @@ package com.kaltura.kdpfl.view.controls
 			super.dataProvider = new DataProvider(newDPArray);
 			dispatchEvent( new Event( DATA_PROVIDER_CHANGE ) );
 			
-			if (isAutoSwitch)
-				this.selectedIndex = dataProvider.length - 1;
+			if (_preferedFlavorBR)
+			{
+				setSelectedItem(_preferedFlavorBR);
+			}
 		}
 		/**
 		 * Getter function for the <code>_preferedFlavorBR</code> property.
@@ -433,15 +435,20 @@ package com.kaltura.kdpfl.view.controls
 				return;
 			
 			_preferedFlavorBR = (Math.round(Number(preferedFlavor)/100))*100;
-			var item:Object = getItemByBitrate(_preferedFlavorBR);
+			setSelectedItem(_preferedFlavorBR);
+		}
+		
+		/**
+		 * finds the item with the same bitrate and set it as the selected item 
+		 * @param bitrate
+		 * 
+		 */		
+		private function setSelectedItem(bitrate:int):void
+		{
+			var item:Object = getItemByBitrate(bitrate);
 			if (item)
 			{
 				this.selectedItem = item;
-			}
-			//if i am rtmp, and i didn't found any flavor selected, i will be  in auto mode
-			else if( _isRtmp )
-			{
-				this.selectedIndex = dataProvider.length - 1;	
 			}
 		}
 		/**
