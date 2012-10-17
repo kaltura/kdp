@@ -246,6 +246,15 @@ Miscellaneous
     	
     adsOnReplay = [true / false]
     	if set to true, ads will be shown on replay. Default is false.
+    	
+   bwInterval = [Number]
+   		will determine what is the minimum time interval between each bandwidth check (relevant only to detection by bitrateDetectionPlugin). Value should be passed in seconds. Default value is 1800 (30 minutes).
+   	
+   hdnetworkEnableBRDetection = [true / false]
+   		relevant only when streamerType=hdnetwork. When set to true, akamaiHD plugin will perform bandwidth detection before playback starts.
+   
+   bandwidthEstimationPeriodInSeconds = [Number]
+   		relevant only when streamerType=hdnetork and hdnetworkEnableBRDetection=true. Will determine the time in seconds for the BW detection. Default value is 2.
     	                                
 Components & Plug-ins attributes
 --------------------------------
