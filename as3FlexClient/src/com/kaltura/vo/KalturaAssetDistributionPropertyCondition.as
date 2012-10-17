@@ -25,15 +25,40 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.vo
 {
-	public class KalturaSourceType
+	import com.kaltura.vo.KalturaAssetDistributionCondition;
+
+	[Bindable]
+	public dynamic class KalturaAssetDistributionPropertyCondition extends KalturaAssetDistributionCondition
 	{
-		public static const FILE : String = '1';
-		public static const WEBCAM : String = '2';
-		public static const URL : String = '5';
-		public static const SEARCH_PROVIDER : String = '6';
-		public static const AKAMAI_LIVE : String = '29';
-		public static const MANUAL_LIVE_STREAM : String = '30';
+		/**
+		 * The property name to look for, this will match to a getter on the asset object.
+		 * Should be camelCase naming convention (defining "myPropertyName" will look for getMyPropertyName())
+		 * 
+		 **/
+		public var propertyName : String = null;
+
+		/**
+		 * The value to compare
+		 * 
+		 **/
+		public var propertyValue : String = null;
+
+		override public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = super.getUpdateableParamKeys();
+			arr.push('propertyName');
+			arr.push('propertyValue');
+			return arr;
+		}
+
+		override public function getInsertableParamKeys():Array
+		{
+			var arr : Array;
+			arr = super.getInsertableParamKeys();
+			return arr;
+		}
 	}
 }

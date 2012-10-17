@@ -147,6 +147,12 @@ package com.kaltura.vo
 		 **/
 		public var combinedBandwidthStorage : Number = Number.NEGATIVE_INFINITY;
 
+		/**
+		 * Amount of deleted storage in MB
+		 * 
+		 **/
+		public var deletedStorage : Number = Number.NEGATIVE_INFINITY;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -173,6 +179,7 @@ package com.kaltura.vo
 			arr.push('peakStorage');
 			arr.push('avgStorage');
 			arr.push('combinedBandwidthStorage');
+			arr.push('deletedStorage');
 			return arr;
 		}
 

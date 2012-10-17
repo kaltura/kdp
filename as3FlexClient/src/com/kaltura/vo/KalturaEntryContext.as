@@ -25,15 +25,32 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.vo
 {
-	public class KalturaSourceType
+	import com.kaltura.vo.KalturaContext;
+
+	[Bindable]
+	public dynamic class KalturaEntryContext extends KalturaContext
 	{
-		public static const FILE : String = '1';
-		public static const WEBCAM : String = '2';
-		public static const URL : String = '5';
-		public static const SEARCH_PROVIDER : String = '6';
-		public static const AKAMAI_LIVE : String = '29';
-		public static const MANUAL_LIVE_STREAM : String = '30';
+		/**
+		 * The entry ID in the context of which the playlist should be built
+		 * 
+		 **/
+		public var entryId : String = null;
+
+		override public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = super.getUpdateableParamKeys();
+			arr.push('entryId');
+			return arr;
+		}
+
+		override public function getInsertableParamKeys():Array
+		{
+			var arr : Array;
+			arr = super.getInsertableParamKeys();
+			return arr;
+		}
 	}
 }

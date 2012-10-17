@@ -30,7 +30,6 @@ package com.kaltura.types
 	public class KalturaAuditTrailObjectType
 	{
 		public static const ACCESS_CONTROL : String = 'accessControl';
-		public static const ADMIN_KUSER : String = 'adminKuser';
 		public static const BATCH_JOB : String = 'BatchJob';
 		public static const CATEGORY : String = 'category';
 		public static const CONVERSION_PROFILE_2 : String = 'conversionProfile2';

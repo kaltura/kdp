@@ -29,7 +29,7 @@ package com.kaltura.types
 {
 	public class KalturaModerationObjectType
 	{
-		public static const ENTRY : int = 2;
-		public static const USER : int = 3;
+		public static const ENTRY : String = '2';
+		public static const USER : String = '3';
 	}
 }

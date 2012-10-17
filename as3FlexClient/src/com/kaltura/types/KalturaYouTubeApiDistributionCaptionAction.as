@@ -27,13 +27,10 @@
 // ===================================================================================================
 package com.kaltura.types
 {
-	public class KalturaSourceType
+	public class KalturaYouTubeApiDistributionCaptionAction
 	{
-		public static const FILE : String = '1';
-		public static const WEBCAM : String = '2';
-		public static const URL : String = '5';
-		public static const SEARCH_PROVIDER : String = '6';
-		public static const AKAMAI_LIVE : String = '29';
-		public static const MANUAL_LIVE_STREAM : String = '30';
+		public static const UPDATE_ACTION : int = 1;
+		public static const SUBMIT_ACTION : int = 2;
+		public static const DELETE_ACTION : int = 3;
 	}
 }

@@ -25,15 +25,39 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.commands.session
 {
-	public class KalturaSourceType
+	import com.kaltura.delegates.session.SessionGetDelegate;
+	import com.kaltura.net.KalturaCall;
+
+	/**
+	 * Parse session key and return its info
+	 * 
+	 **/
+	public class SessionGet extends KalturaCall
 	{
-		public static const FILE : String = '1';
-		public static const WEBCAM : String = '2';
-		public static const URL : String = '5';
-		public static const SEARCH_PROVIDER : String = '6';
-		public static const AKAMAI_LIVE : String = '29';
-		public static const MANUAL_LIVE_STREAM : String = '30';
+		public var filterFields : String;
+		
+		/**
+		 * @param session String
+		 **/
+		public function SessionGet( session : String = null )
+		{
+			service= 'session';
+			action= 'get';
+
+			var keyArr : Array = new Array();
+			var valueArr : Array = new Array();
+			var keyValArr : Array = new Array();
+			keyArr.push('session');
+			valueArr.push(session);
+			applySchema(keyArr, valueArr);
+		}
+
+		override public function execute() : void
+		{
+			setRequestArgument('filterFields', filterFields);
+			delegate = new SessionGetDelegate( this , config );
+		}
 	}
 }

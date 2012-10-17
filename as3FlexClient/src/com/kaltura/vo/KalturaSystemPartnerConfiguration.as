@@ -260,6 +260,10 @@ package com.kaltura.vo
 		 **/
 		public var cacheFlavorVersion : int = int.MIN_VALUE;
 
+		/**
+		 **/
+		public var apiAccessControlId : int = int.MIN_VALUE;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -318,6 +322,7 @@ package com.kaltura.vo
 			arr.push('logoutUrl');
 			arr.push('defaultEntitlementEnforcement');
 			arr.push('cacheFlavorVersion');
+			arr.push('apiAccessControlId');
 			return arr;
 		}
 

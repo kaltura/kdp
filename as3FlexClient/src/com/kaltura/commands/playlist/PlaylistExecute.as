@@ -27,6 +27,7 @@
 // ===================================================================================================
 package com.kaltura.commands.playlist
 {
+	import com.kaltura.vo.KalturaContext;
 	import com.kaltura.delegates.playlist.PlaylistExecuteDelegate;
 	import com.kaltura.net.KalturaCall;
 
@@ -41,8 +42,9 @@ package com.kaltura.commands.playlist
 		/**
 		 * @param id String
 		 * @param detailed String
+		 * @param playlistContext KalturaContext
 		 **/
-		public function PlaylistExecute( id : String,detailed : String='' )
+		public function PlaylistExecute( id : String,detailed : String='',playlistContext : KalturaContext=null )
 		{
 			service= 'playlist';
 			action= 'execute';
@@ -54,6 +56,11 @@ package com.kaltura.commands.playlist
 			valueArr.push(id);
 			keyArr.push('detailed');
 			valueArr.push(detailed);
+ 			if (playlistContext) { 
+ 			keyValArr = kalturaObject2Arrays(playlistContext, 'playlistContext');
+			keyArr = keyArr.concat(keyValArr[0]);
+			valueArr = valueArr.concat(keyValArr[1]);
+ 			} 
 			applySchema(keyArr, valueArr);
 		}
 

@@ -38,6 +38,7 @@ package com.kaltura.types
 		public static const AMRNB : String = 'amrnb';
 		public static const MPEG2 : String = 'mpeg2';
 		public static const AC3 : String = 'ac3';
+		public static const PCMS16LE : String = 'pcm_s16le';
 		public static const COPY : String = 'copy';
 	}
 }

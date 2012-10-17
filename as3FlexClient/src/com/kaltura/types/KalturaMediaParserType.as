@@ -31,6 +31,5 @@ package com.kaltura.types
 	{
 		public static const MEDIAINFO : String = '0';
 		public static const FFMPEG : String = '1';
-		public static const REMOTE_MEDIAINFO : String = 'remoteMediaInfo.RemoteMediaInfo';
 	}
 }

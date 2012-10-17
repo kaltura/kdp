@@ -96,6 +96,12 @@ package com.kaltura.vo
 		public var flavorAssetIds : String = null;
 
 		/**
+		 * Comma separated asset ids
+		 * 
+		 **/
+		public var assetIds : String = null;
+
+		/**
 		 * Entry distribution publish time as Unix timestamp (In seconds)
 		 * 
 		 **/
@@ -181,6 +187,7 @@ package com.kaltura.vo
 			arr = new Array();
 			arr.push('thumbAssetIds');
 			arr.push('flavorAssetIds');
+			arr.push('assetIds');
 			arr.push('sunrise');
 			arr.push('sunset');
 			arr.push('validationErrors');

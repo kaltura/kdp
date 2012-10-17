@@ -53,7 +53,7 @@ package com.kaltura.vo
 		 * 
 		 * @see com.kaltura.types.KalturaModerationObjectType
 		 **/
-		public var moderationObjectType : int = int.MIN_VALUE;
+		public var moderationObjectType : String = null;
 
 		/**
 		 * If moderation flag is set for entry, this is the flagged entry id
@@ -72,7 +72,7 @@ package com.kaltura.vo
 		 * 
 		 * @see com.kaltura.types.KalturaModerationFlagStatus
 		 **/
-		public var status : int = int.MIN_VALUE;
+		public var status : String = null;
 
 		/**
 		 * The comment that was added to the flag

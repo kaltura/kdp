@@ -25,24 +25,50 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.delegates.stats
+package com.kaltura.commands.session
 {
-	import com.kaltura.config.KalturaConfig;
+	import com.kaltura.delegates.session.SessionImpersonateByKsDelegate;
 	import com.kaltura.net.KalturaCall;
-	import com.kaltura.delegates.WebDelegateBase;
-	import flash.utils.getDefinitionByName;
 
-	public class StatsCollectDelegate extends WebDelegateBase
+	/**
+	 * Start an impersonated session with Kaltura's server.
+	 * The result KS info contains the session key that you should pass to all services that requires a ticket.
+	 * Type, expiry and privileges won't be changed if they're not set
+	 * 
+	 **/
+	public class SessionImpersonateByKs extends KalturaCall
 	{
-		public function StatsCollectDelegate(call:KalturaCall, config:KalturaConfig)
+		public var filterFields : String;
+		
+		/**
+		 * @param session String
+		 * @param type int
+		 * @param expiry int
+		 * @param privileges String
+		 **/
+		public function SessionImpersonateByKs( session : String,type : int=int.MIN_VALUE,expiry : int=int.MIN_VALUE,privileges : String = null )
 		{
-			super(call, config);
+			service= 'session';
+			action= 'impersonateByKs';
+
+			var keyArr : Array = new Array();
+			var valueArr : Array = new Array();
+			var keyValArr : Array = new Array();
+			keyArr.push('session');
+			valueArr.push(session);
+			keyArr.push('type');
+			valueArr.push(type);
+			keyArr.push('expiry');
+			valueArr.push(expiry);
+			keyArr.push('privileges');
+			valueArr.push(privileges);
+			applySchema(keyArr, valueArr);
 		}
 
-		override public function parse(result:XML) : *
+		override public function execute() : void
 		{
-			return result.result.toString();
+			setRequestArgument('filterFields', filterFields);
+			delegate = new SessionImpersonateByKsDelegate( this , config );
 		}
-
 	}
 }

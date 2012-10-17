@@ -44,6 +44,11 @@ package com.kaltura.types
 		public static const WVC1A : String = 'wvc1a';
 		public static const VP8 : String = 'vp8';
 		public static const MPEG2 : String = 'mpeg2';
+		public static const APCO : String = 'apco';
+		public static const APCS : String = 'apcs';
+		public static const APCN : String = 'apcn';
+		public static const APCH : String = 'apch';
+		public static const DNXHD : String = 'dnxhd';
 		public static const COPY : String = 'copy';
 	}
 }

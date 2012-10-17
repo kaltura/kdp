@@ -39,10 +39,17 @@ package com.kaltura.vo
 		 **/
 		public var csvVersion : int = int.MIN_VALUE;
 
+		/**
+		 * Array containing CSV headers
+		 * 
+		 **/
+		public var columns : Array = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('columns');
 			return arr;
 		}
 

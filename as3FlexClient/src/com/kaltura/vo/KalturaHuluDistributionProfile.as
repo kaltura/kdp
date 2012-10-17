@@ -77,6 +77,39 @@ package com.kaltura.vo
 		 **/
 		public var disableEpisodeNumberCustomValidation : Boolean;
 
+		/**
+		 * @see com.kaltura.types.KalturaDistributionProtocol
+		 **/
+		public var protocol : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var asperaHost : String = null;
+
+		/**
+		 **/
+		public var asperaLogin : String = null;
+
+		/**
+		 **/
+		public var asperaPass : String = null;
+
+		/**
+		 **/
+		public var port : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var passphrase : String = null;
+
+		/**
+		 **/
+		public var asperaPublicKey : String = null;
+
+		/**
+		 **/
+		public var asperaPrivateKey : String = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -92,6 +125,14 @@ package com.kaltura.vo
 			arr.push('seasonTuneInInformation');
 			arr.push('videoMediaType');
 			arr.push('disableEpisodeNumberCustomValidation');
+			arr.push('protocol');
+			arr.push('asperaHost');
+			arr.push('asperaLogin');
+			arr.push('asperaPass');
+			arr.push('port');
+			arr.push('passphrase');
+			arr.push('asperaPublicKey');
+			arr.push('asperaPrivateKey');
 			return arr;
 		}
 

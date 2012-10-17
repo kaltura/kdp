@@ -192,6 +192,7 @@ package com.kaltura.vo
 		{
 			var arr : Array;
 			arr = new Array();
+			arr.push('id');
 			arr.push('screenName');
 			arr.push('fullName');
 			arr.push('email');
@@ -225,7 +226,6 @@ package com.kaltura.vo
 		{
 			var arr : Array;
 			arr = new Array();
-			arr.push('id');
 			arr.push('password');
 			return arr;
 		}

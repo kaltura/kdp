@@ -25,15 +25,56 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.vo
 {
-	public class KalturaSourceType
+	import com.kaltura.vo.BaseFlexVo;
+
+	[Bindable]
+	public dynamic class KalturaSessionInfo extends BaseFlexVo
 	{
-		public static const FILE : String = '1';
-		public static const WEBCAM : String = '2';
-		public static const URL : String = '5';
-		public static const SEARCH_PROVIDER : String = '6';
-		public static const AKAMAI_LIVE : String = '29';
-		public static const MANUAL_LIVE_STREAM : String = '30';
+		/**
+		 **/
+		public var ks : String = null;
+
+		/**
+		 * @see com.kaltura.types.KalturaSessionType
+		 **/
+		public var sessionType : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var partnerId : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var userId : String = null;
+
+		/**
+		 **/
+		public var expiry : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var privileges : String = null;
+
+		/** 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
+		public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			return arr;
+		}
+
+		/** 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
+		public function getInsertableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			return arr;
+		}
 	}
 }

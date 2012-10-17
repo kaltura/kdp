@@ -107,7 +107,7 @@ package com.kaltura.vo
 		public var optionalFlavorParamsIds : String = null;
 
 		/**
-		 * Comma separated flavor params ids that required to be readt before submission
+		 * Comma separated flavor params ids that required to be ready before submission
 		 * 
 		 **/
 		public var requiredFlavorParamsIds : String = null;
@@ -123,6 +123,18 @@ package com.kaltura.vo
 		 * 
 		 **/
 		public var requiredThumbDimensions : Array = null;
+
+		/**
+		 * Asset Distribution Rules for assets that should be submitted if ready
+		 * 
+		 **/
+		public var optionalAssetDistributionRules : Array = null;
+
+		/**
+		 * Assets Asset Distribution Rules for assets that are required to be ready before submission
+		 * 
+		 **/
+		public var requiredAssetDistributionRules : Array = null;
 
 		/**
 		 * If entry distribution sunrise not specified that will be the default since entry creation time, in seconds
@@ -173,6 +185,8 @@ package com.kaltura.vo
 			arr.push('requiredFlavorParamsIds');
 			arr.push('optionalThumbDimensions');
 			arr.push('requiredThumbDimensions');
+			arr.push('optionalAssetDistributionRules');
+			arr.push('requiredAssetDistributionRules');
 			arr.push('sunriseDefaultOffset');
 			arr.push('sunsetDefaultOffset');
 			arr.push('recommendedStorageProfileForDownload');

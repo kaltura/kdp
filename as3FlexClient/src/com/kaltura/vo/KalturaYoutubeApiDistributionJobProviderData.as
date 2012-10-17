@@ -40,12 +40,17 @@ package com.kaltura.vo
 		 **/
 		public var thumbAssetFilePath : String = null;
 
+		/**
+		 **/
+		public var captionsInfo : Array = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
 			arr.push('videoAssetFilePath');
 			arr.push('thumbAssetFilePath');
+			arr.push('captionsInfo');
 			return arr;
 		}
 

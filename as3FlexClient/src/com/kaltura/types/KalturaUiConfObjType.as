@@ -47,5 +47,6 @@ package com.kaltura.types
 		public static const KMC_GENERAL : int = 16;
 		public static const KMC_ROLES_AND_PERMISSIONS : int = 17;
 		public static const CLIPPER : int = 18;
+		public static const KSR : int = 19;
 	}
 }

@@ -148,6 +148,18 @@ package com.kaltura.vo
 
 		/**
 		 **/
+		public var isAvoidVideoShrinkFramesizeToSource : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var isAvoidVideoShrinkBitrateToSource : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var isVideoFrameRateForLowBrAppleHls : int = int.MIN_VALUE;
+
+		/**
+		 **/
 		public var videoConstantBitrate : int = int.MIN_VALUE;
 
 		/**
@@ -187,6 +199,9 @@ package com.kaltura.vo
 			arr.push('aspectRatioProcessingMode');
 			arr.push('forceFrameToMultiplication16');
 			arr.push('isGopInSec');
+			arr.push('isAvoidVideoShrinkFramesizeToSource');
+			arr.push('isAvoidVideoShrinkBitrateToSource');
+			arr.push('isVideoFrameRateForLowBrAppleHls');
 			arr.push('videoConstantBitrate');
 			arr.push('videoBitrateTolerance');
 			arr.push('clipOffset');

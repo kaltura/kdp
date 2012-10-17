@@ -96,6 +96,13 @@ package com.kaltura.vo
 		 **/
 		public var privacyContext : String = null;
 
+		/**
+		 * Addes the HTML5 script line to the widget's embed code
+		 * 
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var addEmbedHtml5Support : Boolean;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -111,6 +118,7 @@ package com.kaltura.vo
 			arr.push('partnerData');
 			arr.push('enforceEntitlement');
 			arr.push('privacyContext');
+			arr.push('addEmbedHtml5Support');
 			return arr;
 		}
 

@@ -25,15 +25,62 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.vo
 {
-	public class KalturaSourceType
+	import com.kaltura.vo.BaseFlexVo;
+
+	[Bindable]
+	public dynamic class KalturaYouTubeApiCaptionDistributionInfo extends BaseFlexVo
 	{
-		public static const FILE : String = '1';
-		public static const WEBCAM : String = '2';
-		public static const URL : String = '5';
-		public static const SEARCH_PROVIDER : String = '6';
-		public static const AKAMAI_LIVE : String = '29';
-		public static const MANUAL_LIVE_STREAM : String = '30';
+		/**
+		 **/
+		public var language : String = null;
+
+		/**
+		 **/
+		public var filePath : String = null;
+
+		/**
+		 **/
+		public var remoteId : String = null;
+
+		/**
+		 * @see com.kaltura.types.KalturaYouTubeApiDistributionCaptionAction
+		 **/
+		public var action : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var version : String = null;
+
+		/**
+		 **/
+		public var assetId : String = null;
+
+		/** 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
+		public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			arr.push('language');
+			arr.push('filePath');
+			arr.push('remoteId');
+			arr.push('action');
+			arr.push('version');
+			arr.push('assetId');
+			return arr;
+		}
+
+		/** 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
+		public function getInsertableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			return arr;
+		}
 	}
 }

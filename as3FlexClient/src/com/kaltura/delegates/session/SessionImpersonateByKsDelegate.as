@@ -25,15 +25,19 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.delegates.session
 {
-	public class KalturaSourceType
+	import com.kaltura.config.KalturaConfig;
+	import com.kaltura.net.KalturaCall;
+	import com.kaltura.delegates.WebDelegateBase;
+	import flash.utils.getDefinitionByName;
+
+	public class SessionImpersonateByKsDelegate extends WebDelegateBase
 	{
-		public static const FILE : String = '1';
-		public static const WEBCAM : String = '2';
-		public static const URL : String = '5';
-		public static const SEARCH_PROVIDER : String = '6';
-		public static const AKAMAI_LIVE : String = '29';
-		public static const MANUAL_LIVE_STREAM : String = '30';
+		public function SessionImpersonateByKsDelegate(call:KalturaCall, config:KalturaConfig)
+		{
+			super(call, config);
+		}
+
 	}
 }

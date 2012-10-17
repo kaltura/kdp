@@ -44,6 +44,7 @@ package com.kaltura.types
 		public static const MPEG : String = 'mpeg';
 		public static const MPEGTS : String = 'mpegts';
 		public static const APPLEHTTP : String = 'applehttp';
+		public static const WAV : String = 'wav';
 		public static const SWF : String = 'swf';
 		public static const PDF : String = 'pdf';
 		public static const BMP : String = 'bmp';
