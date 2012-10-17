@@ -91,6 +91,8 @@ package
 		
 		public var customSnippetAfter:String;
 		
+		
+		public var addEmbedHtml5Support:Boolean = false;
 		/**
 		 * Unique identifier field name if it is metadata 
 		 */
@@ -158,7 +160,7 @@ package
 				
 			}
 			kw.securityType = KalturaWidgetSecurityType.NONE;
-			
+			kw.addEmbedHtml5Support = addEmbedHtml5Support;
 			//add widget			
 			var addWidget:WidgetAdd = new WidgetAdd(kw);
 			addWidget.addEventListener(KalturaEvent.COMPLETE, onWidgetComplete);
