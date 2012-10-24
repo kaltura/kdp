@@ -35,6 +35,7 @@ package com.kaltura.kdpfl.view
 	public class CuePointsMediator extends Mediator
 	{
 		public static const NAME : String = "cuePointsMediator";
+		
 		/**
 		 * The instance of the KDP's OSMF MediaPlayer.
 		 */		
@@ -50,11 +51,11 @@ package com.kaltura.kdpfl.view
 		 * */
 		private var _entryDurationInMS:Number;
 		/**
-		 * The map of the current cue-points.
+		 * The map of the current entry's cue-points.
 		 */		
 		private var _cuePointsMap : Object = new Object();
 		/**
-		 * The map of the current cue-points per this play session
+		 * The map of the current entry's cue-points per this play session
 		 */		
 		private var _sessionCuePointsMap : Object = new Object();
 		/**
@@ -106,16 +107,16 @@ package com.kaltura.kdpfl.view
 				
 				case NotificationType.ENTRY_READY:
 					_entryDurationInMS = (facade.retrieveProxy( MediaProxy.NAME ) as MediaProxy).vo.entry.msDuration;
-					
 					break;
+				
 				case NotificationType.CUE_POINTS_RECEIVED:
 					//don't change the notification.body, copy the object
 					ObjectUtil.copyObject(notification.getBody(), _cuePointsMap);
 					findPrePostSequence();
 					ObjectUtil.copyObject(_cuePointsMap, _sessionCuePointsMap);					
 					break;
+				
 				case NotificationType.MEDIA_LOADED:
-					
 					_media = (facade.retrieveProxy( MediaProxy.NAME ) as MediaProxy).vo.media;
 					_reachedMediaEnd = false;
 					initTimelineMarkers ();
@@ -137,6 +138,9 @@ package com.kaltura.kdpfl.view
 				case NotificationType.CHANGE_MEDIA:
 					if (_timelineMetadata)
 						_timelineMetadata.removeEventListener( TimelineMetadataEvent.MARKER_TIME_REACHED, onCuePointReached );
+					// reset entry's cuepoints map, so we won't accumulate cuepoints 
+					// (i.e., between entries in playlist)
+					_cuePointsMap = new Object();
 					break;
 			}
 		}
