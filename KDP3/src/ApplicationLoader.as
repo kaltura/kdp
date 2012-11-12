@@ -140,7 +140,8 @@ package {
 		 * @param e
 		 */
 		protected function loadPreloader(e:Event):void {
-			if (!_isGoing) {
+			// only load custom preloader if app is not yet running or it is required as buffer anim
+			if (!_isGoing || parameters.usePreloaderBufferAnimation=='true') {
 				if (hasEventListener(Event.ADDED_TO_STAGE)) {
 					removeEventListener(Event.ADDED_TO_STAGE, loadPreloader);
 				}
@@ -164,11 +165,9 @@ package {
 					var rqst:URLRequest = new URLRequest(getPath());
 					_ldr.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, clearListeners, false, 0, true);
 					_ldr.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, clearListeners, false, 0, true);
-					_ldr.contentLoaderInfo.addEventListener(Event.INIT, clearListeners, false, 0, true);
 					_ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoadComplete);
 					_ldr.load(rqst, context);
 				}	
-				
 				
 				stage.addEventListener(Event.RESIZE, centerLoader);
 			}
@@ -176,6 +175,8 @@ package {
 		
 		private function onLoadComplete(event:Event) : void {
 			_ldr.contentLoaderInfo.removeEventListener(Event.COMPLETE, onLoadComplete);
+			clearListeners(null);
+			
 			//if the loader registration point is not in the middle, center it
 			if (parameters.centerPreloader && parameters.centerPreloader=='true' && stage && _ldr.content)
 			{
@@ -222,9 +223,11 @@ package {
 		 * @param e error event
 		 */
 		protected function clearListeners(e:Event):void {
+			if (e) {
+				trace("external preloader load failed: " + e.type);
+			}
 			_ldr.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, clearListeners, false);
 			_ldr.contentLoaderInfo.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, clearListeners, false);
-			_ldr.contentLoaderInfo.removeEventListener(Event.INIT, clearListeners, false);
 		}
 
 		/**
