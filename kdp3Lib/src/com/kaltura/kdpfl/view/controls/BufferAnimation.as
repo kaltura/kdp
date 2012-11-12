@@ -29,8 +29,10 @@ package com.kaltura.kdpfl.view.controls
 		 */
 		public function setBufferingAnimation(className : String) : void
 		{
+			var anim:Class;
+			
 			try {
-				var anim:Class = getDefinitionByName(className) as Class;
+				anim = getDefinitionByName(className) as Class;
 			} catch ( e : Error ){
 				//trace("couldn't find needed class:", className);
 				KTrace.getInstance().log("couldn't find needed class:", className);

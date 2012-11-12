@@ -189,7 +189,7 @@ package com.kaltura.kdpfl.view.controls
 					var preObj:Object = note.getBody().preloader;
 					if (flashvars.usePreloaderBufferAnimation && flashvars.usePreloaderBufferAnimation=='true' && preObj)
 					{
-						//save to flashvara, we might need it in the future
+						//save to flashvars, we might need it in the future
 						_currConfig.vo.flashvars["preloader"] = preObj;
 						spinner.setBufferingAnimation(getQualifiedClassName(preObj));
 					}
