@@ -81,18 +81,26 @@ package com.kaltura.kdpfl.plugin
 				
 				case NotificationType.MEDIA_ELEMENT_READY:
 					//find starting flavor ID
-					var flavorId:String;
+					var flavorAssetId:String;
+					var flavorParamsId:String;
 					if (_mediaProxy.vo.deliveryType == StreamerType.HTTP)
 					{
-						flavorId = _mediaProxy.vo.selectedFlavorId;						
+						flavorAssetId = _mediaProxy.vo.selectedFlavorId;						
 					}
 					else if (_mediaProxy.vo.deliveryType == StreamerType.RTMP)
 					{	
-						flavorId = getFlavorIdByIndex(_mediaProxy.startingIndex);
+						flavorAssetId = getFlavorIdByIndex(_mediaProxy.startingIndex);
 					}
 					
-					if (flavorId)
-						AnalyticsPluginLoader.setData("flavorId", flavorId);
+					for each (var kfa:KalturaFlavorAsset in _mediaProxy.vo.kalturaMediaFlavorArray) {
+						if (kfa.id == flavorAssetId) {
+							flavorParamsId = kfa.flavorParamsId.toString();
+							break;
+						}
+					}
+					
+					if (flavorParamsId)
+						AnalyticsPluginLoader.setData("flavorId", flavorParamsId);
 					
 					break;
 			}
