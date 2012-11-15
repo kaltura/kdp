@@ -599,8 +599,10 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.PLAYER_PLAY_END:
-					cleanMedia();
-					kMediaPlayer.showThumbnail();
+					if (!player.loop) {
+						cleanMedia();
+						kMediaPlayer.showThumbnail();
+					}
 					break;
 			}
 		}
