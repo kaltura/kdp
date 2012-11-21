@@ -172,7 +172,13 @@ package com.kaltura.kdpfl.plugin.component {
 			function parseSRT(e:Event):void {
 				try {
 					if (_captionsURLLoader.data) {
-						var lines:Array = _captionsURLLoader.data.split("\n");
+						var loadedText:String = _captionsURLLoader.data;
+						// unify CRs (\r) and CRLFs (\r\n) - make them all CRLFs
+						loadedText = loadedText.replace(/^(\r)\n/g, "\r\n");
+						// replace all CRLFs with CRs
+						loadedText = loadedText.replace(/\r\n/g, "\r");
+						// split on CRs
+						var lines:Array = loadedText.split("\r");
 						var currLine:CCLine = null;
 						_currentCCFile = new Array();
 						var ccLineInd:int = 0;
