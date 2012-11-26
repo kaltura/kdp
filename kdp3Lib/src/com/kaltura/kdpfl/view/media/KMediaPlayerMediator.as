@@ -600,7 +600,7 @@ package com.kaltura.kdpfl.view.media
 				
 				case NotificationType.PLAYER_PLAY_END:
 					if (!player.loop) {
-						cleanMedia();
+						//cleanMedia();
 						kMediaPlayer.showThumbnail();
 					}
 					break;

@@ -208,6 +208,13 @@ package com.kaltura.kdpfl.view.media
 			//the FocusManager dispatch Flex event to astra UIComponent
 			if (_thumbnail)
 				_thumbnail.alpha = 1;
+			
+			//if the thumbnail is not the last child, it won't be shown
+			if (numChildren && getChildAt(numChildren-1)!=_thumbnail)
+			{
+				removeChild(_thumbnail);
+				addChild(_thumbnail);
+			}
 		}
 		
 		public function drawBg( color : uint = 0x000000, alpha : Number = 1) : void
