@@ -27,7 +27,7 @@ package com.kaltura.net.streaming
 	import com.kaltura.net.streaming.events.ExNetStreamEvent;
 	import com.kaltura.net.streaming.status.NetStatus;
 	import com.kaltura.utils.url.URLProccessing;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.AsyncErrorEvent;
 	import flash.events.Event;
@@ -43,7 +43,7 @@ package com.kaltura.net.streaming
 	import flash.utils.Timer;
 	import flash.utils.getTimer;
 	import flash.utils.setTimeout;
-	
+
 	import mx.core.EventPriority;
 	import mx.events.MetadataEvent;
 	import mx.events.VideoEvent;
@@ -105,7 +105,7 @@ package com.kaltura.net.streaming
 		 * this is used to determine if we should seek to 0 after hitting play for preloading.
 		 */
 		private var _preloadingNoCommands:Boolean=false;
-		
+
 		/**
 		 *true if the user clicked play before we got metadata (probably always true otherwise we would
 		 * not have started loading the netstream
@@ -234,7 +234,7 @@ package com.kaltura.net.streaming
 				// We set the stream volume to 0 since the audio starts rendering just before
 				// the video does and creates an annoying blip. Once NetStream.Buffer.Full is reached, we set it back.
 				super.soundTransform=new SoundTransform(0);
-				
+
 				internalPlayMedia(true);
 				pauseMedia();
 				_preloadingNoCommands=true;
@@ -293,7 +293,7 @@ package com.kaltura.net.streaming
 			}
 			if (playStatus == PlayStatusStates.PLAY && streamVideo)
 				streamVideo.visible = true;
-				
+
 			super.soundTransform=new SoundTransform(_volLevel);
 		}
 
@@ -345,11 +345,11 @@ package com.kaltura.net.streaming
 					areWeStuck++;
 				else
 					areWeStuck = 0;
-					
+
 				lastMonitoredNetStreamTime=time;
 				// if we reached the end of the stream or we're on the same value for the last 400 msecs
 				// and the value is almost the same as the total length of the video - call end of stream handler.
-				if (/* (_length != -1 && time >= _length) || */ (areWeStuck > 10 && Math.floor(time) >= Math.floor(_length) - 1))				
+				if (/* (_length != -1 && time >= _length) || */ (areWeStuck > 10 && Math.floor(time) >= Math.floor(_length) - 1))
 					onStreamEnd(true);
 			}
 		}
@@ -431,7 +431,7 @@ package com.kaltura.net.streaming
 		{
 			internalPlayMedia();
 		}
-		
+
 		public function internalPlayMedia(_force:Boolean = false):void
 		{
 			if (!_gotMetaData)
@@ -442,9 +442,9 @@ package com.kaltura.net.streaming
 					_volLevel=super.soundTransform.volume;
 					super.soundTransform=new SoundTransform(0);
 					_gotPlayBeforeMetadata = true;
-				}			
+				}
 			}
-			
+
 			isStreamEnd=false;
 			dontRecievePlayStopEventTwice=0;
 			// if the stream is  stopped (meaning no data is loaded yet), reload and play:
@@ -492,7 +492,7 @@ package com.kaltura.net.streaming
 		public function seekMedia(offset:Number, originalStart:Number=-1, nearestNext:Boolean=false):void
 		{
 			// round offset to exact millisecond otherwise our exact seek to 27.720 which is passed as 27.719999999999995
-			// due to calculations will get us to the previous keyframe 
+			// due to calculations will get us to the previous keyframe
 			offset = Math.round(offset * 1000)/1000;
 			_originalSeekTime=offset;
 			if (!_gotMetaData)
@@ -689,10 +689,10 @@ package com.kaltura.net.streaming
 		{
 			updatePlayheadTimer.start();
 			resetToStartBuffer();
-			
+
 			if (_gotMetaData)
 				super.soundTransform=new SoundTransform(_volLevel);
-				
+
 			if (client is NetClient && _gotMetaData && (!downloadBeforePlay || percentageLoaded == 100))
 			{
 				//traceAction ("XNS: resume");
@@ -877,7 +877,7 @@ package com.kaltura.net.streaming
 					// currently there's no use to this - we always seek precisely to keyframes - so this should neevr be called.
 					// unless metaData does not contain keyframe information...
 					break;
-				
+
 				case NetStatus.NETSTREAM_PLAY_START:
 					dispatchEvent(new Event("Play.Start"));
 					break;
@@ -888,7 +888,7 @@ package com.kaltura.net.streaming
 					// not in use anymore - just for debugging purposes.
 					++dontRecievePlayStopEventTwice;
 					break;
-				
+
 			}
 		}
 
@@ -953,27 +953,55 @@ package com.kaltura.net.streaming
 			trace(getTimer(), action);
 		}
 
-		/**
-		 * dispose function:
-		 */
-		public function dispose():void
-		{
-			_preloadingNoCommands=false;
-			_gotMetaData=false;
-			if (streamVideo)
+		CONFIG::isSDK46 {
+			/**
+			 * dispose function:
+			 */
+			override public function dispose():void
 			{
-				streamVideo.clear();
-				streamVideo.attachNetStream(null);
-				streamVideo=null;
+				_preloadingNoCommands=false;
+				_gotMetaData=false;
+				if (streamVideo)
+				{
+					streamVideo.clear();
+					streamVideo.attachNetStream(null);
+					streamVideo=null;
+				}
+				pause();
+				close();
+				client={};
+				removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+				removeEventListener(SecurityErrorEvent.SECURITY_ERROR, netSecurityError);
+				removeEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+				loadingProgressTimer.removeEventListener(TimerEvent.TIMER, updateLoadingProgress);
+				loadingProgressTimer.stop();
 			}
-			pause();
-			close();
-			client={};
-			removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
-			removeEventListener(SecurityErrorEvent.SECURITY_ERROR, netSecurityError);
-			removeEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
-			loadingProgressTimer.removeEventListener(TimerEvent.TIMER, updateLoadingProgress);
-			loadingProgressTimer.stop();
+
+		}
+
+		CONFIG::isSDK45 {
+			/**
+			 * dispose function:
+			 */
+			public function dispose():void
+			{
+				_preloadingNoCommands=false;
+				_gotMetaData=false;
+				if (streamVideo)
+				{
+					streamVideo.clear();
+					streamVideo.attachNetStream(null);
+					streamVideo=null;
+				}
+				pause();
+				close();
+				client={};
+				removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+				removeEventListener(SecurityErrorEvent.SECURITY_ERROR, netSecurityError);
+				removeEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+				loadingProgressTimer.removeEventListener(TimerEvent.TIMER, updateLoadingProgress);
+				loadingProgressTimer.stop();
+			}
 		}
 	}
 }
