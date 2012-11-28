@@ -94,21 +94,21 @@ package com.kaltura.kdpfl.view.controls
 		{
 			this.buttonMode = true;
 			
-			if (upTooltip.length == 0 && selectedTooltip.length != 0)
+			if (upTooltip && upTooltip.length == 0 && selectedTooltip && selectedTooltip.length != 0)
 			{
 				upTooltip = selectedTooltip;
 			}
-			else if (upTooltip.length != 0 && selectedTooltip.length == 0)
+			else if (upTooltip && upTooltip.length != 0 && selectedTooltip && selectedTooltip.length == 0)
 			{
 				selectedTooltip = upTooltip;
 			}
-			else if (upTooltip.length == 0 && selectedTooltip.length == 0)
+			else if (upTooltip && upTooltip.length == 0  && selectedTooltip && selectedTooltip.length == 0)
 			{
 				upTooltip = tooltip;
 				selectedTooltip = tooltip;	
 			}
-			
-			this.tooltip = upTooltip;
+			if (upTooltip)
+				this.tooltip = upTooltip;
 			if (this.accessibilityName != null || this.accessibilityDesc != null)
 			{
 				var accessProps:AccessibilityProperties = new AccessibilityProperties();

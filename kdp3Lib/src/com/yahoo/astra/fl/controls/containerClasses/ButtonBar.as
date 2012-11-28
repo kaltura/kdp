@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 Yahoo! Inc.  All rights reserved.  
+Copyright (c) 2009 Yahoo! Inc.  All rights reserved.
 The copyrights embodied in the content of this file are licensed under the BSD (revised) open source license
 */
 ﻿package com.yahoo.astra.fl.controls.containerClasses
@@ -14,14 +14,14 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 	import flash.text.TextFormat;
 	import com.yahoo.astra.utils.InstanceFactory;
 	import com.yahoo.astra.fl.utils.UIComponentUtil;
-	
+
 	//--------------------------------------
 	//  Class description
 	//--------------------------------------
 
 	/**
 	 * ButtonBar extends UIComponent and builds one or multiple rows of AutoSizeButton
-	 * instances depending on the dimensions of its parent container and the size of the 
+	 * instances depending on the dimensions of its parent container and the size of the
 	 * buttons
 	 *
 	 * @see fl.core.UIComponent
@@ -29,15 +29,15 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 	 *
      * @langversion 3.0
      * @playerversion Flash 9.0.28.0
-     * @author Dwight Bridges	
-	 */		 
+     * @author Dwight Bridges
+	 */
 	public class ButtonBar extends UIComponent
 	{
 
 	//--------------------------------------
 	//  Constructor
 	//--------------------------------------
-	
+
 		/**
 		 * Constructor
 		 */
@@ -46,94 +46,94 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 			super();
 			this.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
 			this.addEventListener(KeyboardEvent.KEY_DOWN, navigationKeyDownHandler);
-			tabChildren = false;			
+			tabChildren = false;
 		}
-		
+
 	//--------------------------------------
 	//  Properties
-	//--------------------------------------				
+	//--------------------------------------
 
 		/**
 		 * @private (setter)
-		 */ 
+		 */
 		override public function set height(ht:Number):void {_height = ht;}
-		
+
 		/**
 		 * Gets or sets the width
 		 */
 		override public function get width():Number {return _width;}
-		
+
 		/**
 		 * @private (protected)
 		 */
-		//Contains an object for each button.  The object contains the button and an 
+		//Contains an object for each button.  The object contains the button and an
 		//array of listeners attached to the button
 		public var _buttons:Array = [];
-		
+
 		/**
 		 * @private
  		 */
 		//array containing buttons that can be used when the drawButtons method is called
 		private var _cachedButtons:Array = [];
-		
+
 		/**
 		 * @private (protected)
 		 */
 		//Used to determine the x coordinate of buttons
 		protected var _left:Number = 0;
-		
+
 		/**
 		 * @private (protected)
-		 */		
+		 */
 		//holds index of the object to have focus
 		protected var _focusIndex:int;
-		
+
 		/**
 		 * @private (protected)
 		 */
 		//the button that currently has focus
 		protected var _focusButton:AutoSizeButton;
-		
+
 		/**
 		 * The amount of padding between buttons
 		 */
 		public var spacing:int;
-		
+
 		/**
 		 * The amount of padding between rows
 		 */
-		public var rowSpacing:int;		
-		
+		public var rowSpacing:int;
+
 		/**
-		 * The maximum width of the component.  Used to determine how many rows 
+		 * The maximum width of the component.  Used to determine how many rows
 		 * of buttons are necessary.
 		 */
 		public var maxWidth:int;
-		
+
 		/**
 		 * @private (protected)
 		 */
-		//Number of buttons to be drawn.  
+		//Number of buttons to be drawn.
 		protected var _length:uint;
-		
+
 		/**
 		 * @private (protected)
 		 */
 		//Number of buttons loaded
 		protected var _buttonsLoaded:uint;
-		
+
 		/**
 		 * @private (protected)
 		 */
 		//Array containing index for each row of buttons
 		protected var _rows:Array;
-		
+
 		/**
 		 * @private (protected)
 		 */
 		//Current index for the button rows
 		protected var _currentRow:uint;
-		
+
 		/**
 		 * Gets or sets the index of the button that has focus.
 		 */
@@ -141,7 +141,7 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 		{
 			return _focusIndex;
 		}
-		
+
 		/**
 		 * @private (setter)
 		 */
@@ -149,12 +149,12 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 		{
 			_focusIndex = value;
 		}
-		
+
 		/**
 		 * @private
 		 */
-		private var defaultButtonStyles:Object = {}; 
-	 	
+		private var defaultButtonStyles:Object = {};
+
 	//--------------------------------------
 	//  Public Methods
 	//--------------------------------------
@@ -166,15 +166,15 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 	 	 * @param listeners - an array of handler functions to be called on a button click
 	 	 */
 	 	public function drawButtons(labels:Array, listeners:Array):void
-	 	{	
+	 	{
 			_currentRow = _buttonsLoaded = _left = _width = 0;
 			_rows = [];
 			_rows[_currentRow] = {};
 			_rows[_currentRow].buttons = [];
 			_rows[_currentRow].width = 0;
-			
+
 			this.removeChildren();
-			this.setFocus();			
+			this.setFocus();
 			_focusIndex = 0;
 			var cachedLen:Number = _cachedButtons.length;
 			var len:uint = _length = labels.length;
@@ -184,7 +184,7 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 				var label:String = labels[i];
 				if(i < cachedLen)
 				{
-					newButton = _cachedButtons[i];	
+					newButton = _cachedButtons[i];
 					newButton.textField.text = "";
 					newButton.visible = true;
 					newButton.label = newButton.name = label;
@@ -199,34 +199,48 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 					newButton.useHandCursor = true;
 					_cachedButtons.push(newButton);
 				}
-				
+
 				var listlen:uint = listeners.length;
 				for(var j:uint = 0; j < listlen; j++)
 				{
 					newButton.addEventListener(MouseEvent.CLICK, listeners[j]);
 				}
-				
+
 				newButton.drawNow();
 				newButton.tabIndex = i+1;
-				_buttons.push({button:newButton, listeners:listeners});	
-				
+				_buttons.push({button:newButton, listeners:listeners});
+
 			}
 			this.setFocusButton();
 			this.setButtonStyles();
 	 	}
-	 	
-		
+
+
+		CONFIG::isSDK45 {
+			/**
+			 * Removes buttons
+			 */
+			public function removeChildren():void
+			{
+				_buttons.forEach(disableButtons);
+				_buttons = [];
+			}
+		}
+
+		CONFIG::isSDK46 {
+			/**
+			 * Removes buttons
+			 */
+			override public function removeChildren(beginIndex:int=0, endIndex:int=int.MAX_VALUE):void
+			{
+				_buttons.forEach(disableButtons);
+				_buttons = [];
+			}
+		}
+
+
 	 	/**
-	 	 * Removes buttons
-	 	 */
-	 	public function removeChildren():void
-	 	{
-			_buttons.forEach(disableButtons);
-			_buttons = [];
-	 	}
-	 	
-	 	/**
-	 	 * Positions each button after it has been resized.  Creates multiple rows if a 
+	 	 * Positions each button after it has been resized.  Creates multiple rows if a
 	 	 * single row of buttons will exceed the maximum width.
 	 	 *
 	 	 * @param evnt - event fired from buttons after it has been redrawn
@@ -242,7 +256,7 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 				thisButton.x = _left;
 				_left += thisButton.width + spacing;
 				_rows[_currentRow].width = _left - spacing;
-				_rows[_currentRow].buttons.push(thisButton);				
+				_rows[_currentRow].buttons.push(thisButton);
 				_width = Math.max(_width, _rows[_currentRow].width);
 				thisButton.y = (thisButton.height * _currentRow) + (rowSpacing * _currentRow);
 			}
@@ -251,9 +265,9 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 				_left = thisButton.x = 0;
 				_currentRow++;
 				_rows[_currentRow] = {};
-				_rows[_currentRow].buttons = [];				
+				_rows[_currentRow].buttons = [];
 				_rows[_currentRow].width = thisButton.width;
-				_rows[_currentRow].buttons.push(thisButton);			
+				_rows[_currentRow].buttons.push(thisButton);
 				thisButton.y = (thisButton.height * _currentRow) + (rowSpacing * _currentRow);
 				_width = Math.max(thisButton.width, _width);
 				_left += thisButton.width + spacing;
@@ -274,20 +288,20 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 				}
 			}
 		}
-				
+
 		/*
 		 * Sets the focus for the correct button.
 		 *
          * @langversion 3.0
          * @playerversion Flash 9.0.28.0
-		 */			
+		 */
 		public function setFocusButton():void
 		{
-			_focusButton = _buttons[_focusIndex].button; 
+			_focusButton = _buttons[_focusIndex].button;
 			_focusButton.setFocus();
 			_focusButton.drawFocus(true);
 		}
-		
+
 		/*
 		 * Set the index to have focus and call the <code>setFocusButton</code> function
 		 *
@@ -295,20 +309,20 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 		 *
          * @langversion 3.0
          * @playerversion Flash 9.0.28.0
-		 */	
+		 */
 		public function setFocusIndex(decrem:Boolean):void
 		{
 			var len:int = _buttons.length - 1;
 			if(decrem)
 			{
-				if(_focusIndex == 0) 
+				if(_focusIndex == 0)
 				{
-					_focusIndex = len;	
+					_focusIndex = len;
 				}
 				else
 				{
 					_focusIndex--;
-				}					
+				}
 			}
 			else
 			{
@@ -319,11 +333,11 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 				else
 				{
 					_focusIndex++;
-				}				
+				}
 			}
 			setFocusButton();
-		}		
-		
+		}
+
 		/**
 		 * Sets the styles of the buttons
 		 */
@@ -336,13 +350,13 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 				{
 					(_buttons[i].button as UIComponent).setStyle(name, style);
 				}
-			}	
+			}
 		}
-		
+
 	//--------------------------------------
 	//  Protected Methods
-	//--------------------------------------		
-		
+	//--------------------------------------
+
         /**
          * @private (protected)
          *
@@ -350,7 +364,7 @@ The copyrights embodied in the content of this file are licensed under the BSD (
          * @playerversion Flash 9.0.28.0
 		 */
 		//Adjusts the x coordinate for each button in a row
-		//Called when there are multiple rows so that the buttons will be centered		 
+		//Called when there are multiple rows so that the buttons will be centered
 		protected function centerButtonRow(element:*, index:Number, arr:Array):void
 		{
 			var wid:uint = element.width;
@@ -358,9 +372,9 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 			for(var i:uint = 0; i < buttons.length;i++)
 			{
 				buttons[i].x += Math.round((_width - wid)/2);
-			}			
+			}
 		}
-		
+
         /**
          * @private (protected)
          *
@@ -369,7 +383,7 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 		 */
 		//Remove event listeners from each button
 		//Set visibility to false for each button
-		protected function disableButtons(element:*, index:Number, arr:Array):void 
+		protected function disableButtons(element:*, index:Number, arr:Array):void
 		{
 			var button:AutoSizeButton = element.button;
 			var listeners:Array = element.listeners;
@@ -380,7 +394,7 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 			}
 			button.visible = false;
 		}
-		
+
         /**
          * @private (protected)
          *
@@ -389,41 +403,41 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 		 */
 		//If the right arrow is pressed, pass a value of false to the setFocusIndex function
 		//If the left arrow is pressed, pass a value of true to the setFocusIndex function
-		//If the enter key is pressed, dispatch a click event from the _focusButton		 
+		//If the enter key is pressed, dispatch a click event from the _focusButton
 		protected function navigationKeyDownHandler(evnt:KeyboardEvent):void
 		{
 			switch(evnt.keyCode)
 			{
-				case Keyboard.RIGHT :			
+				case Keyboard.RIGHT :
 					setFocusIndex(false);
 				break;
 				case Keyboard.LEFT :
 					setFocusIndex(true);
-				break;	
-				
+				break;
+
 				case Keyboard.ENTER :
 					_focusButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 				break;
 			}
 		}
-		
+
 		/*
 		 * @private (protected)
 		 *
          * @langversion 3.0
          * @playerversion Flash 9.0.28.0
-		 */		
-		//On the keyFocusChange event, prevent the default handling of the tab key 
+		 */
+		//On the keyFocusChange event, prevent the default handling of the tab key
 		protected function keyFocusChangeHandler(evnt:FocusEvent):void
 		{
 			if(evnt.keyCode == Keyboard.TAB)
 			{
 				evnt.preventDefault();
 				setFocusIndex(evnt.shiftKey)
-				
+
 			}
 		}
-		
+
 		/**
 		 * @private
 		 * Copies button styles to a button
@@ -439,14 +453,14 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 				}
 			}
 		}
-		
+
 		/**
 		 * @private
 		 */
 		override protected function draw():void
 		{
 			setButtonStyles();
-		}		
-		 
-	}	
+		}
+
+	}
 }
