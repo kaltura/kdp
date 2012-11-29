@@ -1,5 +1,6 @@
 package com.kaltura.kdpfl.controller.media
 {
+	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	
@@ -151,7 +152,8 @@ package com.kaltura.kdpfl.controller.media
 			_liveStreamTimer.stop();
 			_netStream.close();
 			_nc.close();
-			sendNotification(NotificationType.LIVE_ENTRY,_resource); 
+			if ((facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.isLive)
+				sendNotification(NotificationType.LIVE_ENTRY,_resource); 
 		}
 		/**
 		 * Function checks whether the NetStream connected to the target live-stream  has an FPS.
