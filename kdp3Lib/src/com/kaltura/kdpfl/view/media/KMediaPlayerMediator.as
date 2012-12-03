@@ -586,7 +586,7 @@ package com.kaltura.kdpfl.view.media
 					if (!_sequenceProxy.vo.isInSequence &&_isPrePlaySeek)
 					{
 						//for rtmp the seek will be performed after player is in "playing" state
-						if (_mediaProxy.vo.deliveryType == StreamerType.HTTP && _mediaProxy.vo.keyframeValuesArray)
+						if (_mediaProxy.vo.deliveryType == StreamerType.HTTP && (_mediaProxy.vo.keyframeValuesArray || isMP4Stream()))
 						{
 							_pausedPending = true;
 							doIntelliSeek(_offset);
@@ -1358,17 +1358,26 @@ package com.kaltura.kdpfl.view.media
 		 * 
 		 */		
 		private function isMP4Stream():Boolean {
-			if (_mediaProxy.vo.kalturaMediaFlavorArray && _mediaProxy.vo.selectedFlavorId)
+			if (_mediaProxy.vo.kalturaMediaFlavorArray)
 			{
-				for each (var flavor:KalturaFlavorAsset in _mediaProxy.vo.kalturaMediaFlavorArray)
+				if (_mediaProxy.vo.selectedFlavorId)
 				{
-					if (flavor.id==_mediaProxy.vo.selectedFlavorId)
+					for each (var flavor:KalturaFlavorAsset in _mediaProxy.vo.kalturaMediaFlavorArray)
 					{
-						if (flavor.fileExt=="mp4")
-							return true;
-						
-						return false;
-					}
+						if (flavor.id==_mediaProxy.vo.selectedFlavorId)
+						{
+							if (flavor.fileExt=="mp4")
+								return true;
+							
+							return false;
+						}
+					}	
+				}
+				//if we don't have selected flavor ID we are playing the first one
+				else if (_mediaProxy.vo.kalturaMediaFlavorArray.length)
+				{
+					if ((_mediaProxy.vo.kalturaMediaFlavorArray[0] as KalturaFlavorAsset).fileExt=="mp4")
+						return true;
 				}
 			}
 			
