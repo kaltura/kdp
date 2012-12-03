@@ -96,7 +96,6 @@ package com.kaltura.kdpfl.controller.media
 										foundFlavorBR = b;
 										foundFlavorId = _mediaProxy.vo.kalturaMediaFlavorArray[i].id;
 										flavorIndex = i;
-										//										_mediaProxy.vo.switchDue = true;
 									}
 									
 								}

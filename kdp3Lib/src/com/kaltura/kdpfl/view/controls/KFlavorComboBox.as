@@ -411,6 +411,7 @@ package com.kaltura.kdpfl.view.controls
 			super.dataProvider = new DataProvider(newDPArray);
 			dispatchEvent( new Event( DATA_PROVIDER_CHANGE ) );
 			
+			this.selectedIndex = dataProvider.length - 1;
 			if (_preferedFlavorBR)
 			{
 				setSelectedItem(_preferedFlavorBR);
