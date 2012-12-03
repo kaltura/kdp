@@ -460,6 +460,12 @@ package com.kaltura.kdpfl.model.type
 		  * Notification fired when the player is playing parllel element and the main element should be restored
 		  */		 
 		 static public const RESTORE_MAIN_PARALLEL_ELEMENT : String = "restoreMainParallelElement";
+		 /**
+		  * Notification that will trigger cuePointsMediator to re-register the cuepoints (relevant on intelli-seek, when the media length has changed)
+		  */		 
+		 static public const RE_REGISTER_CUE_POINTS : String = "reRegisterCuePoint";
+		 
+		 
 
 	}
 }

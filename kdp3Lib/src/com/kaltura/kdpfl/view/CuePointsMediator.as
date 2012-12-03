@@ -4,7 +4,6 @@ package com.kaltura.kdpfl.view
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.AdOpportunityType;
-	import com.kaltura.kdpfl.model.type.CuePointType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
@@ -16,8 +15,6 @@ package com.kaltura.kdpfl.view
 	import com.kaltura.vo.KalturaAnnotation;
 	import com.kaltura.vo.KalturaCodeCuePoint;
 	import com.kaltura.vo.KalturaCuePoint;
-	
-	import flash.utils.setTimeout;
 	
 	import org.osmf.events.TimelineMetadataEvent;
 	import org.osmf.media.MediaElement;
@@ -44,7 +41,6 @@ package com.kaltura.kdpfl.view
 		 * The current media element.
 		 */		
 		private var _media : MediaElement;
-
 		
 		/**
 		 * duration of current entry in milliseconds
@@ -75,6 +71,10 @@ package com.kaltura.kdpfl.view
 		 * if true, midroll sequence won't start on cue point reached 
 		 */		
 		private var _disableCuePointsMidroll:Boolean = false;
+		/**
+		 * offset to subtract from cuePoint's start time (in case of mp4 intelli seek)
+		 */		
+		private var _intimeOffset:Number = 0;
 	
 		public function CuePointsMediator(proxyName:String=null, data:Object=null)
 		{
@@ -83,7 +83,13 @@ package com.kaltura.kdpfl.view
 		
 		override public function listNotificationInterests():Array
 		{
-			var returnArr : Array = [NotificationType.LAYOUT_READY, NotificationType.ENTRY_READY, NotificationType.MEDIA_LOADED, NotificationType.CUE_POINTS_RECEIVED,NotificationType.PLAYER_PLAY_END, NotificationType.CHANGE_MEDIA];
+			var returnArr : Array = [NotificationType.LAYOUT_READY, 
+									NotificationType.ENTRY_READY,
+									NotificationType.MEDIA_LOADED,
+									NotificationType.CUE_POINTS_RECEIVED,
+									NotificationType.PLAYER_PLAY_END,
+									NotificationType.CHANGE_MEDIA,
+									NotificationType.RE_REGISTER_CUE_POINTS];
 			return returnArr;
 		}
 		
@@ -113,6 +119,7 @@ package com.kaltura.kdpfl.view
 					//don't change the notification.body, copy the object
 					ObjectUtil.copyObject(notification.getBody(), _cuePointsMap);
 					findPrePostSequence();
+					_sessionCuePointsMap = new Object();
 					ObjectUtil.copyObject(_cuePointsMap, _sessionCuePointsMap);					
 					break;
 				
@@ -136,11 +143,12 @@ package com.kaltura.kdpfl.view
 					break;
 				
 				case NotificationType.CHANGE_MEDIA:
-					if (_timelineMetadata)
-						_timelineMetadata.removeEventListener( TimelineMetadataEvent.MARKER_TIME_REACHED, onCuePointReached );
 					// reset entry's cuepoints map, so we won't accumulate cuepoints 
 					// (i.e., between entries in playlist)
 					_cuePointsMap = new Object();
+					break;
+				case NotificationType.RE_REGISTER_CUE_POINTS:
+					initTimelineMarkers(Number(notification.getBody().offsetAddition));
 					break;
 			}
 		}
@@ -161,7 +169,7 @@ package com.kaltura.kdpfl.view
 		protected function onCuePointReached ( e : TimelineMetadataEvent ) : void
 		{
 			var startTime : Number =  e.marker.time;
-			var startTimeInMS:Number = startTime * 1000;
+			var startTimeInMS:Number = (startTime + _intimeOffset) * 1000;
 			
 			var shouldStartMidrollSequence : Boolean = false;
 			for each (var cuePoint : KalturaCuePoint in _sessionCuePointsMap[startTimeInMS])
@@ -198,15 +206,25 @@ package com.kaltura.kdpfl.view
 		 * The timeline markers of this object are positioned on the cue points' start-times.
 		 * 
 		 */		
-		protected function initTimelineMarkers () : void
+		protected function initTimelineMarkers (offset:Number = 0) : void
 		{
+			if (_timelineMetadata)
+				_timelineMetadata.removeEventListener( TimelineMetadataEvent.MARKER_TIME_REACHED, onCuePointReached );
+			
+			_intimeOffset = offset;
+			
 			if ((_media as KSwitchingProxyElement).mainMediaElement)
 			{
 				_timelineMetadata = new TimelineMetadata((_media as KSwitchingProxyElement).mainMediaElement);
 				_timelineMetadata.addEventListener( TimelineMetadataEvent.MARKER_TIME_REACHED , onCuePointReached);
 				for (var startTime : String in _cuePointsMap)
 				{
-					_timelineMetadata.addMarker( new TimelineMarker(Number(startTime) / 1000) );
+					//if we performed mp4 intelli-seek, we need to add offset to cuePoints
+					var inTime:Number = (Number(startTime)/1000 - offset);
+					if (inTime >= 0) 
+					{
+						_timelineMetadata.addMarker( new TimelineMarker(inTime) );	
+					}
 					
 				}
 			}

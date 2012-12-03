@@ -16,6 +16,7 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.kdpfl.view.controls.BufferAnimationMediator;
 	import com.kaltura.kdpfl.view.controls.KTrace;
 	import com.kaltura.types.KalturaMediaType;
+	import com.kaltura.vo.KalturaFlavorAsset;
 	import com.kaltura.vo.KalturaLiveStreamEntry;
 	import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.vo.KalturaMixEntry;
@@ -23,7 +24,6 @@ package com.kaltura.kdpfl.view.media
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
-	import flash.net.SharedObject;
 	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 	
@@ -73,7 +73,6 @@ package com.kaltura.kdpfl.view.media
 		private var _seekUrl:String;
 		private var _autoMute:Boolean=false;
 		private var _isIntelliSeeking :Boolean=false;
-		private var _intelliSeekStart:Number=0;
 		private var _currentTime:Number;
 		private var _lastCurrentTime:Number = 0;
 		private var _newdDuration:Number;
@@ -139,6 +138,10 @@ package com.kaltura.kdpfl.view.media
 		 *indicates of we should listen for mediaElementReady 
 		 */		
 		private var _waitForMediaElement:Boolean = false;
+		/**
+		 * in case of mp4 intelliseek we will have to add this value to playhead position 
+		 */		
+		private var _offsetAddition:Number = 0;
 		
 		/**
 		 * Constructor 
@@ -335,6 +338,7 @@ package com.kaltura.kdpfl.view.media
 					_alertCalled = false;
 					player.removeEventListener( TimeEvent.COMPLETE , onTimeComplete );
 					_isIntelliSeeking = false;
+					_offsetAddition = 0;
 					_doSwitchSent = false;
 					_hasPlayed = false;
 					//Fixed weird issue, where the CHANGE_MEDIA would be caught by the mediator 
@@ -466,7 +470,6 @@ package com.kaltura.kdpfl.view.media
 					}
 					break;
 				case NotificationType.DO_SEEK: //when the player asked to seek
-					
 					if ((player.state == MediaPlayerState.PLAYING || player.state == MediaPlayerState.BUFFERING) && player.currentTime < _duration)
 					{
 						_mediaProxy.vo.singleAutoPlay = true;
@@ -485,7 +488,7 @@ package com.kaltura.kdpfl.view.media
 						!_mediaProxy.vo.entryExtraData.isAdmin && 
 						_mediaProxy.vo.entryExtraData.isSessionRestricted &&
 						_mediaProxy.vo.entryExtraData.previewLength != -1 &&
-						_mediaProxy.vo.entryExtraData.previewLength <= Number(note.getBody()))
+						_mediaProxy.vo.entryExtraData.previewLength <= seekTo)
 					{
 						return;
 					}
@@ -504,22 +507,22 @@ package com.kaltura.kdpfl.view.media
 					}
 					
 					if(_mediaProxy.vo.deliveryType!=StreamerType.HTTP || (_flashvars.ignoreStreamerTypeForSeek && _flashvars.ignoreStreamerTypeForSeek == "true"))
-					{
-						
-						if(player.canSeek) player.seek( Number(note.getBody())  );
+					{			
+						if(player.canSeek) player.seek( seekTo  );
 						return;	
 					}
 					
 					if ( (_mediaProxy.vo.entry is KalturaMixEntry) ||
 						(seekTo <= _loadedTime  && !_isIntelliSeeking))
 					{
-						if(player.canSeek) player.seek(seekTo); 
+						if(player.canSeek) 
+							player.seek(seekTo); 
 						
 					}
 					else //do intlliseek
 					{	
 						//cannot intelliseek in this case
-						if(!_mediaProxy.vo.keyframeValuesArray) return;
+						if(!_mediaProxy.vo.keyframeValuesArray && !isMP4Stream()) return;
 						
 						
 						//on a new seek we can reset the load media on play flag
@@ -603,6 +606,7 @@ package com.kaltura.kdpfl.view.media
 						//cleanMedia();
 						kMediaPlayer.showThumbnail();
 					}
+					_offsetAddition = 0;
 					break;
 			}
 		}
@@ -643,9 +647,8 @@ package com.kaltura.kdpfl.view.media
 		{	
 			_isIntelliSeeking = true;
 			_offset = value;
-			_mediaProxy.prepareMediaElement( _offset);
+			_mediaProxy.prepareMediaElement( _offset );
 			_mediaProxy.loadWithMediaReady();
-			_intelliSeekStart = _offset;
 			sendNotification( NotificationType.INTELLI_SEEK,{intelliseekTo: _offset} );
 		}
 		
@@ -901,14 +904,14 @@ package com.kaltura.kdpfl.view.media
 						{
 							//special cases in plugins that handle the playback their own: hd akamai, uplynk
 							if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK &&
-								!(_mediaProxy.vo.deliveryType == StreamerType.HTTP && (_flashvars.ignoreStreamerTypeForSeek && _flashvars.ignoreStreamerTypeForSeek == "true")))
+								!(_mediaProxy.vo.deliveryType == StreamerType.HTTP && (isMP4Stream() || (_flashvars.ignoreStreamerTypeForSeek && _flashvars.ignoreStreamerTypeForSeek == "true"))))
 							{
 								if ( canStartClip( _mediaProxy.vo.mediaPlayFrom ) )
 								{
 									startClip();
 									break;
 								}
-									//handle bug where the video metadata arrives after video starts to play
+								//handle bug where the video metadata arrives after video starts to play
 								else if (!_mediaProxy.vo.keyframeValuesArray && _mediaProxy.vo.deliveryType == StreamerType.HTTP)
 								{
 									_metadataTimer = new Timer(100);
@@ -1018,7 +1021,7 @@ package com.kaltura.kdpfl.view.media
 			}
 			else //check if intelliseek is possible
 			{		 
-				if(_mediaProxy.vo.keyframeValuesArray)
+				if(_mediaProxy.vo.keyframeValuesArray || isMP4Stream())
 				{
 					return true;
 				}
@@ -1105,7 +1108,8 @@ package com.kaltura.kdpfl.view.media
 			
 			if (player.temporal && !isNaN(event.time))
 			{
-				sendNotification( NotificationType.PLAYER_UPDATE_PLAYHEAD , event.time );
+				var time:Number = _sequenceProxy.vo.isInSequence ? event.time : event.time + _offsetAddition;
+				sendNotification( NotificationType.PLAYER_UPDATE_PLAYHEAD , time );
 				
 				if (_sequenceProxy.vo.isInSequence)
 				{
@@ -1227,6 +1231,11 @@ package com.kaltura.kdpfl.view.media
 				else
 				{
 					sendNotification( NotificationType.DURATION_CHANGE , {newValue:_entryDuration});
+					if (isMP4Stream() && !isNaN(event.time) && event.time && event.time!=_entryDuration)
+					{
+						_offsetAddition = _entryDuration - event.time ;
+						sendNotification(NotificationType.RE_REGISTER_CUE_POINTS, {offsetAddition: _offsetAddition});
+					}
 				}
 			}
 			else if(event.time)
@@ -1341,6 +1350,29 @@ package com.kaltura.kdpfl.view.media
 				b64.encode( _flashvars.referrer );
 				_flashvars.b64Referrer = b64.toString();	
 			}
+		}
+		
+		/**
+		 * 
+		 * @return true if the current playing stream is MP4
+		 * 
+		 */		
+		private function isMP4Stream():Boolean {
+			if (_mediaProxy.vo.kalturaMediaFlavorArray && _mediaProxy.vo.selectedFlavorId)
+			{
+				for each (var flavor:KalturaFlavorAsset in _mediaProxy.vo.kalturaMediaFlavorArray)
+				{
+					if (flavor.id==_mediaProxy.vo.selectedFlavorId)
+					{
+						if (flavor.fileExt=="mp4")
+							return true;
+						
+						return false;
+					}
+				}
+			}
+			
+			return false;
 		}
 		
 	}

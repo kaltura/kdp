@@ -828,7 +828,7 @@ package com.kaltura.kdpfl.model
 				vo.media = switchingMediaElement;
 				//if its a new media and not a bumper entry
 				var sequenceVo:SequenceVO = (facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo;
-				if (!sequenceVo.isInSequence && !(facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).isIntelliSeeking)
+				if (!sequenceVo.isInSequence)
 					sequenceVo.mainMediaVO = null;
 				//add event listener for a switch between the main and secondary elements in the KSwitcingProxyElement.
 				vo.media.addEventListener(KSwitchingProxyEvent.ELEMENT_SWITCH_PERFORMED, onSwitchPerformed );
