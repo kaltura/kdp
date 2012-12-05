@@ -255,6 +255,9 @@ Miscellaneous
    
    bandwidthEstimationPeriodInSeconds = [Number]
    		relevant only when streamerType=hdnetork and hdnetworkEnableBRDetection=true. Will determine the time in seconds for the BW detection. Default value is 2.
+   
+   liveStreamCheckInterval = [Number]
+   		interval in seconds for sampling the live stream in order to determine if it's currently broadcasting. Default value is 30 seconds.
     	                                
 Components & Plug-ins attributes
 --------------------------------

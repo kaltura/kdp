@@ -70,6 +70,15 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.vo.KalturaFlavorAssetFilter;
 	import com.kaltura.types.KalturaFlavorAssetStatus;
 	import com.kaltura.kdpfl.util.SharedObjectUtil;
+	import com.kaltura.kdpfl.plugin.Plugin;
+	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.events.ErrorEvent;
+	import flash.events.AsyncErrorEvent;
+	import com.kaltura.kdpfl.plugin.PluginManager;
+	import mx.utils.URLUtil;
+	import com.kaltura.kdpfl.util.URLUtils;
+	import com.kaltura.types.KalturaPlaybackProtocol;
 
  
 
@@ -91,6 +100,11 @@ package com.kaltura.kdpfl.controller.media
 		 * entry id and getting an entry by reference id
 		 */
 		private var _isRefid:Boolean;
+		
+		/**
+		 * when true, command will not be completed until akamai plugin load process is done 
+		 */		
+		private var _waitForAkamaiLoad:Boolean;
 		
 		/**
 		 * The command's execution involves using the Kaltura Client to construct a multi-tiered call to the
@@ -395,12 +409,50 @@ package com.kaltura.kdpfl.controller.media
 			}
 			else
 			{
-				_mediaProxy.vo.entryExtraData = arr[i];
+				_mediaProxy.vo.entryExtraData = arr[i];	
+					
 				if (_flashvars.streamerType == "auto" && _mediaProxy.vo.entryExtraData.streamerType && _mediaProxy.vo.entryExtraData.streamerType != "")
 				{
 					if (_mediaProxy.vo.deliveryType!=StreamType.LIVE)
 						_mediaProxy.vo.deliveryType = _mediaProxy.vo.entryExtraData.streamerType;
-					//_flashvars.streamerType = _mediaProxy.vo.entryExtraData.streamerType;
+					
+					if (_mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.HDS || _mediaProxy.vo.entryExtraData.streamerType == "hdnetwork")
+					{
+						//load akamaiHD plugin, if it wasn't already loaded
+						var akamaiHdPlugin:Object = facade['bindObject']['Plugin_akamaiHD'];
+						if (akamaiHdPlugin && !akamaiHdPlugin['content'])
+						{
+							_waitForAkamaiLoad = true;
+							var pluginDomain : String = _flashvars.pluginDomain ? _flashvars.pluginDomain : (facade['appFolder'] + 'plugins/');
+							var xml:XML = (akamaiHdPlugin['xml'] as XML);
+							var pluginUrl:String = xml.attribute('path');
+							if (!pluginUrl)
+								pluginUrl = xml.@id + "Plugin.swf";
+							else if (!URLUtils.isHttpURL(pluginUrl) && (pluginUrl.charAt(0) == "/") )
+							{
+								//change to more reliable params
+								pluginUrl = _flashvars.httpProtocol + _flashvars.cdnHost + pluginUrl;
+							}
+							if(!URLUtils.isHttpURL(pluginUrl))
+								pluginUrl = pluginDomain + pluginUrl;
+							var resultPlugin:Plugin = PluginManager.getInstance().loadPlugin(pluginUrl, "akamaiHD", "wait" , true, _flashvars.fileSystemMode == true);
+							resultPlugin.addEventListener( Event.COMPLETE , onAkamaiPluginReady, false, int.MAX_VALUE);
+							resultPlugin.addEventListener( IOErrorEvent.IO_ERROR , onAkamaiPluginError );
+							resultPlugin.addEventListener( SecurityErrorEvent.SECURITY_ERROR , onAkamaiPluginError );
+							resultPlugin.addEventListener( ErrorEvent.ERROR , onAkamaiPluginError );
+							resultPlugin.addEventListener( AsyncErrorEvent.ASYNC_ERROR , onAkamaiPluginError );
+						}
+					}
+					
+					if (_mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.HDS)
+					{
+						_mediaProxy.vo.isHds = true;
+					}
+					else
+					{
+						_mediaProxy.vo.isHds = false;
+					}
+
 					if (_mediaProxy.vo.entryExtraData.mediaProtocol && _mediaProxy.vo.entryExtraData.mediaProtocol != "")
 					{
 						_flashvars.mediaProtocol = _mediaProxy.vo.entryExtraData.mediaProtocol;
@@ -694,8 +746,8 @@ package com.kaltura.kdpfl.controller.media
 		
 		override protected function commandComplete():void
 		{
-			
-			super.commandComplete();
+			if (!_waitForAkamaiLoad)
+				super.commandComplete();
 		}
 		
 		/**
@@ -710,6 +762,49 @@ package com.kaltura.kdpfl.controller.media
 
 		 if (data && data.error && (data.error is KalturaError)) 
 			KTrace.getInstance().log(data.error.errorMsg);
+		}
+		
+		/**
+		 * handler for akamai plugin load error 
+		 * @param event
+		 * 
+		 */		
+		private function onAkamaiPluginError( event: Event) : void 
+		{
+			var plugin : Plugin = ( event.target as Plugin );
+			removePluginListeners(plugin);
+			///TODO: alert here?
+			KTrace.getInstance().log("Failed to load AkamaiHD plugin");
+			_mediaProxy.vo.isMediaDisabled = true;
+			_waitForAkamaiLoad = false;
+			commandComplete();
+		}
+		
+		/**
+		 * handler for akamai plugin load 
+		 * @param event
+		 * 
+		 */		
+		private function onAkamaiPluginReady( event : Event ) : void
+		{
+			var plugin : Plugin = ( event.target as Plugin );
+			removePluginListeners(plugin);	
+			sendNotification(NotificationType.SINGLE_PLUGIN_LOADED, plugin.name);
+			_waitForAkamaiLoad = false;
+			commandComplete();			
+		}
+		
+		/**
+		 * remove event listeners from akamai plugin 
+		 * @param plugin
+		 * 
+		 */		
+		private function removePluginListeners(plugin:Plugin):void {
+			plugin.removeEventListener( Event.COMPLETE , onAkamaiPluginReady);
+			plugin.removeEventListener( IOErrorEvent.IO_ERROR , onAkamaiPluginError );
+			plugin.removeEventListener( SecurityErrorEvent.SECURITY_ERROR , onAkamaiPluginError );
+			plugin.removeEventListener( ErrorEvent.ERROR , onAkamaiPluginError );
+			plugin.removeEventListener( AsyncErrorEvent.ASYNC_ERROR , onAkamaiPluginError );
 		}
 	}
 }

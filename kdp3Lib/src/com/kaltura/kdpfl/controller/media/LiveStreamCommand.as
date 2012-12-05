@@ -1,8 +1,14 @@
 package com.kaltura.kdpfl.controller.media
 {
+	import com.kaltura.KalturaClient;
+	import com.kaltura.commands.liveStream.LiveStreamIsLive;
+	import com.kaltura.events.KalturaEvent;
+	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.types.KalturaPlaybackProtocol;
 	
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
@@ -31,10 +37,13 @@ package com.kaltura.kdpfl.controller.media
 		 * defines the content of the liveStreamReady notification. 
 		 */		
 		public static const LIVE_STREAM_READY:String = "liveStreamReady";
-		
+		public static const DEFAULT_IS_LIVE_INTERVAL:int = 30;
 		
 		namespace xmlns = "http://ns.adobe.com/f4m/1.0";
-		private var _liveStreamTimer : Timer = new Timer(1000, 30);
+		//timer for rtmp live sampling
+		private var _liveStreamTimer : Timer;
+		//rimwe for hds "isLive" sampling
+		private var _liveHdsTimer : Timer;
 		private var _netStream : NetStream;
 		private var _streamUrl:String;
 		private var _baseUrl : String;
@@ -43,10 +52,22 @@ package com.kaltura.kdpfl.controller.media
 		private var _resourceURL : FMSURL ;
 		private var _nc : NetConnection;
 		private var _resource : URLResource;
-		
+		private var _mediaProxy:MediaProxy;	
+		private var _kc:KalturaClient;
+			
+			
+			
 		
 		public function LiveStreamCommand()
 		{
+			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			_kc = ( facade.retrieveProxy( ServicesProxy.NAME ) as ServicesProxy ).kalturaClient;
+			var flashvars:Object = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
+			var interval:int = flashvars.liveStreamCheckInterval ? flashvars.liveStreamCheckInterval : DEFAULT_IS_LIVE_INTERVAL;
+			if (_mediaProxy.vo.isHds)
+				_liveHdsTimer = new Timer(1000 * interval);
+			else	
+				_liveStreamTimer = new Timer(1000, interval);
 		}
 		
 		
@@ -56,24 +77,99 @@ package com.kaltura.kdpfl.controller.media
 		 */		
 		override public function execute(notification:INotification):void
 		{
-			_resource  = notification.getBody() as URLResource;	
-			_url = _resource.url;
-			_resourceURL = new FMSURL(_url);
-			var loader : URLLoader = new URLLoader();
-			if (_url.indexOf("rtmp") == 0)
+			if (_mediaProxy.vo.isHds)
 			{
-				_baseUrl = _resourceURL.protocol + "://" + _resourceURL.host + "/" + (_resourceURL.hasOwnProperty("appName") ? _resourceURL["appName"] : "");
-				_entryUrl = (_resourceURL as FMSURL).streamName;
-				//_entryUrl = (notification.getBody() as StreamingURLResource).
-				createConnection();
-				
+				checkIsLive();
 			}
 			else
 			{
-				loader.addEventListener(Event.COMPLETE, completeHandler);
-				loader.load(new URLRequest(_url));
+				_resource  = notification.getBody() as URLResource;	
+				_url = _resource.url;
+				_resourceURL = new FMSURL(_url);
+				var loader : URLLoader = new URLLoader();
+				if (_url.indexOf("rtmp") == 0)
+				{
+					_baseUrl = _resourceURL.protocol + "://" + _resourceURL.host + "/" + (_resourceURL.hasOwnProperty("appName") ? _resourceURL["appName"] : "");
+					_entryUrl = (_resourceURL as FMSURL).streamName;
+					//_entryUrl = (notification.getBody() as StreamingURLResource).
+					createConnection();
+					
+				}
+				else
+				{
+					loader.addEventListener(Event.COMPLETE, completeHandler);
+					loader.load(new URLRequest(_url));
+				}
+			}
+			
+		}
+		
+		/**
+		 * will call "isLive" API, to determine if HDS live stream is currently broadcasting. 
+		 * @param e
+		 * 
+		 */		
+		private function checkIsLive(e:TimerEvent = null):void {
+			if ((facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.isLive)
+			{
+				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, KalturaPlaybackProtocol.HDS);
+				isLive.addEventListener(KalturaEvent.COMPLETE, onIsLive);
+				isLive.addEventListener(KalturaEvent.FAILED, onIsLiveError);
+				_kc.post(isLive);
+			}
+			else
+			{
+				stopIsLiveCalls();
 			}
 		}
+		
+		/**
+		 * handler for "isLive" response 
+		 * @param event
+		 * 
+		 */		
+		private function onIsLive(event:KalturaEvent):void {
+			if (event.data=="1") //broadcasting now
+			{
+				trace ("live is LIVE!");
+				stopIsLiveCalls();
+				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
+				sendNotification(LIVE_STREAM_READY);		
+			}
+			else
+			{
+				if (!_liveHdsTimer.running)
+				{
+					_liveHdsTimer.addEventListener(TimerEvent.TIMER, checkIsLive);
+					_liveHdsTimer.start();
+				}
+			}
+		}
+		
+		/**
+		 * handler for "isLive" error 
+		 * @param event
+		 * 
+		 */		
+		private function onIsLiveError(event:KalturaEvent):void{
+			trace ("error calling isLive");
+			stopIsLiveCalls();
+		}
+		
+		/**
+		 * stop hds live timer 
+		 * 
+		 */		
+		private function stopIsLiveCalls():void
+		{
+			if (_liveHdsTimer.running)
+			{
+				_liveHdsTimer.removeEventListener(TimerEvent.TIMER, checkIsLive);
+				_liveHdsTimer.stop();
+			}
+		}
+		
+		
 		/**
 		 * Handler for completion of the manifest load.
 		 * @param e
@@ -155,6 +251,8 @@ package com.kaltura.kdpfl.controller.media
 			if ((facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.isLive)
 				sendNotification(NotificationType.LIVE_ENTRY,_resource); 
 		}
+		
+	
 		/**
 		 * Function checks whether the NetStream connected to the target live-stream  has an FPS.
 		 * If the FPS is greater than 0, then the stream is currently active and can be shown in the KDP.

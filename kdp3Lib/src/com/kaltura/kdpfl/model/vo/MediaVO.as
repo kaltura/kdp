@@ -237,5 +237,11 @@ package com.kaltura.kdpfl.model.vo
 		 */		
 		public var useParallelElement:Boolean = false;
 		
+		[Bindable] 
+		/**
+		 * If the current entry is HDS
+		 */	
+		public var isHds:Boolean = false;	
+		
 	}
 }

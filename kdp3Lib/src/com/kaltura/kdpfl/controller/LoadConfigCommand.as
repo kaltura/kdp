@@ -659,6 +659,12 @@ package com.kaltura.kdpfl.controller
 				KalturaCall.defaultMethod = _flashvars.clientDefaultMethod;
 			}
 			
+			
+			if (_flashvars.twoPhaseManifest && _flashvars.twoPhaseManifest=="true")
+			{
+				_mediaProxy.vo.isHds = true;
+			}
+			
 			_mediaProxy.vo.deliveryType = _flashvars.streamerType;	
 			//indicates if BW check is required
 			var doBWCheck:Boolean = true;
