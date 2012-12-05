@@ -112,7 +112,7 @@ package com.kaltura.kdpfl.plugin.component
 						if (mediaProxy.vo.kalturaMediaFlavorArray && mediaProxy.vo.kalturaMediaFlavorArray.length)
 						{
 							var highBR:int = mediaProxy.vo.kalturaMediaFlavorArray[mediaProxy.vo.kalturaMediaFlavorArray.length - 1].bitrate;
-							if ((highBR <= mediaProxy.vo.preferedFlavorBR) || (highBR - mediaProxy.vo.preferedFlavorBR)<=(highBR * 0.2)) 
+							if (0.8 * highBR <= mediaProxy.vo.preferedFlavorBR)  
 							{
 								trace ("***** no BW CHECK***");
 								//// if the last preferred bitrate is higher or equals (with 20% error range) to the current highest bitrate, 
