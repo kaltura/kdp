@@ -633,7 +633,11 @@ package com.kaltura.kdpfl.view.media
 			}
 			
 			if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK)
+			{
+				SharedObjectUtil.writeToCookie("Kaltura", "preferedFlavorBR", _mediaProxy.vo.preferedFlavorBR, _flashvars.allowCookies);				
+				SharedObjectUtil.writeToCookie("Kaltura", "timeStamp", (new Date()).time, _flashvars.allowCookies);				
 				sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : curIndex, newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
+			}
 		}
 		
 		
