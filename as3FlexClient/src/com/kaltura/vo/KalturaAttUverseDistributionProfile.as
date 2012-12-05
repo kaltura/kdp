@@ -56,6 +56,18 @@ package com.kaltura.vo
 		 **/
 		public var channelTitle : String = null;
 
+		/**
+		 **/
+		public var flavorAssetFilenameXslt : String = null;
+
+		/**
+		 **/
+		public var thumbnailAssetFilenameXslt : String = null;
+
+		/**
+		 **/
+		public var assetFilenameXslt : String = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -65,6 +77,9 @@ package com.kaltura.vo
 			arr.push('ftpPassword');
 			arr.push('ftpPath');
 			arr.push('channelTitle');
+			arr.push('flavorAssetFilenameXslt');
+			arr.push('thumbnailAssetFilenameXslt');
+			arr.push('assetFilenameXslt');
 			return arr;
 		}
 

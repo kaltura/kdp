@@ -74,6 +74,43 @@ package com.kaltura.vo
 		 **/
 		public var streamUrl : String = null;
 
+		/**
+		 * HLS URL - URL for live stream playback on mobile device
+		 * 
+		 **/
+		public var hlsStreamUrl : String = null;
+
+		/**
+		 * Unique idenitifier for the string opposite the provider
+		 * 
+		 **/
+		public var externalStreamId : String = null;
+
+		/**
+		 * DVR Status Enabled/Disabled
+		 * 
+		 * @see com.kaltura.types.KalturaDVRStatus
+		 **/
+		public var dvrStatus : int = int.MIN_VALUE;
+
+		/**
+		 * Window of time which the DVR allows for backwards scrubbing (in seconds)
+		 * 
+		 **/
+		public var dvrWindow : int = int.MIN_VALUE;
+
+		/**
+		 * URL Manager to handle the live stream URL (for instance, add token)
+		 * 
+		 **/
+		public var urlManager : String = null;
+
+		/**
+		 * Array of key value protocol->live stream url objects
+		 * 
+		 **/
+		public var liveStreamConfigurations : Array = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -84,6 +121,12 @@ package com.kaltura.vo
 			arr.push('secondaryBroadcastingUrl');
 			arr.push('streamName');
 			arr.push('streamUrl');
+			arr.push('hlsStreamUrl');
+			arr.push('externalStreamId');
+			arr.push('dvrStatus');
+			arr.push('dvrWindow');
+			arr.push('urlManager');
+			arr.push('liveStreamConfigurations');
 			return arr;
 		}
 

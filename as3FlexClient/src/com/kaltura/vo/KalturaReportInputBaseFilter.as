@@ -44,6 +44,18 @@ package com.kaltura.vo
 		 **/
 		public var toDate : int = int.MIN_VALUE;
 
+		/**
+		 * Start day as string (YYYYMMDD)
+		 * 
+		 **/
+		public var fromDay : String = null;
+
+		/**
+		 * End date as string (YYYYMMDD)
+		 * 
+		 **/
+		public var toDay : String = null;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -53,6 +65,8 @@ package com.kaltura.vo
 			arr = new Array();
 			arr.push('fromDate');
 			arr.push('toDate');
+			arr.push('fromDay');
+			arr.push('toDay');
 			return arr;
 		}
 

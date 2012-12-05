@@ -27,6 +27,14 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
+	import com.kaltura.vo.KalturaEmailNotificationRecipientJobData;
+
+	import com.kaltura.vo.KalturaEmailNotificationRecipientJobData;
+
+	import com.kaltura.vo.KalturaEmailNotificationRecipientJobData;
+
+	import com.kaltura.vo.KalturaEmailNotificationRecipientJobData;
+
 	import com.kaltura.vo.KalturaEventNotificationDispatchJobData;
 
 	[Bindable]
@@ -48,25 +56,25 @@ package com.kaltura.vo
 		 * Email recipient emails and names, key is mail address and value is the name
 		 * 
 		 **/
-		public var to : Array = null;
+		public var to : KalturaEmailNotificationRecipientJobData;
 
 		/**
 		 * Email cc emails and names, key is mail address and value is the name
 		 * 
 		 **/
-		public var cc : Array = null;
+		public var cc : KalturaEmailNotificationRecipientJobData;
 
 		/**
 		 * Email bcc emails and names, key is mail address and value is the name
 		 * 
 		 **/
-		public var bcc : Array = null;
+		public var bcc : KalturaEmailNotificationRecipientJobData;
 
 		/**
 		 * Email addresses that a replies should be sent to, key is mail address and value is the name
 		 * 
 		 **/
-		public var replyTo : Array = null;
+		public var replyTo : KalturaEmailNotificationRecipientJobData;
 
 		/**
 		 * Define the email priority

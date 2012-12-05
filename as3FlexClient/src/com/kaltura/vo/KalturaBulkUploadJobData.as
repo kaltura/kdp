@@ -88,7 +88,7 @@ package com.kaltura.vo
 		public var bulkUploadObjectType : String = null;
 
 		/**
-		 * Name of the bulk upload file
+		 * Friendly name of the file, used to be recognized later in the logs.
 		 * 
 		 **/
 		public var fileName : String = null;

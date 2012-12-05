@@ -29,7 +29,7 @@ package com.kaltura.types
 {
 	public class KalturaReportInterval
 	{
-		public static const MONTHS : String = 'months';
 		public static const DAYS : String = 'days';
+		public static const MONTHS : String = 'months';
 	}
 }

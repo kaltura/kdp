@@ -161,6 +161,12 @@ package com.kaltura.vo
 		 **/
 		public var readyBehavior : int = int.MIN_VALUE;
 
+		/**
+		 * Flag sugnifying that the storage exported content should be deleted when soure entry is deleted
+		 * 
+		 **/
+		public var allowAutoDelete : int = int.MIN_VALUE;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -194,6 +200,7 @@ package com.kaltura.vo
 			arr.push('deliveryStatus');
 			arr.push('rtmpPrefix');
 			arr.push('readyBehavior');
+			arr.push('allowAutoDelete');
 			return arr;
 		}
 

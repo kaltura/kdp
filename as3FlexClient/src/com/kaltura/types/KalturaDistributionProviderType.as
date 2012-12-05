@@ -29,14 +29,14 @@ package com.kaltura.types
 {
 	public class KalturaDistributionProviderType
 	{
+		public static const ATT_UVERSE : String = 'attUverseDistribution.ATT_UVERSE';
+		public static const CROSS_KALTURA : String = 'crossKalturaDistribution.CROSS_KALTURA';
+		public static const HULU : String = 'huluDistribution.HULU';
+		public static const IDETIC : String = 'ideticDistribution.IDETIC';
+		public static const UVERSE : String = 'uverseDistribution.UVERSE';
+		public static const YAHOO : String = 'yahooDistribution.YAHOO';
+		public static const YOUTUBE_API : String = 'youtubeApiDistribution.YOUTUBE_API';
 		public static const GENERIC : String = '1';
 		public static const SYNDICATION : String = '2';
-		public static const HULU : String = 'huluDistribution.HULU';
-		public static const YOUTUBE_API : String = 'youtubeApiDistribution.YOUTUBE_API';
-		public static const IDETIC : String = 'ideticDistribution.IDETIC';
-		public static const YAHOO : String = 'yahooDistribution.YAHOO';
-		public static const CROSS_KALTURA : String = 'crossKalturaDistribution.CROSS_KALTURA';
-		public static const UVERSE : String = 'uverseDistribution.UVERSE';
-		public static const ATT_UVERSE : String = 'attUverseDistribution.ATT_UVERSE';
 	}
 }

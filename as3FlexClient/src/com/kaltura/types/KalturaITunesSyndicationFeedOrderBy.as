@@ -29,15 +29,15 @@ package com.kaltura.types
 {
 	public class KalturaITunesSyndicationFeedOrderBy
 	{
-		public static const PLAYLIST_ID_ASC : String = '+playlistId';
-		public static const PLAYLIST_ID_DESC : String = '-playlistId';
-		public static const NAME_ASC : String = '+name';
-		public static const NAME_DESC : String = '-name';
-		public static const TYPE_ASC : String = '+type';
-		public static const TYPE_DESC : String = '-type';
 		public static const CREATED_AT_ASC : String = '+createdAt';
-		public static const CREATED_AT_DESC : String = '-createdAt';
+		public static const NAME_ASC : String = '+name';
+		public static const PLAYLIST_ID_ASC : String = '+playlistId';
+		public static const TYPE_ASC : String = '+type';
 		public static const UPDATED_AT_ASC : String = '+updatedAt';
+		public static const CREATED_AT_DESC : String = '-createdAt';
+		public static const NAME_DESC : String = '-name';
+		public static const PLAYLIST_ID_DESC : String = '-playlistId';
+		public static const TYPE_DESC : String = '-type';
 		public static const UPDATED_AT_DESC : String = '-updatedAt';
 	}
 }

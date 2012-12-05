@@ -41,5 +41,7 @@ package com.kaltura.types
 		public static const ERROR_DELETING : int = 10;
 		public static const DOWNLOADING : int = 11;
 		public static const ERROR_DOWNLOADING : int = 12;
+		public static const PROCESSING : int = 13;
+		public static const PARSED : int = 14;
 	}
 }

@@ -36,7 +36,6 @@ package com.kaltura.types
 		public static const TOP_CONTRIBUTORS : int = 5;
 		public static const TOP_SYNDICATION : int = 6;
 		public static const CONTENT_CONTRIBUTIONS : int = 7;
-		public static const WIDGETS_STATS : int = 8;
 		public static const USER_ENGAGEMENT : int = 11;
 		public static const SPEFICIC_USER_ENGAGEMENT : int = 12;
 		public static const USER_TOP_CONTENT : int = 13;
@@ -45,7 +44,8 @@ package com.kaltura.types
 		public static const APPLICATIONS : int = 16;
 		public static const USER_USAGE : int = 17;
 		public static const SPECIFIC_USER_USAGE : int = 18;
-		public static const PARTNER_USAGE : int = 201;
 		public static const VAR_USAGE : int = 19;
+		public static const TOP_CREATORS : int = 20;
+		public static const PARTNER_USAGE : int = 201;
 	}
 }

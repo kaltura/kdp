@@ -34,15 +34,7 @@ package com.kaltura.vo
 	{
 		/**
 		 **/
-		public var assetLocalPaths : String = null;
-
-		/**
-		 **/
-		public var thumbLocalPaths : String = null;
-
-		/**
-		 **/
-		public var captionLocalPaths : String = null;
+		public var filesForDistribution : Array = null;
 
 		/**
 		 * The remote URL of the video asset that was distributed
@@ -66,9 +58,7 @@ package com.kaltura.vo
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
-			arr.push('assetLocalPaths');
-			arr.push('thumbLocalPaths');
-			arr.push('captionLocalPaths');
+			arr.push('filesForDistribution');
 			arr.push('remoteAssetFileUrls');
 			arr.push('remoteThumbnailFileUrls');
 			arr.push('remoteCaptionFileUrls');

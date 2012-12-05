@@ -124,6 +124,15 @@ package com.kaltura.vo
 		public var tagsMultiLikeAnd : String = null;
 
 		/**
+		 * @see com.kaltura.types.KalturaDropFolderErrorCode
+		 **/
+		public var errorCodeEqual : String = null;
+
+		/**
+		 **/
+		public var errorCodeIn : String = null;
+
+		/**
 		 **/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
@@ -165,6 +174,8 @@ package com.kaltura.vo
 			arr.push('tagsLike');
 			arr.push('tagsMultiLikeOr');
 			arr.push('tagsMultiLikeAnd');
+			arr.push('errorCodeEqual');
+			arr.push('errorCodeIn');
 			arr.push('createdAtGreaterThanOrEqual');
 			arr.push('createdAtLessThanOrEqual');
 			arr.push('updatedAtGreaterThanOrEqual');

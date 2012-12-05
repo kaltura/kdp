@@ -90,11 +90,11 @@ package com.kaltura.types
 		public static const SPORTS_RECREATION_COLLEGE_HIGH_SCHOOL : String = 'Sports &amp; Recreation/College &amp; High School';
 		public static const SPORTS_RECREATION_OUTDOOR : String = 'Sports &amp; Recreation/Outdoor';
 		public static const SPORTS_RECREATION_PROFESSIONAL : String = 'Sports &amp; Recreation/Professional';
+		public static const TV_FILM : String = 'TV &amp; Film';
 		public static const TECHNOLOGY : String = 'Technology';
 		public static const TECHNOLOGY_GADGETS : String = 'Technology/Gadgets';
-		public static const TECHNOLOGY_TECH_NEWS : String = 'Technology/Tech News';
 		public static const TECHNOLOGY_PODCASTING : String = 'Technology/Podcasting';
 		public static const TECHNOLOGY_SOFTWARE_HOW_TO : String = 'Technology/Software How-To';
-		public static const TV_FILM : String = 'TV &amp; Film';
+		public static const TECHNOLOGY_TECH_NEWS : String = 'Technology/Tech News';
 	}
 }

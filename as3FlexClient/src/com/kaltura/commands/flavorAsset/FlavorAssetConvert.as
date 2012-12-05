@@ -41,8 +41,9 @@ package com.kaltura.commands.flavorAsset
 		/**
 		 * @param entryId String
 		 * @param flavorParamsId int
+		 * @param priority int
 		 **/
-		public function FlavorAssetConvert( entryId : String,flavorParamsId : int )
+		public function FlavorAssetConvert( entryId : String,flavorParamsId : int,priority : int=0 )
 		{
 			service= 'flavorasset';
 			action= 'convert';
@@ -54,6 +55,8 @@ package com.kaltura.commands.flavorAsset
 			valueArr.push(entryId);
 			keyArr.push('flavorParamsId');
 			valueArr.push(flavorParamsId);
+			keyArr.push('priority');
+			valueArr.push(priority);
 			applySchema(keyArr, valueArr);
 		}
 

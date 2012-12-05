@@ -99,6 +99,14 @@ package com.kaltura.vo
 		 **/
 		public var categoryFullIdsEqual : String = null;
 
+		/**
+		 **/
+		public var permissionNamesMatchAnd : String = null;
+
+		/**
+		 **/
+		public var permissionNamesMatchOr : String = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -119,6 +127,8 @@ package com.kaltura.vo
 			arr.push('updateMethodIn');
 			arr.push('categoryFullIdsStartsWith');
 			arr.push('categoryFullIdsEqual');
+			arr.push('permissionNamesMatchAnd');
+			arr.push('permissionNamesMatchOr');
 			return arr;
 		}
 

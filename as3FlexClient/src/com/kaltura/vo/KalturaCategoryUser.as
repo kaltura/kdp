@@ -87,6 +87,12 @@ package com.kaltura.vo
 		 **/
 		public var categoryFullIds : String = null;
 
+		/**
+		 * Set of category-related permissions for the current category user.
+		 * 
+		 **/
+		public var permissionNames : String = null;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -96,6 +102,7 @@ package com.kaltura.vo
 			arr = new Array();
 			arr.push('permissionLevel');
 			arr.push('updateMethod');
+			arr.push('permissionNames');
 			return arr;
 		}
 

@@ -105,6 +105,15 @@ package com.kaltura.vo
 		public var tags : String = null;
 
 		/**
+		 * @see com.kaltura.types.KalturaDropFolderErrorCode
+		 **/
+		public var errorCode : String = null;
+
+		/**
+		 **/
+		public var errorDescription : String = null;
+
+		/**
 		 **/
 		public var ignoreFileNamePatterns : String = null;
 
@@ -137,6 +146,8 @@ package com.kaltura.vo
 			arr.push('fileNamePatterns');
 			arr.push('fileHandlerConfig');
 			arr.push('tags');
+			arr.push('errorCode');
+			arr.push('errorDescription');
 			arr.push('ignoreFileNamePatterns');
 			return arr;
 		}

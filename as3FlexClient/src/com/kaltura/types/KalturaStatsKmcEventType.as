@@ -33,8 +33,6 @@ package com.kaltura.types
 		public static const CONTENT_ADD_PLAYLIST : int = 1010;
 		public static const CONTENT_EDIT_PLAYLIST : int = 1011;
 		public static const CONTENT_DELETE_PLAYLIST : int = 1012;
-		public static const CONTENT_DELETE_ITEM : int = 1058;
-		public static const CONTENT_DELETE_MIX : int = 1059;
 		public static const CONTENT_EDIT_ENTRY : int = 1013;
 		public static const CONTENT_CHANGE_THUMBNAIL : int = 1014;
 		public static const CONTENT_ADD_TAGS : int = 1015;
@@ -46,9 +44,6 @@ package com.kaltura.types
 		public static const CONTENT_REJECT_MODERATION : int = 1021;
 		public static const CONTENT_BULK_UPLOAD : int = 1022;
 		public static const CONTENT_ADMIN_KCW_UPLOAD : int = 1023;
-		public static const CONTENT_CONTENT_GO_TO_PAGE : int = 1057;
-		public static const CONTENT_ENTRY_DRILLDOWN : int = 1088;
-		public static const CONTENT_OPEN_PREVIEW_AND_EMBED : int = 1089;
 		public static const ACCOUNT_CHANGE_PARTNER_INFO : int = 1030;
 		public static const ACCOUNT_CHANGE_LOGIN_INFO : int = 1031;
 		public static const ACCOUNT_CONTACT_US_USAGE : int = 1032;
@@ -75,6 +70,9 @@ package com.kaltura.types
 		public static const APP_STUDIO_EDIT_PLAYER_PLAYLIST : int = 1054;
 		public static const APP_STUDIO_EDIT_PLAYER_MULTI_TAB_PLAYLIST : int = 1055;
 		public static const APP_STUDIO_DUPLICATE_PLAYER : int = 1056;
+		public static const CONTENT_CONTENT_GO_TO_PAGE : int = 1057;
+		public static const CONTENT_DELETE_ITEM : int = 1058;
+		public static const CONTENT_DELETE_MIX : int = 1059;
 		public static const REPORTS_AND_ANALYTICS_BANDWIDTH_USAGE_TAB : int = 1070;
 		public static const REPORTS_AND_ANALYTICS_CONTENT_REPORTS_TAB : int = 1071;
 		public static const REPORTS_AND_ANALYTICS_USERS_AND_COMMUNITY_REPORTS_TAB : int = 1072;
@@ -93,5 +91,7 @@ package com.kaltura.types
 		public static const REPORTS_AND_ANALYTICS_TOP_SYNDICATIONS_DRILL_DOWN : int = 1085;
 		public static const REPORTS_AND_ANALYTICS_BANDWIDTH_USAGE_VIEW_MONTHLY : int = 1086;
 		public static const REPORTS_AND_ANALYTICS_BANDWIDTH_USAGE_VIEW_YEARLY : int = 1087;
+		public static const CONTENT_ENTRY_DRILLDOWN : int = 1088;
+		public static const CONTENT_OPEN_PREVIEW_AND_EMBED : int = 1089;
 	}
 }

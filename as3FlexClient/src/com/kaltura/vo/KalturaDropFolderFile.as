@@ -70,6 +70,18 @@ package com.kaltura.vo
 		public var parsedFlavor : String = null;
 
 		/**
+		 **/
+		public var leadDropFolderFileId : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var deletedDropFolderFileId : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var entryId : String = null;
+
+		/**
 		 * @see com.kaltura.types.KalturaDropFolderFileErrorCode
 		 **/
 		public var errorCode : String = null;
@@ -90,6 +102,22 @@ package com.kaltura.vo
 		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
+		/**
+		 **/
+		public var uploadEndDetectedAt : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var importStartedAt : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var importEndedAt : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var batchJobId : int = int.MIN_VALUE;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -100,9 +128,15 @@ package com.kaltura.vo
 			arr.push('fileSize');
 			arr.push('parsedSlug');
 			arr.push('parsedFlavor');
+			arr.push('leadDropFolderFileId');
+			arr.push('deletedDropFolderFileId');
+			arr.push('entryId');
 			arr.push('errorCode');
 			arr.push('errorDescription');
 			arr.push('lastModificationTime');
+			arr.push('uploadEndDetectedAt');
+			arr.push('importStartedAt');
+			arr.push('importEndedAt');
 			return arr;
 		}
 

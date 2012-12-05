@@ -102,6 +102,18 @@ package com.kaltura.vo
 		public var parsedFlavorLike : String = null;
 
 		/**
+		 **/
+		public var leadDropFolderFileIdEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var deletedDropFolderFileIdEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var entryIdEqual : String = null;
+
+		/**
 		 * @see com.kaltura.types.KalturaDropFolderFileErrorCode
 		 **/
 		public var errorCodeEqual : String = null;
@@ -147,6 +159,9 @@ package com.kaltura.vo
 			arr.push('parsedFlavorEqual');
 			arr.push('parsedFlavorIn');
 			arr.push('parsedFlavorLike');
+			arr.push('leadDropFolderFileIdEqual');
+			arr.push('deletedDropFolderFileIdEqual');
+			arr.push('entryIdEqual');
 			arr.push('errorCodeEqual');
 			arr.push('errorCodeIn');
 			arr.push('createdAtGreaterThanOrEqual');

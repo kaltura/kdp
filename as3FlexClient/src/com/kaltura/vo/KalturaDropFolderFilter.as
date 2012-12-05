@@ -32,10 +32,16 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaDropFolderFilter extends KalturaDropFolderBaseFilter
 	{
+		/**
+		 * @see com.kaltura.types.KalturaNullableBoolean
+		 **/
+		public var currentDc : int = int.MIN_VALUE;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('currentDc');
 			return arr;
 		}
 

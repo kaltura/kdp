@@ -33,5 +33,6 @@ package com.kaltura.types
 		public static const MODERATOR : int = 1;
 		public static const CONTRIBUTOR : int = 2;
 		public static const MEMBER : int = 3;
+		public static const NONE : int = 4;
 	}
 }

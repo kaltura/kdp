@@ -29,13 +29,13 @@ package com.kaltura.types
 {
 	public class KalturaAssetType
 	{
+		public static const ATTACHMENT : String = 'attachment.Attachment';
+		public static const CAPTION : String = 'caption.Caption';
+		public static const DOCUMENT : String = 'document.Document';
+		public static const IMAGE : String = 'document.Image';
+		public static const PDF : String = 'document.PDF';
+		public static const SWF : String = 'document.SWF';
 		public static const FLAVOR : String = '1';
 		public static const THUMBNAIL : String = '2';
-		public static const DOCUMENT : String = 'document.Document';
-		public static const SWF : String = 'document.SWF';
-		public static const PDF : String = 'document.PDF';
-		public static const IMAGE : String = 'document.Image';
-		public static const CAPTION : String = 'caption.Caption';
-		public static const ATTACHMENT : String = 'attachment.Attachment';
 	}
 }

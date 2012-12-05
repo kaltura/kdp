@@ -29,12 +29,12 @@ package com.kaltura.types
 {
 	public class KalturaMetadataObjectType
 	{
+		public static const AD_CUE_POINT : String = 'adCuePoint.AdCuePoint';
+		public static const ANNOTATION : String = 'annotation.Annotation';
+		public static const CODE_CUE_POINT : String = 'codeCuePoint.CodeCuePoint';
 		public static const ENTRY : String = '1';
 		public static const CATEGORY : String = '2';
 		public static const USER : String = '3';
 		public static const PARTNER : String = '4';
-		public static const AD_CUE_POINT : String = 'adCuePoint.AdCuePoint';
-		public static const CODE_CUE_POINT : String = 'codeCuePoint.CodeCuePoint';
-		public static const ANNOTATION : String = 'annotation.Annotation';
 	}
 }

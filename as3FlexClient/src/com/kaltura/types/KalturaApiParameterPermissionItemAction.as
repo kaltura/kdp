@@ -29,9 +29,9 @@ package com.kaltura.types
 {
 	public class KalturaApiParameterPermissionItemAction
 	{
+		public static const USAGE : String = 'all';
+		public static const INSERT : String = 'insert';
 		public static const READ : String = 'read';
 		public static const UPDATE : String = 'update';
-		public static const INSERT : String = 'insert';
-		public static const USAGE : String = 'all';
 	}
 }

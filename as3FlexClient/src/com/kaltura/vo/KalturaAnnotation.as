@@ -52,6 +52,24 @@ package com.kaltura.vo
 		 **/
 		public var duration : int = int.MIN_VALUE;
 
+		/**
+		 * Depth in the tree
+		 * 
+		 **/
+		public var depth : int = int.MIN_VALUE;
+
+		/**
+		 * Number of all descendants
+		 * 
+		 **/
+		public var childrenCount : int = int.MIN_VALUE;
+
+		/**
+		 * Number of children, first generation only.
+		 * 
+		 **/
+		public var directChildrenCount : int = int.MIN_VALUE;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
