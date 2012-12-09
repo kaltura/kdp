@@ -8,6 +8,7 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.types.KalturaPlaybackProtocol;
 	
 	import flash.events.Event;
@@ -21,6 +22,7 @@ package com.kaltura.kdpfl.controller.media
 	import flash.net.URLRequest;
 	import flash.utils.Timer;
 	
+	import org.osmf.media.MediaPlayer;
 	import org.osmf.media.URLResource;
 	import org.osmf.net.FMSURL;
 	import org.osmf.net.NetClient;
@@ -54,13 +56,18 @@ package com.kaltura.kdpfl.controller.media
 		private var _resource : URLResource;
 		private var _mediaProxy:MediaProxy;	
 		private var _kc:KalturaClient;
+		private var _player:MediaPlayer;
 			
-			
+		/**
+		 * indicates previous result from "isLive" API 
+		 */		
+		private var _wasLive:Boolean;	
 			
 		
 		public function LiveStreamCommand()
 		{
 			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			_player = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player;
 			_kc = ( facade.retrieveProxy( ServicesProxy.NAME ) as ServicesProxy ).kalturaClient;
 			var flashvars:Object = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
 			var interval:int = flashvars.liveStreamCheckInterval ? flashvars.liveStreamCheckInterval : DEFAULT_IS_LIVE_INTERVAL;
@@ -110,7 +117,7 @@ package com.kaltura.kdpfl.controller.media
 		 * 
 		 */		
 		private function checkIsLive(e:TimerEvent = null):void {
-			if ((facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.isLive)
+			if (_mediaProxy.vo.isLive && _mediaProxy.vo.isHds && !_player.playing)
 			{
 				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, KalturaPlaybackProtocol.HDS);
 				isLive.addEventListener(KalturaEvent.COMPLETE, onIsLive);
@@ -131,18 +138,24 @@ package com.kaltura.kdpfl.controller.media
 		private function onIsLive(event:KalturaEvent):void {
 			if (event.data=="1") //broadcasting now
 			{
-				trace ("live is LIVE!");
-				stopIsLiveCalls();
-				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
-				sendNotification(LIVE_STREAM_READY);		
-			}
-			else
-			{
-				if (!_liveHdsTimer.running)
+				if (!_wasLive)
 				{
-					_liveHdsTimer.addEventListener(TimerEvent.TIMER, checkIsLive);
-					_liveHdsTimer.start();
-				}
+					_wasLive = true;
+					sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
+					sendNotification(LIVE_STREAM_READY);
+				}						
+			}
+			else if (_wasLive)
+			{
+				_wasLive = false;
+				_mediaProxy.vo.isOffline = true;
+				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
+			}
+			
+			if (!_liveHdsTimer.running)
+			{
+				_liveHdsTimer.addEventListener(TimerEvent.TIMER, checkIsLive);
+				_liveHdsTimer.start();
 			}
 		}
 		

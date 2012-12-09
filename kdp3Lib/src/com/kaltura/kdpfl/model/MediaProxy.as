@@ -258,7 +258,7 @@ package com.kaltura.kdpfl.model
 			var resource:MediaResourceBase;
 			var preferedIndex:int = getFlavorByBitrate(vo.preferedFlavorBR);	
 			
-			if (vo.deliveryType == StreamerType.HDNETWORK)
+			if (vo.deliveryType == StreamerType.HDNETWORK || vo.isHds)
 			{
 				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
 				
@@ -795,7 +795,8 @@ package com.kaltura.kdpfl.model
 			{
 				if (vo.entry is KalturaLiveStreamEntry || vo.deliveryType == StreamerType.LIVE)
 				{
-					prepareMediaElement();
+					if (!vo.isHds)
+						prepareMediaElement();
 					sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
 					sendNotification(NotificationType.LIVE_ENTRY, vo.resource);
 				}

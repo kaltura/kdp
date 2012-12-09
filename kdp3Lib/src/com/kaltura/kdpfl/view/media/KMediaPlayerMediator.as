@@ -466,6 +466,8 @@ package com.kaltura.kdpfl.view.media
 						if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
 						{
 							player.stop();
+							//trigger liveStreamCommand to check for liveStream state again
+							sendNotification(NotificationType.LIVE_ENTRY, _mediaProxy.vo.resource); 
 						}
 					}
 					break;
