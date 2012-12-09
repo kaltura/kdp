@@ -3,6 +3,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.commands.stats.StatsCollect;
 	import com.kaltura.config.KalturaConfig;
 	import com.kaltura.kdpfl.model.SequenceProxy;
+	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.AdsNotificationTypes;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.types.KalturaStatsEventType;
@@ -123,6 +124,8 @@ package com.kaltura.kdpfl.plugin.component {
 		 * if set to true buffer_start and buffer_end events won't be sent 
 		 */		
 		public var bufferStatsDis:Boolean = false;
+		
+		private var _mediaProxy:MediaProxy;
 
 		/**
 		 * Constructor 
@@ -174,7 +177,7 @@ package com.kaltura.kdpfl.plugin.component {
 		override public function onRegister():void 
 		{
 			_flashvars = facade.retrieveProxy("configProxy")["vo"]["flashvars"];
-			
+			_mediaProxy = facade.retrieveProxy("mediaProxy") as MediaProxy;
 			var config : KalturaConfig = new KalturaConfig();
 			config.domain = statsDomain ? statsDomain : _flashvars.host;
 			config.ks = facade.retrieveProxy("servicesProxy")["kalturaClient"]["ks"];
@@ -194,12 +197,12 @@ package com.kaltura.kdpfl.plugin.component {
 			var config:Object = facade.retrieveProxy("configProxy");
 			var mediaPlayer:Object = facade.retrieveMediator("kMediaPlayerMediator");
 			var kse:KalturaStatsEvent = new KalturaStatsEvent();
-			kse.partnerId = config["vo"]["flashvars"].partnerId;
-			kse.widgetId = config["vo"]["flashvars"].id;
-			kse.uiconfId = config["vo"].flashvars.uiConfId;
+			kse.partnerId = _flashvars.partnerId;
+			kse.widgetId = _flashvars.id;
+			kse.uiconfId = _flashvars.uiConfId;
 			// this is where we choose the entry to report on
-			if ((facade.retrieveProxy("mediaProxy"))["vo"].entry.id)
-				kse.entryId = (facade.retrieveProxy("mediaProxy"))["vo"].entry.id;
+			if (_mediaProxy.vo.entry.id)
+				kse.entryId = _mediaProxy.vo.entry.id;
 			kse.clientVer = "3.0:" + facade["kdpVersion"];
 			var dt:Date = new Date();
 			kse.eventTimestamp = dt.time + dt.timezoneOffset - dt.timezoneOffset * 60; // milisec UTC + users timezone offset
@@ -209,20 +212,20 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			kse.sessionId = config["vo"]["sessionId"];
 			kse.seek = _hasSeeked;
-			kse.referrer = config["vo"].flashvars.referer;
+			kse.referrer = _flashvars.referer;
 			if (!kse.referrer)
-				kse.referrer = config["vo"].flashvars.refferer;
+				kse.referrer = _flashvars.refferer;
 			// verify the the referrer is escaped once
 			kse.referrer = escape(unescape(kse.referrer));
 			
-			if (config["vo"].flashvars.playbackContext)
-				kse.contextId = config["vo"].flashvars.playbackContext;
-			if (config["vo"].flashvars.originFeature)
-				kse.featureType = config["vo"].flashvars.originFeature;
-			if (config["vo"].flashvars.applicationName)
-				kse.applicationId = config["vo"].flashvars.applicationName;
-			if (config["vo"].flashvars.userId)
-				kse.userId = config["vo"].flashvars.userId;
+			if (_flashvars.playbackContext)
+				kse.contextId = _flashvars.playbackContext;
+			if (_flashvars.originFeature)
+				kse.featureType = _flashvars.originFeature;
+			if (_flashvars.applicationName)
+				kse.applicationId = _flashvars.applicationName;
+			if (_flashvars.userId)
+				kse.userId = _flashvars.userId;
 			
 			return kse;
 		}
@@ -239,7 +242,7 @@ package com.kaltura.kdpfl.plugin.component {
 			var percent:Number = 0;
 			var seekPercent:Number = 0;
 
-			if (_inDrag || _inFF) {
+			if (_inDrag || _inFF || _mediaProxy.vo.isLive) {
 				return int.MIN_VALUE;
 			}
 
