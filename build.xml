@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="KDP Builder" basedir=".">        
+	
+	<property file="build.properties" description="Load project build properties"/>
+	
+	<condition property="isLinux">
+		<os name="Linux" />
+	</condition>
+ 
+	
+	<target name="setPropsLinux" if="isLinux">
+		<property name="FLEX_HOME" value="/opt/flex" />
+		<property name="MXMLC" value="${FLEX_HOME}/bin/mxmlc" />
+		<!-- only linux should run in headless mode -->
+		<property name="HEADLESS" value="true" />
+	</target>
+
+	
+	<target name="build" depends="clean, init, compile">
+		<echo>KDP built successfully</echo>					
+	</target>
+	
+	<target name="clean">		
+		<echo>Cleaning the KDP solution</echo>			
+		<echo>Deleting ${solution.bin}</echo>
+        <delete dir="${solution.bin}" failonerror="false"/>	
+        <mkdir dir="${solution.bin}" description="Make sure there is a bin directory"/>
+        <mkdir dir="${solution.bin}/plugins" description="Make sure there is a bin directory"/>		
+    </target>	
+	
+	<target name="init">
+		<mkdir dir="${solution.bin}" description="Make sure there is a bin directory"/>		
+		<mkdir dir="${solution.binplugins}" description="Make sure the plugins dir exists"/>
+		<mkdir dir="${solution.binvendors}" description="Make sure the plugins dir exists"/>
+	</target>
+	
+	<target name="compile" description="Compile the whole KDP solution" depends="clean, setPropsLinux">
+		<echo>Compiling the KDP</echo>			
+						
+		<ant dir="vendors" inheritAll="true" target="build"/>
+		<ant dir="as3FlexClient" inheritAll="true" target="build"/>	
+		<ant dir="kdp3Lib" inheritAll="true" target="build"/>		
+		<ant dir="KDP3" inheritAll="true" target="build"/>	
+		<ant dir="FlashRoughcutLib" inheritAll="true" target="build"/>		
+		<ant dir="plugins" inheritAll="true" target="build"/>			
+	</target>	
+</project>
