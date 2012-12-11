@@ -7,6 +7,7 @@
  */
 package com.kaltura.kdpfl.plugin.component {
 
+	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.plugin.type.PlaylistNotificationType;
 	
@@ -94,7 +95,8 @@ package com.kaltura.kdpfl.plugin.component {
 					}
 					break;
 				case NotificationType.CHANGE_MEDIA: {
-					playlistAPI.changeMedia(note.getBody().entryId);
+					if (!(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
+						playlistAPI.changeMedia(note.getBody().entryId);
 					break;
 				}
 			}
