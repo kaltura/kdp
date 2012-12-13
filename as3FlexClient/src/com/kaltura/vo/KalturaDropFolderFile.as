@@ -104,6 +104,10 @@ package com.kaltura.vo
 
 		/**
 		 **/
+		public var uploadStartDetectedAt : int = int.MIN_VALUE;
+
+		/**
+		 **/
 		public var uploadEndDetectedAt : int = int.MIN_VALUE;
 
 		/**
@@ -134,6 +138,7 @@ package com.kaltura.vo
 			arr.push('errorCode');
 			arr.push('errorDescription');
 			arr.push('lastModificationTime');
+			arr.push('uploadStartDetectedAt');
 			arr.push('uploadEndDetectedAt');
 			arr.push('importStartedAt');
 			arr.push('importEndedAt');

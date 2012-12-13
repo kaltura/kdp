@@ -31,6 +31,8 @@ package com.kaltura.types
 	{
 		public static const APPLE_HTTP : String = 'applehttp';
 		public static const AUTO : String = 'auto';
+		public static const AKAMAI_HD : String = 'hdnetwork';
+		public static const AKAMAI_HDS : String = 'hdnetworkmanifest';
 		public static const HDS : String = 'hds';
 		public static const HLS : String = 'hls';
 		public static const HTTP : String = 'http';

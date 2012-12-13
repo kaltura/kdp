@@ -25,24 +25,47 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.vo
 {
-	public class KalturaDropFolderFileStatus
+	import com.kaltura.vo.KalturaObjectIdentifier;
+
+	import com.kaltura.vo.BaseFlexVo;
+
+	[Bindable]
+	public dynamic class KalturaExtendingItemMrssParameter extends BaseFlexVo
 	{
-		public static const UPLOADING : int = 1;
-		public static const PENDING : int = 2;
-		public static const WAITING : int = 3;
-		public static const HANDLED : int = 4;
-		public static const IGNORE : int = 5;
-		public static const DELETED : int = 6;
-		public static const PURGED : int = 7;
-		public static const NO_MATCH : int = 8;
-		public static const ERROR_HANDLING : int = 9;
-		public static const ERROR_DELETING : int = 10;
-		public static const DOWNLOADING : int = 11;
-		public static const ERROR_DOWNLOADING : int = 12;
-		public static const PROCESSING : int = 13;
-		public static const PARSED : int = 14;
-		public static const DETECTED : int = 15;
+		/**
+		 * XPath for the extending item
+		 * 
+		 **/
+		public var xpath : String = null;
+
+		/**
+		 * Object identifier
+		 * 
+		 **/
+		public var identifier : KalturaObjectIdentifier;
+
+		/** 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
+		public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			arr.push('xpath');
+			arr.push('identifier');
+			return arr;
+		}
+
+		/** 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
+		public function getInsertableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			return arr;
+		}
 	}
 }

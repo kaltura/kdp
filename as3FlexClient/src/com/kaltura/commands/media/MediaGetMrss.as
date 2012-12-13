@@ -41,8 +41,9 @@ package com.kaltura.commands.media
 		
 		/**
 		 * @param entryId String
+		 * @param extendingItemsArray Array
 		 **/
-		public function MediaGetMrss( entryId : String )
+		public function MediaGetMrss( entryId : String,extendingItemsArray : Array=null )
 		{
 			service= 'media';
 			action= 'getMrss';
@@ -52,6 +53,11 @@ package com.kaltura.commands.media
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
+ 			if (extendingItemsArray) { 
+ 			keyValArr = extractArray(extendingItemsArray,'extendingItemsArray');
+			keyArr = keyArr.concat(keyValArr[0]);
+			valueArr = valueArr.concat(keyValArr[1]);
+ 			} 
 			applySchema(keyArr, valueArr);
 		}
 
