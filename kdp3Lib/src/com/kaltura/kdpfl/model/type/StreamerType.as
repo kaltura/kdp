@@ -22,5 +22,13 @@ package com.kaltura.kdpfl.model.type
 		 * StreamerType HDNETWORK represents media that is being http-streamed from akamai.
 		 */		
 		public static const HDNETWORK : String = "hdnetwork";
+		/**
+		 * StreamerType HDNETWORK_HDS represents media that is being http-dynamic-streamed from akamai.
+		 */		
+		public static const HDNETWORK_HDS : String = "hdnetworkmanifest";
+		/**
+		 * StreamerType HDS represents media that is being http-dynamic-streamed.
+		 */		
+		public static const HDS : String = "hds";
 	}
 }

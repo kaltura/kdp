@@ -411,12 +411,10 @@ package com.kaltura.kdpfl.controller.media
 			{
 				_mediaProxy.vo.entryExtraData = arr[i];	
 					
-				if (_flashvars.streamerType == "auto" && _mediaProxy.vo.entryExtraData.streamerType && _mediaProxy.vo.entryExtraData.streamerType != "")
+				if (_flashvars.streamerType == KalturaPlaybackProtocol.AUTO && _mediaProxy.vo.entryExtraData.streamerType && _mediaProxy.vo.entryExtraData.streamerType != "")
 				{
-					if (_mediaProxy.vo.deliveryType!=StreamType.LIVE)
-						_mediaProxy.vo.deliveryType = _mediaProxy.vo.entryExtraData.streamerType;
-					
-					if (_mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.HDS || _mediaProxy.vo.entryExtraData.streamerType == "hdnetwork")
+					_mediaProxy.vo.deliveryType = _mediaProxy.vo.entryExtraData.streamerType;
+					if (_mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.AKAMAI_HDS || _mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.AKAMAI_HD)
 					{
 						//load akamaiHD plugin, if it wasn't already loaded
 						var akamaiHdPlugin:Object = facade['bindObject']['Plugin_akamaiHD'];
@@ -444,7 +442,7 @@ package com.kaltura.kdpfl.controller.media
 						}
 					}
 					
-					if (_mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.HDS)
+					if (_mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.HDS || _mediaProxy.vo.entryExtraData.streamerType == KalturaPlaybackProtocol.AKAMAI_HDS)
 					{
 						_mediaProxy.vo.isHds = true;
 					}

@@ -463,7 +463,7 @@ package com.kaltura.kdpfl.view.media
 						{
 							player.pause();
 						}
-						if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
+						if (_mediaProxy.vo.isLive)
 						{
 							player.stop();
 							//trigger liveStreamCommand to check for liveStream state again
@@ -634,7 +634,7 @@ package com.kaltura.kdpfl.view.media
 				curIndex = _mediaProxy.findDynamicStreamIndexByProp( _mediaProxy.vo.preferedFlavorBR );
 			}
 			
-			if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK)
+			if (!isAkamaiHD())
 			{
 				SharedObjectUtil.writeToCookie("Kaltura", "preferedFlavorBR", _mediaProxy.vo.preferedFlavorBR, _flashvars.allowCookies);				
 				SharedObjectUtil.writeToCookie("Kaltura", "timeStamp", (new Date()).time, _flashvars.allowCookies);				
@@ -661,7 +661,7 @@ package com.kaltura.kdpfl.view.media
 		
 		private function onDoPlay():void
 		{		
-			if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
+			if (_mediaProxy.vo.isLive)
 			{
 				if (_mediaProxy.vo.isOffline)
 				{
@@ -687,7 +687,7 @@ package com.kaltura.kdpfl.view.media
 			}
 			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media)
 			{
-				if (_mediaProxy.vo.preferedFlavorBR && _mediaProxy.vo.deliveryType!=StreamerType.HDNETWORK)
+				if (_mediaProxy.vo.preferedFlavorBR && !isAkamaiHD())
 				{
 					_mediaProxy.vo.switchDue = true; //TODO: CHECK do we still need it?
 				}
@@ -787,7 +787,7 @@ package com.kaltura.kdpfl.view.media
 			if (player.canPlay)
 			{
 				//fixes a bug with Wowza and live stream: resume doesn't work, we should re-load the media
-				if ( (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
+				if ( _mediaProxy.vo.isLive
 					&& (_flashvars.reloadOnPlayLS && _flashvars.reloadOnPlayLS == "true")
 					&& _prevState == PAUSED
 					&& !_reloadingLiveStream)
@@ -852,7 +852,7 @@ package com.kaltura.kdpfl.view.media
 					
 					// The following if-statement provides a work-around for using the mediaPlayFrom parameter for http-streaming content. Currently
 					//  a bug exists in the Akamai Advanced Streaming plugin which prevents a more straight-forward implementation.
-					if ( !_sequenceProxy.vo.isInSequence && _mediaProxy.vo.deliveryType == StreamerType.HDNETWORK)
+					if ( !_sequenceProxy.vo.isInSequence && isAkamaiHD())
 					{
 						
 						if (_mediaProxy.vo.mediaPlayFrom)
@@ -895,7 +895,7 @@ package com.kaltura.kdpfl.view.media
 						{
 							if (canStartClip( _mediaStartPlayFrom )) 
 							{
-								if (_mediaProxy.vo.deliveryType == StreamerType.HDNETWORK)
+								if (isAkamaiHD())
 								{
 									setTimeout(seekToOffset, 1, _mediaStartPlayFrom);
 								}
@@ -909,7 +909,7 @@ package com.kaltura.kdpfl.view.media
 						else if (_mediaProxy.vo.mediaPlayFrom != -1)
 						{
 							//special cases in plugins that handle the playback their own: hd akamai, uplynk
-							if (_mediaProxy.vo.deliveryType != StreamerType.HDNETWORK &&
+							if (!isAkamaiHD() &&
 								!(_mediaProxy.vo.deliveryType == StreamerType.HTTP && (isMP4Stream() || (_flashvars.ignoreStreamerTypeForSeek && _flashvars.ignoreStreamerTypeForSeek == "true"))))
 							{
 								if ( canStartClip( _mediaProxy.vo.mediaPlayFrom ) )
@@ -941,7 +941,7 @@ package com.kaltura.kdpfl.view.media
 					
 					KTrace.getInstance().log("current index:",player.currentDynamicStreamIndex);
 					//workaround to display the bitrate that was automatically detected by akamai
-					if (_mediaProxy.vo.deliveryType != StreamerType.HTTP && _flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
+					if (isAkamaiHD() && _flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
 					{
 						_mediaProxy.notifyStartingIndexChanged(player.currentDynamicStreamIndex);
 					}
@@ -960,7 +960,7 @@ package com.kaltura.kdpfl.view.media
 						if (_mediaProxy.vo.deliveryType != StreamerType.HTTP && player.canSeek)
 						{
 							//fix a bug with akamai HD plugin, we can't call player.seek immediately
-							if (_mediaProxy.vo.deliveryType == StreamerType.HDNETWORK)
+							if (isAkamaiHD())
 								setTimeout(seekToOffset, 1, _offset);
 								
 							else
@@ -1047,7 +1047,7 @@ package com.kaltura.kdpfl.view.media
 			//player.removeEventListener (MediaPlayerCapabilityChangeEvent.CAN_SEEK_CHANGE, onCanSeekChange);
 			if (player.media != null && _mediaProxy.vo.mediaPlayFrom!=-1 && player.canSeek)
 			{		
-				if (_mediaProxy.vo.deliveryType == StreamerType.HDNETWORK)
+				if (isAkamaiHD())
 				{
 					
 					setTimeout(startClip, 100 );
@@ -1388,6 +1388,11 @@ package com.kaltura.kdpfl.view.media
 			}
 			
 			return false;
+		}
+		
+		private function isAkamaiHD():Boolean
+		{
+			return (_mediaProxy.vo.deliveryType == StreamerType.HDNETWORK || _mediaProxy.vo.deliveryType == StreamerType.HDNETWORK_HDS);
 		}
 		
 	}

@@ -27,7 +27,7 @@ package com.kaltura.kdpfl.controller.media
 			var mediaProxy : MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 			//sequenceProxy.vo.replacedMedia = true;
 			//mediaProxy.loadWithoutMediaReady();
-			if(mediaProxy.vo.entry is KalturaLiveStreamEntry || mediaProxy.vo.deliveryType == StreamerType.LIVE)
+			if(mediaProxy.vo.isLive)
 			{
 				mediaProxy.vo.singleAutoPlay = true;
 				sendNotification(NotificationType.CHANGE_MEDIA, {entryId:mediaProxy.vo.entry.id});

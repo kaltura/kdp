@@ -21,6 +21,7 @@ package com.kaltura.kdpfl.model
 	import com.kaltura.osmf.kaltura.KalturaBaseEntryResource;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	import com.kaltura.types.KalturaMediaType;
+	import com.kaltura.types.KalturaPlaybackProtocol;
 	import com.kaltura.vo.KalturaFlavorAsset;
 	import com.kaltura.vo.KalturaLiveStreamEntry;
 	import com.kaltura.vo.KalturaMediaEntry;
@@ -174,9 +175,9 @@ package com.kaltura.kdpfl.model
 						//indicates we should parse manifest ourselves (used for playing HDS for example)
 						if (vo.isHds)
 						{
-							if (vo.deliveryType == StreamerType.HDNETWORK)
+							if (vo.deliveryType == StreamerType.HDNETWORK) // hdnetwork + hds = hdnetworkmanifest, change manifest the URL accordingly
 							{
-								manifestUrl = manifestUrl.replace("hdnetwork", "hdnetworkmanifest");
+								manifestUrl = manifestUrl.replace(StreamerType.HDNETWORK, StreamerType.HDNETWORK_HDS);
 							}
 							var urlLoader:URLLoader = new URLLoader();
 							urlLoader.addEventListener(Event.COMPLETE, onUrlComplete);
@@ -184,9 +185,9 @@ package com.kaltura.kdpfl.model
 						}
 						else
 						{
-							if (vo.deliveryType == StreamerType.HDNETWORK)
+							if (vo.deliveryType == StreamerType.HDNETWORK) //in order to save roundtrip, request hdnetworksmil directly
 							{
-								manifestUrl = manifestUrl.replace("hdnetwork", "hdnetworksmil");
+								manifestUrl = manifestUrl.replace(StreamerType.HDNETWORK, "hdnetworksmil");
 								manifestUrl = manifestUrl.replace(".f4m",".smil");
 							}
 							createElement(manifestUrl);
@@ -224,6 +225,8 @@ package com.kaltura.kdpfl.model
 							break;
 						case StreamerType.HTTP:
 						case StreamerType.HDNETWORK:
+						case StreamerType.HDNETWORK_HDS:
+						case StreamerType.HDS:
 							var resourceUrl : String = vo.entry.dataUrl;
 							resource = new StreamingURLResource( resourceUrl , StreamType.LIVE_OR_RECORDED );
 							break;
@@ -261,36 +264,38 @@ package com.kaltura.kdpfl.model
 			if (vo.deliveryType == StreamerType.HDNETWORK || vo.isHds)
 			{
 				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
-				
-				//set buffer length
-				var bufferLength:int = DEFAULT_HD_BUFFER_LENGTH;
-				if (_flashvars.hdnetworkBufferLength && _flashvars.hdnetworkBufferLength!="")
+				//add akamai metadata, if needed
+				if (vo.deliveryType == StreamerType.HDNETWORK || vo.deliveryType == StreamerType.HDNETWORK_HDS)
 				{
-					bufferLength = _flashvars.hdnetworkBufferLength;
-				}
-				addAkamaiMetadata (resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH, bufferLength);
-				
-				if (_flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
-				{
-					var bwEstimationObject:Object = new Object();
-					bwEstimationObject.enabled = true;
-					if (_flashvars.hdnetworkBRDetectionTime && _flashvars.hdnetworkBRDetectionTime!="")
+					//set buffer length
+					var bufferLength:int = DEFAULT_HD_BUFFER_LENGTH;
+					if (_flashvars.hdnetworkBufferLength && _flashvars.hdnetworkBufferLength!="")
 					{
-						bwEstimationObject.bandwidthEstimationPeriodInSeconds = _flashvars.hdnetworkBRDetectionTime; 		
+						bufferLength = _flashvars.hdnetworkBufferLength;
 					}
-					else
-					{
-						bwEstimationObject.bandwidthEstimationPeriodInSeconds = DEFAULT_HD_BANDWIDTH_CHECK_TIME;
-					}
+					addAkamaiMetadata (resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH, bufferLength);
 					
-					addAkamaiMetadata(resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_SET_BANDWIDTH_ESTIMATION_ENABLED, bwEstimationObject);
+					if (_flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
+					{
+						var bwEstimationObject:Object = new Object();
+						bwEstimationObject.enabled = true;
+						if (_flashvars.hdnetworkBRDetectionTime && _flashvars.hdnetworkBRDetectionTime!="")
+						{
+							bwEstimationObject.bandwidthEstimationPeriodInSeconds = _flashvars.hdnetworkBRDetectionTime; 		
+						}
+						else
+						{
+							bwEstimationObject.bandwidthEstimationPeriodInSeconds = DEFAULT_HD_BANDWIDTH_CHECK_TIME;
+						}
+						
+						addAkamaiMetadata(resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_SET_BANDWIDTH_ESTIMATION_ENABLED, bwEstimationObject);
+					}
+					else if (preferedIndex!=-1) 
+					{
+						setHdNetworkPreferredBitrate(vo.preferedFlavorBR, resource as URLResource);
+					}
 				}
-				else if (preferedIndex!=-1) 
-				{
-					setHdNetworkPreferredBitrate(vo.preferedFlavorBR, resource as URLResource);
-				}
-			
-				
+		
 				var element:MediaElement = vo.mediaFactory.createMediaElement(resource);
 				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement( vo.initialBufferTime, vo.expandedBufferTime, element);
 				vo.media = adaptedHDElement;	
@@ -311,7 +316,7 @@ package com.kaltura.kdpfl.model
 				f4mLoader.useRtmptFallbacks = _flashvars.useRtmptFallback == "false" ? false : true;				
 				var f4mElem : F4MElement = new F4MElement (resource as URLResource, f4mLoader) ;
 				
-				var adaptedElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.deliveryType == StreamerType.LIVE ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.deliveryType == StreamerType.LIVE ? vo.expandedLiveBufferTime : vo.expandedBufferTime), f4mElem);
+				var adaptedElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.isLive ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.isLive ? vo.expandedLiveBufferTime : vo.expandedBufferTime), f4mElem);
 				vo.media = adaptedElement;				
 			}
 			
@@ -627,7 +632,7 @@ package com.kaltura.kdpfl.model
 		 */		
 		public function getManifestUrl(seekFrom :uint = 0, storageProfileId : String = null):String {
 			//Media Manifest construction
-			var entryManifestUrl : String = _flashvars.httpProtocol + _flashvars.host + "/p/" + _flashvars.partnerId + "/sp/" + _flashvars.subpId + "/playManifest/entryId/" + vo.entry.id + ((_flashvars.deliveryCode) ? "/deliveryCode/" + _flashvars.deliveryCode : "") + ((vo.deliveryType == StreamerType.HTTP && vo.selectedFlavorId) ? "/flavorId/" + vo.selectedFlavorId : "") + (seekFrom ? "/seekFrom/" + seekFrom*1000 : "") + "/format/" + (vo.deliveryType != StreamerType.LIVE ? vo.deliveryType : vo.isHds ? "hds" : "rtmp") + "/protocol/" + (vo.mediaProtocol) + (_flashvars.cdnHost ? "/cdnHost/" + _flashvars.cdnHost : "") + (storageProfileId ? "/storageId/" + storageProfileId : "") + (_client.ks ? "/ks/" + _client.ks : "") + (_flashvars.uiConfId ? "/uiConfId/" + _flashvars.uiConfId : "") + (_flashvars.referrerSig ? "/referrerSig/" + _flashvars.referrerSig : "") + (_flashvars.flavorTags ? "/tags/" + _flashvars.flavorTags : "") + "/a/a.f4m" + "?"+ (_flashvars.b64Referrer ? "referrer=" + _flashvars.b64Referrer : "") ;
+			var entryManifestUrl : String = _flashvars.httpProtocol + _flashvars.host + "/p/" + _flashvars.partnerId + "/sp/" + _flashvars.subpId + "/playManifest/entryId/" + vo.entry.id + ((_flashvars.deliveryCode) ? "/deliveryCode/" + _flashvars.deliveryCode : "") + ((vo.deliveryType == StreamerType.HTTP && vo.selectedFlavorId) ? "/flavorId/" + vo.selectedFlavorId : "") + (seekFrom ? "/seekFrom/" + seekFrom*1000 : "") + "/format/" + (vo.deliveryType != StreamerType.LIVE ? vo.deliveryType : StreamerType.RTMP) + "/protocol/" + (vo.mediaProtocol) + (_flashvars.cdnHost ? "/cdnHost/" + _flashvars.cdnHost : "") + (storageProfileId ? "/storageId/" + storageProfileId : "") + (_client.ks ? "/ks/" + _client.ks : "") + (_flashvars.uiConfId ? "/uiConfId/" + _flashvars.uiConfId : "") + (_flashvars.referrerSig ? "/referrerSig/" + _flashvars.referrerSig : "") + (_flashvars.flavorTags ? "/tags/" + _flashvars.flavorTags : "") + "/a/a.f4m" + "?"+ (_flashvars.b64Referrer ? "referrer=" + _flashvars.b64Referrer : "") ;
 			//in case it was configured to add additional parameter to manifest URL
 			if (_flashvars.manifestParam && _flashvars.manifestParamValue)
 			{
@@ -793,7 +798,7 @@ package com.kaltura.kdpfl.model
 			
 			if (!vo.isMediaDisabled)
 			{
-				if (vo.entry is KalturaLiveStreamEntry || vo.deliveryType == StreamerType.LIVE)
+				if (vo.isLive)
 				{
 					if (!vo.isHds)
 						prepareMediaElement();

@@ -60,7 +60,7 @@ package com.kaltura.kdpfl.controller
 				{
 					// This is-statement is here in case the entry being played is a Live Stream. In this case,
 					// rather than finishing playback, the player should start looking for the source of the stream in case of reconnect.
-					if (_mediaProxy.vo.entry is KalturaLiveStreamEntry || _mediaProxy.vo.deliveryType == StreamerType.LIVE)
+					if (_mediaProxy.vo.isLive)
 					{
 						_mediaProxy.vo.singleAutoPlay = true;
 						sendNotification(NotificationType.CHANGE_MEDIA, {entryId: _mediaProxy.vo.entry.id } );

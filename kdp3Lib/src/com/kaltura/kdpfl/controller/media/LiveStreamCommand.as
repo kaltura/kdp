@@ -44,7 +44,7 @@ package com.kaltura.kdpfl.controller.media
 		namespace xmlns = "http://ns.adobe.com/f4m/1.0";
 		//timer for rtmp live sampling
 		private var _liveStreamTimer : Timer;
-		//rimwe for hds "isLive" sampling
+		//timer for hds "isLive" sampling
 		private var _liveHdsTimer : Timer;
 		private var _netStream : NetStream;
 		private var _streamUrl:String;
@@ -119,7 +119,7 @@ package com.kaltura.kdpfl.controller.media
 		private function checkIsLive(e:TimerEvent = null):void {
 			if (_mediaProxy.vo.isLive && _mediaProxy.vo.isHds && !_player.playing)
 			{
-				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, KalturaPlaybackProtocol.HDS);
+				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, _mediaProxy.vo.deliveryType);
 				isLive.addEventListener(KalturaEvent.COMPLETE, onIsLive);
 				isLive.addEventListener(KalturaEvent.FAILED, onIsLiveError);
 				_kc.post(isLive);
