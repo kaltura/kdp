@@ -62,6 +62,8 @@ package com.kaltura.kdpfl.plugin.component
 		private var _forceBitrate:int;
 		private var _viewComp:bitrateDetectionPluginCode;
 		
+		private var _executed:Boolean;
+		
 		public function BitrateDetectionMediator(viewComponentObject:Object = null , forceBitrate:int = 0)
 		{
 			_forceBitrate = forceBitrate;
@@ -72,36 +74,21 @@ package com.kaltura.kdpfl.plugin.component
 		override public function listNotificationInterests():Array 
 		{
 			return [
-				NotificationType.DO_SWITCH,
-				NotificationType.KDP_EMPTY,
-				NotificationType.KDP_READY,
-				NotificationType.PLAYER_PLAYED,
-				NotificationType.MEDIA_READY
+				NotificationType.READY_TO_PLAY,
+				NotificationType.PLAYER_PLAYED
 				];
 		}
-		
-		private var _bandwidth:Number = 0;
-		private var _bandwidthByUser:Number = 0;
 		 
 		override public function handleNotification(notification:INotification):void
 		{
 			switch (notification.getName())
 			{
-				//in case the user switched the flavor manually 
-				case NotificationType.DO_SWITCH:
-					_bandwidthByUser = int(notification.getBody())
-					break;
-				case NotificationType.MEDIA_READY:
-					if(_bandwidthByUser)
-					{
-						sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: _bandwidthByUser});
+				case NotificationType.READY_TO_PLAY:
+					//perform BW check once per player
+					if (_executed)
 						return;
-					}
-					if(_bandwidth)
-						sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: _bandwidth});
-					break;
-				case NotificationType.KDP_EMPTY:
-				case NotificationType.KDP_READY:
+					_executed = true;
+					
 					var mediaProxy:MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 					if (!mediaProxy.vo.entry || 
 						((mediaProxy.vo.entry is KalturaMediaEntry) && (int(mediaProxy.vo.entry.mediaType)==KalturaMediaType.IMAGE)))
@@ -114,7 +101,7 @@ package com.kaltura.kdpfl.plugin.component
 							var highBR:int = mediaProxy.vo.kalturaMediaFlavorArray[mediaProxy.vo.kalturaMediaFlavorArray.length - 1].bitrate;
 							if (0.8 * highBR <= mediaProxy.vo.preferedFlavorBR)  
 							{
-								trace ("***** no BW CHECK***");
+								trace ("--bitrate detection: no BW CHECK");
 								//// if the last preferred bitrate is higher or equals (with 20% error range) to the current highest bitrate, 
 								//no need to perform BW check
 								return;
@@ -125,8 +112,6 @@ package com.kaltura.kdpfl.plugin.component
 					startDownload();
 					break;
 				case NotificationType.PLAYER_PLAYED:
-					if(_bandwidth)
-						return;
 					_playedPlayed = true;
 					break;
 			}
@@ -138,7 +123,7 @@ package com.kaltura.kdpfl.plugin.component
 		 */		
 		public function startDownload() : void 
 		{
-			trace ("bitrate detection: start download");
+			trace ("--bitrate detection: start download");
 			if (!_viewComp.downloadUrl)
 				return;
 
@@ -146,7 +131,7 @@ package com.kaltura.kdpfl.plugin.component
 			//disable autoPlay - will change it back once the bitrate detection will finish
 			if (_configProxy.vo.flashvars.autoPlay == "true")
 			{
-				trace ("bitrate detection: was auto play");
+				trace ("--bitrate detection: was auto play");
 				_configProxy.vo.flashvars.autoPlay = "false";
 				_wasAutoPlay = true;
 			}
@@ -200,7 +185,7 @@ package com.kaltura.kdpfl.plugin.component
 			_loader.contentLoaderInfo.removeEventListener( ProgressEvent.PROGRESS, onProgress );
 			
 			var bitrateVal:int = _avgSpeed * 8;
-			trace("*** preferred bitrate for bitrate detection plugin:", bitrateVal);
+			trace("--preferred bitrate for bitrate detection plugin:", bitrateVal);
 			
 			//for debugging - force a bitrate value to override the calculated one
 			if(_forceBitrate > 0)
@@ -209,8 +194,6 @@ package com.kaltura.kdpfl.plugin.component
 			}
 
 			sendNotification(NotificationType.CHANGE_PREFERRED_BITRATE, {bitrate: bitrateVal});
-
-			_bandwidth = bitrateVal;
 		
 			finishDownloadProcess();	
 		}
@@ -234,7 +217,7 @@ package com.kaltura.kdpfl.plugin.component
 			//Bypass: ignore #2124 error (loaded file is an unknown type)
 			if (!event.text || event.text.indexOf("Error #2124")==-1)
 			{
-				trace ("bitrate detection i/o error:", event.text);				
+				trace ("--bitrate detection i/o error:", event.text);				
 				finishDownloadProcess();
 			}
 		}
