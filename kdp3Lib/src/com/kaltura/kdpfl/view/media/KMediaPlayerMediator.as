@@ -277,7 +277,6 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.CLEAN_MEDIA,
 				NotificationType.CHANGE_VOLUME,
 				NotificationType.VOLUME_CHANGED_END,
-				NotificationType.MEDIA_READY,
 				NotificationType.KDP_EMPTY,
 				NotificationType.KDP_READY,
 				LiveStreamCommand.LIVE_STREAM_READY,
@@ -877,7 +876,7 @@ package com.kaltura.kdpfl.view.media
 					}
 					
 					_mediaProxy.loadComplete();
-					//sendNotification(NotificationType.MEDIA_READY, {entryId: _mediaProxy.vo.entry.id});
+
 					break;
 				case MediaPlayerState.PAUSED:
 					sendNotification( NotificationType.PLAYER_PAUSED );	

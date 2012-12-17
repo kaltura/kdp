@@ -213,7 +213,6 @@ package com.kaltura.kdpfl.view.controls
 				NotificationType.LAYOUT_READY,
 				NotificationType.LIVE_ENTRY,
 				LiveStreamCommand.LIVE_STREAM_READY,
-				NotificationType.MEDIA_READY,
 				NotificationType.READY_TO_PLAY,
 				NotificationType.READY_TO_LOAD,
 				NotificationType.ROOT_RESIZE,
