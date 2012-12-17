@@ -58,12 +58,8 @@ package com.kaltura.delegates
 				var myInst : Object = new cls(null , null);
 
 				//build the result as a regular result
-				var xml : String = "<result><result>";
-				xml += result.result.item[i].children().toString();
-				xml +="</result></result>";
-				//fix weird issue with chrome: sometimes res XML contained empty nodes because the xml string had "\n"
-				xml = xml.replace(/>\n/g, ">");
-				var res : XML = new XML(xml);
+				var res:XML = new XML("<result><result/></result>");
+				res.result.appendChild(result.result.item[i].children());
 				try {
 					var obj : Object = (myInst as WebDelegateBase).parse( res );
 					resArr.push( obj );
