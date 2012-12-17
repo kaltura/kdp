@@ -1,0 +1,8 @@
+Things to remember when testing Tremor plugin 
+1 – work with local server (the faster easiest way is to switch the Xamp to point to the kdp3 workspace, and 
+	debug from http://localhost/kdp(3)/bin-debug/kdp(3).html)
+2 – remember that when and if you point to a localhost – you must clean cache
+3 – use attached html & config to save your configuration time
+4 – use the given programs Tremor gave us – they are documented in the code 
+5 – before releasing – need to remove traces and clean code ( I left a lot of comments on the code) 
+
