@@ -94,6 +94,10 @@ package com.kaltura.kdpfl
 		 */		
 		public function start(app:DisplayObject):void
 		{
+			CONFIG::isSDK46 {
+				kdpVersion += ".sdk46";
+			}
+			
 			_app = app;
 			appFolder = app.root.loaderInfo.url;
 			appFolder = appFolder.substr(0, appFolder.lastIndexOf('/') + 1);
