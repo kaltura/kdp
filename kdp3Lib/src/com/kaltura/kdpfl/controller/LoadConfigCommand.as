@@ -625,7 +625,7 @@ package com.kaltura.kdpfl.controller
 					KTrace.getInstance().jsCallback = true;
 			}
 			//in this case if external interface enabled will look for referrer, otherwise referrer will be empty
-			if (_flashvars.disableReferrerOverride == "true" || !_flashvars.referrer) {
+			if (_flashvars.disableReferrerOverride == "true") {
 				if (_flashvars.externalInterfaceDisabled == "false" || _flashvars.externalInterfaceDisabled == "0")
 				{
 					var foundReferer:String = ExternalInterface.call('window.location.href.toString');
