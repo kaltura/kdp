@@ -172,8 +172,11 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 			_rows[_currentRow] = {};
 			_rows[_currentRow].buttons = [];
 			_rows[_currentRow].width = 0;
-
-			this.removeChildren();
+			
+			//remove children
+			_buttons.forEach(disableButtons);
+			_buttons = [];
+			
 			this.setFocus();
 			_focusIndex = 0;
 			var cachedLen:Number = _cachedButtons.length;
@@ -221,17 +224,6 @@ The copyrights embodied in the content of this file are licensed under the BSD (
 			 * Removes buttons
 			 */
 			public function removeChildren():void
-			{
-				_buttons.forEach(disableButtons);
-				_buttons = [];
-			}
-		}
-
-		CONFIG::isSDK46 {
-			/**
-			 * Removes buttons
-			 */
-			override public function removeChildren(beginIndex:int=0, endIndex:int=int.MAX_VALUE):void
 			{
 				_buttons.forEach(disableButtons);
 				_buttons = [];
