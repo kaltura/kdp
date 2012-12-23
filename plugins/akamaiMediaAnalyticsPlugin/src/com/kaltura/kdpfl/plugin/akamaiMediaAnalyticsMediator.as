@@ -55,7 +55,7 @@ package com.kaltura.kdpfl.plugin
 					{
 						var mediaEntry:KalturaMediaEntry = entry as KalturaMediaEntry;
 						
-						AnalyticsPluginLoader.setData("contentLength", mediaEntry.duration);
+						AnalyticsPluginLoader.setData("contentLength", mediaEntry.msDuration);
 						var contentType:String;
 						switch (mediaEntry.mediaType)
 						{
