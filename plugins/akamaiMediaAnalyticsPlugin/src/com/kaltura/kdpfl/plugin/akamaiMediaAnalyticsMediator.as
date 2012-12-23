@@ -87,7 +87,7 @@ package com.kaltura.kdpfl.plugin
 					{
 						flavorAssetId = _mediaProxy.vo.selectedFlavorId;						
 					}
-					else if (_mediaProxy.vo.deliveryType == StreamerType.RTMP)
+					else
 					{	
 						flavorAssetId = getFlavorIdByIndex(_mediaProxy.startingIndex);
 					}
