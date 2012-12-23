@@ -104,7 +104,7 @@ package com.kaltura.kdpfl.plugin.component
 						
 						//sendNotification( NotificationType.ENABLE_GUI ,{guiEnabled: false , enableType:'full'} );
 						AlertManager.showButtonIfEmpty = false;
-						sendNotification( NotificationType.ALERT, {message: "Please wait...", title: "Processing"} );
+						sendNotification( NotificationType.ALERT, {message: viewComponent.capture_thumbnail_process, title: viewComponent.capture_thumbnail_process_title} );
 					}
 				break;
 			}	

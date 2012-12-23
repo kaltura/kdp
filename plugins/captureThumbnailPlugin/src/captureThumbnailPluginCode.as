@@ -20,6 +20,8 @@ package {
 		public var capture_thumbnail_success_title : String = "Capture Thumbnail";
 		public var capture_thumbnail_service_forbidden_title : String = "Service Forbidden";
 		public var capture_thumbnail_service_forbidden : String = "You do not have the permission level required to set a new default thumbnail.\n Your thumbnail has been added to the list of entry thumbnails.";
+		public var capture_thumbnail_process : String = "Please wait..."
+		public var capture_thumbnail_process_title : String = "Processing";
 		
 		public function captureThumbnailPluginCode()
 		{
