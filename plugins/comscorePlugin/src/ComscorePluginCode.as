@@ -29,8 +29,10 @@ package
 		protected var _c5 : String;
 		protected var _c6 : String;
 		protected var _c10 : String;
+		protected var _cs_eidr : String;
+		protected var _cs_adid : String;
 		protected var failedFlag : Boolean;
-		protected var _comscoreVersion : String = "kdp3.5.44_1.0";
+		protected var _comscoreVersion : String = "kdp3.6.15";
 		
 		public function ComscorePluginCode()
 		{
@@ -252,6 +254,26 @@ package
 		public function set c10(value:String):void
 		{
 			_c10 = value;
+		}
+		[Bindable]
+		public function get cs_adid():String
+		{
+			return _cs_adid;
+		}
+
+		public function set cs_adid(value:String):void
+		{
+			_cs_adid = value;
+		}
+		[Bindable]
+		public function get cs_eidr():String
+		{
+			return _cs_eidr;
+		}
+
+		public function set cs_eidr(value:String):void
+		{
+			_cs_eidr = value;
 		}
 
 		public function get comscoreVersion():String

@@ -45,11 +45,18 @@ package com.kaltura.kdpfl.view
 		private var _sendOnSequnceEnd:Boolean = false;
 		
 		private static const CPARAMS_LENGTH:int = 6;
+		private var _sequenceProxy:SequenceProxy;
 		
 		public function ComscoreMediator(mediatorName:String=null, viewComponent:Object=null)
 		{
 			super(NAME, viewComponent);
 			view = viewComponent as ComscorePluginCode;
+		}
+		
+		override public function onRegister():void
+		{
+			_sequenceProxy = (facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy);
+			super.onRegister();
 		}
 		
 		override public function listNotificationInterests():Array
@@ -68,7 +75,6 @@ package com.kaltura.kdpfl.view
 		
 		override public function handleNotification(notification:INotification):void
 		{
-			var sequenceProxy : SequenceProxy = (facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy);
 			switch (notification.getName() )
 			{
 				case NotificationType.LAYOUT_READY:
@@ -83,7 +89,7 @@ package com.kaltura.kdpfl.view
 				case NotificationType.PLAYER_PLAYED:
 					if (!_playerPlayedFired)
 					{		
-						if (!sequenceProxy.vo.isInSequence) 
+						if (!_sequenceProxy.vo.isInSequence) 
 						{
 							cParams["c5"] = view.c5;
 							comscoreBeacon();
@@ -93,7 +99,7 @@ package com.kaltura.kdpfl.view
 					break;
 				
 				case AdsNotificationTypes.AD_START:
-					switch (sequenceProxy.sequenceContext)
+					switch (_sequenceProxy.sequenceContext)
 					{
 						case SequenceContextType.PRE:
 							cParams["c5"] = PREROLL_AD_CONTENT_TYPE;
@@ -240,7 +246,12 @@ package com.kaltura.kdpfl.view
 			
 			loadUrl += "c10=" + _currentSegment + "-" + _numOfSegments + "&";
 			loadUrl += "rn=" + Math.random().toString() + "&";
-			loadUrl +="cv=" + view.comscoreVersion;
+			loadUrl +="cv=" + view.comscoreVersion + "&";
+			if (view.cs_eidr)
+				loadUrl +="cs_eidr="+view.cs_eidr + "&";			
+			if (_sequenceProxy.vo.isInSequence && view.cs_adid)
+				loadUrl += "cs_adid="+view.cs_adid;
+			
 			var loader : URLLoader = new URLLoader();
 			var urlRequest : URLRequest = new URLRequest(loadUrl);
 			loader.addEventListener(Event.COMPLETE, onComscoreBeaconSuccess);
