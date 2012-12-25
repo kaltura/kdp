@@ -1,5 +1,6 @@
 package
 {
+	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.IPluginFactory;
@@ -46,6 +47,9 @@ package
 		public var lp	:	String;
 		public var ls	: 	String;
 		public var serverUrl:String;
+		public var c10	: 	String;
+		public var c11	: 	String;
+		
 		private var _facade:IFacade;
 		private var _eventData:Object;
 		private var _paramsMap:Object =	{videoCensusId:"C6", 
@@ -56,9 +60,12 @@ package
 													ls:"LS",
 													cc:"CC",
 													rnd:"RND",
-													c3:"C3"};
+													c3:"C3",
+													c10:"C10",
+													c11:"C11"};
 		
 		
+		private var _sequenceProxy:SequenceProxy;
 		public function nielsenVideoCensusPluginCode()
 		{
 			super();
@@ -73,6 +80,7 @@ package
 			//_nielsenMediator.eventDispatcher.addEventListener(NielsenVideoCensusMediator.AD_START, onAdStart);
 			
 			facade.registerMediator(_nielsenMediator);
+			_sequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			
 		}
 		
@@ -114,17 +122,21 @@ package
 			
 			//TL -Video title. Should be prefixed by “dav0-“. Percent (%) encode the TL value after the “dav0-“ previx.
 			//Encoding prevents restricted charactrs from impacting any processing scripts
-			if(tl)url=createQueryString(url,_paramsMap.tl,"dav0-"+tl);
+			if(tl)
+				url=createQueryString(url,_paramsMap.tl,"dav0-"+tl);
 			
 			//CG - Show name or category name TV networks required to use program name here 
 			//The entire cg value should be percent (%) encoded
-			if(cg)url=createQueryString(url,_paramsMap.cg,cg);
+			if(cg)
+				url=createQueryString(url,_paramsMap.cg,cg);
 			
 			//CI -Client ID provider by Nielsen
-			if(clientId)url=createQueryString(url,_paramsMap.clientId,clientId);
+			if(clientId)
+				url=createQueryString(url,_paramsMap.clientId,clientId);
 			
 			//C6 -Video Census ID
-			if(videoCensusId)url=createQueryString(url,_paramsMap.videoCensusId,videoCensusId);
+			if(videoCensusId)
+				url=createQueryString(url,_paramsMap.videoCensusId,videoCensusId);
 			
 			//RND - Random number. Must be dynamic per event. Do not use scientific notation
 			url=createQueryString(url,_paramsMap.rnd,getRndNumber());
@@ -137,20 +149,28 @@ package
 			//4. Anticipated total number of segments/chapters for this episode. Set to 0 if not known
 			
 			// NOTE: total length can only be determined.  unable to determine length of segments with current KDP3 libraries
-			if(lp)url=createQueryString(url,_paramsMap.lp,getLongPlayIndicator());
+			if(lp)
+				url=createQueryString(url,_paramsMap.lp,getLongPlayIndicator());
 
 			
-			if(c3)url=createQueryString(url,_paramsMap.c3,c3);
+			if(c3)
+				url=createQueryString(url,_paramsMap.c3,c3);
+			
+			//adid is sent only for ads. eidr is sent for both content and ads
+			if(_sequenceProxy.vo.isInSequence && c10)
+				url=createQueryString(url,_paramsMap.c10,c10);
+			if(c11)
+				url=createQueryString(url,_paramsMap.c11,c11);
 			
 			//LS -Live stream indicator. One parameter:
 			//1. Set to Y if this is a live stream
 			//2. Set to N if this is a standard video on demand stream
-			if(ls)url=createQueryString(url,_paramsMap.ls,getLiveStreamIndicator());
+			if(ls)
+				url=createQueryString(url,_paramsMap.ls,getLiveStreamIndicator());
 			
 			//C3  - Ad indicator. If this parameter is omitted then the stream will be assumed to be content.
 			//url = createQueryString(url,_paramsMap.c3,getAdIndicator());
-			
-			
+
 			
 			loader.addEventListener(Event.COMPLETE, onComplete);
 			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
