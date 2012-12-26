@@ -8,6 +8,7 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.types.KalturaCaptionType;
 	import com.kaltura.vo.KalturaCaptionAsset;
 	import com.kaltura.vo.KalturaCaptionAssetFilter;
 	import com.kaltura.vo.KalturaCaptionAssetListResponse;
@@ -276,7 +277,9 @@ package com.kaltura.kdpfl.plugin.component
 			var entryCCDataFilter : KalturaCaptionAssetFilter = new KalturaCaptionAssetFilter();
 			
 			entryCCDataFilter.entryIdEqual = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry.id;
-
+			//filter only to XML and SRT (Hiding the WebVTT CC file in m3u8 that is relevant just for IOS)
+			entryCCDataFilter.formatIn = KalturaCaptionType.SRT+","+KalturaCaptionType.DFXP;
+			
 			var entryCCDataList : CaptionAssetList = new CaptionAssetList( entryCCDataFilter );
 			
 			var kalturaClient : KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient;
