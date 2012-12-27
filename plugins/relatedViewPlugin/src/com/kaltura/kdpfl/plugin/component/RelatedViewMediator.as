@@ -4,6 +4,7 @@ package com.kaltura.kdpfl.plugin.component
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 
 	public class RelatedViewMediator extends Mediator
 	{
@@ -39,7 +40,10 @@ package com.kaltura.kdpfl.plugin.component
 			switch (note.getName())
 			{
 				case NotificationType.PLAYER_PLAY_END:
-					if (showAfterPlayEnd && (viewComponent as relatedViewPluginCode).dataProvider && (viewComponent as relatedViewPluginCode).dataProvider.length)
+					if (showAfterPlayEnd &&
+						!((facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.loop) &&
+						(viewComponent as relatedViewPluginCode).dataProvider && 
+						(viewComponent as relatedViewPluginCode).dataProvider.length)
 					{
 						viewComponent.visible = true;
 						(viewComponent as relatedViewPluginCode).showReplayBtn = true;
