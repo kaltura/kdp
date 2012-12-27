@@ -12,9 +12,9 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.tremormedia.acudeo.events.ControlsEvent;
 	import com.tremormedia.acudeo.page.Page;
 	import com.tremormedia.acudeo.player.Player;
-	
+
 	import fl.core.UIComponent;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
@@ -25,7 +25,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
-	
+
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.interfaces.IProxy;
 
@@ -38,31 +38,33 @@ package com.kaltura.kdpfl.plugin.component {
 		public static const POST:String = "postroll";
 		public static const FETCH_PARAMS:String = "fetchParams";
 		public static const NEW_ENTRY:String = "newEntry";
-		
-		//count the number of days that were passed from the relevant date 
+
+		//count the number of days that were passed from the relevant date
 		public var createdAtOffset:Number=0;
 		public var updatedAtOffset:Number=0;
 		public var startedAtOffset:Number=0;
-		
-		
-		
+
+
+
 		public var params:Object;
 		public var dispatcher:EventDispatcher = new EventDispatcher();
 
 		// internal companion ad
 		private var _clickUrl:String;
 		private var _loader:Loader;
+		//flash object id to be used with companion ads
+		private var _kdpObjectId:String;
 		public var hideInternalCompanion:Boolean;
 		public var internalCompanionX:Number;
 		public var internalCompanionY:Number;
-		
-		
+
+
 		/**
-		 * flag for showing/not showing countdown text 
+		 * flag for showing/not showing countdown text
 		 */
 		public var displayAdCountdown:String
 		/**
-		 * Text for showing when video ad is running 
+		 * Text for showing when video ad is running
 		 */
 		public var adCountdownDisplayText:String
 		/**
@@ -77,104 +79,104 @@ package com.kaltura.kdpfl.plugin.component {
 		public var traces:String = "";
 
 		/**
-		 * current ad context. 
-		 * possible values are preroll / midroll / postroll. 
+		 * current ad context.
+		 * possible values are preroll / midroll / postroll.
 		 */
 		private var _adContext:String = TremorMediator.MID;
 
 		/**
-		 * Tremor's hell-ish ad manager 
-		 */		
+		 * Tremor's hell-ish ad manager
+		 */
 		private var _adManager:IAdManager;
-		
+
 		/**
-		 * title of current media entry 
-		 */		
+		 * title of current media entry
+		 */
 		private var _entryTitle:String = "";
-		
+
 		/**
-		 * id of current media entry 
-		 */		
+		 * id of current media entry
+		 */
 		private var _entryId:String = "";
-		
+
 		/**
-		 * url of current media entry 
-		 */		
+		 * url of current media entry
+		 */
 		private var _entryUrl:String = "";
-		
+
 		/**
-		 * current player volium 
-		 */		
+		 * current player volium
+		 */
 		private var _currentVolume:Number = 100;
-		
+
 		/**
 		 * indicates the video had started playing and asked for prerolls
-		 */		
+		 */
 		private var _requestAd:Boolean;
-		
+
 		/**
-		 * indicates ads program is loaded 
-		 */		
+		 * indicates ads program is loaded
+		 */
 		private var _programLoaded:Boolean = false;
-		
+
 		/**
-		 * init manager once only. 
-		 */		
+		 * init manager once only.
+		 */
 		private var _managerInit:Boolean = false;
-		
+
 		/**
-		 * since the new enableGui mechanism in KDP counts calls to 
-		 * enable/disable gui, use this to not call too many of any of them. 
+		 * since the new enableGui mechanism in KDP counts calls to
+		 * enable/disable gui, use this to not call too many of any of them.
 		 */
 		private var _controlsEnabled:Boolean = true;
 
 		/**
 		 * tremor send startAd for midrolls twice. we'll only dispatch one of them.
-		 * hopefully. 
+		 * hopefully.
 		 */
 		private var _midrollStatFlag:Boolean = false;
-		
-		
+
+
 		/**
 		 * This flag is to mark when a mid roll was played
 		 */
 		private var paused:Boolean = false;
-		
-		
+
+
 		private var bypassAds:Boolean = false;
 		/**
-		 * Holder for internal companion ads 
+		 * Holder for internal companion ads
 		 */
 		private var companionHolder:UIComponent;
 		/**
-		 * Maximum days for this ad to be live 
-		 */		
+		 * Maximum days for this ad to be live
+		 */
 		public var maxAgeForAds:Number = 0;
 		/**
-		 * The creationDate of this entry 
-		 */		
+		 * The creationDate of this entry
+		 */
 		public var creationDate:Number = 0;
 		/**
 		 * Constructor.
 		 * @param viewComponent
 		 * @param prog	Tremor program id
-		 * @param tracesVolume	
-		 * 
+		 * @param tracesVolume
+		 *
 		 */
 		public function TremorMediator(viewComponent:Object = null, prog:String = "", tracesVolume:String = "FATAL",companionHolder:UIComponent=null) {
-			trace("TremorMediator V1"); 
+			trace("TremorMediator V1");
 			super(viewComponent);
 			if (prog != "")
 				progId = prog;
 			traces = tracesVolume;
 			this.companionHolder = companionHolder;
 			_adManager = (viewComponent as Tremor).ad_manager;
-			
+
 		}
 
-		
+
 		/**
-		 * initialize the ad manager 
+		 * initialize the ad manager
 		 */
 		private function initAdManager():void {
 
@@ -183,18 +185,29 @@ package com.kaltura.kdpfl.plugin.component {
 			player.videoRegion = new Rectangle(0, 0, 300, 300);
 			player.volume = 100;
 
-			
+
 			player.displayAdCountdown = displayAdCountdown;
 			player.adCountdownDisplayText = adCountdownDisplayText ;
-			
+
 			var page:Page = new Page();
 			var flashvars:Object = facade.retrieveProxy("configProxy");
 			page.url = flashvars.vo.flashvars.referer;
 
+			//the try is in case we dont have external interface
+			try
+			{
+				_kdpObjectId = ExternalInterface.objectID;
+			}
+			catch(error:Error)
+			{
+				trace("Failed getting the objectId");
+			}
+
+
 			_adManager.init({player: player, page: page, debug:"FATAL"});
 
 			_adManager.setVolume(100);
-			
+
 			_adManager.addEventListener(AcudeoEvent.PROGRAM_LOADED, onAdManagerProgramLoaded);
 			_adManager.addEventListener(AdEvent.DISPLAY_BANNERS, onDisplayBanners);
 			_adManager.addEventListener(AcudeoEvent.START_CONTENT, onStartContent);
@@ -203,13 +216,13 @@ package com.kaltura.kdpfl.plugin.component {
 			_adManager.addEventListener(ControlsEvent.STATE_CHANGED, onControlsStateChange);
 			_adManager.addEventListener(AcudeoEvent.ADS_COMPLETE, onAdsComplete);
 			_adManager.addEventListener(AcudeoEvent.ERROR, onAdsError);
-			
+
 			_adManager.addEventListener(AdEvent.END, onAdsEvent);
 			_adManager.addEventListener(AdEvent.OVERLAYCLICK, onAdsEvent);
 			_adManager.addEventListener(AdEvent.OVERLAYSHOWN, onAdsEvent);
 			_adManager.addEventListener(AdEvent.VIDEOSTART, onAdsEvent);
 			_adManager.addEventListener(AdEvent.CLICK, onAdsEvent);
-			
+
 			_adManager.addEventListener(AdEvent.HIDE_BANNERS, onHideBanner);
 
 			_adManager.load({
@@ -224,13 +237,18 @@ package com.kaltura.kdpfl.plugin.component {
 			try
 			{
 				if (ExternalInterface.available)
-					ExternalInterface.call("hideCompanionBanners");
+				{
+					if(_kdpObjectId)
+						ExternalInterface.call("hideCompanionBanners" , _kdpObjectId);
+					else
+						ExternalInterface.call("hideCompanionBanners");
+				}
 			} catch (e:Error)
 			{
 				trace("ExternalInterface error");
 			}
 		}
-		
+
 		private function onAdsEvent(event:AdEvent):void {
 			switch (event.type) {
 				case AdEvent.OVERLAYSHOWN:
@@ -271,30 +289,30 @@ package com.kaltura.kdpfl.plugin.component {
 							trace("failed to unload internal companion ad");
 						}
 					}
-					break; 
+					break;
 			}
 		}
-		
-		
-		
+
+
+
 		/**
 		 * assumably this is caused by adManager load timeout (Tremor left a default value
 		 * of 4 seconds, which is hardly ever enough). <br/>
 		 * however, the error event doesn't hold any information of the error type.. <br/>
-		 * in this case, we end ads process. 
+		 * in this case, we end ads process.
 		 * @param evt
-		 */		
+		 */
 		private function onAdsError(evt:Event=null):void {
-			bypassAds = true; 
+			bypassAds = true;
 			enableControls();
 			var sp:SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			if(sp.vo.isInSequence)
 			{
-				sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);	
+				sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
 				trace("AdManager onAdsError0 Releasing sequence");
 			}
 		}
-		
+
 
 		private function onAdManagerProgramLoaded(evt:Event):void {
 			_programLoaded = true; //race condition
@@ -306,7 +324,7 @@ package com.kaltura.kdpfl.plugin.component {
 			else {
 				_adManager.openSlate();
 				enableControls();
-				
+
 			}
 		}
 
@@ -336,9 +354,9 @@ package com.kaltura.kdpfl.plugin.component {
 		}
 
 
-		private function onAdVideoProgress(evt:Event):void 
+		private function onAdVideoProgress(evt:Event):void
 		{
-			
+
 		}
 
 
@@ -347,28 +365,33 @@ package com.kaltura.kdpfl.plugin.component {
 		 * @param event
 		 * */
 		private function onDisplayBanners(event:Object):void {
-			// external companion ads 
-			try 
+			// external companion ads
+			try
 			{
 				if (ExternalInterface.available)
-					ExternalInterface.call("displayCompanionBanners", event.ad.banners,
-										   {playerIndex: event.data.player.playerIndex});
+				{
+					if(_kdpObjectId)
+						ExternalInterface.call("displayCompanionBanners", event.ad.banners,{playerIndex: event.data.player.playerIndex} , _kdpObjectId );
+					else
+						ExternalInterface.call("displayCompanionBanners", event.ad.banners,{playerIndex: event.data.player.playerIndex});
+
+				}
 			} catch (e:Error)
 			{
 				trace("ExternalInterface error");
 			}
 			//internal companion ads
-			
+
 			if(!event.ad.banners[0].imageUrl)
 			{
 				return;
 			}
 			if(!companionHolder)
 			{
-				
+
 				return;
 			}
-			
+
 			var bannerHolder_mc:MovieClip = new MovieClip();
 			bannerHolder_mc.x=internalCompanionX;
 			bannerHolder_mc.y=internalCompanionY;
@@ -381,9 +404,9 @@ package com.kaltura.kdpfl.plugin.component {
 			bannerHolder_mc.addEventListener(MouseEvent.CLICK,  onBannerHolderClick);
 			bannerHolder_mc.addChild(_loader);
 			companionHolder.addChild(bannerHolder_mc);
-			
+
 		}
-		
+
 		private function onBannerHolderClick(event:Object):void {
 			var request:URLRequest = new URLRequest(_clickUrl);
 			navigateToURL(request,"_blank");
@@ -396,22 +419,22 @@ package com.kaltura.kdpfl.plugin.component {
 		public function forceStart():void {
 			var destinationDate:Date = new Date();
 			destinationDate.setDate(destinationDate.getDate() - maxAgeForAds);
-			
-			
-			
+
+
+
 			//calculate all 3 dates:
 			var nd:Date = new Date ();
 			nd.setTime(creationDate*1000);
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
+
 			if( int(destinationDate.time/1000) <= creationDate  || maxAgeForAds==0)
 			{
 				var sequenceManager:IProxy = facade.retrieveProxy("sequenceProxy");
@@ -468,7 +491,7 @@ package com.kaltura.kdpfl.plugin.component {
 				case preSequenceNotificationStartName:
 					if(bypassAds)
 					{
-						onAdsError(); 
+						onAdsError();
 						break;
 					}
 					var newEntryId:String = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry.id;
@@ -484,7 +507,7 @@ package com.kaltura.kdpfl.plugin.component {
 					postAds();
 					clearMediaData();
 					break;
-				
+
 				case NotificationType.LAYOUT_READY:
 					if (!_managerInit) {
 						initAdManager();
@@ -493,25 +516,25 @@ package com.kaltura.kdpfl.plugin.component {
 				case NotificationType.MEDIA_READY:
 					var entry:Object = ((facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry);
 					creationDate = entry["createdAt"];
-					
+
 					var today:Date = new Date();
 					var cd:Date = new Date ();
 					cd.setTime(creationDate*1000);
 					createdAtOffset = int((today.time-cd.time)/(24*60*60*1000));
-					
+
 					var ud:Date = new Date ();
 					ud.setTime(entry["updatedAt"]*1000);
 					updatedAtOffset = int((today.time-ud.time)/(24*60*60*1000));
-					
+
 					if(entry.hasOwnProperty('startDate') && entry["startDate"] > 0)
 					{
 						var sd:Date = new Date ();
 						sd.setTime(entry["startDate"]*1000);
 						startedAtOffset = int((today.time-sd.time) / (24*60*60*1000));
 					}
-					
+
 					dispatcher.dispatchEvent(new Event(NEW_ENTRY));
-					
+
 				break;
 			}
 		}
@@ -519,15 +542,15 @@ package com.kaltura.kdpfl.plugin.component {
 
 		/**
 		 * delete all data concerning the current entry, so when
-		 * the next entry loads we'll ask for new info 
+		 * the next entry loads we'll ask for new info
 		 */
 		private function clearMediaData():void {
 			_entryTitle = null;
 			_entryId = null;
 			_entryUrl = null;
 		}
-		
-		
+
+
 		private function retrieveMediaData():void {
 			var mp:Object = facade.retrieveProxy("mediaProxy");
 			_entryTitle = mp.vo.entry.name;
@@ -573,7 +596,7 @@ package com.kaltura.kdpfl.plugin.component {
 
 
 		/////////////////////////////////////////////////////////
-		// TREMOR FUNCTIONS API 
+		// TREMOR FUNCTIONS API
 		/////////////////////////////////////////////////////////
 
 		/**
@@ -582,7 +605,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 * @param event
 		 */
 		private function onStartContent(event:Object):void {
-			/* switch the context to MID. if there's no midroll and the next ad 
+			/* switch the context to MID. if there's no midroll and the next ad
 			* will be a postroll, postAds() will change the context to match. */
 			_adContext = TremorMediator.MID;
 			enableControls();
@@ -623,7 +646,7 @@ package com.kaltura.kdpfl.plugin.component {
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		//Player properties changed
-		/////////////////////////////////////////////////////////////////////////////////////		
+		/////////////////////////////////////////////////////////////////////////////////////
 		/**
 		 * Update the tremor component on playhead changes.
 		 * @param currentPosition playhead current position
