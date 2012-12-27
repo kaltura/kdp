@@ -25,6 +25,7 @@ package
 	import com.kaltura.vo.KalturaBaseEntryFilter;
 	import com.kaltura.vo.KalturaBaseEntryListResponse;
 	import com.kaltura.kdpfl.util.URLUtils;
+	import com.kaltura.vo.KalturaEntryContext;
 	
 	import fl.core.UIComponent;
 	import fl.data.DataProvider;
@@ -65,6 +66,10 @@ package
 		 * data for the related entries source.to be used when sourceType is "globalPlaylist" 
 		 */
 		public var playlistSourceData:String;
+		/**
+		 * data for the related entries source.to be used when sourceType is "relatedPlaylist" 
+		 */
+		public var relatedPlSourceData:String;
 		
 		[Bindable]
 		/**
@@ -158,13 +163,26 @@ package
 			switch (sourceType)
 			{
 				case RelatedEntriesSourceType.AUTOMATIC:
-				case RelatedEntriesSourceType.GLOBAL_PLAYLIST:
-					if (sourceType == RelatedEntriesSourceType.AUTOMATIC)
-						sourceData = automaticPlaylistId;
-					else
-						sourceData = playlistSourceData;
+					sourceData = automaticPlaylistId;
 					kalturaCall = new PlaylistExecute(sourceData);
 					break;
+				
+				case RelatedEntriesSourceType.GLOBAL_PLAYLIST:
+					sourceData = playlistSourceData;
+					kalturaCall = new PlaylistExecute(sourceData);
+					break;
+
+				case RelatedEntriesSourceType.RELATED_PLAYLIST:
+					sourceData = relatedPlSourceData;
+					var context:KalturaEntryContext = new KalturaEntryContext();
+					var curEntry:String = (_facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry.id;
+					if (curEntry)
+					{
+						context.entryId =  curEntry;
+					}
+					kalturaCall = new PlaylistExecute(sourceData, '' , context);
+					break;
+				
 				case RelatedEntriesSourceType.ENTRY_IDS:
 				case RelatedEntriesSourceType.REFERENCE_IDS:
 					if (sourceType == RelatedEntriesSourceType.ENTRY_IDS)
@@ -206,7 +224,9 @@ package
 		{
 			var resultArray:Array;
 			var dpArray:Array = new Array();
-			if (sourceType == RelatedEntriesSourceType.AUTOMATIC || sourceType == RelatedEntriesSourceType.GLOBAL_PLAYLIST)
+			if (sourceType == RelatedEntriesSourceType.AUTOMATIC ||
+				sourceType == RelatedEntriesSourceType.GLOBAL_PLAYLIST ||
+				sourceType == RelatedEntriesSourceType.RELATED_PLAYLIST)
 			{
 				resultArray = event.data as Array;
 			}

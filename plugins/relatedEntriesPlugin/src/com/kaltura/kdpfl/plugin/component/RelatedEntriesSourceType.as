@@ -23,5 +23,9 @@ package com.kaltura.kdpfl.plugin.component
 		 * list of entry IDs
 		 */		
 		public static const ENTRY_IDS:String	 			= "entryIds";
+		/**
+		 * dynamic free text playlist, with context::tags 
+		 */		
+		public static const RELATED_PLAYLIST:String	 			= "relatedPlaylist";
 	}
 }
