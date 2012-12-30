@@ -83,15 +83,19 @@ package com.kaltura.kdpfl.plugin.component {
 				case PlaylistNotificationType.LOAD_PLAYLIST:
 					var name:String = note.getBody().kplName;
 					var url:String = note.getBody().kplUrl;
-					if (name && url)
+					var id:String = note.getBody().kplId;
+					if ((name && url) || id)
 					{
 						playlistAPI.resetNewPlaylist();
 						playlistAPI.clearFilters();
-						playlistAPI.loadPlaylist(name, url);
+						if (id)
+							playlistAPI.loadV3Playlist(id);
+						else
+							playlistAPI.loadPlaylist(name, url);
 					}
 					else
 					{
-						trace ("could not load playlist, kplName or kplUrl values are invalid");
+						trace ("could not load playlist, kplName ,kplUrl or kplId values are invalid");
 					}
 					break;
 				case NotificationType.CHANGE_MEDIA: {

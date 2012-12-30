@@ -66,7 +66,7 @@ package com.kaltura.kdpfl.plugin.component
 
 		public function get entryId():String
 		{
-			return entry.entryId;
+			return entry.entryId ? entry.entryId : entry.id;
 		}
 
 		public function get tags():String{

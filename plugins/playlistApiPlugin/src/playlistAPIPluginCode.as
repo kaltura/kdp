@@ -4,7 +4,12 @@ package {
 	import com.akamai.rss.ContentTO;
 	import com.akamai.rss.ItemTO;
 	import com.akamai.rss.Media;
+	import com.kaltura.KalturaClient;
 	import com.kaltura.base.types.MediaTypes;
+	import com.kaltura.commands.MultiRequest;
+	import com.kaltura.commands.playlist.PlaylistExecute;
+	import com.kaltura.commands.playlist.PlaylistGet;
+	import com.kaltura.errors.KalturaError;
 	import com.kaltura.events.KalturaEvent;
 	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
@@ -17,7 +22,11 @@ package {
 	import com.kaltura.kdpfl.util.Functor;
 	import com.kaltura.kdpfl.util.URLUtils;
 	import com.kaltura.utils.KConfigUtil;
+	import com.kaltura.vo.KalturaMediaEntry;
+	import com.kaltura.vo.KalturaMediaEntryFilter;
+	import com.kaltura.vo.KalturaMediaEntryFilterForPlaylist;
 	import com.kaltura.vo.KalturaPlayableEntry;
+	import com.kaltura.vo.KalturaPlaylist;
 	
 	import fl.data.DataProvider;
 	
@@ -50,7 +59,7 @@ package {
 		private var _dataProvider:KDataProvider;
 		
 		/**
-		 * url of currently play8ing playlist 
+		 * url of currently playing playlist 
 		 */		
 		private var _playlistUrl:String;
 		
@@ -165,11 +174,25 @@ package {
 		
 		private var _shouldAutoInsert:Boolean;
 		
+		private var _kc:KalturaClient;
+		
+		/**
+		 *indicates if we should use api_v3 
+		 */		
+		private var _isV3:Boolean = false;
+		
+		/**
+		 * current playlist ID, relevant when using api_v3 
+		 */		
+		private var _playlistId:String;
 		
 		/**
 		 * Constructor
 		 */
-		public function playlistAPIPluginCode() {}
+		public function playlistAPIPluginCode() 
+		{
+
+		}
 	
 		
 		/**
@@ -178,7 +201,11 @@ package {
 		 */
 		public function loadFirstPlaylist():void {
 			if (playlistAutoInsert && !_initialLoad) {
-				if (this.kpl0Url) {
+				if (this.kpl0Id)
+				{
+					loadV3Playlist(this.kpl0Id);
+				}
+				else if (this.kpl0Url) {
 					loadPlaylist(this.kpl0Name, this.kpl0Url);
 				}
 				_initialLoad = true;
@@ -190,7 +217,10 @@ package {
 		 * Reload the active playlist with saved filter parameters.
 		 */
 		private function reloadPlaylist():void {
-			loadPlaylist(_playlistName, _playlistUrl);
+			if (_isV3)
+				loadV3Playlist(_playlistId);
+			else
+				loadPlaylist(_playlistName, _playlistUrl);
 		}
 		
 		
@@ -266,7 +296,7 @@ package {
 					if (kalturaEntry.thumbnailUrl.indexOf( "thumbnail/entry_id" ) != -1)
 					{
 						kalturaEntry.thumbnailUrl +=  URLUtils.getThumbURLPostfix((Facade.getInstance().retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars, 
-						(Facade.getInstance().retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.ks);
+						_kc.ks);
 					}
 					
 				}
@@ -286,12 +316,32 @@ package {
 			return (entries);
 		}
 		
+		/**
+		 * Parse MRSS response into a data provider to display in the View.
+		 * @param evt
+		 */
+		private function onDataLoaded(evt:AkamaiNotificationEvent):void {
+			setNewData(mrssToMediaEntryArray());
+		}
+		
+		private function randomSort(objA:Object, objB:Object):int {
+			return Math.round(Math.random() * 2) - 1;
+		}
 		
 		/**
-		 * Create data provider to display in the view.
-		 * @param mediaEntries array of media entries parsed from the playlist response.
-		 */
-		private function createNewProvider(mediaEntries:Array):void {
+		 * shuffles the entries, if required.
+		 * create new data provider.
+		 * @param mediaEntries
+		 * 
+		 */		
+		private function setNewData(mediaEntries:Array) : void
+		{
+			if(mixList)
+			{
+				mediaEntries.sort(randomSort);
+			}
+			
+			//create new data provider
 			dataProvider = new KDataProvider(mediaEntries);
 			if (initItemEntryId && mediaEntries)
 			{
@@ -304,29 +354,13 @@ package {
 					}
 				}
 			}
-
+			
 			_dataProvider.addEventListener(Event.CHANGE, onChangeItem, false, 0, true);
 			createItems(initItemIndex);
 			
 			_multiDataProviders[_playlistUrl] = _dataProvider;
 			_playlistAPIMediator.sendNotification(PlaylistNotificationType.PLAYLIST_READY);
-		}
-		
-		
-		/**
-		 * Parse MRSS response into a data provider to display in the View.
-		 * @param evt
-		 */
-		private function onDataLoaded(evt:AkamaiNotificationEvent):void {
-			var mediaEntries:Array = mrssToMediaEntryArray();
-			if(mixList)
-			{
-				mediaEntries.sort(randomSort);
-			}
-			createNewProvider(mediaEntries);
-		}
-		private function randomSort(objA:Object, objB:Object):int {
-			return Math.round(Math.random() * 2) - 1;
+			
 		}
 		
 		
@@ -463,7 +497,7 @@ package {
 			return; //if it's the same item return
 			*/
 			if (item) 
-				_entryId = (item as PlaylistEntryVO).entry.entryId;
+				_entryId = (item as PlaylistEntryVO).entryId;
 			
 			if(_dataProvider && item ==  _dataProvider.content[0] )
 			{
@@ -530,25 +564,41 @@ package {
 		 */
 		public function initializePlugin(facade:IFacade):void {
 			_playlistAPIMediator = new PlaylistAPIMediator(this);
-			
-			var i:int = 0;
+			_kc = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient;
 			var dataArray:Array = new Array();
-			// save all the playlists to the multiplaylist dp 
-			while (this["kpl" + i + "Url"] != null) {
-				dataArray[i] = {label: this["kpl" + i + "Name"], 
-					data: this["kpl" + i + "Url"], 
-					index: i + 1, 
-						width: 160};
+			var i:int = 0;
+			while (this["kpl" + i + "Id"]) {
+				dataArray[i] = {playlistId: this["kpl" + i + "Id"], 
+								index: i + 1, 
+								width: 160};
 				i++;
 			}
+			//get playlist names from kalturaPlaylist object
+			if (i!=0)
+			{
+				_isV3 = true;
+				getPlaylists();
+			}
+			else //fallback to old method with partnerservices2
+			{
+				_isV3 = false;
+				// save all the playlists to the multiplaylist dp 
+				while (this["kpl" + i + "Url"] != null) {
+					dataArray[i] = {label: this["kpl" + i + "Name"], 
+						data: this["kpl" + i + "Url"], 
+						index: i + 1, 
+							width: 160};
+					i++;
+				}
+			}
+				
 			this.multiPlaylistDataProvider = new DataProvider(dataArray);
 			resetNewPlaylist();
-			
 			facade.registerMediator(_playlistAPIMediator);
-			
 			// notify the world that the playlists list is ready: 
 			_playlistAPIMediator.sendNotification(PlaylistNotificationType.PLAYLISTS_LISTED);
 			
+	
 			// This is added in order to compensate for the fact the playlist mrss contains the rank*1000.
 			Functor.globalsFunctionsObject.divide = function (value : Number, divideBy : Number) : int
 			{
@@ -571,15 +621,9 @@ package {
 				
 				var yyyy:String = date.fullYear.toString();
 				return mm + seperator + dd + seperator + yyyy;
-			}
-			
-			
-			
+			}		
 		}
-		
-		
-		
-		
+	
 		override public function toString():String {
 			return ("PlaylistAPI");
 		}
@@ -626,12 +670,13 @@ package {
 		 */
 		public function set selectedDataProvider(value:DataProvider):void {
 			_selectedDataProvider = value;
-			
-			var name:String = _selectedDataProvider.getItemAt(0).label;
-			var url:String = _selectedDataProvider.getItemAt(0).data;
-			
 			clearFilters();
-			loadPlaylist(name, url);
+			
+			if (_isV3)
+				loadV3Playlist(_selectedDataProvider.getItemAt(0).playlistId);
+			else
+				loadPlaylist(_selectedDataProvider.getItemAt(0).label, _selectedDataProvider.getItemAt(0).data);
+				
 			
 		}
 		
@@ -650,8 +695,11 @@ package {
 		public function set searchDataProvider(value:DataProvider):void {
 			_searchDataProvider = value;
 			var val:String = _searchDataProvider.getItemAt(0).value;
-			
-			setFilter("mlikeor_tags-admin_tags-name", val + "-" + val + "-" + val);
+	
+			if (_isV3)
+				setFilter("freeText", val);
+			else
+				setFilter("mlikeor_tags-admin_tags-name", val + "-" + val + "-" + val);
 			reloadPlaylist();
 		}
 		
@@ -671,7 +719,11 @@ package {
 		public function set sortDataProvider(value:DataProvider):void {
 			_sortDataProvider = value;
 			var val:String = _sortDataProvider.getItemAt(0).value;
-			setFilter("order_by", val);
+		
+			if (_isV3)
+				setFilter("orderBy", val);
+			else
+				setFilter("order_by", val);
 			reloadPlaylist();
 		}
 		
@@ -695,6 +747,126 @@ package {
 			_started = false;
 		}
 		
+		/**
+		 * call api_v3 execute playlist
+		 * @param playlistId playlist to execute
+		 * 
+		 */		
+		public function loadV3Playlist(playlistId:String):void
+		{
+			if (_dataProvider) {
+				_dataProvider.removeEventListener(Event.CHANGE, onChangeItem);
+			}
+			//if we already have a selected data provider we will reset the selectedIndex
+			if (_dataProvider && _dataProvider.length != 0)
+				_dataProvider.selectedIndex = NaN;
+
+			_playlistId = playlistId;
+			//apply filters
+			var filteredString:String = playlistId;
+			var filter:KalturaMediaEntryFilterForPlaylist = new KalturaMediaEntryFilterForPlaylist();
+			for (var filt:String in _filters) {
+				if (_filters[filt]) {
+					filteredString += "::" + filt + "=" + _filters[filt];
+					filter[filt] = _filters[filt];
+				}
+			}
+			
+			
+			if (!_multiDataProviders[filteredString]) 
+			{
+					_playlistUrl = filteredString
+					var execPlaylist:PlaylistExecute = new PlaylistExecute(playlistId, "", null, filter);
+					
+					execPlaylist.addEventListener(KalturaEvent.COMPLETE, onExecuteResult);
+					execPlaylist.addEventListener(KalturaEvent.FAILED, onExecuteFailed);
+					_kc.post(execPlaylist);
+				
+			}
+			else
+			{
+				dataProvider = _multiDataProviders[filteredString];
+				_dataProvider.addEventListener(Event.CHANGE, onChangeItem, false, 0, true);
+				createItems(_dataProvider.selectedIndex);
+				_playlistAPIMediator.sendNotification(PlaylistNotificationType.PLAYLIST_READY);
+			}
+			
+			
+		}
+		
+		/**
+		 * get all kalturaPlaylist objects
+		 * 
+		 */		
+		private function getPlaylists():void
+		{
+			var mr:MultiRequest = new MultiRequest();
+			var i:int = 0;
+			while (this["kpl"+i+"Id"])
+			{
+				var getPlaylist:PlaylistGet = new PlaylistGet(this["kpl"+i+"Id"]);
+				mr.addAction(getPlaylist);
+				i++;
+			}
+			mr.addEventListener(KalturaEvent.COMPLETE, onGetPlaylistsResult);
+			mr.addEventListener(KalturaEvent.FAILED, onGetPlaylistsFault);
+			_kc.post(mr);
+		}
+		
+		/**
+		 * execute playlist result 
+		 * @param event
+		 * 
+		 */		
+		private function onExecuteResult(event:KalturaEvent):void
+		{
+			if(event.data is KalturaError || (event.data.hasOwnProperty("error")))
+				trace ("error in execute playlist");
+			else
+			{
+				var resArr:Array = event.data as Array;
+				var mediaEntries:Array = new Array();
+				for each (var entry:KalturaMediaEntry in resArr)
+				{
+					var playlistVo:PlaylistEntryVO = new PlaylistEntryVO(entry);
+					mediaEntries.push(playlistVo);
+				}
+				setNewData(mediaEntries);
+			}	
+		}
+		
+		/**
+		 * Get playlists names, saves them as the label 
+		 * @param event
+		 * 
+		 */		
+		private function onGetPlaylistsResult(event:KalturaEvent):void{
+			
+			if (event.data.length)
+			{
+				for (var i:int = 0; i < event.data.length; i++)
+				{
+					if(event.data[i] is KalturaError || (event.data[i].hasOwnProperty("error")))
+					{
+						trace ("failed to get kdp"+i+"id name");	
+						
+					}
+					else
+					{
+						multiPlaylistDataProvider.getItemAt(i)["label"] = (event.data[i] as KalturaPlaylist).name;
+					}
+				}
+				multiPlaylistDataProvider.invalidate();
+			}
+		}
+
+		private function onExecuteFailed(event:KalturaEvent):void{
+			trace ("failed to execute playlist");
+		}
+		
+		private function onGetPlaylistsFault(event:KalturaEvent):void{
+			trace ("failed to get playlists");
+		}
 		
 		
 	}
