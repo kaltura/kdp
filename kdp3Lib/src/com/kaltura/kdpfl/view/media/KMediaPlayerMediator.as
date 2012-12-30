@@ -603,8 +603,16 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.PLAYER_PLAY_END:
+					//if we had postroll - remove it from background
+					if (player.media!=_mediaProxy.vo.media)
+					{
+						if(player.displayObject)
+						{
+							player.displayObject.height=0;////this is for clear the former clip...
+							player.displayObject.width=0;///this is for clear the former clip...
+						}
+					}
 					if (!player.loop) {
-						//cleanMedia();
 						kMediaPlayer.showThumbnail();
 					}
 					_offsetAddition = 0;
