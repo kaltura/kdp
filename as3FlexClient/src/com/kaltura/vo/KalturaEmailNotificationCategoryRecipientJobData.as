@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
+	import com.kaltura.vo.KalturaCategoryUserFilter;
+
 	import com.kaltura.vo.KalturaEmailNotificationRecipientJobData;
 
 	[Bindable]
 	public dynamic class KalturaEmailNotificationCategoryRecipientJobData extends KalturaEmailNotificationRecipientJobData
 	{
 		/**
-		 * The ID of the category whose subscribers should receive the email notification.
-		 * 
 		 **/
-		public var categoryId : int = int.MIN_VALUE;
+		public var categoryUserFilter : KalturaCategoryUserFilter;
 
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
-			arr.push('categoryId');
+			arr.push('categoryUserFilter');
 			return arr;
 		}
 

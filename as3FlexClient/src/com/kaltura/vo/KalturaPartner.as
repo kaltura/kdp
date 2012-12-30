@@ -204,6 +204,22 @@ package com.kaltura.vo
 		 **/
 		public var defaultEntitlementEnforcement : Boolean;
 
+		/**
+		 **/
+		public var defaultDeliveryType : String = null;
+
+		/**
+		 **/
+		public var defaultEmbedCodeType : String = null;
+
+		/**
+		 **/
+		public var deliveryTypes : Array = null;
+
+		/**
+		 **/
+		public var embedCodeTypes : Array = null;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 

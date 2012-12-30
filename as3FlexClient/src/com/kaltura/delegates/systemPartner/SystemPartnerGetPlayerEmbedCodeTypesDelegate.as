@@ -25,20 +25,35 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.delegates.systemPartner
 {
-	public class KalturaConditionType
+	import com.kaltura.vo.KalturaPlayerEmbedCodeType;KalturaPlayerEmbedCodeType;;
+
+	import com.kaltura.core.KClassFactory;
+
+	import com.kaltura.config.KalturaConfig;
+	import com.kaltura.net.KalturaCall;
+	import com.kaltura.delegates.WebDelegateBase;
+	import flash.utils.getDefinitionByName;
+
+	public class SystemPartnerGetPlayerEmbedCodeTypesDelegate extends WebDelegateBase
 	{
-		public static const ABC_WATERMARK : String = 'abcScreenersWatermarkAccessControl.abcWatermark';
-		public static const METADATA_FIELD_COMPARE : String = 'metadata.FieldCompare';
-		public static const METADATA_FIELD_MATCH : String = 'metadata.FieldMatch';
-		public static const AUTHENTICATED : String = '1';
-		public static const COUNTRY : String = '2';
-		public static const IP_ADDRESS : String = '3';
-		public static const SITE : String = '4';
-		public static const USER_AGENT : String = '5';
-		public static const FIELD_MATCH : String = '6';
-		public static const FIELD_COMPARE : String = '7';
-		public static const ASSET_PROPERTIES_COMPARE : String = '8';
+		public function SystemPartnerGetPlayerEmbedCodeTypesDelegate(call:KalturaCall, config:KalturaConfig)
+		{
+			super(call, config);
+		}
+
+		override public function parse(result:XML) : *
+		{
+			var arr : Array = new Array();
+			for( var i:int=0; i<result.result.children().length() ; i++)
+			{
+				var cls : Class = getDefinitionByName('com.kaltura.vo.'+ result.result.children()[i].objectType) as Class;
+				var obj : * = (new KClassFactory( cls )).newInstanceFromXML( XMLList(result.result.children()[i]) );
+				arr.push(obj);
+			}
+			return arr;
+		}
+
 	}
 }

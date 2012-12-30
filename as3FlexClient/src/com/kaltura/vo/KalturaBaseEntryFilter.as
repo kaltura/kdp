@@ -46,7 +46,7 @@ package com.kaltura.vo
 		public var categoriesFullNameIn : String = null;
 
 		/**
-		 * all entries within this categoy or in child categories
+		 * All entries within this categoy or in child categories
 		 * 
 		 **/
 		public var categoryAncestorIdIn : String = null;

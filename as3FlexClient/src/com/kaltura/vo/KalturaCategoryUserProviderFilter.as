@@ -27,70 +27,95 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
-	import com.kaltura.vo.KalturaUserBaseFilter;
+	import com.kaltura.vo.KalturaFilter;
 
 	[Bindable]
-	public dynamic class KalturaUserFilter extends KalturaUserBaseFilter
+	public dynamic class KalturaCategoryUserProviderFilter extends KalturaFilter
 	{
 		/**
-		 **/
-		public var idOrScreenNameStartsWith : String = null;
-
-		/**
-		 **/
-		public var idEqual : String = null;
-
-		/**
-		 **/
-		public var idIn : String = null;
-
-		/**
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
-		public var loginEnabledEqual : int = int.MIN_VALUE;
-
-		/**
-		 **/
-		public var roleIdEqual : String = null;
-
-		/**
-		 **/
-		public var roleIdsEqual : String = null;
-
-		/**
-		 **/
-		public var roleIdsIn : String = null;
-
-		/**
-		 **/
-		public var firstNameOrLastNameStartsWith : String = null;
-
-		/**
-		 * Permission names filter expression
+		 * Id of the category to list by - not settable
 		 * 
 		 **/
-		public var permissionNamesMultiLikeOr : String = null;
+		public var categoryIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 * Permission names filter expression
-		 * 
 		 **/
-		public var permissionNamesMultiLikeAnd : String = null;
+		public var userIdEqual : String = null;
+
+		/**
+		 **/
+		public var userIdIn : String = null;
+
+		/**
+		 * @see com.kaltura.types.KalturaCategoryUserPermissionLevel
+		 **/
+		public var permissionLevelEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var permissionLevelIn : String = null;
+
+		/**
+		 * @see com.kaltura.types.KalturaCategoryUserStatus
+		 **/
+		public var statusEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var statusIn : String = null;
+
+		/**
+		 **/
+		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		 * @see com.kaltura.types.KalturaUpdateMethodType
+		 **/
+		public var updateMethodEqual : int = int.MIN_VALUE;
+
+		/**
+		 **/
+		public var updateMethodIn : String = null;
+
+		/**
+		 **/
+		public var permissionNamesMatchAnd : String = null;
+
+		/**
+		 **/
+		public var permissionNamesMatchOr : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
-			arr.push('idOrScreenNameStartsWith');
-			arr.push('idEqual');
-			arr.push('idIn');
-			arr.push('loginEnabledEqual');
-			arr.push('roleIdEqual');
-			arr.push('roleIdsEqual');
-			arr.push('roleIdsIn');
-			arr.push('firstNameOrLastNameStartsWith');
-			arr.push('permissionNamesMultiLikeOr');
-			arr.push('permissionNamesMultiLikeAnd');
+			arr.push('categoryIdEqual');
+			arr.push('userIdEqual');
+			arr.push('userIdIn');
+			arr.push('permissionLevelEqual');
+			arr.push('permissionLevelIn');
+			arr.push('statusEqual');
+			arr.push('statusIn');
+			arr.push('createdAtGreaterThanOrEqual');
+			arr.push('createdAtLessThanOrEqual');
+			arr.push('updatedAtGreaterThanOrEqual');
+			arr.push('updatedAtLessThanOrEqual');
+			arr.push('updateMethodEqual');
+			arr.push('updateMethodIn');
+			arr.push('permissionNamesMatchAnd');
+			arr.push('permissionNamesMatchOr');
 			return arr;
 		}
 

@@ -68,6 +68,12 @@ package com.kaltura.vo
 		 **/
 		public var contexts : Array = null;
 
+		/**
+		 * Array of hashes to pass to the access control profile scope
+		 * 
+		 **/
+		public var hashes : Array = null;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -81,6 +87,7 @@ package com.kaltura.vo
 			arr.push('userAgent');
 			arr.push('time');
 			arr.push('contexts');
+			arr.push('hashes');
 			return arr;
 		}
 

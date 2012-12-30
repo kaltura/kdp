@@ -37,7 +37,7 @@ package com.kaltura.vo
 		 * 
 		 * @see com.kaltura.types.KalturaEntryIdentifierField
 		 **/
-		public var identifier : int = int.MIN_VALUE;
+		public var identifier : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{

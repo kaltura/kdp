@@ -25,20 +25,51 @@
 //
 // @ignore
 // ===================================================================================================
-package com.kaltura.types
+package com.kaltura.vo
 {
-	public class KalturaConditionType
+	import com.kaltura.vo.BaseFlexVo;
+
+	[Bindable]
+	public dynamic class KalturaPlayerDeliveryType extends BaseFlexVo
 	{
-		public static const ABC_WATERMARK : String = 'abcScreenersWatermarkAccessControl.abcWatermark';
-		public static const METADATA_FIELD_COMPARE : String = 'metadata.FieldCompare';
-		public static const METADATA_FIELD_MATCH : String = 'metadata.FieldMatch';
-		public static const AUTHENTICATED : String = '1';
-		public static const COUNTRY : String = '2';
-		public static const IP_ADDRESS : String = '3';
-		public static const SITE : String = '4';
-		public static const USER_AGENT : String = '5';
-		public static const FIELD_MATCH : String = '6';
-		public static const FIELD_COMPARE : String = '7';
-		public static const ASSET_PROPERTIES_COMPARE : String = '8';
+		/**
+		 **/
+		public var id : String = null;
+
+		/**
+		 **/
+		public var label : String = null;
+
+		/**
+		 **/
+		public var flashvars : Array = null;
+
+		/**
+		 **/
+		public var minVersion : String = null;
+
+		/** 
+		 * a list of attributes which may be updated on this object 
+		 **/ 
+		public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			arr.push('id');
+			arr.push('label');
+			arr.push('flashvars');
+			arr.push('minVersion');
+			return arr;
+		}
+
+		/** 
+		 * a list of attributes which may only be inserted when initializing this object 
+		 **/ 
+		public function getInsertableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			return arr;
+		}
 	}
 }

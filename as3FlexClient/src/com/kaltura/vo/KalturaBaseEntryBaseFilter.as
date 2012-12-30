@@ -135,6 +135,8 @@ package com.kaltura.vo
 		public var categoriesMatchAnd : String = null;
 
 		/**
+		 * All entries within these categories or their child categories.
+		 * 
 		 **/
 		public var categoriesMatchOr : String = null;
 
@@ -143,6 +145,9 @@ package com.kaltura.vo
 		public var categoriesIdsMatchAnd : String = null;
 
 		/**
+		 * All entries of the categories, excluding their child categories.
+		 * To include entries of the child categories, use categoryAncestorIdIn, or categoriesMatchOr.
+		 * 
 		 **/
 		public var categoriesIdsMatchOr : String = null;
 

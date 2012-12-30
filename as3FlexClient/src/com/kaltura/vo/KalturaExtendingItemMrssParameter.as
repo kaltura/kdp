@@ -46,6 +46,13 @@ package com.kaltura.vo
 		 **/
 		public var identifier : KalturaObjectIdentifier;
 
+		/**
+		 * Mode of extension - append to MRSS or replace the xpath content.
+		 * 
+		 * @see com.kaltura.types.KalturaMrssExtensionMode
+		 **/
+		public var extensionMode : int = int.MIN_VALUE;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -55,6 +62,7 @@ package com.kaltura.vo
 			arr = new Array();
 			arr.push('xpath');
 			arr.push('identifier');
+			arr.push('extensionMode');
 			return arr;
 		}
 

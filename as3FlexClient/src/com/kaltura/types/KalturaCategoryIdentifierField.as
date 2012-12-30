@@ -29,8 +29,8 @@ package com.kaltura.types
 {
 	public class KalturaCategoryIdentifierField
 	{
-		public static const FULL_NAME : int = fullName;
-		public static const ID : int = id;
-		public static const REFERENCE_ID : int = referenceId;
+		public static const FULL_NAME : String = 'fullName';
+		public static const ID : String = 'id';
+		public static const REFERENCE_ID : String = 'referenceId';
 	}
 }

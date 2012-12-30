@@ -59,7 +59,8 @@ package com.kaltura.delegates
 
 				//build the result as a regular result
 				var res:XML = new XML("<result><result/></result>");
-				res.result.appendChild(result.result.item[i].children());
+                res.result.appendChild(result.result.item[i].children());
+
 				try {
 					var obj : Object = (myInst as WebDelegateBase).parse( res );
 					resArr.push( obj );

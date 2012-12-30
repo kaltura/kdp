@@ -88,6 +88,10 @@ package com.kaltura.vo
 
 		/**
 		 **/
+		public var pathEqual : String = null;
+
+		/**
+		 **/
 		public var pathLike : String = null;
 
 		/**
@@ -165,6 +169,7 @@ package com.kaltura.vo
 			arr.push('conversionProfileIdIn');
 			arr.push('dcEqual');
 			arr.push('dcIn');
+			arr.push('pathEqual');
 			arr.push('pathLike');
 			arr.push('fileHandlerTypeEqual');
 			arr.push('fileHandlerTypeIn');

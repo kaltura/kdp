@@ -34,7 +34,5 @@ package com.kaltura.types
 		public static const SCP : String = '3';
 		public static const SFTP : String = '4';
 		public static const S3 : String = '6';
-		public static const SFTP_CMD : String = '8';
-		public static const SFTP_SEC_LIB : String = '9';
 	}
 }
