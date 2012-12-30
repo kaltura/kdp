@@ -91,8 +91,11 @@ package com.kaltura.kdpfl.plugin.component
 					
 					var mediaProxy:MediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 					if (!mediaProxy.vo.entry || 
-						((mediaProxy.vo.entry is KalturaMediaEntry) && (int(mediaProxy.vo.entry.mediaType)==KalturaMediaType.IMAGE)))
+						((mediaProxy.vo.entry is KalturaMediaEntry) && (int(mediaProxy.vo.entry.mediaType)!=KalturaMediaType.VIDEO)))
+					{
+						trace ("--bitrate detection: no BW CHECK, not a video entry");					
 						return;
+					}
 					
 					if (_viewComp.runPreCheck)
 					{
@@ -101,7 +104,7 @@ package com.kaltura.kdpfl.plugin.component
 							var highBR:int = mediaProxy.vo.kalturaMediaFlavorArray[mediaProxy.vo.kalturaMediaFlavorArray.length - 1].bitrate;
 							if (0.8 * highBR <= mediaProxy.vo.preferedFlavorBR)  
 							{
-								trace ("--bitrate detection: no BW CHECK");
+								trace ("--bitrate detection: no BW CHECK, no higher flavors");
 								//// if the last preferred bitrate is higher or equals (with 20% error range) to the current highest bitrate, 
 								//no need to perform BW check
 								return;
