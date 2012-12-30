@@ -32,7 +32,7 @@ package com.kaltura.kdpfl
 		/**
 		 * The current version of the KDP.
 		 */		
-		public var kdpVersion : String = "v3.6.14";
+		public var kdpVersion : String = "v3.6.15";
 
 		/**
 		 * save any mediator name that is registered to this array in order to delete at any time

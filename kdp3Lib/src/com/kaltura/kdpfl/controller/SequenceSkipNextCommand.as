@@ -1,5 +1,6 @@
 package com.kaltura.kdpfl.controller
 {
+	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	
@@ -22,10 +23,11 @@ package com.kaltura.kdpfl.controller
 		 */		
 		override public function execute(notification:INotification):void
 		{
+			//don't pause when media is live, it messes the player state machine
+			if (!(( facade.retrieveProxy( MediaProxy.NAME ) as MediaProxy).vo.isLive))
+				sendNotification (NotificationType.DO_PAUSE);
+			
 			var sequenceProxy : SequenceProxy = facade.retrieveProxy( SequenceProxy.NAME ) as SequenceProxy;
-			
-			sendNotification (NotificationType.DO_PAUSE);
-			
 			var sequenceContext : String = sequenceProxy.sequenceContext;
 			var currentIndex : int = (sequenceProxy.vo.preCurrentIndex != -1) ? sequenceProxy.vo.preCurrentIndex : sequenceProxy.vo.postCurrentIndex;
 			if (!sequenceProxy.activePlugin().hasSubSequence())

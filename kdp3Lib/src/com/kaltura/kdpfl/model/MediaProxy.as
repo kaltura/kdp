@@ -261,7 +261,7 @@ package com.kaltura.kdpfl.model
 			var resource:MediaResourceBase;
 			var preferedIndex:int = getFlavorByBitrate(vo.preferedFlavorBR);	
 			
-			if (vo.deliveryType == StreamerType.HDNETWORK || vo.isHds)
+			if (vo.deliveryType == StreamerType.HDNETWORK || vo.deliveryType == StreamerType.HDNETWORK_HDS || vo.isHds)
 			{
 				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
 				//add akamai metadata, if needed

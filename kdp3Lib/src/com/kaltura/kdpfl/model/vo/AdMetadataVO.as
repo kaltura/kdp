@@ -38,9 +38,5 @@ package com.kaltura.kdpfl.model.vo
 		[Bindable]
 		public var adid : String;
 
-		[Bindable]
-		public var eidr : String;
-
-
 	}
 }

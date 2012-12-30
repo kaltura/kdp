@@ -323,7 +323,7 @@ package com.kaltura.kdpfl.view.media
 					}
 					break;
 				case NotificationType.SOURCE_READY: //when the source is ready for the media element
-					
+			
 					cleanMedia(); //clean the media element if exist
 					
 					setSource(); //set the source to the player
