@@ -69,7 +69,8 @@ package com.kaltura.kdpfl.view
 				NotificationType.CUE_POINTS_RECEIVED,
 				NotificationType.AD_OPPORTUNITY,
 				NotificationType.PLAYER_UPDATE_PLAYHEAD,
-				NotificationType.MID_SEQUENCE_COMPLETE]
+				NotificationType.MID_SEQUENCE_COMPLETE,
+				NotificationType.CHANGE_MEDIA]
 			return arr;
 		}
 		
@@ -173,6 +174,9 @@ package com.kaltura.kdpfl.view
 						_sendOnSequnceEnd = false;
 					}
 					break;
+				
+				case NotificationType.CHANGE_MEDIA:
+					_numOfSegments = 1;
 			}
 		}
 		
