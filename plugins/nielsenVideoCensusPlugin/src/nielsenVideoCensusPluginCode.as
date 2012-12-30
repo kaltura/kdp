@@ -204,7 +204,7 @@ package
 		//Four sub parameters:
 		//1. LF & SF Short form/long form override. The publisher can explicitly state this is a short form or long form clip. If set to SF then parameters 2 and 4 will be ignored.
 		//2. LF Current segment/chapter number. Set to 0 if not known
-		//3. LF & SF Length in seconds of this segment/chapter. Set to 0 if not known
+		//3. LF & SF Length in seconds of this segment/chapter. Set to 0 if not known. currently no way to get this information from kdp libs
 		//4. LF Anticipated total number of segments/chapters for this episode. Set to 0 if not known
 		//lp=LF,3,582,6
 		private function getLongPlayIndicator():String{
@@ -212,13 +212,11 @@ package
 			//get clip type
 				value 	+=	lp.toUpperCase()+",";
 				
-				if(lp.toUpperCase() == "LF")
-					value	+=  _nielsenMediator.eventData["segmentId"]+",";
+				if(lp.toUpperCase() == "SF")
+					value	+= "1," + _nielsenMediator.eventData["length"] + ",1";
 				
-				value	+=	_nielsenMediator.eventData["length"];
-				
-				if(lp.toUpperCase() == "LF")
-					value	+=	","+_nielsenMediator.eventData["totalSegments"];
+				else if(lp.toUpperCase() == "LF")
+					value	+=	_nielsenMediator.eventData["segmentId"] + ",0," + _nielsenMediator.eventData["totalSegments"];
 				
 			return value;
 		}

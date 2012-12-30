@@ -2,6 +2,7 @@ package com.kaltura.kdpfl.plugin.component
 {
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.types.KalturaAdType;
 	import com.kaltura.vo.KalturaAdCuePoint;
 	import com.kaltura.vo.KalturaCuePoint;
 	
@@ -26,6 +27,8 @@ package com.kaltura.kdpfl.plugin.component
 		private var _customEvents:Array;
 		private var _segments:Array;
 		public var eventData:Object;
+		
+		
 		public function NielsenVideoCensusMediator(cEvents:Array)
 		{
 			_customEvents			= cEvents;
@@ -43,7 +46,9 @@ package com.kaltura.kdpfl.plugin.component
 				"playerPlayed",
 				"mediaReady",
 				"adEnd",
-				NotificationType.MID_SEQUENCE_COMPLETE
+				NotificationType.MID_SEQUENCE_COMPLETE,
+				NotificationType.CUE_POINTS_RECEIVED,
+				NotificationType.CHANGE_MEDIA
 			];
 			notificationsArray		= notificationsArray.concat(_customEvents);
 			return notificationsArray;
@@ -61,6 +66,8 @@ package com.kaltura.kdpfl.plugin.component
 		private var _segmentsCounter:Number	= 1;
 		private var _prevStartTime:Number	= 0;
 		private var _newStartTime:Number		= 0;
+		//total number of segments, determined by number of ad cue points
+		private var _numOfSegments:int;
 		override public function handleNotification(note:INotification):void
 		{
 			var data:Object = note.getBody();
@@ -69,13 +76,12 @@ package com.kaltura.kdpfl.plugin.component
 				case "playerPlayed":
 					eventData	= new Object();
 					eventData["segmentId"]	= _segmentsCounter;
+					eventData["totalSegments"]	= _numOfSegments;
 					var length:Number		= Number(_newStartTime - _prevStartTime);
 					if(length == 0 && _isNewLoad){
 						length= Math.round(Number(facade.retrieveProxy("mediaProxy")["vo"]["entry"]["duration"]));
 					}
 					eventData["length"]		= length;
-					//0 for unknown
-					eventData["totalSegments"]=0; 
 					if(_midSequenceComplete && _played){
 						//check adTimeStamp against segments. 
 						sendBeacon();
@@ -110,6 +116,32 @@ package com.kaltura.kdpfl.plugin.component
 					_prevStartTime						= _newStartTime;
 					_newStartTime						= Math.round(Number(facade["bindObject"]["video"].player.currentTime));
 					break;
+				
+				case NotificationType.CUE_POINTS_RECEIVED:
+					_numOfSegments = 1;
+					var cuePointsMap:Object = note.getBody();
+					var entryMSDuration:int = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry.msDuration;
+					for (var inTime:String in cuePointsMap) {
+						//not preroll and not postroll
+						if (parseInt(inTime)!=0 && parseInt(inTime)!=entryMSDuration) {
+							var cpArray:Array = cuePointsMap[inTime];
+							//if at least one cuePoint represents a midroll
+							for (var i:int = 0; i<cpArray.length; i++) {
+								if ((cpArray[i] is KalturaAdCuePoint) &&
+									(cpArray[i] as KalturaAdCuePoint).adType == KalturaAdType.VIDEO)
+								{
+									_numOfSegments++;
+									break;
+								}
+							}
+							
+						}
+					}
+					break;
+				
+				case NotificationType.CHANGE_MEDIA:
+					_numOfSegments = 0;
+				
 				default:
 					for (var s:String in _customEvents)
 						if(note.getName() == s)
