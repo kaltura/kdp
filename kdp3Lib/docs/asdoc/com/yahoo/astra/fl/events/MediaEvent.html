@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="MediaEvent,com.yahoo.astra.fl.events.MediaEvent,INFO_CHANGE,MEDIA_ENDED,MEDIA_LOADED,MEDIA_PLAY_PAUSE,MEDIA_POSITION,VOLUME_CHANGE,duration,mute,position,volume,clone" name="keywords">
+<title>com.yahoo.astra.fl.events.MediaEvent</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'MediaEvent - kdp3Lib Documentation';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">kdp3Lib Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?com/yahoo/astra/fl/events/MediaEvent.html&amp;com/yahoo/astra/fl/events/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;MediaEvent</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class MediaEvent"); titleBar_setSubNav(true,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.yahoo.astra.fl.events</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class MediaEvent</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">MediaEvent <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> flash.events.Event</td>
+</tr>
+</table>
+<p></p>
+  The MediaEvent class defines events for the IMediaClip components. 
+  
+  These events include the following:
+  <ul>
+  <li><code>MediaEvent.MEDIA_POSITION</code>: dispatched when the MediaComponent's _playing property is true.</li>
+  <li><code>MediaEvent.MEDIA_PLAY_PAUSE</code>: dispatched when the _playing state of the MediaComponent changes</li>
+  <li><code>MediaEvent.VOLUME_CHANGE</code>: dispatched when the volume changes on the MediaComponent.</li>
+  <li><code>MediaEvent.INFO_CHANGE</code>: dispatched when the info for the media has changed</li>
+  <li><code>MediaEvent.MEDIA_LOADED</code>: dispatched when media source has loaded</li>
+  <li><code>MediaEvent.MEDIA_ENDED</code>: dispatched when a media completes playback</li>
+  </ul>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#duration">duration</a> : Number = 0<div class="summaryTableDescription">
+   The length of the media object
+   </div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#mute">mute</a> : Boolean = false<div class="summaryTableDescription">
+   Boolean indicating whether or not the media object has been muted
+   </div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#position">position</a> : Number = 0<div class="summaryTableDescription">
+   The position of the playhead
+   </div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#volume">volume</a> : Number = 0<div class="summaryTableDescription">
+   The volume level of the media object
+   </div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#MediaEvent()">MediaEvent</a>(type:String, bubbles:Boolean = false, cancelable:Boolean = false, position:Number = 0, duration:Number = 0, volume:Number = 1, mute:Boolean = false)</div>
+<div class="summaryTableDescription">
+   Constructor.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#clone()">clone</a>():Event</div>
+<div class="summaryTableDescription">
+   Creates a copy of the MediaEvent object and sets the value of each parameter to match
+   the original.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+</table>
+</div>
+<a name="constantSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Constants</div>
+<table id="summaryTableConstant" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#INFO_CHANGE">INFO_CHANGE</a> : String = "infoChange"<div class="summaryTableDescription">[static]
+   Defines the value of the <code>type</code> property of an <code>infoChange</code> 
+   event object.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MEDIA_ENDED">MEDIA_ENDED</a> : String = "mediaEnded"<div class="summaryTableDescription">[static]
+   Defines the value of the <code>type</code> property of an <code>mediaEnded</code> 
+   event object.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MEDIA_LOADED">MEDIA_LOADED</a> : String = "mediaLoaded"<div class="summaryTableDescription">[static]
+   Defines the value of the <code>type</code> property of an <code>mediaLoaded</code> 
+   event object.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MEDIA_PLAY_PAUSE">MEDIA_PLAY_PAUSE</a> : String = "mediaPlayPause"<div class="summaryTableDescription">[static]
+   Defines the value of the <code>type</code> property of an <code>mediaPlayPause</code> 
+   event object.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MEDIA_POSITION">MEDIA_POSITION</a> : String = "mediaPosition"<div class="summaryTableDescription">[static]
+   Defines the value of the <code>type</code> property of an <code>mediaPosition</code> 
+   event object.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#VOLUME_CHANGE">VOLUME_CHANGE</a> : String = "volumeChange"<div class="summaryTableDescription">[static]
+   Defines the value of the <code>type</code> property of an <code>volumeChange</code> 
+   event object.</div>
+</td><td class="summaryTableOwnerCol">MediaEvent</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="duration"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">duration</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var duration:Number = 0</code><p>
+   The length of the media object
+   </p></div>
+<a name="mute"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">mute</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var mute:Boolean = false</code><p>
+   Boolean indicating whether or not the media object has been muted
+   </p></div>
+<a name="position"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">position</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var position:Number = 0</code><p>
+   The position of the playhead
+   </p></div>
+<a name="volume"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">volume</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var volume:Number = 0</code><p>
+   The volume level of the media object
+   </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="MediaEvent()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MediaEvent</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function MediaEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, position:Number = 0, duration:Number = 0, volume:Number = 1, mute:Boolean = false)</code><p>
+   Constructor. Creates a new MediaEvent object with the specified parameters. 
+   
+         </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:String</code> &mdash; The event type; this value identifies the action that caused the event.
+                  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">bubbles</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Indicates whether the event can bubble up the display list hierarchy.
+                  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">cancelable</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Indicates whether the behavior associated with the event can be
+          prevented.
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">position</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Indicates the position of the playhead
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">duration</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Indicates the duration of the clip
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">volume</span>:Number</code> (default = <code>1</code>)<code></code> &mdash; Indicates the volume of the clip
+      </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">mute</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Indicates whether the clip is muted
+   </td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="clone()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">clone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public override function clone():Event</code><p>
+   Creates a copy of the MediaEvent object and sets the value of each parameter to match
+   the original.
+      </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Event</code> &mdash; A new MediaEvent object with parameter values that match those of the original.
+   </td>
+</tr>
+</table>
+</div>
+<a name="constantDetail"></a>
+<div class="detailSectionHeader">Constant detail</div>
+<a name="INFO_CHANGE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">INFO_CHANGE</td><td class="detailHeaderType">constant</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const INFO_CHANGE:String = "infoChange"</code><p>
+   Defines the value of the <code>type</code> property of an <code>infoChange</code> 
+   event object. 
+   
+   </p><p>This event has the following properties:</p>
+    <table class="innertable" width="100%">
+       <tr><th>Property</th><th>Value</th></tr>
+       <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>
+       <tr><td><code>cancelable</code></td><td><code>true</code></td></tr>
+       <tr><td><code>currentTarget</code></td><td>The object that is actively processing 
+            the event object with an event listener.</td></tr>
+      <tr><td><code>position</code></td><td>The position of the playhead for the media
+      clip</td></tr>
+      <tr><td><code>duration</code></td><td>The length of the media clip</td></tr>
+      <tr><td><code>volume</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>mute</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>target</code></td><td>The object that dispatched the event. The target is 
+             not always the object listening for the event. Use the <code>currentTarget</code>
+      property to access the object that is listening for the event.</td></tr>
+        </td></tr>
+    </table>
+      </div>
+<a name="MEDIA_ENDED"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MEDIA_ENDED</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const MEDIA_ENDED:String = "mediaEnded"</code><p>
+   Defines the value of the <code>type</code> property of an <code>mediaEnded</code> 
+   event object. 
+   
+   </p><p>This event has the following properties:</p>
+    <table class="innertable" width="100%">
+       <tr><th>Property</th><th>Value</th></tr>
+       <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>
+       <tr><td><code>cancelable</code></td><td><code>true</code></td></tr>
+       <tr><td><code>currentTarget</code></td><td>The object that is actively processing 
+            the event object with an event listener.</td></tr>
+      <tr><td><code>position</code></td><td>The position of the playhead for the media
+      clip</td></tr>
+      <tr><td><code>duration</code></td><td>The length of the media clip</td></tr>
+      <tr><td><code>volume</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>mute</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>target</code></td><td>The object that dispatched the event. The target is 
+             not always the object listening for the event. Use the <code>currentTarget</code>
+      property to access the object that is listening for the event.</td></tr>
+        </td></tr>
+    </table>
+      </div>
+<a name="MEDIA_LOADED"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MEDIA_LOADED</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const MEDIA_LOADED:String = "mediaLoaded"</code><p>
+   Defines the value of the <code>type</code> property of an <code>mediaLoaded</code> 
+   event object. 
+   
+   </p><p>This event has the following properties:</p>
+    <table class="innertable" width="100%">
+       <tr><th>Property</th><th>Value</th></tr>
+       <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>
+       <tr><td><code>cancelable</code></td><td><code>true</code></td></tr>
+       <tr><td><code>currentTarget</code></td><td>The object that is actively processing 
+            the event object with an event listener.</td></tr>
+      <tr><td><code>position</code></td><td>The position of the playhead for the media
+      clip</td></tr>
+      <tr><td><code>duration</code></td><td>The length of the media clip</td></tr>
+      <tr><td><code>volume</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>mute</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>target</code></td><td>The object that dispatched the event. The target is 
+             not always the object listening for the event. Use the <code>currentTarget</code>
+      property to access the object that is listening for the event.</td></tr>
+        </td></tr>
+    </table>
+      </div>
+<a name="MEDIA_PLAY_PAUSE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MEDIA_PLAY_PAUSE</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const MEDIA_PLAY_PAUSE:String = "mediaPlayPause"</code><p>
+   Defines the value of the <code>type</code> property of an <code>mediaPlayPause</code> 
+   event object. 
+   
+   </p><p>This event has the following properties:</p>
+    <table class="innertable" width="100%">
+       <tr><th>Property</th><th>Value</th></tr>
+       <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>
+       <tr><td><code>cancelable</code></td><td><code>true</code></td></tr>
+       <tr><td><code>currentTarget</code></td><td>The object that is actively processing 
+            the event object with an event listener.</td></tr>
+      <tr><td><code>position</code></td><td>The position of the playhead for the media
+      clip</td></tr>
+      <tr><td><code>duration</code></td><td>The length of the media clip</td></tr>
+      <tr><td><code>volume</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>mute</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>target</code></td><td>The object that dispatched the event. The target is 
+             not always the object listening for the event. Use the <code>currentTarget</code>
+      property to access the object that is listening for the event.</td></tr>
+        </td></tr>
+    </table>
+      </div>
+<a name="MEDIA_POSITION"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MEDIA_POSITION</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const MEDIA_POSITION:String = "mediaPosition"</code><p>
+   Defines the value of the <code>type</code> property of an <code>mediaPosition</code> 
+   event object. 
+   
+   </p><p>This event has the following properties:</p>
+    <table class="innertable" width="100%">
+       <tr><th>Property</th><th>Value</th></tr>
+       <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>
+       <tr><td><code>cancelable</code></td><td><code>true</code></td></tr>
+       <tr><td><code>currentTarget</code></td><td>The object that is actively processing 
+            the event object with an event listener.</td></tr>
+      <tr><td><code>position</code></td><td>The position of the playhead for the media
+      clip</td></tr>
+      <tr><td><code>duration</code></td><td>The length of the media clip</td></tr>
+      <tr><td><code>volume</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>mute</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>target</code></td><td>The object that dispatched the event. The target is 
+             not always the object listening for the event. Use the <code>currentTarget</code>
+      property to access the object that is listening for the event.</td></tr>
+        </td></tr>
+    </table>
+      </div>
+<a name="VOLUME_CHANGE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">VOLUME_CHANGE</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const VOLUME_CHANGE:String = "volumeChange"</code><p>
+   Defines the value of the <code>type</code> property of an <code>volumeChange</code> 
+   event object. 
+   
+   </p><p>This event has the following properties:</p>
+    <table class="innertable" width="100%">
+       <tr><th>Property</th><th>Value</th></tr>
+       <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>
+       <tr><td><code>cancelable</code></td><td><code>true</code></td></tr>
+       <tr><td><code>currentTarget</code></td><td>The object that is actively processing 
+            the event object with an event listener.</td></tr>
+      <tr><td><code>position</code></td><td>The position of the playhead for the media
+      clip</td></tr>
+      <tr><td><code>duration</code></td><td>The length of the media clip</td></tr>
+      <tr><td><code>volume</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>mute</code></td><td>The volume of the media clip</tr></tr>
+      <tr><td><code>target</code></td><td>The object that dispatched the event. The target is 
+             not always the object listening for the event. Use the <code>currentTarget</code>
+      property to access the object that is listening for the event.</td></tr>
+        </td></tr>
+    </table>
+      </div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="asdoc" default="main" basedir="./">
+
+	<target name="main" depends="clean,compile" description="full build of asdocs"/>
+	<target name="clean">
+		<delete dir="docs/asdoc" failOnError="false" includeEmptyDirs="true"/>
+		<mkdir dir="docs/asdoc"/>
+	</target>
+	<target name="compile" depends="clean">
+		<exec executable="C:\Program Files\Adobe\Adobe Flash Builder 4\sdks\3.5.0\bin\asdoc.exe" failonerror="true">
+			<arg line='-source-path ./src'/>
+			<arg line='-doc-sources ./src'/>
+			<arg line='-external-library-path ./libs ../as3FlexClient/bin ../kdp3Lib/bin'/>
+			<!--arg line='-lenient'/-->
+			<arg line='-main-title "statisticsPlugin documentation"' />
+			<arg line='-window-title "statisticsPlugin documentation"' />
+			<arg line='-output ./docs/asdoc' />
+		</exec>
+	</target>
+</project>
