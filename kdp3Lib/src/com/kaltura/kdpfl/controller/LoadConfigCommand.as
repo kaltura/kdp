@@ -789,7 +789,7 @@ package com.kaltura.kdpfl.controller
 			var uiComponent : UIComponent;
 			_layoutProxy.numPreInitPlugins = plugins.length();
 			var plugin : XML;
-			for ( var i:int=0; i<plugins.length(); i++)
+			for ( var i:int=plugins.length()-1; i>=0; i--)
 			{
 				plugin=plugins[i];
 				_layoutProxy.loadPreInitPlugin(plugins[i]);
