@@ -243,5 +243,11 @@ package com.kaltura.kdpfl.model.vo
 		 */	
 		public var isHds:Boolean = false;	
 		
+		[Bindable] 
+		/**
+		 * indicates if scrubber should be shown we playing live entry
+		 */	
+		public var canSeek:Boolean = true;	
+		
 	}
 }

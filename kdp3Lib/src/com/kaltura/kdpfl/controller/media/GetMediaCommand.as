@@ -310,12 +310,14 @@ package com.kaltura.kdpfl.controller.media
 				{
 					_mediaProxy.vo.deliveryType = StreamerType.LIVE;
 					_mediaProxy.vo.isLive = true;
+					_mediaProxy.vo.canSeek = false;
 					_mediaProxy.vo.mediaProtocol = StreamerType.RTMP;
 				}
 				else
 				{
 					_mediaProxy.vo.deliveryType = _flashvars.streamerType;
 					_mediaProxy.vo.isLive = false;
+					_mediaProxy.vo.canSeek = true;
 					if (_flashvars.mediaProtocol)
 					{
 						_mediaProxy.vo.mediaProtocol =  _flashvars.mediaProtocol;
@@ -453,7 +455,7 @@ package com.kaltura.kdpfl.controller.media
 
 					if (_mediaProxy.vo.entryExtraData.mediaProtocol && _mediaProxy.vo.entryExtraData.mediaProtocol != "")
 					{
-						_flashvars.mediaProtocol = _mediaProxy.vo.entryExtraData.mediaProtocol;
+						_flashvars.mediaProtocol =  _mediaProxy.vo.entryExtraData.mediaProtocol;
 					}
 				}
 				

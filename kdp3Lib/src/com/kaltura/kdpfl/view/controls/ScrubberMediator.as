@@ -10,6 +10,7 @@
 	
 import com.kaltura.kdpfl.model.ConfigProxy;
 import com.kaltura.kdpfl.model.type.NotificationType;
+import com.kaltura.vo.KalturaLiveStreamEntry;
 import com.kaltura.vo.KalturaPlayableEntry;
 
 import flash.events.Event;
@@ -156,7 +157,8 @@ public class ScrubberMediator extends Mediator
 				break;
 			case NotificationType.ENTRY_READY:
 				var entry:object = note.getBody();
-				scrubber.duration = entry is KalturaPlayableEntry ? (entry as KalturaPlayableEntry).duration : 0;  
+				if (!entry is KalturaLiveStreamEntry)
+					scrubber.duration = entry is KalturaPlayableEntry ? (entry as KalturaPlayableEntry).duration : 0;  
 				break;
 			
 			case NotificationType.POST_SEQUENCE_COMPLETE:

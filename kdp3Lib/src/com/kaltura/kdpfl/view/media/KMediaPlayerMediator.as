@@ -15,6 +15,7 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.kdpfl.view.controls.BufferAnimation;
 	import com.kaltura.kdpfl.view.controls.BufferAnimationMediator;
 	import com.kaltura.kdpfl.view.controls.KTrace;
+	import com.kaltura.types.KalturaDVRStatus;
 	import com.kaltura.types.KalturaMediaType;
 	import com.kaltura.vo.KalturaFlavorAsset;
 	import com.kaltura.vo.KalturaLiveStreamEntry;
@@ -57,6 +58,9 @@ package com.kaltura.kdpfl.view.media
 		
 		private const PLAYING:String = "playing";
 		private const PAUSED:String = "paused";
+		
+		private static const DVR_DEFAULT_FRAGMENT_SIZE:Number = 4;
+		private static const DVR_DEFAULT_SEGMENT_SIZE:Number = 16;
 		
 		private var _bytesLoaded:Number;//keeps loaded bytes for intelligent seeking
 		private var _bytesTotal:Number;//keeps total bytes for intelligent seeking
@@ -142,6 +146,7 @@ package com.kaltura.kdpfl.view.media
 		 * in case of mp4 intelliseek we will have to add this value to playhead position 
 		 */		
 		private var _offsetAddition:Number = 0;
+		
 		
 		/**
 		 * Constructor 
@@ -281,7 +286,6 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.KDP_READY,
 				LiveStreamCommand.LIVE_STREAM_READY,
 				NotificationType.LIVE_ENTRY,
-				NotificationType.PLAYER_SEEK_START,
 				NotificationType.PLAYER_PLAYED,
 				NotificationType.OPEN_FULL_SCREEN,
 				NotificationType.HAS_OPENED_FULL_SCREEN,
@@ -289,7 +293,8 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.CHANGE_PREFERRED_BITRATE,
 				NotificationType.VIDEO_METADATA_RECEIVED,
 				NotificationType.PLAYER_PLAY_END,
-				NotificationType.MEDIA_ELEMENT_READY
+				NotificationType.MEDIA_ELEMENT_READY,
+				NotificationType.GO_LIVE
 			];
 		}
 		
@@ -320,6 +325,13 @@ package com.kaltura.kdpfl.view.media
 					else
 					{
 						kMediaPlayer.hideThumbnail();
+					}
+					
+					if (_mediaProxy.vo.entry is KalturaLiveStreamEntry && (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED)
+					{
+						_mediaProxy.vo.canSeek = true;
+						_duration = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
+					//	sendNotification( NotificationType.DURATION_CHANGE , {newValue:(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow});
 					}
 					break;
 				case NotificationType.SOURCE_READY: //when the source is ready for the media element
@@ -374,7 +386,6 @@ package com.kaltura.kdpfl.view.media
 				
 				case LiveStreamCommand.LIVE_STREAM_READY: 
 					//this means that this is a live stream and it is broadcasting now
-					cleanMedia();
 					_mediaProxy.vo.isOffline = false;
 					if (_flashvars.autoPlay=="true" ||  _mediaProxy.vo.singleAutoPlay) {
 						sendNotification(NotificationType.DO_PLAY);
@@ -456,6 +467,7 @@ package com.kaltura.kdpfl.view.media
 					break;
 				case NotificationType.DO_PAUSE: //when the player asked to pause
 					_prevState = PAUSED;
+					_mediaProxy.vo.singleAutoPlay = false;
 					if(player && player.media && player.media.hasTrait(MediaTraitType.PLAY) )
 					{
 						if (player.canPause)
@@ -464,7 +476,8 @@ package com.kaltura.kdpfl.view.media
 						}
 						if (_mediaProxy.vo.isLive)
 						{
-							player.stop();
+							if (!player.canPause)
+								player.stop();
 							//trigger liveStreamCommand to check for liveStream state again
 							sendNotification(NotificationType.LIVE_ENTRY, _mediaProxy.vo.resource); 
 						}
@@ -509,7 +522,10 @@ package com.kaltura.kdpfl.view.media
 					
 					if(_mediaProxy.vo.deliveryType!=StreamerType.HTTP || (_flashvars.ignoreStreamerTypeForSeek && _flashvars.ignoreStreamerTypeForSeek == "true"))
 					{			
-						if(player.canSeek) player.seek( seekTo  );
+						if(player.canSeek) 
+						{
+							player.seek( seekTo  );
+						}
 						return;	
 					}
 					
@@ -571,7 +587,7 @@ package com.kaltura.kdpfl.view.media
 				
 				case NotificationType.OPEN_FULL_SCREEN:
 					
-					if (_mediaProxy.vo.entry.mediaType == KalturaMediaType.IMAGE)
+					if (!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.entry.mediaType == KalturaMediaType.IMAGE)
 					{
 						_mediaProxy.vo.entry.width=0;
 						_mediaProxy.vo.entry.height=0;
@@ -616,6 +632,16 @@ package com.kaltura.kdpfl.view.media
 						kMediaPlayer.showThumbnail();
 					}
 					_offsetAddition = 0;
+					break;
+				
+				case NotificationType.GO_LIVE:
+					if (_mediaProxy.vo.isLive && _mediaProxy.vo.canSeek)
+					{
+						if (_hasPlayed)
+							sendNotification(NotificationType.DO_SEEK, _duration);
+						else
+							sendNotification(NotificationType.DO_PLAY);
+					}
 					break;
 			}
 		}
@@ -1117,12 +1143,20 @@ package com.kaltura.kdpfl.view.media
 		 * 
 		 */		
 		private function onPlayHeadChange( event : TimeEvent ) : void
-		{
-			
+		{	
 			if (player.temporal && !isNaN(event.time))
 			{
+				if (!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.isLive && _mediaProxy.vo.canSeek)
+				{
+					if (event.time < DVR_DEFAULT_FRAGMENT_SIZE) // If we're too close to the left-most side of the rolling window
+					{
+						// Seek to a safe area
+						player.seek(DVR_DEFAULT_SEGMENT_SIZE);
+					}
+				}
 				var time:Number = _sequenceProxy.vo.isInSequence ? event.time : event.time + _offsetAddition;
 				sendNotification( NotificationType.PLAYER_UPDATE_PLAYHEAD , time );
+				
 				
 				if (_sequenceProxy.vo.isInSequence)
 				{
@@ -1244,20 +1278,30 @@ package com.kaltura.kdpfl.view.media
 				else
 				{
 					sendNotification( NotificationType.DURATION_CHANGE , {newValue:_entryDuration});
-					if (isMP4Stream() && !isNaN(event.time) && event.time && event.time!=_entryDuration)
+					if (isMP4Stream())
 					{
-						_offsetAddition = _entryDuration - event.time ;
-						sendNotification(NotificationType.RE_REGISTER_CUE_POINTS, {offsetAddition: _offsetAddition});
+						if (!isNaN(event.time) && event.time && event.time!=_entryDuration)
+						{
+							_offsetAddition = _entryDuration - event.time ;
+							sendNotification(NotificationType.RE_REGISTER_CUE_POINTS, {offsetAddition: _offsetAddition});
+						}
+						else //mp4 intelli seek is probably not supported by cdn
+						{
+							_isIntelliSeeking = false;
+						}
 					}
+					
 				}
 			}
 			else if(event.time)
 			{
 				_duration=event.time
+				KTrace.getInstance().log("-----------duration:", _duration);
 				sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
 				//save entryDuration in case we will go into intelliseek and need to use it.
 				if (!_sequenceProxy.vo.isInSequence)
 					_entryDuration = _duration;
+
 			}
 			
 			

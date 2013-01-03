@@ -464,7 +464,10 @@ package com.kaltura.kdpfl.model.type
 		  * Notification that will trigger cuePointsMediator to re-register the cuepoints (relevant on intelli-seek, when the media length has changed)
 		  */		 
 		 static public const RE_REGISTER_CUE_POINTS : String = "reRegisterCuePoint";
-		 
+		 /**
+		  * will be used when playing live entry with DVR window - player will seek to the current live point 
+		  */		 
+		 static public const GO_LIVE:String = "goLive";
 		 
 
 	}
