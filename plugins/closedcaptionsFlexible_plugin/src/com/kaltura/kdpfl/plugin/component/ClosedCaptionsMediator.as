@@ -14,9 +14,9 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.vo.KalturaCaptionAssetListResponse;
 	import com.kaltura.vo.KalturaMediaEntry;
 	import com.type.ClosedCaptionsNotifications;
-
+	
 	import fl.data.DataProvider;
-
+	
 	import flash.display.DisplayObject;
 	import flash.events.AsyncErrorEvent;
 	import flash.events.ErrorEvent;
@@ -24,7 +24,7 @@ package com.kaltura.kdpfl.plugin.component
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.SharedObject;
-
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 
@@ -83,7 +83,8 @@ package com.kaltura.kdpfl.plugin.component
 				"playerPlayEnd",
 				NotificationType.HAS_OPENED_FULL_SCREEN,
 				NotificationType.HAS_CLOSED_FULL_SCREEN,
-				NotificationType.CHANGE_MEDIA
+				NotificationType.CHANGE_MEDIA,
+				ClosedCaptionsNotifications.RELOAD_CAPTIONS
 			];
 		}
 
@@ -111,6 +112,7 @@ package com.kaltura.kdpfl.plugin.component
 					(viewComponent as ClosedCaptions).resetAll();
 					break;
 				case "entryReady":
+				case ClosedCaptionsNotifications.RELOAD_CAPTIONS:
 					loadEntryCCData ();
 					break;
 				case "mediaLoaded":
