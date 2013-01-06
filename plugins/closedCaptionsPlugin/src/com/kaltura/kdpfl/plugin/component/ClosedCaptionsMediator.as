@@ -64,7 +64,8 @@ package com.kaltura.kdpfl.plugin.component
 						"newClosedCaptionsData",
 						"playerPlayEnd",
 						NotificationType.HAS_OPENED_FULL_SCREEN,
-						NotificationType.HAS_CLOSED_FULL_SCREEN
+						NotificationType.HAS_CLOSED_FULL_SCREEN,
+						ClosedCaptionsNotifications.RELOAD_CAPTIONS
 					]; 
 		}
 		
@@ -86,6 +87,7 @@ package com.kaltura.kdpfl.plugin.component
 			switch (eventName)
 			{
 				case "entryReady":
+				case ClosedCaptionsNotifications.RELOAD_CAPTIONS:
 					(viewComponent as ClosedCaptions).resetAll();
 					loadEntryCCData ();
 					break;

@@ -33,5 +33,10 @@ package com.type
 		 */
 		public static const CC_DATA_LOAD_FAILED : String = "ccDataLoadFailed";
 		
+		/**
+		 * reload caption assets 
+		 */		
+		public static const RELOAD_CAPTIONS	: String = "reloadCaptions";
+		
 	}
 }
