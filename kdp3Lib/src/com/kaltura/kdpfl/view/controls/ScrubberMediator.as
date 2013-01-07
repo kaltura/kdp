@@ -78,7 +78,7 @@ public class ScrubberMediator extends Mediator
 	}
 	private function onSeekStart( evt:Event ):void
 	{
-		sendNotification( NotificationType.PLAYER_SEEK_START );
+		//sendNotification( NotificationType.PLAYER_SEEK_START );
 		_prevState = _state;
 		_state = STATE_SEEKING;
 		//sendNotification( NotificationType.DO_PAUSE );
@@ -101,7 +101,7 @@ public class ScrubberMediator extends Mediator
  	*/
 	private function onSeekEnd( evt:Event ):void
 	{
-		sendNotification( NotificationType.PLAYER_SEEK_END );
+		//sendNotification( NotificationType.PLAYER_SEEK_END );
 		/*if( _prevState == STATE_PLAYING )
 		{
 			//trace( "DO_PLAY" );

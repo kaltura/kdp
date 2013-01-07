@@ -147,6 +147,10 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private var _offsetAddition:Number = 0;
 		
+		/**
+		 * flag that indicates if we need to send seekEnd event
+		 */
+		private var _isAfterSeek:Boolean = false;
 		
 		/**
 		 * Constructor 
@@ -333,13 +337,14 @@ package com.kaltura.kdpfl.view.media
 						_duration = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
 					//	sendNotification( NotificationType.DURATION_CHANGE , {newValue:(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow});
 					}
+					
 					break;
 				case NotificationType.SOURCE_READY: //when the source is ready for the media element
-			
+					
 					cleanMedia(); //clean the media element if exist
-					
+						
 					setSource(); //set the source to the player
-					
+				
 					break;
 				case NotificationType.CHANGE_MEDIA_PROCESS_STARTED:
 					//when we change the media we can reset the loadMediaOnPlay flag
@@ -382,6 +387,7 @@ package com.kaltura.kdpfl.view.media
 						sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
 						onDoPlay();
 					}
+					
 					break;
 				
 				case LiveStreamCommand.LIVE_STREAM_READY: 
@@ -520,11 +526,12 @@ package com.kaltura.kdpfl.view.media
 						return;
 					}
 					
-					if(_mediaProxy.vo.deliveryType!=StreamerType.HTTP || (_flashvars.ignoreStreamerTypeForSeek && _flashvars.ignoreStreamerTypeForSeek == "true"))
+					if(_mediaProxy.vo.deliveryType!=StreamerType.HTTP || 
+						(_flashvars.ignoreStreamerTypeForSeek && _flashvars.ignoreStreamerTypeForSeek == "true"))
 					{			
 						if(player.canSeek) 
 						{
-							player.seek( seekTo  );
+							doSeek(seekTo);
 						}
 						return;	
 					}
@@ -533,7 +540,9 @@ package com.kaltura.kdpfl.view.media
 						(seekTo <= _loadedTime  && !_isIntelliSeeking))
 					{
 						if(player.canSeek) 
-							player.seek(seekTo); 
+						{
+							doSeek(seekTo);
+						}
 						
 					}
 					else //do intlliseek
@@ -646,6 +655,13 @@ package com.kaltura.kdpfl.view.media
 			}
 		}
 		
+		private function doSeek(seekTo:Number):void
+		{
+			sendNotification(NotificationType.PLAYER_SEEK_START);
+			player.seek(seekTo);
+			sendNotification(NotificationType.PLAYER_SEEK_END);
+		}
+		
 		/**
 		 * This function should be used to update the preferred bitrate. In order to affect the starting index of the video it should be called before the first play of the video.
 		 * @param val
@@ -684,11 +700,13 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private function doIntelliSeek(value:Number):void
 		{	
+			sendNotification(NotificationType.PLAYER_SEEK_START);
+			_isAfterSeek = true;
 			_isIntelliSeeking = true;
 			_offset = value;
 			_mediaProxy.prepareMediaElement( _offset );
 			_mediaProxy.loadWithMediaReady();
-			sendNotification( NotificationType.INTELLI_SEEK,{intelliseekTo: _offset} );
+			 sendNotification( NotificationType.INTELLI_SEEK,{intelliseekTo: _offset} );
 		}
 		
 		
@@ -910,6 +928,12 @@ package com.kaltura.kdpfl.view.media
 					}
 					
 					_mediaProxy.loadComplete();
+					if(_isAfterSeek && !_isPrePlaySeekInProgress)
+					{
+						_isAfterSeek = false;
+						sendNotification(NotificationType.PLAYER_SEEK_END);
+						
+					}
 
 					break;
 				case MediaPlayerState.PAUSED:
@@ -917,6 +941,7 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case MediaPlayerState.PLAYING: 
+					
 					if(!_hasPlayed && !_sequenceProxy.vo.isInSequence){
 						_hasPlayed = true;
 						if (_flashvars.maxAllowedRegularBitrate && player.isDynamicStream) player.maxAllowedDynamicStreamIndex = kMediaPlayer.findStreamByBitrate( _flashvars.maxAllowedRegularBitrate );
@@ -1008,6 +1033,12 @@ package com.kaltura.kdpfl.view.media
 					if (_reloadingLiveStream)
 						_reloadingLiveStream = false;
 					
+					if(_isAfterSeek)
+					{
+						_isAfterSeek = false;
+						sendNotification(NotificationType.PLAYER_SEEK_END);
+						
+					}
 					break;
 				case MediaPlayerState.PLAYBACK_ERROR:
 					if (_flashvars.debugMode == "true")
@@ -1280,22 +1311,17 @@ package com.kaltura.kdpfl.view.media
 					sendNotification( NotificationType.DURATION_CHANGE , {newValue:_entryDuration});
 					if (isMP4Stream())
 					{
-						if (!isNaN(event.time) && event.time && event.time!=_entryDuration)
+						if (!isNaN(event.time) && event.time )
 						{
 							_offsetAddition = _entryDuration - event.time ;
 							sendNotification(NotificationType.RE_REGISTER_CUE_POINTS, {offsetAddition: _offsetAddition});
 						}
-						else //mp4 intelli seek is probably not supported by cdn
-						{
-							_isIntelliSeeking = false;
-						}
 					}
-					
 				}
 			}
 			else if(event.time)
 			{
-				_duration=event.time
+				_duration=event.time;
 				KTrace.getInstance().log("-----------duration:", _duration);
 				sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
 				//save entryDuration in case we will go into intelliseek and need to use it.
