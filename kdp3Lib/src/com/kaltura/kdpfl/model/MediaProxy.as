@@ -1,6 +1,5 @@
 package com.kaltura.kdpfl.model
 {
-	import com.akamai.osmf.utils.AkamaiStrings;
 	import com.kaltura.KalturaClient;
 	import com.kaltura.kdpfl.model.strings.MessageStrings;
 	import com.kaltura.kdpfl.model.type.EnableType;
@@ -31,6 +30,10 @@ package com.kaltura.kdpfl.model
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
+	import flashx.textLayout.formats.Float;
+	
+	import mx.utils.ObjectUtil;
+	
 	import org.osmf.elements.F4MElement;
 	import org.osmf.elements.F4MLoader;
 	import org.osmf.elements.ImageElement;
@@ -57,14 +60,6 @@ package com.kaltura.kdpfl.model
 	{
 		public static const NAME:String = "mediaProxy";
 		
-		/**
-		 * default buffer length to be used when playing with HD Akamai plugin 
-		 */		
-		public static const DEFAULT_HD_BUFFER_LENGTH:int = 20;	
-		/**
-		 * default bandwith check time in seconds
-		 */		
-		public static const DEFAULT_HD_BANDWIDTH_CHECK_TIME:int = 2;	
 		/**
 		 * represents the starting bitrate index, if exists
 		 */		
@@ -264,38 +259,7 @@ package com.kaltura.kdpfl.model
 			if (vo.deliveryType == StreamerType.HDNETWORK || vo.deliveryType == StreamerType.HDNETWORK_HDS || vo.isHds)
 			{
 				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
-				//add akamai metadata, if needed
-				if (vo.deliveryType == StreamerType.HDNETWORK || vo.deliveryType == StreamerType.HDNETWORK_HDS)
-				{
-					//set buffer length
-					var bufferLength:int = DEFAULT_HD_BUFFER_LENGTH;
-					if (_flashvars.hdnetworkBufferLength && _flashvars.hdnetworkBufferLength!="")
-					{
-						bufferLength = _flashvars.hdnetworkBufferLength;
-					}
-					addAkamaiMetadata (resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH, bufferLength);
-					
-					if (_flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
-					{
-						var bwEstimationObject:Object = new Object();
-						bwEstimationObject.enabled = true;
-						if (_flashvars.hdnetworkBRDetectionTime && _flashvars.hdnetworkBRDetectionTime!="")
-						{
-							bwEstimationObject.bandwidthEstimationPeriodInSeconds = _flashvars.hdnetworkBRDetectionTime; 		
-						}
-						else
-						{
-							bwEstimationObject.bandwidthEstimationPeriodInSeconds = DEFAULT_HD_BANDWIDTH_CHECK_TIME;
-						}
-						
-						addAkamaiMetadata(resource as URLResource, AkamaiStrings.AKAMAI_METADATA_KEY_SET_BANDWIDTH_ESTIMATION_ENABLED, bwEstimationObject);
-					}
-					else if (preferedIndex!=-1) 
-					{
-						setHdNetworkPreferredBitrate(vo.preferedFlavorBR, resource as URLResource);
-					}
-				}
-		
+				addMetadataToResource(resource);
 				var element:MediaElement = vo.mediaFactory.createMediaElement(resource);
 				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement( vo.initialBufferTime, vo.expandedBufferTime, element);
 				vo.media = adaptedHDElement;	
@@ -326,6 +290,9 @@ package com.kaltura.kdpfl.model
 		
 		/**
 		 * parses metadata from flashvars and add it to the given resource 
+		 * relevant flashvars: metadataNamespace[i] = String, the namespace of the metadata
+    	 * metadataValues[i] = String, The metadata to set. The syntax of this flashvar is comma seperated key=value strings. each key=value string represents a new metadata value.
+    	 * for example: first=one,second=two,third=three
 		 * 
 		 */		
 		private function addMetadataToResource(resource:MediaResourceBase):void
@@ -346,12 +313,68 @@ package com.kaltura.kdpfl.model
 					var index:int = cur.indexOf("=");
 					if (index!=-1)
 					{
-						metadata.addValue(cur.substr(0, index), cur.substring(index+1));
+						metadata.addValue(cur.substr(0, index), cur.substring(index+1) );
 					}
 				}
 				resource.addMetadataValue(_flashvars["metadataNamespace" + i], metadata);
 				i++;
 			}
+			
+			//in case metadata values are represented as objects, they will be handled in this function
+			addObjectMetadataToResource(resource);
+		}
+		
+		/**
+		 * parses resources metadata from flashvars and add the metadata on the given resource. Support JSON rperesentations for the metadata values 
+		 * relevant flashvars: objMetadataNamespace[i] = String, the namespace of the metadata
+    	 * objMetadataValues[i] = String, The metadata to set. The syntax of this flashvar is "&" seperated key=value strings. each key=value string represents a new metadata value.
+    	 * for example: first=one&second=two&third=three
+		 * metadata value can be a json object, for example: first={one:1,two:2}&second=bla
+		 * 
+		 */		
+		private function addObjectMetadataToResource(resource:MediaResourceBase):void
+		{
+			var i:int = 0;
+			while (_flashvars.hasOwnProperty("objMetadataNamespace" + i) && _flashvars.hasOwnProperty("objMetadataValues" + i))
+			{
+				var metadata:Metadata = resource.getMetadataValue(_flashvars["objMetadataNamespace" + i]) as Metadata;	
+				// if not created a new metadata object is created
+				if (metadata == null)
+				{
+					metadata = new Metadata();
+				}
+				var valsArray:Array = (_flashvars["objMetadataValues" + i] as String).split("&");
+				for (var k:int = 0; k<valsArray.length; k++)
+				{
+					var cur:String = valsArray[k];
+					var index:int = cur.indexOf("=");
+					if (index!=-1)
+					{
+						var val:String = cur.substring(index+1);
+						var valAsObj:Object = val;
+						if (val.charAt(0)=="{" && val.charAt(val.length-1)=="}")
+						{
+							//array of all object properties
+							var propsArr:Array = val.substr(1, val.length - 2).split(",");
+							valAsObj = new Object();
+							for (var j:int=0; j<propsArr.length; j++)
+							{
+								var property:String = propsArr[j];
+								var ind:int = property.indexOf(":");
+								var objKey:String = property.substr(0, ind);
+								var objVal:String = property.substring(ind + 1, val.length);	
+								var num:Number = parseFloat(objVal);
+								//convert value to boolean or number or string
+								valAsObj[objKey] = objVal=="true"? true: objVal=="false"? false: isNaN(num) ? objVal: num;
+							}
+						}
+						metadata.addValue(cur.substr(0, index), valAsObj );
+					}
+				}
+				resource.addMetadataValue(_flashvars["objMetadataNamespace" + i], metadata);
+				i++;
+			}
+			
 		}
 		
 		/**
@@ -720,21 +743,6 @@ package com.kaltura.kdpfl.model
 			return foundStreamIndex;
 		}
 		
-		/**
-		 * set starting index for hdnetwork streamerType 
-		 * @param bitrate
-		 * @param resource
-		 * 
-		 */		
-		public function setHdNetworkPreferredBitrate(bitrate:int, resource:URLResource):void {
-			var preferedIndex:int = getFlavorByBitrate(bitrate);
-			
-			if (preferedIndex!=-1 && resource) 
-			{
-				addAkamaiMetadata(resource, AkamaiStrings.AKAMAI_METDATA_KEY_MBR_STARTING_INDEX, preferedIndex);
-				notifyStartingIndexChanged(preferedIndex);
-			}	
-		}
 		
 		/**
 		 * Set the starting index and notify KFlavorComboBox on the new index 
@@ -746,26 +754,6 @@ package com.kaltura.kdpfl.model
 			startingIndex = index;
 			//to display correct value in KFlavorComboBox
 			sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : index, newBitrate: (vo.kalturaMediaFlavorArray[index] as KalturaFlavorAsset).bitrate}  );	
-		}
-		
-		/**
-		 * This function will add akamai metadata to the given resource with the given key and value 
-		 * @param resource
-		 * @param key
-		 * @param value
-		 * 
-		 */		
-		private function addAkamaiMetadata(resource:URLResource, key:String, value:Object) :  void 
-		{
-			var metadata:Metadata = resource.getMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE) as Metadata;	
-			// if not created a new metadata object is created
-			if (metadata == null)
-			{
-				metadata = new Metadata();
-			}					
-			//Adding type and value to metadataobject
-			metadata.addValue(key, value);
-			resource.addMetadataValue(AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE, metadata);	
 		}
 		
 		

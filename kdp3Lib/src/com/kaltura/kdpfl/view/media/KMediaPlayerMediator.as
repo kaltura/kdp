@@ -59,9 +59,6 @@ package com.kaltura.kdpfl.view.media
 		private const PLAYING:String = "playing";
 		private const PAUSED:String = "paused";
 		
-		private static const DVR_DEFAULT_FRAGMENT_SIZE:Number = 4;
-		private static const DVR_DEFAULT_SEGMENT_SIZE:Number = 16;
-		
 		private var _bytesLoaded:Number;//keeps loaded bytes for intelligent seeking
 		private var _bytesTotal:Number;//keeps total bytes for intelligent seeking
 		private var _duration:Number;//keeps duration for intelligent seeking
@@ -998,11 +995,6 @@ package com.kaltura.kdpfl.view.media
 					}
 					
 					KTrace.getInstance().log("current index:",player.currentDynamicStreamIndex);
-					//workaround to display the bitrate that was automatically detected by akamai
-					if (isAkamaiHD() && _flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
-					{
-						_mediaProxy.notifyStartingIndexChanged(player.currentDynamicStreamIndex);
-					}
 					sendNotification( NotificationType.PLAYER_PLAYED );
 					
 					if (_pausedPending)
@@ -1177,14 +1169,6 @@ package com.kaltura.kdpfl.view.media
 		{	
 			if (player.temporal && !isNaN(event.time))
 			{
-				if (!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.isLive && _mediaProxy.vo.canSeek)
-				{
-					if (event.time < DVR_DEFAULT_FRAGMENT_SIZE) // If we're too close to the left-most side of the rolling window
-					{
-						// Seek to a safe area
-						player.seek(DVR_DEFAULT_SEGMENT_SIZE);
-					}
-				}
 				var time:Number = _sequenceProxy.vo.isInSequence ? event.time : event.time + _offsetAddition;
 				sendNotification( NotificationType.PLAYER_UPDATE_PLAYHEAD , time );
 				
@@ -1316,22 +1300,25 @@ package com.kaltura.kdpfl.view.media
 							_offsetAddition = _entryDuration - event.time ;
 							sendNotification(NotificationType.RE_REGISTER_CUE_POINTS, {offsetAddition: _offsetAddition});
 						}
+						//mp4 intelliseek is probably not supported by cdn, and we got the movie from the beginning
+						if (event.time == _duration) 
+						{
+							_isIntelliSeeking = false;
+						}
 					}
 				}
 			}
 			else if(event.time)
 			{
 				_duration=event.time;
-				KTrace.getInstance().log("-----------duration:", _duration);
 				sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
 				//save entryDuration in case we will go into intelliseek and need to use it.
 				if (!_sequenceProxy.vo.isInSequence)
 					_entryDuration = _duration;
 
-			}
-			
-			
+			}		
 		}
+		
 		/**
 		 * Dispatched when the position  of a trait that implements the ITemporal interface first matches its duration. 
 		 * @param event

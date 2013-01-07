@@ -235,6 +235,19 @@ Miscellaneous
     	The syntax of this flashvar is comma seperated key=value strings. each key=value string represents a new metadata value.
     	for example: first=one,second=two,third=three
     
+     objMetadataNamespace[i] = String
+    	This flashvar can be used to add metadata on the created resource, before the player created the media element. Has the same purpose as The matching metadata values for this namespace will be
+    	passed in a different flashvar : objMetadataValues[i] (the i number should match this flashvar i value). 
+    	Has the same purpose as metadataNamespace[i] flashvar, but also supports JSON objects as the metadata values.
+    
+     objMetadataValues[i] = String
+    	This flashvar can be used to add metadata on the created resource, before the player created the media element. The metadata namespace
+    	is passed on objMetadataNamespace[i].
+    	The syntax of this flashvar is "&" seperated key=value strings. each key=value string represents a new metadata value. Supports also 
+    	JSON objects as metadata values.
+    	for example: first=one&second=two&third={three:yes,four:no}
+    
+    
     enableStageVideo = [true / false]
     	when set to true, OSMF stage video will be enabled (false by default, relevant from KDP v3.6 and up)
     	

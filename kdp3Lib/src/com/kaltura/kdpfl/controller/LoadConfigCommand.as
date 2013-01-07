@@ -576,7 +576,7 @@ package com.kaltura.kdpfl.controller
 			// if xml...doesnt include plugin with akamaiHD id
 			if (xml..Plugin.(attribute("id") == "akamaiHD").length() <= 0) {
 				// add the following
-				var akamaiPluginTag:XML = <Plugin id="akamaiHD" path="genericOSMFPlugin.swf" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand" pluginURL="AkamaiAdvancedStreamingPlugin.swf" />;
+				var akamaiPluginTag:XML = <Plugin id="akamaiHD" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand" />;
 				//xml.layout..VBox.(attribute("id") == "player")[0].prependChild(akamaiPluginTag);
 				
 				var playerXMLList : XMLList = xml.layout..VBox.(attribute("id") == "player");

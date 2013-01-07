@@ -9,7 +9,6 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
-	import com.kaltura.types.KalturaPlaybackProtocol;
 	
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
