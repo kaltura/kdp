@@ -157,7 +157,7 @@ public class ScrubberMediator extends Mediator
 				break;
 			case NotificationType.ENTRY_READY:
 				var entry:object = note.getBody();
-				if (!entry is KalturaLiveStreamEntry)
+				if (!(entry is KalturaLiveStreamEntry))
 					scrubber.duration = entry is KalturaPlayableEntry ? (entry as KalturaPlayableEntry).duration : 0;  
 				break;
 			
