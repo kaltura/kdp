@@ -19,6 +19,7 @@ package com.kaltura.kdpfl.plugin
 	{
 		public static const NAME:String = "akamaiMediaAnalyticsMediator";
 		private var _mediaProxy:MediaProxy;
+	//	private var _hadBWCheck:Boolean = false;
 		
 		public function akamaiMediaAnalyticsMediator(viewComponent:Object=null)
 		{
@@ -33,7 +34,7 @@ package com.kaltura.kdpfl.plugin
 		
 		override public function listNotificationInterests():Array
 		{
-			return [NotificationType.MEDIA_READY, NotificationType.MEDIA_ELEMENT_READY];
+			return [NotificationType.MEDIA_READY, NotificationType.MEDIA_ELEMENT_READY, NotificationType.CHANGE_PREFERRED_BITRATE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
@@ -43,19 +44,22 @@ package com.kaltura.kdpfl.plugin
 				case NotificationType.MEDIA_READY:
 					//populate analytics metadata
 					var configProxy:ConfigProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
-					var entry:KalturaBaseEntry = _mediaProxy.vo.entry;
+					var entry:KalturaBaseEntry = _mediaProxy.vo.entry;			
 					
-					AnalyticsPluginLoader.setData("title", entry.name);
-					AnalyticsPluginLoader.setData("entryId", entry.id);
-					AnalyticsPluginLoader.setData("category", entry.categories);
 					AnalyticsPluginLoader.setData("publisherId", configProxy.vo.flashvars.partnerId);
+					AnalyticsPluginLoader.setData("playerVersion", facade["kdpVersion"]);
+					AnalyticsPluginLoader.setData("playerId", configProxy.vo.kuiConf.id);
+					AnalyticsPluginLoader.setData("device", Capabilities.os );
 					
-					//find content type
+					
 					if (entry is KalturaMediaEntry)
 					{
-						var mediaEntry:KalturaMediaEntry = entry as KalturaMediaEntry;
+						AnalyticsPluginLoader.setData("title", entry.id);
 						
+						var mediaEntry:KalturaMediaEntry = entry as KalturaMediaEntry;
 						AnalyticsPluginLoader.setData("contentLength", mediaEntry.msDuration);
+						
+						//find content type
 						var contentType:String;
 						switch (mediaEntry.mediaType)
 						{
@@ -71,11 +75,8 @@ package com.kaltura.kdpfl.plugin
 							default:
 								contentType = "live";
 						}
-						AnalyticsPluginLoader.setData("contentType", contentType);
+						AnalyticsPluginLoader.setData("category", contentType);
 					}
-					
-					AnalyticsPluginLoader.setData("device", Capabilities.os );
-					AnalyticsPluginLoader.setData("playerId", configProxy.vo.flashvars.uiConfId);
 				
 					break;
 				
@@ -102,6 +103,11 @@ package com.kaltura.kdpfl.plugin
 					if (flavorParamsId)
 						AnalyticsPluginLoader.setData("flavorId", flavorParamsId);
 					
+					break;
+				
+				case NotificationType.CHANGE_PREFERRED_BITRATE:
+					//TODO: add indication we performed BW check
+					//_hadBWCheck = true;
 					break;
 			}
 		}

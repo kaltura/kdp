@@ -1,8 +1,9 @@
 package
 {
-	import com.akamai.playeranalytics.AnalyticsPluginLoader;
 	import com.akamai.playeranalytics.osmf.OSMFCSMALoaderInfo;
+	import com.kaltura.KalturaClient;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.KPluginEvent;
 	import com.kaltura.kdpfl.plugin.akamaiMediaAnalyticsMediator;
@@ -30,6 +31,8 @@ package
 		
 		private var _swfPath:String;
 		private var _configPath:String;
+		public var securedConfigPath:String;
+		public var securedSwfPath:String;
 		private static const forceReference:OSMFCSMALoaderInfo = null;
 		
 		public function akamaiMediaAnalyticsPluginCode()
@@ -65,9 +68,11 @@ package
 			//Getting Static reference to Plugin.
 			var pluginInfoRef:Class = getDefinitionByName("com.akamai.playeranalytics.osmf.OSMFCSMALoaderInfo") as Class;
 			var pluginResource:MediaResourceBase = new PluginInfoResource(new pluginInfoRef);
+			var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
+			var secured:Boolean = kc.protocol == "https://";
 			//Setting CSMA Plugin & Configuration data
-			pluginResource.addMetadataValue("csmaPluginPath",_swfPath);
-			pluginResource.addMetadataValue("csmaConfigPath",_configPath);
+			pluginResource.addMetadataValue("csmaPluginPath", secured && securedSwfPath ? securedSwfPath : _swfPath);
+			pluginResource.addMetadataValue("csmaConfigPath",secured && securedConfigPath ? securedConfigPath : _configPath);
 	
 			var mediaFactory:MediaFactory = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.mediaFactory;
 			mediaFactory.addEventListener(MediaFactoryEvent.PLUGIN_LOAD, onOSMFPluginLoaded);
