@@ -6,6 +6,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.types.KalturaStatsEventType;
 	import com.kaltura.vo.KalturaBaseEntry;
 	import com.kaltura.vo.KalturaStatsEvent;
@@ -113,7 +114,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 		private function getBasicStatsEntry(kc:Object) : com.kaltura.vo.KalturaStatsEvent
 		{
 			var config: Object =  facade.retrieveProxy("configProxy");
-			var mediaPlayer : Object = facade.retrieveMediator("kMediaPlayerMediator");
+			var mediaPlayer : KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 			var kse : com.kaltura.vo.KalturaStatsEvent = new com.kaltura.vo.KalturaStatsEvent();
 			kse.partnerId = config["vo"]["flashvars"].partnerId;
 			kse.widgetId = config["vo"]["flashvars"].id;
@@ -124,8 +125,8 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
             kse.eventTimestamp = dt.time + dt.timezoneOffset-dt.timezoneOffset*60000; // milisec UTC + users timezone offset
             if(mediaPlayer)
             {
-		        kse.duration = mediaPlayer["player"].duration;
-		        kse.currentPoint = Number(mediaPlayer["player"].currentTime) * 1000;
+		        kse.duration = mediaPlayer.player.duration;
+		        kse.currentPoint = mediaPlayer.getCurrentTime() * 1000;
             }
 			kse.sessionId =kc["ks"];            
 			kse.referrer = config["vo"].flashvars.referer;
