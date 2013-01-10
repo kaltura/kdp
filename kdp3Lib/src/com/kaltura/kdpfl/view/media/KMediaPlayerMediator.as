@@ -487,7 +487,7 @@ package com.kaltura.kdpfl.view.media
 					}
 					break;
 				case NotificationType.DO_SEEK: //when the player asked to seek
-					if ((player.state == MediaPlayerState.PLAYING || player.state == MediaPlayerState.BUFFERING) && player.currentTime < _duration)
+					if ((player.state == MediaPlayerState.PLAYING || player.state == MediaPlayerState.BUFFERING) && getCurrentTime() < _duration)
 					{
 						_mediaProxy.vo.singleAutoPlay = true;
 						_prevState = PLAYING;
@@ -776,7 +776,7 @@ package com.kaltura.kdpfl.view.media
 					return;
 				} 
 				
-				if(!player.currentTime && _hasPlayed && !_isIntelliSeeking){
+				if(!getCurrentTime() && _hasPlayed && !_isIntelliSeeking){
 					sendNotification(NotificationType.DO_REPLAY);
 					//sendNotification(NotificationType.DO_SEEK,0);
 					player.addEventListener(TimeEvent.COMPLETE, onTimeComplete);
@@ -1457,6 +1457,16 @@ package com.kaltura.kdpfl.view.media
 		private function isAkamaiHD():Boolean
 		{
 			return (_mediaProxy.vo.deliveryType == StreamerType.HDNETWORK || _mediaProxy.vo.deliveryType == StreamerType.HDNETWORK_HDS);
+		}
+		
+		/**
+		 *  
+		 * @return player.currentTime + offset in case mp4 intelliseek was performed 
+		 * 
+		 */		
+		public function getCurrentTime():Number
+		{
+			return _sequenceProxy.vo.isInSequence ? player.currentTime : player.currentTime + _offsetAddition;
 		}
 		
 	}

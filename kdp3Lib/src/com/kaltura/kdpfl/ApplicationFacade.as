@@ -32,7 +32,7 @@ package com.kaltura.kdpfl
 		/**
 		 * The current version of the KDP.
 		 */		
-		public var kdpVersion : String = "v3.6.16";
+		public var kdpVersion : String = "v3.6.17";
 
 		/**
 		 * save any mediator name that is registered to this array in order to delete at any time
@@ -147,7 +147,7 @@ package com.kaltura.kdpfl
 						kmediaPlayerMediator.player.state!=MediaPlayerState.UNINITIALIZED &&
 						kmediaPlayerMediator.player.state!=MediaPlayerState.PLAYBACK_ERROR)
 					{
-						curTime = kmediaPlayerMediator.player.currentTime;
+						curTime = kmediaPlayerMediator.getCurrentTime();
 					}
 					var date:Date = new Date();
 					
