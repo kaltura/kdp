@@ -114,6 +114,9 @@ package
 		public var cmsId:String;
 		public var skipAdAfterClickthrough:Boolean		= true;
 		private var _myWidth:Number;
+		
+		private var _playerMediator:KMediaPlayerMediator;
+		
 		public function set channels(val:String):void{
 			_channels			= val.split(","); 
 		}
@@ -154,6 +157,7 @@ package
 			_doubleclickMediator.preSequence = preSequence;
 			_doubleclickMediator.postSequence = postSequence;
 			facade.registerMediator(_doubleclickMediator);
+			_playerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 		}
 		
 		private function onVolumeChange(e:Event):void{
@@ -359,14 +363,14 @@ package
 		
 		private function onPlayHeadTimer(e:TimerEvent):void{
 			//trace(kMediaPlayer.player.currentTime);
-			_playHead["time"]		= kMediaPlayer.player.currentTime;
+			_playHead["time"]		= _playerMediator.getCurrentTime();
 		}
 
 		private function checkForAd(adsListEvent:AdsListLoadedEvent = null):void{
 			log("DOUBLECLICK#checkForAd-begin1");
 			//e.getAdsListManager();
 			//var adsListManager:AdsListManager;
-			_playHead					= {time:kMediaPlayer.player.currentTime};
+			_playHead					= {time:_playerMediator.getCurrentTime()};
 			_adsListManager 			= adsListEvent.getAdsListManager(_playHead);
 			
 			// This event is raised when either a mid-roll ad list is automatically
