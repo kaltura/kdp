@@ -208,7 +208,7 @@ package com.kaltura.kdpfl.plugin.component {
 			kse.eventTimestamp = dt.time + dt.timezoneOffset - dt.timezoneOffset * 60; // milisec UTC + users timezone offset
 			if (mediaPlayer) {
 				kse.duration = mediaPlayer["player"].duration;
-				kse.currentPoint = Number(mediaPlayer["player"].currentTime) * 1000;
+				kse.currentPoint = Number(mediaPlayer.getCurrentTime()) * 1000;
 			}
 			kse.sessionId = config["vo"]["sessionId"];
 			kse.seek = _hasSeeked;
