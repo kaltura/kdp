@@ -83,7 +83,7 @@ package com.kaltura.kdpfl.plugin.component
 		override public function handleNotification(note:INotification):void
 		{
 			trace('note.getName() =kg= '+note.getName());
-			var curTime:Number = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.currentTime;
+			var curTime:Number = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).getCurrentTime();
 			if (!_sequenceProxy.vo.isInSequence && this._cuePoints && this._cuePoints.length && this._seg > 1)
 			{
 				curTime -= this._cuePoints[this._seg-2];
