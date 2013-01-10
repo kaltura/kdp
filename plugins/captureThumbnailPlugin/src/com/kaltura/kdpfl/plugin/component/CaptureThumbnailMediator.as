@@ -10,6 +10,7 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.events.KalturaEvent;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.view.controls.AlertMediator;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.net.KalturaCall;
 	import com.kaltura.types.KalturaMediaType;
 	import com.kaltura.vo.KalturaEntryContextDataResult;
@@ -59,7 +60,8 @@ package com.kaltura.kdpfl.plugin.component
 					var servicesProxy : Object =  facade.retrieveProxy("servicesProxy");
 					var kc : KalturaClient = servicesProxy.kalturaClient;
 					var mediaProxy : Object = facade.retrieveProxy("mediaProxy");
-					var player : Object = facade.retrieveMediator( "kMediaPlayerMediator" )["player"];
+					var playerMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
+					var player : Object = playerMediator.player;
 					var playerView : DisplayObject;
 					if( mediaProxy.vo.entry is KalturaMediaEntry &&
 						((mediaProxy.vo.entry as KalturaMediaEntry).mediaType == KalturaMediaType.IMAGE || 
@@ -94,7 +96,7 @@ package com.kaltura.kdpfl.plugin.component
 						else
 						{
 							var thumbParams : KalturaThumbParams = new KalturaThumbParams();
-							thumbParams.videoOffset = player.currentTime;
+							thumbParams.videoOffset = playerMediator.getCurrentTime();
 							thumbParams.quality = 75;
 							updateThumbnailJpeg = new ThumbAssetGenerate(mediaProxy.vo.entry.id, thumbParams);
 						}
