@@ -334,8 +334,8 @@ package com.kaltura.kdpfl.plugin.component
 				case NotificationType.PLAYER_SEEK_END:
 					_inSeek = false;
 					var kmpm:KMediaPlayerMediator = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator);
-					trace("sent ",kmpm.player.currentTime);
-					s.Media.play(_mediaName,kmpm.player.currentTime);
+					trace("sent ",kmpm.getCurrentTime());
+					s.Media.play(_mediaName,kmpm.getCurrentTime());
 					//to see if we are passed 50% or not
 					return;
 				break;
@@ -389,7 +389,7 @@ package com.kaltura.kdpfl.plugin.component
 					s.Media.play(_mediaName,_playheadPosition);
 				break;*/
 				case NotificationType.PLAYER_PAUSED:
-					var currentTime : Number = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.currentTime;
+					var currentTime : Number = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).getCurrentTime();
 					s.Media.stop(_mediaName,currentTime);
 				break;
 				
