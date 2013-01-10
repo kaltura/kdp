@@ -74,7 +74,6 @@ package com.kaltura.kdpfl.view.media
 		private var _seekUrl:String;
 		private var _autoMute:Boolean=false;
 		private var _isIntelliSeeking :Boolean=false;
-		private var _currentTime:Number;
 		private var _lastCurrentTime:Number = 0;
 		private var _newdDuration:Number;
 		private var _kdp3Preloader : BufferAnimation;
@@ -1177,10 +1176,6 @@ package com.kaltura.kdpfl.view.media
 				{
 					var duration : Number = (player.media.getTrait(MediaTraitType.TIME) as TimeTrait).duration;
 					_sequenceProxy.vo.timeRemaining = (!isNaN(event.time) && Math.round(duration - event.time) > 0) ? Math.round(duration - event.time) : 0;	
-				}
-				if( !isNaN(event.time) )
-				{
-					_currentTime=event.time;
 				}
 				
 				if (_mediaProxy.vo.mediaPlayTo != -1)
