@@ -201,7 +201,7 @@ package com.kaltura.kdpfl.plugin.component
 				
 				failoverElementSeekTrait.addEventListener( SeekEvent.SEEKING_CHANGE , onFailoverSeekComplete );
 				
-				failoverElementSeekTrait.seek( mediaPlayer.currentTime );
+				failoverElementSeekTrait.seek((facade.retrieveMediator( KMediaPlayerMediator.NAME ) as KMediaPlayerMediator).getCurrentTime() );
 			}
 		}
 		
