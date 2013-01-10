@@ -14,6 +14,7 @@ package com.kaltura.kdpfl.view {
 	import com.kaltura.kdpfl.model.vo.MediaVO;
 	import com.kaltura.kdpfl.util.KAstraAdvancedLayoutUtil;
 	import com.kaltura.kdpfl.view.events.AnnotationEvent;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.kdpfl.view.strings.AnnotationStrings;
 	import com.kaltura.kdpfl.view.strings.Notifications;
 	import com.kaltura.vo.KalturaAnnotation;
@@ -36,6 +37,7 @@ package com.kaltura.kdpfl.view {
 
 		protected var _unsavedAnnotationSO:Array;
 		protected var _player:MediaPlayer;
+		protected var _playerMediaMediator:KMediaPlayerMediator;
 		protected var _timelineMetadata:TimelineMetadata;
 		protected var _entryId:String = "0";
 		protected var _sessionId:String = "";
@@ -112,7 +114,8 @@ package com.kaltura.kdpfl.view {
 					}
 					break;
 				case NotificationType.LAYOUT_READY:
-					_player = facade.retrieveMediator("kMediaPlayerMediator")["player"] as MediaPlayer;
+					_playerMediaMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
+					_player = _playerMediaMediator.player;
 					break;
 				case NotificationType.ENTRY_READY:
 
@@ -219,7 +222,7 @@ package com.kaltura.kdpfl.view {
 
 				case Notifications.SAVE_ANNOTATION:
 					sendNotification(NotificationType.DO_PAUSE);
-					currentTime = Math.floor(_player.currentTime);
+					currentTime = Math.floor(_playerMediaMediator.getCurrentTime());
 					var currTimeIndex:int = (viewComponent as annotationsPluginCode).annotationsBox.findIndexByInTime(currentTime);
 
 					if (currTimeIndex != -1 && (viewComponent as annotationsPluginCode).annotationsBox.findIndexByAnnotation((viewComponent as annotationsPluginCode).annotationEditForm.annotation) == -1) {
