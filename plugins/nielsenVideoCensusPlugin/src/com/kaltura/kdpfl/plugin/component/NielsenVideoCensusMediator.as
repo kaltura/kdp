@@ -2,6 +2,7 @@ package com.kaltura.kdpfl.plugin.component
 {
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.types.KalturaAdType;
 	import com.kaltura.vo.KalturaAdCuePoint;
 	import com.kaltura.vo.KalturaCuePoint;
@@ -114,7 +115,7 @@ package com.kaltura.kdpfl.plugin.component
 					_midSequenceComplete				= true;
 					_segmentsCounter++;
 					_prevStartTime						= _newStartTime;
-					_newStartTime						= Math.round(Number(facade["bindObject"]["video"].player.currentTime));
+					_newStartTime						= Math.round((facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).getCurrentTime());
 					break;
 				
 				case NotificationType.CUE_POINTS_RECEIVED:
