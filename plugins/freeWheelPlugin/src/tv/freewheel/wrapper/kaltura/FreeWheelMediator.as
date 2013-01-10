@@ -660,9 +660,9 @@ package tv.freewheel.wrapper.kaltura
 				return this.playhead;
 			}
 			else{
-				var mediaProxy:MediaProxy = this.facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
-				if (mediaProxy && mediaProxy.vo.media && mediaProxy.vo.media.getTrait(MediaTraitType.TIME)){
-					return (mediaProxy.vo.media.getTrait(MediaTraitType.TIME) as TimeTrait).currentTime;
+				var playerMediator:KMediaPlayerMediator = this.facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
+				if (playerMediator){
+					return playerMediator.getCurrentTime();
 				}
 				else{
 					return this.playhead;
