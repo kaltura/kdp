@@ -285,7 +285,6 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.KDP_EMPTY,
 				NotificationType.KDP_READY,
 				LiveStreamCommand.LIVE_STREAM_READY,
-				NotificationType.LIVE_ENTRY,
 				NotificationType.PLAYER_PLAYED,
 				NotificationType.OPEN_FULL_SCREEN,
 				NotificationType.HAS_OPENED_FULL_SCREEN,
@@ -389,7 +388,7 @@ package com.kaltura.kdpfl.view.media
 				case LiveStreamCommand.LIVE_STREAM_READY: 
 					//this means that this is a live stream and it is broadcasting now
 					_mediaProxy.vo.isOffline = false;
-					if (_flashvars.autoPlay=="true" ||  _mediaProxy.vo.singleAutoPlay) {
+					if ((_flashvars.autoPlay=="true" && !_hasPlayed) ||  _mediaProxy.vo.singleAutoPlay) {
 						sendNotification(NotificationType.DO_PLAY);
 						_mediaProxy.vo.singleAutoPlay = false;
 					}
