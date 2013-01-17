@@ -1,0 +1,14 @@
+# Compiled source #
+###################
+KDP3/bin-debug/*
+KDP3/build-release/*
+kdp3Lib/bin/*
+plugins/*/bin-debug/*
+plugins/*/bin/*
+vendors/*/bin/*
+*.prefs
+
+####################
+# Flash builder files #
+###################
+.metadata

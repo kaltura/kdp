@@ -1,4 +1,4 @@
-<layout id="widePlaylist" skinPath="http://localhost/KDP_Blue6.swf" isPlaylist="true">
+<layout id="widePlaylist" skinPath="http://www.kaltura.com/content/uiconf/kaltura/kmc/appstudio/kdp3/falcon/skin/v3.6.13/KDP_Blue.swf" isPlaylist="true">
   <HBox id="topLevel" width="100%" height="100%">
     <VBox id="player" width="100%" height="100%" styleName="black">
       <Plugin id="kalturaMix" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand"/>
