@@ -12,6 +12,7 @@ package {
 	import com.kaltura.errors.KalturaError;
 	import com.kaltura.events.KalturaEvent;
 	import com.kaltura.kdpfl.model.ConfigProxy;
+	import com.kaltura.kdpfl.model.PlayerStatusProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.plugin.IPlugin;
@@ -621,7 +622,13 @@ package {
 				
 				var yyyy:String = date.fullYear.toString();
 				return mm + seperator + dd + seperator + yyyy;
-			}		
+			}	
+			
+			//in case "kdpEmtpy" was sent before this plugin was initialized
+			if ((facade.retrieveProxy(PlayerStatusProxy.NAME) as PlayerStatusProxy).vo.kdpStatus)
+			{
+				loadFirstPlaylist();
+			}
 		}
 	
 		override public function toString():String {
