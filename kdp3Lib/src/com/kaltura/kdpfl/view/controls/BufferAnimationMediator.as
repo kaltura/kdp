@@ -5,7 +5,10 @@ package com.kaltura.kdpfl.view.controls
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	
+	import flash.events.TimerEvent;
+	import flash.geom.ColorTransform;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
 	
 	import org.osmf.media.MediaPlayerState;
@@ -50,14 +53,19 @@ package com.kaltura.kdpfl.view.controls
 			_currConfig = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
 		}
 		
+		private var d:Date;
+		
 		override public function handleNotification(note:INotification):void
 		{
 			var flashvars : Object = _currConfig.vo.flashvars;
 			var noteName : String = note.getName();
+/*			if(noteName != "playerUpdatePlayhead")
+				trace("^^^" , noteName);*/
 			switch(noteName)
 			{
 				case NotificationType.SKIN_LOADED:
 					//					spinner.swapLoadingWithAnimation( applicationLoadStyleName == '' ? SPINNER_CLASS : applicationLoadStyleName );
+					trace("^^^ 1 ");		
 					spinner.visible = false;
 					break;
 				case NotificationType.LAYOUT_READY:
@@ -72,6 +80,27 @@ package com.kaltura.kdpfl.view.controls
 					break;
 				case NotificationType.KDP_READY:
 				case NotificationType.READY_TO_PLAY:
+					trace("^^^ 0 ");
+					var spinnerColor:Number = -1;
+					if(flashvars.spinnerColorAttribute && flashvars[flashvars.spinnerColorAttribute] )
+					{
+						spinnerColor = flashvars[flashvars.spinnerColorAttribute]
+					}
+					if(flashvars.spinnerColor)
+					{
+						spinnerColor = flashvars.spinnerColor;
+					}
+					
+					if(spinnerColor> -1 )
+					{
+						var color_transform:ColorTransform= new ColorTransform;
+						color_transform.color= spinnerColor ;
+						spinner.transform.colorTransform=color_transform;
+						
+					}
+					if(flashvars.spinnerFadeTime)
+						_animationTime = Number(flashvars.spinnerFadeTime) * 1000;
+					
 					spinner.visible = false;
 					_reachedEnd = false;
 					if (flashvars.usePreloaderBufferAnimation && flashvars.usePreloaderBufferAnimation=='true' && flashvars.preloader)
@@ -88,10 +117,17 @@ package com.kaltura.kdpfl.view.controls
 					{
 						_notBuffering = false;
 						if(_reachedEnd)
+						{
 							spinner.visible = false;
-							//fix OSMF bug: sometimes "buffering" was sent after player paused, the spinner shouldn't be visible in this case
+							trace("^^^ 2 ");							
+						}
 						else if (!_prevStatePaused)
-							spinner.visible = true;
+						{
+							trace("^^^ 3 ");
+							//fix OSMF bug: sometimes "buffering" was sent after player paused, the spinner shouldn't be visible in this case
+							//spinner.visible = true; //TODO
+							fadeInSpinner();
+						}
 						
 					}
 					else
@@ -112,11 +148,13 @@ package com.kaltura.kdpfl.view.controls
 						}
 						if(note.getBody() == MediaPlayerState.PAUSED)
 						{
+							trace("^^^ 4 ");
 							spinner.visible = false;
 							_prevStatePaused = true;
 						}
 						if( note.getBody() == MediaPlayerState.READY)
 						{
+							trace("^^^ 5 ");
 							spinner.visible = false;
 						}
 					}
@@ -130,8 +168,9 @@ package com.kaltura.kdpfl.view.controls
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					//if _bufferChangeStart the next bufferChange event will make the spinner invisible
 					if(_notBuffering && !_bufferChangeStart)
-					{						
-						spinner.visible = false;
+					{	
+						trace("^^^ 6 ");
+						//spinner.visible = false; //TODO
 					}
 					//fix another OSMF bug: we are buffering even though movie plays
 					else if (spinner.visible)
@@ -140,7 +179,8 @@ package com.kaltura.kdpfl.view.controls
 						var curPos:Number = parseFloat(Number(note.getBody()).toFixed(2));
 						if ((curPos - _lastPlayheadPos)<=updateIntervalInSeconds)
 						{
-							spinner.visible = false;
+							trace("^^^ 7 ");
+							//spinner.visible = false; //TODO
 						}
 						_lastPlayheadPos = curPos;
 					}
@@ -148,14 +188,26 @@ package com.kaltura.kdpfl.view.controls
 					break;
 				case NotificationType.BUFFER_CHANGE:
 					_bufferChangeStart = note.getBody();
-					spinner.visible = _bufferChangeStart;
+					if(_bufferChangeStart)
+					{
+						//spinner.visible = _bufferChangeStart;
+						fadeInSpinner()
+					}
+					if(!_bufferChangeStart)
+					{
+						fadeOutSpinner();
+						//statistics
+						//trace("^^^ Date delta in seeks:", ((new Date().getTime() - d.getTime())/1000));
+					}
 					break;
 				case NotificationType.PLAYER_PLAY_END:
 					_reachedEnd=true;
+					trace("^^^ 8 ");
 					spinner.visible = false;
 					break;
 				case NotificationType.KDP_EMPTY:
 				case NotificationType.READY_TO_LOAD:
+					trace("^^^ 9 ");
 					spinner.visible = false;
 					_reachedEnd=false;
 					if (flashvars.usePreloaderBufferAnimation && flashvars.usePreloaderBufferAnimation=='true' && flashvars.preloader)
@@ -175,13 +227,20 @@ package com.kaltura.kdpfl.view.controls
 				//in case we are trying to connect to a live stream but it is not on air yet
 				case NotificationType.LIVE_ENTRY:
 					if (flashvars.hideSpinnerOnOffline=="true")
+					{
+						trace("^^^ 10 ");						
 						spinner.visible = false;
+					}
 					else
+					{
+						trace("^^^ 11 ");						
 						spinner.visible = true;
+					}
 					break;
 				
 				//in case the live stream we are trying to connect to was found to be on air
 				case LiveStreamCommand.LIVE_STREAM_READY:
+					trace("^^^ 12 ");						
 					spinner.visible = false;
 					break;
 				
@@ -197,6 +256,67 @@ package com.kaltura.kdpfl.view.controls
 				
 			}
 		}
+		
+		
+		private var _fadeInTimer:Timer;
+		private var _fadeOutTimer:Timer;
+		private var _animationTime:Number = 0;	
+		
+		private function fadeOutSpinner():void
+		{
+			_bufferChangeStart = true;
+			if(_animationTime == 0)
+			{
+				spinner.visible = false;
+				return;
+			}
+			//trace("^^^^^^^^^   fadeOutSpinner start >>>>>>>>>>");
+			spinner.visible = true;
+			spinner.alpha = 1;
+			_fadeOutTimer = new Timer(_animationTime/10,10);
+			_fadeOutTimer.addEventListener(TimerEvent.TIMER , onFadeOutTimer);
+			_fadeOutTimer.addEventListener(TimerEvent.TIMER_COMPLETE , onFadeOutComplete);
+			_fadeOutTimer.start();
+		}
+		private function onFadeOutTimer(event:TimerEvent):void
+		{
+			spinner.alpha -=0.1;
+		}
+		private function onFadeOutComplete(event:TimerEvent):void
+		{
+			//trace("^^^^^^^^^   fadeOutSpinner END >>>>>>>>>>");
+			_fadeOutTimer.removeEventListener(TimerEvent.TIMER , onFadeOutTimer);
+			_fadeOutTimer.removeEventListener(TimerEvent.TIMER_COMPLETE , onFadeOutComplete);
+			spinner.visible = false;
+		}
+		private function fadeInSpinner():void
+		{
+			if(_animationTime == 0)
+			{
+				spinner.visible = true;
+				return;
+			}
+			spinner.alpha = 0;
+			spinner.visible = true;
+			_fadeInTimer = new Timer(_animationTime/10,10);
+			_fadeInTimer.addEventListener(TimerEvent.TIMER , onFadeInTimer);
+			_fadeInTimer.addEventListener(TimerEvent.TIMER_COMPLETE , onFadeInComplete);
+			_fadeInTimer.start();
+		}
+		
+		private function onFadeInTimer(event:TimerEvent):void
+		{
+			spinner.alpha +=0.1;
+		}
+		private function onFadeInComplete(event:TimerEvent):void
+		{
+			_fadeInTimer.removeEventListener(TimerEvent.TIMER , onFadeInTimer);
+			_fadeInTimer.removeEventListener(TimerEvent.TIMER_COMPLETE , onFadeInComplete);
+		}
+		
+		
+		
+		
 		
 		override public function listNotificationInterests():Array
 		{
