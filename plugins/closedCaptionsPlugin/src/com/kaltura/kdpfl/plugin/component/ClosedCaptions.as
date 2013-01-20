@@ -173,10 +173,8 @@ package com.kaltura.kdpfl.plugin.component {
 				try {
 					if (_captionsURLLoader.data) {
 						var loadedText:String = _captionsURLLoader.data;
-						// unify CRs (\r) and CRLFs (\r\n) - make them all CRLFs
-						loadedText = loadedText.replace(/^(\r)\n/g, "\r\n");
-						// replace all CRLFs with CRs
-						loadedText = loadedText.replace(/\r\n/g, "\r");
+						// unify CRs (\n) and CRLFs (\r\n) - replace with CR
+						loadedText = loadedText.replace(/(\r)?\n/g, "\r");
 						// split on CRs
 						var lines:Array = loadedText.split("\r");
 						var currLine:CCLine = null;
