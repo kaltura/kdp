@@ -88,7 +88,7 @@ package com.kaltura.kdpfl.view.controls
 				_dataTip.align			= "center";
 
 			//override all settings it set
-			if(!_hookAlignment)
+			if(_hookAlignment)
 				_dataTip.align			= _hookAlignment;
 
 
