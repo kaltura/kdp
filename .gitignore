@@ -3,6 +3,7 @@
 KDP3/bin-debug/*
 KDP3/build-release/*
 kdp3Lib/bin/*
+as3FlexClient/bin/*
 plugins/*/bin-debug/*
 plugins/*/bin/*
 vendors/*/bin/*
