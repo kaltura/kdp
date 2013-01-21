@@ -148,7 +148,8 @@ package com.kaltura.kdpfl.view.controls
 					break;
 				case NotificationType.BUFFER_CHANGE:
 					_bufferChangeStart = note.getBody();
-					spinner.visible = _bufferChangeStart;
+					//fix osmf bug: sometimes bufferChange was sent after playback complete
+					spinner.visible = _bufferChangeStart && !_reachedEnd;
 					break;
 				case NotificationType.PLAYER_PLAY_END:
 					_reachedEnd=true;
