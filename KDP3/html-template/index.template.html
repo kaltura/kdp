@@ -1,0 +1,169 @@
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+
+<!-- 
+Smart developers always View Source. 
+
+This application was built using Adobe Flex, an open source framework
+for building rich Internet applications that get delivered via the
+Flash Player or to desktops via Adobe AIR. 
+
+Learn more about Flex at http://flex.org 
+// -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!--  BEGIN Browser History required section -->
+<link rel="stylesheet" type="text/css" href="history/history.css" />
+<!--  END Browser History required section -->
+
+<title>${title}</title>
+<script src="AC_OETags.js" language="javascript"></script>
+
+<!--  BEGIN Browser History required section -->
+<script src="history/history.js" language="javascript"></script>
+<!--  END Browser History required section -->
+
+<style>
+body { margin: 0px; overflow:hidden }
+</style>
+<script language="JavaScript" type="text/javascript">
+<!--
+// -----------------------------------------------------------------------------
+// Globals
+// Major version of Flash required
+var requiredMajorVersion = ${version_major};
+// Minor version of Flash required
+var requiredMinorVersion = ${version_minor};
+// Minor version of Flash required
+var requiredRevision = ${version_revision};
+// -----------------------------------------------------------------------------
+// -->
+</script>
+	
+	<!-- Acudeo companion banner loader script -->
+
+<script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js"></script>
+</head>
+
+<body scroll="no">
+<script language="JavaScript" type="text/javascript">
+<!--
+// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
+var hasProductInstall = DetectFlashVer(6, 0, 65);
+
+// Version check based upon the values defined in globals
+var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+
+if ( hasProductInstall && !hasRequestedVersion ) {
+	// DO NOT MODIFY THE FOLLOWING FOUR LINES
+	// Location visited after installation is complete if installation is required
+	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
+	var MMredirectURL = window.location;
+    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
+    var MMdoctitle = document.title;
+
+	AC_FL_RunContent(
+		"src", "playerProductInstall",
+		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
+		"width", "${width}",
+		"height", "${height}",
+		"align", "middle",
+		"allowFullScreen", "true",
+		"id", "${application}",
+		"quality", "high",
+		"bgcolor", "${bgcolor}",
+		"name", "${application}",
+		"allowScriptAccess","sameDomain",
+		"type", "application/x-shockwave-flash",	
+		"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+} else if (hasRequestedVersion) {
+	// if we've detected an acceptable version
+	// embed the Flash Content SWF when all tests are passed
+
+	//var playlistUrl_N =  escape( "http://{YOUR_HOST}/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id={YOUR_PARTNER_ID+00}&ks={ks}&playlist_id={PLAYLIST_ID}&partner_id={PARTNER_ID}");
+
+	
+	AC_FL_RunContent(
+			"src", "${swf}",
+			"width", "680", // change this value to 600 in case of horizontal playlist 
+			"height", "433",
+			"align", "middle",
+			"allowFullScreen", "true",
+			"id", "${application}", 
+			"quality", "high",
+			"bgcolor", "${bgcolor}",
+			"name", "${application}",
+			"allowScriptAccess","sameDomain", 
+			"type", "application/x-shockwave-flash",
+			 "flashvars","sourceType=entryId"+ //Determines whether the content is being taken from the Kaltura data base (entryId), from a non-specific url (url) or if the data is in the form of a manifest (f4m).
+				  "&host=www.kaltura.com"+ // server path
+				  "&autoPlay=false"+ //autoplay mode
+				  "&cdnHost=cdnbakmi.kaltura.com"+ // cdn host 
+				  "&entryId=1_cftelx09"+  // 1_rdfqxsta if you are working with your own content - switch this to a relevant entry id. make sure it matches your partner id flashvar
+				//if you work with playlist or multi playlist - uncomment these lines
+				 // "&playlistAPI.kpl0Id=1_uokie9h6" + // see playlists paths above 
+				 // "&kmlPath=config_playlist.xml"+
+				  "&debugMode=true"+ //Enables user to view all Notifications fired within the KDP in the form of traces (in the flashtracer, for instance).
+				  "&fileSystemMode=false"+ //if you work on a local workspace this will load the plugins from you local machine without security domain issues 
+				  "&uiConfId=48503"+ // even if you are working with a local config xml you need a valid uiConf id. make sure that there is a uiConf with this id in that specific host
+				  "&widgetId=_524241"+ // if you work with a different partner id - change this to '_{your partner id}' e.g. _1234
+				  "&partnerId=524241"+ //if you work with a different partner id - write its id number here
+				  "&subpId=52424100"+ //if you work with a different partner id - write it and add two zeroes 
+				  "&pluginDomain=plugins/"+ //the folder where the plugins are located on disk (relative to the kdp3.swf)
+				  "&kml=local"+ //so that a local file called config.xml, placed on the same folder of the kdp3.swf, will override the loaded uiConf 
+				  "&streamerUrl=rtmp://rtmp.kaltura.com/ondemand/"+  //The URL of the FMS server to use in case of adaptive bitrate media delivery.
+				  "&streamerType=rtmp"+ //The delivery mode of the media. Use "http" for progressive download mode, "rtmp" for adaptive bitrate, or "live" for live-streaming media.
+				  "&externalInterfaceDisabled=false"+ // to enable external interface. 
+				  "&requiredMetadataFields=true"+ // to get custom data
+			//if you are using hdnetwork / hdnetwork manifest streamerType, uncomment these lines:
+			//	  "&akamaiHD.loadingPolicy=preInitialize"+
+			//	  "&akamaiHD.asyncInit=true"+
+				  "&referer=http%3A%2F%2Fwww.kaltura.com", //simulate a referrer url (statstics, access control etc.)
+						
+						
+						
+			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+  } else {  // flash is too old or we can't detect the plugin
+    var alternateContent = 'Alternate HTML content should be placed here. '
+  	+ 'This content requires the Adobe Flash Player. '
+   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
+    document.write(alternateContent);  // insert non-flash content
+  }
+// -->
+</script> 
+<noscript>
+  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+			id="kdp3" width="${width}" height="${height}"
+			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+			<param name="movie" value="${swf}.swf" />
+			<param name="quality" value="high" />
+			<param name="bgcolor" value="${bgcolor}" />
+			<param name="allowScriptAccess" value="sameDomain" />
+			<embed src="${swf}.swf" quality="high" bgcolor="${bgcolor}"
+				width="${width}" height="${height}" name="${application}" align="middle"
+				play="true"
+				loop="false"
+				quality="high"
+				allowScriptAccess="sameDomain"
+				type="application/x-shockwave-flash"
+				pluginspage="http://www.adobe.com/go/getflashplayer">
+			</embed>
+	</object>
+</noscript>
+	<script language="JavaScript" type="text/javascript">
+		
+		function cleanMedia() {
+			var kdp = document.getElementById('kdp3');
+			kdp.sendNotification("cleanMedia");
+		}
+		
+		
+	</script>	
+	<Button onClick="cleanMedia()">clean media </Button>
+	
+</body>
+</html>

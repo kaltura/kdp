@@ -1,0 +1,158 @@
+<html>
+	<head>
+		<script>
+			var kdp3;
+			function jsCallbackReady(object) {
+			//console.log(object);
+				kdp3=document.getElementById(object);
+				kdp3.addJsListener('annotationSaved', 'onAnnotationSaved'); //onAnnotationSaved
+				kdp3.addJsListener('feedbackSessionSubmitted', 'onFeedbackSessionSubmitted');
+				kdp3.addJsListener('annotationDeleted', 'onAnnotationDeleted');
+			}
+			function x(xml) {
+			//	console.log(xml);
+			}
+			function resetAnnotationTool() {
+				kdp3.sendNotification('resetAnnotationsComponent');
+				kdp3.setKDPAttribute('annotations','userMode','editable');
+			}
+			
+			function setSubmissionTarget(value) {
+				kdp3.setKDPAttribute('annotations','submissionTarget',value);
+			}
+			
+			function loadXMLFBDraftSession() {
+				kdp3.sendNotification ('loadFeedbackSession' , {feedbackSession:'<annotations id="string" status="draft" entryId="1_rbl1kbd6" partnerId="356021"><annotation><createdAt/><updatedAt/><text>annotation1</text><startTime>13</startTime><endTime/><userId/></annotation><annotation><createdAt/><updatedAt/><text>annotation2</text><startTime>20</startTime><endTime/><userId/></annotation></annotations>'});
+			}
+			
+			function loadXMLFBFinalSession() {
+				kdp3.sendNotification ('loadFeedbackSession' , {feedbackSession:'<annotations id="string" status="final" entryId="1_rbl1kbd6" partnerId="356021"><annotation><createdAt/><updatedAt/><text>annotation1</text><startTime>13</startTime><endTime/><userId/></annotation><annotation><createdAt/><updatedAt/><text>annotation2</text><startTime>20</startTime><endTime/><userId/></annotation></annotations>'});
+			}
+			
+			function loadKalturaFBsession() {
+				// kdp3.sendNotification ('loadFeedbackSession', {sessionId: '1_4w9fumfz'} );
+				kdp3.sendNotification ('loadFeedbackSession', {sessionId: '1_sddbpnf4'} );
+			
+			}
+			function onFeedbackSessionSubmitted(object) {
+				alert ('feedback saved!');
+				alert(object.feedbackSessionXML);
+				document.getElementById('feedbackXml').value = 'Event: feedbackSessionSubmitted' + "\n" + object.feedbackSessionXML;<br/>
+				document.getElementById('feedbackXml').value = 'Event: feedbackSessionSubmitted' + "\n" + object.notificationData.createdAt;				
+				
+			}
+			function onAnnotationSaved(object) {
+				//console.log(222);
+				alert(object.feedbackSessionXML);
+				document.getElementById('feedbackXml').value = 'Event: annotationSaved' + "\n" + object.feedbackSessionXML;
+			}
+			function onAnnotationDeleted(object) {
+				alert(object.feedbackSessionXML);
+				document.getElementById('feedbackXml').value = 'Event: annotationDeleted' + "\n" + object.feedbackSessionXML;
+			}
+			
+			
+		</script>
+		<script src="AC_OETags.js" language="javascript"></script>
+	</head>
+	
+	<body>
+		
+		<div>
+			<div style="float: left; margin-right: 30px;">
+			<script>
+				AC_FL_RunContent(
+			"src", "kdp3",
+			"width", "600", // change this value to 600 in case of horizontal playlist 
+			"height", "700",
+			"align", "middle",
+			"allowFullScreen", "true",
+			"id", "kdp3", 
+			"quality", "high",
+			"bgcolor", "#eeeeee",
+			"name", "kdp3",
+			"allowScriptAccess","sameDomain", 
+			"type", "application/x-shockwave-flash",
+			"flashvars","sourceType=entryId"+ //Determines whether the content is being taken from the Kaltura data base (entryId), from a non-specific url (url) or if the data is in the form of a manifest (f4m).
+				  "&host=www.kaltura.com"+ // server path
+				  "&autoPlay=false"+ //autoplay mode
+				 // "&cdnHost=cdnbakmi.kaltura.com"+ // cdn host 
+				  "&entryId=1_cftelx09"+ // if you are working with your own content - switch this to a relevant entry id. make sure it matches your partner id flashvar
+				  //"&flavorId=1_rbq0dw79"+
+				  "&clientTag=cache_st:20000000"+
+				  "&debugMode=true"+ //Enables user to view all Notifications fired within the KDP in the form of traces (in the flashtracer, for instance).
+				  "&fileSystemMode=false"+ //if you work on a local workspace this will load the plugins from you local machine without security domain issues 
+				  "&uiConfId=48503"+ // even if you are working with a local config xml you need a valid uiConf id. make sure that there is a uiConf with this id in that specific host
+				  "&widgetId=_524241"+ // if you work with a different partner id - change this to '_{your partner id}' e.g. _1234
+				  "&partnerId=524241"+ //if you work with a different partner id - write its id number here
+				  "&subpId=52424100"+ //if you work with a different partner id - write it and add two zeroes 
+				  "&pluginDomain=plugins/"+ //the folder where the plugins are located on disk (relative to the kdp3.swf)
+				  "&kml=local"+ //so that a local file called config.xml, placed on the same folder of the kdp3.swf, will override the loaded uiConf 
+				  "&kmlPath=config_annotation.xml"+ // path to config file 
+				  "&streamerUrl=rtmp://rtmp.kaltura.com/ondemand/"+  //The URL of the FMS server to use in case of adaptive bitrate media delivery.
+				  "&streamerType=http"+ //The delivery mode of the media. Use "http" for progressive download mode, "rtmp" for adaptive bitrate, or "live" for live-streaming media.
+				  "&externalInterfaceDisabled=false"+ // to enable external interface. 
+				  "&annotations.maxChars=100"+ // max num of characters for annotaions plugin. 
+				//  "&ks=YmU0NGU5ZjU4OWI0N2QyZjJmNjkxNWFlNmJlODFkYTA3YTU1YjQyYnw1MjQyNDE7NTI0MjQxOzEzNTkxMzIzMjM7MjsxMzU5MDQ1OTIzLjUxNTttaWNoYWxfcmFkQG1haWxpbmF0b3IuY29tOyosZGlzYWJsZWVudGl0bGVtZW50Ozs="+  
+				  "&referer=http://www.kaltura.com/dev/", //simulate a referrer url (statstics, access control etc.)
+						
+						
+						
+			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+			</script>
+			</div>
+		<!--object id="kaltura_player_1307110128"
+		name="kaltura_player_1307110128"
+		type="application/x-shockwave-flash" allowFullScreen="true"
+		allowNetworking="all" allowScriptAccess="always" height="700"
+		width="600" bgcolor="#000000" xmlns:dc="http://purl.org/dc/terms/"
+		xmlns:media="http://search.yahoo.com/searchmonkey/media/"
+		rel="media:video"
+		resource="kdp3.swf">
+		  <param name="allowFullScreen" value="true" />
+		  <param name="allowNetworking" value="all" />
+		  <param name="allowScriptAccess" value="always" />
+		  <param name="bgcolor" value="#000000" />
+		  <param name="flashVars" value="externalInterfaceDisabled=false&amp;annotations.maxChars=5000&amp;kml=local&amp;fileSystemMode=false&amp;debugMode=true&amp;partnerId=346151&amp;pluginDomain=plugins/" />
+		  <param name="movie"
+		  value="http://www.kaltura.com/index.php/kwidget/cache_st/1307110128/wid/_356021/uiconf_id/5941761/entry_id/1_rbl1kbd6" />
+		  <a href="http://corp.kaltura.com">video platform</a>
+		  <a href="http://corp.kaltura.com/video_platform/video_management">
+
+		  video management</a>
+		  <a href="http://corp.kaltura.com/solutions/video_solution">video
+		  solutions</a>
+		  <a href="http://corp.kaltura.com/video_platform/video_publishing">
+		  video player</a>
+		  <a rel="media:thumbnail"
+		  href="http://cdnsecakmi.kaltura.com/p/356021/sp/35602100/thumbnail/entry_id/1_rbl1kbd6/width/120/height/90/bgcolor/000000/type/2">
+		  </a>
+		  <span property="dc:description" content=""></span>
+
+		  <span property="media:title"
+		  content="Sample Big Buck Bunny Trailer (HD)"></span>
+		  <span property="media:width" content="500"></span>
+		  <span property="media:height" content="400"></span>
+		  <span property="media:type"
+		  content="application/x-shockwave-flash"></span>
+		</object-->
+		
+		<textarea id="feedbackXml" rows="43" cols ="70"></textarea>
+			<div style="clear: both">&nbsp;</div>
+		</div><br />
+		
+		<button id="targetSetterBtn" onClick="setSubmissionTarget(targetTF.value)">Set Submission Target</button> 
+		<Input id="targetTF" type="text"/>
+
+		<br>
+		<button id="resetAnnotationTool" onClick="resetAnnotationTool()">Reset Tool to Editable Mode</button>
+		<button id="loadXMLFeedbackDraftSession" onClick="loadXMLFBDraftSession()">Load XML FB Session-Draft</button>
+		<button id="loadXMLFeedbackFinalSession" onClick="loadXMLFBFinalSession()">Load XML FB Session-Final</button>
+		<button id="loadKalturaFBSession" onClick="loadKalturaFBsession()">Load Kaltura FB session</button>
+		<br><br/>
+
+
+	</body>
+
+</html>

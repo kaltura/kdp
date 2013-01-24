@@ -1,0 +1,169 @@
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+
+<!-- 
+Smart developers always View Source. 
+
+This application was built using Adobe Flex, an open source framework
+for building rich Internet applications that get delivered via the
+Flash Player or to desktops via Adobe AIR. 
+
+Learn more about Flex at http://flex.org 
+// -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!--  BEGIN Browser History required section -->
+<link rel="stylesheet" type="text/css" href="history/history.css" />
+<!--  END Browser History required section -->
+
+<title>${title}</title>
+<script src="AC_OETags.js" language="javascript"></script>
+
+<!--  BEGIN Browser History required section -->
+<script src="history/history.js" language="javascript"></script>
+<!--  END Browser History required section -->
+
+<style>
+body { margin: 0px; overflow:hidden }
+</style>
+<script language="JavaScript" type="text/javascript">
+<!--
+// -----------------------------------------------------------------------------
+// Globals
+// Major version of Flash required
+var requiredMajorVersion = 10;
+// Minor version of Flash required
+var requiredMinorVersion = 0;
+// Minor version of Flash required
+var requiredRevision = 124;
+// -----------------------------------------------------------------------------
+// -->
+</script>
+	
+	<!-- Acudeo companion banner loader script -->
+
+<script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js"></script>
+</head>
+
+<body scroll="no">
+<script language="JavaScript" type="text/javascript">
+<!--
+// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
+var hasProductInstall = DetectFlashVer(6, 0, 65);
+
+// Version check based upon the values defined in globals
+var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+
+if ( hasProductInstall && !hasRequestedVersion ) {
+	// DO NOT MODIFY THE FOLLOWING FOUR LINES
+	// Location visited after installation is complete if installation is required
+	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
+	var MMredirectURL = window.location;
+    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
+    var MMdoctitle = document.title;
+
+	AC_FL_RunContent(
+		"src", "playerProductInstall",
+		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
+		"width", "900",
+		"height", "483",
+		"align", "middle",
+		"allowFullScreen", "true",
+		"id", "kdp3",
+		"quality", "high",
+		"bgcolor", "#eeeeee",
+		"name", "kdp3",
+		"allowScriptAccess","sameDomain",
+		"type", "application/x-shockwave-flash",	
+		"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+} else if (hasRequestedVersion) {
+	// if we've detected an acceptable version
+	// embed the Flash Content SWF when all tests are passed
+
+	var playlistUrl1 =  escape( "http://devtests.kaltura.co.cc/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id=34615100&playlist_id=0_u72spzrc&partner_id=346151");
+	//var playlistUrl1 =  escape( "http://www.kaltura.co.cc/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id=148100&playlist_id=0_5xl7ic0u&partner_id=1481");
+	var playlistUrl2 =  escape( "http://www.kaltura.com/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id=32101100&ks={ks}&playlist_id=1_stbc6p7f&partner_id=321011");
+	//var playlistUrl_N =  escape( "http://{YOUR_HOST}/index.php/partnerservices2/executeplaylist?uid=&format=8&subp_id={YOUR_PARTNER_ID+00}&ks={ks}&playlist_id={PLAYLIST_ID}&partner_id={PARTNER_ID}");
+
+	
+	AC_FL_RunContent(
+			"src", "kdp3",
+			"width", "900", 
+			"height", "483",
+			"align", "middle",
+			"allowFullScreen", "true",
+			"id", "kdp3", 
+			"quality", "high",
+			"bgcolor", "#eeeeee",
+			"name", "kdp3",
+			"allowScriptAccess","sameDomain", 
+			"type", "application/x-shockwave-flash",
+			 "flashvars","sourceType=entryId"+ //Determines whether the content is being taken from the Kaltura data base (entryId), from a non-specific url (url) or if the data is in the form of a manifest (f4m).
+				  "&host=www.kaltura.com"+ // server path
+				  "&autoPlay=false"+ //autoplay mode
+				  "&cdnHost=cdnbakmi.kaltura.com"+ // cdn host 
+				  "&clientTag=cache_st:20000000"+
+				  "&debugMode=true"+ //Enables user to view all Notifications fired within the KDP in the form of traces (in the flashtracer, for instance).
+				  //"&fileSystemMode=true"+ //if you work on a local workspace this will load the plugins from you local machine without security domain issues
+				  "&syncEntryId=1_msb4iyqe" +	// ppt widget data entry 
+				  "&uiConfId=2162571"+ // even if you are working with a local config xml you need a valid uiConf id. make sure that there is a uiConf with this id in that specific host
+				  "&widgetId=_27017"+ // if you work with a different partner id - change this to '_{your partner id}' e.g. _1234
+				  "&partnerId=27017"+ //if you work with a different partner id - write its id number here
+				  "&subpId=2701700"+ //if you work with a different partner id - write it and add two zeroes 
+				  "&pluginDomain=plugins/"+ //the folder where the plugins are located on disk (relative to the kdp3.swf)
+				  "&kml=local"+ //so that the local file specified by kmlPath will override the loaded uiConf
+				  "&kmlPath=config_ppt.xml"+ //path to the config to load
+				  "&streamerUrl=rtmp://rtmp.kaltura.com/ondemand/"+  //The URL of the FMS server to use in case of adaptive bitrate media delivery.
+				  "&streamerType=http"+ //The delivery mode of the media. Use "http" for progressive download mode, "rtmp" for adaptive bitrate, or "live" for live-streaming media.
+				  "&disableAlerts=false"+ // Toggles the alert pop-ups that the KDP raises in certain cases.
+				  "&externalInterfaceDisabled=false"+ // to enable external interface. 
+				  "&mediaProxy.initialBufferTime=1"+  
+				  //"&ks=NTE4N2E2MzE1ZWQ2OTUwODZlZGM2OWY5NzU5ZjBjNmFhMWU2ZWFiNnwzNDYxNTE7MzQ2MTUxOzEzMjQ5MTAxODM7MjsxMzI0ODIzNzgzLjQ3MTk7X19BRE1JTl9fMzQ1NjIxOzs7"+   
+				  "&referer=http://www.kaltura.com/dev/", //simulate a referrer url (statstics, access control etc.)
+						
+						
+						
+			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+  } else {  // flash is too old or we can't detect the plugin
+    var alternateContent = 'Alternate HTML content should be placed here. '
+  	+ 'This content requires the Adobe Flash Player. '
+   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
+    document.write(alternateContent);  // insert non-flash content
+  }
+// -->
+</script> 
+<noscript>
+  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+			id="kdp3" width="900" height="483"
+			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+			<param name="movie" value="kdp3.swf" />
+			<param name="quality" value="high" />
+			<param name="bgcolor" value="#eeeeee" />
+			<param name="allowScriptAccess" value="sameDomain" />
+			<embed src="kdp3.swf" quality="high" bgcolor="#eeeeee"
+				width="900" height="483" name="kdp3" align="middle"
+				play="true"
+				loop="false"
+				quality="high"
+				allowScriptAccess="sameDomain"
+				type="application/x-shockwave-flash"
+				pluginspage="http://www.adobe.com/go/getflashplayer">
+			</embed>
+	</object>
+</noscript>
+	<script language="JavaScript" type="text/javascript">
+		function changePres(dataEntryId) {
+			var kdp = document.getElementById('kdp3');
+			kdp.sendNotification("changeVideoPresentation", {entryId: dataEntryId});
+		}
+		
+	</script>
+	<Button onClick="changePres('1_cpytrwuz')">change presentation : 1_cpytrwuz</Button>
+	<Button onClick="changePres('1_p7fzvtk9')">change presentation : 1_p7fzvtk9</Button>
+	
+</body>
+</html>
