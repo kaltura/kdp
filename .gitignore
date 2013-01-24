@@ -2,6 +2,7 @@
 ###################
 KDP3/bin-debug/*
 KDP3/build-release/*
+KDP3/html-template/*
 kdp3Lib/bin/*
 as3FlexClient/bin/*
 plugins/*/bin-debug/*
