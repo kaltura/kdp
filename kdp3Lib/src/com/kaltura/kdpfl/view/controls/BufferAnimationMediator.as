@@ -245,8 +245,6 @@ package com.kaltura.kdpfl.view.controls
 		
 		private function fadeOutSpinner():void
 		{
-			_bufferChangeStart = true;
-			
 			if (!spinner.visible)
 				return;
 			
