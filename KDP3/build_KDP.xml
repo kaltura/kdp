@@ -1,9 +1,12 @@
-<project name="AntTest" default="build" basedir=".">
+<project name="AntTest" default="compile" basedir=".">
  
-	 <property name="FLEX_HOME" value="C:/Program Files (x86)/Adobe/Adobe Flash Builder 4/sdks/4.5.0" />
+	<!-- sdk 4.5 -->
+	 <property name="FLEX_HOME" value="C:/Program Files (x86)/Adobe/Adobe Flash Builder 4.6/sdks/4.5.0" />
+	<!-- sdk 4.6 -->
+	 <!--property name="FLEX_HOME" value="C:/Program Files (x86)/Adobe/Adobe Flash Builder 4.6/sdks/4.6.0" /-->
 	 <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 
-	<property name="v_kdp" value="3.6.10"/>
+	<property name="v_kdp" value="3.6.17"/>
     <property name="src" value="src"/>  
     <property name="build" value="build-release"/>
      
@@ -14,7 +17,7 @@
 	
 	<target name="build">
 		<length property="length" mode="each">
-     		 <fileset dir="C:\workspaces\kdp\v3.6.10\plugins" >
+     		 <fileset dir="..\KDP3\3.6.17\plugins" >
 			<include name="**/*.swf"/>
 		   </fileset>
 	   </length>
@@ -28,6 +31,8 @@
     	<copy todir="${v_kdp}\plugins" file="..\plugins\adaptvas3Plugin\${build}\adaptvas3Plugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="adaptvPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\adaptvPlugin\${build}\adaptvPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="akamaiHDPlugin" destdir="${build}"/>
+    	 <copy todir="${v_kdp}\plugins" file="..\plugins\akamaiHDPlugin\${build}\akamaiHDPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="advanceSeekPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\advanceSeekPlugin\${build}\advanceSeekPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="annotationsPlugin" destdir="${build}"/>
@@ -50,16 +55,12 @@
     	<copy todir="${v_kdp}\plugins" file="..\plugins\cuePointPlugin\${build}\cuePointPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="downloadPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\downloadPlugin\${build}\downloadPlugin.swf"/>
-    	<fb.exportReleaseBuild failonerror="true" project="eyewonderPlugin" destdir="${build}"/>
-    	<copy todir="${v_kdp}\plugins" file="..\plugins\eyewonderPlugin\${build}\eyewonderPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="faderPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\faderPlugin\${build}\faderPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="genericOSMFPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\genericOSMFPlugin\${build}\genericOSMFPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="gigyaPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\gigyaPlugin\${build}\gigyaPlugin.swf"/>
-    	<fb.exportReleaseBuild failonerror="true" project="kalturaMixPlugin" destdir="${build}"/>
-    	<copy todir="${v_kdp}\plugins" file="..\plugins\kalturaMixPlugin\${build}\kalturaMixPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="listPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\listPlugin\${build}\listPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="metaDataPlugin" destdir="${build}"/>
@@ -125,7 +126,14 @@
     	<fb.exportReleaseBuild failonerror="true" project="relatedViewPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}\plugins" file="..\plugins\relatedViewPlugin\${build}\relatedViewPlugin.swf"/>
     	<fb.exportReleaseBuild failonerror="true" project="parallelElementPlugin" destdir="${build}"/>
-    	<copy todir="${v_kdp}\plugins" file="..\plugins\parallelElementPlugin\${build}\parallelElementPlugin.swf"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\parallelElementPlugin\${build}\parallelElementPlugin.swf"/>	
+    	
+    	<!-- don't build these plugins with sdk 4.6 -->
+    	
+    	<fb.exportReleaseBuild failonerror="true" project="kalturaMixPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\kalturaMixPlugin\${build}\kalturaMixPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="eyewonderPlugin" destdir="${build}"/>
+    	<copy todir="${v_kdp}\plugins" file="..\plugins\eyewonderPlugin\${build}\eyewonderPlugin.swf"/>
     	  	
     </target>
  
