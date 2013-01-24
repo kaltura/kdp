@@ -59,14 +59,11 @@ package com.kaltura.kdpfl.view.controls
 		{
 			var flashvars : Object = _currConfig.vo.flashvars;
 			var noteName : String = note.getName();
-/*			if(noteName != "playerUpdatePlayhead")
-				trace("^^^" , noteName);*/
 			switch(noteName)
 			{
 				case NotificationType.SKIN_LOADED:
-					//					spinner.swapLoadingWithAnimation( applicationLoadStyleName == '' ? SPINNER_CLASS : applicationLoadStyleName );
-					trace("^^^ 1 ");		
-					spinner.visible = false;
+					//					spinner.swapLoadingWithAnimation( applicationLoadStyleName == '' ? SPINNER_CLASS : applicationLoadStyleName );	
+					fadeOutSpinner();
 					break;
 				case NotificationType.LAYOUT_READY:
 					if (flashvars.usePreloaderBufferAnimation && flashvars.usePreloaderBufferAnimation=='true' && flashvars.preloader)
@@ -80,7 +77,6 @@ package com.kaltura.kdpfl.view.controls
 					break;
 				case NotificationType.KDP_READY:
 				case NotificationType.READY_TO_PLAY:
-					trace("^^^ 0 ");
 					var spinnerColor:Number = -1;
 					if(flashvars.spinnerColorAttribute && flashvars[flashvars.spinnerColorAttribute] )
 					{
@@ -101,7 +97,7 @@ package com.kaltura.kdpfl.view.controls
 					if(flashvars.spinnerFadeTime)
 						_animationTime = Number(flashvars.spinnerFadeTime) * 1000;
 					
-					spinner.visible = false;
+					fadeOutSpinner();
 					_reachedEnd = false;
 					if (flashvars.usePreloaderBufferAnimation && flashvars.usePreloaderBufferAnimation=='true' && flashvars.preloader)
 					{
@@ -118,14 +114,11 @@ package com.kaltura.kdpfl.view.controls
 						_notBuffering = false;
 						if(_reachedEnd)
 						{
-							spinner.visible = false;
-							trace("^^^ 2 ");							
+							fadeOutSpinner();						
 						}
 						else if (!_prevStatePaused)
 						{
-							trace("^^^ 3 ");
 							//fix OSMF bug: sometimes "buffering" was sent after player paused, the spinner shouldn't be visible in this case
-							//spinner.visible = true; //TODO
 							fadeInSpinner();
 						}
 						
@@ -148,14 +141,12 @@ package com.kaltura.kdpfl.view.controls
 						}
 						if(note.getBody() == MediaPlayerState.PAUSED)
 						{
-							trace("^^^ 4 ");
-							spinner.visible = false;
+							fadeOutSpinner();
 							_prevStatePaused = true;
 						}
 						if( note.getBody() == MediaPlayerState.READY)
 						{
-							trace("^^^ 5 ");
-							spinner.visible = false;
+							fadeOutSpinner();
 						}
 					}
 					
@@ -169,8 +160,7 @@ package com.kaltura.kdpfl.view.controls
 					//if _bufferChangeStart the next bufferChange event will make the spinner invisible
 					if(_notBuffering && !_bufferChangeStart)
 					{	
-						trace("^^^ 6 ");
-						//spinner.visible = false; //TODO
+						fadeOutSpinner();
 					}
 					//fix another OSMF bug: we are buffering even though movie plays
 					else if (spinner.visible)
@@ -179,8 +169,7 @@ package com.kaltura.kdpfl.view.controls
 						var curPos:Number = parseFloat(Number(note.getBody()).toFixed(2));
 						if ((curPos - _lastPlayheadPos)<=updateIntervalInSeconds)
 						{
-							trace("^^^ 7 ");
-							//spinner.visible = false; //TODO
+							fadeOutSpinner();
 						}
 						_lastPlayheadPos = curPos;
 					}
@@ -190,25 +179,20 @@ package com.kaltura.kdpfl.view.controls
 					_bufferChangeStart = note.getBody();
 					if(_bufferChangeStart)
 					{
-						//spinner.visible = _bufferChangeStart;
 						fadeInSpinner()
 					}
 					if(!_bufferChangeStart)
 					{
 						fadeOutSpinner();
-						//statistics
-						//trace("^^^ Date delta in seeks:", ((new Date().getTime() - d.getTime())/1000));
 					}
 					break;
 				case NotificationType.PLAYER_PLAY_END:
 					_reachedEnd=true;
-					trace("^^^ 8 ");
-					spinner.visible = false;
+					fadeOutSpinner();
 					break;
 				case NotificationType.KDP_EMPTY:
 				case NotificationType.READY_TO_LOAD:
-					trace("^^^ 9 ");
-					spinner.visible = false;
+					fadeOutSpinner();
 					_reachedEnd=false;
 					if (flashvars.usePreloaderBufferAnimation && flashvars.usePreloaderBufferAnimation=='true' && flashvars.preloader)
 					{
@@ -227,21 +211,18 @@ package com.kaltura.kdpfl.view.controls
 				//in case we are trying to connect to a live stream but it is not on air yet
 				case NotificationType.LIVE_ENTRY:
 					if (flashvars.hideSpinnerOnOffline=="true")
-					{
-						trace("^^^ 10 ");						
-						spinner.visible = false;
+					{						
+						fadeOutSpinner();
 					}
 					else
 					{
-						trace("^^^ 11 ");						
-						spinner.visible = true;
+						fadeInSpinner();
 					}
 					break;
 				
 				//in case the live stream we are trying to connect to was found to be on air
 				case LiveStreamCommand.LIVE_STREAM_READY:
-					trace("^^^ 12 ");						
-					spinner.visible = false;
+					fadeOutSpinner();
 					break;
 				
 				case NotificationType.PRELOADER_LOADED:
@@ -265,6 +246,10 @@ package com.kaltura.kdpfl.view.controls
 		private function fadeOutSpinner():void
 		{
 			_bufferChangeStart = true;
+			
+			if (!spinner.visible)
+				return;
+			
 			if(_animationTime == 0)
 			{
 				spinner.visible = false;
@@ -291,6 +276,9 @@ package com.kaltura.kdpfl.view.controls
 		}
 		private function fadeInSpinner():void
 		{
+			if (spinner.visible)
+				return;
+			
 			if(_animationTime == 0)
 			{
 				spinner.visible = true;
