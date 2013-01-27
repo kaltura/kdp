@@ -1220,9 +1220,15 @@ package com.kaltura.kdpfl.view.media
 		{
 			sendNotification( NotificationType.VOLUME_CHANGED , {newVolume:event.volume});
 			if (event.volume==0 && _prevVolume!=0)
+			{
+				kMediaPlayer.player.muted = true;
 				sendNotification(NotificationType.MUTE);
+			}
 			else if (event.volume!=0 && _prevVolume==0)
+			{
+				kMediaPlayer.player.muted = false;				
 				sendNotification(NotificationType.UNMUTE);
+			}
 			
 			_prevVolume = event.volume;
 			
