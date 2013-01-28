@@ -77,20 +77,19 @@ package com.kaltura.kdpfl.plugin.component
 						else 
 							return; //can't capture the player if the view is unreachable
 						
-	
-						var videoWidth : Number = playerView["videoWidth"];
-						var videoHeight : Number = playerView["videoHeight"]
-	
-						bitmapData  = new BitmapData( videoWidth  , videoHeight , false , 0x000000);
-						var a : Number = videoWidth/(playerView.width/playerView.scaleX); // videoWidth/unscaledWidth
-						var d : Number = videoHeight/(playerView.height/playerView.scaleY);// videoHeight/unscaledHeight
-						var matrix : Matrix = new Matrix( a , 0 , 0 , d );
-						bitmapData.draw( playerView , matrix , null , null, null , true);
-				        var encoder : JPGEncoder = new JPGEncoder(85);
-						var thumbnail : ByteArray = encoder.encode( bitmapData );
 						var updateThumbnailJpeg : KalturaCall;
 						if (mediaProxy.vo.entry is KalturaMixEntry)
 						{
+							var videoWidth : Number = playerView["videoWidth"];
+							var videoHeight : Number = playerView["videoHeight"]
+							
+							bitmapData  = new BitmapData( videoWidth  , videoHeight , false , 0x000000);
+							var a : Number = videoWidth/(playerView.width/playerView.scaleX); // videoWidth/unscaledWidth
+							var d : Number = videoHeight/(playerView.height/playerView.scaleY);// videoHeight/unscaledHeight
+							var matrix : Matrix = new Matrix( a , 0 , 0 , d );
+							bitmapData.draw( playerView , matrix , null , null, null , true);
+							var encoder : JPGEncoder = new JPGEncoder(85);
+							var thumbnail : ByteArray = encoder.encode( bitmapData );
 							updateThumbnailJpeg  = new ThumbAssetAddFromImage (mediaProxy.vo.entry.id, thumbnail);
 						}
 						else
@@ -119,7 +118,8 @@ package com.kaltura.kdpfl.plugin.component
 			sendNotification("thumbnailSaved");
 			sendNotification( NotificationType.REMOVE_ALERTS );
 			AlertManager.showButtonIfEmpty = true;
-			bitmapData.dispose();
+			if (bitmapData)
+				bitmapData.dispose();
 			if ((viewComponent as captureThumbnailPluginCode).shouldSetAsDefault == "true")
 			{
 				var servicesProxy : Object =  facade.retrieveProxy("servicesProxy");
