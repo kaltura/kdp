@@ -60,7 +60,7 @@ package org.osmf.net
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function FMSURL(url:String, useInstance:Boolean=false)
+		public function FMSURL(url:String, useInstance:int=0)
 		{
 			super(url);
 			_useInstance = useInstance;
@@ -81,7 +81,7 @@ package org.osmf.net
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function get useInstance():Boolean
+		public function get useInstance():int
 		{
 			return _useInstance;
 		}
@@ -207,14 +207,19 @@ package org.osmf.net
 		 			
 	 			if (path.search(definstPattern) > -1)
 	 			{
-	 				_useInstance = true;
+	 				_useInstance = 1;
 	 			}
 	 			
 	 			var streamStartNdx:uint = STREAMNAME_START_INDEX;
 
 	 			if (_useInstance) 
 	 			{
-	 				_instanceName = result[INSTANCENAME_START_INDEX];
+					streamStartNdx = INSTANCENAME_START_INDEX + _useInstance * 2;
+					for (var indx : int = INSTANCENAME_START_INDEX; indx < INSTANCENAME_START_INDEX + _useInstance *2 - 1; indx++)
+					{
+						_instanceName += result[indx];
+					}
+	 				//_instanceName = result[INSTANCENAME_START_INDEX];
 	 			}
 	 			else
 	 			{
@@ -435,7 +440,7 @@ package org.osmf.net
 			}
 		}
 		
-		private var _useInstance:Boolean;
+		private var _useInstance:int;
 		private var _appName:String;
 		private var _instanceName:String;
 		private var _streamName:String;

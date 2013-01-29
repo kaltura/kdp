@@ -107,7 +107,7 @@ package org.osmf.net
 				{
 					// Map the resource to the NetStream.play/play2 arguments.
 					var streamingResource:StreamingURLResource = urlResource as StreamingURLResource;
-					var urlIncludesFMSApplicationInstance:Boolean = streamingResource ? streamingResource.urlIncludesFMSApplicationInstance : false;
+					var urlIncludesFMSApplicationInstance:int = streamingResource ? streamingResource.urlIncludesFMSApplicationInstance : 0;
 					var streamName:String = NetStreamUtils.getStreamNameFromURL(urlResource.url, urlIncludesFMSApplicationInstance);
 					
 					playArgs = NetStreamUtils.getPlayArgsForResource(urlResource);
@@ -172,11 +172,14 @@ package org.osmf.net
 		{
 			switch (event.info.code)
 			{
+				case NetStreamCodes.NETSTREAM_FAILED:
+					//netStream.pause();
+					trace ("netStreamPlayTrait", NetStreamCodes.NETSTREAM_FAILED);
+					break;
 				case NetStreamCodes.NETSTREAM_PLAY_FAILED:
 				case NetStreamCodes.NETSTREAM_PLAY_FILESTRUCTUREINVALID:
 				case NetStreamCodes.NETSTREAM_PLAY_STREAMNOTFOUND:
 				case NetStreamCodes.NETSTREAM_PLAY_NOSUPPORTEDTRACKFOUND:				
-				case NetStreamCodes.NETSTREAM_FAILED:
 					// Pause the stream and reset our state, but don't
 					// signal stop().  The MediaElement's netStatus
 					// event handler will catch the error, and coerce

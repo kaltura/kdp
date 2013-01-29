@@ -781,8 +781,11 @@ package org.osmf.elements
      		var error:MediaError = null;
  			switch (event.info.code)
 			{
-				case NetStreamCodes.NETSTREAM_PLAY_FAILED:
 				case NetStreamCodes.NETSTREAM_FAILED:
+					trace ("LightweghtVideoElement", NetStreamCodes.NETSTREAM_FAILED);
+					//	error = new MediaError(MediaErrorCodes.NETSTREAM_PLAY_FAILED, event.info.description);
+					break;
+				case NetStreamCodes.NETSTREAM_PLAY_FAILED:
 					error = new MediaError(MediaErrorCodes.NETSTREAM_PLAY_FAILED, event.info.description);
 					break;
 				case NetStreamCodes.NETSTREAM_PLAY_STREAMNOTFOUND:

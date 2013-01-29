@@ -46,7 +46,7 @@ package org.osmf.net
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public static function getStreamNameFromURL(url:String, urlIncludesFMSApplicationInstance:Boolean=false):String
+		public static function getStreamNameFromURL(url:String, urlIncludesFMSApplicationInstance:int=0):String
 		{
 			var streamName:String = "";
 			

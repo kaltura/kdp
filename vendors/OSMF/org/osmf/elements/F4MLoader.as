@@ -49,6 +49,7 @@ package org.osmf.elements
 	import org.osmf.media.MediaTypeUtil;
 	import org.osmf.media.URLResource;
 	import org.osmf.net.DynamicStreamingResource;
+	import org.osmf.net.StreamingURLResource;
 	import org.osmf.net.httpstreaming.HTTPStreamingUtils;
 	import org.osmf.traits.LoadState;
 	import org.osmf.traits.LoadTrait;
@@ -80,6 +81,11 @@ package org.osmf.elements
 		 *  @productversion OSMF 1.0
 		 */
 		public static const F4M_MIME_TYPE:String = "application/f4m+xml";
+
+		/**
+		 * for rtmp/rtmpe: should fallback to rtmpt/rtmpte 
+		 */		
+		public var useRtmptFallbacks:Boolean = true;
 
 		/**
 		 * Constructor.
@@ -247,6 +253,10 @@ package org.osmf.elements
 			try
 			{
 				var netResource:MediaResourceBase = parser.createResource(manifest, URLResource(loadTrait.resource));
+
+				if (netResource is StreamingURLResource) {
+					(netResource  as StreamingURLResource).useRtmptFallbacks = useRtmptFallbacks;
+				}
 				var loadedElem:MediaElement = factory.createMediaElement(netResource);
 
 				if (loadedElem.hasOwnProperty("defaultDuration") && !isNaN(manifest.duration))

@@ -407,8 +407,8 @@ package org.osmf.net
 				nsPlayOptions.transition = NetStreamPlayTransitions.RESUME;
 				
 				var resource:URLResource = loadTrait.resource as URLResource;
-				var urlIncludesFMSApplicationInstance:Boolean = 
-						(resource as StreamingURLResource) != null ? (resource as StreamingURLResource).urlIncludesFMSApplicationInstance : false;
+				var urlIncludesFMSApplicationInstance:int = 
+						(resource as StreamingURLResource) != null ? (resource as StreamingURLResource).urlIncludesFMSApplicationInstance : 0;
 				var streamName:String = NetStreamUtils.getStreamNameFromURL(resource.url, urlIncludesFMSApplicationInstance);
 				
 				nsPlayOptions.streamName = streamName;
@@ -430,6 +430,7 @@ package org.osmf.net
 				var netStream:NetStream = createNetStream(connection, netLoadTrait.resource as URLResource);				
 				netStream.client = new NetClient();
 				netLoadTrait.netStream = netStream;
+				netLoadTrait.netStream.checkPolicyFile = true;
 				
 				// Only generate the switching manager if the resource is truly switchable.
 				var dsResource:DynamicStreamingResource = loadTrait.resource as DynamicStreamingResource;

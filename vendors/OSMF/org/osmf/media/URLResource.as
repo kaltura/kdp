@@ -69,5 +69,7 @@ package org.osmf.media
 		}
 		
 		private var _url:String;	
+		
+		public var useRtmptFallbacks:Boolean = true;
 	}
 }

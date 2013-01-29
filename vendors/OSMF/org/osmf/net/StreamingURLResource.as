@@ -86,7 +86,7 @@ package org.osmf.net
 							, clipStartTime:Number = NaN
 							, clipEndTime:Number = NaN
 							, connectionArguments:Vector.<Object> = null
-							, urlIncludesFMSApplicationInstance:Boolean = false
+							, urlIncludesFMSApplicationInstance:int = 0
 							, drmContentData:ByteArray = null							 
 							)
 		{
@@ -217,12 +217,12 @@ package org.osmf.net
 		 * case there is no instance name and the stream would be 'foo/bar/stream'.
 		 * The default is false.
 		 **/
-		public function get urlIncludesFMSApplicationInstance():Boolean
+		public function get urlIncludesFMSApplicationInstance():int
 		{
 			return _urlIncludesFMSApplicationInstance;
 		}
 		
-		public function set urlIncludesFMSApplicationInstance(value:Boolean):void
+		public function set urlIncludesFMSApplicationInstance(value:int):void
 		{
 			_urlIncludesFMSApplicationInstance = value;
 		}
@@ -255,7 +255,7 @@ package org.osmf.net
 		private var _clipEndTime:Number;
 		private var _connectionArguments:Vector.<Object>;
 		private var _drmContentData:ByteArray;
-		private var _urlIncludesFMSApplicationInstance:Boolean = false;
+		private var _urlIncludesFMSApplicationInstance:int = 0;
 
 		private var _alternativeAudioStreamItems:Vector.<StreamingItem> = null;
 	}

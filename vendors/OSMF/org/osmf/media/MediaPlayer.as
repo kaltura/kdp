@@ -797,6 +797,11 @@ package org.osmf.media
 	    */
 	    public function play():void
 	    {
+			var currTimeTrait : TimeTrait = media.getTrait(MediaTraitType.TIME) as TimeTrait;
+			if (currTimeTrait && currentTime < currTimeTrait.duration)
+			{
+				mediaAtEnd = false;
+			}
 	    	// Bug FM-347 - the media player should auto-rewind once the
 	    	// playhead is at the end, and play() is called.
 	    	if (canPlay && 

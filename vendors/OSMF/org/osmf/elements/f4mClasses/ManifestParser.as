@@ -241,6 +241,7 @@ package org.osmf.elements.f4mClasses
 			var serverBaseURLs:Vector.<String>;
 			var url:String;
 			var bootstrapInfoURLString:String;
+			var numAppInstances : int;
 
 			var manifestURL:URL;
 			if (manifestResource is URLResource)
@@ -297,6 +298,7 @@ package org.osmf.elements.f4mClasses
 					{
 						resource = new MulticastResource(URL.normalizeRootURL(manifestFolder) + URL.normalizeRelativeURL(url), streamType(value));
 					}
+					
 					MulticastResource(resource).groupspec = media.multicastGroupspec;
 					MulticastResource(resource).streamName = media.multicastStreamName;
 				}
@@ -315,7 +317,13 @@ package org.osmf.elements.f4mClasses
 					resource = new StreamingURLResource(URL.normalizeRootURL(manifestFolder) + URL.normalizeRelativeURL(url), streamType(value));
 				}
 
-				resource.urlIncludesFMSApplicationInstance = value.urlIncludesFMSApplicationInstance;
+				if (value.baseURL)
+				{
+					var baseUrlWithNoParams:Array = value.baseURL.split("?"); 
+					var splittedBaseUrl : Array = baseUrlWithNoParams[0].split("/");				
+					numAppInstances = splittedBaseUrl.length - 4 > 0 ? splittedBaseUrl.length - 4 : 0;
+				}
+				resource.urlIncludesFMSApplicationInstance = numAppInstances;
 
 				if (media.bootstrapInfo != null && (media.bootstrapInfo.data != null || media.bootstrapInfo.url != null))
 				{
@@ -379,8 +387,20 @@ package org.osmf.elements.f4mClasses
 			// Dynamic Streaming
 			else if (value.media.length > 1)
 			{
-				var baseURL:String = value.baseURL != null ? value.baseURL : manifestFolder;
-				baseURL = URL.normalizeRootURL(baseURL);
+				var baseURL:String = value.baseURL != null ? value.baseURL : manifestFolder;	
+				var hasQuery:Boolean = false;
+				if (baseURL)
+				{
+					//ignore params on base URL
+					var dynamicBaseUrlWithNoParams:Array = baseURL.split("?"); 	
+					hasQuery = (dynamicBaseUrlWithNoParams.length > 1);
+					var splittedDynamicBaseUrl : Array = dynamicBaseUrlWithNoParams[0].split("/");
+					numAppInstances = splittedDynamicBaseUrl.length - 4 > 0 ? splittedDynamicBaseUrl.length - 4 : 0;
+				}
+				
+				if (!hasQuery)
+					baseURL = URL.normalizeRootURL(baseURL);
+				
 				serverBaseURLs = new Vector.<String>();
 				serverBaseURLs.push(baseURL);
 
@@ -389,7 +409,7 @@ package org.osmf.elements.f4mClasses
 				// assumes the latter.  For now, we only support the latter input, but we should
 				// add support for the former (absolute URLs with no base URL).
 				var dynResource:DynamicStreamingResource = new DynamicStreamingResource(baseURL, streamType(value));
-				dynResource.urlIncludesFMSApplicationInstance = value.urlIncludesFMSApplicationInstance;
+				dynResource.urlIncludesFMSApplicationInstance = numAppInstances;
 
 				var streamItems:Vector.<DynamicStreamingItem> = new Vector.<DynamicStreamingItem>();
 
@@ -407,7 +427,7 @@ package org.osmf.elements.f4mClasses
 
 					if (URL.isAbsoluteURL(media.url))
 					{
-						stream = NetStreamUtils.getStreamNameFromURL(media.url, dynResource.urlIncludesFMSApplicationInstance);
+						stream = NetStreamUtils.getStreamNameFromURL(media.url, numAppInstances);
 					}
 					else
 					{
@@ -502,8 +522,18 @@ package org.osmf.elements.f4mClasses
 
 			if (value.mimeType != null)
 			{
-				resource.mediaType = MediaType.VIDEO;
 				resource.mimeType = value.mimeType;
+			}
+			if (resource.mimeType)
+			{
+				if (resource.mimeType == "audio/mpeg")
+				{
+					resource.mediaType = MediaType.AUDIO;
+				}
+				else
+				{
+					resource.mediaType = MediaType.VIDEO;
+				}
 			}
 
 			if (manifestResource is URLResource)
@@ -531,6 +561,12 @@ package org.osmf.elements.f4mClasses
 			// the origins of the resource.
 			resource.addMetadataValue(MetadataNamespaces.DERIVED_RESOURCE_METADATA, manifestResource);
 
+			// Copy the resource metadata from the original resource
+			for each(var namespace:String in manifestResource.metadataNamespaceURLs)
+			{
+				resource.addMetadataValue(namespace, manifestResource.getMetadataValue(namespace));
+			}
+			
 			HTTPStreamingUtils.addDVRInfoMetadataToResource(value.dvrInfo, resource);
 			
 			HTTPStreamingUtils.addBestEffortFetchInfoMetadataToResource(value.bestEffortFetchInfo, resource);

@@ -54,6 +54,8 @@ package org.osmf.net
 	 */
 	public class NetConnectionFactory extends NetConnectionFactoryBase
 	{
+		private var _useRtmptFallbacks:Boolean = true;
+		
 		/**
 		 * Constructor.
 		 * 
@@ -118,6 +120,7 @@ package org.osmf.net
 		 */
 		override public function create(resource:URLResource):void
 		{
+			_useRtmptFallbacks = resource.useRtmptFallbacks;
 			var key:String = createNetConnectionKey(resource);
 			
 			// The first time this method is called, we create our dictionaries.
@@ -165,7 +168,7 @@ package org.osmf.net
 				pendingDictionary[key] = pendingConnections;
 				
 				// Set up our URLs and NetConnections
-				var urlIncludesFMSApplicationInstance:Boolean = resource is StreamingURLResource ? StreamingURLResource(resource).urlIncludesFMSApplicationInstance : false 
+				var urlIncludesFMSApplicationInstance:int = resource is StreamingURLResource ? StreamingURLResource(resource).urlIncludesFMSApplicationInstance : 0 
 				var netConnectionURLs:Vector.<String> = createNetConnectionURLs(resource.url, urlIncludesFMSApplicationInstance);
 				var netConnections:Vector.<NetConnection> = new Vector.<NetConnection>();
 				for (var j:int = 0; j < netConnectionURLs.length; j++)
@@ -361,7 +364,7 @@ package org.osmf.net
 		 * @param urlIncludesFMSApplicationInstance Indicates whether the URL includes
 		 * the FMS application instance name.  See StreamingURLResource for more info.
 		 **/
-		protected function createNetConnectionURLs(url:String, urlIncludesFMSApplicationInstance:Boolean=false):Vector.<String>
+		protected function createNetConnectionURLs(url:String, urlIncludesFMSApplicationInstance:int=0):Vector.<String>
 		{
 			var urls:Vector.<String> = new Vector.<String>();
 			
@@ -399,10 +402,10 @@ package org.osmf.net
 			switch (theURL.protocol)
 			{
 				case PROTOCOL_RTMP:
-					allowedProtocols = DEFAULT_PROTOCOLS_FOR_RTMP;
+					allowedProtocols = _useRtmptFallbacks ? DEFAULT_PROTOCOLS_FOR_RTMP : DEFAULT_PROTOCOLS_FOR_RTMP_NO_RTMPT;
 					break;
 				case PROTOCOL_RTMPE:
-					allowedProtocols = DEFAULT_PROTOCOLS_FOR_RTMPE;
+					allowedProtocols = _useRtmptFallbacks ? DEFAULT_PROTOCOLS_FOR_RTMPE : DEFAULT_PROTOCOLS_FOR_RTMPE_NO_RTMPT;
 					break;
 				case PROTOCOL_RTMPS:
 				case PROTOCOL_RTMPT:
@@ -438,7 +441,7 @@ package org.osmf.net
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		private function buildConnectionAddress(url:String, urlIncludesFMSApplicationInstance:Boolean, portProtocol:PortProtocol):String
+		private function buildConnectionAddress(url:String, urlIncludesFMSApplicationInstance:int, portProtocol:PortProtocol):String
 		{
 			var fmsURL:FMSURL = new FMSURL(url, urlIncludesFMSApplicationInstance);
 			var addr:String = portProtocol.protocol + "://" + fmsURL.host + ":" + portProtocol.port + "/" + fmsURL.appName + (fmsURL.useInstance ? "/" + fmsURL.instanceName:"");
@@ -462,8 +465,10 @@ package org.osmf.net
 		
 		private static const DEFAULT_TIMEOUT:Number = 10000;
 		private static const DEFAULT_PORTS:String = "1935,443,80";
-		private static const DEFAULT_PROTOCOLS_FOR_RTMP:String = "rtmp,rtmpt,rtmps"
+		private static const DEFAULT_PROTOCOLS_FOR_RTMP:String = "rtmp,rtmpt,rtmps";
+		private static const DEFAULT_PROTOCOLS_FOR_RTMP_NO_RTMPT:String = "rtmp,rtmps";
 		private static const DEFAULT_PROTOCOLS_FOR_RTMPE:String = "rtmpe,rtmpte";
+		private static const DEFAULT_PROTOCOLS_FOR_RTMPE_NO_RTMPT:String = "rtmpe";
 		private static const DEFAULT_CONNECTION_ATTEMPT_INTERVAL:Number = 200;
 
 		private static const PROTOCOL_RTMP:String = "rtmp";

@@ -72,7 +72,8 @@ package org.osmf.elements.f4mClasses
 				var url:String = root.@url;
 				if (!URL.isAbsoluteURL(url))
 				{
-					url = URL.normalizeRootURL(baseURL) + URL.normalizeRelativeURL(url);
+					var baseUrlWithNoParams:Array = baseURL.split("?"); 
+					url = URL.normalizeRootURL(baseUrlWithNoParams[0]) + URL.normalizeRelativeURL(url);
 				}
 				media.url = url;
 			}
