@@ -559,7 +559,7 @@ package org.osmf.elements
 			var bufferTrait:BufferTrait = loadTrait.getTrait(MediaTraitType.BUFFER) as BufferTrait;
 			if (bufferTrait == null)
 			{
-				bufferTrait = new NetStreamBufferTrait(stream);
+				bufferTrait = new NetStreamBufferTrait(stream, videoSurface);
 			}
 			addTrait(MediaTraitType.BUFFER, bufferTrait);
 			
@@ -781,11 +781,8 @@ package org.osmf.elements
      		var error:MediaError = null;
  			switch (event.info.code)
 			{
-				case NetStreamCodes.NETSTREAM_FAILED:
-					trace ("LightweghtVideoElement", NetStreamCodes.NETSTREAM_FAILED);
-					//	error = new MediaError(MediaErrorCodes.NETSTREAM_PLAY_FAILED, event.info.description);
-					break;
 				case NetStreamCodes.NETSTREAM_PLAY_FAILED:
+				case NetStreamCodes.NETSTREAM_FAILED:
 					error = new MediaError(MediaErrorCodes.NETSTREAM_PLAY_FAILED, event.info.description);
 					break;
 				case NetStreamCodes.NETSTREAM_PLAY_STREAMNOTFOUND:

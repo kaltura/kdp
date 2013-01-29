@@ -186,7 +186,7 @@ package org.osmf.net
 			 * We assume being unable to handle the resource for conditions not mentioned above
 			 */
 			var res:URLResource = resource as URLResource;
-			var extensionPattern:RegExp = new RegExp("\.flv$|\.f4v$|\.mov$|\.mp4$|\.mp4v$|\.m4v$|\.3gp$|\.3gpp2$|\.3g2$", "i");
+			var extensionPattern:RegExp = new RegExp("\.flv$|\.f4v$|\.m3u8$|\.mov$|\.mp4$|\.mp4v$|\.m4v$|\.3gp$|\.3gpp2$|\.3g2$", "i");
 			var url:URL = res != null ? new URL(res.url) : null;
 			if (url == null || url.rawUrl == null || url.rawUrl.length <= 0)
 			{
@@ -407,8 +407,8 @@ package org.osmf.net
 				nsPlayOptions.transition = NetStreamPlayTransitions.RESUME;
 				
 				var resource:URLResource = loadTrait.resource as URLResource;
-				var urlIncludesFMSApplicationInstance:int = 
-						(resource as StreamingURLResource) != null ? (resource as StreamingURLResource).urlIncludesFMSApplicationInstance : 0;
+				var urlIncludesFMSApplicationInstance:Boolean = 
+						(resource as StreamingURLResource) != null ? (resource as StreamingURLResource).urlIncludesFMSApplicationInstance : false;
 				var streamName:String = NetStreamUtils.getStreamNameFromURL(resource.url, urlIncludesFMSApplicationInstance);
 				
 				nsPlayOptions.streamName = streamName;
@@ -430,8 +430,14 @@ package org.osmf.net
 				var netStream:NetStream = createNetStream(connection, netLoadTrait.resource as URLResource);				
 				netStream.client = new NetClient();
 				netLoadTrait.netStream = netStream;
-				netLoadTrait.netStream.checkPolicyFile = true;
-				netLoadTrait.switchManager = createNetStreamSwitchManager(connection, netStream, netLoadTrait.resource as DynamicStreamingResource);
+				
+				// Only generate the switching manager if the resource is truly switchable.
+				var dsResource:DynamicStreamingResource = loadTrait.resource as DynamicStreamingResource;
+				if (dsResource != null)
+				{
+					netLoadTrait.switchManager = createNetStreamSwitchManager(connection, netStream, dsResource);
+				}
+				
 				netLoadTrait.netConnectionFactory = factory;
 				
 				CONFIG::FLASH_10_1	

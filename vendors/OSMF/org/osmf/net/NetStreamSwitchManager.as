@@ -390,10 +390,10 @@ package org.osmf.net
 				}
 				if (canAutoSwitchNow(newIndex))
 				{				
-				//	CONFIG::LOGGING
-				//	{
-						trace("checkRules() - Calling for switch to " + newIndex + " at " + dsResource.streamItems[newIndex].bitrate + " kbps");
-				//	}
+					CONFIG::LOGGING
+					{
+						logger.debug("checkRules() - Calling for switch to " + newIndex + " at " + dsResource.streamItems[newIndex].bitrate + " kbps");
+					}
 					executeSwitch(newIndex);
 				}
 			}  

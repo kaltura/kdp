@@ -27,6 +27,8 @@ package org.osmf.elements.f4mClasses
 	import org.osmf.net.StreamingItemType;
 	import org.osmf.utils.OSMFStrings;
 	import org.osmf.utils.URL;
+	import org.osmf.elements.f4mClasses.utils.F4MUtils;
+	import org.osmf.utils.Base64Decoder;
 
 	[ExcludeClass]
 
@@ -70,8 +72,7 @@ package org.osmf.elements.f4mClasses
 				var url:String = root.@url;
 				if (!URL.isAbsoluteURL(url))
 				{
-					var baseUrlWithNoParams:Array = baseURL.split("?"); 
-					url = URL.normalizeRootURL(baseUrlWithNoParams[0]) + URL.normalizeRelativeURL(url);
+					url = URL.normalizeRootURL(baseURL) + URL.normalizeRelativeURL(url);
 				}
 				media.url = url;
 			}
@@ -91,11 +92,21 @@ package org.osmf.elements.f4mClasses
 				media.drmAdditionalHeader = new DRMAdditionalHeader();
 				media.drmAdditionalHeader.id = idPrefix + root.@drmAdditionalHeaderId;
 			}
+			else
+			{
+				media.drmAdditionalHeader = new DRMAdditionalHeader();
+				media.drmAdditionalHeader.id = idPrefix + F4MUtils.GLOBAL_ELEMENT_ID;
+			}
 
 			if (root.attribute('bootstrapInfoId').length() > 0)
 			{
 				media.bootstrapInfo = new BootstrapInfo();
 				media.bootstrapInfo.id = idPrefix + root.@bootstrapInfoId;
+			}
+			else
+			{
+				media.bootstrapInfo = new BootstrapInfo();
+				media.bootstrapInfo.id = idPrefix + F4MUtils.GLOBAL_ELEMENT_ID;
 			}
 
 			if (root.attribute('height').length() > 0)

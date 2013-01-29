@@ -258,7 +258,7 @@ package org.osmf.metadata
 				}
 				
 				// Make sure we don't insert a dup at index 0
-				else if ((index == 0) && temporalKeyCollection.length && (time != temporalKeyCollection[0])) 
+				else if ((index == 0) && (time != temporalKeyCollection[0])) 
 				{
 					temporalKeyCollection.splice(index, 0, time);
 					temporalValueCollection.splice(index, 0, marker);

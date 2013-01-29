@@ -82,6 +82,7 @@ package org.osmf.net
 			if (	result
 				 && !isNaN(loadTrait.bytesTotal)
 				 && loadTrait.bytesTotal > 0
+				 && useSeekLimitation // if we have seek limitation in place
 			   )
 			{
 				// Check the progress of the download, as you can't seek past
@@ -227,6 +228,14 @@ package org.osmf.net
 		{
 			seekBugTimer.reset();
 			setSeeking(false, expectedTime);
+		}
+		
+		private function get useSeekLimitation():Boolean
+		{
+			// If bytesLoaded is not set (meaning that is zero) then we must check
+			// if the hardware decoding is taking care of loading data. If this is 
+			// the case we don't take into account the seek limitation. See FM-1399.
+			return !(loadTrait.bytesLoaded == 0 && videoSurface != null && videoSurface.info.renderStatus == "accelerated");
 		}
 		
 		/**

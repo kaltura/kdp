@@ -111,10 +111,10 @@ package org.osmf.net.dvr
 			
 			var streamingResource:StreamingURLResource = urlResource as StreamingURLResource;
 			
-			var urlIncludesFMSApplicationInstance:int
+			var urlIncludesFMSApplicationInstance:Boolean
 				= streamingResource
 					? streamingResource.urlIncludesFMSApplicationInstance
-					: 0;
+					: false;
 			
 			var dynamicResource:DynamicStreamingResource = streamingResource as DynamicStreamingResource;
 			if (dynamicResource != null)

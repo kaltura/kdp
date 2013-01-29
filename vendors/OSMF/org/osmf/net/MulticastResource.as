@@ -42,7 +42,7 @@ package org.osmf.net
 			groupspec:String=null, 
 			streamName:String=null,
 			connectionArguments:Vector.<Object>=null, 
-			urlIncludesFMSApplicationInstance:int=0, 
+			urlIncludesFMSApplicationInstance:Boolean=false, 
 			drmContentData:ByteArray=null)
 		{
 			super(url, StreamType.LIVE, NaN, NaN, connectionArguments, urlIncludesFMSApplicationInstance, drmContentData);

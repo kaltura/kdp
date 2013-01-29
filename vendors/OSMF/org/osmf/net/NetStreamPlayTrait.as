@@ -30,6 +30,7 @@ package org.osmf.net
 	import org.osmf.events.MediaError;
 	import org.osmf.events.MediaErrorCodes;
 	import org.osmf.events.MediaErrorEvent;
+	import org.osmf.events.PlayEvent;
 	import org.osmf.media.MediaResourceBase;
 	import org.osmf.media.URLResource;
 	import org.osmf.traits.PlayState;
@@ -106,7 +107,7 @@ package org.osmf.net
 				{
 					// Map the resource to the NetStream.play/play2 arguments.
 					var streamingResource:StreamingURLResource = urlResource as StreamingURLResource;
-					var urlIncludesFMSApplicationInstance:int = streamingResource ? streamingResource.urlIncludesFMSApplicationInstance : 0;
+					var urlIncludesFMSApplicationInstance:Boolean = streamingResource ? streamingResource.urlIncludesFMSApplicationInstance : false;
 					var streamName:String = NetStreamUtils.getStreamNameFromURL(urlResource.url, urlIncludesFMSApplicationInstance);
 					
 					playArgs = NetStreamUtils.getPlayArgsForResource(urlResource);
@@ -171,14 +172,11 @@ package org.osmf.net
 		{
 			switch (event.info.code)
 			{
-				case NetStreamCodes.NETSTREAM_FAILED:
-					//netStream.pause();
-					trace ("netStreamPlayTrait", NetStreamCodes.NETSTREAM_FAILED);
-					break;
 				case NetStreamCodes.NETSTREAM_PLAY_FAILED:
 				case NetStreamCodes.NETSTREAM_PLAY_FILESTRUCTUREINVALID:
 				case NetStreamCodes.NETSTREAM_PLAY_STREAMNOTFOUND:
 				case NetStreamCodes.NETSTREAM_PLAY_NOSUPPORTEDTRACKFOUND:				
+				case NetStreamCodes.NETSTREAM_FAILED:
 					// Pause the stream and reset our state, but don't
 					// signal stop().  The MediaElement's netStatus
 					// event handler will catch the error, and coerce
@@ -195,6 +193,14 @@ package org.osmf.net
 						// Explicitly stop to prevent the stream from restarting on seek();
 						stop();
 					}
+					break;
+				case NetStreamCodes.NETSTREAM_PLAY_LIVE_STALL:
+					// expose NetStream.Play.LiveStall as a PlayEvent.LIVE_STALL
+					dispatchEvent(new PlayEvent(PlayEvent.LIVE_STALL));
+					break;
+				case NetStreamCodes.NETSTREAM_PLAY_LIVE_RESUME:
+					// expose NetStream.Play.LiveStall as a PlayEvent.LIVE_RESUME
+					dispatchEvent(new PlayEvent(PlayEvent.LIVE_RESUME));
 					break;
 			}
 		}

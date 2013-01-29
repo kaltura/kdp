@@ -202,6 +202,31 @@ package org.osmf.media
 	 *  @productversion OSMF 1.0
 	 **/
 	[Event(name="mediaError",type="org.osmf.events.MediaErrorEvent")]
+	
+	/**
+	 * Dispatched  when playback runs out of content for a live stream but the
+	 * stream is not done.
+	 *
+	 * @eventType org.osmf.events.PlayEvent.LIVE_STALL
+	 * 
+	 * 	@langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion OSMF 2.0
+	 **/
+	[Event(name="liveStall",type="org.osmf.events.PlayEvent")]
+	
+	/**
+	 * Dispatched  when playback resumes after a live stall
+	 *
+	 * @eventType org.osmf.events.PlayEvent.LIVE_RESUME
+	 * 
+	 * 	@langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion OSMF 2.0
+	 **/
+	[Event(name="liveResume",type="org.osmf.events.PlayEvent")]
 
 	/**
 	 * MediaPlayer is the controller class used for interaction with all media types.
@@ -772,12 +797,6 @@ package org.osmf.media
 	    */
 	    public function play():void
 	    {
-			var currTimeTrait : TimeTrait = media.getTrait(MediaTraitType.TIME) as TimeTrait;
-			if (currTimeTrait && currentTime < currTimeTrait.duration)
-			{
-				mediaAtEnd = false;
-			}
-
 	    	// Bug FM-347 - the media player should auto-rewind once the
 	    	// playhead is at the end, and play() is called.
 	    	if (canPlay && 
@@ -1439,15 +1458,12 @@ package org.osmf.media
 
 	    private function onMediaError(event:MediaErrorEvent):void
 	    {
-	    	// Note that all MediaErrors are treated as playback errors.  If
-	    	// necessary, we could introduce a distinction between errors and
-	    	// warnings (non-fatal errors).  But the current assumption is
-	    	// that we don't need to do so (no compelling use cases exist).
+	    	// MEDIA_ERROR is treated as a playback error, so it should halt playback.
 	    	setState(MediaPlayerState.PLAYBACK_ERROR);
 	    	
 	    	dispatchEvent(event.clone());
 	    }
-	        
+
 		private function onTraitAdd(event:MediaElementEvent):void
 		{				
 			updateTraitListeners(event.traitType, true);				
@@ -1513,6 +1529,9 @@ package org.osmf.media
 					break;
 				case MediaTraitType.PLAY:						
 					changeListeners(add, traitType, PlayEvent.PLAY_STATE_CHANGE, onPlayStateChange);
+					changeListeners(add, traitType, PlayEvent.LIVE_STALL, onLiveStall);
+					changeListeners(add, traitType, PlayEvent.LIVE_RESUME, onLiveResume);
+					
 					_canPlay = add;	
 					var playTrait:PlayTrait = PlayTrait(media.getTrait(MediaTraitType.PLAY));
 					if (autoPlay && canPlay && !playing && !inSeek)
@@ -1761,10 +1780,6 @@ package org.osmf.media
 			{				
 				setState(MediaPlayerState.BUFFERING);				
 			}
-			else if (canPlay && playing)
-			{
-				setState(MediaPlayerState.PLAYING);
-			}
 			else if (canPlay && paused)
 			{
 				setState(MediaPlayerState.PAUSED);
@@ -1772,7 +1787,11 @@ package org.osmf.media
 			else if (canBuffer && buffering)
 			{
 				setState(MediaPlayerState.BUFFERING);
-			}					
+			}
+			else if (canPlay && playing)
+			{
+				setState(MediaPlayerState.PLAYING);
+			}
 			else if (!inExecuteAutoRewind)
 			{
 				setState(MediaPlayerState.READY);
@@ -1793,6 +1812,16 @@ package org.osmf.media
 			{
 				setState(MediaPlayerState.PAUSED);				
 			}
+		}
+		
+		private function onLiveStall(event:PlayEvent):void
+		{
+			dispatchEvent(event.clone());
+		}
+		
+		private function onLiveResume(event:PlayEvent):void
+		{
+			dispatchEvent(event.clone());
 		}
 
 		private function onLoadState(event:LoadEvent):void
