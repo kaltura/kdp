@@ -468,7 +468,8 @@ package com.kaltura.kdpfl.view.media
 					break;
 				case NotificationType.DO_PAUSE: //when the player asked to pause
 					_prevState = PAUSED;
-					_mediaProxy.vo.singleAutoPlay = false;
+					if (!_mediaProxy.vo.isFlavorSwitching)
+						_mediaProxy.vo.singleAutoPlay = false;
 					if(player && player.media && player.media.hasTrait(MediaTraitType.PLAY) )
 					{
 						if (player.canPause)
