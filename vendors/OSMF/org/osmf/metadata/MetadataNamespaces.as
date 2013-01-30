@@ -21,7 +21,7 @@
 *****************************************************/
 package org.osmf.metadata
 {
-	[ExcludeClass]
+//	[ExcludeClass]
 	
 	/**
 	 * @private

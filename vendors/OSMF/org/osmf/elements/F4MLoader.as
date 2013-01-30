@@ -81,7 +81,7 @@ package org.osmf.elements
 		 *  @productversion OSMF 1.0
 		 */
 		public static const F4M_MIME_TYPE:String = "application/f4m+xml";
-
+		
 		/**
 		 * for rtmp/rtmpe: should fallback to rtmpt/rtmpte 
 		 */		
@@ -253,7 +253,6 @@ package org.osmf.elements
 			try
 			{
 				var netResource:MediaResourceBase = parser.createResource(manifest, URLResource(loadTrait.resource));
-
 				if (netResource is StreamingURLResource) {
 					(netResource  as StreamingURLResource).useRtmptFallbacks = useRtmptFallbacks;
 				}
