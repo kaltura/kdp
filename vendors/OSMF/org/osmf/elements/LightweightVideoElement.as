@@ -559,7 +559,7 @@ package org.osmf.elements
 			var bufferTrait:BufferTrait = loadTrait.getTrait(MediaTraitType.BUFFER) as BufferTrait;
 			if (bufferTrait == null)
 			{
-				bufferTrait = new NetStreamBufferTrait(stream);
+				bufferTrait = new NetStreamBufferTrait(stream, videoSurface);
 			}
 			addTrait(MediaTraitType.BUFFER, bufferTrait);
 			

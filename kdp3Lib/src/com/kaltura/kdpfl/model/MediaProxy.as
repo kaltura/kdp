@@ -46,6 +46,7 @@ package com.kaltura.kdpfl.model
 	import org.osmf.media.MediaResourceBase;
 	import org.osmf.media.URLResource;
 	import org.osmf.metadata.Metadata;
+	import org.osmf.metadata.MetadataNamespaces;
 	import org.osmf.net.DynamicStreamingResource;
 	import org.osmf.net.NetStreamCodes;
 	import org.osmf.net.StreamType;
@@ -274,7 +275,7 @@ package com.kaltura.kdpfl.model
 				(facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player.autoDynamicStreamSwitch = false;
 				if (preferedIndex!=-1)
 				{
-					f4mLoader.initialIndex = preferedIndex;	
+					resource.addMetadataValue(MetadataNamespaces.RESOURCE_INITIAL_INDEX, preferedIndex);
 					startingIndex = preferedIndex;
 				}
 				f4mLoader.useRtmptFallbacks = _flashvars.useRtmptFallback == "false" ? false : true;				

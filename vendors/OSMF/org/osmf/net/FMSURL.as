@@ -214,7 +214,6 @@ package org.osmf.net
 
 	 			if (_useInstance) 
 	 			{
-					
 					streamStartNdx = INSTANCENAME_START_INDEX + _useInstance * 2;
 					for (var indx : int = INSTANCENAME_START_INDEX; indx < INSTANCENAME_START_INDEX + _useInstance *2 - 1; indx++)
 					{
@@ -441,7 +440,7 @@ package org.osmf.net
 			}
 		}
 		
-		private var _useInstance:int = 0;
+		private var _useInstance:int;
 		private var _appName:String;
 		private var _instanceName:String;
 		private var _streamName:String;

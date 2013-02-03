@@ -15,6 +15,13 @@ package com.kaltura.kdpfl.model.vo
 		 * Version of the player.
 		 */		
 		public var kdpVersion : String;
+		/**
+		 * Player load time(sec).
+		 */		
+		public var loadTime : String;
+		
+		
+		
 		
 		/**
 		 *  Constructor

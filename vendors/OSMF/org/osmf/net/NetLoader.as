@@ -186,7 +186,7 @@ package org.osmf.net
 			 * We assume being unable to handle the resource for conditions not mentioned above
 			 */
 			var res:URLResource = resource as URLResource;
-			var extensionPattern:RegExp = new RegExp("\.flv$|\.f4v$|\.mov$|\.mp4$|\.mp4v$|\.m4v$|\.3gp$|\.3gpp2$|\.3g2$", "i");
+			var extensionPattern:RegExp = new RegExp("\.flv$|\.f4v$|\.m3u8$|\.mov$|\.mp4$|\.mp4v$|\.m4v$|\.3gp$|\.3gpp2$|\.3g2$", "i");
 			var url:URL = res != null ? new URL(res.url) : null;
 			if (url == null || url.rawUrl == null || url.rawUrl.length <= 0)
 			{
@@ -431,7 +431,14 @@ package org.osmf.net
 				netStream.client = new NetClient();
 				netLoadTrait.netStream = netStream;
 				netLoadTrait.netStream.checkPolicyFile = true;
-				netLoadTrait.switchManager = createNetStreamSwitchManager(connection, netStream, netLoadTrait.resource as DynamicStreamingResource);
+				
+				// Only generate the switching manager if the resource is truly switchable.
+				var dsResource:DynamicStreamingResource = loadTrait.resource as DynamicStreamingResource;
+				if (dsResource != null)
+				{
+					netLoadTrait.switchManager = createNetStreamSwitchManager(connection, netStream, dsResource);
+				}
+				
 				netLoadTrait.netConnectionFactory = factory;
 				
 				CONFIG::FLASH_10_1	

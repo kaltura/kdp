@@ -19,7 +19,7 @@
 *  Incorporated. All Rights Reserved. 
 *  
 *****************************************************/
-package org.osmf.elements.f4mClasses
+package org.osmf.utils
 {
 	import flash.utils.ByteArray;
 	
@@ -35,7 +35,7 @@ package org.osmf.elements.f4mClasses
 	 *  @playerversion AIR 1.5
 	 *  @productversion OSMF 1.0
 	 */
-	internal class Base64Decoder
+	public class Base64Decoder
 	{
 		//--------------------------------------------------------------------------
 		//
