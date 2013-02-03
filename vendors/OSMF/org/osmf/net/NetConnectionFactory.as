@@ -54,7 +54,6 @@ package org.osmf.net
 	 */
 	public class NetConnectionFactory extends NetConnectionFactoryBase
 	{
-		
 		private var _useRtmptFallbacks:Boolean = true;
 		
 		/**

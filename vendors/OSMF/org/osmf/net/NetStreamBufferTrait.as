@@ -22,9 +22,12 @@
 package org.osmf.net
 {
 	import flash.events.NetStatusEvent;
+	import flash.media.VideoStatus;
 	import flash.net.NetStream;
 	
+	import org.osmf.media.videoClasses.VideoSurface;
 	import org.osmf.traits.BufferTrait;
+	
 
 	[ExcludeClass]
 	
@@ -45,11 +48,12 @@ package org.osmf.net
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function NetStreamBufferTrait(netStream:NetStream)
+		public function NetStreamBufferTrait(netStream:NetStream, videoSurface:VideoSurface = null)
 		{
 			super();
 			
-			this.netStream = netStream;		
+			this.netStream = netStream;	
+			this.videoSurface = videoSurface;
 			bufferTime = netStream.bufferTime; 						
 			netStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true);				
 		}
@@ -90,7 +94,16 @@ package org.osmf.net
 					{				
 						setBuffering(false);
 					}
+					if (bufferNotSupported) 
+					{
+						setBuffering(false);
+					}
 					break;
+				
+				case NetStreamCodes.NETSTREAM_SEEK_START:
+					setBuffering(true);
+					break;
+				
 				case NetStreamCodes.NETSTREAM_BUFFER_FLUSH:
 				case NetStreamCodes.NETSTREAM_BUFFER_FULL:
 					setBuffering(false);
@@ -98,6 +111,15 @@ package org.osmf.net
 			}
 		}
 		
-		private var netStream:NetStream;			
+		private function get bufferNotSupported():Boolean 
+		{
+			// If the loading of data, handling and buffering is handled
+			// by hardawre (ex: iOS) we don't show get into the buffering 
+			// state. See FM-1400.
+			return netStream.bytesLoaded == 0 && videoSurface != null && videoSurface.info.renderStatus == "accelerated";
+		}
+		
+		private var netStream:NetStream;	
+		private var videoSurface:VideoSurface;
 	}
 }

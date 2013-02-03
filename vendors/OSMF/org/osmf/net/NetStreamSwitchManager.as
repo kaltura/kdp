@@ -392,7 +392,7 @@ package org.osmf.net
 				{				
 				//	CONFIG::LOGGING
 				//	{
-						trace("checkRules() - Calling for switch to " + newIndex + " at " + dsResource.streamItems[newIndex].bitrate + " kbps");
+						trace ("checkRules() - Calling for switch to " + newIndex + " at " + dsResource.streamItems[newIndex].bitrate + " kbps");
 				//	}
 					executeSwitch(newIndex);
 				}
