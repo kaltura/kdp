@@ -27,6 +27,7 @@ package org.osmf.containers
 	import flash.utils.Dictionary;
 	
 	import org.osmf.events.ContainerChangeEvent;
+	import org.osmf.events.VideoSurfaceEvent;
 	import org.osmf.layout.LayoutMetadata;
 	import org.osmf.layout.LayoutRenderer;
 	import org.osmf.layout.LayoutRendererBase;
@@ -68,6 +69,8 @@ package org.osmf.containers
 			
 			_layoutRenderer = layoutRenderer || new LayoutRenderer();
 			_layoutRenderer.container = this; 
+			
+			addEventListener(VideoSurfaceEvent.RENDER_CHANGE, onVideoSurfaceEvent);
 		}
 		
 		/**
@@ -369,6 +372,7 @@ package org.osmf.containers
 			
 			if	(	!isNaN(_backgroundColor)
 				&& 	_backgroundAlpha != 0
+				&&  backgroundVisible
 				&&	lastAvailableWidth
 				&&	lastAvailableHeight
 				)
@@ -390,6 +394,19 @@ package org.osmf.containers
 		/**
 		 * @private
 		 * 
+		 * When a VideoSurface from this container uses StageVideo we disable the background 
+		 * so that it would not cover the accelerated video. The background is restored when 
+		 * VideoSurface switches back to video.
+		 */		
+		private function onVideoSurfaceEvent(event:VideoSurfaceEvent):void
+		{
+			backgroundVisible = !event.usesStageVideo;
+			drawBackground();
+		}
+		
+		/**
+		 * @private
+		 * 
 		 * Dictionary of MediaElementLayoutTarget instances, index by the
 		 * media elements that they wrap: 
 		 */		
@@ -402,5 +419,6 @@ package org.osmf.containers
 		
 		private var lastAvailableWidth:Number;
 		private var lastAvailableHeight:Number;
+		private var backgroundVisible:Boolean;
 	}
 }

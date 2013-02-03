@@ -83,10 +83,6 @@ package org.osmf.elements
 		public static const F4M_MIME_TYPE:String = "application/f4m+xml";
 		
 		/**
-		 * initial stream index for dynamic streams
-		 * */
-		public var initialIndex:int;
-		/**
 		 * for rtmp/rtmpe: should fallback to rtmpt/rtmpte 
 		 */		
 		public var useRtmptFallbacks:Boolean = true;
@@ -197,7 +193,7 @@ package org.osmf.elements
 					parserTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onParserTimerComplete);
 					parserTimer.start();
 
-					parser.parse(resourceData, URL.getRootUrl(URLResource(loadTrait.resource).url));
+					parser.parse(resourceData, URL.normalizePathForURL(URLResource(loadTrait.resource).url, true));
 				}
 				catch (parseError:Error)
 				{
@@ -257,9 +253,6 @@ package org.osmf.elements
 			try
 			{
 				var netResource:MediaResourceBase = parser.createResource(manifest, URLResource(loadTrait.resource));
-				if (netResource is DynamicStreamingResource) {
-					(netResource  as DynamicStreamingResource).initialIndex = initialIndex;
-				}
 				if (netResource is StreamingURLResource) {
 					(netResource  as StreamingURLResource).useRtmptFallbacks = useRtmptFallbacks;
 				}

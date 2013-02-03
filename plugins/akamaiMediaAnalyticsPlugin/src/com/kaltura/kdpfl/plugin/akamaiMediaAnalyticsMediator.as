@@ -3,6 +3,7 @@ package com.kaltura.kdpfl.plugin
 	import com.akamai.playeranalytics.AnalyticsPluginLoader;
 	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.PlayerStatusProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.StreamerType;
 	import com.kaltura.types.KalturaMediaType;
@@ -50,6 +51,7 @@ package com.kaltura.kdpfl.plugin
 					AnalyticsPluginLoader.setData("playerVersion", facade["kdpVersion"]);
 					AnalyticsPluginLoader.setData("playerId", configProxy.vo.kuiConf.id);
 					AnalyticsPluginLoader.setData("device", Capabilities.os );
+					AnalyticsPluginLoader.setData("playerLoadtime",(facade.retrieveProxy(PlayerStatusProxy.NAME) as PlayerStatusProxy).vo.loadTime);
 					
 					
 					if (entry is KalturaMediaEntry)
