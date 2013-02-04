@@ -364,9 +364,12 @@ package com.kaltura.kdpfl.view.media
 					//first, load the media, if we didn't load it yet
 					if (_mediaProxy.shouldWaitForElement)
 					{
-						sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
-						_waitForMediaElement = true;
-						_mediaProxy.prepareMediaElement();
+						if (!_waitForMediaElement)
+						{
+							sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
+							_waitForMediaElement = true;
+							_mediaProxy.prepareMediaElement();
+						}	
 					}
 					else
 					{
