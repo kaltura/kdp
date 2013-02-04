@@ -22,6 +22,9 @@ package com.kaltura.kdpfl.plugin.view {
 
 		private var _reasonsDataProvider:Array = [];
 		private var btnSubmit:KButton;
+		private var _combo:KComboBox;
+		private var _showCombo:Boolean;
+		private var _comboSelectedIndex:Number = 0 ;
 
 
 		public function ModerationScreen() {
@@ -55,11 +58,11 @@ package com.kaltura.kdpfl.plugin.view {
 			txt.text = _windowText;
 			addChild(txt);
 
-			var cb:KComboBox = new KComboBox();
-			cb.name = "cbReasons";
-			cb.width = 150;
-			cb.dataProvider = new DataProvider(_reasonsDataProvider);
-			addChild(cb);
+			_combo = new KComboBox();
+			_combo.width = 150;
+			_combo.dataProvider = new DataProvider(_reasonsDataProvider);
+			addChild(_combo);
+
 
 			var ti:KTextField = new KTextField();
 			ti.name = "tiDescription";
@@ -143,7 +146,7 @@ package com.kaltura.kdpfl.plugin.view {
 			super.setSkin( "Mod_darkBg");
 			(this.getChildByName("windowTitle") as KLabel).setSkin("Mod_title", setSkinSize);
 			(this.getChildByName("windowText") as KTextField).setSkin( "Mod_text", setSkinSize);
-			(this.getChildByName("cbReasons") as KComboBox).setSkin("_mod", setSkinSize);
+			_combo.setSkin("_mod", setSkinSize);
 			(this.getChildByName("tiDescription") as KTextField).setSkin("Mod_text", setSkinSize);
 			var hbox:KHBox = this.getChildByName("controlBar") as KHBox;
 			(hbox.getChildByName("btnSubmit") as KButton).setSkin("mod", setSkinSize);
@@ -155,7 +158,10 @@ package com.kaltura.kdpfl.plugin.view {
 		 * clears the data entered in the form
 		 * */
 		public function clearData():void {
-			(this.getChildByName("cbReasons") as KComboBox).selectedIndex = -1;
+			_combo.selectedIndex = -1;
+			if(_comboSelectedIndex)
+				_combo.selectedIndex = _comboSelectedIndex;
+				
 			(this.getChildByName("tiDescription") as KTextField).text = "";
 		}
 
@@ -165,7 +171,7 @@ package com.kaltura.kdpfl.plugin.view {
 		 * {reason, description}
 		 */
 		public function get data():Object {
-			var reason:Object = (this.getChildByName("cbReasons") as KComboBox).selectedItem.type;
+			var reason:Object = _combo.selectedItem.type;
 			var description:String = (this.getChildByName("tiDescription") as KTextField).text;
 			return {reason: reason, comments: description};
 		}
@@ -177,7 +183,26 @@ package com.kaltura.kdpfl.plugin.view {
 		public function get headerText():String {
 			return _headerText;
 		}
-
+		/**
+		 * Show/hide the combobox
+		 */
+		public function set showCombo(value:Boolean):void {
+			_showCombo = value;
+			if(_combo)
+			{
+				_combo.visible = value;
+				//hack. If we remove the combo from the displaylist we get errors
+				if(!value)
+					_combo.height = 1;
+			}
+		}
+		public function set comboSelectedIndex(value:Number):void {
+			_comboSelectedIndex = value;
+			if(_combo)
+			{
+				_combo.selectedIndex = value;
+			}
+		}
 
 		/**
 		 * @private
@@ -226,7 +251,7 @@ package com.kaltura.kdpfl.plugin.view {
 
 
 		public function set reasonsDataProvider(value:Array):void {
-			(this.getChildByName("cbReasons") as KComboBox).dataProvider = new DataProvider(value);
+			_combo.dataProvider = new DataProvider(value);
 			_reasonsDataProvider = value;
 		}
 
