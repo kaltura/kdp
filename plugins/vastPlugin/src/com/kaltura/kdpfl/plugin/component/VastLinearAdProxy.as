@@ -20,6 +20,8 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.events.LoaderEvent;
 	import org.osmf.events.MediaErrorEvent;
 	import org.osmf.events.MediaPlayerCapabilityChangeEvent;
+	import org.osmf.events.MetadataEvent;
+	import org.osmf.events.PlayEvent;
 	import org.osmf.events.TimeEvent;
 	import org.osmf.media.MediaElement;
 	import org.osmf.media.MediaFactory;
@@ -30,11 +32,14 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.vast.loader.VASTLoadTrait;
 	import org.osmf.vast.loader.VASTLoader;
 	import org.osmf.vast.media.CompanionElement;
+	import org.osmf.vast.media.VAST2TrackingProxyElement;
 	import org.osmf.vast.media.VASTMediaGenerator;
 	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.model.VASTDocument;
 	import org.osmf.vast.model.VASTUrl;
 	import org.osmf.vast.parser.base.VAST2CompanionElement;
+	import org.osmf.vpaid.elements.VPAIDElement;
+	import org.osmf.vpaid.metadata.VPAIDMetadata;
 	import org.puremvc.as3.patterns.proxy.Proxy;
 	
 	public class VastLinearAdProxy extends Proxy implements IEventDispatcher
@@ -250,6 +255,9 @@ package com.kaltura.kdpfl.plugin.component {
 		{
 			playerMediator["player"].addEventListener(MediaErrorEvent.MEDIA_ERROR, onVastAdError);
 			playerMediator["cleanMedia"]();
+			
+			
+				
 			//_playingAd.addEventListener("traitAdd", onAdPlayable);
 			var sequenceProxy : Object = facade.retrieveProxy("sequenceProxy");
 			
@@ -259,11 +267,29 @@ package com.kaltura.kdpfl.plugin.component {
 			//playerMediator.player.addEventListener(TimeEvent.COMPLETE, onAdComplete);
 			//playerMediator["playContent"]();
 			//TODO track stats
-			sendNotification("adStart",
-							 {timeSlot: getContextString(_currentSequenceContext)});
+			sendNotification("adStart",	 {timeSlot: getContextString(_currentSequenceContext)});
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
 			playerMediator["player"]["media"] = _playingAd;
+			
+			var vpaidElement:VPAIDElement =ProxyElement((_playingAd as VAST2TrackingProxyElement).proxiedElement).proxiedElement as VPAIDElement;
+			var vpaidMetadata:VPAIDMetadata = vpaidElement.getMetadata(vpaidElement.metadataNamespaceURLs[0]) as VPAIDMetadata;
+			vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent)
+			{
+				trace (event.key)
+				if (event.key == "adUserClose")
+				{
+					signalEnd();
+				}
+			});
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 		
 		/**

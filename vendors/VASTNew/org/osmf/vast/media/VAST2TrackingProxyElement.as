@@ -225,12 +225,12 @@ package org.osmf.vast.media
 				
 					fireEventOfType(VASTTrackingEventType.THIRD_QUARTILE);
 				break;
-				
+		
 				case VPAIDMetadata.AD_VIDEO_COMPLETE:
 				
 					fireEventOfType(VASTTrackingEventType.COMPLETE);
 				break;
-				
+				case VPAIDMetadata.AD_STOPPED:
 				case VPAIDMetadata.AD_CLOSE:
 				
 					fireEventOfType(VASTTrackingEventType.CLOSE);
