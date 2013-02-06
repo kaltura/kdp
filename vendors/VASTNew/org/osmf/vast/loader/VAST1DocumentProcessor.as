@@ -77,7 +77,7 @@ package org.osmf.vast.loader
 			if (documentXML != null)
 			{
 				var parser:VAST1Parser = new VAST1Parser();
-				vastDocument = parser.parse(documentXML,false);
+				vastDocument = parser.parse(documentXML);
 				if (vastDocument != null)
 				{
 					// If the VAST document has a wrapper, we may need to load it.

@@ -122,10 +122,7 @@ package org.osmf.vast.loader
 			var httpLoadTrait:HTTPLoadTrait = new HTTPLoadTrait(httpLoader, loadTrait.resource);
 			httpLoadTrait.addEventListener(MediaErrorEvent.MEDIA_ERROR, onLoadTraitError);
 
-			CONFIG::LOGGING
-			{
-				logger.debug("[VAST] Loading document from: " + URLResource(loadTrait.resource).url.toString() + ", " + maxNumWrapperRedirects + " wrapper redirects left");
-			}
+			
 			httpLoader.load(httpLoadTrait);
 			
 			function onHTTPLoaderStateChange(event:LoaderEvent):void

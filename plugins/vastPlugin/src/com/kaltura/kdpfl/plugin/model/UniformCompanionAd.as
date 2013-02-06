@@ -63,7 +63,7 @@ package com.kaltura.kdpfl.plugin.model
 				altText = vast1CompanionAd.altText;
 				adParameters = vast1CompanionAd.adParameters;
 				apiFramework = vast1CompanionAd.adParameters;
-				resourceType = vast1CompanionAd.resourceType.resourceType;
+				//resourceType = vast1CompanionAd.resourceType;
 				code= vast1CompanionAd.code;
 				switch (resourceType)
 				{

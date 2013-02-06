@@ -331,7 +331,7 @@ package org.osmf.vpaid.model
 
 	    /**
        	 *  Property: linearVPAID
-       	 * Indicates the ad’s current linear vs. non-linear mode of operation.
+       	 * Indicates the adï¿½s current linear vs. non-linear mode of operation.
        	 * 
        	 * Returns:	Boolean - Is true when the ad is in linear playback mode, false if it's nonlinear
        	 * 
@@ -430,7 +430,7 @@ package org.osmf.vpaid.model
 
 			The player calls handshakeVersion immediately after loading the ad to indicate to the
 			ad that VPAID will be used. The player passes in its latest VPAID version string. The ad
-			returns a version string minimally set to “1.0”, and of the form “major.minor.patch”.
+			returns a version string minimally set to ï¿½1.0ï¿½, and of the form ï¿½major.minor.patchï¿½.
 			The player must verify that it supports the particular version of VPAID or cancel the ad.
 
 			Parameter: 
@@ -448,7 +448,7 @@ package org.osmf.vpaid.model
 		{
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] Player is calling handshakeversion on ad: Player version is "+ version);
+				trace("[VPAID] Player is calling handshakeversion on ad: Player version is "+ version);
 			}
 			try
 			{
@@ -486,7 +486,7 @@ package org.osmf.vpaid.model
 	    public function initVPAID(width : Number, height : Number, viewMode : String, desiredBitrate : Number, creativeData : String, environmentVars : String) : void {
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] Player is calling initAd on ad. [width="+ width +", height="+height+", viewMode="+viewMode+", desiredBitrate="+desiredBitrate+", creativeData="+creativeData+", environmentVars="+environmentVars+"]");
+				trace("[VPAID] Player is calling initAd on ad. [width="+ width +", height="+height+", viewMode="+viewMode+", desiredBitrate="+desiredBitrate+", creativeData="+creativeData+", environmentVars="+environmentVars+"]");
 			}
 			addVPAIDSWFListeners();
 			try
@@ -520,7 +520,7 @@ package org.osmf.vpaid.model
 	    public function resizeVPAID(width : Number, height : Number, viewMode : String) : void {
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] Player is calling resizeAd on ad: [width="+ width+", height="+height+" ,viewMode=" + viewMode);
+				trace("[VPAID] Player is calling resizeAd on ad: [width="+ width+", height="+height+" ,viewMode=" + viewMode);
 			}
 			try
 			{
@@ -528,7 +528,7 @@ package org.osmf.vpaid.model
 			}
 			catch (e:Error)
 			{
-			
+				trace("Error occur in resizeVPAID:" + e.message);
 			}
 		}
 	    
@@ -547,7 +547,7 @@ package org.osmf.vpaid.model
 	    public function startVPAID() : void {
 				CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] Player is scalling startAd on ad");
+				trace("[VPAID] Player is scalling startAd on ad");
 			}
 			try
 			{
@@ -574,7 +574,7 @@ package org.osmf.vpaid.model
 		public function stopVPAID() : void {
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] Player is stopAd on ad");
+				trace("[VPAID] Player is stopAd on ad");
 			}
 			try
 			{

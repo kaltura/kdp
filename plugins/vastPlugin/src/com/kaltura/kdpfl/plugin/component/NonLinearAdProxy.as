@@ -105,7 +105,7 @@ package com.kaltura.kdpfl.plugin.component
 							{
 								urls.push(event.urls[h].url);
 							}
-							(overlayObject[j] as UniformVastNonLinearAd).trackingEvents[event.type.eventName] = urls;
+							(overlayObject[j] as UniformVastNonLinearAd).trackingEvents[event.type] = urls;
 						}
 						
 					}

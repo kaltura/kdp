@@ -132,7 +132,7 @@ package org.osmf.vast.media
 		 */
 		 //EyeWonder addition - sometimes the play trait event fires before the load ready event is fired
 		//We need check to see if the play trait is playing. If so start tracking.	
-		override protected function processLoadStateChange(event:LoadEvent):void
+		private function processLoadStateChange(event:LoadEvent):void
 		{
 			
 			if (event.loadState == LoadState.READY)
@@ -152,7 +152,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		override protected function processPlayStateChange(event:PlayEvent):void
+		private function processPlayStateChange(event:PlayEvent):void
 		{
 			if (event.playState == PlayState.PLAYING && !impressionsRecorded)
 			{
@@ -190,7 +190,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		override protected function processBufferingChange(event:BufferEvent):void
+		private function processBufferingChange(event:BufferEvent):void
 		{
 			if (	event.buffering == false
 				&&  impressionsRecorded == false
@@ -202,7 +202,7 @@ package org.osmf.vast.media
 			}
 		}
 		
-		protected function onLoadStateChange(e:LoadEvent):void
+		private function onLoadStateChange(e:LoadEvent):void
 		{	
 			//trace("Current Bites of data loaded: " + e.bytes);
 			//If VAST and load error fire off load tracker      proxiedElement is VideoElement &&
@@ -212,7 +212,7 @@ package org.osmf.vast.media
 			}
 		}
 		
-		protected function onMetadataValueAdded(e:MetadataEvent):void
+		private function onMetadataValueAdded(e:MetadataEvent):void
 		{
 			//TODO: Combine VASTImpressionProxyElement with VASTTrackingProxyElement
 			switch(e.key) 
@@ -226,20 +226,20 @@ package org.osmf.vast.media
 		// Internals
 		//
 		
-		protected function VPAIDImpression() : void
+		private function VPAIDImpression() : void
 		{
 			if (proxiedElement is VPAIDElement)
-				recordImpressions();
+				recordImpressionsHelper();
 		}
 		
-		protected function VASTImpression(): void
+		private function VASTImpression(): void
 		{
 			//trace("Fire off the VAST Impressions!");
 			if (proxiedElement is VideoElement)
-				recordImpressions();
+				recordImpressionsHelper();
 		}
 		
-		override protected function recordImpressions():void
+		private function recordImpressionsHelper():void
 		{
 			if (impressionsRecorded == true) return;
 			impressionsRecorded = true;
@@ -254,8 +254,12 @@ package org.osmf.vast.media
 			}
 		}
 
-		protected var fireImpression:Boolean = true;
-
-		protected var cacheBuster:CacheBuster;
+		private var fireImpression:Boolean = true;
+		private var dispatcher:TraitEventDispatcher;
+		private var urls:Vector.<VASTUrl>;
+		private var httpLoader:HTTPLoader;
+		private var impressionsRecorded:Boolean;
+		private var waitForBufferingExit:Boolean;
+		private var cacheBuster:CacheBuster;
 	}
 }
