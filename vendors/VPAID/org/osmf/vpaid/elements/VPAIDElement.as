@@ -32,6 +32,7 @@ package org.osmf.vpaid.elements
 	import org.osmf.elements.loaderClasses.LoaderUtils;
 	import org.osmf.events.AudioEvent;
 	import org.osmf.events.LoadEvent;
+	import org.osmf.events.MediaElementEvent;
 	import org.osmf.events.MetadataEvent;
 	import org.osmf.events.PlayEvent;
 	import org.osmf.events.TimeEvent;
@@ -42,6 +43,7 @@ package org.osmf.vpaid.elements
 	import org.osmf.traits.LoadState;
 	import org.osmf.traits.LoadTrait;
 	import org.osmf.traits.LoaderBase;
+	import org.osmf.traits.MediaTraitBase;
 	import org.osmf.traits.MediaTraitType;
 	import org.osmf.traits.PlayState;
 	import org.osmf.traits.PlayTrait;
@@ -92,6 +94,9 @@ package org.osmf.vpaid.elements
 			
 			_audioTrait = new AudioTrait();		
 			addTrait(MediaTraitType.AUDIO, _audioTrait);
+
+			
+	
 			
 
 		}
@@ -197,8 +202,9 @@ package org.osmf.vpaid.elements
 				_timeTrait.addEventListener(TimeEvent.COMPLETE, onTimerChange);
 				_timeTrait.addEventListener(TimeEvent.DURATION_CHANGE, onTimerChange);			
 			}
-
+			
 			_vpaid.initVPAID(getDimensions().width,getDimensions().height,"normal", 500, "", "");
+	        
 		}
 		
 		private function onVPAIDEventReceived(event:Object):void
@@ -319,11 +325,7 @@ package org.osmf.vpaid.elements
 				width = _loadTrait.loader.contentLoaderInfo.content.width;
 				height = _loadTrait.loader.contentLoaderInfo.content.height;
 			}
-			if (width ==height == 0)
-			{
-				width = 300;
-				height = 300;
-			}
+			
 			CONFIG::LOGGING
 			{
 				trace("[VPAID] getDimensions width:" + width + " height: " + height);
@@ -449,8 +451,10 @@ package org.osmf.vpaid.elements
 				case PlayState.STOPPED:
 					_vpaid.stopVPAID();
 					
-				//	if(_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
+					if(_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
 						cleanUp();
+					dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
+					
 				break;
 			}
 		}
@@ -617,6 +621,9 @@ package org.osmf.vpaid.elements
 			
 			if(!_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
 				cleanUp();
+			dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
+			
+		
 		}
 		
 		//Add the SWF to the display list and resize the Ad after it is started to get new values
@@ -756,8 +763,8 @@ package org.osmf.vpaid.elements
 		private var _firstRun:Boolean = true;
 		
 		// Just temporary, for MASTProxyElement to make initial size be correct(should use Metadata in the future)
-		private var _MASTWidth:Number = -1;
-		private var _MASTHeight:Number = -1;	
+		private var _MASTWidth:Number = 300;
+		private var _MASTHeight:Number = 300;	
 		public function get MASTWidth():Number
 		{
 			return _MASTWidth;
