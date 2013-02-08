@@ -1927,7 +1927,7 @@ package org.osmf.media
 			}
 		}	
 		
-		private function onBytesLoadedTimer(event:TimerEvent):void
+ 		private function onBytesLoadedTimer(event:TimerEvent):void
 		{
 			if (canLoad && (bytesLoaded != lastBytesLoaded))
 			{
