@@ -168,6 +168,11 @@ package {
 			_nonlinearAds = new NonLinearAdProxy (this);
 			_linearAds.addEventListener(VastLinearAdProxy.SIGNAL_END, endSubsequence);
 		}
+		
+		public function resize(widht:Number,height:Number):void
+		{
+			_linearAds.
+		}
 
 
 		public function loadNonLinearAd( bannerURL : String =null):void
