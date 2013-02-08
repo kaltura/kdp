@@ -67,7 +67,8 @@ package com.kaltura.kdpfl.plugin.component
 									NotificationType.PLAYER_PAUSED,
 									NotificationType.PLAYER_PLAYED,
 									NotificationType.AD_OPPORTUNITY,
-									NotificationType.CHANGE_MEDIA_PROCESS_STARTED
+									NotificationType.CHANGE_MEDIA_PROCESS_STARTED,
+									NotificationType.ROOT_RESIZE
 									];
 			
 			return interests;
@@ -206,6 +207,10 @@ package com.kaltura.kdpfl.plugin.component
 						}
 						
 					break;
+					case NotificationType.ROOT_RESIZE:
+						_pluginCode.resize(note.getBody().width, note.getBody().height);
+							
+						break;
 			}	
 			
 		}
