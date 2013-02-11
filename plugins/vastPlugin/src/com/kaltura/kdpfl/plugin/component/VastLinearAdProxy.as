@@ -1,6 +1,7 @@
 package com.kaltura.kdpfl.plugin.component {
 
 	
+	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
@@ -60,6 +61,7 @@ package com.kaltura.kdpfl.plugin.component {
 		private var _prerollUrl : String;
 		private var _postrollUrl : String;
 		private var _playingAd : MediaElement;
+		private var _initVPAIDSize:Boolean = false;
 		
 		/**
 		 * Uniform click-thru url for VAST linear ad
@@ -134,14 +136,16 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 		}
 		
-		public function resizeAd(width:Number,height:Number):void
+		public function resizeAd(width:Number,height:Number,mode:String):void
 		{
 			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
 			if (vpaidMetadata)
 			{
-				vpaidMetadata.addValue("width",width);
-				vpaidMetadata.addValue("height",height);
-				
+				var dataObj:Object = new Object();
+				dataObj.width = width;
+				dataObj.height = height;
+				dataObj.viewMode = mode ? mode: "normal";
+				vpaidMetadata.addValue("resizeAd",dataObj);
 			}
 		}
 
@@ -283,7 +287,7 @@ package com.kaltura.kdpfl.plugin.component {
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
 			playerMediator["player"]["media"] = _playingAd;
 			
-			
+			var _this:Object = this;
 			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
 			if (vpaidMetadata)
 			{
@@ -294,6 +298,14 @@ package com.kaltura.kdpfl.plugin.component {
 					{
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 						signalEnd();
+					}
+					if (!_initVPAIDSize &&(event.key.indexOf("AdLoaded") == 0 ||
+						event.key.indexOf("adCreativeView") == 0 || 
+						event.key.indexOf("AdPlaying")== 0 || 
+						event.key.indexOf("AdVideoStart") == 0))
+					{
+						_initVPAIDSize = true;
+						_this.resizeAd((facade as ApplicationFacade).app.width,(facade as ApplicationFacade).app.height,"normal");
 					}
 				});
 			}
@@ -447,11 +459,19 @@ package com.kaltura.kdpfl.plugin.component {
 		
 		private function getVPAIDMetadata():VPAIDMetadata
 		{
-			if (_playingAd is VAST2TrackingProxyElement && ProxyElement((_playingAd as VAST2TrackingProxyElement).proxiedElement && ProxyElement((_playingAd as VAST2TrackingProxyElement).proxiedElement).proxiedElement)
+			try
 			{
-				var vpaidElement:VPAIDElement =ProxyElement((_playingAd as VAST2TrackingProxyElement).proxiedElement).proxiedElement as VPAIDElement;
-				var vpaidMetadata:VPAIDMetadata = vpaidElement.getMetadata(vpaidElement.metadataNamespaceURLs[0]) as VPAIDMetadata;
-				return vpaidMetadata;
+				if (_playingAd as VAST2TrackingProxyElement && 
+					ProxyElement(_playingAd as VAST2TrackingProxyElement).proxiedElement)
+				{
+					var vpaidElement:VPAIDElement =ProxyElement((_playingAd as VAST2TrackingProxyElement).proxiedElement).proxiedElement as VPAIDElement;
+					var vpaidMetadata:VPAIDMetadata = vpaidElement.getMetadata(vpaidElement.metadataNamespaceURLs[0]) as VPAIDMetadata;
+					return vpaidMetadata;
+				}
+			}
+			catch(ex:Error)
+			{
+				trace (ex);
 			}
 			return null;
 		}
