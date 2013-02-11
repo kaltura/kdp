@@ -330,7 +330,7 @@ package com.kaltura.kdpfl.view.media
 					{
 						_mediaProxy.vo.canSeek = true;
 						_duration = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
-					//	sendNotification( NotificationType.DURATION_CHANGE , {newValue:(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow});
+						//sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
 					}
 					
 					break;
@@ -1314,7 +1314,16 @@ package com.kaltura.kdpfl.view.media
 			}
 			else if(event.time)
 			{
-				_duration=event.time;
+				//in live dvr: minimum duration should be dvrwindow size
+				if ((_mediaProxy.vo.entry is KalturaLiveStreamEntry &&
+					(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED))
+				{
+					_duration = Math.max((_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60, event.time);
+				}
+				else
+				{
+					_duration=event.time;
+				}
 				sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
 				//save entryDuration in case we will go into intelliseek and need to use it.
 				if (!_sequenceProxy.vo.isInSequence)
