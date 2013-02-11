@@ -763,8 +763,8 @@ package org.osmf.vpaid.elements
 		private var _firstRun:Boolean = true;
 		
 		// Just temporary, for MASTProxyElement to make initial size be correct(should use Metadata in the future)
-		private var _MASTWidth:Number = -1;
-		private var _MASTHeight:Number = -1;	
+		private var _MASTWidth:Number = 300;
+		private var _MASTHeight:Number = 300;	
 		public function get MASTWidth():Number
 		{
 			return _MASTWidth;

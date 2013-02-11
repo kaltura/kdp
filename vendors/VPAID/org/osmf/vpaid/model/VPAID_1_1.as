@@ -489,7 +489,7 @@ package org.osmf.vpaid.model
 				trace("[VPAID] Player is calling initAd on ad. [width="+ width +", height="+height+", viewMode="+viewMode+", desiredBitrate="+desiredBitrate+", creativeData="+creativeData+", environmentVars="+environmentVars+"]");
 			}
 			addVPAIDSWFListeners();
-			try
+			try 
 			{
 				_vpaidAPI.initAd(width , height , viewMode , desiredBitrate , creativeData , environmentVars );
 			}

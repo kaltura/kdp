@@ -287,6 +287,7 @@ package com.kaltura.kdpfl.plugin.component {
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
 			playerMediator["player"]["media"] = _playingAd;
 			
+
 			var _this:Object = this;
 			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
 			if (vpaidMetadata)
@@ -311,6 +312,7 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			
 			
+
 			
 			
 			
