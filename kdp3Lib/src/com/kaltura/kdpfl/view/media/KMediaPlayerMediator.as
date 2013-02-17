@@ -149,6 +149,11 @@ package com.kaltura.kdpfl.view.media
 		private var _isAfterSeek:Boolean = false;
 		
 		/**
+		 * flag that indicates if we are playing live DVR and we are not in the "live" point (most recent point) 
+		 */		
+		private var _inDvr:Boolean = false;
+		
+		/**
 		 * Constructor 
 		 * @param name
 		 * @param viewComponent
@@ -330,7 +335,7 @@ package com.kaltura.kdpfl.view.media
 					{
 						_mediaProxy.vo.canSeek = true;
 						_duration = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
-						//sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
+						sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
 					}
 					
 					break;
@@ -484,7 +489,10 @@ package com.kaltura.kdpfl.view.media
 							if (!player.canPause)
 								player.stop();
 							//trigger liveStreamCommand to check for liveStream state again
+							//if we are offline then the "live" check timer is already running
 							sendNotification(NotificationType.LIVE_ENTRY, _mediaProxy.vo.resource); 
+							if (player.canSeek)
+								_inDvr = true;
 						}
 					}
 					break;
@@ -645,10 +653,10 @@ package com.kaltura.kdpfl.view.media
 				case NotificationType.GO_LIVE:
 					if (_mediaProxy.vo.isLive && _mediaProxy.vo.canSeek)
 					{
-						if (_hasPlayed)
+						if (_hasPlayed && _inDvr)
 							sendNotification(NotificationType.DO_SEEK, _duration);
-						else
-							sendNotification(NotificationType.DO_PLAY);
+						
+						sendNotification(NotificationType.DO_PLAY);
 					}
 					break;
 			}
@@ -658,6 +666,13 @@ package com.kaltura.kdpfl.view.media
 		{
 			sendNotification(NotificationType.PLAYER_SEEK_START);
 			player.seek(seekTo);
+			if (_mediaProxy.vo.isLive)
+			{
+				if (seekTo==_duration)
+					_inDvr = false;
+				else
+					_inDvr = true;
+			}
 			sendNotification(NotificationType.PLAYER_SEEK_END);
 		}
 		
@@ -1349,6 +1364,16 @@ package com.kaltura.kdpfl.view.media
 				}	
 				
 				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
+				
+				if (_mediaProxy.vo.isLive)
+				{
+					if (player.canPause)
+						player.pause();
+					else
+						player.stop();
+					
+					_inDvr = false;
+				}
 				
 			}
 			
