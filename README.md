@@ -9,13 +9,13 @@
 git repository root folder:
 go to: Window --> Preferences --> General --> Workspace --> Linked Resource
 
-## Build instructions;
+## Build-Release Instructions
 1. Install Apache Ant
 2. go to: KDP3 --> build_KDP.xml --> run as Ant build
 
 
 ## License and Copyright Information
 All KDP (Kaltura Dynamic Player) code is released under the AGPLv3 http://www.gnu.org/licenses/agpl-3.0.html unless a different license for a particular library is specified in the applicable library path.
-Copyright © Kaltura Inc. All rights reserved.
+Copyright Â© Kaltura Inc. All rights reserved.
 
  
