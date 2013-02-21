@@ -13,6 +13,11 @@ go to: Window --> Preferences --> General --> Workspace --> Linked Resource
 1. Install Apache Ant
 2. go to: KDP3 --> build_KDP.xml --> run as Ant build
 
+## Documentation
+* [KDP release notes] (http://knowledge.kaltura.com/kdp-release-notes)
+* [KDP in the Knowledge Center] (http://knowledge.kaltura.com/services/kaltura-dynamic-player-kdp)
+* [KDP Guide] (http://www.kaltura.org/demos/kdp3/docs.html)
+* Most updated list of KDP flashvars and other usefull documents can be found under [kdp3lib-->docs] (https://github.com/kaltura/kdp/tree/master/kdp3Lib/docs) folder
 
 ## License and Copyright Information
 All KDP (Kaltura Dynamic Player) code is released under the AGPLv3 http://www.gnu.org/licenses/agpl-3.0.html unless a different license for a particular library is specified in the applicable library path.
