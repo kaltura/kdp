@@ -152,8 +152,16 @@ package com.kaltura.kdpfl.model
 				//save the xml and the host to bind them when the plugin is loaded
 				(uiComponent as Plugin).xml = xml;
 				(uiComponent as Plugin).itemRendererData = itemRendererData;
-					
+				
+				
 				facade['bindObject']['Plugin_' + xml.@id] = uiComponent;
+				var pluginObj:Object = {};
+				for each (var attr:XML in xml.attributes())
+				{
+					pluginObj[attr.name().toString()] = attr.toString();
+				}
+				//save plugin xml data, it will be overriden once the plugin is loaded.
+				facade['bindObject'][xml.@id] = pluginObj;
 			}
 			else//this is a kdp component
 				uiComponent = componentFactory.getComponent(type);
