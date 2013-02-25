@@ -14,7 +14,7 @@ package
 	import org.osmf.media.PluginInfoResource;
 	import org.puremvc.as3.interfaces.IFacade;
 	
-	public class wvPluginCode extends Sprite implements IPlugin
+	public dynamic class wvPluginCode extends Sprite implements IPlugin
 	{
 		protected var _flashvars : Object;
 		
