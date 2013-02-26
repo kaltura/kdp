@@ -153,6 +153,8 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private var _inDvr:Boolean = false;
 		
+		private var _dvrWinSize:Number = 0;
+		
 		/**
 		 * Constructor 
 		 * @param name
@@ -334,8 +336,8 @@ package com.kaltura.kdpfl.view.media
 					if (_mediaProxy.vo.entry is KalturaLiveStreamEntry && (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED)
 					{
 						_mediaProxy.vo.canSeek = true;
-						_duration = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
-						sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
+						_dvrWinSize = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
+						sendNotification( NotificationType.DURATION_CHANGE , {newValue:_dvrWinSize});
 					}
 					
 					break;
@@ -1330,10 +1332,10 @@ package com.kaltura.kdpfl.view.media
 			else if(event.time)
 			{
 				//in live dvr: minimum duration should be dvrwindow size
-				if ((_mediaProxy.vo.entry is KalturaLiveStreamEntry &&
+				if (!_sequenceProxy.vo.isInSequence && (_mediaProxy.vo.entry is KalturaLiveStreamEntry &&
 					(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED))
 				{
-					_duration = Math.max((_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60, event.time);
+					_duration = Math.max(_dvrWinSize, event.time);
 				}
 				else
 				{
@@ -1363,9 +1365,7 @@ package com.kaltura.kdpfl.view.media
 					_loadMediaOnPlay = true;
 				}	
 				
-				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
-				
-				if (_mediaProxy.vo.isLive)
+				if (!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.isLive)
 				{
 					if (player.canPause)
 						player.pause();
@@ -1375,6 +1375,7 @@ package com.kaltura.kdpfl.view.media
 					_inDvr = false;
 				}
 				
+				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
 			}
 			
 		}
