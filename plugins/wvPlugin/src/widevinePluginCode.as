@@ -14,12 +14,12 @@ package
 	import org.osmf.media.PluginInfoResource;
 	import org.puremvc.as3.interfaces.IFacade;
 	
-	public dynamic class wvPluginCode extends Sprite implements IPlugin
+	public dynamic class widevinePluginCode extends Sprite implements IPlugin
 	{
 		protected var _flashvars : Object;
 		
 		protected var _localMediaFactory : DefaultMediaFactory;
-		public function wvPluginCode()
+		public function widevinePluginCode()
 		{
 			trace('Widevine plugin v2');
 			super();

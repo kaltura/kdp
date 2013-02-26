@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="wvPlugin.as" projectUUID="6c750c3b-b143-4c00-93ec-8f4a83c0247c" version="10">
+<actionScriptProperties analytics="false" mainApplicationPath="widevinePlugin.as" projectUUID="6c750c3b-b143-4c00-93ec-8f4a83c0247c" version="10">
   <compiler additionalCompilerArguments="-load-externs ${DOCUMENTS}\KDP3\bin-debug\linkReport.xml" autoRSLOrdering="false" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderLocation="DOCUMENTS/KDP3/bin-debug/plugins" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="10.2.124" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
@@ -30,7 +30,7 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="wvPlugin.as"/>
+    <application path="widevinePlugin.as"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
