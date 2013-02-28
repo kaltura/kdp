@@ -125,6 +125,10 @@ package com.kaltura.vo
 		 **/
 		public var updatedAt : int = int.MIN_VALUE;
 
+		/**
+		 **/
+		public var lastAccessedAt : int = int.MIN_VALUE;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -149,6 +153,7 @@ package com.kaltura.vo
 			arr.push('errorCode');
 			arr.push('errorDescription');
 			arr.push('ignoreFileNamePatterns');
+			arr.push('lastAccessedAt');
 			return arr;
 		}
 

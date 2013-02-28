@@ -33,6 +33,11 @@ package com.kaltura.vo
 	public dynamic class KalturaYouTubeDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
+		 * @see com.kaltura.types.KalturaYouTubeDistributionFeedSpecVersion
+		 **/
+		public var feedSpecVersion : String = null;
+
+		/**
 		 **/
 		public var username : String = null;
 
@@ -43,6 +48,10 @@ package com.kaltura.vo
 		/**
 		 **/
 		public var sftpHost : String = null;
+
+		/**
+		 **/
+		public var sftpPort : int = int.MIN_VALUE;
 
 		/**
 		 **/
@@ -115,13 +124,78 @@ package com.kaltura.vo
 		 **/
 		public var allowPostRollAds : Boolean;
 
+		/**
+		 **/
+		public var strict : String = null;
+
+		/**
+		 **/
+		public var overrideManualEdits : String = null;
+
+		/**
+		 **/
+		public var urgentReference : String = null;
+
+		/**
+		 **/
+		public var allowSyndication : String = null;
+
+		/**
+		 **/
+		public var hideViewCount : String = null;
+
+		/**
+		 **/
+		public var allowAdsenseForVideo : String = null;
+
+		/**
+		 **/
+		public var allowInvideo : String = null;
+
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var allowMidRollAds : Boolean;
+
+		/**
+		 **/
+		public var instreamStandard : String = null;
+
+		/**
+		 **/
+		public var instreamTrueview : String = null;
+
+		/**
+		 **/
+		public var claimType : String = null;
+
+		/**
+		 **/
+		public var blockOutsideOwnership : String = null;
+
+		/**
+		 **/
+		public var captionAutosync : String = null;
+
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var deleteReference : Boolean;
+
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var releaseClaims : Boolean;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('feedSpecVersion');
 			arr.push('username');
 			arr.push('notificationEmail');
 			arr.push('sftpHost');
+			arr.push('sftpPort');
 			arr.push('sftpLogin');
 			arr.push('sftpPublicKey');
 			arr.push('sftpPrivateKey');
@@ -139,6 +213,21 @@ package com.kaltura.vo
 			arr.push('enableAdServer');
 			arr.push('allowPreRollAds');
 			arr.push('allowPostRollAds');
+			arr.push('strict');
+			arr.push('overrideManualEdits');
+			arr.push('urgentReference');
+			arr.push('allowSyndication');
+			arr.push('hideViewCount');
+			arr.push('allowAdsenseForVideo');
+			arr.push('allowInvideo');
+			arr.push('allowMidRollAds');
+			arr.push('instreamStandard');
+			arr.push('instreamTrueview');
+			arr.push('claimType');
+			arr.push('blockOutsideOwnership');
+			arr.push('captionAutosync');
+			arr.push('deleteReference');
+			arr.push('releaseClaims');
 			return arr;
 		}
 

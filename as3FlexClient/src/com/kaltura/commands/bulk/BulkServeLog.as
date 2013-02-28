@@ -31,7 +31,7 @@ package com.kaltura.commands.bulk
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * serveLog action returan the original file.
+	 * serveLog action returns the log file for the bulk-upload job.
 	 * 
 	 **/
 	public class BulkServeLog extends KalturaCall

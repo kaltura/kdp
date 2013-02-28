@@ -46,6 +46,9 @@ package com.kaltura.types
 		public static const SPECIFIC_USER_USAGE : int = 18;
 		public static const VAR_USAGE : int = 19;
 		public static const TOP_CREATORS : int = 20;
+		public static const PLATFORMS : int = 21;
+		public static const OPERATION_SYSTEM : int = 22;
+		public static const BROWSERS : int = 23;
 		public static const PARTNER_USAGE : int = 201;
 	}
 }

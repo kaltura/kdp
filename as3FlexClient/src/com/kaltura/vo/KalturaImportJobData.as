@@ -44,6 +44,10 @@ package com.kaltura.vo
 		 **/
 		public var flavorAssetId : String = null;
 
+		/**
+		 **/
+		public var fileSize : int = int.MIN_VALUE;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -51,6 +55,7 @@ package com.kaltura.vo
 			arr.push('srcFileUrl');
 			arr.push('destFileLocalPath');
 			arr.push('flavorAssetId');
+			arr.push('fileSize');
 			return arr;
 		}
 

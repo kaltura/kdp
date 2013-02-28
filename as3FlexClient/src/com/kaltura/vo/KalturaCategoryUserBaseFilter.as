@@ -107,6 +107,10 @@ package com.kaltura.vo
 		 **/
 		public var permissionNamesMatchOr : String = null;
 
+		/**
+		 **/
+		public var permissionNamesNotContains : String = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -129,6 +133,7 @@ package com.kaltura.vo
 			arr.push('categoryFullIdsEqual');
 			arr.push('permissionNamesMatchAnd');
 			arr.push('permissionNamesMatchOr');
+			arr.push('permissionNamesNotContains');
 			return arr;
 		}
 

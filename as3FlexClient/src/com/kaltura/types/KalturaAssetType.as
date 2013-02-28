@@ -35,6 +35,7 @@ package com.kaltura.types
 		public static const IMAGE : String = 'document.Image';
 		public static const PDF : String = 'document.PDF';
 		public static const SWF : String = 'document.SWF';
+		public static const WIDEVINE_FLAVOR : String = 'widevine.WidevineFlavor';
 		public static const FLAVOR : String = '1';
 		public static const THUMBNAIL : String = '2';
 	}

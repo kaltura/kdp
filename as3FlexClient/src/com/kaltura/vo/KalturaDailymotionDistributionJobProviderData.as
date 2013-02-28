@@ -44,6 +44,10 @@ package com.kaltura.vo
 		 **/
 		public var accessControlGeoBlockingCountryList : String = null;
 
+		/**
+		 **/
+		public var captionsInfo : Array = null;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -51,6 +55,7 @@ package com.kaltura.vo
 			arr.push('videoAssetFilePath');
 			arr.push('accessControlGeoBlockingOperation');
 			arr.push('accessControlGeoBlockingCountryList');
+			arr.push('captionsInfo');
 			return arr;
 		}
 

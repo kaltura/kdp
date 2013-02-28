@@ -29,11 +29,13 @@ package com.kaltura.types
 {
 	public class KalturaSourceType
 	{
+		public static const LIMELIGHT_LIVE : String = 'limeLight.LIVE_STREAM';
 		public static const FILE : String = '1';
 		public static const WEBCAM : String = '2';
 		public static const URL : String = '5';
 		public static const SEARCH_PROVIDER : String = '6';
 		public static const AKAMAI_LIVE : String = '29';
 		public static const MANUAL_LIVE_STREAM : String = '30';
+		public static const AKAMAI_UNIVERSAL_LIVE : String = '31';
 	}
 }

@@ -29,6 +29,7 @@ package com.kaltura.types
 {
 	public class KalturaBatchJobType
 	{
+		public static const CONVERT : String = '0';
 		public static const PARSE_CAPTION_ASSET : String = 'captionSearch.parseCaptionAsset';
 		public static const DISTRIBUTION_DELETE : String = 'contentDistribution.DistributionDelete';
 		public static const DISTRIBUTION_DISABLE : String = 'contentDistribution.DistributionDisable';
@@ -36,7 +37,6 @@ package com.kaltura.types
 		public static const DISTRIBUTION_FETCH_REPORT : String = 'contentDistribution.DistributionFetchReport';
 		public static const DISTRIBUTION_SUBMIT : String = 'contentDistribution.DistributionSubmit';
 		public static const DISTRIBUTION_SYNC : String = 'contentDistribution.DistributionSync';
-		public static const CONVERT : String = '0';
 		public static const DISTRIBUTION_UPDATE : String = 'contentDistribution.DistributionUpdate';
 		public static const DROP_FOLDER_CONTENT_PROCESSOR : String = 'dropFolder.DropFolderContentProcessor';
 		public static const DROP_FOLDER_WATCHER : String = 'dropFolder.DropFolderWatcher';
