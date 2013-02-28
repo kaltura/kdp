@@ -29,7 +29,7 @@ package com.kaltura.kdpfl.plugin
 			//TODO - check with Hila
 			var url:String;
 			if (resource.hasOwnProperty('url'))
-				url = resource["url"];
+				url = resource["url"];// + "/name/a.wvm";
 			if (resource.hasOwnProperty('baseUrl'))
 				url = resource["baseUrl"];
 

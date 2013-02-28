@@ -59,7 +59,7 @@ package com.kaltura.kdpfl.plugin
 			//TODO - check with Hila
 			var url:String;
 			if (resource.hasOwnProperty('url'))
-				url = resource["url"];
+				url = resource["url"];//+ "/name/a.wvm";
 			if (resource.hasOwnProperty('baseUrl'))
 				url = resource["baseUrl"];
 			
@@ -106,18 +106,22 @@ package com.kaltura.kdpfl.plugin
 		}
 		private function onNetStatus (e : NetStatusEvent) : void
 		{
-			/*switch (e.info.code)
+			switch (e.info.code)
 			{
 				case "NetStream.Wv.EmmSuccess":
-				case "NetStream.Wv.EmmFailed":
+
+					
 				case "NetStream.Wv.EmmError":
 				case "NetStream.Wv.EmmExpired":
 				case "NetStream.Wv.SwitchUp":
 				case "NetStream.Wv.SwitchDown":
-				case "NetStream.Wv.LogError":*/
+				case "NetStream.Wv.LogError":
 					trace ("NetStatusEvent type=netStatus" + e.info.code)
-					/*break;
-			}*/
+					break;
+				case "NetStream.Wv.EmmFailed":
+					trace ("NetStream.Wv.EmmFailed", e.info.details, e.info.description);
+					break;
+			}
 		}
 		
 		

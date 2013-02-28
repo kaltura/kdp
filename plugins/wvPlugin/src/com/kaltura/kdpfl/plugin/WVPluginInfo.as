@@ -23,6 +23,9 @@ package com.kaltura.kdpfl.plugin
 		
 		private var _wvMediaElement:WVMediaElement;
 		
+		//public var shouldHandleResource:Boolean = false;
+		//public var wvAssetId:String;
+		
 		public function WVPluginInfo(mediaFactoryItems:Vector.<MediaFactoryItem>=null, mediaElementCreationNotificationFunction:Function=null)
 		{
 			var mediaInfo : MediaFactoryItem = new MediaFactoryItem("com.kaltura.kdpfl.plugin.WVMediaElement", canHandleResource, createWVMediaElement );
@@ -38,7 +41,7 @@ package com.kaltura.kdpfl.plugin
 
 		public function canHandleResource (resource:MediaResourceBase) : Boolean
 		{
-			if (resource.hasOwnProperty("url") && resource["url"].toString().indexOf(".wvm") > -1 )
+			if (resource.hasOwnProperty("url") && resource["url"].toString().indexOf(".wvm") > -1)
 			{
 				try
 				{

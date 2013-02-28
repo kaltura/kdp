@@ -17,11 +17,11 @@ package
 	public dynamic class widevinePluginCode extends Sprite implements IPlugin
 	{
 		protected var _flashvars : Object;
-		
 		protected var _localMediaFactory : DefaultMediaFactory;
+		
 		public function widevinePluginCode()
 		{
-			trace('Widevine plugin v2');
+			trace('Widevine plugin v3');
 			super();
 		}
 		public function initializePlugin(facade:IFacade):void
