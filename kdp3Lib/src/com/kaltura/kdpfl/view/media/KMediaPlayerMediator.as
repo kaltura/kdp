@@ -154,6 +154,10 @@ package com.kaltura.kdpfl.view.media
 		private var _inDvr:Boolean = false;
 		
 		private var _dvrWinSize:Number = 0;
+		/**
+		 * in akamai dvr window size is actually dvrWindow - dvrPadding
+		 */		
+		private var _dvrPadding:int = 48;
 		
 		/**
 		 * Constructor 
@@ -228,6 +232,9 @@ package com.kaltura.kdpfl.view.media
 			{
 				disableOnScreenClick();
 			}
+			
+			if (_flashvars.dvrWindowPadding)
+				_dvrPadding = _flashvars.dvrWindowPadding;
 		}
 		
 		public function centerMediator () : void 
@@ -337,6 +344,8 @@ package com.kaltura.kdpfl.view.media
 					{
 						_mediaProxy.vo.canSeek = true;
 						_dvrWinSize = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
+						if (isAkamaiHD())
+							_dvrWinSize -= _dvrPadding;
 						sendNotification( NotificationType.DURATION_CHANGE , {newValue:_dvrWinSize});
 					}
 					
