@@ -22,6 +22,7 @@ package com.kaltura.kdpfl.controller.media
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.AsyncCommand;
 	import com.kaltura.vo.KalturaFlavorAsset;
+	import com.kaltura.vo.KalturaWidevineFlavorAsset; KalturaWidevineFlavorAsset;
 	import com.kaltura.kdpfl.model.type.StreamerType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.view.media.KMediaPlayer;
