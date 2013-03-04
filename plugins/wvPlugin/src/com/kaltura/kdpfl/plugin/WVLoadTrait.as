@@ -5,6 +5,7 @@ package com.kaltura.kdpfl.plugin
 	
 	import flash.events.NetStatusEvent;
 	import flash.events.TimerEvent;
+	import flash.net.NetConnection;
 	import flash.utils.Timer;
 	
 	import org.osmf.media.MediaResourceBase;
@@ -34,22 +35,25 @@ package com.kaltura.kdpfl.plugin
 				url = resource["baseUrl"];
 
 			_drmNetConnection.connect(url);
-/*			
-			var ns:WvNetStream = new WvNetStream(_drmNetConnection);
-			ns.play("a.wvm");*/
+
 			
 			
 		}
 		
 		private function netStatusHandler (e: NetStatusEvent): void
 		{
-			_drmNetStream = new WvNetStream(_drmNetConnection);
-			_drmNetStream.checkPolicyFile = true;
-			setBytesTotal(_drmNetStream.bytesTotal);
-			_bytesLoadedTimer = new Timer(1000, 0);
-			_bytesLoadedTimer.addEventListener(TimerEvent.TIMER, onBytesLoadedTimer);
-			_bytesLoadedTimer.start();
-			setLoadState(LoadState.READY);
+			if (e.info.code == "NetConnection.Connect.Success")
+			{	
+				_drmNetStream = new WvNetStream(_drmNetConnection);
+				_drmNetStream.checkPolicyFile = true;
+				setBytesTotal(_drmNetStream.bytesTotal);
+				_bytesLoadedTimer = new Timer(1000, 0);
+				_bytesLoadedTimer.addEventListener(TimerEvent.TIMER, onBytesLoadedTimer);
+				_bytesLoadedTimer.start();
+				setLoadState(LoadState.READY);
+				_drmNetConnection.removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+			}
+		
 		}
 		
 

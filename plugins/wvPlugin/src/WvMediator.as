@@ -1,5 +1,6 @@
 package
 {
+	import com.kaltura.KalturaClient;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
@@ -49,8 +50,8 @@ package
 					break;
 				
 				case NotificationType.MEDIA_ELEMENT_READY:
-				//	_wvPluginInfo.shouldHandleResource = false;
 					var mediaProxy:MediaProxy = facade.retrieveProxy("mediaProxy") as MediaProxy;
+					//get flavor asset ID
 					if (mediaProxy.vo.deliveryType==StreamerType.HTTP)
 					{
 						var flavors:Array = mediaProxy.vo.kalturaMediaFlavorArray;
@@ -81,9 +82,9 @@ package
 							
 							if (wvAssetId)
 							{
-						//		_wvPluginInfo.shouldHandleResource = true;
-						//		var emmUrl:String = "http://devtests.kaltura.co.cc/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=1&flavorAssetId=" + wvAssetId + "&ks=" + (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient.ks;
-						//		ExternalInterface.call("WVSetEmmURL", emmUrl);
+								var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
+								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=10&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks;
+								ExternalInterface.call("WVSetEmmURL", emmUrl);
 							}
 						}
 					}

@@ -104,24 +104,12 @@ package com.kaltura.kdpfl.plugin
 		{
 			(getTrait(MediaTraitType.TIME) as WVTimeTrait).dispatchEvent(new TimeEvent(TimeEvent.DURATION_CHANGE,false, false, e.duration as Number));
 		}
+		
 		private function onNetStatus (e : NetStatusEvent) : void
 		{
-			switch (e.info.code)
-			{
-				case "NetStream.Wv.EmmSuccess":
-
-					
-				case "NetStream.Wv.EmmError":
-				case "NetStream.Wv.EmmExpired":
-				case "NetStream.Wv.SwitchUp":
-				case "NetStream.Wv.SwitchDown":
-				case "NetStream.Wv.LogError":
-					trace ("NetStatusEvent type=netStatus" + e.info.code)
-					break;
-				case "NetStream.Wv.EmmFailed":
-					trace ("NetStream.Wv.EmmFailed", e.info.details, e.info.description);
-					break;
-			}
+			trace ("WVMediaElement===>", e.info.code);
+			//buuble up the event
+			this.dispatchEvent(e);
 		}
 		
 		
