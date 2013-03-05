@@ -83,7 +83,7 @@ package
 							if (wvAssetId)
 							{
 								var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
-								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=10&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks;
+								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=widevine&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks;
 								ExternalInterface.call("WVSetEmmURL", emmUrl);
 							}
 						}

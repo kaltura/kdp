@@ -101,6 +101,7 @@ package
 		 */		
 		private function onNetStatus(e: NetStatusEvent):void
 		{
+			trace ("widevinePlugin > onNetStatus:" ,e.info.code, e.info.details);
 			var err:String;
 			
 			switch (e.info.code)
