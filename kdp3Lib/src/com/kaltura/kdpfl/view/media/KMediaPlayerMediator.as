@@ -153,11 +153,7 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private var _inDvr:Boolean = false;
 		
-		private var _dvrWinSize:Number = 0;
-		/**
-		 * in akamai dvr window size is actually dvrWindow - dvrPadding
-		 */		
-		private var _dvrPadding:int = 48;
+		public var dvrWinSize:Number = 0;
 		
 		/**
 		 * Constructor 
@@ -232,9 +228,7 @@ package com.kaltura.kdpfl.view.media
 			{
 				disableOnScreenClick();
 			}
-			
-			if (_flashvars.dvrWindowPadding)
-				_dvrPadding = _flashvars.dvrWindowPadding;
+
 		}
 		
 		public function centerMediator () : void 
@@ -343,10 +337,8 @@ package com.kaltura.kdpfl.view.media
 					if (_mediaProxy.vo.entry is KalturaLiveStreamEntry && (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED)
 					{
 						_mediaProxy.vo.canSeek = true;
-						_dvrWinSize = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
-						if (isAkamaiHD())
-							_dvrWinSize -= _dvrPadding;
-						sendNotification( NotificationType.DURATION_CHANGE , {newValue:_dvrWinSize});
+						dvrWinSize = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
+						sendNotification( NotificationType.DURATION_CHANGE , {newValue:dvrWinSize});
 					}
 					
 					break;
@@ -1344,7 +1336,7 @@ package com.kaltura.kdpfl.view.media
 				if (!_sequenceProxy.vo.isInSequence && (_mediaProxy.vo.entry is KalturaLiveStreamEntry &&
 					(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED))
 				{
-					_duration = Math.max(_dvrWinSize, event.time);
+					_duration = Math.max(dvrWinSize, event.time);
 				}
 				else
 				{
