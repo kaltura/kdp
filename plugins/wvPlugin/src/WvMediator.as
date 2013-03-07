@@ -28,8 +28,7 @@ package
 		public var _wvPluginInfo:WVPluginInfo;
 		
 		override public function listNotificationInterests():Array {
-			return [NotificationType.PLAYER_SEEK_END,
-					NotificationType.DO_SEEK,
+			return [NotificationType.DO_SEEK,
 					NotificationType.MEDIA_ELEMENT_READY];
 		}
 		
@@ -41,9 +40,6 @@ package
 			{
 				case NotificationType.DO_SEEK:
 						_seekTo = note.getBody() as Number;
-					break;
-					
-				case NotificationType.PLAYER_SEEK_END:
 						if(_seekTo && _wvPluginInfo && _wvPluginInfo.wvMediaElement && _wvPluginInfo.wvMediaElement.netStream)
 							_wvPluginInfo.wvMediaElement.netStream.seek(_seekTo);
 						_seekTo = NaN;
