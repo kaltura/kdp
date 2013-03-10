@@ -362,11 +362,12 @@ package com.kaltura.kdpfl.view.media
 					_hasPlayed = false;
 					//Fixed weird issue, where the CHANGE_MEDIA would be caught by the mediator 
 					// AFTER the new media has already loaded. Caused media never to be loaded.
-					if (designatedEntryId != _mediaProxy.vo.entry.id)
+					if (designatedEntryId != _mediaProxy.vo.entry.id || _mediaProxy.vo.isFlavorSwitching )
 					{
 						kMediaPlayer.unloadThumbnail()
 						cleanMedia();
 					}
+			
 					break;
 				case NotificationType.DO_PLAY: //when the player asked to play	
 					//first, load the media, if we didn't load it yet
