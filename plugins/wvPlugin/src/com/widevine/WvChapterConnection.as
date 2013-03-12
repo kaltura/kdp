@@ -123,7 +123,7 @@ package com.widevine
 		///////////////////////////////////////////////////////////////////////////
 		public function closeSocket():void
 		{
-			trace("WvChapterConnection::closeSocket()");
+		//	trace("WvChapterConnection::closeSocket()");
 			
 			var i:int = 0;
 			for each (var chapter:WvChapter in myChapters) {
@@ -177,7 +177,7 @@ package com.widevine
 			if (myFullMsg.substr(myDataIndex, 4) == "true") {
 				ready = true;
 			}
-			trace("QueryStatus:" + myFullMsg.substr(myDataIndex));
+	//		trace("QueryStatus:" + myFullMsg.substr(myDataIndex));
 			myPluginSocket.flush();
 			
 			myChapters = new Array();
@@ -401,7 +401,7 @@ package com.widevine
 		public function socketDataHandler(e:ProgressEvent):void
 		{
 			var str:String;
-			trace("[State:" + myChapterState + "] socketDataHandler: " + e);
+	//		trace("[State:" + myChapterState + "] socketDataHandler: " + e);
 			
 			if (myFullMsg.length == 0) {
 				myContentLength = 0;
@@ -450,7 +450,7 @@ package com.widevine
 		public function socketBinaryDataHandler(e:ProgressEvent):void
 		{
 			var str:String;
-			trace("[State:" + myChapterState + "] socketBinaryDataHandler: " + e);
+		//	trace("[State:" + myChapterState + "] socketBinaryDataHandler: " + e);
 			
 			if (myFullMsg.length == 0) {
 				myContentLength = 0;

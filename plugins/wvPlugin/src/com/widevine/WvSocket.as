@@ -26,7 +26,7 @@ package com.widevine
   		}
  
 		public function sendRequest (str:String):void {
-			trace("sending:" + str);
+			//trace("sending:" + str);
 			super.writeUTFBytes(str);
 			super.flush();
 		}

@@ -5,17 +5,23 @@ package
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.kdpfl.model.type.SequenceContextType;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.KPluginEvent;
 	import com.kaltura.kdpfl.plugin.WVPluginInfo;
+	import com.kaltura.vo.KalturaMediaEntry;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
+	import flash.utils.setTimeout;
 	
+	import org.osmf.events.MediaElementEvent;
 	import org.osmf.events.MediaFactoryEvent;
 	import org.osmf.media.DefaultMediaFactory;
 	import org.osmf.media.PluginInfoResource;
+	import org.osmf.traits.MediaTraitType;
+	import org.osmf.traits.TimeTrait;
 	import org.puremvc.as3.interfaces.IFacade;
 	
 	public dynamic class widevinePluginCode extends Sprite implements IPlugin
@@ -25,13 +31,20 @@ package
 		
 		//Alerts texts, can be overriden from uiconf XML or flashvars.
 		public var alert_title:String	= "Error";
+		public var warning_title:String	= "Warning";
 		public var alert_emm_falied:String = "We're sorry, you don’t have a license to play this video.";
 		public var alert_emm_error:String = "We're sorry, we failed to obtain a license for playing this video.";
 		public var alert_emm_expired:String = "We're sorry, the license to play this video has expired.";
 		public var alert_log_error:String = "Message Logging Error (error code: {0})";
+		public var alert_dcp_stop:String = "Playback is stopping due to detection of an illegal content copying attempt.";
+		public var alert_dcp_alert:String = "An illegal attempt for content copying was detected.";
 		
 		private var _wvPluginInfo:WVPluginInfo;
 		private var _facade:IFacade;
+		private var _wvm:WvMediator;
+		
+		private var _shouldEnd:Boolean;
+		private var _firstStart:Boolean;
 		
 		public function widevinePluginCode()
 		{
@@ -63,8 +76,8 @@ package
 			_localMediaFactory.loadPlugin(new PluginInfoResource(_wvPluginInfo) );
 			
 			_wvPluginInfo.addEventListener(WVPluginInfo.WVMEDIA_ELEMENT_CREATED, onWVElementCreated);		
-			var wvm:WvMediator = new WvMediator(_wvPluginInfo);
-			facade.registerMediator(wvm);
+			_wvm = new WvMediator(_wvPluginInfo);
+			facade.registerMediator(_wvm);
 			_facade = facade;
 		}
 		/**
@@ -91,7 +104,24 @@ package
 			
 		private function onWVElementCreated(e : Event) : void
 		{
+			_firstStart = true;
 			_wvPluginInfo.wvMediaElement.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
+			if (_wvm.pendingSeekTo)
+				_wvPluginInfo.wvMediaElement.addEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd);
+		}
+		
+		private function onTraitAdd(e: MediaElementEvent) : void
+		{
+			if (e.traitType == MediaTraitType.SEEK)
+			{
+				//seek to previous flavor last playhead position
+				if (_wvm.pendingSeekTo)
+				{
+					_wvm.seekWvStream(_wvm.pendingSeekTo);
+					_wvm.pendingSeekTo = 0;
+				}
+				_wvPluginInfo.wvMediaElement.removeEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd);
+			}
 		}
 		
 		/**
@@ -122,6 +152,36 @@ package
 				case "NetStream.Wv.EmmFailed":
 					err = alert_emm_falied;
 					break;
+				
+				case "NetStream.Wv.DcpStop":
+					err = alert_dcp_stop;
+					break;
+				
+				case "NetStream.Wv.DcpAlert":
+					_facade.sendNotification( NotificationType.ALERT , {message: alert_dcp_alert, title: warning_title} );
+					break;
+				
+				// workaround- playComplete is sent before stream ended.
+				case "NetStream.Play.Complete":
+					_wvm.ignoreSeek = true;
+					setTimeout(endOfClip, Math.max(100, (_wvPluginInfo.wvMediaElement.netStream.bufferLength-0.1)*1000));
+					break;
+				
+			/*	case "NetStream.Seek.Notify":
+
+					break;
+				
+				case "NetStream.Buffer.Full":
+
+					break;
+				
+				case "NetStream.Play.Start" :
+			
+					break;
+				
+				case "NetStream.Wv.EmmSuccess":
+					
+					break;*/
 			}
 			
 			if (err)
@@ -130,6 +190,16 @@ package
 				_facade.sendNotification(NotificationType.ENABLE_GUI, {guiEnabled: false, enableType : EnableType.CONTROLS});
 				
 			}
+		}
+		
+		/**
+		 * this workaround fixes widevine known issue: stream reports complete before its time. 
+		 * 
+		 */		
+		private function endOfClip() : void
+		{
+			_facade.sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: SequenceContextType.MAIN});
+			_wvm.ignoreSeek = false;
 		}
 	}
 }
