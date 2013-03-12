@@ -64,7 +64,7 @@ package org.osmf.elements.loaderClasses
 		 * Creates a DisplayObjectTrait for the content in the given
 		 * flash.display.Loader.
 		 **/
-		public static function createDisplayObjectTrait(loader:Loader, mediaElement:MediaElement):DisplayObjectTrait
+		public static function createDisplayObjectTrait(loader:Loader, mediaElement:MediaElement,size:Rectangle = null):DisplayObjectTrait
 		{
 			var displayObject:DisplayObject = null;
 			var mediaWidth:Number = 0;
@@ -83,7 +83,15 @@ package org.osmf.elements.loaderClasses
 			// overdraw its bounds, while maintaining scale, and size
 			// with the layout system.
 			//
+			if (size)
+			{
+				displayObject.scrollRect = size;
+
+			}
+			else
+			{
 			displayObject.scrollRect = new Rectangle(0, 0, info.width, info.height);
+			}
 			
 			mediaWidth = info.width;
 			mediaHeight = info.height;

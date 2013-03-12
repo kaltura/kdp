@@ -484,7 +484,7 @@ package org.osmf.vast.media
 					if(mediaFile.type == "application/x-shockwave-flash" ||mediaFile.type == "swf" )
 					{
 					
-						rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader());
+						rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader(),mediaFile.width,mediaFile.height);
 						VPAIDMetadata(rootElement.getMetadata("org.osmf.vpaid.metadata.VPAIDMetadata")).addValue(VPAIDMetadata.NON_LINEAR_CREATIVE, false);
 					}
 					else 

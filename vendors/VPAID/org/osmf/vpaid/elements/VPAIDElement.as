@@ -24,6 +24,7 @@ package org.osmf.vpaid.elements
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.system.Security;
+	import flash.utils.setTimeout;
 	
 	import org.osmf.containers.MediaContainer;
 	import org.osmf.elements.SWFElement;
@@ -74,10 +75,14 @@ package org.osmf.vpaid.elements
 	
 	public class VPAIDElement extends SWFElement
 	{
-		public function VPAIDElement(resource:URLResource, loader:SWFLoader = null)
+		public function VPAIDElement(resource:URLResource, loader:SWFLoader = null, width:int = 0, height:int = 0)
 		{
 			Security.allowDomain("*");
+		
 			super(resource, loader);
+			
+			this.MASTHeight = height;
+			this.MASTWidth = width;
 			
 			_vpaidMetadata = new VPAIDMetadata();
 			_vpaidMetadata.addEventListener(MetadataEvent.VALUE_CHANGE, onMetadataValueChanged);
@@ -303,7 +308,7 @@ package org.osmf.vpaid.elements
 		{
 			var height:int;
 			var width:int;
-			
+			height = width = 0;
 			var vpaidContainer:MediaContainer = container as MediaContainer;
 			var displayObject:DisplayObjectTrait = this.getTrait(MediaTraitType.DISPLAY_OBJECT) as DisplayObjectTrait;
 			
@@ -311,10 +316,6 @@ package org.osmf.vpaid.elements
 				width = vpaidContainer.width;
 				height = vpaidContainer.height;
 			//Sometimes we can't find the container
-			}else if(displayObject != null){
-				width = displayObject.mediaWidth;
-				height = displayObject.mediaHeight;
-			//Default to size of the creative coming into the VPAIDElement
 			}else if (_MASTWidth > -1)
 			{
 				// Not sure why this works for MAST (except if you resize the container)
@@ -324,6 +325,15 @@ package org.osmf.vpaid.elements
 			else{
 				width = _loadTrait.loader.contentLoaderInfo.content.width;
 				height = _loadTrait.loader.contentLoaderInfo.content.height;
+			}
+			
+			if (width == height  && width ==  0)
+			{
+			 if(displayObject != null){
+					width = displayObject.mediaWidth;
+					height = displayObject.mediaHeight;
+					//Default to size of the creative coming into the VPAIDElement
+				}
 			}
 			
 			CONFIG::LOGGING
@@ -414,7 +424,8 @@ package org.osmf.vpaid.elements
 			}
 			if(event.loadState == LoadState.READY)
 			{
-				_vpaid.resizeVPAID(getDimensions().width,getDimensions().height, "normal");	
+				var size:Rectangle = getDimensions();
+				_vpaid.resizeVPAID(size.width,size.height, "normal");
 			}
 							
 		}
@@ -488,7 +499,14 @@ package org.osmf.vpaid.elements
 				
 				case VPAIDMetadata.RESIZE_AD :
 					var dataObj:Object = e.value as Object;
+					if (dataObj.width == -1)
+					{
+						dataObj.width = MASTWidth;
+						dataObj.height = MASTHeight;
+					}
 					_vpaid.resizeVPAID(dataObj.width, dataObj.height, dataObj.viewMode);
+					MASTHeight = dataObj.height;
+					MASTWidth = dataObj.width;
 				break;
 				
 				case VPAIDMetadata.COLLAPSE_AD :
@@ -510,7 +528,14 @@ package org.osmf.vpaid.elements
 				
 				case VPAIDMetadata.RESIZE_AD :
 					var dataObj:Object = e.value as Object;
-					_vpaid.resizeVPAID(dataObj.width, dataObj.height, dataObj.viewMode);				
+					if (dataObj.width == -1)
+					{
+						dataObj.width = MASTWidth;
+						dataObj.height = MASTHeight;
+					}
+					_vpaid.resizeVPAID(dataObj.width, dataObj.height, dataObj.viewMode);
+					MASTHeight = dataObj.height;
+					MASTWidth = dataObj.width;			
 				break;
 				
 				case VPAIDMetadata.COLLAPSE_AD :
@@ -632,8 +657,10 @@ package org.osmf.vpaid.elements
 			
 			removeEventListener("AdStarted", onAdStarted);
 			var loaderLoadTrait:LoaderLoadTrait = getTrait(MediaTraitType.LOAD) as LoaderLoadTrait;
-			addTrait(MediaTraitType.DISPLAY_OBJECT, LoaderUtils.createDisplayObjectTrait(loaderLoadTrait.loader, this));
-			_vpaid.resizeVPAID(getDimensions().width, getDimensions().height, "normal");
+			var size:Rectangle = getDimensions();
+	
+			addTrait(MediaTraitType.DISPLAY_OBJECT, LoaderUtils.createDisplayObjectTrait(loaderLoadTrait.loader, this,size));
+			//_vpaid.resizeVPAID(getDimensions().width, getDimensions().height, "normal");
 		}
 		
 		private function onAdTimeChange(event:Event):void
@@ -715,7 +742,9 @@ package org.osmf.vpaid.elements
 			if(_playTrait.playState != PlayState.STOPPED)
 				_playTrait.stop();
 			
-			_loadTrait.unload();
+			//some vpaid elements remove themself from the stage
+			if (_loadTrait.loadState != LoadState.UNLOADING && _loadTrait.loadState != LoadState.UNINITIALIZED)
+				_loadTrait.unload();
 				
 			removeListeners();
 			
@@ -763,8 +792,8 @@ package org.osmf.vpaid.elements
 		private var _firstRun:Boolean = true;
 		
 		// Just temporary, for MASTProxyElement to make initial size be correct(should use Metadata in the future)
-		private var _MASTWidth:Number = 300;
-		private var _MASTHeight:Number = 300;	
+		private var _MASTWidth:Number = -1;
+		private var _MASTHeight:Number = -1;	
 		public function get MASTWidth():Number
 		{
 			return _MASTWidth;

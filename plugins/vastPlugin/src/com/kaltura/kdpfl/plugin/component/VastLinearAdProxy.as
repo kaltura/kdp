@@ -145,7 +145,8 @@ package com.kaltura.kdpfl.plugin.component {
 				dataObj.width = width;
 				dataObj.height = height;
 				dataObj.viewMode = mode ? mode: "normal";
-				vpaidMetadata.addValue("resizeAd",dataObj);
+				//vpaidMetadata.addValue("resizeAd",dataObj);
+				
 			}
 		}
 
@@ -306,7 +307,7 @@ package com.kaltura.kdpfl.plugin.component {
 						event.key.indexOf("AdVideoStart") == 0))
 					{
 						_initVPAIDSize = true;
-						_this.resizeAd((facade as ApplicationFacade).app.width,(facade as ApplicationFacade).app.height,"normal");
+						//_this.resizeAd(-1,-1,"normal");
 					}
 				});
 			}
