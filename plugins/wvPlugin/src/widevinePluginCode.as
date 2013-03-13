@@ -9,6 +9,7 @@ package
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.KPluginEvent;
 	import com.kaltura.kdpfl.plugin.WVPluginInfo;
+	import com.kaltura.kdpfl.view.controls.BufferAnimationMediator;
 	import com.kaltura.vo.KalturaMediaEntry;
 	
 	import flash.display.Sprite;
@@ -44,7 +45,7 @@ package
 		private var _wvm:WvMediator;
 		
 		private var _shouldEnd:Boolean;
-		private var _firstStart:Boolean;
+
 		
 		public function widevinePluginCode()
 		{
@@ -104,7 +105,6 @@ package
 			
 		private function onWVElementCreated(e : Event) : void
 		{
-			_firstStart = true;
 			_wvPluginInfo.wvMediaElement.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 			if (_wvm.pendingSeekTo)
 				_wvPluginInfo.wvMediaElement.addEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd);
@@ -167,7 +167,11 @@ package
 					setTimeout(endOfClip, Math.max(100, (_wvPluginInfo.wvMediaElement.netStream.bufferLength-0.1)*1000));
 					break;
 				
-			/*	case "NetStream.Seek.Notify":
+			/*	case "NetStream.Buffer.Empty":
+	
+					break;
+				
+				case "NetStream.Seek.Notify":
 
 					break;
 				
@@ -188,6 +192,7 @@ package
 			{
 				_facade.sendNotification( NotificationType.ALERT , {message: err, title: alert_title} );
 				_facade.sendNotification(NotificationType.ENABLE_GUI, {guiEnabled: false, enableType : EnableType.CONTROLS});
+				(_facade.retrieveMediator(BufferAnimationMediator.NAME) as BufferAnimationMediator).spinner.visible = false;
 				
 			}
 		}
@@ -201,5 +206,6 @@ package
 			_facade.sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: SequenceContextType.MAIN});
 			_wvm.ignoreSeek = false;
 		}
+		
 	}
 }
