@@ -255,7 +255,7 @@ package com.kaltura.kdpfl.model
 		 */		
 		private function createElement(resourceUrl:String):void {
 			var resource:MediaResourceBase;
-			var preferedIndex:int = getFlavorByBitrate(vo.preferedFlavorBR);	
+			
 			
 			if (vo.deliveryType == StreamerType.HDNETWORK || vo.deliveryType == StreamerType.HDNETWORK_HDS || vo.isHds)
 			{
@@ -268,6 +268,7 @@ package com.kaltura.kdpfl.model
 			}			
 			else
 			{
+				var preferedIndex:int = getFlavorByBitrate(vo.preferedFlavorBR);	
 				resource = new StreamingURLResource(resourceUrl);
 				addMetadataToResource(resource);
 				var f4mLoader : F4MLoader = new F4MLoader(vo.mediaFactory);

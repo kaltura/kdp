@@ -153,6 +153,11 @@ package com.kaltura.kdpfl.view.media
 		 */		
 		private var _inDvr:Boolean = false;
 		
+		/**
+		 * workaround mainly for WV plugin, netstream reports end before it actually ended, so playbackComplete notification will be sent from the plugin 
+		 */		
+		public var ignorePlaybackComplete:Boolean;
+		
 		public var dvrWinSize:Number = 0;
 		
 		/**
@@ -360,6 +365,7 @@ package com.kaltura.kdpfl.view.media
 					_offsetAddition = 0;
 					_doSwitchSent = false;
 					_hasPlayed = false;
+					ignorePlaybackComplete = false;
 					//Fixed weird issue, where the CHANGE_MEDIA would be caught by the mediator 
 					// AFTER the new media has already loaded. Caused media never to be loaded.
 					if (designatedEntryId != _mediaProxy.vo.entry.id || _mediaProxy.vo.isFlavorSwitching )
@@ -471,6 +477,8 @@ package com.kaltura.kdpfl.view.media
 						if (player.state == MediaPlayerState.PLAYING || player.state == MediaPlayerState.BUFFERING)
 							_mediaProxy.vo.singleAutoPlay = true;
 						_mediaProxy.vo.isFlavorSwitching = true;
+						if (_mediaProxy.vo.keyframeValuesArray || isMP4Stream())
+							_mediaProxy.vo.mediaPlayFrom = getCurrentTime();
 						sendNotification( NotificationType.CHANGE_MEDIA, {entryId: _mediaProxy.vo.entry.id, flavorId: null, preferedFlavorBR: preferedFlavorBR });
 					}
 					break;
@@ -1377,7 +1385,8 @@ package com.kaltura.kdpfl.view.media
 					_inDvr = false;
 				}
 				
-				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
+				if (!_sequenceProxy.vo.isInSequence && !ignorePlaybackComplete)
+					sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
 			}
 			
 		}
