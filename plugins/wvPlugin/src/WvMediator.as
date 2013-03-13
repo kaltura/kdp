@@ -3,18 +3,31 @@ package
 	import com.kaltura.KalturaClient;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
+	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
+	import com.kaltura.kdpfl.model.type.SequenceContextType;
 	import com.kaltura.kdpfl.model.type.StreamerType;
+	import com.kaltura.kdpfl.plugin.WVLoadTrait;
 	import com.kaltura.kdpfl.plugin.WVPluginInfo;
+	import com.kaltura.kdpfl.view.controls.BufferAnimationMediator;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.vo.KalturaFlavorAsset;
 	import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.vo.KalturaWidevineFlavorAsset;
+	import com.widevine.WvNetConnection;
 	
+	import flash.events.Event;
+	import flash.events.NetStatusEvent;
 	import flash.external.ExternalInterface;
 	import flash.net.NetStream;
+	import flash.utils.setTimeout;
 	
+	import mx.core.mx_internal;
+	
+	import org.osmf.events.MediaElementEvent;
+	import org.osmf.events.MediaErrorEvent;
 	import org.osmf.traits.AudioTrait;
+	import org.osmf.traits.LoadTrait;
 	import org.osmf.traits.MediaTraitType;
 	import org.osmf.traits.TimeTrait;
 	import org.puremvc.as3.interfaces.INotification;
@@ -23,10 +36,11 @@ package
 	public class WvMediator extends Mediator
 	{
 		public static const NAME:String = "WvMediator";
+		public static const NO_WV_BROWSER_PLUGIN:String = "noWidevineBrowserPlugin";
 		/**
 		 * indicates the next flavor should start playback from this position 
 		 */		
-		public var pendingSeekTo:Number = 0;
+		private var _pendingSeekTo:Number = 0;
 		/**
 		 * last playhead position 
 		 */		
@@ -36,27 +50,34 @@ package
 		 */		
 		private var _isReplay:Boolean;	
 		/**
-		 * max seek point within wv netstream 
-		 */		
-		private var _maxSeek:Number;
-		/**
 		 * indicates if the player is currently playing wv netstream 
 		 */		
 		private var _isWv:Boolean;		
 		/**
 		 * after wv netstream has already reported  netstream complete we need to ignore all doSeek requests
 		 */		
-		public var ignoreSeek:Boolean;
+		private var _ignoreSeek:Boolean;
 		
-		public var wvPluginInfo:WVPluginInfo;
+		private var _wvPluginInfo:WVPluginInfo;
+
+		private var _wvPluginCode:widevinePluginCode;
 		
-		public function WvMediator(wvPI:WVPluginInfo)
+		private var _bufferLength:Number = 0;
+		private var _mediaProxy:MediaProxy;
+		
+		public function WvMediator(wvPluginCode:widevinePluginCode, wvPI:WVPluginInfo)
 		{
-			wvPluginInfo = wvPI;
+			_wvPluginCode = wvPluginCode;
+			_wvPluginInfo = wvPI;
+			_wvPluginInfo.addEventListener(WVPluginInfo.WVMEDIA_ELEMENT_CREATED, onWVElementCreated);	
 			super(NAME);
 		}
 		
-		
+		override public function onRegister():void
+		{
+			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			super.onRegister();
+		}
 		
 		override public function listNotificationInterests():Array {
 			return [NotificationType.DO_SEEK,
@@ -65,23 +86,22 @@ package
 					NotificationType.PLAYER_PLAY_END,
 					NotificationType.DO_PLAY,
 					NotificationType.BUFFER_PROGRESS,
-					NotificationType.CHANGE_MEDIA];
+					NotificationType.CHANGE_MEDIA,
+					NO_WV_BROWSER_PLUGIN];
 		}
 		
-		
 		override public function handleNotification(note:INotification):void {
-			var mediaProxy:MediaProxy = facade.retrieveProxy("mediaProxy") as MediaProxy;
 			
 			switch (note.getName()) 
 			{
 				case NotificationType.DO_SEEK:
-					if (!ignoreSeek && _isWv)
+					if (!_ignoreSeek && _isWv)
 					{
 						var seekTo:Number = note.getBody() as Number;
-						if(wvPluginInfo && wvPluginInfo.wvMediaElement && wvPluginInfo.wvMediaElement.netStream)
+						if(_wvPluginInfo && _wvPluginInfo.wvMediaElement && _wvPluginInfo.wvMediaElement.netStream)
 						{	
 							//cannot seek to the complete end, wv bug
-							seekWvStream(Math.min(seekTo, _maxSeek));
+							seekWvStream(seekTo);
 						}
 					}
 						
@@ -89,18 +109,18 @@ package
 				
 				case NotificationType.MEDIA_ELEMENT_READY:					
 					//get flavor asset ID
-					if (mediaProxy.vo.deliveryType==StreamerType.HTTP)
+					if (_mediaProxy.vo.deliveryType==StreamerType.HTTP)
 					{
-						var flavors:Array = mediaProxy.vo.kalturaMediaFlavorArray;
+						var flavors:Array = _mediaProxy.vo.kalturaMediaFlavorArray;
 						if (flavors && flavors.length)
 						{
 							var wvAssetId:String;
-							if (mediaProxy.vo.selectedFlavorId && flavors.length > 1)
+							if (_mediaProxy.vo.selectedFlavorId && flavors.length > 1)
 							{
 								for (var i:int = 0; i<flavors.length; i++)
 								{
 									var flavor:KalturaFlavorAsset = flavors[i] as KalturaFlavorAsset;
-									if (flavor.id == mediaProxy.vo.selectedFlavorId)
+									if (flavor.id == _mediaProxy.vo.selectedFlavorId)
 									{
 										if (flavor is KalturaWidevineFlavorAsset)
 										{
@@ -154,30 +174,149 @@ package
 				case NotificationType.DO_PLAY:
 					if (_isWv && _isReplay)
 					{
-						wvPluginInfo.wvMediaElement.netStream.replay();
+						_wvPluginInfo.wvMediaElement.netStream.replay();
 						_isReplay = false;
 					}
 					break;
 				
 				case NotificationType.BUFFER_PROGRESS:
-					//calculate max seek position in wv netstream
-					if (_isWv)
-						_maxSeek = (mediaProxy.vo.entry as KalturaMediaEntry).duration - note.getBody().newTime;
-					
+					_bufferLength = note.getBody().newTime;
 					break;
 				
 				case NotificationType.CHANGE_MEDIA:
 					_isReplay = false;
 					var kmediaMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
-					if (mediaProxy.vo.isFlavorSwitching)
-						pendingSeekTo = _lastPlayhead;
+					if (_mediaProxy.vo.isFlavorSwitching)
+						_pendingSeekTo = _lastPlayhead;
 					break;
+				
+				case NO_WV_BROWSER_PLUGIN:
+					sendNotification( NotificationType.ALERT , {message: _wvPluginCode.alert_missing_plugin, title: _wvPluginCode.alert_title} );
+					sendNotification(NotificationType.ENABLE_GUI, {guiEnabled: false, enableType : EnableType.CONTROLS});
+					break;
+				
 			}
 		}
 		
 		public function seekWvStream(seekTo:Number): void
 		{
-			wvPluginInfo.wvMediaElement.netStream.seek(seekTo);
+			var maxSeek:Number = (_mediaProxy.vo.entry as KalturaMediaEntry).duration - _bufferLength;
+			//can't seek to complete end
+			_wvPluginInfo.wvMediaElement.netStream.seek( Math.min(seekTo, maxSeek));
+		}
+		
+		private function onWVElementCreated(e : Event) : void
+		{
+			_wvPluginInfo.wvMediaElement.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
+			_wvPluginInfo.wvMediaElement.addEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd);
+		}
+		
+		private function onTraitAdd(e: MediaElementEvent) : void
+		{
+			if (e.traitType == MediaTraitType.SEEK)
+			{
+				//seek to previous flavor last playhead position
+				if (_pendingSeekTo)
+				{
+					seekWvStream(_pendingSeekTo);
+					_pendingSeekTo = 0;
+				}
+			//	_wvPluginInfo.wvMediaElement.removeEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd);
+			}
+			else if (e.traitType == MediaTraitType.LOAD)
+			{
+				(_wvPluginInfo.wvMediaElement.getTrait(MediaTraitType.LOAD) as WVLoadTrait).drmNetConnection.addEventListener(WvNetConnection.DO_CONNECT_FAILED, onConnectFail);
+			}
+			
+		}
+		
+		private function onConnectFail(e: Event) : void
+		{
+			var errEvent:MediaErrorEvent = new MediaErrorEvent(MediaErrorEvent.MEDIA_ERROR);
+			_mediaProxy.vo.media.dispatchEvent(errEvent);
+		}
+		
+		/**
+		 * wvMediaElement bubbles up all netstatus event. Display proper KDP alerts accordingly.
+		 * @param e
+		 * 
+		 */		
+		private function onNetStatus(e: NetStatusEvent):void
+		{
+			trace ("widevinePlugin > onNetStatus:" ,e.info.code, e.info.details);
+			var err:String;
+			
+			switch (e.info.code)
+			{	
+				case "NetStream.Wv.EmmError":
+					err = _wvPluginCode.alert_emm_error;
+					break;
+				case "NetStream.Wv.EmmExpired":
+					err = _wvPluginCode.alert_emm_expired;
+					break;
+				
+				case "NetStream.Wv.LogError":
+					err = _wvPluginCode.alert_log_error;
+					if (e.info.details)
+						err = err.replace("{0}", e.info.details);
+					break;
+				
+				case "NetStream.Wv.EmmFailed":
+					err = _wvPluginCode.alert_emm_falied;
+					break;
+				
+				case "NetStream.Wv.DcpStop":
+					err = _wvPluginCode.alert_dcp_stop;
+					break;
+				
+				case "NetStream.Wv.DcpAlert":
+					sendNotification( NotificationType.ALERT , {message: _wvPluginCode.alert_dcp_alert, title: _wvPluginCode.warning_title} );
+					break;
+				
+				// workaround- playComplete is sent before stream ended.
+				case "NetStream.Play.Complete":
+				//	_ignoreSeek = true;
+					setTimeout(endOfClip, Math.max(100, (_wvPluginInfo.wvMediaElement.netStream.bufferLength-0.1)*1000));
+					break;
+				
+				/*	case "NetStream.Buffer.Empty":
+				
+				break;
+				
+				case "NetStream.Seek.Notify":
+				
+				break;
+				
+				case "NetStream.Buffer.Full":
+				
+				break;
+				
+				case "NetStream.Play.Start" :
+				
+				break;
+				
+				case "NetStream.Wv.EmmSuccess":
+				
+				break;*/
+			}
+			
+			if (err)
+			{
+				sendNotification( NotificationType.ALERT , {message: err, title: _wvPluginCode.alert_title} );
+				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled: false, enableType : EnableType.CONTROLS});
+				(facade.retrieveMediator(BufferAnimationMediator.NAME) as BufferAnimationMediator).spinner.visible = false;
+				
+			}
+		}
+		
+		/**
+		 * this workaround fixes widevine known issue: stream reports complete before its time. 
+		 * 
+		 */		
+		private function endOfClip() : void
+		{
+			sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: SequenceContextType.MAIN});
+			_ignoreSeek = false;
 		}
 		
 	}
