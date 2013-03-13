@@ -1,4 +1,4 @@
-<layout id="full" skinPath="/assets/pptskin.swf">
+<layout id="full" skinPath="http://localhost/kdp_git/KDP3/bin-debug/assets/pptskin.swf">
 	<!-- Editor config -->
 	<HBox id="topLevel" width="100%" height="100%" paddingTop="0">
 		<VBox id="player" width="100%" height="100%" styleName="black" paddingTop="0">
