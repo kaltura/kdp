@@ -219,6 +219,12 @@ package com.kaltura.kdpfl.plugin.component {
 
 							ccLineInd++;
 						}
+						
+						//if we parsed another line but didn't push it, because of a missing enter at the end of the file
+						if (ccLineInd > 2 && currLine)
+						{
+							tempCCLines.push(currLine);
+						}
 
 						_currentCCFile = _currentCCFile.concat(tempCCLines);
 						_availableCCArray[fileUrl] = new Array().concat(tempCCLines);
