@@ -19,17 +19,11 @@ package
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	import flash.external.ExternalInterface;
-	import flash.net.NetStream;
 	import flash.utils.setTimeout;
-	
-	import mx.core.mx_internal;
 	
 	import org.osmf.events.MediaElementEvent;
 	import org.osmf.events.MediaErrorEvent;
-	import org.osmf.traits.AudioTrait;
-	import org.osmf.traits.LoadTrait;
 	import org.osmf.traits.MediaTraitType;
-	import org.osmf.traits.TimeTrait;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	
@@ -100,8 +94,8 @@ package
 						var seekTo:Number = note.getBody() as Number;
 						if(_wvPluginInfo && _wvPluginInfo.wvMediaElement && _wvPluginInfo.wvMediaElement.netStream)
 						{	
-							//cannot seek to the complete end, wv bug
-							seekWvStream(seekTo);
+							//workaround to fix seek issue
+							setTimeout(seekWvStream, 1, seekTo);
 						}
 					}
 						
@@ -275,7 +269,7 @@ package
 				
 				// workaround- playComplete is sent before stream ended.
 				case "NetStream.Play.Complete":
-				//	_ignoreSeek = true;
+					_ignoreSeek = true;
 					setTimeout(endOfClip, Math.max(100, (_wvPluginInfo.wvMediaElement.netStream.bufferLength-0.1)*1000));
 					break;
 				
