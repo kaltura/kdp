@@ -67,6 +67,7 @@ package
 		 */		
 		protected function onOSMFPluginLoaded (e : MediaFactoryEvent) : void
 		{
+			_localMediaFactory.removeEventListener(MediaFactoryEvent.PLUGIN_LOAD, onOSMFPluginLoaded);
 			dispatchEvent( new KPluginEvent (KPluginEvent.KPLUGIN_INIT_COMPLETE) );
 		}
 		/**
@@ -76,6 +77,7 @@ package
 		 */		
 		protected function onOSMFPluginLoadError (e : MediaFactoryEvent) : void
 		{
+			_localMediaFactory.removeEventListener(MediaFactoryEvent.PLUGIN_LOAD_ERROR, onOSMFPluginLoadError);
 			dispatchEvent( new KPluginEvent (KPluginEvent.KPLUGIN_INIT_FAILED) );
 		}
 		public function setSkin(styleName:String, setSkinSize:Boolean=false):void

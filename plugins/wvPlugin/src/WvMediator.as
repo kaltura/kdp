@@ -2,6 +2,7 @@ package
 {
 	import com.kaltura.KalturaClient;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
@@ -78,6 +79,7 @@ package
 					NotificationType.MEDIA_ELEMENT_READY,
 					NotificationType.PLAYER_UPDATE_PLAYHEAD,
 					NotificationType.PLAYER_PLAY_END,
+					NotificationType.PLAYER_PLAYED,
 					NotificationType.DO_PLAY,
 					NotificationType.BUFFER_PROGRESS,
 					NotificationType.CHANGE_MEDIA,
@@ -85,7 +87,6 @@ package
 		}
 		
 		override public function handleNotification(note:INotification):void {
-			
 			switch (note.getName()) 
 			{
 				case NotificationType.DO_SEEK:
@@ -101,7 +102,7 @@ package
 						
 					break;
 				
-				case NotificationType.MEDIA_ELEMENT_READY:					
+				case NotificationType.MEDIA_ELEMENT_READY:	
 					//get flavor asset ID
 					if (_mediaProxy.vo.deliveryType==StreamerType.HTTP)
 					{
@@ -125,7 +126,7 @@ package
 									}
 								}
 							}
-						 	//if we don't have selected flavor ID we are playing the first one
+								//if we don't have selected flavor ID we are playing the first one
 							else if (flavors[0] is KalturaWidevineFlavorAsset)
 							{
 								wvAssetId = (flavors[0] as KalturaWidevineFlavorAsset).id;
@@ -137,11 +138,8 @@ package
 								var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
 								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=widevine&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks;
 								ExternalInterface.call("WVSetEmmURL", emmUrl);
-								
-								var playerMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
-								//workaround for wv bug, netstream reports end before actual end
-								playerMediator.ignorePlaybackComplete = true;
 
+								
 							}
 							else
 							{
@@ -149,14 +147,19 @@ package
 							}
 							
 						}
+						else
+						{
+							_isWv = false;
+						}
 					}
+	
 
 					break;
 	
 				
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					//in case we switch flavors we want to save last position
-					if (_isWv)
+					if (_isWv && !(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
 						_lastPlayhead = note.getBody() as Number;
 					break;
 					
@@ -170,6 +173,15 @@ package
 					{
 						_wvPluginInfo.wvMediaElement.netStream.replay();
 						_isReplay = false;
+					}
+					break;
+				
+				case NotificationType.PLAYER_PLAYED:
+					if (_isWv && !(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
+					{
+						var playerMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
+						//workaround for wv bug, netstream reports end before actual end
+						playerMediator.ignorePlaybackComplete = true;
 					}
 					break;
 				
