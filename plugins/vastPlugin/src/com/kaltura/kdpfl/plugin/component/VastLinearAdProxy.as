@@ -367,7 +367,10 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				sequenceProxy["vo"]["timeRemaining"] = Math.round(e.time);
 				sequenceProxy["vo"]["isAdLoaded"] = true;
-				(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+				if (e.time <= 1)
+				{
+					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+				}
 			}
 		}
 
