@@ -88,7 +88,7 @@ package com.kaltura.vo
 		public var dvrStatus : int = int.MIN_VALUE;
 
 		/**
-		 * Window of time which the DVR allows for backwards scrubbing (in seconds)
+		 * Window of time which the DVR allows for backwards scrubbing (in minutes)
 		 * 
 		 **/
 		public var dvrWindow : int = int.MIN_VALUE;

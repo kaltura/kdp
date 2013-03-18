@@ -220,6 +220,40 @@ package com.kaltura.vo
 		 **/
 		public var embedCodeTypes : Array = null;
 
+		/**
+		 **/
+		public var templatePartnerId : int = int.MIN_VALUE;
+
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var ignoreSeoLinks : Boolean;
+
+		/**
+		 **/
+		public var host : String = null;
+
+		/**
+		 **/
+		public var cdnHost : String = null;
+
+		/**
+		 **/
+		public var rtmpUrl : String = null;
+
+		/**
+		 **/
+		public var language : String = null;
+
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var isFirstLogin : Boolean;
+
+		/**
+		 **/
+		public var logoutUrl : String = null;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 

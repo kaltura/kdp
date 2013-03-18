@@ -45,7 +45,7 @@ package com.kaltura.vo
 		public var widevineDistributionEndDate : int = int.MIN_VALUE;
 
 		/**
-		 * License distribution window end date
+		 * Widevine unique asset id
 		 * 
 		 **/
 		public var widevineAssetId : int = int.MIN_VALUE;

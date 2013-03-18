@@ -99,6 +99,12 @@ package com.kaltura.vo
 		 **/
 		public var accessControlActions : Array = null;
 
+		/**
+		 * Array of allowed flavor assets according to access control limitations and requested tags
+		 * 
+		 **/
+		public var flavorAssets : Array = null;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -119,6 +125,7 @@ package com.kaltura.vo
 			arr.push('storageProfilesXML');
 			arr.push('accessControlMessages');
 			arr.push('accessControlActions');
+			arr.push('flavorAssets');
 			return arr;
 		}
 

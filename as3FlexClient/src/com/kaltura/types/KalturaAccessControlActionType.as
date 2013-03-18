@@ -31,5 +31,6 @@ package com.kaltura.types
 	{
 		public static const BLOCK : String = '1';
 		public static const PREVIEW : String = '2';
+		public static const LIMIT_FLAVORS : String = '3';
 	}
 }
