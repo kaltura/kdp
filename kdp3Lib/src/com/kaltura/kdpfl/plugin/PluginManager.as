@@ -95,7 +95,8 @@ package com.kaltura.kdpfl.plugin
 				loader.addEventListener( ErrorEvent.ERROR, onPluginError );
 				loader.addEventListener( AsyncErrorEvent.ASYNC_ERROR, onPluginError );
 				
-				if(loadingPolicy == "wait" || loadingPolicy == "preInitialize" && !asyncInit) 
+				if((loadingPolicy == "wait" || loadingPolicy == "preInitialize") && !asyncInit) 
+					
 				{
 					loader.addEventListener(  Event.COMPLETE , onPluginReady, false, int.MIN_VALUE );
 					++_loadingQ;
@@ -139,7 +140,7 @@ package com.kaltura.kdpfl.plugin
 		 */		
 		public function onPluginReady( event : Event ) : void
 		{
-			
+
 			//trace ("inner ready");
 			//event.target.removeEventListener(  Event.COMPLETE , onPluginReady );
 			--_loadingQ;

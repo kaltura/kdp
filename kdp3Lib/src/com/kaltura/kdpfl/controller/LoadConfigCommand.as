@@ -808,6 +808,7 @@ package com.kaltura.kdpfl.controller
 		 */		
 		private function preInitPluginsLoaded (e : Event ) : void
 		{
+			e.target.removeEventListener( PluginManager.ALL_PLUGINS_LOADED , preInitPluginsLoaded );
 			commandComplete();
 		}
 		/**
