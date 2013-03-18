@@ -166,30 +166,6 @@ package com.kaltura.kdpfl.controller.media
 
 					ind ++;
 					
-					//if we were asked for flavors with specific tags
-					if (_flashvars.flavorTags)
-					{
-						var listFlavorsFilter:KalturaFlavorAssetFilter = new KalturaFlavorAssetFilter();	
-						listFlavorsFilter.tagsLike = _flashvars.flavorTags;
-						listFlavorsFilter.statusEqual = KalturaFlavorAssetStatus.READY;
-						listFlavorsFilter.entryIdEqual = _mediaProxy.vo.entry.id;
-						if (_isRefid) {
-							mr.addRequestParam(ind + ":filter:entryIdEqual","{1:result:objects:0:id}");
-						}
-						
-						var listFlavors:FlavorAssetList = new FlavorAssetList(listFlavorsFilter);
-						mr.addAction(listFlavors);
-					}
-					else
-					{
-						var getFlavors:FlavorAssetGetWebPlayableByEntryId = new FlavorAssetGetWebPlayableByEntryId(_mediaProxy.vo.entry.id);
-						if (_isRefid) {
-							mr.addRequestParam(ind + ":entryId","{1:result:objects:0:id}");
-						}
-						mr.addAction(getFlavors);
-					}			
-					ind ++;
-					
 					var keedp : KalturaEntryContextDataParams = new KalturaEntryContextDataParams();
 					keedp.referrer = _flashvars.referrer;	
 					keedp.streamerType = _flashvars.streamerType;
@@ -331,84 +307,13 @@ package com.kaltura.kdpfl.controller.media
 			}
 			
 			++i;
-			// get flavors result:
-			// -------------------------
-			if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
-			{
-				KTrace.getInstance().log("Warning : Empty Flavors");
-				_mediaProxy.vo.kalturaMediaFlavorArray = null;
-								
-				//if this is live entry we will create the flavors using 
-				if( entry is KalturaLiveStreamEntry )
-				{
-					var flavorAssetArray : Array = new Array(); 
-					for(var j:int=0; j<entry.bitrates.length; j++)
-					{
-						var flavorAsset : KalturaFlavorAsset = new KalturaFlavorAsset();
-						flavorAsset.bitrate = entry.bitrates[j].bitrate;
-						flavorAsset.height = entry.bitrates[j].height;
-						flavorAsset.width = entry.bitrates[j].width;
-						flavorAsset.entryId = entry.id;
-						flavorAsset.isWeb = true;
-						flavorAsset.id = j.toString();
-						flavorAsset.partnerId = entry.partnerId; 
-						flavorAssetArray.push(flavorAsset);
-					}
-					
-					if(j>0)
-						_mediaProxy.vo.kalturaMediaFlavorArray = flavorAssetArray;
-					else
-						_mediaProxy.vo.kalturaMediaFlavorArray = null;
-				}
-				else
-				{
-					_mediaProxy.vo.kalturaMediaFlavorArray = null;
-				}
-			}
-			else
-			{
-				if (_flashvars.flavorTags)
-				{
-					//the list returns strings that contain the given tag, so look for an exact match
-					var resultArray:Array = (arr[i] as KalturaFlavorAssetListResponse).objects;
-					var flavorsArray:Array = new Array();
-					if (resultArray)
-					{
-						for (var ind:int = 0; ind<resultArray.length; ind++)
-						{
-							var tagsArr:Array = (resultArray[ind] as KalturaFlavorAsset).tags.split(",");
-							for each (var s:String in tagsArr)
-							{
-								if (s==_flashvars.flavorTags)
-								{
-									flavorsArray.push(resultArray[ind]);
-									break;
-								}
-							}
-						}
-					}
-					flavorsArray.sortOn("bitrate", Array.NUMERIC);
-					_mediaProxy.vo.kalturaMediaFlavorArray = flavorsArray;
-					
-				}
-				else
-					//no need to sort in this case, the sort is being done on the server side
-					_mediaProxy.vo.kalturaMediaFlavorArray = arr[i];
-				
-				//save the highest bitrate available to cookie. This will be used to determine whether we should perform
-				//bandwidth check in the future
-				if (_mediaProxy.vo.kalturaMediaFlavorArray.length)
-					SharedObjectUtil.writeToCookie("Kaltura", "lastHighestBR", (_mediaProxy.vo.kalturaMediaFlavorArray[_mediaProxy.vo.kalturaMediaFlavorArray.length - 1] as KalturaFlavorAsset).bitrate, _flashvars.allowCookies);
-			} 
-			
-			++i;
+	
 			// get ContextData result:
 			// -------------------------
 			if(arr[i] is KalturaError || (arr[i].hasOwnProperty("error")))
 			{
 				//TODO: Trace, Report, and notify the user
 				KTrace.getInstance().log("Warning : Empty Extra Params");
-				//sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_EXTRA_ERROR'), title: MessageStrings.getString('SERVICE_ERROR')} );
 			}
 			else
 			{
@@ -479,6 +384,76 @@ package com.kaltura.kdpfl.controller.media
 						_mediaProxy.vo.availableStorageProfiles.push(profileObj);
 					}
 				}
+				
+				//flavors
+				if(!_mediaProxy.vo.entryExtraData.flavorAssets || !_mediaProxy.vo.entryExtraData.flavorAssets.length)
+				{
+					KTrace.getInstance().log("Warning : Empty Flavors");
+					_mediaProxy.vo.kalturaMediaFlavorArray = null;
+					
+					//if this is live entry we will create the flavors using 
+					if( entry is KalturaLiveStreamEntry )
+					{
+						var flavorAssetArray : Array = new Array(); 
+						for(var j:int=0; j<entry.bitrates.length; j++)
+						{
+							var flavorAsset : KalturaFlavorAsset = new KalturaFlavorAsset();
+							flavorAsset.bitrate = entry.bitrates[j].bitrate;
+							flavorAsset.height = entry.bitrates[j].height;
+							flavorAsset.width = entry.bitrates[j].width;
+							flavorAsset.entryId = entry.id;
+							flavorAsset.isWeb = true;
+							flavorAsset.id = j.toString();
+							flavorAsset.partnerId = entry.partnerId; 
+							flavorAssetArray.push(flavorAsset);
+						}
+						
+						if(j>0)
+							_mediaProxy.vo.kalturaMediaFlavorArray = flavorAssetArray;
+						else
+							_mediaProxy.vo.kalturaMediaFlavorArray = null;
+					}
+					else
+					{
+						_mediaProxy.vo.kalturaMediaFlavorArray = null;
+					}
+				}
+				else
+				{
+					if (_flashvars.flavorTags)
+					{
+						//the list returns strings that contain the given tag, so look for an exact match
+						var flavorsArray:Array = new Array();
+						if (_mediaProxy.vo.entryExtraData.flavorAssets)
+						{
+							for (var ind:int = 0; ind<_mediaProxy.vo.entryExtraData.flavorAssets.length; ind++)
+							{
+								var tagsArr:Array = (_mediaProxy.vo.entryExtraData.flavorAssets[ind] as KalturaFlavorAsset).tags.split(",");
+								for each (var s:String in tagsArr)
+								{
+									if (s==_flashvars.flavorTags)
+									{
+										flavorsArray.push(_mediaProxy.vo.entryExtraData.flavorAssets[ind]);
+										break;
+									}
+								}
+							}
+						}
+						flavorsArray.sortOn("bitrate", Array.NUMERIC);
+						_mediaProxy.vo.kalturaMediaFlavorArray = flavorsArray;
+						
+					}
+					else
+						//no need to sort in this case, the sort is being done on the server side
+						_mediaProxy.vo.kalturaMediaFlavorArray = _mediaProxy.vo.entryExtraData.flavorAssets;
+					
+					//save the highest bitrate available to cookie. This will be used to determine whether we should perform
+					//bandwidth check in the future
+					if (_mediaProxy.vo.kalturaMediaFlavorArray.length)
+						SharedObjectUtil.writeToCookie("Kaltura", "lastHighestBR", (_mediaProxy.vo.kalturaMediaFlavorArray[_mediaProxy.vo.kalturaMediaFlavorArray.length - 1] as KalturaFlavorAsset).bitrate, _flashvars.allowCookies);
+				} 
+				
+				
 			} 
 			
 			++i;
