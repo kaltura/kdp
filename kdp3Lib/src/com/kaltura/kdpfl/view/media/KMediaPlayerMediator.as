@@ -1385,7 +1385,7 @@ package com.kaltura.kdpfl.view.media
 					_inDvr = false;
 				}
 				
-				if (!_sequenceProxy.vo.isInSequence && !ignorePlaybackComplete)
+				if (_sequenceProxy.vo.isInSequence || !ignorePlaybackComplete)
 					sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
 			}
 			
