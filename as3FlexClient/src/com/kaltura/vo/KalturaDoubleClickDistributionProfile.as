@@ -56,6 +56,11 @@ package com.kaltura.vo
 		 **/
 		public var itemsPerPage : String = null;
 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var ignoreSchedulingInFeed : Boolean;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -65,6 +70,7 @@ package com.kaltura.vo
 			arr.push('channelDescription');
 			arr.push('cuePointsProvider');
 			arr.push('itemsPerPage');
+			arr.push('ignoreSchedulingInFeed');
 			return arr;
 		}
 

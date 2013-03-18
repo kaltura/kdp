@@ -155,6 +155,13 @@ package com.kaltura.kdpfl.view.media
 		private var _isAfterSeek:Boolean = false;
 		
 		/**
+		 * flag that indicates if we are playing live DVR and we are not in the "live" point (most recent point) 
+		 */		
+		private var _inDvr:Boolean = false;
+		
+		public var dvrWinSize:Number = 0;
+		
+		/**
 		 * Constructor 
 		 * @param name
 		 * @param viewComponent
@@ -227,6 +234,7 @@ package com.kaltura.kdpfl.view.media
 			{
 				disableOnScreenClick();
 			}
+
 		}
 		
 		public function centerMediator () : void 
@@ -335,8 +343,8 @@ package com.kaltura.kdpfl.view.media
 					if (_mediaProxy.vo.entry is KalturaLiveStreamEntry && (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED)
 					{
 						_mediaProxy.vo.canSeek = true;
-						_duration = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
-					//	sendNotification( NotificationType.DURATION_CHANGE , {newValue:(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow});
+						dvrWinSize = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
+						sendNotification( NotificationType.DURATION_CHANGE , {newValue:dvrWinSize});
 					}
 					
 					break;
@@ -370,9 +378,12 @@ package com.kaltura.kdpfl.view.media
 					//first, load the media, if we didn't load it yet
 					if (_mediaProxy.shouldWaitForElement)
 					{
-						sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
-						_waitForMediaElement = true;
-						_mediaProxy.prepareMediaElement();
+						if (!_waitForMediaElement)
+						{
+							sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false , enableType : EnableType.CONTROLS});
+							_waitForMediaElement = true;
+							_mediaProxy.prepareMediaElement();
+						}	
 					}
 					else
 					{
@@ -474,7 +485,8 @@ package com.kaltura.kdpfl.view.media
 					break;
 				case NotificationType.DO_PAUSE: //when the player asked to pause
 					_prevState = PAUSED;
-					_mediaProxy.vo.singleAutoPlay = false;
+					if (!_mediaProxy.vo.isFlavorSwitching)
+						_mediaProxy.vo.singleAutoPlay = false;
 					if(player && player.media && player.media.hasTrait(MediaTraitType.PLAY) )
 					{
 						if (player.canPause)
@@ -486,7 +498,10 @@ package com.kaltura.kdpfl.view.media
 							if (!player.canPause)
 								player.stop();
 							//trigger liveStreamCommand to check for liveStream state again
+							//if we are offline then the "live" check timer is already running
 							sendNotification(NotificationType.LIVE_ENTRY, _mediaProxy.vo.resource); 
+							if (player.canSeek)
+								_inDvr = true;
 						}
 					}
 					break;
@@ -647,10 +662,10 @@ package com.kaltura.kdpfl.view.media
 				case NotificationType.GO_LIVE:
 					if (_mediaProxy.vo.isLive && _mediaProxy.vo.canSeek)
 					{
-						if (_hasPlayed)
+						if (_hasPlayed && _inDvr)
 							sendNotification(NotificationType.DO_SEEK, _duration);
-						else
-							sendNotification(NotificationType.DO_PLAY);
+						
+						sendNotification(NotificationType.DO_PLAY);
 					}
 					break;
 			}
@@ -660,6 +675,13 @@ package com.kaltura.kdpfl.view.media
 		{
 			sendNotification(NotificationType.PLAYER_SEEK_START);
 			player.seek(seekTo);
+			if (_mediaProxy.vo.isLive)
+			{
+				if (seekTo==_duration)
+					_inDvr = false;
+				else
+					_inDvr = true;
+			}
 			sendNotification(NotificationType.PLAYER_SEEK_END);
 		}
 		
@@ -1330,7 +1352,16 @@ package com.kaltura.kdpfl.view.media
 			}
 			else if(event.time)
 			{
-				_duration=event.time;
+				//in live dvr: minimum duration should be dvrwindow size
+				if (!_sequenceProxy.vo.isInSequence && (_mediaProxy.vo.entry is KalturaLiveStreamEntry &&
+					(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED))
+				{
+					_duration = Math.max(dvrWinSize, event.time);
+				}
+				else
+				{
+					_duration=event.time;
+				}
 				sendNotification( NotificationType.DURATION_CHANGE , {newValue:_duration});
 				//save entryDuration in case we will go into intelliseek and need to use it.
 				if (!_sequenceProxy.vo.isInSequence)
@@ -1355,8 +1386,17 @@ package com.kaltura.kdpfl.view.media
 					_loadMediaOnPlay = true;
 				}	
 				
-				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
+				if (!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.isLive)
+				{
+					if (player.canPause)
+						player.pause();
+					else
+						player.stop();
+					
+					_inDvr = false;
+				}
 				
+				sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: _sequenceProxy.sequenceContext});
 			}
 			
 		}

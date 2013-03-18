@@ -81,12 +81,6 @@ package com.kaltura.vo
 		public var hlsStreamUrl : String = null;
 
 		/**
-		 * Unique idenitifier for the string opposite the provider
-		 * 
-		 **/
-		public var externalStreamId : String = null;
-
-		/**
 		 * DVR Status Enabled/Disabled
 		 * 
 		 * @see com.kaltura.types.KalturaDVRStatus
@@ -122,7 +116,6 @@ package com.kaltura.vo
 			arr.push('streamName');
 			arr.push('streamUrl');
 			arr.push('hlsStreamUrl');
-			arr.push('externalStreamId');
 			arr.push('dvrStatus');
 			arr.push('dvrWindow');
 			arr.push('urlManager');

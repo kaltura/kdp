@@ -31,7 +31,7 @@ package com.kaltura.commands.bulk
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * serve action returan the original file.
+	 * serve action returns the original file.
 	 * 
 	 **/
 	public class BulkServe extends KalturaCall

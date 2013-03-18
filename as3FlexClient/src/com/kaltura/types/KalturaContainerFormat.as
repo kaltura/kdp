@@ -50,5 +50,6 @@ package com.kaltura.types
 		public static const WEBM : String = 'webm';
 		public static const WMA : String = 'wma';
 		public static const WMV : String = 'wmv';
+		public static const WVM : String = 'wvm';
 	}
 }

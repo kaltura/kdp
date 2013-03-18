@@ -33,27 +33,12 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryUserProviderFilter extends KalturaFilter
 	{
 		/**
-		 * Id of the category to list by - not settable
-		 * 
-		 **/
-		public var categoryIdEqual : int = int.MIN_VALUE;
-
-		/**
 		 **/
 		public var userIdEqual : String = null;
 
 		/**
 		 **/
 		public var userIdIn : String = null;
-
-		/**
-		 * @see com.kaltura.types.KalturaCategoryUserPermissionLevel
-		 **/
-		public var permissionLevelEqual : int = int.MIN_VALUE;
-
-		/**
-		 **/
-		public var permissionLevelIn : String = null;
 
 		/**
 		 * @see com.kaltura.types.KalturaCategoryUserStatus
@@ -101,11 +86,8 @@ package com.kaltura.vo
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
-			arr.push('categoryIdEqual');
 			arr.push('userIdEqual');
 			arr.push('userIdIn');
-			arr.push('permissionLevelEqual');
-			arr.push('permissionLevelIn');
 			arr.push('statusEqual');
 			arr.push('statusIn');
 			arr.push('createdAtGreaterThanOrEqual');

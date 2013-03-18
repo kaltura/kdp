@@ -32,5 +32,6 @@ package com.kaltura.types
 		public static const PLAY : String = '1';
 		public static const DOWNLOAD : String = '2';
 		public static const THUMBNAIL : String = '3';
+		public static const METADATA : String = '4';
 	}
 }

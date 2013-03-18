@@ -50,6 +50,14 @@ package com.kaltura.vo
 
 		/**
 		 **/
+		public var systemNameEqual : String = null;
+
+		/**
+		 **/
+		public var systemNameIn : String = null;
+
+		/**
+		 **/
 		public var descriptionLike : String = null;
 
 		/**
@@ -101,6 +109,8 @@ package com.kaltura.vo
 			arr.push('idIn');
 			arr.push('nameEqual');
 			arr.push('nameIn');
+			arr.push('systemNameEqual');
+			arr.push('systemNameIn');
 			arr.push('descriptionLike');
 			arr.push('statusEqual');
 			arr.push('statusIn');

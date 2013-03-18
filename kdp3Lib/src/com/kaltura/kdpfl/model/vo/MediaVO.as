@@ -45,11 +45,7 @@ package com.kaltura.kdpfl.model.vo
 		 */		
 		public var entry:KalturaBaseEntry;
 		
-		[Bindable] 
-		/**
-		 * a specific flavorId to be played (can be passed via flashvars) 
-		 */
-		public var selectedFlavorId:String;
+		private var _selectedFlavorId:String;
 		
 		[Bindable]
 		/**
@@ -249,5 +245,22 @@ package com.kaltura.kdpfl.model.vo
 		 */	
 		public var canSeek:Boolean = true;	
 		
+		[Bindable]
+		/**
+		 * a specific flavorId to be played (can be passed via flashvars) 
+		 */
+		public function get selectedFlavorId():String
+		{
+			return _selectedFlavorId;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set selectedFlavorId(value:String):void
+		{
+			_selectedFlavorId = value;
+		}
+
 	}
 }

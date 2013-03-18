@@ -90,8 +90,18 @@ package {
 		 * position of close and cancel buttons on flagging form
 		 */
 		public var buttonsPosition:String = "right";
-		
-		
+		/**
+		 * If this is set to flase, the "select report reason" combo-box will be hidden
+		 */
+		public var showCombo:Boolean = true;
+		/**
+		 * This attribute will set the initial selected value of the combobox: 
+		 * 0: Sexual content
+		 * 1: Violent or Repulsive
+		 * 2: Harmful or Dangerous act
+		 * 3: Spam/Commercials
+		 */
+		public var comboSelectedIndex:Number = 0;
 		/**
 		 * include the assets class in the app
 		 * */
@@ -175,6 +185,10 @@ package {
 									{label:reasonViolence, type:KalturaModerationFlagType.VIOLENT_REPULSIVE}, 
 									{label:reasonHarmful, type:KalturaModerationFlagType.HARMFUL_DANGEROUS}, 
 									{label:reasonSpam, type:KalturaModerationFlagType.SPAM_COMMERCIALS}]
+				//set custom behaviour for reasons combo 
+				_ui.comboSelectedIndex = comboSelectedIndex;
+				
+				_ui.showCombo = showCombo;
 				
 				_ui.addEventListener(ModerationPlugin.CANCEL, clearForm);
 				_ui.addEventListener(ModerationPlugin.SUBMIT, onSubmitClicked);

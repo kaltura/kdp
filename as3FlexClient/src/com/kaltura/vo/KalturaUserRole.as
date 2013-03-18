@@ -42,6 +42,10 @@ package com.kaltura.vo
 
 		/**
 		 **/
+		public var systemName : String = null;
+
+		/**
+		 **/
 		public var description : String = null;
 
 		/**
@@ -77,6 +81,7 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = new Array();
 			arr.push('name');
+			arr.push('systemName');
 			arr.push('description');
 			arr.push('status');
 			arr.push('permissionNames');

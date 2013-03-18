@@ -59,7 +59,6 @@ package com.kaltura.kdpfl.controller.media
 					break;
 				case SourceType.ENTRY_ID ://if the entry is an entryId
 					url = _mediaProxy.vo.entry.dataUrl;
-					var cdnHost : String = _flashvars.cdnHost ? _flashvars.cdnHost : _flashvars.host;
 					var flavorIndex:int;
 					var preferedFlavorBR:int = _mediaProxy.vo.preferedFlavorBR;
 					var selectedFlavorId:String = _mediaProxy.vo.selectedFlavorId;

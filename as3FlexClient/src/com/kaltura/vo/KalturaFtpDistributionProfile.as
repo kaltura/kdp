@@ -90,11 +90,27 @@ package com.kaltura.vo
 		 **/
 		public var thumbnailAssetFilenameXslt : String = null;
 
+		/**
+		 **/
+		public var assetFilenameXslt : String = null;
+
+		/**
+		 **/
+		public var asperaPublicKey : String = null;
+
+		/**
+		 **/
+		public var asperaPrivateKey : String = null;
+
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var sendMetadataAfterAssets : Boolean;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
-			arr.push('protocol');
 			arr.push('host');
 			arr.push('port');
 			arr.push('basePath');
@@ -108,6 +124,10 @@ package com.kaltura.vo
 			arr.push('metadataFilenameXslt');
 			arr.push('flavorAssetFilenameXslt');
 			arr.push('thumbnailAssetFilenameXslt');
+			arr.push('assetFilenameXslt');
+			arr.push('asperaPublicKey');
+			arr.push('asperaPrivateKey');
+			arr.push('sendMetadataAfterAssets');
 			return arr;
 		}
 
@@ -115,6 +135,7 @@ package com.kaltura.vo
 		{
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
+			arr.push('protocol');
 			return arr;
 		}
 	}

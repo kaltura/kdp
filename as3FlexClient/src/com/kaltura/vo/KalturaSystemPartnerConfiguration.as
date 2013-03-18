@@ -276,6 +276,11 @@ package com.kaltura.vo
 		 **/
 		public var disabledDeliveryTypes : Array = null;
 
+		/**
+		 * @see com.kaltura.types.kalturaBoolean
+		 **/
+		public var restrictEntryByMetadata : Boolean;
+
 		/** 
 		 * a list of attributes which may be updated on this object 
 		 **/ 
@@ -338,6 +343,7 @@ package com.kaltura.vo
 			arr.push('defaultDeliveryType');
 			arr.push('defaultEmbedCodeType');
 			arr.push('disabledDeliveryTypes');
+			arr.push('restrictEntryByMetadata');
 			return arr;
 		}
 

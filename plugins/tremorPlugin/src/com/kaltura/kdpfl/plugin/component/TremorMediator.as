@@ -12,9 +12,9 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.tremormedia.acudeo.events.ControlsEvent;
 	import com.tremormedia.acudeo.page.Page;
 	import com.tremormedia.acudeo.player.Player;
-
+	
 	import fl.core.UIComponent;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
@@ -25,9 +25,8 @@ package com.kaltura.kdpfl.plugin.component {
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
-
+	
 	import org.puremvc.as3.interfaces.INotification;
-	import org.puremvc.as3.interfaces.IProxy;
 
 		public class TremorMediator extends SequenceMultiMediator {
 		public static const NAME:String = "TremorMediator";
@@ -103,6 +102,10 @@ package com.kaltura.kdpfl.plugin.component {
 		 * url of current media entry
 		 */
 		private var _entryUrl:String = "";
+		/**
+		 * description of current media entry
+		 */
+		private var _entryDesc:String = "";
 
 		/**
 		 * current player volium
@@ -156,6 +159,9 @@ package com.kaltura.kdpfl.plugin.component {
 		 * The creationDate of this entry
 		 */
 		public var creationDate:Number = 0;
+		
+		private var _mediaProxy:MediaProxy;
+		private var _sequenceProxy:SequenceProxy;
 		/**
 		 * Constructor.
 		 * @param viewComponent
@@ -305,8 +311,7 @@ package com.kaltura.kdpfl.plugin.component {
 		private function onAdsError(evt:Event=null):void {
 			bypassAds = true;
 			enableControls();
-			var sp:SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
-			if(sp.vo.isInSequence)
+			if(_sequenceProxy.vo.isInSequence)
 			{
 				sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
 				trace("AdManager onAdsError0 Releasing sequence");
@@ -420,27 +425,15 @@ package com.kaltura.kdpfl.plugin.component {
 			var destinationDate:Date = new Date();
 			destinationDate.setDate(destinationDate.getDate() - maxAgeForAds);
 
-
-
 			//calculate all 3 dates:
 			var nd:Date = new Date ();
 			nd.setTime(creationDate*1000);
 
-
-
-
-
-
-
-
-
-
 			if( int(destinationDate.time/1000) <= creationDate  || maxAgeForAds==0)
 			{
-				var sequenceManager:IProxy = facade.retrieveProxy("sequenceProxy");
-				if (sequenceManager["sequenceContext"] == SequenceContextType.PRE) {
+				if (_sequenceProxy.sequenceContext == SequenceContextType.PRE) {
 					sendNotification(preSequenceNotificationStartName);
-				} else if (sequenceManager["sequenceContext"] == SequenceContextType.POST) {
+				} else if (_sequenceProxy.sequenceContext == SequenceContextType.POST) {
 					sendNotification(postSequenceNotificationStartName);
 				}
 			}
@@ -456,6 +449,8 @@ package com.kaltura.kdpfl.plugin.component {
 		 * know that all config values are present
 		 */
 		override public function onRegister():void {
+			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			_sequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 		}
 
 
@@ -473,15 +468,11 @@ package com.kaltura.kdpfl.plugin.component {
 
 
 		override public function handleNotification(note:INotification):void {
-			var kc:Object = facade.retrieveProxy("servicesProxy")["kalturaClient"];
-			var config:Object = facade.retrieveProxy("configProxy");
-			var media:Object = facade.retrieveProxy("mediaProxy");
-			var sequenceProxy:Object = facade.retrieveProxy("sequenceProxy");
 			var data:Object = note.getBody();
 			switch (note.getName()) {
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
-					if (media["vo"]["entry"]["duration"] && !sequenceProxy["vo"]["isInSequence"]) {
-						setPlayhead(data as Number, media["vo"]["entry"]["duration"]);
+					if (_mediaProxy.vo.entry.duration && !_sequenceProxy.vo.isInSequence) {
+						setPlayhead(data as Number, _mediaProxy.vo.entry.duration);
 					}
 					break;
 				case NotificationType.VOLUME_CHANGED:
@@ -494,7 +485,7 @@ package com.kaltura.kdpfl.plugin.component {
 						onAdsError();
 						break;
 					}
-					var newEntryId:String = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry.id;
+					var newEntryId:String = _mediaProxy.vo.entry.id;
 					preAds(newEntryId);
 					break;
 
@@ -514,7 +505,7 @@ package com.kaltura.kdpfl.plugin.component {
 					}
 					break;
 				case NotificationType.MEDIA_READY:
-					var entry:Object = ((facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.entry);
+					var entry:Object = (_mediaProxy.vo.entry);
 					creationDate = entry["createdAt"];
 
 					var today:Date = new Date();
@@ -548,21 +539,23 @@ package com.kaltura.kdpfl.plugin.component {
 			_entryTitle = null;
 			_entryId = null;
 			_entryUrl = null;
+			_entryDesc = null;
 		}
 
 
 		private function retrieveMediaData():void {
-			var mp:Object = facade.retrieveProxy("mediaProxy");
-			_entryTitle = mp.vo.entry.name;
-			_entryId = mp.vo.entry.id;
-			_entryUrl = mp.vo.entry["dataUrl"];
+			_entryTitle = _mediaProxy.vo.entry.name;
+			_entryId = _mediaProxy.vo.entry.id;
+			_entryUrl = _mediaProxy.vo.entry["dataUrl"];
+			_entryDesc = _mediaProxy.vo.entry.description;
 			var content:Content = new Content();
 			dispatcher.dispatchEvent(new Event(FETCH_PARAMS));
 			if(params)
 				content.adParams = params;
 			content.id = _entryId;
 			content.url = _entryUrl;
-			content.title = _entryTitle
+			content.title = _entryTitle;
+			content.description = _entryDesc;
 			_adManager.setContent(content);
 		}
 
