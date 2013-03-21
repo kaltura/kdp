@@ -109,7 +109,7 @@ package
 				
 				case NotificationType.MEDIA_ELEMENT_READY:	
 					//get flavor asset ID
-					if (_mediaProxy.vo.deliveryType==StreamerType.HTTP)
+					if (!(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence && _mediaProxy.vo.deliveryType==StreamerType.HTTP)
 					{
 						var flavors:Array = _mediaProxy.vo.kalturaMediaFlavorArray;
 						if (flavors && flavors.length)
