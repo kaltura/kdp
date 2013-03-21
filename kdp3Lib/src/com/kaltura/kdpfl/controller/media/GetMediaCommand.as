@@ -420,32 +420,7 @@ package com.kaltura.kdpfl.controller.media
 				}
 				else
 				{
-					if (_flashvars.flavorTags)
-					{
-						//the list returns strings that contain the given tag, so look for an exact match
-						var flavorsArray:Array = new Array();
-						if (_mediaProxy.vo.entryExtraData.flavorAssets)
-						{
-							for (var ind:int = 0; ind<_mediaProxy.vo.entryExtraData.flavorAssets.length; ind++)
-							{
-								var tagsArr:Array = (_mediaProxy.vo.entryExtraData.flavorAssets[ind] as KalturaFlavorAsset).tags.split(",");
-								for each (var s:String in tagsArr)
-								{
-									if (s==_flashvars.flavorTags)
-									{
-										flavorsArray.push(_mediaProxy.vo.entryExtraData.flavorAssets[ind]);
-										break;
-									}
-								}
-							}
-						}
-						flavorsArray.sortOn("bitrate", Array.NUMERIC);
-						_mediaProxy.vo.kalturaMediaFlavorArray = flavorsArray;
-						
-					}
-					else
-						//no need to sort in this case, the sort is being done on the server side
-						_mediaProxy.vo.kalturaMediaFlavorArray = _mediaProxy.vo.entryExtraData.flavorAssets;
+					_mediaProxy.vo.kalturaMediaFlavorArray = _mediaProxy.vo.entryExtraData.flavorAssets;
 					
 					//save the highest bitrate available to cookie. This will be used to determine whether we should perform
 					//bandwidth check in the future
