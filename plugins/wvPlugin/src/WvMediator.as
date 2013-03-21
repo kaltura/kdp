@@ -298,7 +298,7 @@ package
 				// workaround- playComplete is sent before stream ended.
 				case "NetStream.Play.Complete":
 					_ignoreSeek = true;
-					_endOfStreamTimer = new Timer(1000, _bufferLength);
+					_endOfStreamTimer = new Timer(1000, Math.ceil(_wvPluginInfo.wvMediaElement.netStream.bufferLength));
 					_endOfStreamTimer.addEventListener(TimerEvent.TIMER_COMPLETE, endOfClip);
 					_endOfStreamTimer.start();
 					break;
