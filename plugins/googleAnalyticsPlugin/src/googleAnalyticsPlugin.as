@@ -20,13 +20,30 @@ package {
 		
 		//Any public paramter will be set from uiConf after create() and before initializePlugin()
 		//With [Binding] will be immidiatly exposed to uiConf binding, so we set the urchinCode parameter Bindable and public
-		[Binding]
-		public var urchinCode:String = 'ua-example'; 
+		private var _urchinCode:String; 
 		
+		private var _readyToSet:Boolean = false;
 		private var _eventTimeLapse:Number	= 1000;
 		//1000 represents = 1sec. 
 		//number of seconds that should pass before an event is considered new. 
 		//this is used to avoid duplicate beacons on events that occur immediately after another. 
+
+		[Binding]
+		public function get urchinCode():String
+		{
+			return _urchinCode;
+		}
+
+		public function set urchinCode(value:String):void
+		{
+			_urchinCode = value;
+			if (_readyToSet)
+			{
+				_statisticsMediator.setupGa(urchinCode);
+				_readyToSet = false;
+			}
+		}
+
 		public function set eventTimeLapse(val:Number):void{
 			_eventTimeLapse	= (val*1000);
 		}
@@ -98,7 +115,10 @@ package {
 		
 		private function setupGa (event:Event):void {
 			removeEventListener(Event.FRAME_CONSTRUCTED, setupGa);
-			_statisticsMediator.setupGa(urchinCode);
+			if (urchinCode)
+				_statisticsMediator.setupGa(urchinCode);
+			else
+				_readyToSet = true;
 		}
 		
 		/**
