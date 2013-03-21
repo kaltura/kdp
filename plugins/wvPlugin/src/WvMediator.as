@@ -19,7 +19,9 @@ package
 	
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
+	import flash.events.TimerEvent;
 	import flash.external.ExternalInterface;
+	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 	
 	import org.osmf.events.MediaElementEvent;
@@ -60,6 +62,8 @@ package
 		private var _bufferLength:Number = 0;
 		private var _mediaProxy:MediaProxy;
 		
+		private var _endOfStreamTimer:Timer;
+		
 		public function WvMediator(wvPluginCode:widevinePluginCode, wvPI:WVPluginInfo)
 		{
 			_wvPluginCode = wvPluginCode;
@@ -83,6 +87,7 @@ package
 					NotificationType.DO_PLAY,
 					NotificationType.BUFFER_PROGRESS,
 					NotificationType.CHANGE_MEDIA,
+					NotificationType.DO_PAUSE,
 					NO_WV_BROWSER_PLUGIN];
 		}
 		
@@ -169,7 +174,11 @@ package
 					break;
 				
 				case NotificationType.DO_PLAY:
-					if (_isWv && _isReplay)
+					if (_endOfStreamTimer && !_endOfStreamTimer.running)
+					{
+						_endOfStreamTimer.start();
+					}
+					else if (_isWv && _isReplay)
 					{
 						_wvPluginInfo.wvMediaElement.netStream.replay();
 						_isReplay = false;
@@ -194,6 +203,13 @@ package
 					var kmediaMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 					if (_mediaProxy.vo.isFlavorSwitching)
 						_pendingSeekTo = _lastPlayhead;
+					break;
+				
+				case NotificationType.DO_PAUSE:
+					if (_endOfStreamTimer && _endOfStreamTimer.running)
+					{
+						_endOfStreamTimer.stop();
+					}
 					break;
 				
 				case NO_WV_BROWSER_PLUGIN:
@@ -282,7 +298,9 @@ package
 				// workaround- playComplete is sent before stream ended.
 				case "NetStream.Play.Complete":
 					_ignoreSeek = true;
-					setTimeout(endOfClip, Math.max(100, (_wvPluginInfo.wvMediaElement.netStream.bufferLength-0.1)*1000));
+					_endOfStreamTimer = new Timer(1000, _bufferLength);
+					_endOfStreamTimer.addEventListener(TimerEvent.TIMER_COMPLETE, endOfClip);
+					_endOfStreamTimer.start();
 					break;
 				
 				/*	case "NetStream.Buffer.Empty":
@@ -319,10 +337,12 @@ package
 		 * this workaround fixes widevine known issue: stream reports complete before its time. 
 		 * 
 		 */		
-		private function endOfClip() : void
+		private function endOfClip(e:TimerEvent = null) : void
 		{
 			sendNotification(NotificationType.PLAYBACK_COMPLETE, {context: SequenceContextType.MAIN});
 			_ignoreSeek = false;
+			_endOfStreamTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, endOfClip);
+			_endOfStreamTimer = null;
 		}
 		
 	}

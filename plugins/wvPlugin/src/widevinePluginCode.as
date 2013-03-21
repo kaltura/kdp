@@ -39,6 +39,12 @@ package
 		
 		public function initializePlugin(facade:IFacade):void
 		{
+			if (flavorTags)
+			{
+				
+				(facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars.flavorTags = flavorTags;
+			}
+			
 			_localMediaFactory = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.mediaFactory;
 			var wvPluginInfo:WVPluginInfo = new WVPluginInfo();
 
@@ -62,10 +68,7 @@ package
 			var wvm:WvMediator = new WvMediator(this, wvPluginInfo);
 			facade.registerMediator(wvm);
 			
-			if (flavorTags)
-			{
-				(facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars.flavorTags = flavorTags;
-			}
+			
 		}
 		/**
 		 * Listener for the LOAD_COMPLETE event.
