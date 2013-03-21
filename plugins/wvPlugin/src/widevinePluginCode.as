@@ -1,5 +1,6 @@
 package
 {
+	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.LayoutProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.plugin.IPlugin;
@@ -20,14 +21,15 @@ package
 		//Alerts texts, can be overriden from uiconf XML or flashvars.
 		public var alert_title:String	= "Error";
 		public var warning_title:String	= "Warning";
-		public var alert_emm_falied:String = "We're sorry, you don’t have a license to play this video.";
-		public var alert_emm_error:String = "We're sorry, we failed to obtain a license for playing this video.";
-		public var alert_emm_expired:String = "We're sorry, the license to play this video has expired.";
-		public var alert_log_error:String = "Message Logging Error (error code: {0})";
-		public var alert_dcp_stop:String = "Playback is stopping due to detection of an illegal content copying attempt.";
-		public var alert_dcp_alert:String = "An illegal attempt for content copying was detected.";
+		public var alert_emm_falied:String = "We're sorry, you don’t have a valid license for this video.";
+		public var alert_emm_error:String = "We're sorry, a license request for this video failed.";
+		public var alert_emm_expired:String = "We're sorry, you don’t have a valid license for this video.";
+		public var alert_log_error:String = "Message logging failed (error code: {0})";
+		public var alert_dcp_stop:String = "Playback stopped due to the detection of copying attempt.";
+		public var alert_dcp_alert:String = "A copying attempt was detected.";
 		public var alert_missing_plugin:String = "Widevine Video Optimizer plugin is needed for enabling video playback in this player.";
 		
+		public var flavorTags:String;
 		
 		public function widevinePluginCode()
 		{
@@ -59,6 +61,11 @@ package
 				
 			var wvm:WvMediator = new WvMediator(this, wvPluginInfo);
 			facade.registerMediator(wvm);
+			
+			if (flavorTags)
+			{
+				(facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars.flavorTags = flavorTags;
+			}
 		}
 		/**
 		 * Listener for the LOAD_COMPLETE event.
