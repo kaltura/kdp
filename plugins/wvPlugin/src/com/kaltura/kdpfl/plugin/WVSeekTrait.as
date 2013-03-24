@@ -21,7 +21,7 @@ package com.kaltura.kdpfl.plugin
 			trace("newSeeking ",newSeeking , "time",time);
 			if(newSeeking)
 			{
-				_wvNetStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
+				_wvNetStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true );
 				/*_wvNetStream.seek(time);
 				_wvNetStream.playRewind();*/
 				

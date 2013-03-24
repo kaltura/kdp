@@ -28,7 +28,7 @@ package com.widevine
 		{
 			myChapterNum 	= chapterNum;
 			myLoader 		= new Loader();
-			myLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleteHandler);
+			myLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleteHandler, false, 0, true);
 			myByteArray 	= new ByteArray();
 		}
 		///////////////////////////////////////////////////////////////////////////

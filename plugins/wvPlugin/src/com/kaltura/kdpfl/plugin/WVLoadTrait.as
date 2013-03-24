@@ -48,7 +48,7 @@ package com.kaltura.kdpfl.plugin
 				_drmNetStream.checkPolicyFile = true;
 				setBytesTotal(_drmNetStream.bytesTotal);
 				_bytesLoadedTimer = new Timer(1000, 0);
-				_bytesLoadedTimer.addEventListener(TimerEvent.TIMER, onBytesLoadedTimer);
+				_bytesLoadedTimer.addEventListener(TimerEvent.TIMER, onBytesLoadedTimer, false, 0, true);
 				_bytesLoadedTimer.start();
 				setLoadState(LoadState.READY);
 				_drmNetConnection.removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);

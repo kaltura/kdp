@@ -68,7 +68,7 @@ package
 		{
 			_wvPluginCode = wvPluginCode;
 			_wvPluginInfo = wvPI;
-			_wvPluginInfo.addEventListener(WVPluginInfo.WVMEDIA_ELEMENT_CREATED, onWVElementCreated);	
+			_wvPluginInfo.addEventListener(WVPluginInfo.WVMEDIA_ELEMENT_CREATED, onWVElementCreated, false, 0, true);	
 			super(NAME);
 		}
 		
@@ -235,8 +235,8 @@ package
 				_wvPluginInfo.wvMediaElement.h = (_mediaProxy.vo.entry as KalturaMediaEntry).height;
 				
 			}
-			_wvPluginInfo.wvMediaElement.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
-			_wvPluginInfo.wvMediaElement.addEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd);
+			_wvPluginInfo.wvMediaElement.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true);
+			_wvPluginInfo.wvMediaElement.addEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd, false, 0, true);
 		}
 		
 		private function onTraitAdd(e: MediaElementEvent) : void
@@ -253,7 +253,7 @@ package
 			}
 			else if (e.traitType == MediaTraitType.LOAD)
 			{
-				(_wvPluginInfo.wvMediaElement.getTrait(MediaTraitType.LOAD) as WVLoadTrait).drmNetConnection.addEventListener(WvNetConnection.DO_CONNECT_FAILED, onConnectFail);
+				(_wvPluginInfo.wvMediaElement.getTrait(MediaTraitType.LOAD) as WVLoadTrait).drmNetConnection.addEventListener(WvNetConnection.DO_CONNECT_FAILED, onConnectFail, false, 0, true);
 			}
 			
 		}
@@ -305,7 +305,7 @@ package
 				case "NetStream.Play.Complete":
 					_ignoreSeek = true;
 					_endOfStreamTimer = new Timer(1000, Math.ceil(_wvPluginInfo.wvMediaElement.netStream.bufferLength));
-					_endOfStreamTimer.addEventListener(TimerEvent.TIMER_COMPLETE, endOfClip);
+					_endOfStreamTimer.addEventListener(TimerEvent.TIMER_COMPLETE, endOfClip, false, 0, true);
 					_endOfStreamTimer.start();
 					break;
 				
@@ -333,6 +333,7 @@ package
 			if (err)
 			{
 				sendNotification( NotificationType.ALERT , {message: err, title: _wvPluginCode.alert_title} );
+				sendNotification( NotificationType.DO_PAUSE);
 				sendNotification(NotificationType.ENABLE_GUI, {guiEnabled: false, enableType : EnableType.CONTROLS});
 				(facade.retrieveMediator(BufferAnimationMediator.NAME) as BufferAnimationMediator).spinner.visible = false;
 				

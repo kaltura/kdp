@@ -14,8 +14,8 @@ package com.kaltura.kdpfl.plugin
 		{
 			_wvNetStream = newNetStream;
 			this.setDuration(_wvNetStream.getWvMediaTime());
-			this.addEventListener(TimeEvent.DURATION_CHANGE, onDurationChange);
-			_wvNetStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus );
+			this.addEventListener(TimeEvent.DURATION_CHANGE, onDurationChange, false, 0, true);
+			_wvNetStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true );
 			
 		}
 		

@@ -82,11 +82,11 @@ package com.widevine
 
 			myPluginSocket 		= new WvSocket();
 						
-			myPluginSocket.addEventListener(Event.CONNECT, connectHandler);
-			myPluginSocket.addEventListener(Event.CLOSE, closeHandler);
-			myPluginSocket.addEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler);
-			myPluginSocket.addEventListener(IOErrorEvent.IO_ERROR, errorHandler);
-			myPluginSocket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+			myPluginSocket.addEventListener(Event.CONNECT, connectHandler, false, 0, true);
+			myPluginSocket.addEventListener(Event.CLOSE, closeHandler, false, 0, true);
+			myPluginSocket.addEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler, false, 0, true);
+			myPluginSocket.addEventListener(IOErrorEvent.IO_ERROR, errorHandler, false, 0, true);
+			myPluginSocket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler, false, 0, true);
 		
 			return;
 		}
@@ -105,7 +105,7 @@ package com.widevine
 			// we switch from binary to ascii on the same connnect.  The binary handler
 			// is used for chapter images, ascii for all other responses.
 			myPluginSocket.removeEventListener(ProgressEvent.SOCKET_DATA, socketBinaryDataHandler);
-			myPluginSocket.addEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler);
+			myPluginSocket.addEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler, false, 0, true);
 				
 			myChapterState = CHAPTER_CONNECTING;
 			try {
@@ -320,7 +320,7 @@ package com.widevine
 				myFullMsg = "";
 				myChapterState = CHAPTER_IMAGE_LOADING;
 				myPluginSocket.removeEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler);
-				myPluginSocket.addEventListener(ProgressEvent.SOCKET_DATA, socketBinaryDataHandler);
+				myPluginSocket.addEventListener(ProgressEvent.SOCKET_DATA, socketBinaryDataHandler, false, 0, true);
 				myPluginSocket.sendRequest("GET /cgi-bin/GetChapterJpg?chapter="+chapterNum + " HTTP/1.1");
 				myPluginSocket.flush();
 			}

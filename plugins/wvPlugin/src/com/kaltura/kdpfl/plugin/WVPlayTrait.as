@@ -30,8 +30,8 @@ package com.kaltura.kdpfl.plugin
 				}
 				else
 				{
-					_wvNetStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
-					_resumeBugTimer.addEventListener(TimerEvent.TIMER, onResumeBugTimer);
+					_wvNetStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true);
+					_resumeBugTimer.addEventListener(TimerEvent.TIMER, onResumeBugTimer, false, 0, true);
 					_wvNetStream.resume();
 					_resumeBugTimer.start();
 					
