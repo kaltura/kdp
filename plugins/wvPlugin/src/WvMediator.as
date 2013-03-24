@@ -229,6 +229,12 @@ package
 		
 		private function onWVElementCreated(e : Event) : void
 		{
+			if (_mediaProxy.vo.entry && _mediaProxy.vo.entry is KalturaMediaEntry)
+			{
+				_wvPluginInfo.wvMediaElement.w = (_mediaProxy.vo.entry as KalturaMediaEntry).width;
+				_wvPluginInfo.wvMediaElement.h = (_mediaProxy.vo.entry as KalturaMediaEntry).height;
+				
+			}
 			_wvPluginInfo.wvMediaElement.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 			_wvPluginInfo.wvMediaElement.addEventListener(MediaElementEvent.TRAIT_ADD, onTraitAdd);
 		}

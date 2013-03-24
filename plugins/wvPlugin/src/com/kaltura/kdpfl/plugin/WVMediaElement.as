@@ -21,17 +21,17 @@ package com.kaltura.kdpfl.plugin
 		/**
 		 * Width of media
 		 */		
-		protected var _w:Number;
+		public var w:Number;
 		/**
 		 * Height of media.   
 		 */		
-		protected var _h:Number;
+		public var h:Number;
 		
 		public function WVMediaElement(w:Number,h:Number)
 		{
 			super();
-			_w = w;
-			_h = h;
+			this.w = w;
+			this.h = h;
 			loader = new WVLoader();
 		}
 		
@@ -73,7 +73,7 @@ package com.kaltura.kdpfl.plugin
 		{
 			var playTrait : WVPlayTrait = new WVPlayTrait(_netStream, _movieName);
 			addTrait(MediaTraitType.PLAY, playTrait);
-			var doTrait : NetStreamDisplayObjectTrait = new NetStreamDisplayObjectTrait(_netStream, _video, _w , _h);
+			var doTrait : NetStreamDisplayObjectTrait = new NetStreamDisplayObjectTrait(_netStream, _video, w , h);
 			addTrait(MediaTraitType.DISPLAY_OBJECT, doTrait);
 			var timeTrait:WVTimeTrait = new WVTimeTrait(_netStream);
 			addTrait(MediaTraitType.TIME, timeTrait);
