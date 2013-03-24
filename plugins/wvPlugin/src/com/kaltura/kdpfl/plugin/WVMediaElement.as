@@ -52,7 +52,7 @@ package com.kaltura.kdpfl.plugin
 			_netStream = (getTrait(MediaTraitType.LOAD) as WVLoadTrait).drmNetStream;
 			_netStream.client = new NetClient();
 			(_netStream.client as NetClient).addHandler(NetStreamCodes.ON_META_DATA, onMetaData);
-			_netStream.addEventListener( NetStatusEvent.NET_STATUS, onNetStatus);
+			_netStream.addEventListener( NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true);
 			_video.attachNetStream(_netStream);
 			//_netStream.play((resource as WVMediaResource).movieName);
 			

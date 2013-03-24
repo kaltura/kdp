@@ -48,7 +48,7 @@ package
 			_localMediaFactory = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.mediaFactory;
 			var wvPluginInfo:WVPluginInfo = new WVPluginInfo();
 
-			var lp:LayoutProxy = (facade.retrieveProxy(LayoutProxy.NAME) as LayoutProxy);
+			/*var lp:LayoutProxy = (facade.retrieveProxy(LayoutProxy.NAME) as LayoutProxy);
 			for each( var i:Object in lp.components)
 			{
 				if(i.hasOwnProperty("className") && i.className == "KMediaPlayer" )
@@ -58,7 +58,7 @@ package
 					WVPluginInfo.mediaHeight = i.ui.height;
 					break;
 				}
-			}
+			}*/
 				
 			_localMediaFactory.addEventListener(MediaFactoryEvent.PLUGIN_LOAD, onOSMFPluginLoaded);
 			_localMediaFactory.addEventListener(MediaFactoryEvent.PLUGIN_LOAD_ERROR, onOSMFPluginLoadError);	
