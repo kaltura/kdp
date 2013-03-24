@@ -200,6 +200,14 @@ package
 				
 				case NotificationType.CHANGE_MEDIA:
 					_isReplay = false;
+					if (_endOfStreamTimer && _endOfStreamTimer.running)
+					{
+						_ignoreSeek = false;
+						_endOfStreamTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, endOfClip);
+						_endOfStreamTimer.stop();
+						_endOfStreamTimer = null;
+						_wvPluginInfo.wvMediaElement.netStream.pause();
+					}
 					var kmediaMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 					if (_mediaProxy.vo.isFlavorSwitching)
 						_pendingSeekTo = _lastPlayhead;
