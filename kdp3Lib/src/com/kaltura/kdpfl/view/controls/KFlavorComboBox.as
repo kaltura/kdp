@@ -20,7 +20,7 @@ package com.kaltura.kdpfl.view.controls
 	{
 		public static const HD_LIMIT:int = 540;
 		public static const HEIGHT_ARRAY:Array = [240, 360, 480, 540, 720, 1080];
-
+		
 		public static const DATA_PROVIDER_CHANGE : String = "dataProviderChange";
 		/**
 		 * Property holds the value of the string displayed in the Combo Box when the player is in adaptive bitrate
@@ -129,7 +129,11 @@ package com.kaltura.kdpfl.view.controls
 		private var _bitrateDetectionMessage:String = "Detecting Your Bandwidth";
 		
 		private var _switchPausedMessage:String = "Switching is Paused";
-	
+		/**
+		 * indicate "SD Low" label was already added to flavors list 
+		 */		
+		private var _usedLowHeight:Boolean;
+		
 		/**
 		 * Constructor 
 		 * 
@@ -145,13 +149,13 @@ package com.kaltura.kdpfl.view.controls
 			this.dropdown.addEventListener(MouseEvent.ROLL_OVER, onDropdownRollover);
 			this.dropdown.addEventListener(MouseEvent.ROLL_OUT, onDropdownRollout);
 		}
-
+		
 		[Bindable]
 		public function get isAutoSwitch():Boolean
 		{
 			return _isAutoSwitch;
 		}
-
+		
 		public function set isAutoSwitch(value:Boolean):void
 		{
 			_isAutoSwitch = value;
@@ -198,8 +202,8 @@ package com.kaltura.kdpfl.view.controls
 		{
 			_switchPausedMessage = value;
 		}
-
-
+		
+		
 		/**
 		 * On mouse rollover remove redundant listeners 
 		 * @param event
@@ -266,11 +270,11 @@ package com.kaltura.kdpfl.view.controls
 				
 				/*if (usePixels)
 				{
-					var labelArr:Array = (data.label as String).split(" ");
-					if (labelArr.length == 2)
-					{
-						return labelArr[0] + "\n" + labelArr[1] //prefix, new line, pixels 	
-					}					
+				var labelArr:Array = (data.label as String).split(" ");
+				if (labelArr.length == 2)
+				{
+				return labelArr[0] + "\n" + labelArr[1] //prefix, new line, pixels 	
+				}					
 				}
 				return data.label;*/
 			}
@@ -318,9 +322,9 @@ package com.kaltura.kdpfl.view.controls
 			if(_flavorArray == arr) return;
 			
 			_flavorArray = arr;
-	
+			
 			var newDPArray:Array = new Array();
-
+			
 			if(_flavorArray && _flavorArray.length)
 			{	
 				var sortedFlavorArray:Array = (_flavorArray.concat());
@@ -335,6 +339,7 @@ package com.kaltura.kdpfl.view.controls
 					{
 						usedPixelsArr.push(false);
 					}
+					_usedLowHeight = false;
 				}
 				
 				for(var i:int=0; i<sortedFlavorArray.length; i++)
@@ -347,7 +352,7 @@ package com.kaltura.kdpfl.view.controls
 					{
 						//find closest pixels value:
 						var height: int = sortedFlavorArray[i].height;
-					
+						
 						for (var j:int = 0; j < HEIGHT_ARRAY.length; j++)
 						{
 							if (height == HEIGHT_ARRAY[j])
@@ -376,7 +381,14 @@ package com.kaltura.kdpfl.view.controls
 						}			
 						
 						if (heightIndex == -1)
+						{
 							label = lowHeight;
+							//if we already inserted the "SD Low" label, don't insert another one
+							if (_usedLowHeight)
+								continue;
+							
+							_usedLowHeight = true;
+						}
 						else
 						{
 							label = HEIGHT_ARRAY[heightIndex] + pixelsPostFix;
@@ -393,7 +405,7 @@ package com.kaltura.kdpfl.view.controls
 					{
 						label = roundedBitrate + bitratePostFix;
 					}
-		
+					
 					newDPArray.push( { label: label, value: height, bitrate: roundedBitrate} );
 				}
 				
@@ -407,7 +419,7 @@ package com.kaltura.kdpfl.view.controls
 			{
 				return;
 			}
-
+			
 			super.dataProvider = new DataProvider(newDPArray);
 			dispatchEvent( new Event( DATA_PROVIDER_CHANGE ) );
 			
@@ -589,7 +601,7 @@ package com.kaltura.kdpfl.view.controls
 		{
 			if(!dataProvider || !dataProvider.length)
 				return null;
-		
+			
 			//if we are in pixels mode represents the desired height
 			var preferedHeight:int = -1;	
 			if (usePixels)
