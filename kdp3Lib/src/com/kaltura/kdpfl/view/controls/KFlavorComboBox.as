@@ -129,10 +129,7 @@ package com.kaltura.kdpfl.view.controls
 		private var _bitrateDetectionMessage:String = "Detecting Your Bandwidth";
 		
 		private var _switchPausedMessage:String = "Switching is Paused";
-		/**
-		 * indicate "SD Low" label was already added to flavors list 
-		 */		
-		private var _usedLowHeight:Boolean;
+
 		
 		/**
 		 * Constructor 
@@ -331,6 +328,8 @@ package com.kaltura.kdpfl.view.controls
 				//descending sort of flavors according to bitrate
 				sortedFlavorArray.sortOn("bitrate", Array.NUMERIC | Array.DESCENDING);
 				var usedPixelsArr:Array;
+				// will be true if "SD Low" label was already added to flavors list 
+				var usedLowHeight:Boolean = false;
 				if (usePixels)
 				{
 					//this array indicates if we already inserted the corresponding height to the data provider
@@ -339,7 +338,6 @@ package com.kaltura.kdpfl.view.controls
 					{
 						usedPixelsArr.push(false);
 					}
-					_usedLowHeight = false;
 				}
 				
 				for(var i:int=0; i<sortedFlavorArray.length; i++)
@@ -384,10 +382,10 @@ package com.kaltura.kdpfl.view.controls
 						{
 							label = lowHeight;
 							//if we already inserted the "SD Low" label, don't insert another one
-							if (_usedLowHeight)
+							if (usedLowHeight)
 								continue;
 							
-							_usedLowHeight = true;
+							usedLowHeight = true;
 						}
 						else
 						{
