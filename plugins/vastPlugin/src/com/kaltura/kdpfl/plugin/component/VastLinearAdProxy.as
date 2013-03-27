@@ -13,6 +13,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.utils.Timer;
@@ -145,7 +146,7 @@ package com.kaltura.kdpfl.plugin.component {
 				dataObj.width = width;
 				dataObj.height = height;
 				dataObj.viewMode = mode ? mode: "normal";
-				//vpaidMetadata.addValue("resizeAd",dataObj);
+				vpaidMetadata.addValue("resizeAd",dataObj);
 				
 			}
 		}
@@ -196,8 +197,9 @@ package com.kaltura.kdpfl.plugin.component {
 				_loadTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onLoadTimeout );
 				_vastDocument = (e.loadTrait as VASTLoadTrait).vastDocument;
 				var vastMediaGenerator:VASTMediaGenerator = new VASTMediaGenerator(null, _mediaFactory);
-
-				_vastElements = vastMediaGenerator.createMediaElements(_vastDocument);
+				var playerSize:Rectangle= new Rectangle(0,0,(facade as ApplicationFacade).app.width,(facade as ApplicationFacade).app.height);
+				_vastElements = vastMediaGenerator.createMediaElements(_vastDocument,"",playerSize);
+				
 				 companionAds.createFlashCompanionsMap(_vastDocument);
 				 companionAds.createHtmlCompanionMap(_vastDocument);
 				
@@ -213,6 +215,7 @@ package com.kaltura.kdpfl.plugin.component {
 
 				}
 				if (_playingAd) {
+					
 					dispatchEvent( new Event("linearAdReady",true,false) )
 				}
 				else
@@ -260,6 +263,7 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				playAdAsPrePostRoll(playerMediator);
 			}
+			
 		}
 		
 		/**
@@ -296,7 +300,7 @@ package com.kaltura.kdpfl.plugin.component {
 				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
 				{
 					trace (event.key)
-					if (event.key == "adUserClose" ||event.key == "adStopped" )
+					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" )
 					{
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 						signalEnd();
@@ -307,6 +311,7 @@ package com.kaltura.kdpfl.plugin.component {
 						event.key.indexOf("AdVideoStart") == 0))
 					{
 						_initVPAIDSize = true;
+						
 						//_this.resizeAd(-1,-1,"normal");
 					}
 				});

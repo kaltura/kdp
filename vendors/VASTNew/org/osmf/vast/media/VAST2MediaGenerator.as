@@ -26,6 +26,7 @@ package org.osmf.vast.media
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	
 	import org.osmf.elements.ProxyElement;
 	import org.osmf.elements.SWFLoader;
@@ -101,7 +102,7 @@ package org.osmf.vast.media
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function createMediaElements(vastDocument:VAST2Translator, vastPlacement:String = null):Vector.<MediaElement>
+		public function createMediaElements(vastDocument:VAST2Translator, vastPlacement:String = null,playerSize:Rectangle = null):Vector.<MediaElement>
 		{
 			var mediaElements:Vector.<MediaElement> = new Vector.<MediaElement>();
 			
@@ -483,9 +484,16 @@ package org.osmf.vast.media
 					
 					if(mediaFile.type == "application/x-shockwave-flash" ||mediaFile.type == "swf" )
 					{
-					
-						rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader(),mediaFile.width,mediaFile.height);
+						if (mediaFile.scalable)
+						{
+							rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader(),playerSize.width,playerSize.height);
+						}
+						else
+						{
+							rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader(),mediaFile.width,mediaFile.height);
+						}
 						VPAIDMetadata(rootElement.getMetadata("org.osmf.vpaid.metadata.VPAIDMetadata")).addValue(VPAIDMetadata.NON_LINEAR_CREATIVE, false);
+
 					}
 					else 
 					{

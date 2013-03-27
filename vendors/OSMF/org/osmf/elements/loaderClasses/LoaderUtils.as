@@ -86,15 +86,18 @@ package org.osmf.elements.loaderClasses
 			if (size)
 			{
 				displayObject.scrollRect = size;
+				mediaWidth = size.width;
+				mediaHeight = size.height;
 
 			}
 			else
 			{
-			displayObject.scrollRect = new Rectangle(0, 0, info.width, info.height);
+				displayObject.scrollRect = new Rectangle(0, 0, info.width, info.height);
+				mediaWidth = info.width;
+				mediaHeight = info.height;
 			}
 			
-			mediaWidth = info.width;
-			mediaHeight = info.height;
+			
 
 			return new DisplayObjectTrait(displayObject, mediaWidth, mediaHeight);
 		}
