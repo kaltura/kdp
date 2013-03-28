@@ -1195,7 +1195,11 @@ package com.kaltura.kdpfl.view.media
 		 * 
 		 */		
 		private function onPlayHeadChange( event : TimeEvent ) : void
-		{	
+		{
+			//fix bug when after intelli-seek playhead jumps to a different point in the movie when playback ends
+			if (_loadMediaOnPlay && !_sequenceProxy.vo.isInSequence)
+				return;
+			
 			if (player.temporal && !isNaN(event.time))
 			{
 				var time:Number = _sequenceProxy.vo.isInSequence ? event.time : event.time + _offsetAddition;
