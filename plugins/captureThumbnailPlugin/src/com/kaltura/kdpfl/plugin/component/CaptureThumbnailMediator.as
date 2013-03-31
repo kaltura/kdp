@@ -13,6 +13,7 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
 	import com.kaltura.net.KalturaCall;
 	import com.kaltura.types.KalturaMediaType;
+	import com.kaltura.types.KalturaThumbAssetStatus;
 	import com.kaltura.vo.KalturaEntryContextDataResult;
 	import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.vo.KalturaMixEntry;
@@ -120,11 +121,18 @@ package com.kaltura.kdpfl.plugin.component
 			AlertManager.showButtonIfEmpty = true;
 			if (bitmapData)
 				bitmapData.dispose();
-			if ((viewComponent as captureThumbnailPluginCode).shouldSetAsDefault == "true")
+			
+			var thumb:KalturaThumbAsset = data.data as KalturaThumbAsset;
+			if (thumb.status == KalturaThumbAssetStatus.ERROR)
+			{
+				sendNotification("thumbnailFailed");
+				sendNotification("alert",{message:viewComponent.error_capture_thumbnail,title:viewComponent.error_capture_thumbnail_title});
+			}
+			else if ((viewComponent as captureThumbnailPluginCode).shouldSetAsDefault == "true")
 			{
 				var servicesProxy : Object =  facade.retrieveProxy("servicesProxy");
 				var kc : KalturaClient = servicesProxy.kalturaClient;
-				var setThumbnailAsDefault : ThumbAssetSetAsDefault = new ThumbAssetSetAsDefault((data.data as KalturaThumbAsset).id );
+				var setThumbnailAsDefault : ThumbAssetSetAsDefault = new ThumbAssetSetAsDefault(thumb.id );
 				setThumbnailAsDefault.addEventListener(KalturaEvent.COMPLETE, setAsDefaultResult);
 				setThumbnailAsDefault.addEventListener( KalturaEvent.FAILED, setAsDefaultFault );
 				kc.post(setThumbnailAsDefault);
