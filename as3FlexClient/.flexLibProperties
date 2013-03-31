@@ -439,6 +439,7 @@
     <classEntry path="com.kaltura.commands.systemPartner.SystemPartnerResetUserPassword"/>
     <classEntry path="com.kaltura.commands.systemPartner.SystemPartnerUpdateConfiguration"/>
     <classEntry path="com.kaltura.commands.systemPartner.SystemPartnerUpdateStatus"/>
+    <classEntry path="com.kaltura.commands.tag.TagDeletePending"/>
     <classEntry path="com.kaltura.commands.tag.TagSearch"/>
     <classEntry path="com.kaltura.commands.thumbAsset.ThumbAssetAdd"/>
     <classEntry path="com.kaltura.commands.thumbAsset.ThumbAssetAddFromImage"/>
@@ -1405,6 +1406,7 @@
     <classEntry path="com.kaltura.vo.KalturaAccessControlBlockAction"/>
     <classEntry path="com.kaltura.vo.KalturaAccessControlContextTypeHolder"/>
     <classEntry path="com.kaltura.vo.KalturaAccessControlFilter"/>
+    <classEntry path="com.kaltura.vo.KalturaAccessControlLimitFlavorsAction"/>
     <classEntry path="com.kaltura.vo.KalturaAccessControlListResponse"/>
     <classEntry path="com.kaltura.vo.KalturaAccessControlPreviewAction"/>
     <classEntry path="com.kaltura.vo.KalturaAccessControlProfile"/>
@@ -1822,6 +1824,7 @@
     <classEntry path="com.kaltura.vo.KalturaIpAddressRestriction"/>
     <classEntry path="com.kaltura.vo.KalturaJobData"/>
     <classEntry path="com.kaltura.vo.KalturaKeyValue"/>
+    <classEntry path="com.kaltura.vo.KalturaLimitFlavorsRestriction"/>
     <classEntry path="com.kaltura.vo.KalturaLiveStreamAdminEntry"/>
     <classEntry path="com.kaltura.vo.KalturaLiveStreamAdminEntryBaseFilter"/>
     <classEntry path="com.kaltura.vo.KalturaLiveStreamAdminEntryFilter"/>
