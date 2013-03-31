@@ -393,7 +393,7 @@ package org.osmf.vast.media
 				fireEventOfType(VASTTrackingEventType.MUTE);
 				//trace("processMutedChange == FIRING THE MUTE EVENT");
 			}	
-			else if (mute && playerVolume != 0)
+			else if (mute && !event.muted)
 			{
 				mute = false;
 				fireEventOfType(VASTTrackingEventType.UNMUTE);
