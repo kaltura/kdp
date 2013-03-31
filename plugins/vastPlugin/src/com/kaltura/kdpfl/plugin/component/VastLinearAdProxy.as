@@ -303,7 +303,6 @@ package com.kaltura.kdpfl.plugin.component {
 					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" )
 					{
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
-						signalEnd();
 					}
 					if (!_initVPAIDSize &&(event.key.indexOf("AdLoaded") == 0 ||
 						event.key.indexOf("adCreativeView") == 0 || 
