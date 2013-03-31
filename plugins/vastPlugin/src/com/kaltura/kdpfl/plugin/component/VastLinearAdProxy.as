@@ -1,9 +1,11 @@
 package com.kaltura.kdpfl.plugin.component {
 
 	
+	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
+	import com.kaltura.kdpfl.view.RootMediator;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	
 	import flash.events.Event;
@@ -11,6 +13,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.utils.Timer;
@@ -20,6 +23,8 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.events.LoaderEvent;
 	import org.osmf.events.MediaErrorEvent;
 	import org.osmf.events.MediaPlayerCapabilityChangeEvent;
+	import org.osmf.events.MetadataEvent;
+	import org.osmf.events.PlayEvent;
 	import org.osmf.events.TimeEvent;
 	import org.osmf.media.MediaElement;
 	import org.osmf.media.MediaFactory;
@@ -30,11 +35,14 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.vast.loader.VASTLoadTrait;
 	import org.osmf.vast.loader.VASTLoader;
 	import org.osmf.vast.media.CompanionElement;
+	import org.osmf.vast.media.VAST2TrackingProxyElement;
 	import org.osmf.vast.media.VASTMediaGenerator;
 	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.model.VASTDocument;
 	import org.osmf.vast.model.VASTUrl;
 	import org.osmf.vast.parser.base.VAST2CompanionElement;
+	import org.osmf.vpaid.elements.VPAIDElement;
+	import org.osmf.vpaid.metadata.VPAIDMetadata;
 	import org.puremvc.as3.patterns.proxy.Proxy;
 	
 	public class VastLinearAdProxy extends Proxy implements IEventDispatcher
@@ -54,6 +62,7 @@ package com.kaltura.kdpfl.plugin.component {
 		private var _prerollUrl : String;
 		private var _postrollUrl : String;
 		private var _playingAd : MediaElement;
+		private var _initVPAIDSize:Boolean = false;
 		
 		/**
 		 * Uniform click-thru url for VAST linear ad
@@ -127,6 +136,20 @@ package com.kaltura.kdpfl.plugin.component {
 				sendNotification( "VASTAdFailed", "load URL is empty")
 			}
 		}
+		
+		public function resizeAd(width:Number,height:Number,mode:String):void
+		{
+			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
+			if (vpaidMetadata)
+			{
+				var dataObj:Object = new Object();
+				dataObj.width = width;
+				dataObj.height = height;
+				dataObj.viewMode = mode ? mode: "normal";
+				vpaidMetadata.addValue("resizeAd",dataObj);
+				
+			}
+		}
 
 
 		/**
@@ -174,8 +197,9 @@ package com.kaltura.kdpfl.plugin.component {
 				_loadTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onLoadTimeout );
 				_vastDocument = (e.loadTrait as VASTLoadTrait).vastDocument;
 				var vastMediaGenerator:VASTMediaGenerator = new VASTMediaGenerator(null, _mediaFactory);
-
-				_vastElements = vastMediaGenerator.createMediaElements(_vastDocument);
+				var playerSize:Rectangle= new Rectangle(0,0,(facade as ApplicationFacade).app.width,(facade as ApplicationFacade).app.height);
+				_vastElements = vastMediaGenerator.createMediaElements(_vastDocument,"",playerSize);
+				
 				 companionAds.createFlashCompanionsMap(_vastDocument);
 				 companionAds.createHtmlCompanionMap(_vastDocument);
 				
@@ -183,7 +207,6 @@ package com.kaltura.kdpfl.plugin.component {
 				{
 					if (mediaElement is ProxyElement)
 					{
-
 						_playingAd = mediaElement;
 					}
 					if (mediaElement is CompanionElement) {
@@ -192,6 +215,7 @@ package com.kaltura.kdpfl.plugin.component {
 
 				}
 				if (_playingAd) {
+					
 					dispatchEvent( new Event("linearAdReady",true,false) )
 				}
 				else
@@ -239,6 +263,7 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				playAdAsPrePostRoll(playerMediator);
 			}
+			
 		}
 		
 		/**
@@ -250,6 +275,9 @@ package com.kaltura.kdpfl.plugin.component {
 		{
 			playerMediator["player"].addEventListener(MediaErrorEvent.MEDIA_ERROR, onVastAdError);
 			playerMediator["cleanMedia"]();
+			
+			
+				
 			//_playingAd.addEventListener("traitAdd", onAdPlayable);
 			var sequenceProxy : Object = facade.retrieveProxy("sequenceProxy");
 			
@@ -259,11 +287,45 @@ package com.kaltura.kdpfl.plugin.component {
 			//playerMediator.player.addEventListener(TimeEvent.COMPLETE, onAdComplete);
 			//playerMediator["playContent"]();
 			//TODO track stats
-			sendNotification("adStart",
-							 {timeSlot: getContextString(_currentSequenceContext)});
+			sendNotification("adStart",	 {timeSlot: getContextString(_currentSequenceContext)});
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
 			playerMediator["player"]["media"] = _playingAd;
+			
+
+			var _this:Object = this;
+			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
+			if (vpaidMetadata)
+			{
+				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
+				{
+					trace (event.key)
+					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" )
+					{
+						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+					}
+					if (!_initVPAIDSize &&(event.key.indexOf("AdLoaded") == 0 ||
+						event.key.indexOf("adCreativeView") == 0 || 
+						event.key.indexOf("AdPlaying")== 0 || 
+						event.key.indexOf("AdVideoStart") == 0))
+					{
+						_initVPAIDSize = true;
+						
+						//_this.resizeAd(-1,-1,"normal");
+					}
+				});
+			}
+			
+			
+
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 		
 		/**
@@ -309,7 +371,10 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				sequenceProxy["vo"]["timeRemaining"] = Math.round(e.time);
 				sequenceProxy["vo"]["isAdLoaded"] = true;
-				(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+				if (e.time <= 1)
+				{
+					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+				}
 			}
 		}
 
@@ -400,6 +465,25 @@ package com.kaltura.kdpfl.plugin.component {
 					}
 				}
 			}
+		}
+		
+		private function getVPAIDMetadata():VPAIDMetadata
+		{
+			try
+			{
+				if (_playingAd as VAST2TrackingProxyElement && 
+					ProxyElement(_playingAd as VAST2TrackingProxyElement).proxiedElement)
+				{
+					var vpaidElement:VPAIDElement =ProxyElement((_playingAd as VAST2TrackingProxyElement).proxiedElement).proxiedElement as VPAIDElement;
+					var vpaidMetadata:VPAIDMetadata = vpaidElement.getMetadata(vpaidElement.metadataNamespaceURLs[0]) as VPAIDMetadata;
+					return vpaidMetadata;
+				}
+			}
+			catch(ex:Error)
+			{
+				trace (ex);
+			}
+			return null;
 		}
 		
 		private function constructClickTrackings ( vast1ClickTrackings : Vector.<VASTUrl> ) : Array

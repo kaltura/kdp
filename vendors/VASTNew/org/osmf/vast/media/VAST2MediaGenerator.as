@@ -26,6 +26,7 @@ package org.osmf.vast.media
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	
 	import org.osmf.elements.ProxyElement;
 	import org.osmf.elements.SWFLoader;
@@ -36,7 +37,6 @@ package org.osmf.vast.media
 	import org.osmf.media.MediaFactory;
 	import org.osmf.media.URLResource;
 	import org.osmf.metadata.Metadata;
-	import org.osmf.net.StreamingURLResource;
 	import org.osmf.traits.DisplayObjectTrait;
 	import org.osmf.traits.MediaTraitType;
 	import org.osmf.utils.HTTPLoader;
@@ -49,6 +49,12 @@ package org.osmf.vast.media
 	import org.osmf.vpaid.elements.VPAIDElement;
 	import org.osmf.vpaid.metadata.VPAIDMetadata;
 	
+	CONFIG::LOGGING
+	{
+		import org.osmf.logging.Logger;
+		import org.osmf.logging.Log;
+	}
+
 	/**
 	 * Utility class for creating MediaElements from a VASTDocument.
 	 *  
@@ -96,7 +102,7 @@ package org.osmf.vast.media
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function createMediaElements(vastDocument:VAST2Translator, vastPlacement:String = null):Vector.<MediaElement>
+		public function createMediaElements(vastDocument:VAST2Translator, vastPlacement:String = null,playerSize:Rectangle = null):Vector.<MediaElement>
 		{
 			var mediaElements:Vector.<MediaElement> = new Vector.<MediaElement>();
 			
@@ -442,7 +448,7 @@ package org.osmf.vast.media
 			// Check for Video.
 			if (vastDocument.mediafileArray != null && vastDocument.mediafileArray.length > 0 && isLinear)
 			{
-				var mediaFileURL:Vector.<VAST2MediaFile> = new Vector.<VAST2MediaFile>;
+				
 				for each(var mediaObj:Object in vastDocument.mediafileArray)
 				{
 					var mediaFileObj:VAST2MediaFile = new VAST2MediaFile();
@@ -457,7 +463,7 @@ package org.osmf.vast.media
 					mediaFileObj.maintainAspectRatio = mediaObj.maintainAspectRatio;
 					mediaFileObj.apiFramework = mediaObj.apiFramework;
 
-					
+					var mediaFileURL:Vector.<VAST2MediaFile> = new Vector.<VAST2MediaFile>;
 					mediaFileURL.push(mediaFileObj);
 				}
 
@@ -476,11 +482,18 @@ package org.osmf.vast.media
 
 					var rootElement:MediaElement;
 					
-					if(mediaFile.type == "application/x-shockwave-flash")
+					if(mediaFile.type == "application/x-shockwave-flash" ||mediaFile.type == "swf" )
 					{
-					
-						rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader());
+						if (mediaFile.scalable)
+						{
+							rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader(),playerSize.width,playerSize.height);
+						}
+						else
+						{
+							rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader(),mediaFile.width,mediaFile.height);
+						}
 						VPAIDMetadata(rootElement.getMetadata("org.osmf.vpaid.metadata.VPAIDMetadata")).addValue(VPAIDMetadata.NON_LINEAR_CREATIVE, false);
+
 					}
 					else 
 					{
@@ -491,10 +504,7 @@ package org.osmf.vast.media
 						}
 						else
 						{
-							if (mediaFile.delivery != "streaming")
-								rootElement = new VideoElement(new URLResource(mediaURL));
-							else
-								rootElement = new VideoElement(new StreamingURLResource(mediaURL));
+							rootElement = new VideoElement(new URLResource(mediaURL));
 							//VideoElement(rootElement).smoothing = true;
 						}
 						
@@ -573,6 +583,8 @@ package org.osmf.vast.media
 		private var _adPlacement:String;
 		
 		CONFIG::LOGGING
-		private static const logger:Logger = Log.getLogger("org.osmf.vast.media.VAST2MediaGenerator");
+		{
+			private static const logger:Logger = Log.getLogger("org.osmf.vast.media.VAST2MediaGenerator");
+		}
 	}
 }

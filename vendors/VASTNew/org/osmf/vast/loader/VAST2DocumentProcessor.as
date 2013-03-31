@@ -22,12 +22,12 @@
 package org.osmf.vast.loader
 {
 	import flash.events.EventDispatcher;
-	
 	import org.osmf.events.LoadEvent;
 	import org.osmf.media.URLResource;
 	import org.osmf.traits.LoadState;
 	import org.osmf.utils.HTTPLoader;
 	import org.osmf.vast.model.VAST2Translator;
+	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.parser.VAST2Parser;
 	import org.osmf.vast.parser.base.VAST2TrackingData;
 	import org.osmf.vast.parser.base.events.ParserErrorEvent;
@@ -35,8 +35,8 @@ package org.osmf.vast.loader
 	
 	CONFIG::LOGGING
 	{
-	import org.osmf.logging.Logger;
-	import org.osmf.logging.Log;
+		import org.osmf.logging.Logger;
+		import org.osmf.logging.Log;
 	}
 
 	[Event("processed")]
@@ -129,7 +129,7 @@ package org.osmf.vast.loader
 			parser.removeEventListener(ParserErrorEvent.XML_ERROR, onXMLParseError);
 			CONFIG::LOGGING
 			{
-				logger.debug("[VAST] Error Parsing Tag: " + event.description + ". Contents: " + documentContents);
+				logger.debug("[VAST] Error Parsing Tag: " + event.description);
 			}
 			dispatchEvent(new VASTDocumentProcessedEvent(VASTDocumentProcessedEvent.PROCESSING_FAILED));			
 		}
@@ -171,18 +171,22 @@ package org.osmf.vast.loader
 			{
 				if (event.loadState == LoadState.READY)
 				{
-					wrapperLoadTrait.removeEventListener(LoadEvent.LOAD_STATE_CHANGE, onWrapperLoadStateChange);
-					
-					var translator:VAST2Translator = wrapperLoadTrait.vastDocument as VAST2Translator;
-					var parser:VAST2Parser = translator.vastParser as VAST2Parser;
-						
-					CONFIG::LOGGING
-					{
-						logger.debug("[VAST] Load Wrapper Complete");
-						
-					}
-					translator = new VAST2Translator(parser);
-					dispatchEvent(new VASTDocumentProcessedEvent(VASTDocumentProcessedEvent.PROCESSED, translator));
+                	var processedDocument:VASTDataObject;
+                	if (wrapperLoadTrait.vastDocument.vastVersion == VASTDataObject.VERSION_2_0) {
+                    	var translator:VAST2Translator = wrapperLoadTrait.vastDocument as VAST2Translator;
+                    	var parser:VAST2Parser = translator.vastParser as VAST2Parser;
+                    	processedDocument = new VAST2Translator(parser);
+                	}
+                	else {
+                    	processedDocument = wrapperLoadTrait.vastDocument;
+                	}
+
+                	CONFIG::LOGGING
+                	{
+                    	logger.debug("[VAST] Load Wrapper Complete");
+
+                	}
+                	dispatchEvent(new VASTDocumentProcessedEvent(VASTDocumentProcessedEvent.PROCESSED, processedDocument));
 				}
 				else if (event.loadState == LoadState.LOAD_ERROR)
 				{

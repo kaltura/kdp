@@ -91,6 +91,15 @@ package org.osmf.vast.media
 				var inlineAd:VASTInlineAd = vastAd.inlineAd;
 				if (inlineAd != null)
 				{
+					var clickThru:String = null;
+					if (	inlineAd.video != null
+						&& 	inlineAd.video.videoClick != null
+						&&	inlineAd.video.videoClick.clickThrough != null
+						&&	inlineAd.video.videoClick.clickThrough.url != null)
+					{
+						clickThru = inlineAd.video.videoClick.clickThrough.url;
+					}
+					
 					// Set up the MediaElement for the ad package.  Note that
 					// when we support more than just video ads (e.g. companion
 					// and non-linear ads), we should wrap them all in a
@@ -108,7 +117,7 @@ package org.osmf.vast.media
 					// Check for TrackingEvents.
 					if (inlineAd.trackingEvents != null && inlineAd.trackingEvents.length > 0)
 					{
-						proxyChain.push(new VASTTrackingProxyElement(inlineAd.trackingEvents));
+						proxyChain.push(new VASTTrackingProxyElement(inlineAd.trackingEvents, null, null, clickThru));
 					}
 					
 					// Check for Video.

@@ -24,6 +24,7 @@ package org.osmf.vpaid.elements
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.system.Security;
+	import flash.utils.setTimeout;
 	
 	import org.osmf.containers.MediaContainer;
 	import org.osmf.elements.SWFElement;
@@ -32,6 +33,7 @@ package org.osmf.vpaid.elements
 	import org.osmf.elements.loaderClasses.LoaderUtils;
 	import org.osmf.events.AudioEvent;
 	import org.osmf.events.LoadEvent;
+	import org.osmf.events.MediaElementEvent;
 	import org.osmf.events.MetadataEvent;
 	import org.osmf.events.PlayEvent;
 	import org.osmf.events.TimeEvent;
@@ -42,6 +44,7 @@ package org.osmf.vpaid.elements
 	import org.osmf.traits.LoadState;
 	import org.osmf.traits.LoadTrait;
 	import org.osmf.traits.LoaderBase;
+	import org.osmf.traits.MediaTraitBase;
 	import org.osmf.traits.MediaTraitType;
 	import org.osmf.traits.PlayState;
 	import org.osmf.traits.PlayTrait;
@@ -72,10 +75,14 @@ package org.osmf.vpaid.elements
 	
 	public class VPAIDElement extends SWFElement
 	{
-		public function VPAIDElement(resource:URLResource, loader:SWFLoader = null)
+		public function VPAIDElement(resource:URLResource, loader:SWFLoader = null, width:int = 0, height:int = 0)
 		{
 			Security.allowDomain("*");
+		
 			super(resource, loader);
+			
+			this.MASTHeight = height;
+			this.MASTWidth = width;
 			
 			_vpaidMetadata = new VPAIDMetadata();
 			_vpaidMetadata.addEventListener(MetadataEvent.VALUE_CHANGE, onMetadataValueChanged);
@@ -92,6 +99,9 @@ package org.osmf.vpaid.elements
 			
 			_audioTrait = new AudioTrait();		
 			addTrait(MediaTraitType.AUDIO, _audioTrait);
+
+			
+	
 			
 
 		}
@@ -105,7 +115,7 @@ package org.osmf.vpaid.elements
 			{
 				CONFIG::LOGGING
 				{
-					logger.debug("[VPAID] Testing HandshakeVersion: "+ version);
+					trace("[VPAID] Testing HandshakeVersion: "+ version);
 				}
 				if (_testResult == false){
 					_testResult = probeVersion(version);
@@ -117,14 +127,14 @@ package org.osmf.vpaid.elements
 				//found a handshake
 				CONFIG::LOGGING
 				{
-					logger.debug("[VPAID] Matching HandshakeVersion, ad responded: "+ _vpaid.version +" - ok");
+					trace("[VPAID] Matching HandshakeVersion, ad responded: "+ _vpaid.version +" - ok");
 				}
 				//Module is ready time to initalize the creative.
 				initVPAID();
 			}else{
 				CONFIG::LOGGING
 				{
-					logger.debug("[VPAID] Unsupported VPAID API version ");
+					trace("[VPAID] Unsupported VPAID API version ");
 				}
 				_vpaidMetadata.addValue(VPAIDMetadata.ERROR, VPAIDMetadata.ERROR); 
 				removeListeners();
@@ -197,15 +207,16 @@ package org.osmf.vpaid.elements
 				_timeTrait.addEventListener(TimeEvent.COMPLETE, onTimerChange);
 				_timeTrait.addEventListener(TimeEvent.DURATION_CHANGE, onTimerChange);			
 			}
-
+			
 			_vpaid.initVPAID(getDimensions().width,getDimensions().height,"normal", 500, "", "");
+	        
 		}
 		
 		private function onVPAIDEventReceived(event:Object):void
 		{
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] onVPAIDEventReceived: event.type=" + event.type);
+				trace("[VPAID] onVPAIDEventReceived: event.type=" + event.type);
 			}
 			switch(event.type)
 			{
@@ -271,7 +282,7 @@ package org.osmf.vpaid.elements
 								{
 									CONFIG::LOGGING
 									{
-										logger.debug("[VPAID creative] " + msg);
+										trace("[VPAID creative] " + msg);
 									}
 									success = true;
 								}
@@ -283,7 +294,7 @@ package org.osmf.vpaid.elements
 					{
 						CONFIG::LOGGING
 						{
-							logger.debug("[VPAID] Invalid AdLog event sent from creative. event.data not defined. Check creative.");
+							trace("[VPAID] Invalid AdLog event sent from creative. event.data not defined. Check creative.");
 						}
 					}
 				break;
@@ -297,7 +308,7 @@ package org.osmf.vpaid.elements
 		{
 			var height:int;
 			var width:int;
-			
+			height = width = 0;
 			var vpaidContainer:MediaContainer = container as MediaContainer;
 			var displayObject:DisplayObjectTrait = this.getTrait(MediaTraitType.DISPLAY_OBJECT) as DisplayObjectTrait;
 			
@@ -305,10 +316,6 @@ package org.osmf.vpaid.elements
 				width = vpaidContainer.width;
 				height = vpaidContainer.height;
 			//Sometimes we can't find the container
-			}else if(displayObject != null){
-				width = displayObject.mediaWidth;
-				height = displayObject.mediaHeight;
-			//Default to size of the creative coming into the VPAIDElement
 			}else if (_MASTWidth > -1)
 			{
 				// Not sure why this works for MAST (except if you resize the container)
@@ -320,9 +327,18 @@ package org.osmf.vpaid.elements
 				height = _loadTrait.loader.contentLoaderInfo.content.height;
 			}
 			
+			if (width == height  && width ==  0)
+			{
+			 if(displayObject != null){
+					width = displayObject.mediaWidth;
+					height = displayObject.mediaHeight;
+					//Default to size of the creative coming into the VPAIDElement
+				}
+			}
+			
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] getDimensions width:" + width + " height: " + height);
+				trace("[VPAID] getDimensions width:" + width + " height: " + height);
 			}
 			
 			return new Rectangle(0,0,width, height);		
@@ -394,7 +410,7 @@ package org.osmf.vpaid.elements
 		{
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] Initalizing VPAID");
+				trace("[VPAID] Initalizing VPAID");
 			}
 			_loadTrait.removeEventListener(VPAIDLoadEvent.INITIALIZE_VPAID, onSWFLoad);
 			vpaidHandshakeTest();
@@ -404,11 +420,12 @@ package org.osmf.vpaid.elements
 		{			
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] LoadState Change: " + event.loadState);
+				trace("[VPAID] LoadState Change: " + event.loadState);
 			}
 			if(event.loadState == LoadState.READY)
 			{
-				_vpaid.resizeVPAID(getDimensions().width,getDimensions().height, "normal");	
+				var size:Rectangle = getDimensions();
+				_vpaid.resizeVPAID(size.width,size.height, "normal");
 			}
 							
 		}
@@ -423,7 +440,7 @@ package org.osmf.vpaid.elements
 			//Do not react to playstate changes for nonlinear creatives because you can't play/pause the creative
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] PlayState Change: " + event.playState);
+				trace("[VPAID] PlayState Change: " + event.playState);
 			}
 			var nonlinear:Boolean = _vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE);
 
@@ -447,6 +464,8 @@ package org.osmf.vpaid.elements
 					
 					if(_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
 						cleanUp();
+					dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
+					
 				break;
 			}
 		}
@@ -456,7 +475,7 @@ package org.osmf.vpaid.elements
 			{
 				CONFIG::LOGGING
 				{
-					logger.debug("[VPAID] Audio Change: event.muted=" + event.muted);
+					trace("[VPAID] Audio Change: event.muted=" + event.muted);
 				}
 				if(event.muted)
 					_vpaid.volumeVPAID = 0;
@@ -465,7 +484,7 @@ package org.osmf.vpaid.elements
 			}else{
 				CONFIG::LOGGING
 				{
-					logger.debug("[VPAID] Audio Change: event.volume=" + event.volume);
+					trace("[VPAID] Audio Change: event.volume=" + event.volume);
 				}
 				_vpaid.volumeVPAID = event.volume;
 				_vpaidMetadata.addValue(VPAIDMetadata.AD_VOLUME_CHANGE, event.volume);
@@ -480,7 +499,14 @@ package org.osmf.vpaid.elements
 				
 				case VPAIDMetadata.RESIZE_AD :
 					var dataObj:Object = e.value as Object;
+					if (dataObj.width == -1)
+					{
+						dataObj.width = MASTWidth;
+						dataObj.height = MASTHeight;
+					}
 					_vpaid.resizeVPAID(dataObj.width, dataObj.height, dataObj.viewMode);
+					MASTHeight = dataObj.height;
+					MASTWidth = dataObj.width;
 				break;
 				
 				case VPAIDMetadata.COLLAPSE_AD :
@@ -502,7 +528,14 @@ package org.osmf.vpaid.elements
 				
 				case VPAIDMetadata.RESIZE_AD :
 					var dataObj:Object = e.value as Object;
-					_vpaid.resizeVPAID(dataObj.width, dataObj.height, dataObj.viewMode);				
+					if (dataObj.width == -1)
+					{
+						dataObj.width = MASTWidth;
+						dataObj.height = MASTHeight;
+					}
+					_vpaid.resizeVPAID(dataObj.width, dataObj.height, dataObj.viewMode);
+					MASTHeight = dataObj.height;
+					MASTWidth = dataObj.width;			
 				break;
 				
 				case VPAIDMetadata.COLLAPSE_AD :
@@ -560,7 +593,7 @@ package org.osmf.vpaid.elements
 		{
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] VPAIDElement.ProcessUnloadingState");
+				trace("[VPAID] VPAIDElement.ProcessUnloadingState");
 			}
 			removeTrait(MediaTraitType.DISPLAY_OBJECT);
 		}
@@ -579,7 +612,7 @@ package org.osmf.vpaid.elements
 		{
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] VPAIDElement.onAdLoaded() ");
+				trace("[VPAID] VPAIDElement.onAdLoaded() ");
 			}
 			
 			_vpaidMetadata.addValue(VPAIDMetadata.AD_CREATIVE_VIEW, event);  
@@ -613,6 +646,9 @@ package org.osmf.vpaid.elements
 			
 			if(!_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
 				cleanUp();
+			dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
+			
+		
 		}
 		
 		//Add the SWF to the display list and resize the Ad after it is started to get new values
@@ -621,8 +657,10 @@ package org.osmf.vpaid.elements
 			
 			removeEventListener("AdStarted", onAdStarted);
 			var loaderLoadTrait:LoaderLoadTrait = getTrait(MediaTraitType.LOAD) as LoaderLoadTrait;
-			addTrait(MediaTraitType.DISPLAY_OBJECT, LoaderUtils.createDisplayObjectTrait(loaderLoadTrait.loader, this));
-			_vpaid.resizeVPAID(getDimensions().width, getDimensions().height, "normal");
+			var size:Rectangle = getDimensions();
+	
+			addTrait(MediaTraitType.DISPLAY_OBJECT, LoaderUtils.createDisplayObjectTrait(loaderLoadTrait.loader, this,size));
+			//_vpaid.resizeVPAID(getDimensions().width, getDimensions().height, "normal");
 		}
 		
 		private function onAdTimeChange(event:Event):void
@@ -636,7 +674,7 @@ package org.osmf.vpaid.elements
 		{
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] onAdLinearChange");
+				trace("[VPAID] onAdLinearChange");
 			}
 			
 			_vpaidMetadata.addValue(VPAIDMetadata.AD_LINEAR, _vpaid.linearVPAID);
@@ -704,7 +742,9 @@ package org.osmf.vpaid.elements
 			if(_playTrait.playState != PlayState.STOPPED)
 				_playTrait.stop();
 			
-			_loadTrait.unload();
+			//some vpaid elements remove themself from the stage
+			if (_loadTrait.loadState != LoadState.UNLOADING && _loadTrait.loadState != LoadState.UNINITIALIZED)
+				_loadTrait.unload();
 				
 			removeListeners();
 			
@@ -722,7 +762,7 @@ package org.osmf.vpaid.elements
 		{
 			CONFIG::LOGGING
 			{
-				logger.debug("[VPAID] Error: " + message);
+				trace("[VPAID] Error: " + message);
 			}
 			cleanUp();
 		}

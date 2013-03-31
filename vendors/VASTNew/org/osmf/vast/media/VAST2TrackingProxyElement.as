@@ -90,7 +90,9 @@ package org.osmf.vast.media
 		 */
 		public function VAST2TrackingProxyElement(events:Vector.<VASTTrackingEvent>, httpLoader:HTTPLoader=null, wrappedElement:MediaElement=null, cacheBust:CacheBuster = null,  clickURL:String = "")
 		{ 
-			super(events);
+			super(events, httpLoader, wrappedElement, clickURL);
+			setEvents(events);
+			this.httpLoader = httpLoader;
 			clickThruURL = clickURL;
 			
 			if (cacheBust == null) // Cachebuster should be shared across all events for the same ad view due to synchronization/correlation that happens on some ad servers
@@ -99,9 +101,15 @@ package org.osmf.vast.media
 				cacheBuster = cacheBust;
 						
 			proxiedElement = wrappedElement;
-
+			
+			playheadTimer = new Timer(250);
+			playheadTimer.addEventListener(TimerEvent.TIMER, onPlayheadTimer);
+			
 			dispatcher = new TraitEventDispatcher();
 			dispatcher.media = wrappedElement;
+			dispatcher.addEventListener(AudioEvent.MUTED_CHANGE, processMutedChange);
+			dispatcher.addEventListener(PlayEvent.PLAY_STATE_CHANGE, processPlayStateChange);
+			dispatcher.addEventListener(TimeEvent.COMPLETE, processComplete);
 			dispatcher.addEventListener(LoadEvent.LOAD_STATE_CHANGE, processLoadStateChange);
 			dispatcher.media.addEventListener(MediaErrorEvent.MEDIA_ERROR, mediaError);
 			
@@ -123,7 +131,12 @@ package org.osmf.vast.media
 				
 				
 			}
-
+			
+			
+			if (events == null)
+			{
+				throw new ArgumentError(OSMFStrings.getString(OSMFStrings.INVALID_PARAM));
+			}
 		}
 		
 		private function onMetadataValueAdded(e:MetadataEvent):void
@@ -212,12 +225,12 @@ package org.osmf.vast.media
 				
 					fireEventOfType(VASTTrackingEventType.THIRD_QUARTILE);
 				break;
-				
+		
 				case VPAIDMetadata.AD_VIDEO_COMPLETE:
 				
 					fireEventOfType(VASTTrackingEventType.COMPLETE);
 				break;
-				
+				case VPAIDMetadata.AD_STOPPED:
 				case VPAIDMetadata.AD_CLOSE:
 				
 					fireEventOfType(VASTTrackingEventType.CLOSE);
@@ -383,7 +396,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		override protected function processMutedChange(event:AudioEvent):void
+		private function processMutedChange(event:AudioEvent):void
 		{
 			//trace("MUTE == " + mute);
 			//trace("PLAYER VOLUME " + playerVolume);
@@ -415,7 +428,7 @@ package org.osmf.vast.media
 					{
 						//trace("Firing Creative View");
 						fireEventOfType(VASTTrackingEventType.CREATIVE_VIEW);//Want to fire only for linear creatives. Nonlinear fires it's own AD_CREATIVE_VIEW
-						createClickTrhu();
+						createClickThru();
 						if(ProxyElement(this.proxiedElement).proxiedElement.hasTrait(MediaTraitType.TIME))
 						{
 							
@@ -432,18 +445,10 @@ package org.osmf.vast.media
 			}
 		}
 		
-		private function createClickTrhu():void
-		{
-			//Add a mouse event to the media container for clickThru support
-			mediaContainer = container as MediaContainer;
-			mediaContainer.buttonMode = true;
-			mediaContainer.addEventListener(MouseEvent.MOUSE_UP,onMediaElementClick);		
-		}
-		
 		/**
 		 * @private
 		 */
-		override protected function processPlayStateChange(event:PlayEvent):void
+		private function processPlayStateChange(event:PlayEvent):void
 		{
 			if (event.playState == PlayState.PLAYING)
 			{
@@ -474,7 +479,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		override protected function processComplete(event:TimeEvent):void
+		private function processComplete(event:TimeEvent):void
 		{
 			playheadTimer.stop();
 			
@@ -494,7 +499,7 @@ package org.osmf.vast.media
 		// Internals
 		//
 		
-		override protected function setEvents(events:Vector.<VASTTrackingEvent>):void
+		private function setEvents(events:Vector.<VASTTrackingEvent>):void
 		{
 			eventsMap = new Dictionary();
 			
@@ -508,7 +513,7 @@ package org.osmf.vast.media
 			}
 		}
 		
-		override protected function fireEventOfType(eventType:VASTTrackingEventType, cbShared:Boolean = true):void
+		private function fireEventOfType(eventType:VASTTrackingEventType, cbShared:Boolean = true):void
 		{
 			var vastEvent:VASTTrackingEvent = eventsMap[eventType] as VASTTrackingEvent;
 			
@@ -536,37 +541,46 @@ package org.osmf.vast.media
 					}
 				}
 			}
+		}	
+		
+		private function onPlayheadTimer(event:TimerEvent):void
+		{
+			// Check for 25%, 50%, and 75%.
+			var percent:Number = this.percentPlayback;
+			
+			if (percent >= 25 && firstQuartileReached == false)
+			{
+				firstQuartileReached = true;
+				
+				fireEventOfType(VASTTrackingEventType.FIRST_QUARTILE);
+			}
+			else if (percent >= 50 && midpointReached == false)
+			{
+				midpointReached = true;
+				
+				fireEventOfType(VASTTrackingEventType.MIDPOINT);
+			}
+			else if (percent >= 75 && thirdQuartileReached == false)
+			{
+				thirdQuartileReached = true;
+				
+				fireEventOfType(VASTTrackingEventType.THIRD_QUARTILE);
+			}
 		}
 		
-		private function getBrowserEngine() : String
+		private function get percentPlayback():Number
 		{
-			// Get User Agent
-			try
+			var timeTrait:TimeTrait = getTrait(MediaTraitType.TIME) as TimeTrait;
+			if (timeTrait != null)
 			{
-				var userAgent : String = ExternalInterface.call("eval", "navigator.userAgent");
-				userAgent = userAgent.toLowerCase();
-				var isIe : Boolean = (userAgent.indexOf("msie") >= 0);
-				var isOpera : Boolean = (userAgent.indexOf('opera') >= 0);
-				if(isOpera) isIe = false;
-				var isSafari : Boolean = (userAgent.indexOf('applewebkit') >= 0 || userAgent.indexOf('konqueror') >= 0);
-				var isGecko : Boolean = (userAgent.indexOf('gecko/') > 0);
-			
-				if(isIe) browserEngine = 'msie';
-				if(isOpera) browserEngine = 'opera';
-				if(isSafari) browserEngine = 'webkit';
-				if(isGecko) browserEngine = 'gecko';
-			}
-			catch ( e : Error )
-			{
-				browserEngine = 'unknown';
+				var duration:Number = timeTrait.duration;
+				return duration > 0 ? 100 * timeTrait.currentTime / duration : 0;
 			}
 			
-			return browserEngine;
-		}		
+			return 0;
+		}
 		
-		
-		
-		private function onMediaElementClick(e:MouseEvent):void
+		override protected function onMediaElementClick(e:MouseEvent):void
 		{
 			
 			if(cacheBuster != null && clickThruURL != null)
@@ -576,36 +590,26 @@ package org.osmf.vast.media
 			}
 		}
 		
-		private function getURL( url : String, window : String = "_self" ) : void
-		{
-			var compatBrowser : Boolean = false;
-			browserEngine = getBrowserEngine();
-			switch( browserEngine ) {
-				case "webkit":
-				case "opera":
-				case "internabl":
-				case "unknown":
-				case "aim":
-					compatBrowser = false;
-					break;
-				default:
-					compatBrowser = true;
-			}
-
-			var request : URLRequest = new URLRequest(url);
-			flash.net.navigateToURL(request, window);
-		}
-		
 		private function cacheBustURL(urlToTag:String):String
 		{
 			return cacheBuster.cacheBustURL( urlToTag, CacheBuster.AD);
 		}
 			
-		protected var browserEngine : String = 'unknown';
-		protected var clickThruURL:String;
-		protected var cacheBuster:CacheBuster;
-		protected var mute:Boolean = false;
-		protected var playerVolume:Number = 0;
-		protected var mediaContainer:MediaContainer;
+		private var browserEngine : String = 'unknown';
+		private var dispatcher:TraitEventDispatcher;
+		private var eventsMap:Dictionary;
+			// Key:   VASTTrackingEventType
+			// Value: VASTTrackingEvent
+		private var httpLoader:HTTPLoader;
+		private var playheadTimer:Timer;
+		private var clickThruURL:String;
+		private var startReached:Boolean = false;
+		private var firstQuartileReached:Boolean = false;
+		private var midpointReached:Boolean = false;
+		private var thirdQuartileReached:Boolean = false;
+		private var cacheBuster:CacheBuster;
+		private var mute:Boolean = false;
+		private var playerVolume:Number = 0;
+		private var mediaContainer:MediaContainer;
 	}
 }

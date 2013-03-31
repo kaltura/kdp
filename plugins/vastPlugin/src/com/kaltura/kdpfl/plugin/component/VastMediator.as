@@ -1,5 +1,6 @@
 package com.kaltura.kdpfl.plugin.component
 {
+	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
@@ -67,7 +68,8 @@ package com.kaltura.kdpfl.plugin.component
 									NotificationType.PLAYER_PAUSED,
 									NotificationType.PLAYER_PLAYED,
 									NotificationType.AD_OPPORTUNITY,
-									NotificationType.CHANGE_MEDIA_PROCESS_STARTED
+									NotificationType.CHANGE_MEDIA_PROCESS_STARTED,
+									NotificationType.ROOT_RESIZE
 									];
 			
 			return interests;
@@ -127,6 +129,7 @@ package com.kaltura.kdpfl.plugin.component
 				case NotificationType.PLAYER_PLAYED:
 					if (_playedFirstMidroll && _vastMidrollTimer)
 						_vastMidrollTimer.start();
+			
 					break;
 				case NotificationType.PLAYER_PAUSED:
 					if (_playedFirstMidroll && _vastMidrollTimer)
@@ -146,10 +149,14 @@ package com.kaltura.kdpfl.plugin.component
 					isListening = false;
 					break;
 				case NotificationType.OPEN_FULL_SCREEN:
+					_pluginCode.resize(notification.getBody().width, notification.getBody().height,"fullscreen");
 					break;
 				case NotificationType.CLOSE_FULL_SCREEN:
+					_pluginCode.resize(notification.getBody().width, notification.getBody().height,"normal");
+					
 					break;
 				case NotificationType.ENTRY_READY :
+		
 					if (!sequenceProxy.vo.isInSequence)
 					{
 						_loadedFirstOverlayVAST = false;
@@ -206,6 +213,7 @@ package com.kaltura.kdpfl.plugin.component
 						}
 						
 					break;
+				
 			}	
 			
 		}

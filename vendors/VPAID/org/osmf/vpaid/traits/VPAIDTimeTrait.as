@@ -83,10 +83,7 @@ package org.osmf.vpaid.traits
 	 */	
 		public function pauseTimer():void
 		{
-			CONFIG::LOGGING
-			{
-				logger.debug("[VPAID] Pausing timer, remaining time: " + remainingTime +" current time: " + currentTime);
-			}
+			
 			cleanUpTimer();
 		}
 		
@@ -105,7 +102,7 @@ package org.osmf.vpaid.traits
 				var remainingTime:Number = duration - currentTime;
 				CONFIG::LOGGING
 				{
-					logger.debug("[VPAID] Resuming timer, remaining time: " + remainingTime +" current time: " + currentTime);
+					trace("[VPAID] Resuming timer, remaining time: " + remainingTime +" current time: " + currentTime);
 				}
 				countCurrentTime(Math.max(0,remainingTime));
 			}

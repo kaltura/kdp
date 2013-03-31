@@ -75,7 +75,6 @@ package org.osmf.vast.media
 		private static const VIDEO_MIME_TYPES_SUPPORTED:Vector.<String> = Vector.<String>
 		([
 			"video/x-flv", 
-			"video/x-mp4",
 			"video/x-f4v", 
 			"video/mp4", 
 			"video/mp4v-es", 

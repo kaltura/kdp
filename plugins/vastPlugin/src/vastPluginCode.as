@@ -112,7 +112,7 @@ package {
 		private var _linearAds:VastLinearAdProxy;
 		private var _nonlinearAds : NonLinearAdProxy;
 		private var _sequenceProxy:Object;
-		private var _vastMediator:VastMediator
+		private var _vastMediator:VastMediator;
 
 		/**
 		 * the context in which the current ad is playing, pre | post
@@ -167,6 +167,11 @@ package {
 			_linearAds.omitTimestamp = omitTimestamp;
 			_nonlinearAds = new NonLinearAdProxy (this);
 			_linearAds.addEventListener(VastLinearAdProxy.SIGNAL_END, endSubsequence);
+		}
+		
+		public function resize(width:Number,height:Number,mode:String):void
+		{
+			_linearAds.resizeAd(width,height,mode);
 		}
 
 
@@ -279,6 +284,7 @@ package {
 					_vastMediator.enableGUI(false);
 
 				_linearAds.loadAd(activeAdTagUrl , _sequenceContext);
+			
 
 				if (_sequenceContext == "pre") {
 					_playedPrerollsSingleEntry++;

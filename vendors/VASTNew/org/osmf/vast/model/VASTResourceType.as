@@ -118,12 +118,6 @@ package org.osmf.vast.model
 			return null;
 		}
 		
-		
-		public function get resourceType () : String
-		{
-			return name;
-		}
-			
 		private static const ALL_TYPES:Array
 			= [ IFRAME
 			  , SCRIPT

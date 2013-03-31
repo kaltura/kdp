@@ -50,7 +50,6 @@ package org.osmf.vast.parser.base
 		private var _AltText:String;
 		private var _apiFramework:String;
 		private var _adParameters:String;
-		private var _creativeViewTrack:String;
 	
 		/** VAST2CompanionElement - constructor
 		 *
@@ -111,7 +110,6 @@ package org.osmf.vast.parser.base
 			if (forxRef.IFrameResource != undefined ) _iframeResource = forxRef.IFrameResource.text();
 			if (forxRef.HTMLResource != undefined ) _htmlResource = forxRef.HTMLResource.text();
 			if (forxRef.AdParameters != undefined ) _adParameters = forxRef.AdParameters.text();
-			if (forxRef.TrackingEvents != undefined) _creativeViewTrack = (forxRef..Tracking[0].@event.toString()=="creativeView") ? (forxRef..Tracking[0] as XML).toString() : null;
 		}
 		
 		/**
@@ -235,21 +233,7 @@ package org.osmf.vast.parser.base
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */	
-		public function get adParameters():String { return _adParameters}
-		/**
-		 * Returns the url for the creativeView tracking event 
-		 * @return Target Url for the creativeView Tracking Event
-		 * Author : Hila Karimov
-		 * Comment : This is a fix for parsing of companion ads which mistakenly did not parse the creative view tracking event for individual companion ads
-		 */		
-		public function get creativeViewTrack():String
-		{
-			return _creativeViewTrack;
-		}
-
-;		
-		
-		
+		public function get adParameters():String { return _adParameters};		
 	}
 	
 }
