@@ -15,7 +15,8 @@ package
 		
 		public function create(pluginName : String = null) : IPlugin	
 		{
-			return new AudioDescriptionPluginCode();
+			var plugin:IPlugin = new AudioDescriptionPluginCode();
+			return plugin;
 		}
 	}
 }

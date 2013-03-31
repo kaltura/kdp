@@ -25,6 +25,8 @@ package org.osmf.vast.media
 {
 	import __AS3__.vec.Vector;
 	
+	import flash.geom.Rectangle;
+	
 	import org.osmf.media.MediaElement;
 	import org.osmf.media.MediaFactory;
 	import org.osmf.vast.model.VAST2Translator;
@@ -84,7 +86,7 @@ package org.osmf.vast.media
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function createMediaElements(vastDocument:VASTDataObject, placement:String = ""):Vector.<MediaElement>
+		public function createMediaElements(vastDocument:VASTDataObject, placement:String = "",playerSize:Rectangle = null):Vector.<MediaElement>
 		{
 				switch(vastDocument.vastVersion)
 				{
@@ -92,7 +94,7 @@ package org.osmf.vast.media
 						return vast1MediaGenerator.createMediaElements(vastDocument as VASTDocument);					
 					break;
 					case VASTDataObject.VERSION_2_0:
-						return vast2MediaGenerator.createMediaElements(vastDocument as VAST2Translator, placement);
+						return vast2MediaGenerator.createMediaElements(vastDocument as VAST2Translator, placement, playerSize);
 					break;
 					default:
 						return vast1MediaGenerator.createMediaElements(vastDocument as VASTDocument);	

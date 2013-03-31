@@ -41,7 +41,7 @@ package com.kaltura.kdpfl.plugin.model
 				maintainAspectRatio = vast1Ad.maintainAspectRatio;
 				apiFramework = vast1Ad.apiFramework;
 				creativeType = vast1Ad.creativeType;
-				staticResource = vast1Ad.resourceType.resourceType;
+				//staticResource = vast1Ad.resourceType;
 				nonLinearClickThrough = vast1Ad.clickThroughURL;
 				nonLinearResource = vast1Ad.url;
 				adParameters = vast1Ad.adParameters;

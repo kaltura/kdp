@@ -23,6 +23,7 @@ package com.kaltura.kdpfl.view.media
 	import com.kaltura.vo.KalturaMixEntry;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -141,6 +142,11 @@ package com.kaltura.kdpfl.view.media
 		/**
 		 * in case of mp4 intelliseek we will have to add this value to playhead position 
 		 */		
+		
+		/**
+		 * flag to indicate if change media occur
+		*/
+		private var _changeMediaOccur:Boolean = false;
 		private var _offsetAddition:Number = 0;
 		
 		/**
@@ -357,7 +363,7 @@ package com.kaltura.kdpfl.view.media
 				case NotificationType.CHANGE_MEDIA_PROCESS_STARTED:
 					//when we change the media we can reset the loadMediaOnPlay flag
 					var designatedEntryId : String = String(note.getBody().entryId);
-					
+					_changeMediaOccur = true;
 					_loadMediaOnPlay = false;
 					_alertCalled = false;
 					player.removeEventListener( TimeEvent.COMPLETE , onTimeComplete );
@@ -828,7 +834,21 @@ package com.kaltura.kdpfl.view.media
 				//if we play image that not support duration we should act like we play somthing static
 				if(	_mediaProxy.vo.entry is KalturaMediaEntry && _mediaProxy.vo.entry.mediaType==KalturaMediaType.IMAGE)				
 					sendNotification( NotificationType.PLAYER_PLAYED);	
+				else
+				{
+					_changeMediaOccur = false;
+					player.addEventListener(MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE,function(event:Event):void
+					{
+						
+						if (!_changeMediaOccur)
+						{
+							sendNotification(NotificationType.DO_PLAY);
+						}
+						
+					});
+				}
 			}
+			
 			
 		}
 		

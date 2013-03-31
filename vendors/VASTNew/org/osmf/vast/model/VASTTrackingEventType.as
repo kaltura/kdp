@@ -228,7 +228,7 @@ package org.osmf.vast.model
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public static const ACCEPT_INVITATION:VASTTrackingEventType 		= new VASTTrackingEventType("acceptinvitation");
+		public static const ACCEPT_INVITATION:VASTTrackingEventType 		= new VASTTrackingEventType("acceptInvitation");
 
 		/**
 		 * Event constant for when the user minimize the ad
@@ -238,7 +238,7 @@ package org.osmf.vast.model
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */		
-		public static const USER_MINIMIZE:VASTTrackingEventType 		= new VASTTrackingEventType("aduserminimize");
+		public static const USER_MINIMIZE:VASTTrackingEventType 		= new VASTTrackingEventType("adUserMinimize");
 				
 		
 		/**
@@ -249,7 +249,7 @@ package org.osmf.vast.model
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */		
-		public static const IMPRESSION:VASTTrackingEventType 		= new VASTTrackingEventType("adimpression"); // ? Impression already fired?
+		public static const IMPRESSION:VASTTrackingEventType 		= new VASTTrackingEventType("adImpression"); // ? Impression already fired?
 		
 		/**
 		 * @private
@@ -287,11 +287,6 @@ package org.osmf.vast.model
 			return null;
 		}
 		
-		public function get eventName () : String
-		{
-			return name;
-		}
-		
 		private static const ALL_EVENT_TYPES:Array
 			= [ START
 			  , FIRST_QUARTILE
@@ -311,8 +306,8 @@ package org.osmf.vast.model
 			  , CLOSE
 			  , EXPAND
 			  , COLLAPSE
-			  , CREATIVE_VIEW
-			  , ACCEPT_INVITATION
+			  
+			  
 			  ];
 		
 		private var name:String;
