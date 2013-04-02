@@ -375,7 +375,9 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				sequenceProxy["vo"]["timeRemaining"] = Math.round(e.time);
 				sequenceProxy["vo"]["isAdLoaded"] = true;
-				if (e.time <= 1)
+				if (!(((_playingAd as VAST2TrackingProxyElement).proxiedElement as ProxyElement).proxiedElement is VPAIDElement))
+					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+				else if (e.time <= 1)
 				{
 					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				}
