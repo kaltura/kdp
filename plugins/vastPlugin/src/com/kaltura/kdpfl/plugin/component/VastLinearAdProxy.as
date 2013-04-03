@@ -37,8 +37,10 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.vast.media.CompanionElement;
 	import org.osmf.vast.media.VAST2TrackingProxyElement;
 	import org.osmf.vast.media.VASTMediaGenerator;
+	import org.osmf.vast.media.VASTTrackingProxyElement;
 	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.model.VASTDocument;
+	import org.osmf.vast.model.VASTTrackingEventType;
 	import org.osmf.vast.model.VASTUrl;
 	import org.osmf.vast.parser.base.VAST2CompanionElement;
 	import org.osmf.vpaid.elements.VPAIDElement;
@@ -375,7 +377,7 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				sequenceProxy["vo"]["timeRemaining"] = Math.round(e.time);
 				sequenceProxy["vo"]["isAdLoaded"] = true;
-				if (!(((_playingAd as VAST2TrackingProxyElement).proxiedElement as ProxyElement).proxiedElement is VPAIDElement))
+				if (!(((_playingAd as VASTTrackingProxyElement).proxiedElement as ProxyElement).proxiedElement is VPAIDElement))
 					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				else if (e.time <= 1)
 				{
