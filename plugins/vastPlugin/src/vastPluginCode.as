@@ -237,6 +237,10 @@ package {
 
 			_vastMediator.reset();
 			_linearAds.resetVast();
+			
+			if (_linearAds.hasPendingAds())
+				return true;
+			
 			if (_sequenceContext == "pre") {
 				if (numPreroll - _playedPrerollsSingleEntry > 0) {
 
@@ -283,18 +287,24 @@ package {
 				if (_playedPrerollsSingleEntry == 0 && _playedPostrollsSingleEntry == 0)
 					_vastMediator.enableGUI(false);
 
-				_linearAds.loadAd(activeAdTagUrl , _sequenceContext);
-			
-
-				if (_sequenceContext == "pre") {
-					_playedPrerollsSingleEntry++;
+				if (_linearAds.hasPendingAds())
+					_linearAds.playNextPendingAd();
+				else
+				{
+					_linearAds.loadAd(activeAdTagUrl , _sequenceContext);
+					
+					
+					if (_sequenceContext == "pre") {
+						_playedPrerollsSingleEntry++;
+					}
+					else if (_sequenceContext == "post") {
+						_playedPostrollsSingleEntry++;
+					}
 				}
-				else if (_sequenceContext == "post") {
-					_playedPostrollsSingleEntry++;
-				}
+				
 			}
 			else {
-				_vastMediator.enableGUI(true);
+			//	_vastMediator.enableGUI(true);
 				_linearAds.signalEnd();
 			}
 		}
@@ -324,6 +334,9 @@ package {
 
 		private function shouldPlay():Boolean {
 			var result:Boolean = false;
+			if (_linearAds.hasPendingAds())
+				result = true;
+			
 			if (persistence) {
 				if (!_pers.isPersistenceValid()) {
 					// reset 

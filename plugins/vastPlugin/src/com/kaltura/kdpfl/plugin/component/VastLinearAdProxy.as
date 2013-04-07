@@ -64,6 +64,7 @@ package com.kaltura.kdpfl.plugin.component {
 		private var _prerollUrl : String;
 		private var _postrollUrl : String;
 		private var _playingAd : MediaElement;
+		private var _pendingAds : Array;
 		private var _initVPAIDSize:Boolean = false;
 		
 		/**
@@ -204,18 +205,22 @@ package com.kaltura.kdpfl.plugin.component {
 				
 				 companionAds.createFlashCompanionsMap(_vastDocument);
 				 companionAds.createHtmlCompanionMap(_vastDocument);
-				
+				 _pendingAds = new Array();
+				 
  				for each(var mediaElement : MediaElement in _vastElements)
 				{
 					if (mediaElement is ProxyElement)
 					{
-						_playingAd = mediaElement;
+						_pendingAds.push(mediaElement);
 					}
 					if (mediaElement is CompanionElement) {
 						_companionAds.push(mediaElement as VAST2CompanionElement);
 					}
 
 				}
+				if (_pendingAds.length)
+					_playingAd = _pendingAds.shift();
+				
 				if (_playingAd) {
 					
 					dispatchEvent( new Event("linearAdReady",true,false) )
@@ -244,7 +249,6 @@ package com.kaltura.kdpfl.plugin.component {
 		 */
 		private function onLinearAdReady (e : Event) : void
 		{
-			this.removeEventListener( "linearAdReady" , onLinearAdReady)
 			parseVideoClicks (_vastDocument);
 			playAd();
 			companionAds.displayFlashCompanions(facade);
@@ -472,6 +476,8 @@ package com.kaltura.kdpfl.plugin.component {
 						}
 					}
 				}
+			} else if (vastDoc.vastVersion == 3) {
+				trace ("???");
 			}
 		}
 		
@@ -522,10 +528,17 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		public function signalEnd () : void
 		{
-			removeClickThrough();
-			sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
-			dispatchEvent(new Event(VastLinearAdProxy.SIGNAL_END));
-			sendNotification("sequenceItemPlayEnd");
+			if (hasPendingAds())
+				playNextPendingAd();
+			else
+			{
+				this.removeEventListener( "linearAdReady" , onLinearAdReady);
+				removeClickThrough();
+				sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
+				dispatchEvent(new Event(VastLinearAdProxy.SIGNAL_END));
+				sendNotification("sequenceItemPlayEnd");
+			}
+
 		}
 
 
@@ -537,6 +550,25 @@ package com.kaltura.kdpfl.plugin.component {
 		{
 			removeClickThrough();
 			companionAds.hideFlashCompanionAds(facade);
+			
+		}
+		
+		public function hasPendingAds() : Boolean
+		{
+			return _pendingAds && _pendingAds.length;
+		}
+		
+		/**
+		 * Added as part of vast3 support: in case we have a few ads in sequence will play the next ad from the same vast schema 
+		 * 
+		 */		
+		public function playNextPendingAd() : void
+		{
+			if (_pendingAds && _pendingAds.length)
+			{
+				_playingAd = _pendingAds.shift();
+				dispatchEvent( new Event("linearAdReady",true,false) );
+			}
 			
 		}
 		
