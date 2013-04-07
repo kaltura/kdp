@@ -105,7 +105,7 @@ package org.osmf.vast.parser {
 		}
 		
 		//stores vast tags in the _vastVars object
-		protected function createVASTvars() : void {
+		public function createVASTvars() : void {
 			
 			//UIFDebugMessage.getInstance()._debugMessage(3, "In createVASTvars() ", "Instream", "VAST2Parser (v1)");
 			
@@ -145,7 +145,7 @@ package org.osmf.vast.parser {
 		}
 		
 		//break down the parsed data into arrays of same typed ad formats
-		private function createCreativesArrays():void
+		public function createCreativesArrays():void
 		{
 			_LinearAdsArray = new Array();
 			_NonLinearAdsArray = new Array();

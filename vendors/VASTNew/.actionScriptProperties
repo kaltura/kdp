@@ -6,6 +6,7 @@
       <libraryPathEntry kind="4" path=""/>
       <libraryPathEntry kind="3" linkType="1" path="/VPAID/bin/VPAID.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/OSMF/bin/OSMF.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/as3FlexClient/bin/as3FlexClient.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

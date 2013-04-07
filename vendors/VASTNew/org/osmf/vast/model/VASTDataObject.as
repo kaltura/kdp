@@ -66,5 +66,6 @@ package org.osmf.vast.model
 		
 		public static var VERSION_1_0:Number = 1.0;
 		public static var VERSION_2_0:Number = 2.0;
+		public static var VERSION_3_0:Number = 3.0;
 	}
 }

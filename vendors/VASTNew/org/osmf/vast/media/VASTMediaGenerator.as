@@ -30,6 +30,7 @@ package org.osmf.vast.media
 	import org.osmf.media.MediaElement;
 	import org.osmf.media.MediaFactory;
 	import org.osmf.vast.model.VAST2Translator;
+	import org.osmf.vast.model.VAST3Translator;
 	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.model.VASTDocument;
 	
@@ -71,6 +72,7 @@ package org.osmf.vast.media
 				 
 				 vast1MediaGenerator = new VAST1MediaGenerator(mediaFileResolver, mediaFactory);
 				 vast2MediaGenerator = new VAST2MediaGenerator(DefaultVAST2MediaFileResolver(mediaFileResolver), mediaFactory);
+				 vast3MediaGenerator = new VAST3MediaGenerator(DefaultVAST2MediaFileResolver(mediaFileResolver), mediaFactory);
 		}
 		
 		/**
@@ -96,6 +98,9 @@ package org.osmf.vast.media
 					case VASTDataObject.VERSION_2_0:
 						return vast2MediaGenerator.createMediaElements(vastDocument as VAST2Translator, placement, playerSize);
 					break;
+					case VASTDataObject.VERSION_3_0:
+						return vast3MediaGenerator.createMediaElements(vastDocument as VAST3Translator, placement, playerSize);
+					break;	
 					default:
 						return vast1MediaGenerator.createMediaElements(vastDocument as VASTDocument);	
 					break;
@@ -106,5 +111,6 @@ package org.osmf.vast.media
 		private var mediaFileResolver:IVASTMediaFileResolver;
 		private var vast1MediaGenerator:VAST1MediaGenerator;
 		private var vast2MediaGenerator:VAST2MediaGenerator;
+		private var vast3MediaGenerator:VAST3MediaGenerator;
 	}
 }

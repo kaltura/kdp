@@ -92,6 +92,12 @@ package org.osmf.vast.loader
 						vast2DocumentProcessor.addEventListener(VASTDocumentProcessedEvent.PROCESSED, cloneDocumentProcessorEvent);
 						vast2DocumentProcessor.addEventListener(VASTDocumentProcessedEvent.PROCESSING_FAILED, cloneDocumentProcessorEvent); 					
 						vast2DocumentProcessor.processVASTDocument(documentContents, trackingData);
+						break;
+					case VASTDataObject.VERSION_3_0:
+						var vast3DocumentProcessor:VAST3DocumentProcessor = new VAST3DocumentProcessor(maxNumWrapperRedirects, httpLoader);
+						vast3DocumentProcessor.addEventListener(VASTDocumentProcessedEvent.PROCESSED, cloneVast3DocumentProcessorEvent);
+						vast3DocumentProcessor.addEventListener(VASTDocumentProcessedEvent.PROCESSING_FAILED, cloneVast3DocumentProcessorEvent); 					
+						vast3DocumentProcessor.processVASTDocument(documentContents, trackingData);
 					break;
 					default:
 						processingFailed = true;
@@ -115,6 +121,18 @@ package org.osmf.vast.loader
 			parser.removeEventListener(VASTDocumentProcessedEvent.PROCESSED, cloneDocumentProcessorEvent);
 			parser.removeEventListener(VASTDocumentProcessedEvent.PROCESSING_FAILED, cloneDocumentProcessorEvent); 
 			dispatchEvent(event.clone());
+		}
+		
+		private function cloneVast3DocumentProcessorEvent(event:VASTDocumentProcessedEvent):void
+		{
+			if (event.target is VAST3DocumentProcessor)
+			{
+				var parser:EventDispatcher = event.target as EventDispatcher;
+				parser.removeEventListener(VASTDocumentProcessedEvent.PROCESSED, cloneDocumentProcessorEvent);
+				parser.removeEventListener(VASTDocumentProcessedEvent.PROCESSING_FAILED, cloneDocumentProcessorEvent); 
+				dispatchEvent(event.clone());
+			}
+
 		}
 
 		private var maxNumWrapperRedirects:Number;

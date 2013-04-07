@@ -60,6 +60,9 @@
     <classEntry path="org.osmf.vast.parser.base.events.ParserEvent"/>
     <classEntry path="org.osmf.vast.parser.base.interfaces.IParser"/>
     <classEntry path="org.osmf.vast.parser.base.interfaces.ITagParserBase"/>
+    <classEntry path="org.osmf.vast.loader.VAST3DocumentProcessor"/>
+    <classEntry path="org.osmf.vast.model.VAST3Translator"/>
+    <classEntry path="org.osmf.vast.media.VAST3MediaGenerator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

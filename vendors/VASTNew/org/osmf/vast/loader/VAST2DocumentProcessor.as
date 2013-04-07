@@ -22,6 +22,7 @@
 package org.osmf.vast.loader
 {
 	import flash.events.EventDispatcher;
+	
 	import org.osmf.events.LoadEvent;
 	import org.osmf.media.URLResource;
 	import org.osmf.traits.LoadState;
@@ -29,6 +30,7 @@ package org.osmf.vast.loader
 	import org.osmf.vast.model.VAST2Translator;
 	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.parser.VAST2Parser;
+	import org.osmf.vast.parser.base.Parser;
 	import org.osmf.vast.parser.base.VAST2TrackingData;
 	import org.osmf.vast.parser.base.events.ParserErrorEvent;
 	import org.osmf.vast.parser.base.events.ParserEvent;
@@ -44,6 +46,10 @@ package org.osmf.vast.loader
 	
 	internal class VAST2DocumentProcessor extends EventDispatcher
 	{
+		
+		private var maxNumWrapperRedirects:Number;
+		private var httpLoader:HTTPLoader;
+		protected var parser:Parser;
 		
 		/**
 		 * Processor for VAST 2 documents.  
@@ -110,7 +116,7 @@ package org.osmf.vast.loader
 				{
 				logger.debug("[VAST] " + parser.adTagTitle + " is a VAST wrapper tag.")
 				}
-				loadVASTWrapper(parser);
+				loadVASTWrapper(parser as VAST2Parser);
 			}
 			else
 			{
@@ -118,7 +124,7 @@ package org.osmf.vast.loader
 				{
 				logger.debug("[VAST] " + parser.adTagTitle + " is a VAST tag.")
 				}
-				var translator:VAST2Translator = new VAST2Translator(parser);
+				var translator:VAST2Translator = new VAST2Translator(parser as VAST2Parser);
 				dispatchEvent(new VASTDocumentProcessedEvent(VASTDocumentProcessedEvent.PROCESSED, translator));
 			}
 		}
@@ -134,7 +140,7 @@ package org.osmf.vast.loader
 			dispatchEvent(new VASTDocumentProcessedEvent(VASTDocumentProcessedEvent.PROCESSING_FAILED));			
 		}
 		
-		private function loadVASTWrapper(parser:VAST2Parser):void
+		protected function loadVASTWrapper(parser:VAST2Parser):void
 		{			
 			if(this.maxNumWrapperRedirects <= 0)
 			{
@@ -172,14 +178,22 @@ package org.osmf.vast.loader
 				if (event.loadState == LoadState.READY)
 				{
                 	var processedDocument:VASTDataObject;
-                	if (wrapperLoadTrait.vastDocument.vastVersion == VASTDataObject.VERSION_2_0) {
-                    	var translator:VAST2Translator = wrapperLoadTrait.vastDocument as VAST2Translator;
-                    	var parser:VAST2Parser = translator.vastParser as VAST2Parser;
-                    	processedDocument = new VAST2Translator(parser);
-                	}
-                	else {
-                    	processedDocument = wrapperLoadTrait.vastDocument;
-                	}
+					switch (wrapperLoadTrait.vastDocument.vastVersion) 
+					{
+						//if (wrapperLoadTrait.vastDocument.vastVersion == VASTDataObject.VERSION_2_0) {
+						case VASTDataObject.VERSION_2_0:
+						case VASTDataObject.VERSION_3_0:
+							var translator:VAST2Translator = wrapperLoadTrait.vastDocument as VAST2Translator;
+							var parser:VAST2Parser = translator.vastParser as VAST2Parser;
+							processedDocument = new VAST2Translator(parser);
+							break;
+						case VASTDataObject.VERSION_1_0:
+							processedDocument = wrapperLoadTrait.vastDocument;
+							break;
+						
+							break;
+					}
+                	
 
                 	CONFIG::LOGGING
                 	{
@@ -205,10 +219,7 @@ package org.osmf.vast.loader
 				}
 			}
 		}
-		
-		private var maxNumWrapperRedirects:Number;
-		private var httpLoader:HTTPLoader;
-		private var parser:VAST2Parser;
+
 		
 		CONFIG::LOGGING
 		private static const logger:Logger = Log.getLogger("org.osmf.vast.loader.VASTDocumentProcessor");
