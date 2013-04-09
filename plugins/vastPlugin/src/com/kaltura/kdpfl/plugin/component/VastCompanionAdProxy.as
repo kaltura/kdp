@@ -69,19 +69,7 @@ package com.kaltura.kdpfl.plugin.component
 		public function createFlashCompanionsMap (vastDocument : VASTDataObject) : void
 		{
 			var companionConfig : Object;
-			if (vastDocument.vastVersion == 3)
-			{
-				var vast3T:VAST3Translator = vastDocument as VAST3Translator;
-				if (vast3T.vastObjects)
-				{
-					for each (var vastObj: VASTDataObject in vast3T.vastObjects)
-					{
-						createFlashCompanionsMap(vastObj);
-					}
-				}
-				
-			}
-			else if (vastDocument.vastVersion == 2)
+			 if (vastDocument.vastVersion == 2)
 			{
 				companionAdsArr = vastDocument["companionArray"];
 				for each (companionConfig in flashCompsConfig)
@@ -143,18 +131,7 @@ package com.kaltura.kdpfl.plugin.component
 		public function createHtmlCompanionMap (vastDocument : VASTDataObject) : void
 		{
 			var companionConfig : Object;
-			if (vastDocument.vastVersion == 3)
-			{
-				var vast3T:VAST3Translator = vastDocument as VAST3Translator;
-				if (vast3T.vastObjects)
-				{
-					for each (var vastObj: VASTDataObject in vast3T.vastObjects)
-					{
-						createHtmlCompanionMap(vastObj);
-					}
-				}
-				
-			}
+			
 			if (vastDocument.vastVersion == 2)
 			{
 				for each (companionConfig in htmlCompsConfig)

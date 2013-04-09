@@ -47,7 +47,7 @@ package com.kaltura.kdpfl.plugin.model
 				adParameters = vast1Ad.adParameters;
 			}
 			
-			else if (vastVersion == 2)
+			else if (vastVersion == 2 || vastVersion == 3)
 			{
 				var vast2Ad : VAST2NonLinearElement = vastNonLinearAd as VAST2NonLinearElement;
 				id = vast2Ad.id;

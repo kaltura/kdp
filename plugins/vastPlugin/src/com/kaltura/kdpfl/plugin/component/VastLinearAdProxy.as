@@ -5,7 +5,6 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
-	import com.kaltura.kdpfl.view.RootMediator;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	
 	import flash.events.Event;
@@ -24,7 +23,6 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.events.MediaErrorEvent;
 	import org.osmf.events.MediaPlayerCapabilityChangeEvent;
 	import org.osmf.events.MetadataEvent;
-	import org.osmf.events.PlayEvent;
 	import org.osmf.events.TimeEvent;
 	import org.osmf.media.MediaElement;
 	import org.osmf.media.MediaFactory;
@@ -34,15 +32,13 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.utils.HTTPLoader;
 	import org.osmf.vast.loader.VASTLoadTrait;
 	import org.osmf.vast.loader.VASTLoader;
-	import org.osmf.vast.media.CompanionElement;
 	import org.osmf.vast.media.VAST2TrackingProxyElement;
 	import org.osmf.vast.media.VASTMediaGenerator;
 	import org.osmf.vast.media.VASTTrackingProxyElement;
+	import org.osmf.vast.model.VAST3Translator;
 	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.model.VASTDocument;
-	import org.osmf.vast.model.VASTTrackingEventType;
 	import org.osmf.vast.model.VASTUrl;
-	import org.osmf.vast.parser.base.VAST2CompanionElement;
 	import org.osmf.vpaid.elements.VPAIDElement;
 	import org.osmf.vpaid.metadata.VPAIDMetadata;
 	import org.puremvc.as3.patterns.proxy.Proxy;
@@ -64,7 +60,6 @@ package com.kaltura.kdpfl.plugin.component {
 		private var _prerollUrl : String;
 		private var _postrollUrl : String;
 		private var _playingAd : MediaElement;
-		private var _pendingAds : Array;
 		private var _initVPAIDSize:Boolean = false;
 		
 		/**
@@ -76,8 +71,8 @@ package com.kaltura.kdpfl.plugin.component {
 		 * Uniform tracking event urls for ad click-thru
 		 * */
 		private var _playingAdClickTrackings : Array; 
-		private var _companionAds : Array = new Array();
 		private var _vastElements : Vector.<MediaElement>; 
+		private var _vastMediaGenerator:VASTMediaGenerator;
 		private var companionAds : VastCompanionAdProxy;
 		
 		private var _loadTimeout : Number;
@@ -88,6 +83,10 @@ package com.kaltura.kdpfl.plugin.component {
 		private var _vastLoader : VASTLoader = new VASTLoader(MAX_NUM_REDIRECTS);
 		
 		private var _currentSequenceContext : String;
+		/**
+		 * for vast3 ad pods: the current translator index to create elements from 
+		 */		
+		private var _translatorIndex:int = 0;
 
 		/**
 		 * Constructor.
@@ -168,7 +167,7 @@ package com.kaltura.kdpfl.plugin.component {
 			
 			_loadTimer = new Timer(_loadTimeout*1000, 1);
 			_loadTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onLoadTimeout);
-			_loadTimer.start();
+			//_loadTimer.start();
 			_vastLoader.load(vastLoadTrait);
 		}
 
@@ -199,38 +198,8 @@ package com.kaltura.kdpfl.plugin.component {
 				_loadTimer.stop();
 				_loadTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onLoadTimeout );
 				_vastDocument = (e.loadTrait as VASTLoadTrait).vastDocument;
-				var vastMediaGenerator:VASTMediaGenerator = new VASTMediaGenerator(null, _mediaFactory);
-				var playerSize:Rectangle= new Rectangle(0,0,(facade as ApplicationFacade).app.width,(facade as ApplicationFacade).app.height);
-				_vastElements = vastMediaGenerator.createMediaElements(_vastDocument,"",playerSize);
-				
-				 companionAds.createFlashCompanionsMap(_vastDocument);
-				 companionAds.createHtmlCompanionMap(_vastDocument);
-				 _pendingAds = new Array();
-				 
- 				for each(var mediaElement : MediaElement in _vastElements)
-				{
-					if (mediaElement is ProxyElement)
-					{
-						_pendingAds.push(mediaElement);
-					}
-					if (mediaElement is CompanionElement) {
-						_companionAds.push(mediaElement as VAST2CompanionElement);
-					}
-
-				}
-				if (_pendingAds.length)
-					_playingAd = _pendingAds.shift();
-				
-				if (_playingAd) {
-					
-					dispatchEvent( new Event("linearAdReady",true,false) )
-				}
-				else
-				{
-					//In case the ad has no playable media element.
-					trace ("unable to play ad");
-					signalEnd();
-				}
+				_vastMediaGenerator = new VASTMediaGenerator(null, _mediaFactory);
+				createMediaElements();
 			//In case there was an error parsing or loading the VAST xml
 			} else if (e.newState == LoadState.LOAD_ERROR) {
 				//Stop the timeout timer
@@ -241,6 +210,44 @@ package com.kaltura.kdpfl.plugin.component {
 				trace("error loading ad");
 				signalEnd();
 			}
+		}
+		
+		/**
+		 * generate media elements and sets the _playingAd 
+		 * 
+		 */		
+		private function createMediaElements():void
+		{
+			var playerSize:Rectangle= new Rectangle(0,0,(facade as ApplicationFacade).app.width,(facade as ApplicationFacade).app.height);
+			var vastObj:VASTDataObject = getCurrentVastObject();
+			if (vastObj)
+			{
+				companionAds.createFlashCompanionsMap(vastObj);
+				companionAds.createHtmlCompanionMap(vastObj);
+				_vastElements = _vastMediaGenerator.createMediaElements(_vastDocument,"",playerSize, _translatorIndex);
+				
+				for each(var mediaElement : MediaElement in _vastElements)
+				{
+					if (mediaElement is ProxyElement)
+					{
+						_playingAd = mediaElement;
+					}
+					
+				}
+				
+				if (_playingAd) {
+					dispatchEvent( new Event("linearAdReady",true,false) )
+				}
+				else
+				{
+					//In case the ad has no playable media element.
+					trace ("unable to play ad");
+					signalEnd();
+				}
+			}
+			else
+				signalEnd();
+		
 		}
 		
 		/**
@@ -324,17 +331,7 @@ package com.kaltura.kdpfl.plugin.component {
 						//_this.resizeAd(-1,-1,"normal");
 					}
 				});
-			}
-			
-			
-
-			
-			
-			
-			
-			
-			
-			
+			}	
 			
 		}
 		
@@ -450,7 +447,15 @@ package com.kaltura.kdpfl.plugin.component {
 		private function parseVideoClicks(vastDoc:VASTDataObject):void {
 			_playingAdClickThru = null;
 			_playingAdClickTrackings = null;
-			if (vastDoc.vastVersion == 2) {
+			if (vastDoc.vastVersion == 3)
+			{
+				var vastObj:VASTDataObject = getCurrentVastObject();
+				if (vastObj)
+					parseVideoClicks(vastObj);
+					
+			}
+			else if (vastDoc.vastVersion == 2) 
+			{
 				if (vastDoc["clickThruUrl"]) {
 					_playingAdClickThru = vastDoc["clickThruUrl"];
 					_playingAdClickTrackings = new Array();
@@ -465,7 +470,9 @@ package com.kaltura.kdpfl.plugin.component {
 						}
 					}
 				}
-			} else if (vastDoc.vastVersion == 1) {
+			}
+			else if (vastDoc.vastVersion == 1)
+			{
 				if (vastDoc["ads"].length > 0) {
 					if (vastDoc["ads"][0].inlineAd) {
 						if (vastDoc["ads"][0].inlineAd.video) {
@@ -476,8 +483,6 @@ package com.kaltura.kdpfl.plugin.component {
 						}
 					}
 				}
-			} else if (vastDoc.vastVersion == 3) {
-				trace ("???");
 			}
 		}
 		
@@ -538,7 +543,6 @@ package com.kaltura.kdpfl.plugin.component {
 				dispatchEvent(new Event(VastLinearAdProxy.SIGNAL_END));
 				sendNotification("sequenceItemPlayEnd");
 			}
-
 		}
 
 
@@ -555,7 +559,12 @@ package com.kaltura.kdpfl.plugin.component {
 		
 		public function hasPendingAds() : Boolean
 		{
-			return _pendingAds && _pendingAds.length;
+			//if we are vast3 and didn't generate all mediaElements yet we might have pending ads
+			return (_vastDocument && 
+				(_vastDocument.vastVersion == VASTDataObject.VERSION_3_0) &&
+				(_vastDocument is VAST3Translator) && 
+				(_vastDocument as VAST3Translator).vastObjects && 
+				((_vastDocument as VAST3Translator).vastObjects.length - 1)>=_translatorIndex);
 		}
 		
 		/**
@@ -564,12 +573,31 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		public function playNextPendingAd() : void
 		{
-			if (_pendingAds && _pendingAds.length)
+			if (_vastDocument.vastVersion == VASTDataObject.VERSION_3_0)
 			{
-				_playingAd = _pendingAds.shift();
-				dispatchEvent( new Event("linearAdReady",true,false) );
+				_translatorIndex++;
+				createMediaElements();
 			}
 			
+		}
+		
+		/**
+		 * vast3 object holds a few vastobjects. returns the current one. 
+		 * if vastDocument is not vast3, return it.
+		 * 
+		 */		
+		private function getCurrentVastObject():VASTDataObject
+		{
+			if ((_vastDocument.vastVersion == VASTDataObject.VERSION_3_0) && (_vastDocument is VAST3Translator))
+			{
+				var vastObjs:Array = (_vastDocument as VAST3Translator).vastObjects;
+				if (vastObjs && _translatorIndex >= 0 && _translatorIndex < vastObjs.length)
+					return vastObjs[_translatorIndex];
+				else
+					return null;
+				
+			}
+			return _vastDocument;
 		}
 		
 		// ==============================================

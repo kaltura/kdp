@@ -29,7 +29,7 @@ package com.kaltura.kdpfl.plugin.model
 		
 		public function UniformCompanionAd(vastCompanionAd : Object, vastVersion : int)
 		{
-			if (vastVersion == 2)
+			if (vastVersion == 2 || vastVersion == 3)
 			{
 				var vast2Companion : VAST2CompanionElement = vastCompanionAd as VAST2CompanionElement;
 				id = vast2Companion.id;
