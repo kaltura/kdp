@@ -294,12 +294,12 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 					break;
 				case "adStart":
 					_isInAd		= true;
-					if((viewComponent as googleAnalyticsPlugin).customEvents.indexOf("adStart") == -1)
+					if(!_plugin.customEvents || _plugin.customEvents.indexOf("adStart") == -1)
 						shouldPublish	= false;
 					break;
 				case "adEnd":
 					_isInAd		= false;
-					if((viewComponent as googleAnalyticsPlugin).customEvents.indexOf("adEnd") == -1)
+					if(!_plugin.customEvents || _plugin.customEvents.indexOf("adEnd") == -1)
 						shouldPublish	= false;
 					break;
 				case "playerSeekEnd":
