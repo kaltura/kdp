@@ -102,7 +102,7 @@ package org.osmf.vast.media
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function createMediaElements(vastDocument:VAST2Translator, vastPlacement:String = null,playerSize:Rectangle = null):Vector.<MediaElement>
+		public function createMediaElements(vastDocument:VAST2Translator, vastPlacement:String = null,playerSize:Rectangle = null, translatorIndex:int = 0):Vector.<MediaElement>
 		{
 			var mediaElements:Vector.<MediaElement> = new Vector.<MediaElement>();
 			

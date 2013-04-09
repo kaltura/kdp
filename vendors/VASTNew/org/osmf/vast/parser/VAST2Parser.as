@@ -61,6 +61,7 @@ package org.osmf.vast.parser {
 		private var _LinearAdsArray:Array;
 		private var _NonLinearAdsArray:Array;
 		private var _CompanionAdsArray:Array;
+		public var sequence:int;
 		
 		public function VAST2Parser(trackingData:VAST2TrackingData = null) {
 			//UIFDebugMessage.getInstance()._debugMessage(3, "Init VAST2Parser", "Instream", "VAST2Parser (v1)");

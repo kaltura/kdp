@@ -117,7 +117,8 @@ package org.osmf.vast.loader
 				parser.removeEventListener(ParserErrorEvent.XML_ERROR, onXMLParseError);
 				this.removeEventListener(VASTDocumentProcessedEvent.PROCESSED, onWrappedProcessed);
 				this.removeEventListener(VASTDocumentProcessedEvent.PROCESSING_FAILED, onWrappedFailed);
-				
+			
+				_translator.vastObjects = _translator.vastObjects.sortOn("sequence", Array.NUMERIC);
 				//at least one ad was loaded successfully
 				if (_parsedCounter > 0 || _wrappedCounter > 0)
 					dispatchEvent(new VASTDocumentProcessedEvent(VASTDocumentProcessedEvent.PROCESSED, _translator));

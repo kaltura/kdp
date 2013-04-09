@@ -106,7 +106,8 @@ package org.osmf.vast.model
 		private var _trkResumeEventNonLinear:Array;
 		private var _trkExpandEventNonLinear:Array;
 		private var _trkCollapseEventNonLinear:Array;
-		private var _trkAcceptInvitationEventNonLinear:Array;		
+		private var _trkAcceptInvitationEventNonLinear:Array;	
+		private var _sequence:int;
 	/**
 	 * Constructor
 	 * 
@@ -390,6 +391,9 @@ package org.osmf.vast.model
 				_trkAcceptInvitationEventNonLinear = _vastObj.trkAcceptInvitationEventNonLinear;
 			}	
 			
+			_sequence = _vastObj.sequence;
+				
+			
 		}
 		
 		
@@ -432,6 +436,11 @@ package org.osmf.vast.model
 		public function get adTagID() : String
 		{
 			return _adTagID;
+		}
+		
+		public function get sequence() : int
+		{
+			return _sequence;
 		}
 		/**
 		 * Returns a string indicating adTagWrapperSystem of the XML file

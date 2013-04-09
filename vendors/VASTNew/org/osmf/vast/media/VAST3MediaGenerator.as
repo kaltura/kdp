@@ -42,22 +42,14 @@ package org.osmf.vast.media
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function createMediaElements(vast3Document:VAST3Translator, vastPlacement:String = null,playerSize:Rectangle = null):Vector.<MediaElement>
+		public function createMediaElements(vast3Document:VAST3Translator, vastPlacement:String = null,playerSize:Rectangle = null, translatorIndex:int = 0):Vector.<MediaElement>
 		{
 			var mediaElements:Vector.<MediaElement> = new Vector.<MediaElement>();
-			var cacheBuster:CacheBuster = new CacheBuster();
-			
-		//	this.vastDocument = vastDocument;
-		//	vastDocument.adPlacement = (vastPlacement == null)?vastDocument.PLACEMENT_LINEAR:vastPlacement;
-			if (!vast3Document.vastObjects)
+
+			if (!vast3Document.vastObjects || translatorIndex < 0 || translatorIndex >= vast3Document.vastObjects.length)
 				return mediaElements;
 			
-			for each (var vastDocument:VAST2Translator in vast3Document.vastObjects)
-			{
-				mediaElements = mediaElements.concat(_vast2MediaGen.createMediaElements(vastDocument, vastPlacement, playerSize));	
-			}
-				
-			return mediaElements;
+			return _vast2MediaGen.createMediaElements((vast3Document.vastObjects[translatorIndex] as VAST2Translator),vastPlacement, playerSize);
 		}
 	}
 }

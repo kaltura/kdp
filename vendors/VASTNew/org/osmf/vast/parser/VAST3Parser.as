@@ -40,6 +40,9 @@ package org.osmf.vast.parser
 				if(ad.@id)
 					vast2Parser._adTagID = ad.@id;
 				
+				if (ad.@sequence)
+					vast2Parser.sequence = ad.@sequence;
+				
 				
 				if(ad.Wrapper.AdSystem != undefined) {
 					vast2Parser._isVASTXMLWrapper = true;

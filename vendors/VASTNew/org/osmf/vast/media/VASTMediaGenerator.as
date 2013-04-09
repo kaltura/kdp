@@ -79,6 +79,9 @@ package org.osmf.vast.media
 		 * Creates all relevant MediaElements from the specified VAST document.
 		 * 
 		 * @param vastDocument The VASTDocument that holds the raw VAST information.
+		 * @param placenent
+		 * @param playerSize
+		 * @param translatorIndex for vast3: the translator to apply "createMediaElements" on
 		 * 
 		 * @returns A Vector of MediaElements, where each MediaElement
 		 * represents a different VASTAd within the VASTDocument. 
@@ -88,7 +91,7 @@ package org.osmf.vast.media
 		 *  @playerversion AIR 1.5
 		 *  @productversion OSMF 1.0
 		 */
-		public function createMediaElements(vastDocument:VASTDataObject, placement:String = "",playerSize:Rectangle = null):Vector.<MediaElement>
+		public function createMediaElements(vastDocument:VASTDataObject, placement:String = "",playerSize:Rectangle = null, translatorIndex:int = 0):Vector.<MediaElement>
 		{
 				switch(vastDocument.vastVersion)
 				{
@@ -99,7 +102,7 @@ package org.osmf.vast.media
 						return vast2MediaGenerator.createMediaElements(vastDocument as VAST2Translator, placement, playerSize);
 					break;
 					case VASTDataObject.VERSION_3_0:
-						return vast3MediaGenerator.createMediaElements(vastDocument as VAST3Translator, placement, playerSize);
+						return vast3MediaGenerator.createMediaElements(vastDocument as VAST3Translator, placement, playerSize, translatorIndex);
 					break;	
 					default:
 						return vast1MediaGenerator.createMediaElements(vastDocument as VASTDocument);	
