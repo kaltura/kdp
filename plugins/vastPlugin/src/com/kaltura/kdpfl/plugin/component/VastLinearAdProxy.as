@@ -35,6 +35,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.vast.media.VAST2TrackingProxyElement;
 	import org.osmf.vast.media.VASTMediaGenerator;
 	import org.osmf.vast.media.VASTTrackingProxyElement;
+	import org.osmf.vast.model.VAST2Translator;
 	import org.osmf.vast.model.VAST3Translator;
 	import org.osmf.vast.model.VASTDataObject;
 	import org.osmf.vast.model.VASTDocument;
@@ -87,6 +88,10 @@ package com.kaltura.kdpfl.plugin.component {
 		 * for vast3 ad pods: the current translator index to create elements from 
 		 */		
 		private var _translatorIndex:int = 0;
+		/**
+		 * indicates we are playing sequenced ads, not a standalone ad 
+		 */		
+		private var _sequencedAds:Boolean = false;
 
 		/**
 		 * Constructor.
@@ -199,6 +204,9 @@ package com.kaltura.kdpfl.plugin.component {
 				_loadTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onLoadTimeout );
 				_vastDocument = (e.loadTrait as VASTLoadTrait).vastDocument;
 				_vastMediaGenerator = new VASTMediaGenerator(null, _mediaFactory);
+				if (_vastDocument.vastVersion == VASTDataObject.VERSION_3_0)
+					setStartingTranslatorIndex();
+				
 				createMediaElements();
 			//In case there was an error parsing or loading the VAST xml
 			} else if (e.newState == LoadState.LOAD_ERROR) {
@@ -564,7 +572,8 @@ package com.kaltura.kdpfl.plugin.component {
 				(_vastDocument.vastVersion == VASTDataObject.VERSION_3_0) &&
 				(_vastDocument is VAST3Translator) && 
 				(_vastDocument as VAST3Translator).vastObjects && 
-				((_vastDocument as VAST3Translator).vastObjects.length - 1)>=_translatorIndex);
+				((_vastDocument as VAST3Translator).vastObjects.length - 1)>=_translatorIndex &&
+				_sequencedAds);
 		}
 		
 		/**
@@ -598,6 +607,38 @@ package com.kaltura.kdpfl.plugin.component {
 				
 			}
 			return _vastDocument;
+		}
+		
+		/**
+		 * for vast3 ad pods: go over all translator, if there are sequenced ads, return their starting index,
+		 * otherwise select random ad 
+		 * 
+		 */		
+		private function setStartingTranslatorIndex():void
+		{
+			if (_vastDocument is VAST3Translator)
+			{
+				var vastObjs:Array = (_vastDocument as VAST3Translator).vastObjects;
+				_sequencedAds = false;
+				
+				if (vastObjs.length == 1)
+					return;
+				
+				for (var i:int = 0; i<vastObjs.length; i++)
+				{
+					//ads are sorted by sequence property. If we encountered an ad with "sequence" value, start playing all ads in sequence
+					if ((vastObjs[i] as VAST2Translator).sequence)
+					{
+						_sequencedAds = true;
+						_translatorIndex = i;
+						return;
+					}
+				}
+				
+				//if we got here we don't have sequenced ads, select random ad to play
+				_translatorIndex = Math.random() * (vastObjs.length);
+			}
+			
 		}
 		
 		// ==============================================
