@@ -80,6 +80,8 @@ package com.kaltura.kdpfl.controller.media
 	import mx.utils.URLUtil;
 	import com.kaltura.kdpfl.util.URLUtils;
 	import com.kaltura.types.KalturaPlaybackProtocol;
+	import mx.controls.Text;
+	import com.kaltura.kdpfl.util.KTextParser;
 
  
 
@@ -517,12 +519,8 @@ package com.kaltura.kdpfl.controller.media
 					
 					for each (var cuePoint : KalturaCuePoint in cuePointsArray)
 					{
-						// reset start and end time parameters of the cue point to seconds.
-						/*cuePoint.startTime = cuePoint.startTime/1000;
-						if (cuePoint.endTime)
-						{
-							cuePoint.endTime = cuePoint.endTime/1000;
-						}*/
+						if (cuePoint is KalturaAdCuePoint)
+							(cuePoint as KalturaAdCuePoint).sourceUrl = KTextParser.evaluate(facade["bindObject"], (cuePoint as KalturaAdCuePoint).sourceUrl ) as String;
 						// map cue point according to start time.
 						if ( cuePointsMap[cuePoint.startTime] )
 						{
