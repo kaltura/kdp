@@ -61,7 +61,7 @@ package org.osmf.vast.parser {
 		private var _LinearAdsArray:Array;
 		private var _NonLinearAdsArray:Array;
 		private var _CompanionAdsArray:Array;
-		public var sequence:int;
+		private var _sequence:int;
 		
 		public function VAST2Parser(trackingData:VAST2TrackingData = null) {
 			//UIFDebugMessage.getInstance()._debugMessage(3, "Init VAST2Parser", "Instream", "VAST2Parser (v1)");
@@ -82,6 +82,16 @@ package org.osmf.vast.parser {
 		}
 		
 	
+		public function get sequence():int
+		{
+			return _sequence;
+		}
+
+		public function set sequence(value:int):void
+		{
+			_sequence = value;
+		}
+
 		/**
 		 * performs a check to see if the xml passed to it is VAST
 		 * 
