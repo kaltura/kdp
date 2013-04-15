@@ -41,6 +41,7 @@ package org.osmf.vast.parser.base
 		private var _Impression:Array;
 		private var _Extensions:XML;
 		private var _Creatives:VAST2CreativeElement;
+		private var _skipOffset:String;
 	
 		/**
 		 * @private
@@ -117,8 +118,12 @@ package org.osmf.vast.parser.base
 								var creative:VAST2CreativeElement = new VAST2CreativeElement(itr, _trackingData);
 								creative.parseXMLData();
 								_Creatives.push(creative);
-								if (itr.Linear) // see note above 
+								if (itr.Linear) {
+									// see note above 
 									linearExists = true;
+									if (itr.Linear.length() && itr.Linear[0].hasOwnProperty("@skipoffset"))
+										_skipOffset = itr.Linear[0].@skipoffset.toString();
+								}
 								else if (itr.NonLinearAds) // see note above. Else if because of xsd says it's xs:choice. Giving <Linear> preference
 									nonlinearExists = true;
 							}
@@ -160,6 +165,10 @@ package org.osmf.vast.parser.base
 		 * @private
 		 */	
 		public function get Creatives():VAST2CreativeElement {return _Creatives;}
+		/**
+		 * @private
+		 */	
+		public function get skipOffset():String {return _skipOffset;}
 
 		
 	}

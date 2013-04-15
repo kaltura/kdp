@@ -62,6 +62,7 @@ package org.osmf.vast.parser {
 		private var _NonLinearAdsArray:Array;
 		private var _CompanionAdsArray:Array;
 		private var _sequence:int;
+		private var _skipOffset:String;
 		
 		public function VAST2Parser(trackingData:VAST2TrackingData = null) {
 			//UIFDebugMessage.getInstance()._debugMessage(3, "Init VAST2Parser", "Instream", "VAST2Parser (v1)");
@@ -90,6 +91,15 @@ package org.osmf.vast.parser {
 		public function set sequence(value:int):void
 		{
 			_sequence = value;
+		}
+		public function get skipOffset():String
+		{
+			return _skipOffset;
+		}
+
+		public function set skipOffset(value:String):void
+		{
+			_skipOffset = value;
 		}
 
 		/**
@@ -161,6 +171,7 @@ package org.osmf.vast.parser {
 			_LinearAdsArray = new Array();
 			_NonLinearAdsArray = new Array();
 			_CompanionAdsArray = new Array();
+			_skipOffset = _InLine.skipOffset;
 			
 			for (var i:uint =0; i < _InLine.Creatives.length; i++)
 			{

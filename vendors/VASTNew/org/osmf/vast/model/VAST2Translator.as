@@ -108,6 +108,7 @@ package org.osmf.vast.model
 		private var _trkCollapseEventNonLinear:Array;
 		private var _trkAcceptInvitationEventNonLinear:Array;	
 		private var _sequence:int;
+		private var _skipOffset:String;
 	/**
 	 * Constructor
 	 * 
@@ -392,6 +393,7 @@ package org.osmf.vast.model
 			}	
 			
 			_sequence = _vastObj.sequence;
+			_skipOffset = _vastObj.skipOffset;
 				
 			
 		}
@@ -441,6 +443,10 @@ package org.osmf.vast.model
 		public function get sequence() : int
 		{
 			return _sequence;
+		}
+		public function get skipOffset() : String
+		{
+			return _skipOffset;
 		}
 		/**
 		 * Returns a string indicating adTagWrapperSystem of the XML file
