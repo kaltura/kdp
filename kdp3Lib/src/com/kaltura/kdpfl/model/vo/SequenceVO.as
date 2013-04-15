@@ -91,5 +91,9 @@ package com.kaltura.kdpfl.model.vo
 		 * In case we want to ignore prerolls, for example, when starting the media from the middle with "mediaProxy.mediaPlayFrom" 
 		 */		
 		public var skipPrerolls:Boolean = false;
+		/**
+		 * hodls the time remaining until skip ad will be available 
+		 */		
+		public var skipOffsetRemaining:int;
 	}
 }
