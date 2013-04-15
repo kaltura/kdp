@@ -38,7 +38,6 @@ package com.kaltura.kdpfl.plugin.component {
 	import org.osmf.vast.model.VAST2Translator;
 	import org.osmf.vast.model.VAST3Translator;
 	import org.osmf.vast.model.VASTDataObject;
-	import org.osmf.vast.model.VASTDocument;
 	import org.osmf.vast.model.VASTUrl;
 	import org.osmf.vpaid.elements.VPAIDElement;
 	import org.osmf.vpaid.metadata.VPAIDMetadata;
@@ -381,11 +380,56 @@ package com.kaltura.kdpfl.plugin.component {
 		
 		private function onAdDurationReceived (e : TimeEvent) : void
 		{
-			var sequenceProxy : Object = facade.retrieveProxy("sequenceProxy");
+			var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			if (e.time > 0 && !isNaN(e.time))
 			{
-				sequenceProxy["vo"]["timeRemaining"] = Math.round(e.time);
-				sequenceProxy["vo"]["isAdLoaded"] = true;
+				sequenceProxy.vo.timeRemaining = Math.round(e.time);
+				sequenceProxy.vo.isAdLoaded = true;
+				//check for skipoffset
+				var curVast:VASTDataObject = getCurrentVastObject();
+				if (curVast.vastVersion == VASTDataObject.VERSION_2_0) 
+				{
+					var skipOffsetInSecs:int;
+					var skipOffset:String = curVast["skipOffset"];
+					//TODO: check this with midrolls and vpaid
+					if (skipOffset)
+					{
+						//parse HH:MM:SS skipoffset format
+						if (skipOffset.indexOf(":")!=-1)
+						{
+							var timesArr:Array = skipOffset.split(":");
+							if (timesArr.length!=3)
+								trace ("VastLinearAdProxy:: ignore skipoffset - invalid format");
+							else {
+								var multi:int = 1;
+								for (var i:int = timesArr.length - 1; i>=0; i--)
+								{
+									skipOffsetInSecs += parseInt(timesArr[i]) * multi;
+									multi *= 60;
+								}
+							}
+							
+						}	
+						else if (skipOffset.indexOf("%")!=-1) //parse n% skipoffset format
+						{
+							var percent:Number = parseInt(skipOffset.substring(0, skipOffset.indexOf("%"))) / 100;
+							skipOffsetInSecs = sequenceProxy.vo.timeRemaining * percent;
+						}
+						else
+							trace ("VastLinearAdProxy:: ignore skipoffset - unknown format");							
+					}		
+					if (skipOffsetInSecs)
+					{
+						sequenceProxy.vo.isAdSkip = false;
+						sequenceProxy.vo.skipOffsetRemaining = skipOffsetInSecs;
+						var skipTimer:Timer = new Timer(1000, skipOffsetInSecs);
+						skipTimer.addEventListener(TimerEvent.TIMER, onSkipTimer);
+						skipTimer.addEventListener(TimerEvent.TIMER_COMPLETE, enableSkip);
+						skipTimer.start();
+					}
+				}
+				
+
 				if (!(((_playingAd as VASTTrackingProxyElement).proxiedElement as ProxyElement).proxiedElement is VPAIDElement))
 					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				else if (e.time <= 1)
@@ -393,6 +437,17 @@ package com.kaltura.kdpfl.plugin.component {
 					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				}
 			}
+		}
+		
+		private function onSkipTimer(e:TimerEvent):void {		
+			(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.skipOffsetRemaining = (e.target as Timer).repeatCount - (e.target as Timer).currentCount;
+		}
+		
+		private function enableSkip(e:Event):void
+		{
+			e.target.removeEventListener(TimerEvent.TIMER, onSkipTimer);
+			e.target.removeEventListener(TimerEvent.TIMER_COMPLETE, enableSkip);
+			(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isAdSkip = true;
 		}
 
 		/**
