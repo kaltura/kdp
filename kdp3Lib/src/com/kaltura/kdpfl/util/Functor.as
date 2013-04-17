@@ -96,6 +96,8 @@ package com.kaltura.kdpfl.util
 			var chain:Array = value as Array;
 			
 			// grab the root object 
+			if (chain == null || chain.length  == 0)
+				return;
 			var argHost:Object = chain.shift();
 
         	var n:int = args.length;

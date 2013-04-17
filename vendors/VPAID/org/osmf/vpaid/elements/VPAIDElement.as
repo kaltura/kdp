@@ -460,11 +460,11 @@ package org.osmf.vpaid.elements
 						_vpaid.pauseVPAID();
 				break;
 				case PlayState.STOPPED:
-					_vpaid.stopVPAID();
+				     _vpaid.stopVPAID();
 					
-					if(_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
-						cleanUp();
-					dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
+					//if(_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
+					//	cleanUp();
+				//	dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
 					
 				break;
 			}

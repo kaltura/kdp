@@ -295,43 +295,9 @@ package com.kaltura.kdpfl.plugin.component {
 			playerMediator["player"]["media"] = _playingAd;
 			
 
-			var _this:Object = this;
-			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
-			if (vpaidMetadata)
-			{
-				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
-				{
-					trace ("[VPIAD Metadata]" + event.key);
-					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" )
-					{
-						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
-						removeClickThrough();
-						sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
-					
-						sendNotification("sequenceItemPlayEnd");
-					}
-					if (!_initVPAIDSize &&(event.key.indexOf("AdLoaded") == 0 ||
-						event.key.indexOf("adCreativeView") == 0 || 
-						event.key.indexOf("AdPlaying")== 0 || 
-						event.key.indexOf("AdVideoStart") == 0))
-					{
-						_initVPAIDSize = true;
-						
-						//_this.resizeAd(-1,-1,"normal");
-					}
-				});
-			}
 			
-			
-
-			
-			
-			
-			
-			
-			
-			
-			
+			handleVpaidElement(playerMediator);
+	
 		}
 		
 		/**
@@ -354,6 +320,37 @@ package com.kaltura.kdpfl.plugin.component {
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
 			
 			(mediaProxy.vo.media as KSwitchingProxyElement).switchElements();
+			handleVpaidElement(playerMediator);
+			
+		}
+		
+		private function handleVpaidElement(playerMediator : Object) : void
+		{
+			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
+			if (vpaidMetadata)
+			{
+				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
+				{
+					trace ("[VPIAD Metadata]" + event.key);
+					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" )
+					{
+						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+						removeClickThrough();
+						sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
+						
+						sendNotification("sequenceItemPlayEnd");
+					}
+					if (!_initVPAIDSize &&(event.key.indexOf("AdLoaded") == 0 ||
+						event.key.indexOf("adCreativeView") == 0 || 
+						event.key.indexOf("AdPlaying")== 0 || 
+						event.key.indexOf("AdVideoStart") == 0))
+					{
+						_initVPAIDSize = true;
+						
+						//_this.resizeAd(-1,-1,"normal");
+					}
+				});
+			}
 		}
 		
 		//Once the ad mediaElement has a time trait, it is safe to show the notice message.
