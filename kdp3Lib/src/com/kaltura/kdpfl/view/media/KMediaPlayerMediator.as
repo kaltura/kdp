@@ -1229,7 +1229,15 @@ package com.kaltura.kdpfl.view.media
 				if (_sequenceProxy.vo.isInSequence)
 				{
 					var duration : Number = (player.media.getTrait(MediaTraitType.TIME) as TimeTrait).duration;
-					_sequenceProxy.vo.timeRemaining = (!isNaN(event.time) && Math.round(duration - event.time) > 0) ? Math.round(duration - event.time) : 0;	
+					_sequenceProxy.vo.timeRemaining = (duration - time) > 0 ? Math.round(duration - event.time) : 0;	
+					if (_sequenceProxy.vo.skipOffset)
+					{
+						_sequenceProxy.vo.skipOffsetRemaining = (_sequenceProxy.vo.skipOffset - time) > 0 ? Math.round(_sequenceProxy.vo.skipOffset - time) : 0;
+						//reset skipoffset after offset time has passed
+						if (!_sequenceProxy.vo.skipOffsetRemaining)
+							_sequenceProxy.vo.skipOffset = 0;
+					}
+
 				}
 				
 				if (_mediaProxy.vo.mediaPlayTo != -1)

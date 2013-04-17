@@ -94,6 +94,29 @@ package com.kaltura.kdpfl.model.vo
 		/**
 		 * hodls the time remaining until skip ad will be available 
 		 */		
-		public var skipOffsetRemaining:int;
+		public var skipOffsetRemaining:Number;
+		
+		private var _skipOffset:Number;
+
+		/**
+		 * holds skipoffset value per sequence item. once a value is set- change the "isAdSkip" value 
+		 */
+		public function get skipOffset():Number
+		{
+			return _skipOffset;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set skipOffset(value:Number):void
+		{
+			_skipOffset = value;
+			if (!value)
+				isAdSkip = true;
+			else
+				isAdSkip = false;
+		}
+
 	}
 }
