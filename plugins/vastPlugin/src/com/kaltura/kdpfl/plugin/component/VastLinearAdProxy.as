@@ -417,16 +417,8 @@ package com.kaltura.kdpfl.plugin.component {
 						}
 						else
 							trace ("VastLinearAdProxy:: ignore skipoffset - unknown format");							
-					}		
-					if (skipOffsetInSecs)
-					{
-						sequenceProxy.vo.isAdSkip = false;
-						sequenceProxy.vo.skipOffsetRemaining = skipOffsetInSecs;
-						var skipTimer:Timer = new Timer(1000, skipOffsetInSecs);
-						skipTimer.addEventListener(TimerEvent.TIMER, onSkipTimer);
-						skipTimer.addEventListener(TimerEvent.TIMER_COMPLETE, enableSkip);
-						skipTimer.start();
-					}
+					}	
+					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = skipOffsetInSecs;
 				}
 				
 
@@ -438,18 +430,7 @@ package com.kaltura.kdpfl.plugin.component {
 				}
 			}
 		}
-		
-		private function onSkipTimer(e:TimerEvent):void {		
-			(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.skipOffsetRemaining = (e.target as Timer).repeatCount - (e.target as Timer).currentCount;
-		}
-		
-		private function enableSkip(e:Event):void
-		{
-			e.target.removeEventListener(TimerEvent.TIMER, onSkipTimer);
-			e.target.removeEventListener(TimerEvent.TIMER_COMPLETE, enableSkip);
-			(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isAdSkip = true;
-		}
-
+	
 		/**
 		 * selects the context name to be dispatched for statistics plugin.
 		 * @param str	context const (SequenceContextType)

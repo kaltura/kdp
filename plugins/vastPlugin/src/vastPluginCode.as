@@ -1,5 +1,4 @@
 package {
-	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.plugin.IMidrollSequencePlugin;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.ISequencePlugin;
@@ -10,7 +9,6 @@ package {
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.net.SharedObject;
 	
 	import org.osmf.media.MediaElement;
 	import org.puremvc.as3.interfaces.IFacade;
@@ -612,8 +610,7 @@ package {
 		{
 			_activeAdTagUrl = value;
 		}
-
-
+		
 
 	}
 }

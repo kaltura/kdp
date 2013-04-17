@@ -32,7 +32,7 @@ package com.kaltura.kdpfl.plugin.component
 		private var _playedFirstMidroll : Boolean = false;
 		private var _pluginCode : vastPluginCode;
 		
-		private var _vastMidrollTimer : Timer;
+	//	private var _vastMidrollTimer : Timer;
 		
 		/**
 		 * @copy adContext
@@ -95,12 +95,12 @@ package com.kaltura.kdpfl.plugin.component
 					}
 					else
 					{
-						if (!_loadedFirstOverlayVAST && (_pluginCode as vastPluginCode).overlayStartAt >= Number(notification.getBody()))
+						if (!_loadedFirstOverlayVAST && _pluginCode.overlayStartAt >= Number(notification.getBody()))
 						{
 							_loadedFirstOverlayVAST = true;
-							(_pluginCode as vastPluginCode).loadNonLinearAd();
+							_pluginCode.loadNonLinearAd();
 							
-							if ((_pluginCode as vastPluginCode).overlayInterval)
+							if (_pluginCode.overlayInterval)
 							{
 								var overlayDisplayDuration : Number = _pluginCode["overlayDisplayDuration"] ? _pluginCode["overlayDisplayDuration"] : 5;
 								var overlayTimer : Timer = new Timer((_pluginCode["overlayInterval"] + overlayDisplayDuration)*1000 ,1);
@@ -109,31 +109,31 @@ package com.kaltura.kdpfl.plugin.component
 							}
 						}
 						
-						if ( !_playedFirstMidroll && (_pluginCode as vastPluginCode).showFirstMidrollAt && (_pluginCode as vastPluginCode).showFirstMidrollAt <= Number(notification.getBody()) )
+						if ( !_playedFirstMidroll && _pluginCode.showFirstMidrollAt && _pluginCode.showFirstMidrollAt <= Number(notification.getBody()) )
 						{
 							_playedFirstMidroll = true;
 							
 							_pluginCode.midrollUrlArr.push( _pluginCode.midrollUrl );
 							
-							if ( _pluginCode.midrollInterval )
+						/*	if ( _pluginCode.midrollInterval )
 							{
 								_vastMidrollTimer = new Timer (_pluginCode.midrollInterval);
 								
 								_vastMidrollTimer.start()
-							}
+							}*/
 							
 							startVASTMidroll();
 						}
 					}
 					break;
 				case NotificationType.PLAYER_PLAYED:
-					if (_playedFirstMidroll && _vastMidrollTimer)
-						_vastMidrollTimer.start();
+				//	if (_playedFirstMidroll && _vastMidrollTimer)
+				//		_vastMidrollTimer.start();
 			
 					break;
 				case NotificationType.PLAYER_PAUSED:
-					if (_playedFirstMidroll && _vastMidrollTimer)
-						_vastMidrollTimer.stop();
+				//	if (_playedFirstMidroll && _vastMidrollTimer)
+				//		_vastMidrollTimer.stop();
 					break;
 				case "vastStartedPlaying":
 					isListening = true;
@@ -247,7 +247,7 @@ package com.kaltura.kdpfl.plugin.component
 		
 		private function loadOverlay ( e: TimerEvent) : void
 		{
-			(_pluginCode as vastPluginCode).loadNonLinearAd();
+			_pluginCode.loadNonLinearAd();
 			(e.target as Timer).start();
 		}
 		/**
