@@ -64,7 +64,7 @@ package org.osmf.vpaid.traits
 		public function updateRemainingTime(remaingTime:Number):void
 		{
 			if(remaingTime <= 0){
-				signalComplete();
+				//signalComplete();
 				cleanUpTimer();
 			}else{
 				setDuration(remaingTime);
