@@ -282,11 +282,13 @@ package {
 			if (shouldPlay()) {
 				_vastMediator.isListening = true;
 
-				if (_playedPrerollsSingleEntry == 0 && _playedPostrollsSingleEntry == 0)
+				if (!_playedPrerollsSingleEntry && !_playedPostrollsSingleEntry && !_linearAds.sequencedAds)
 					_vastMediator.enableGUI(false);
 
 				if (_linearAds.hasPendingAds())
+				{
 					_linearAds.playNextPendingAd();
+				}
 				else
 				{
 					_linearAds.loadAd(activeAdTagUrl , _sequenceContext);
@@ -333,7 +335,7 @@ package {
 		private function shouldPlay():Boolean {
 			var result:Boolean = false;
 			if (_linearAds.hasPendingAds())
-				result = true;
+				return true;
 			
 			if (persistence) {
 				if (!_pers.isPersistenceValid()) {

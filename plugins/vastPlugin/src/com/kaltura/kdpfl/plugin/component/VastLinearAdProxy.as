@@ -86,11 +86,13 @@ package com.kaltura.kdpfl.plugin.component {
 		/**
 		 * for vast3 ad pods: the current translator index to create elements from 
 		 */		
-		private var _translatorIndex:int = 0;
+		private var _curTranslatorIndex:int = 0;
 		/**
 		 * indicates we are playing sequenced ads, not a standalone ad 
 		 */		
-		private var _sequencedAds:Boolean = false;
+		public var sequencedAds:Boolean = false;
+		
+		private var _initialVpaidDuration:int;
 
 		/**
 		 * Constructor.
@@ -231,7 +233,7 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				companionAds.createFlashCompanionsMap(vastObj);
 				companionAds.createHtmlCompanionMap(vastObj);
-				_vastElements = _vastMediaGenerator.createMediaElements(_vastDocument,"",playerSize, _translatorIndex);
+				_vastElements = _vastMediaGenerator.createMediaElements(_vastDocument,"",playerSize, _curTranslatorIndex);
 				
 				for each(var mediaElement : MediaElement in _vastElements)
 				{
@@ -361,13 +363,20 @@ package com.kaltura.kdpfl.plugin.component {
 			
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
 			
-			(mediaProxy.vo.media as KSwitchingProxyElement).switchElements();
+			//if we're playing ad pods, don't switch elements again
+			if (_curTranslatorIndex)
+			{
+				(mediaProxy.vo.media as KSwitchingProxyElement).proxiedElement = _playingAd;
+			}
+			else
+			{
+				(mediaProxy.vo.media as KSwitchingProxyElement).switchElements();
+			}
 		}
 		
 		//Once the ad mediaElement has a time trait, it is safe to show the notice message.
 		private function onAdPlayable (e:MediaPlayerCapabilityChangeEvent) : void
 		{
-			var sequenceProxy : Object = facade.retrieveProxy("sequenceProxy");
 			var playerMediator : Object = facade.retrieveMediator("kMediaPlayerMediator");
 			
 			if (e.enabled)
@@ -380,18 +389,17 @@ package com.kaltura.kdpfl.plugin.component {
 		
 		private function onAdDurationReceived (e : TimeEvent) : void
 		{
-			var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
-			if (e.time > 0 && !isNaN(e.time))
+			if (!isNaN(e.time) && e.time > 0)
 			{
+				var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 				sequenceProxy.vo.timeRemaining = Math.round(e.time);
 				sequenceProxy.vo.isAdLoaded = true;
 				//check for skipoffset
 				var curVast:VASTDataObject = getCurrentVastObject();
-				if (curVast.vastVersion == VASTDataObject.VERSION_2_0) 
+				if (curVast && curVast.vastVersion == VASTDataObject.VERSION_2_0) 
 				{
 					var skipOffsetInSecs:int;
 					var skipOffset:String = curVast["skipOffset"];
-					//TODO: check this with midrolls and vpaid
 					if (skipOffset)
 					{
 						//parse HH:MM:SS skipoffset format
@@ -419,18 +427,43 @@ package com.kaltura.kdpfl.plugin.component {
 							trace ("VastLinearAdProxy:: ignore skipoffset - unknown format");							
 					}	
 					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = skipOffsetInSecs;
+					
+					
 				}
 				
-
-				if (!(((_playingAd as VASTTrackingProxyElement).proxiedElement as ProxyElement).proxiedElement is VPAIDElement))
-					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
-				else if (e.time <= 1)
+				(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+				//vpaid
+				if ((((_playingAd as VASTTrackingProxyElement).proxiedElement as ProxyElement).proxiedElement is VPAIDElement))
 				{
-					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+					_initialVpaidDuration = e.time;
+					(e.target as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onVpaidDurationReceived );
 				}
+				
 			}
 		}
-	
+		
+		private function onVpaidDurationReceived(e: TimeEvent) : void
+		{
+			
+			if (!isNaN(e.time) && e.time > 0)
+			{
+				var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
+				sequenceProxy.vo.timeRemaining = Math.round(e.time);
+				//calculate remaining skip offset by substracting elapsed ad time from the skip offset
+				if (sequenceProxy.vo.skipOffset)
+				{
+					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset - (_initialVpaidDuration - sequenceProxy.vo.timeRemaining);
+					if (sequenceProxy.vo.skipOffsetRemaining<=0)
+						sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = 0;
+				}
+				
+				if (e.time <= 1)
+					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onVpaidDurationReceived );
+			}
+			
+		}
+		
+
 		/**
 		 * selects the context name to be dispatched for statistics plugin.
 		 * @param str	context const (SequenceContextType)
@@ -608,8 +641,8 @@ package com.kaltura.kdpfl.plugin.component {
 				(_vastDocument.vastVersion == VASTDataObject.VERSION_3_0) &&
 				(_vastDocument is VAST3Translator) && 
 				(_vastDocument as VAST3Translator).vastObjects && 
-				((_vastDocument as VAST3Translator).vastObjects.length - 1)>=_translatorIndex &&
-				_sequencedAds);
+				((_vastDocument as VAST3Translator).vastObjects.length - 1)>_curTranslatorIndex &&
+				sequencedAds);
 		}
 		
 		/**
@@ -620,7 +653,7 @@ package com.kaltura.kdpfl.plugin.component {
 		{
 			if (_vastDocument.vastVersion == VASTDataObject.VERSION_3_0)
 			{
-				_translatorIndex++;
+				_curTranslatorIndex++;
 				createMediaElements();
 			}
 			
@@ -636,8 +669,8 @@ package com.kaltura.kdpfl.plugin.component {
 			if ((_vastDocument.vastVersion == VASTDataObject.VERSION_3_0) && (_vastDocument is VAST3Translator))
 			{
 				var vastObjs:Array = (_vastDocument as VAST3Translator).vastObjects;
-				if (vastObjs && _translatorIndex >= 0 && _translatorIndex < vastObjs.length)
-					return vastObjs[_translatorIndex];
+				if (vastObjs && _curTranslatorIndex >= 0 && _curTranslatorIndex < vastObjs.length)
+					return vastObjs[_curTranslatorIndex];
 				else
 					return null;
 				
@@ -655,7 +688,7 @@ package com.kaltura.kdpfl.plugin.component {
 			if (_vastDocument is VAST3Translator)
 			{
 				var vastObjs:Array = (_vastDocument as VAST3Translator).vastObjects;
-				_sequencedAds = false;
+				sequencedAds = false;
 				
 				if (vastObjs.length == 1)
 					return;
@@ -665,14 +698,14 @@ package com.kaltura.kdpfl.plugin.component {
 					//ads are sorted by sequence property. If we encountered an ad with "sequence" value, start playing all ads in sequence
 					if ((vastObjs[i] as VAST2Translator).sequence)
 					{
-						_sequencedAds = true;
-						_translatorIndex = i;
+						sequencedAds = true;
+						_curTranslatorIndex = i;
 						return;
 					}
 				}
 				
 				//if we got here we don't have sequenced ads, select random ad to play
-				_translatorIndex = Math.random() * (vastObjs.length);
+				_curTranslatorIndex = Math.random() * (vastObjs.length);
 			}
 			
 		}
