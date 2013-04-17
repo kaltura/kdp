@@ -86,11 +86,11 @@ package com.kaltura.kdpfl.plugin.component {
 		/**
 		 * for vast3 ad pods: the current translator index to create elements from 
 		 */		
-		private var _curTranslatorIndex:int = 0;
+		private var _curTranslatorIndex:int;
 		/**
 		 * indicates we are playing sequenced ads, not a standalone ad 
 		 */		
-		public var sequencedAds:Boolean = false;
+		public var sequencedAds:Boolean;
 		
 		private var _initialVpaidDuration:int;
 
@@ -205,6 +205,8 @@ package com.kaltura.kdpfl.plugin.component {
 				_loadTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onLoadTimeout );
 				_vastDocument = (e.loadTrait as VASTLoadTrait).vastDocument;
 				_vastMediaGenerator = new VASTMediaGenerator(null, _mediaFactory);
+				_curTranslatorIndex = 0;
+				sequencedAds = false;
 				if (_vastDocument.vastVersion == VASTDataObject.VERSION_3_0)
 					setStartingTranslatorIndex();
 				
@@ -301,7 +303,6 @@ package com.kaltura.kdpfl.plugin.component {
 			
 				
 			//_playingAd.addEventListener("traitAdd", onAdPlayable);
-			var sequenceProxy : Object = facade.retrieveProxy("sequenceProxy");
 			
 			if (_playingAdClickThru) {
 				playerMediator["kMediaPlayer"].addEventListener(MouseEvent.CLICK, onAdClick);
@@ -364,7 +365,7 @@ package com.kaltura.kdpfl.plugin.component {
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
 			
 			//if we're playing ad pods, don't switch elements again
-			if (_curTranslatorIndex)
+			if (sequencedAds)
 			{
 				(mediaProxy.vo.media as KSwitchingProxyElement).proxiedElement = _playingAd;
 			}
