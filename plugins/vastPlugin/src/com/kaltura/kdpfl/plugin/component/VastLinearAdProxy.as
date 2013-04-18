@@ -6,6 +6,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
 	import com.kaltura.kdpfl.view.RootMediator;
+	import com.kaltura.osmf.events.KSwitchingProxyEvent;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	
 	import flash.events.Event;
@@ -293,10 +294,11 @@ package com.kaltura.kdpfl.plugin.component {
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
 			playerMediator["player"]["media"] = _playingAd;
+			handleVpaidElement();
 			
 
 			
-			handleVpaidElement(playerMediator);
+			
 	
 		}
 		
@@ -318,23 +320,27 @@ package com.kaltura.kdpfl.plugin.component {
 				{timeSlot: getContextString(_currentSequenceContext)});
 			
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
-			
+			handleVpaidElement();
 			(mediaProxy.vo.media as KSwitchingProxyElement).switchElements();
-			handleVpaidElement(playerMediator);
+			
 			
 		}
 		
-		private function handleVpaidElement(playerMediator : Object) : void
+		private function handleVpaidElement(event:Event = null) : void
 		{
+			var playerMediator:Object = facade.retrieveMediator("kMediaPlayerMediator");
 			var vpaidMetadata:VPAIDMetadata = getVPAIDMetadata();
 			if (vpaidMetadata)
 			{
+				var sequenceProxy : Object = facade.retrieveProxy("sequenceProxy");
+				sequenceProxy["vo"]["isAdLoaded"] = false;
 				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
 				{
 					trace ("[VPIAD Metadata]" + event.key);
 					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" )
 					{
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
+						vpaidMetadata.removeEventListener(MetadataEvent.VALUE_ADD,arguments.callee);
 						removeClickThrough();
 						sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
 						
@@ -350,6 +356,8 @@ package com.kaltura.kdpfl.plugin.component {
 						//_this.resizeAd(-1,-1,"normal");
 					}
 				});
+				
+				
 			}
 		}
 		
@@ -364,6 +372,7 @@ package com.kaltura.kdpfl.plugin.component {
 				playerMediator["playContent"]();
 				sendNotification("vastStartedPlaying");
 				(playerMediator["player"] as MediaPlayer).removeEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
+				
 			}
 		}
 		
@@ -378,6 +387,7 @@ package com.kaltura.kdpfl.plugin.component {
 					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				else if (e.time <= 1)
 				{
+					sequenceProxy["vo"]["isAdLoaded"] = false;
 					(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				}
 			}
