@@ -337,7 +337,7 @@ package com.kaltura.kdpfl.plugin.component {
 				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
 				{
 					trace ("[VPIAD Metadata]" + event.key);
-					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" )
+					if (event.key == "adUserClose" ||event.key == "adStopped" || event.key == "adPaused" || event.key =="adError")
 					{
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 						vpaidMetadata.removeEventListener(MetadataEvent.VALUE_ADD,arguments.callee);

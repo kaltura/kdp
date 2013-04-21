@@ -266,7 +266,6 @@ package org.osmf.vpaid.elements
 				break;								
 				
 				case "AdError":
-					if(!handshakePerformed)
 						_vpaidMetadata.addValue(VPAIDMetadata.AD_ERROR,event); 
 				break;
 				
@@ -460,7 +459,7 @@ package org.osmf.vpaid.elements
 						_vpaid.pauseVPAID();
 				break;
 				case PlayState.STOPPED:
-				    // _vpaid.stopVPAID();
+				     _vpaid.stopVPAID();
 					
 					//if(_vpaidMetadata.getValue(VPAIDMetadata.NON_LINEAR_CREATIVE))
 					//	cleanUp();

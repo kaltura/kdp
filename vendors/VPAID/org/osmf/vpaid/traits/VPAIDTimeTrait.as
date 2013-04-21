@@ -111,7 +111,7 @@ package org.osmf.vpaid.traits
 		override protected function signalComplete():void
 		{
 			cleanUpTimer();
-			dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
+			//dispatchEvent(new TimeEvent(TimeEvent.COMPLETE));
 		}
 		
 		//Counts up to the duration of the VPAID creative. Calls onTimer every 1 sec.
