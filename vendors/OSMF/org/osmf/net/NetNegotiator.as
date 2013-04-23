@@ -145,6 +145,7 @@ package org.osmf.net
 		{
 			// Master timeout
 			timeOutTimer = new Timer(_timeout, 1);
+			trace("**************************start master timeout, timeout is: ", _timeout);
 			timeOutTimer.addEventListener(TimerEvent.TIMER_COMPLETE, masterTimeout);
 			timeOutTimer.start();
 			

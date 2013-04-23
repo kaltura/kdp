@@ -95,6 +95,7 @@ package org.osmf.elements
 	*/
 	public class VideoElement extends LightweightVideoElement
 	{
+		private var _loaderTimeout:Number;
 		/**
 		 * Constructor.
 		 * 
@@ -121,6 +122,18 @@ package org.osmf.elements
 			this.resource = resource;
 		}
 		
+		public function get loaderTimeout():Number
+		{
+			return _loaderTimeout;
+		}
+
+		public function set loaderTimeout(value:Number):void
+		{
+			_loaderTimeout = value;
+			if (loader && (loader is NetLoader) && !isNaN(_loaderTimeout))
+				(loader as NetLoader).timeout = _loaderTimeout;
+		}
+
 		/**
 		 * @private
 		 **/

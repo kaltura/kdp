@@ -35,9 +35,9 @@ package org.osmf.net.rtmpstreaming
 	import org.osmf.net.DynamicStreamingResource;
 	import org.osmf.net.NetConnectionFactoryBase;
 	import org.osmf.net.NetLoader;
+	import org.osmf.net.NetStreamLoadTrait;
 	import org.osmf.net.NetStreamSwitchManager;
 	import org.osmf.net.NetStreamSwitchManagerBase;
-	import org.osmf.net.NetStreamLoadTrait;	
 	import org.osmf.net.NetStreamUtils;
 	import org.osmf.net.SwitchingRuleBase;
 	

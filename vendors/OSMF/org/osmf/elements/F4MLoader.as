@@ -86,6 +86,10 @@ package org.osmf.elements
 		 * for rtmp/rtmpe: should fallback to rtmpt/rtmpte 
 		 */		
 		public var useRtmptFallbacks:Boolean = true;
+		/**
+		 * use this to override default netloader timeout 
+		 */		
+		public var loaderTimeout:Number;
 
 		/**
 		 * Constructor.
@@ -255,6 +259,10 @@ package org.osmf.elements
 				var netResource:MediaResourceBase = parser.createResource(manifest, URLResource(loadTrait.resource));
 				if (netResource is StreamingURLResource) {
 					(netResource  as StreamingURLResource).useRtmptFallbacks = useRtmptFallbacks;
+				}
+				if (factory.hasOwnProperty("loaderTimeout") && !isNaN(loaderTimeout))
+				{
+					factory["loaderTimeout"] = loaderTimeout;
 				}
 				var loadedElem:MediaElement = factory.createMediaElement(netResource);
 

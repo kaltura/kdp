@@ -73,6 +73,10 @@ package org.osmf.net
 	public class NetLoader extends LoaderBase
 	{
 		/**
+		 * override default loading timeout 
+		 */		
+		public var timeout:Number;
+		/**
 		 * Constructor.
 		 * 
 		 * @param factory The NetConnectionFactoryBase instance to use for managing NetConnections.
@@ -99,6 +103,8 @@ package org.osmf.net
 			}
 			
 			netConnectionFactory = factory || new NetConnectionFactory();
+			if ((netConnectionFactory is NetConnectionFactory) && !isNaN(timeout))
+				(netConnectionFactory as NetConnectionFactory).timeout = timeout;
 			netConnectionFactory.addEventListener(NetConnectionFactoryEvent.CREATION_COMPLETE, onCreationComplete);
 			netConnectionFactory.addEventListener(NetConnectionFactoryEvent.CREATION_ERROR, onCreationError);
 		}
@@ -766,7 +772,8 @@ package org.osmf.net
 		private function startLoadingRTMP(loadTrait:LoadTrait):void
 		{
 			addPendingLoad(loadTrait);
-			
+			if ((netConnectionFactory is NetConnectionFactory) && !isNaN(timeout))
+				(netConnectionFactory as NetConnectionFactory).timeout = timeout;
 			netConnectionFactory.create(loadTrait.resource as URLResource);
 		}
 		
