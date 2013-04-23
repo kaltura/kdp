@@ -105,7 +105,7 @@ package com.kaltura.kdpfl.plugin
 						var preferedIndex:int = _mediaProxy.getFlavorByBitrate(_mediaProxy.vo.preferedFlavorBR);
 						if (preferedIndex!=-1) 
 						{
-							akamaiMetadataValues += "&" + AkamaiStrings.AKAMAI_METDATA_KEY_MBR_STARTING_INDEX + "=" + preferedIndex;
+							akamaiMetadataValues += "&" + AkamaiStrings.AKAMAI_METADATA_KEY_MBR_STARTING_INDEX + "=" + preferedIndex;
 							_mediaProxy.notifyStartingIndexChanged(preferedIndex);
 						}
 					}
