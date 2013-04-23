@@ -279,7 +279,9 @@ package com.kaltura.kdpfl.model
 					resource.addMetadataValue(MetadataNamespaces.RESOURCE_INITIAL_INDEX, preferedIndex);
 					startingIndex = preferedIndex;
 				}
-				f4mLoader.useRtmptFallbacks = _flashvars.useRtmptFallback == "false" ? false : true;				
+				f4mLoader.useRtmptFallbacks = _flashvars.useRtmptFallback == "false" ? false : true;
+				if (_flashvars.hasOwnProperty("netLoaderTimeout"))
+					f4mLoader.loaderTimeout = _flashvars.netLoaderTimeout;
 				var f4mElem : F4MElement = new F4MElement (resource as URLResource, f4mLoader) ;
 				
 				var adaptedElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.isLive ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.isLive ? vo.expandedLiveBufferTime : vo.expandedBufferTime), f4mElem);
