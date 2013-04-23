@@ -59,6 +59,8 @@ package com.kaltura.kdpfl.plugin.component
 						"changedClosedCaptions",
 						"layoutReady",
 						ClosedCaptionsNotifications.SHOW_HIDE_CLOSED_CAPTIONS,
+						ClosedCaptionsNotifications.SHOW_CLOSED_CAPTIONS,
+						ClosedCaptionsNotifications.HIDE_CLOSED_CAPTIONS,
 						"closedCaptionsSelected",
 						"closedCaptionsSwitched",
 						"newClosedCaptionsData",
@@ -166,6 +168,12 @@ package com.kaltura.kdpfl.plugin.component
 				
 				case ClosedCaptionsNotifications.SHOW_HIDE_CLOSED_CAPTIONS:
 					(view as ClosedCaptions).visible = !(view as ClosedCaptions).visible;
+					break;
+				case ClosedCaptionsNotifications.SHOW_CLOSED_CAPTIONS:
+					(view as ClosedCaptions).visible = true;
+					break;
+				case ClosedCaptionsNotifications.HIDE_CLOSED_CAPTIONS:
+					(view as ClosedCaptions).visible = false;
 					break;
 				case "closedCaptionsSelected":
 					var currentLabel : String = note.getBody().label;

@@ -6,6 +6,14 @@ package com.type
 		 * toggle closed captions visibility
 		 */		
 		public static const SHOW_HIDE_CLOSED_CAPTIONS : String = "showHideClosedCaptions";
+		/**
+		 * show captions 
+		 */		
+		public static const SHOW_CLOSED_CAPTIONS : String = "showClosedCaptions";
+		/**
+		 * hide captions 
+		 */		
+		public static const HIDE_CLOSED_CAPTIONS : String = "hideClosedCaptions";
 		
 		/**
 		 * dispatched when captions file load failed with IOError 
