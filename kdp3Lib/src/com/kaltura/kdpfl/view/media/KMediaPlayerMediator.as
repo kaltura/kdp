@@ -1,5 +1,6 @@
 package com.kaltura.kdpfl.view.media
 {
+	import com.kaltura.commands.stats.StatsReportError;
 	import com.kaltura.kdpfl.controller.media.LiveStreamCommand;
 	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
@@ -26,6 +27,7 @@ package com.kaltura.kdpfl.view.media
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.net.URLRequestMethod;
 	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 	
@@ -42,6 +44,7 @@ package com.kaltura.kdpfl.view.media
 	import org.osmf.events.TimeEvent;
 	import org.osmf.media.MediaPlayer;
 	import org.osmf.media.MediaPlayerState;
+	import org.osmf.media.URLResource;
 	import org.osmf.traits.DynamicStreamTrait;
 	import org.osmf.traits.MediaTraitType;
 	import org.osmf.traits.TimeTrait;
@@ -165,6 +168,10 @@ package com.kaltura.kdpfl.view.media
 		public var ignorePlaybackComplete:Boolean;
 		
 		public var dvrWinSize:Number = 0;
+		/**
+		 * osmf sometimes sends duplicate errors, indicates that error wasn't sent for current media yet 
+		 */		
+		private var _mediaErrorSent:Boolean = false;
 		
 		/**
 		 * Constructor 
@@ -312,7 +319,8 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.VIDEO_METADATA_RECEIVED,
 				NotificationType.PLAYER_PLAY_END,
 				NotificationType.MEDIA_ELEMENT_READY,
-				NotificationType.GO_LIVE
+				NotificationType.GO_LIVE,
+				NotificationType.MEDIA_ERROR
 			];
 		}
 		
@@ -372,6 +380,7 @@ package com.kaltura.kdpfl.view.media
 					_doSwitchSent = false;
 					_hasPlayed = false;
 					ignorePlaybackComplete = false;
+					_mediaErrorSent = false;
 					//Fixed weird issue, where the CHANGE_MEDIA would be caught by the mediator 
 					// AFTER the new media has already loaded. Caused media never to be loaded.
 					if (designatedEntryId != _mediaProxy.vo.entry.id || _mediaProxy.vo.isFlavorSwitching )
@@ -676,6 +685,35 @@ package com.kaltura.kdpfl.view.media
 						
 						sendNotification(NotificationType.DO_PLAY);
 					}
+					break;
+				
+				case NotificationType.MEDIA_ERROR:
+					if (!_mediaErrorSent)
+					{
+						//notify the server - for troubleshooting
+						var data:MediaErrorEvent = note.getBody().errorEvent as MediaErrorEvent;
+						var message:String =
+							"pid: " + _flashvars.partnerId + 
+							"| uiconfId: " + _flashvars.uiConfId + 
+							"| referrer: " + _flashvars.referrer +
+							"| resourceUrl: " + _mediaProxy.vo.resource["url"] +
+							"| Flavor index : " + player.currentDynamicStreamIndex +
+							"| Error ID: "+ data.error.errorID +
+							"| Error Message: "+ data.error.message +  
+							"| Stack Trace: " + data.error.getStackTrace();
+						//if error occured before first play, send also the initial bitrate index
+						if (!_hasPlayed)
+						{
+							message += "| Initial flavor index: " + _mediaProxy.startingIndex;
+						}
+						
+						var sendError:StatsReportError = new StatsReportError(NotificationType.MEDIA_ERROR, message);
+						sendError.method = URLRequestMethod.POST;
+						
+						(facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).vo.kalturaClient.post(sendError);
+						_mediaErrorSent = true;
+					}
+				
 					break;
 			}
 		}
