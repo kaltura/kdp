@@ -190,6 +190,11 @@ package {
 			}
 		}
 		
+		public function finishLinearAd():void 
+		{
+			_linearAds.removeIcon();
+		}
+		
 		private function onOverlayLoadedFromCuePoint (e : Event ) : void
 		{
 			_vastMediator.sendNotification( "showOverlayOnCuePoint" );
@@ -277,6 +282,9 @@ package {
 		 *
 		 */
 		public function start():void {
+			//remove leftovers from previous ad (in case of subsequence)
+			finishLinearAd();
+			
 			_sequenceContext = _sequenceProxy["sequenceContext"];
 			_vastMediator.adContext = _sequenceContext;
 			if (shouldPlay()) {

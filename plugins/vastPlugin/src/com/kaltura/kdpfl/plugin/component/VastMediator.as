@@ -143,6 +143,7 @@ package com.kaltura.kdpfl.plugin.component
 						sendNotification("adEnd", {timeSlot:getTimeSlot()});
 						_pluginCode["playedPrerollsSingleEntry"] = 0;
 						_pluginCode["playedPostrollsSingleEntry"] = 0;
+						_pluginCode.finishLinearAd();
 						enableGUI(true)
 					}
 					// stop listening to notifications

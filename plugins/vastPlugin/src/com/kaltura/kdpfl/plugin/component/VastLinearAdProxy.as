@@ -5,8 +5,11 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
+	import com.kaltura.kdpfl.view.containers.KCanvas;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	
+	import flash.display.Loader;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -15,6 +18,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
+	import flash.system.LoaderContext;
 	import flash.utils.Timer;
 	
 	import org.osmf.elements.ProxyElement;
@@ -93,6 +97,22 @@ package com.kaltura.kdpfl.plugin.component {
 		public var sequencedAds:Boolean;
 		
 		private var _initialVpaidDuration:int;
+		
+		//////////////////////////////////////////////
+		// icons support
+		////////////////////////////////////////////
+		
+		/**
+		 * icon for linear ads 
+		 */		
+		private var _icon:Sprite;
+		/**
+		 * current icon object 
+		 */		
+		private var _iconObj:Object;
+		
+		private var _iconOffsetTimer:Timer;
+		private var _iconDurationTimer:Timer;
 
 		/**
 		 * Constructor.
@@ -269,6 +289,7 @@ package com.kaltura.kdpfl.plugin.component {
 		{
 			parseVideoClicks (_vastDocument);
 			playAd();
+			displayIcon();
 			companionAds.displayFlashCompanions(facade);
 			companionAds.displayHtmlCompanions(facade);
 		}
@@ -403,21 +424,9 @@ package com.kaltura.kdpfl.plugin.component {
 					var skipOffset:String = curVast["skipOffset"];
 					if (skipOffset)
 					{
-						//parse HH:MM:SS skipoffset format
-						if (skipOffset.indexOf(":")!=-1)
+						if (skipOffset.indexOf(":")!=-1) //parse HH:MM:SS skipoffset format
 						{
-							var timesArr:Array = skipOffset.split(":");
-							if (timesArr.length!=3)
-								trace ("VastLinearAdProxy:: ignore skipoffset - invalid format");
-							else {
-								var multi:int = 1;
-								for (var i:int = timesArr.length - 1; i>=0; i--)
-								{
-									skipOffsetInSecs += parseInt(timesArr[i]) * multi;
-									multi *= 60;
-								}
-							}
-							
+							skipOffsetInSecs = getTimeInSecs(skipOffset);			
 						}	
 						else if (skipOffset.indexOf("%")!=-1) //parse n% skipoffset format
 						{
@@ -427,8 +436,7 @@ package com.kaltura.kdpfl.plugin.component {
 						else
 							trace ("VastLinearAdProxy:: ignore skipoffset - unknown format");							
 					}	
-					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = skipOffsetInSecs;
-					
+					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = skipOffsetInSecs;		
 					
 				}
 				
@@ -492,8 +500,7 @@ package com.kaltura.kdpfl.plugin.component {
 			navigateToURL(urlReq);
 			for (var i:int=0; i<_playingAdClickTrackings.length; i++)
 			{
-				var beacon : Beacon = new Beacon(_playingAdClickTrackings[i], new HTTPLoader() );
-				beacon.ping();
+				fireBeacon(_playingAdClickTrackings[i]);
 			}
 			//var clickTrackingUrl : String = ((e.target as KMediaPlayer).player.media as VASTTrackingProxyElement).
 			//TODO track stats
@@ -501,7 +508,12 @@ package com.kaltura.kdpfl.plugin.component {
 			sendNotification("adClick",
 							 {timeSlot: getContextString(sequenceProxy["sequenceContext"])});
 		}
-
+		
+		private function fireBeacon(url:String) : void 
+		{
+			var beacon : Beacon = new Beacon(url, new HTTPLoader() );
+			beacon.ping();
+		}
 
 
 		/**
@@ -525,14 +537,14 @@ package com.kaltura.kdpfl.plugin.component {
 		private function parseVideoClicks(vastDoc:VASTDataObject):void {
 			_playingAdClickThru = null;
 			_playingAdClickTrackings = null;
-			if (vastDoc.vastVersion == 3)
+			if (vastDoc.vastVersion == VASTDataObject.VERSION_3_0)
 			{
 				var vastObj:VASTDataObject = getCurrentVastObject();
 				if (vastObj)
 					parseVideoClicks(vastObj);
 					
 			}
-			else if (vastDoc.vastVersion == 2) 
+			else if (vastDoc.vastVersion == VASTDataObject.VERSION_2_0) 
 			{
 				if (vastDoc["clickThruUrl"]) {
 					_playingAdClickThru = vastDoc["clickThruUrl"];
@@ -549,7 +561,7 @@ package com.kaltura.kdpfl.plugin.component {
 					}
 				}
 			}
-			else if (vastDoc.vastVersion == 1)
+			else if (vastDoc.vastVersion == VASTDataObject.VERSION_1_0)
 			{
 				if (vastDoc["ads"].length > 0) {
 					if (vastDoc["ads"][0].inlineAd) {
@@ -709,6 +721,183 @@ package com.kaltura.kdpfl.plugin.component {
 				_curTranslatorIndex = Math.random() * (vastObjs.length);
 			}
 			
+		}
+		
+		private function displayIcon():void
+		{
+			//icons were introduced only in vast 3.0
+			if (_vastDocument.vastVersion == VASTDataObject.VERSION_3_0)
+			{
+				var vastObj:VAST2Translator = getCurrentVastObject() as VAST2Translator;
+				if (vastObj && vastObj.icons && vastObj.icons.length) {
+					_iconObj = vastObj.icons[0];
+					_icon = new Sprite();
+					var loader:Loader = new Loader();
+					var urlReq:URLRequest = new URLRequest(_iconObj.staticResource);
+					var loaderContext:LoaderContext = new LoaderContext(true);
+					_icon.addChild(loader);
+					
+					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, iconLoaded);
+					loader.load(urlReq, loaderContext);
+					return;
+				}
+				
+			}
+			//no matching icon, reset icons vars
+			_iconObj = null;
+			_icon = null;
+		}
+		
+		private function iconLoaded(e:Event):void {
+			var area:KCanvas = facade["bindObject"]["PlayerHolder"] as KCanvas;
+			_icon.width = parseInt(_iconObj.width);
+			_icon.height = parseInt(_iconObj.height);
+			_icon.x = getPosition(_iconObj.xPosition, 'left', 'right', area.width - _icon.width) ;
+			_icon.y = getPosition(_iconObj.yPosition, 'top', 'bottom', area.height - _icon.height) ;
+			if (_iconObj.clickThrough)
+				_icon.addEventListener(MouseEvent.CLICK, onIconClick);
+			var offset:int = _iconObj.hasOwnProperty("offset") ? getTimeInSecs(_iconObj.offset) : 0;
+			var duration:int = _iconObj.hasOwnProperty("duration") ? getTimeInSecs(_iconObj.duration) + offset : 0;
+			if (offset)
+			{
+				_iconOffsetTimer = new Timer(1000 * offset, 1);
+				_iconOffsetTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onIconOffsetTimer);
+				_iconOffsetTimer.start();
+			}
+			else
+				addIcon();
+			
+			if (duration)
+			{
+				_iconDurationTimer = new Timer (1000 * duration, 1);
+				_iconDurationTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onIconDurationTimer);
+				_iconDurationTimer.start();
+			}
+		}
+		
+		/**
+		 * add icon element to stage and send beacon if set 
+		 * 
+		 */		
+		private function addIcon():void 
+		{
+			var area:KCanvas = facade["bindObject"]["PlayerHolder"] as KCanvas;
+			area.addChild(_icon);
+			if (_iconObj.viewTracking)
+				fireBeacon(_iconObj.viewTracking);
+		}
+		
+		/**
+		 * offset time elapsed - display the icon 
+		 * @param e
+		 * 
+		 */		
+		private function onIconOffsetTimer(e:TimerEvent):void
+		{
+			_iconOffsetTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onIconOffsetTimer);
+			if (_icon)
+				addIcon();
+		}
+
+		/**
+		 * duration of icon display has elapsed - remove the icon  
+		 * @param e
+		 * 
+		 */		
+		private function onIconDurationTimer(e:TimerEvent):void
+		{
+			_iconDurationTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onIconDurationTimer);
+			removeIcon();
+		}
+		
+		/**
+		 *  
+		 * @param time string in HH:MM:SS format
+		 * @return time in seconds
+		 * 
+		 */		
+		private function getTimeInSecs(time:String):int 
+		{
+			var timeInSec:int;
+			
+			if (time.indexOf(":")!=-1)
+			{
+				var timesArr:Array = time.split(":");
+				if (timesArr.length!=3)
+					trace ("VastLinearAdProxy:: ignore skipoffset - invalid format");
+				else {
+					var multi:int = 1;
+					for (var i:int = timesArr.length - 1; i>=0; i--)
+					{
+						timeInSec += parseInt(timesArr[i]) * multi;
+						multi *= 60;
+					}
+				}
+				
+			}	
+			return timeInSec;
+		}
+		
+		private function onIconClick(e:MouseEvent):void 
+		{
+			if (_iconObj)
+			{
+				var urlReq:URLRequest = new URLRequest(_iconObj.clickThrough);
+				navigateToURL(urlReq);
+				if (_iconObj.clickTracking)
+				{
+					fireBeacon(_iconObj.clickTracking);
+				}
+			}
+		}
+		
+		/**
+		 * remove icon, if exists 
+		 * 
+		 */		
+		public function removeIcon():void {
+			if (_icon) {
+				_icon.removeEventListener(MouseEvent.CLICK, onIconClick);
+				if (_icon.parent)
+					_icon.parent.removeChild(_icon);
+				_icon = null;
+			}
+			
+			if (_iconOffsetTimer && _iconOffsetTimer.running) {
+				_iconOffsetTimer.stop();
+				_iconOffsetTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onIconOffsetTimer)
+			}
+			if (_iconDurationTimer && _iconDurationTimer.running) {
+				_iconDurationTimer.stop();
+				_iconDurationTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onIconDurationTimer)
+			}
+		}
+		
+		
+		/**
+		 * return position of object, given the bounderies and the object dimension 
+		 * @param value string represantation of the position
+		 * @param bound1 string representation of first bound
+		 * @param bound2 string representation of second bound
+		 * @param maxVal int maxPosition
+		 * @param dimension object dimension
+		 * @return 
+		 * 
+		 */		
+		private function getPosition(value:String ,bound1:String, bound2:String, mexVal:int) : int {
+			var pos:int;
+			switch (value)
+			{
+				case bound1:
+					pos = 0;
+					break;
+				case bound2:
+					pos = mexVal;
+					break;
+				default:
+					pos = parseInt(value);
+			}
+			return pos;
 		}
 		
 		// ==============================================
