@@ -109,6 +109,7 @@ package org.osmf.vast.model
 		private var _trkAcceptInvitationEventNonLinear:Array;	
 		private var _sequence:int;
 		private var _skipOffset:String;
+		private var _icons:Array;
 	/**
 	 * Constructor
 	 * 
@@ -394,7 +395,7 @@ package org.osmf.vast.model
 			
 			_sequence = _vastObj.sequence;
 			_skipOffset = _vastObj.skipOffset;
-				
+			_icons = _vastObj.icons;
 			
 		}
 		
@@ -887,6 +888,11 @@ package org.osmf.vast.model
 		public function get vastVars(): Object
 		{
 			return _vastVars;			
+		}
+		
+		public function get icons():Array
+		{
+			return _icons;
 		}
 
 	}

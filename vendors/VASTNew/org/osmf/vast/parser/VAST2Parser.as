@@ -63,6 +63,7 @@ package org.osmf.vast.parser {
 		private var _CompanionAdsArray:Array;
 		private var _sequence:int;
 		private var _skipOffset:String;
+		private var _icons:Array;
 		
 		public function VAST2Parser(trackingData:VAST2TrackingData = null) {
 			//UIFDebugMessage.getInstance()._debugMessage(3, "Init VAST2Parser", "Instream", "VAST2Parser (v1)");
@@ -171,6 +172,7 @@ package org.osmf.vast.parser {
 			_LinearAdsArray = new Array();
 			_NonLinearAdsArray = new Array();
 			_CompanionAdsArray = new Array();
+			_icons = new Array();
 			_skipOffset = _InLine.skipOffset;
 			
 			for (var i:uint =0; i < _InLine.Creatives.length; i++)
@@ -179,6 +181,13 @@ package org.osmf.vast.parser {
 				if (_InLine.Creatives[i].Linear)
 				{
 					_LinearAdsArray.push(_InLine.Creatives[i].Linear);
+					if (i==0 && _InLine.Creatives[0].Linear.icons.length > 0)
+					{
+						for (j = 0; j < _InLine.Creatives[0].Linear.icons.length; j++)
+						{
+							_icons.push( _InLine.Creatives[0].Linear.icons[j]);
+						}
+					}
 				}
 				
 				//creatives are pushed into an array, therefore we test if the have a length
@@ -199,6 +208,7 @@ package org.osmf.vast.parser {
 						_CompanionAdsArray.push(_InLine.Creatives[i].CompanionAds[j]);
 					}
 				}
+				
 			}
 		}
 		
@@ -928,6 +938,18 @@ package org.osmf.vast.parser {
 		public function get trkClickThru(): Array 
 		{
 			return _trackingData._clickTrackingArray;
+		}
+		/**
+		 * Returns an array of objects for icons
+		 * 
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10
+		 *  @playerversion AIR 1.5
+		 *  @productversion OSMF 2.0
+		 */			
+		public function get icons(): Array 
+		{
+			return _icons;
 		}
 			
 		

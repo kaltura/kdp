@@ -40,6 +40,7 @@ package org.osmf.vast.parser.base
 		private var _CustomClick:Array;
 		private var _CustomClickIds:Array;
 		private var _AdParameters:String;
+		private var _icons:Array;
 		
 		public function VAST2LinearElement(forxData:Object, trackingData:VAST2TrackingData)	
 		{
@@ -51,6 +52,7 @@ package org.osmf.vast.parser.base
 			_MediaFiles = new Array();
 			_ClickThrough = new String();
 			_CustomClick = new Array();
+			_icons = new Array();
 			
 			if ( forxData == null || _trackingData == null)
 			{
@@ -166,6 +168,44 @@ package org.osmf.vast.parser.base
 					}
 				}
 			}
+			
+			if(_forxRef.Icons != undefined) 
+			{
+				for (i = 0; i < _forxRef.Icons.Icon.length(); i++) 
+				{
+					
+					if(_forxRef.Icons.Icon[i] != undefined) 
+					{
+						var icon : Object = new Object();
+						icon.program = _forxRef.Icons.Icon[i].@program.toString();
+						icon.width = _forxRef.Icons.Icon[i].@width.toString();
+						icon.height = _forxRef.Icons.Icon[i].@height.toString();
+						icon.xPosition = _forxRef.Icons.Icon[i].@xPosition.toString();
+						icon.yPosition = _forxRef.Icons.Icon[i].@yPosition.toString();
+						icon.apiFramework = _forxRef.Icons.Icon[i].@apiFramework.toString();
+						icon.offset = _forxRef.Icons.Icon[i].@offset.toString();
+						icon.duration = _forxRef.Icons.Icon[i].@duration.toString();
+						if ( _forxRef.Icons.Icon[i].StaticResource != undefined)
+							icon.staticResource = _forxRef.Icons.Icon[i].StaticResource.text().toString();
+						else if (_forxRef.Icons.Icon[j].HTMLResource != undefined)
+							icon.htmlResource = _forxRef.Icons.Icon[i].HTMLResource.text().toString();
+						else if (_forxRef.Icons.Icon[j].IFrameResource != undefined)
+							icon.iFrameResource = _forxRef.Icons.Icon[i].IFrameResource.text().toString();
+						
+						if ( _forxRef.Icons.Icon[i].IconClicks != undefined)
+						{
+							if ( _forxRef.Icons.Icon[i].IconClicks.IconClickThrough != undefined)
+								icon.clickThrough = _forxRef.Icons.Icon[i].IconClicks.IconClickThrough.text().toString();
+							if (_forxRef.Icons.Icon[i].IconClicks.IconClickTracking != undefined)
+								icon.clickTracking = _forxRef.Icons.Icon[i].IconClicks.IconClickTracking.text().toString();
+						}
+						if (_forxRef.Icons.Icon[i].IconViewTracking != undefined)
+							icon.viewTracking = _forxRef.Icons.Icon[i].IconViewTracking.text().toString();
+						
+						_icons.push(icon);
+					}
+				}
+			}
 		}
 	
 		/**
@@ -192,6 +232,10 @@ package org.osmf.vast.parser.base
 		 * @private
 		 */	
 		public function get CustomClick():Array {return _CustomClick;}
+		/**
+		 * @private
+		 */	
+		public function get icons():Array {return _icons;}
 	
 	}
 }
