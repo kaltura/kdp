@@ -621,8 +621,24 @@ package {
 			_activeAdTagUrl = value;
 		}
 		
-		public function sendLinearTrackEvent(trkName:String):void {
+		/**
+		 * send tracking event 
+		 * @param trkName string track event attribute name, for example "trkFullscreenEvent"
+		 * 
+		 */		
+		public function sendLinearTrackEvent(trkName:String):void
+		{
 			_linearAds.trackEvent(trkName);
+		}
+		
+		/**
+		 * check if linear ads progress event should be dispatched 
+		 * @param time current time in seoncds
+		 * 
+		 */		
+		public function checkLinearProgress(time:Number):void 
+		{
+			_linearAds.checkProgress(time);
 		}
 		
 

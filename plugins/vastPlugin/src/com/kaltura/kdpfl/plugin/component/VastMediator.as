@@ -4,6 +4,7 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
+	import com.kaltura.kdpfl.view.controls.KTrace;
 	import com.kaltura.puremvc.as3.patterns.mediator.SequenceMultiMediator;
 	import com.kaltura.types.KalturaAdProtocolType;
 	import com.kaltura.types.KalturaAdType;
@@ -31,6 +32,7 @@ package com.kaltura.kdpfl.plugin.component
 		private var _loadedFirstOverlayVAST : Boolean = false;
 		private var _playedFirstMidroll : Boolean = false;
 		private var _pluginCode : vastPluginCode;
+		private var _adStarted:Boolean = false;
 		
 	//	private var _vastMidrollTimer : Timer;
 		
@@ -61,8 +63,8 @@ package com.kaltura.kdpfl.plugin.component
 			var interests : Array = [
 									NotificationType.PLAYER_UPDATE_PLAYHEAD, 
 									NotificationType.SEQUENCE_ITEM_PLAY_END,
-									NotificationType.OPEN_FULL_SCREEN,
-									NotificationType.CLOSE_FULL_SCREEN,
+									NotificationType.HAS_OPENED_FULL_SCREEN,
+									NotificationType.HAS_CLOSED_FULL_SCREEN,
 									NotificationType.ENTRY_READY,
 									"vastStartedPlaying",
 									NotificationType.PLAYER_PAUSED,
@@ -150,12 +152,17 @@ package com.kaltura.kdpfl.plugin.component
 					// stop listening to notifications
 					isListening = false;
 					break;
-				case NotificationType.OPEN_FULL_SCREEN:
-					_pluginCode.resize(notification.getBody().width, notification.getBody().height,"fullscreen");
+				case NotificationType.HAS_OPENED_FULL_SCREEN:
+					if (_isListening)
+					{
+						_pluginCode.sendLinearTrackEvent("trkFullScreenEvent");
+					}
 					break;
-				case NotificationType.CLOSE_FULL_SCREEN:
-					_pluginCode.resize(notification.getBody().width, notification.getBody().height,"normal");
-					
+				case NotificationType.HAS_CLOSED_FULL_SCREEN:
+					if (_isListening)
+					{
+						_pluginCode.sendLinearTrackEvent("trkExitFullScreenEvent");
+					}
 					break;
 				case NotificationType.ENTRY_READY :
 		
@@ -217,7 +224,8 @@ package com.kaltura.kdpfl.plugin.component
 					break;
 					
 					case NotificationType.SEQUENCE_SKIP_NEXT:
-						if (_isListening)
+						//if at least one vast ad played, most likely skip was for vast ad
+						if (_adStarted)
 						{
 							_pluginCode.sendLinearTrackEvent("trkSkipEvent");
 						}
@@ -297,6 +305,7 @@ package com.kaltura.kdpfl.plugin.component
 				sendNotification("ThirdQueartileOfAd", {timeSlot:getTimeSlot()});
 				_reached75 = true;	
 			}
+			_pluginCode.checkLinearProgress(o as Number);
 		}
 		
 		

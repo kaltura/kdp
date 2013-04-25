@@ -5,10 +5,11 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
-	import com.kaltura.kdpfl.view.containers.KCanvas;
 	import com.kaltura.kdpfl.view.RootMediator;
+	import com.kaltura.kdpfl.view.containers.KCanvas;
 	import com.kaltura.osmf.events.KSwitchingProxyEvent;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
+	
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -114,6 +115,9 @@ package com.kaltura.kdpfl.plugin.component {
 		
 		private var _iconOffsetTimer:Timer;
 		private var _iconDurationTimer:Timer;
+		
+		//track progress events
+		private var _progressTrackingEvents:Array;
 
 		/**
 		 * Constructor.
@@ -227,6 +231,7 @@ package com.kaltura.kdpfl.plugin.component {
 				_vastDocument = (e.loadTrait as VASTLoadTrait).vastDocument;
 				_vastMediaGenerator = new VASTMediaGenerator(null, _mediaFactory);
 				_curTranslatorIndex = 0;
+				_progressTrackingEvents = new Array();
 				sequencedAds = false;
 				if (_vastDocument.vastVersion == VASTDataObject.VERSION_3_0)
 					setStartingTranslatorIndex();
@@ -389,6 +394,8 @@ package com.kaltura.kdpfl.plugin.component {
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 						vpaidMetadata.removeEventListener(MetadataEvent.VALUE_ADD,arguments.callee);
 						removeClickThrough();
+						if (event.key == "adUserClose")
+							trackEvent("trkCloseLinearEvent");
 						sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
 						
 						sendNotification("sequenceItemPlayEnd");
@@ -436,21 +443,25 @@ package com.kaltura.kdpfl.plugin.component {
 					var skipOffsetInSecs:int;
 					var skipOffset:String = curVast["skipOffset"];
 					if (skipOffset)
-					{
-						if (skipOffset.indexOf(":")!=-1) //parse HH:MM:SS skipoffset format
-						{
-							skipOffsetInSecs = getTimeInSecs(skipOffset);			
-						}	
-						else if (skipOffset.indexOf("%")!=-1) //parse n% skipoffset format
-						{
-							var percent:Number = parseInt(skipOffset.substring(0, skipOffset.indexOf("%"))) / 100;
-							skipOffsetInSecs = sequenceProxy.vo.timeRemaining * percent;
-						}
-						else
-							trace ("VastLinearAdProxy:: ignore skipoffset - unknown format");							
-					}	
+						skipOffsetInSecs = getOffsetInSecs(skipOffset, sequenceProxy.vo.timeRemaining);						
+						
 					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = skipOffsetInSecs;		
 					
+					//find progress tracking events
+					_progressTrackingEvents = new Array();
+					var trkProgressEvent:Array =  curVast["trkProgressEvent"];
+					if (trkProgressEvent &&  trkProgressEvent.length)
+					{
+						for each (var evt:Object in trkProgressEvent)
+						{
+							if (evt.url && evt.offset)
+							{
+								evt.offsetInSecs =  getOffsetInSecs(evt.offset.toString(), sequenceProxy.vo.timeRemaining);	
+								_progressTrackingEvents.push(evt);
+							}
+						}
+					}
+					_progressTrackingEvents.sortOn("offsetInSecs", Array.NUMERIC);
 				}
 				
 				(e.target as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
@@ -474,13 +485,10 @@ package com.kaltura.kdpfl.plugin.component {
 				//calculate remaining skip offset by substracting elapsed ad time from the skip offset
 				if (sequenceProxy.vo.skipOffset)
 				{
-
 					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset - (_initialVpaidDuration - sequenceProxy.vo.timeRemaining);
 					if (sequenceProxy.vo.skipOffsetRemaining<=0)
-						sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = 0;
-
-					
-					
+						sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = 0;	
+					checkProgress(sequenceProxy.vo.timeRemaining);
 
 				}
 				
@@ -644,6 +652,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		public function signalEnd () : void
 		{
+			_progressTrackingEvents = null;
 			if (hasPendingAds())
 				playNextPendingAd();
 			else
@@ -859,6 +868,32 @@ package com.kaltura.kdpfl.plugin.component {
 			return timeInSec;
 		}
 		
+		/**
+		 *  
+		 * @param offset string in HH:MM:SS or %n format
+		 * @param total ad duration, to be used when calculating percentage value
+		 * @return value in seconds
+		 * 
+		 */		
+		private function getOffsetInSecs(offset:String, totalDuration:int):int
+		{
+			var val:int = 0;
+			if (offset.indexOf(":")!=-1) //parse HH:MM:SS offset format
+			{
+				val = getTimeInSecs(offset);			
+			}	
+			else if (offset.indexOf("%")!=-1) //parse n% offset format
+			{
+				var percent:Number = parseInt(offset.substring(0, offset.indexOf("%"))) / 100;
+				val = totalDuration * percent;
+			}
+			else
+				trace ("VastLinearAdProxy:: ignore offset: ", offset, " - unknown format");	
+			
+			return val;
+			
+		}
+		
 		private function onIconClick(e:MouseEvent):void 
 		{
 			if (_iconObj)
@@ -920,6 +955,7 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			return pos;
 		}
+	
 		
 		// ==============================================
 		// IEventDispatcher methods
@@ -984,6 +1020,24 @@ package com.kaltura.kdpfl.plugin.component {
 				if (vastObj[trkName][j] && vastObj[trkName][j]["url"])
 				{
 					fireBeacon(vastObj[trkName][j]["url"].toString());
+				}
+			}
+		}
+		
+		/**
+		 * check if progress tracking event should be sent according to given timestamp 
+		 * @param time current time in seconds
+		 * 
+		 */		
+		public function checkProgress(time:Number):void 
+		{
+			if (_progressTrackingEvents && _progressTrackingEvents.length)
+			{
+				//the array is sorted, no need to loop, just check first progress event
+				if (time >= _progressTrackingEvents[0]["offsetInSecs"])
+				{
+					fireBeacon( _progressTrackingEvents[0]["url"].toString());	
+					_progressTrackingEvents.shift();
 				}
 			}
 		}
