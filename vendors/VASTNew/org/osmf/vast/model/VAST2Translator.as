@@ -86,6 +86,10 @@ package org.osmf.vast.model
 		private var _trkExpandEvent:Array;
 		private var _trkCollapseEvent:Array;
 		private var _trkAcceptInvitationEvent:Array;
+		private var _trkSkipEvent:Array;
+		private var _trkExitFullScreenEvent:Array;
+		private var _trkCloseLinearEvent:Array;
+		private var _trkProgressEvent:Array;
 		
 		//Nonlinear
 		private var _clickThruUrlNonLinear:String;
@@ -312,7 +316,27 @@ package org.osmf.vast.model
 			if(_vastObj.trkAcceptInvitationEvent != null )
 			{
 				_trkAcceptInvitationEvent = _vastObj.trkAcceptInvitationEvent;	
-			}			
+			}	
+			
+			if(_vastObj.trkSkipEvent != null )
+			{
+				_trkSkipEvent = _vastObj.trkSkipEvent;	
+			}	
+			
+			if(_vastObj.trkExitFullScreenEvent != null )
+			{
+				_trkExitFullScreenEvent = _vastObj.trkExitFullScreenEvent;	
+			}	
+			if(_vastObj.trkCloseLinearEvent != null )
+			{
+				_trkCloseLinearEvent = _vastObj.trkCloseLinearEvent;	
+			}	
+			if(_vastObj.trkProgressEvent != null )
+			{
+				_trkProgressEvent = _vastObj.trkProgressEvent;	
+			}	
+			
+			
 			
 			if(_vastObj.trkCreativeViewEventNonLinear != null )
 			{
@@ -878,6 +902,23 @@ package org.osmf.vast.model
 				return _trkAcceptInvitationEvent;
 			else
 				return _trkAcceptInvitationEventNonLinear;
+		}
+		
+		public function get trkSkipEvent() : Array 
+		{
+			return _trkSkipEvent;
+		}
+		public function get trkExitFullScreenEvent() : Array 
+		{
+			return _trkProgressEvent;
+		}
+		public function get trkCloseLinearEvent() : Array 
+		{
+			return _trkCloseLinearEvent;
+		}
+		public function get trkProgressEvent() : Array 
+		{
+			return _trkProgressEvent;
 		}
 		
 		public function get vastParser(): VAST2Parser

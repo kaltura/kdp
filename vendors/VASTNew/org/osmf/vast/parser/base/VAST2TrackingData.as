@@ -55,6 +55,10 @@ package org.osmf.vast.parser.base
 		private var _trkExpandEvent:Array;
 		private var _trkCollapseEvent:Array;
 		private var _trkAcceptInvitationEvent:Array;		
+		private var _trkSkipEvent:Array;		
+		private var _trkExitFullScreenEvent:Array;		
+		private var _trkProgressEvent:Array;		
+		private var _trkCloseLinearEvent:Array;		
 		//Nonlinear
 		private var _trkCreativeViewEventNonLinear:Array;
 		private var _trkStartEventNonLinear:Array;
@@ -97,6 +101,10 @@ package org.osmf.vast.parser.base
 			_trkExpandEvent = new Array();
 			_trkCollapseEvent = new Array();
 			_trkAcceptInvitationEvent = new Array();
+			_trkSkipEvent = new Array();
+			_trkExitFullScreenEvent = new Array();
+			_trkProgressEvent = new Array();
+			_trkCloseLinearEvent = new Array();
 			//Nonlinear
 			_trkCreativeViewEventNonLinear = new Array();
 			_trkStartEventNonLinear = new Array();
@@ -159,6 +167,14 @@ package org.osmf.vast.parser.base
 		public function set trkCollapseEvent(val:Array):void { _trkCollapseEvent = val; }
 		public function get trkAcceptInvitationEvent() : Array { return _trkAcceptInvitationEvent;} 
 		public function set trkAcceptInvitationEvent(val:Array):void { _trkAcceptInvitationEvent = val; }
+		public function get trkSkipEvent() : Array { return _trkSkipEvent;} 
+		public function set trkSkipEvent(val:Array):void { _trkSkipEvent = val; }
+		public function get trkExitFullScreenEvent() : Array { return _trkExitFullScreenEvent;} 
+		public function set trkExitFullScreenEvent(val:Array):void { _trkExitFullScreenEvent = val; }
+		public function get trkProgressEvent() : Array { return _trkProgressEvent;} 
+		public function set trkProgressEvent(val:Array):void { _trkProgressEvent = val; }
+		public function get trkCloseLinearEvent() : Array { return _trkCloseLinearEvent;} 
+		public function set trkCloseLinearEvent(val:Array):void { _trkCloseLinearEvent = val; }
 		//Nonlinear
 		public function get trkStartEventNonLinear() : Array { return _trkStartEventNonLinear;} 
 		public function set trkStartEventNonLinear(val:Array):void { _trkStartEventNonLinear = val; }

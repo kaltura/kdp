@@ -141,6 +141,15 @@ package org.osmf.vast.model
 		 *  @productversion OSMF 1.0
 		 */
 		public static const FULLSCREEN:VASTTrackingEventType 		= new VASTTrackingEventType("fullscreen");
+		/**
+		 * Event constant for when the user goes out of fullscreen mode.
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10
+		 *  @playerversion AIR 1.5
+		 *  @productversion OSMF 1.0
+		 */
+		public static const EXIT_FULLSCREEN:VASTTrackingEventType 		= new VASTTrackingEventType("exitFullscreen");
 
 		/**
 		 * Event constant for when the user stops playback of the media.
@@ -229,6 +238,9 @@ package org.osmf.vast.model
 		 *  @productversion OSMF 1.0
 		 */
 		public static const ACCEPT_INVITATION:VASTTrackingEventType 		= new VASTTrackingEventType("acceptInvitation");
+		public static const SKIP:VASTTrackingEventType 		= new VASTTrackingEventType("skip");
+		public static const PROGRESS:VASTTrackingEventType 		= new VASTTrackingEventType("progress");
+		public static const CLOSE_LINEAR:VASTTrackingEventType 		= new VASTTrackingEventType("closeLinear");
 
 		/**
 		 * Event constant for when the user minimize the ad
@@ -297,6 +309,10 @@ package org.osmf.vast.model
 			  , PAUSE
 			  , REPLAY
 			  , FULLSCREEN
+			  , EXIT_FULLSCREEN
+			  , SKIP
+			  , PROGRESS
+			  , CLOSE_LINEAR
 			  , STOP
 			  , CLICK_THRU
 			  , UNMUTE

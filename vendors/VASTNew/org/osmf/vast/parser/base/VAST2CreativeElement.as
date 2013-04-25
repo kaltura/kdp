@@ -112,7 +112,8 @@ package org.osmf.vast.parser.base
 					eventMap["resume"] = _trackingData.trkResumeEventNonLinear;
 					eventMap["expand"] = _trackingData.trkExpandEventNonLinear;
 					eventMap["collapse"] = _trackingData.trkCollapseEventNonLinear;
-					eventMap["acceptInvitation"] = _trackingData.trkAcceptInvitationEventNonLinear;					
+					eventMap["acceptInvitation"] = _trackingData.trkAcceptInvitationEventNonLinear;									
+					eventMap["exitFullscreen"] = _trackingData.trkExitFullScreenEventNonLinear;					
 					eventMap["stop"] = new Array(); // Prevent breaking		
 					eventMap["replay"] = new Array(); // Prevent breaking			
 		

@@ -688,6 +688,22 @@ package org.osmf.vast.parser {
 		{
 			return _trackingData.trkAcceptInvitationEvent;
 		}
+		public function get trkSkipEvent() : Array 
+		{
+			return _trackingData.trkSkipEvent;
+		}
+		public function get trkProgressEvent() : Array 
+		{
+			return _trackingData.trkProgressEvent;
+		}
+		public function get trkExitFullScreenEvent() : Array 
+		{
+			return _trackingData.trkExitFullScreenEvent;
+		}
+		public function get trkCloseLinearEvent() : Array 
+		{
+			return _trackingData.trkCloseLinearEvent;
+		}
 		/**
 		 * Returns an array of tracking urls for the nonlinear  creativeView event
 		 * 

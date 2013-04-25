@@ -88,6 +88,7 @@ package org.osmf.vast.parser.base
 			eventMap["pause"] = _trackingData.trkPauseEvent;
 			eventMap["replay"] = _trackingData.trkReplayEvent;
 			eventMap["fullscreen"] = _trackingData.trkFullScreenEvent;
+			eventMap["exitFullscreen"] = _trackingData.trkExitFullScreenEvent;
 			eventMap["close"] = _trackingData.trkCloseEvent;				
 			eventMap["creativeView"] = _trackingData.trkCreativeViewEvent;
 			eventMap["unmute"] = _trackingData.trkUnmuteEvent; 
@@ -96,6 +97,9 @@ package org.osmf.vast.parser.base
 			eventMap["expand"] = _trackingData.trkExpandEvent;
 			eventMap["collapse"] = _trackingData.trkCollapseEvent;
 			eventMap["acceptInvitation"] = _trackingData.trkAcceptInvitationEvent;					
+			eventMap["skip"] = _trackingData.trkSkipEvent;					
+			eventMap["closeLinear"] = _trackingData.trkCloseLinearEvent;					
+			eventMap["progress"] = _trackingData.trkProgressEvent;					
 			eventMap["stop"] = new Array(); // Prevent breaking		
 			eventMap["replay"] = new Array(); // Prevent breaking			
 
