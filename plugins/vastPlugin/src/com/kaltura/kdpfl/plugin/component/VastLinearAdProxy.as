@@ -954,6 +954,18 @@ package com.kaltura.kdpfl.plugin.component {
 			_postrollUrl = value;
 			
 		}
+		
+		public function trackEvent(trkName:String) : void
+		{
+			var vastObj:VASTDataObject = getCurrentVastObject();
+			var ln:int = vastObj[trkName].length;
+			for (var j:int = 0; j<ln; j++) {
+				if (vastObj[trkName][j] && vastObj[trkName][j]["url"])
+				{
+					fireBeacon(vastObj[trkName][j]["url"].toString());
+				}
+			}
+		}
 
 
 		

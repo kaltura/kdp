@@ -621,6 +621,10 @@ package {
 			_activeAdTagUrl = value;
 		}
 		
+		public function sendLinearTrackEvent(trkName:String):void {
+			_linearAds.trackEvent(trkName);
+		}
+		
 
 	}
 }

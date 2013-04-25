@@ -69,7 +69,8 @@ package com.kaltura.kdpfl.plugin.component
 									NotificationType.PLAYER_PLAYED,
 									NotificationType.AD_OPPORTUNITY,
 									NotificationType.CHANGE_MEDIA_PROCESS_STARTED,
-									NotificationType.ROOT_RESIZE
+									NotificationType.ROOT_RESIZE,
+									NotificationType.SEQUENCE_SKIP_NEXT
 									];
 			
 			return interests;
@@ -214,7 +215,13 @@ package com.kaltura.kdpfl.plugin.component
 						}
 						
 					break;
-				
+					
+					case NotificationType.SEQUENCE_SKIP_NEXT:
+						if (_isListening)
+						{
+							_pluginCode.sendLinearTrackEvent("trkSkipEvent");
+						}
+					break;
 			}	
 			
 		}
