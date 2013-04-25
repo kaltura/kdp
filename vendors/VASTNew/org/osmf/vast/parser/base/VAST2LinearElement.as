@@ -111,8 +111,11 @@ package org.osmf.vast.parser.base
 					var Tracking : Object = new Object();
 					Tracking.event = _forxRef.TrackingEvents.Tracking[i].@event;
 					Tracking.url = _forxRef.TrackingEvents.Tracking[i].text();
+					if (Tracking.event.toString() == "progress")
+						Tracking.offset = _forxRef.TrackingEvents.Tracking[i].@offset; 
 					if (eventMap[String(Tracking.event)] != undefined)
 						eventMap[String(Tracking.event)].push(Tracking);
+
 				}
 			}
 

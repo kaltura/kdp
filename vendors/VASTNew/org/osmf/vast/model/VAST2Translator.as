@@ -910,7 +910,7 @@ package org.osmf.vast.model
 		}
 		public function get trkExitFullScreenEvent() : Array 
 		{
-			return _trkProgressEvent;
+			return _trkExitFullScreenEvent;
 		}
 		public function get trkCloseLinearEvent() : Array 
 		{
