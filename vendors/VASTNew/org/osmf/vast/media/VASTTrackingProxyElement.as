@@ -125,7 +125,7 @@ package org.osmf.vast.media
 		/**
 		 * @private 
 		 */
-		private function processMutedChange(event:AudioEvent):void
+		protected function processMutedChange(event:AudioEvent):void
 		{
 			if (event.muted)
 			{
@@ -136,7 +136,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processPlayStateChange(event:PlayEvent):void
+		protected function processPlayStateChange(event:PlayEvent):void
 		{
 			createClickThru();
 			
@@ -163,7 +163,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processComplete(event:TimeEvent):void
+		protected function processComplete(event:TimeEvent):void
 		{
 			playheadTimer.stop();
 			
@@ -328,7 +328,7 @@ package org.osmf.vast.media
 			return 0;
 		}
 
-		private var dispatcher:TraitEventDispatcher;
+		protected var dispatcher:TraitEventDispatcher;
 		private var eventsMap:Dictionary;
 			// Key:   VASTTrackingEventType
 			// Value: VASTTrackingEvent

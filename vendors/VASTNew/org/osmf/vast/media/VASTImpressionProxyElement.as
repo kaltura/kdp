@@ -116,7 +116,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processLoadStateChange(event:LoadEvent):void
+		protected function processLoadStateChange(event:LoadEvent):void
 		{
 			if (event.loadState == LoadState.READY)
 			{
@@ -130,7 +130,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processPlayStateChange(event:PlayEvent):void
+		protected function processPlayStateChange(event:PlayEvent):void
 		{
 			if (event.playState == PlayState.PLAYING && !impressionsRecorded)
 			{
@@ -155,7 +155,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processBufferingChange(event:BufferEvent):void
+		protected function processBufferingChange(event:BufferEvent):void
 		{
 			if (	event.buffering == false
 				&&  impressionsRecorded == false
@@ -183,7 +183,7 @@ package org.osmf.vast.media
 			}
 		}
 
-		private var dispatcher:TraitEventDispatcher;
+		protected var dispatcher:TraitEventDispatcher;
 		private var urls:Vector.<VASTUrl>;
 		private var httpLoader:HTTPLoader;
 		private var impressionsRecorded:Boolean;

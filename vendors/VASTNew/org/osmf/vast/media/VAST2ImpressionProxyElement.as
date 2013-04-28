@@ -98,14 +98,9 @@ package org.osmf.vast.media
 			impressionsRecorded = false;
 			waitForBufferingExit = false;
 			
+			
 			proxiedElement = wrappedElement;
-			
-			dispatcher = new TraitEventDispatcher();
 			dispatcher.media = wrappedElement;
-			
-			dispatcher.addEventListener(LoadEvent.LOAD_STATE_CHANGE, processLoadStateChange);
-			dispatcher.addEventListener(PlayEvent.PLAY_STATE_CHANGE, processPlayStateChange);
-			dispatcher.addEventListener(BufferEvent.BUFFERING_CHANGE, processBufferingChange);
 			dispatcher.media.addEventListener(MediaErrorEvent.MEDIA_ERROR, processMediaError);
 			
 			var loadTrait:LoadTrait = proxiedElement.getTrait(MediaTraitType.LOAD) as LoadTrait;
@@ -132,7 +127,7 @@ package org.osmf.vast.media
 		 */
 		 //EyeWonder addition - sometimes the play trait event fires before the load ready event is fired
 		//We need check to see if the play trait is playing. If so start tracking.	
-		private function processLoadStateChange(event:LoadEvent):void
+		override protected function processLoadStateChange(event:LoadEvent):void
 		{
 			
 			if (event.loadState == LoadState.READY)
@@ -152,7 +147,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processPlayStateChange(event:PlayEvent):void
+		override protected function processPlayStateChange(event:PlayEvent):void
 		{
 			if (event.playState == PlayState.PLAYING && !impressionsRecorded)
 			{
@@ -190,7 +185,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processBufferingChange(event:BufferEvent):void
+		override protected function processBufferingChange(event:BufferEvent):void
 		{
 			if (	event.buffering == false
 				&&  impressionsRecorded == false
@@ -255,7 +250,7 @@ package org.osmf.vast.media
 		}
 
 		private var fireImpression:Boolean = true;
-		private var dispatcher:TraitEventDispatcher;
+		//private var dispatcher:TraitEventDispatcher;
 		private var urls:Vector.<VASTUrl>;
 		private var httpLoader:HTTPLoader;
 		private var impressionsRecorded:Boolean;

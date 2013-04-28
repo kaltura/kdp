@@ -105,11 +105,7 @@ package org.osmf.vast.media
 			playheadTimer = new Timer(250);
 			playheadTimer.addEventListener(TimerEvent.TIMER, onPlayheadTimer);
 			
-			dispatcher = new TraitEventDispatcher();
 			dispatcher.media = wrappedElement;
-			dispatcher.addEventListener(AudioEvent.MUTED_CHANGE, processMutedChange);
-			dispatcher.addEventListener(PlayEvent.PLAY_STATE_CHANGE, processPlayStateChange);
-			dispatcher.addEventListener(TimeEvent.COMPLETE, processComplete);
 			dispatcher.addEventListener(LoadEvent.LOAD_STATE_CHANGE, processLoadStateChange);
 			dispatcher.media.addEventListener(MediaErrorEvent.MEDIA_ERROR, mediaError);
 			
@@ -396,7 +392,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processMutedChange(event:AudioEvent):void
+		override protected function processMutedChange(event:AudioEvent):void
 		{
 			//trace("MUTE == " + mute);
 			//trace("PLAYER VOLUME " + playerVolume);
@@ -448,7 +444,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processPlayStateChange(event:PlayEvent):void
+		override protected function processPlayStateChange(event:PlayEvent):void
 		{
 			if (event.playState == PlayState.PLAYING)
 			{
@@ -479,7 +475,7 @@ package org.osmf.vast.media
 		/**
 		 * @private
 		 */
-		private function processComplete(event:TimeEvent):void
+		override protected function processComplete(event:TimeEvent):void
 		{
 			playheadTimer.stop();
 			
@@ -596,7 +592,6 @@ package org.osmf.vast.media
 		}
 			
 		private var browserEngine : String = 'unknown';
-		private var dispatcher:TraitEventDispatcher;
 		private var eventsMap:Dictionary;
 			// Key:   VASTTrackingEventType
 			// Value: VASTTrackingEvent
