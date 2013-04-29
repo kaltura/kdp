@@ -21,6 +21,8 @@ package com.kaltura.kdpfl.view {
 	import com.kaltura.vo.KalturaAnnotationFilter;
 	import com.yahoo.astra.fl.controls.containerClasses.AutoSizeButton;
 	
+	import fl.core.UIComponent;
+	
 	import flash.events.Event;
 	import flash.net.SharedObject;
 	
@@ -264,6 +266,7 @@ package com.kaltura.kdpfl.view {
 
 					if ((viewComponent as annotationsPluginCode).annotationsBox.dataProvider.length == 0) {
 						(viewComponent as annotationsPluginCode).showAnnotationsPlugin = false;
+						restoreFocus();
 					}
 					break;
 
@@ -272,6 +275,7 @@ package com.kaltura.kdpfl.view {
 					removeTimelineMarker(removedAnnotation.inTime);
 					if ((viewComponent as annotationsPluginCode).annotationsBox.dataProvider.length == 0) {
 						(viewComponent as annotationsPluginCode).showAnnotationsPlugin = false;
+						restoreFocus();
 					}
 					sendNotification("receivedCuePoints", (viewComponent as annotationsPluginCode).annotationsBox.millisecTimesArray);
 					break;
@@ -624,6 +628,17 @@ package com.kaltura.kdpfl.view {
 					break;
 			
 			}
+		}
+		
+		/**
+		 * return the focus to "addAnnotation" button, if exists 
+		 * 
+		 */		
+		public function restoreFocus():void 
+		{
+			if (facade["bindObject"]["addAnnotationBtn"])
+				( facade["bindObject"]["addAnnotationBtn"] as UIComponent).setFocus();
+			
 		}
 	}
 }
