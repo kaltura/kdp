@@ -138,6 +138,7 @@ package
 			inEditMode = true;
 			inViewMode = false;
 			annotationEditForm.visible = true;
+			annotationEditForm.setFocus();
 			titleText = MessageStrings.getString("EDIT_ANNOTATION_FORM_TITLE");
 			messageText = "";
 		}
@@ -147,6 +148,7 @@ package
 			inEditMode = false;
 			inViewMode = true;
 			annotationEditForm.visible = false;
+			_annotationsBoxMediator.restoreFocus();
 			titleText = MessageStrings.getString("ANNOTATION_BOX_TITLE");
 		}
 		
