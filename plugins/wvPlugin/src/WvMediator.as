@@ -88,6 +88,8 @@ package
 					NotificationType.BUFFER_PROGRESS,
 					NotificationType.CHANGE_MEDIA,
 					NotificationType.DO_PAUSE,
+					NotificationType.DO_SWITCH,
+					NotificationType.ENTRY_READY,
 					NO_WV_BROWSER_PLUGIN];
 		}
 		
@@ -139,29 +141,16 @@ package
 							
 							if (wvAssetId)
 							{
-								_isWv = true;
 								var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
 								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=widevine&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks;
-								ExternalInterface.call("WVSetEmmURL", emmUrl);
-
-								
-							}
-							else
-							{
-								_isWv = false;
+								ExternalInterface.call("WVSetEmmURL", emmUrl);		
 							}
 							
 						}
-						else
-						{
-							_isWv = false;
-						}
 					}
 	
-
 					break;
-	
-				
+			
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					//in case we switch flavors we want to save last position
 					if (_isWv && !(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
@@ -208,7 +197,6 @@ package
 						_endOfStreamTimer = null;
 						_wvPluginInfo.wvMediaElement.netStream.pause();
 					}
-					var kmediaMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 					if (_mediaProxy.vo.isFlavorSwitching)
 						_pendingSeekTo = _lastPlayhead;
 					break;
@@ -217,6 +205,38 @@ package
 					if (_endOfStreamTimer && _endOfStreamTimer.running)
 					{
 						_endOfStreamTimer.stop();
+					}
+					break;
+				
+				case NotificationType.DO_SWITCH:
+					if (_isWv)
+					{
+						var preferedFlavorBR:int = int(note.getBody());
+						var index:int = _mediaProxy.getFlavorByBitrate(preferedFlavorBR);
+						//index is zero based, track is not
+						index++;
+						trace ("--select track ", index);
+						_wvPluginInfo.wvMediaElement.netStream.selectTrack(index);
+						sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {currentIndex : String(index)});
+					}
+					break;
+				
+				case NotificationType.ENTRY_READY:
+					//if the first flavor is wv- all flavors are wv
+					if (_mediaProxy.vo.kalturaMediaFlavorArray && 
+						_mediaProxy.vo.kalturaMediaFlavorArray.length && 
+						(_mediaProxy.vo.kalturaMediaFlavorArray[0] is KalturaWidevineFlavorAsset))
+					{
+						_isWv = true;
+						_mediaProxy.vo.forceDynamicStream = true;
+						_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[0].bitrate;
+						//to fix flavor combo box, re-trigger the setter
+						_mediaProxy.vo.kalturaMediaFlavorArray = _mediaProxy.vo.kalturaMediaFlavorArray.concat();
+					}
+					else
+					{
+						_isWv = false;
+						_mediaProxy.vo.forceDynamicStream = false;
 					}
 					break;
 				
@@ -315,6 +335,20 @@ package
 					_endOfStreamTimer = new Timer(1000, Math.ceil(_wvPluginInfo.wvMediaElement.netStream.bufferLength));
 					_endOfStreamTimer.addEventListener(TimerEvent.TIMER_COMPLETE, endOfClip, false, 0, true);
 					_endOfStreamTimer.start();
+					break;
+				
+				case "NetStream.Wv.SwitchUp":
+				case "NetStream.Wv.SwitchDown":
+					var detailsArr:Array = (e.info.details as String).split(":");
+					if (detailsArr && detailsArr.length)
+					{
+						var indx:int = parseInt(detailsArr[1]);
+						if (_mediaProxy.vo.kalturaMediaFlavorArray.length > indx) {
+							_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[indx].bitrate					
+							sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : detailsArr[1], newBitrate: _mediaProxy.vo.preferedFlavorBR }  );
+						}
+						
+					}
 					break;
 				
 				/*	case "NetStream.Buffer.Empty":
