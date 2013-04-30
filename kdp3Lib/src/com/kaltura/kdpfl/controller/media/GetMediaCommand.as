@@ -423,7 +423,7 @@ package com.kaltura.kdpfl.controller.media
 				else
 				{
 					_mediaProxy.vo.kalturaMediaFlavorArray = _mediaProxy.vo.entryExtraData.flavorAssets;
-					
+										
 					//save the highest bitrate available to cookie. This will be used to determine whether we should perform
 					//bandwidth check in the future
 					if (_mediaProxy.vo.kalturaMediaFlavorArray.length)

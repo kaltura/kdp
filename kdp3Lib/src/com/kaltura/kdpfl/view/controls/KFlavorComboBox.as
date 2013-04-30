@@ -1,5 +1,6 @@
 package com.kaltura.kdpfl.view.controls
 {
+	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.StreamerType;
 	
 	import fl.data.DataProvider;
@@ -8,6 +9,8 @@ package com.kaltura.kdpfl.view.controls
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	
+	import org.puremvc.as3.patterns.facade.Facade;
 	
 	/**
 	 * Class KFlavorComboBox represents the uinique Kaltura ComboBox which allows the user to toggle the
@@ -156,7 +159,7 @@ package com.kaltura.kdpfl.view.controls
 		public function set isAutoSwitch(value:Boolean):void
 		{
 			_isAutoSwitch = value;
-			if ((_isRtmp || _isHttpStreaming) && (dataProvider && dataProvider.length))
+			if (isDynamic() && (dataProvider && dataProvider.length))
 			{
 				//replace the auto message
 				var item:Object;
@@ -407,7 +410,7 @@ package com.kaltura.kdpfl.view.controls
 					newDPArray.push( { label: label, value: height, bitrate: roundedBitrate} );
 				}
 				
-				if(_isRtmp ||_isHttpStreaming )
+				if(isDynamic() )
 					newDPArray.push({label : isAutoSwitch ? adaptiveAuto : adaptiveOff, value: -2, bitrate: -2});
 				
 				if (usePixels)
@@ -536,7 +539,7 @@ package com.kaltura.kdpfl.view.controls
 		public function set autoString (newMsg : String) : void
 		{
 			_autoString = newMsg;
-			if(_isRtmp || _isHttpStreaming)
+			if(isDynamic())
 			{
 				this.dataProvider.getItemAt(0).label = _autoString;
 			}
@@ -634,6 +637,11 @@ package com.kaltura.kdpfl.view.controls
 			}
 			
 			return null;
+		}
+		
+		private function isDynamic():Boolean 
+		{
+			return (_isRtmp || _isHttpStreaming || (Facade.getInstance().retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.forceDynamicStream)
 		}
 		
 	}

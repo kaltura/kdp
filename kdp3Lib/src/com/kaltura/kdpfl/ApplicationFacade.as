@@ -34,7 +34,7 @@ package com.kaltura.kdpfl
 		 */		
 
 
-		public var kdpVersion : String = "v3.8.4.rc1";
+		public var kdpVersion : String = "v3.8.5";
 
 
 
