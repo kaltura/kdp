@@ -450,7 +450,7 @@ package com.kaltura.kdpfl.view.media
 						return;
 					}
 					
-					if(player.isDynamicStream) // rtmp adaptive mbr
+					if(player.isDynamicStream || _mediaProxy.vo.forceDynamicStream) // rtmp adaptive mbr
 					{
 						//we need to set the mediaProxy prefered 
 						

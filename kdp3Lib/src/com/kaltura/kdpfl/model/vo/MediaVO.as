@@ -261,6 +261,12 @@ package com.kaltura.kdpfl.model.vo
 		{
 			_selectedFlavorId = value;
 		}
+		
+		[Bindable]
+		/**
+		 * when set to true player will beahve as the stream is dynamic, even if its not
+		 */		
+		public var forceDynamicStream:Boolean = false;
 
 	}
 }
