@@ -148,7 +148,7 @@ package
 							
 						}
 					}
-	
+					
 					break;
 			
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
@@ -209,13 +209,26 @@ package
 					break;
 				
 				case NotificationType.DO_SWITCH:
-					if (_isWv)
+					if (_isWv && _mediaProxy.vo.forceDynamicStream)
 					{
 						var preferedFlavorBR:int = int(note.getBody());
-						var index:int = _mediaProxy.getFlavorByBitrate(preferedFlavorBR);
-						//index is zero based, track is not
-						index++;
-						trace ("--select track ", index);
+						var index:int;
+					
+						if (preferedFlavorBR==-1)
+						{
+							index = 0;
+							_mediaProxy.vo.autoSwitchFlavors = true;
+						}
+						else
+						{
+							//index is zero based, track is not
+							 index = _mediaProxy.getFlavorByBitrate(preferedFlavorBR) + 1;
+							 //if player was asked to turn auto off we will receive same stream index
+							 if (_wvPluginInfo.wvMediaElement.netStream.getCurrentQualityLevel() == index)
+								  index=1;		
+							 _mediaProxy.vo.autoSwitchFlavors = false;
+						}
+
 						_wvPluginInfo.wvMediaElement.netStream.selectTrack(index);
 						sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {currentIndex : String(index)});
 					}
@@ -228,10 +241,17 @@ package
 						(_mediaProxy.vo.kalturaMediaFlavorArray[0] is KalturaWidevineFlavorAsset))
 					{
 						_isWv = true;
-						_mediaProxy.vo.forceDynamicStream = true;
-						_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[0].bitrate;
-						//to fix flavor combo box, re-trigger the setter
-						_mediaProxy.vo.kalturaMediaFlavorArray = _mediaProxy.vo.kalturaMediaFlavorArray.concat();
+						//TODO: add condition to do this only when the asset is marked with "widevine_mbr"
+						if (_mediaProxy.vo.kalturaMediaFlavorArray.length == 1)
+						{
+							_mediaProxy.vo.forceDynamicStream = true;
+							_mediaProxy.vo.kalturaMediaFlavorArray = null;
+							// disable flavor selector until we receive bitrates from wv netstream
+							setTimeout(function():void {sendNotification(NotificationType.SWITCHING_CHANGE_STARTED, {newIndex: -1});}, 1);
+						}
+						//if more than one wvm flavor, don't use the stream packaged bitrates
+						else
+							_mediaProxy.vo.forceDynamicStream = false;
 					}
 					else
 					{
@@ -339,17 +359,32 @@ package
 				
 				case "NetStream.Wv.SwitchUp":
 				case "NetStream.Wv.SwitchDown":
-					var detailsArr:Array = (e.info.details as String).split(":");
-					if (detailsArr && detailsArr.length)
+					_wvPluginInfo.wvMediaElement.netStream.parseTransitionMsg(e.info.details);
+					//first time we get bitrates info - save it to kalturaflavorarray
+					if (_mediaProxy.vo.forceDynamicStream && !_mediaProxy.vo.kalturaMediaFlavorArray)
 					{
-						var indx:int = parseInt(detailsArr[1]);
-						if (_mediaProxy.vo.kalturaMediaFlavorArray.length > indx) {
-							_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[indx].bitrate					
-							sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : detailsArr[1], newBitrate: _mediaProxy.vo.preferedFlavorBR }  );
+
+						var bitrates:Array = _wvPluginInfo.wvMediaElement.netStream.getBitrates();
+						if (bitrates) 
+						{
+							var flvArray:Array = new Array();
+							for (var i:int = 0; i<bitrates.length; i++)
+							{
+								var fa : KalturaFlavorAsset = new KalturaFlavorAsset();
+								fa.bitrate = bitrates[i] * 8 / 1024;
+								flvArray.push(fa);
+							}
+							_mediaProxy.vo.kalturaMediaFlavorArray = flvArray;
 						}
-						
+						_mediaProxy.vo.autoSwitchFlavors = true;
 					}
+				
+					
+					var newIndx:int = _wvPluginInfo.wvMediaElement.netStream.getCurrentQualityLevel() - 1;
+					_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[newIndx].bitrate;
+					sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : newIndx , newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
 					break;
+
 				
 				/*	case "NetStream.Buffer.Empty":
 				
@@ -363,9 +398,7 @@ package
 				
 				break;
 				
-				case "NetStream.Play.Start" :
-				
-				break;
+
 				
 				case "NetStream.Wv.EmmSuccess":
 				
