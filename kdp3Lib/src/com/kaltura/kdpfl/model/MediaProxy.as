@@ -365,11 +365,15 @@ package com.kaltura.kdpfl.model
 								var ind:int = property.indexOf(":");
 								var objKey:String = property.substr(0, ind);
 								var objVal:String = property.substring(ind + 1, val.length);	
-								var num:Number = parseFloat(objVal);
 								//convert value to boolean or number or string
-								valAsObj[objKey] = objVal=="true"? true: objVal=="false"? false: isNaN(num) ? objVal: num;
+								valAsObj[objKey] = getValueObject(objVal);
 							}
 						}
+						else
+						{
+							valAsObj = getValueObject(val);
+						}
+
 						metadata.addValue(cur.substr(0, index), valAsObj );
 					}
 				}
@@ -377,6 +381,19 @@ package com.kaltura.kdpfl.model
 				i++;
 			}
 			
+		}
+		
+		/**
+		 * converts given object to boolean / number / object 
+		 * @param val
+		 * @return 
+		 * 
+		 */		
+		private function getValueObject(val:String):Object
+		{
+			var valAsNum:Number = valAsNum = parseFloat(val);
+			var valAsObj:Object = val=="true"? true: val=="false" ? false : isNaN(valAsNum) ? val : valAsNum;
+			return valAsObj;
 		}
 		
 		/**
