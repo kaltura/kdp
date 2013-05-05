@@ -427,7 +427,7 @@ package com.kaltura.kdpfl.plugin.component
 			}
 			tf.color = Number(colorString);
 			tf.font = style.@xmlns_tts::fontFamily.length() ? style.@xmlns_tts::fontFamily[0].toString() : defaultFontFamily;
-			tf.size = style.@xmlns_tts::fontSize.length() ? style.@xmlns_tts::fontSize[0].toString() : defaultFontSize;
+			tf.size = style.@xmlns_tts::fontSize.length() ? String(style.@xmlns_tts::fontSize[0].toString()).replace("px","") : defaultFontSize;
 			
 			return tf;	
 			
