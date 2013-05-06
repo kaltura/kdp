@@ -143,7 +143,8 @@ package com.kaltura.kdpfl.model
 						{
 							vo.entry.height = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).kMediaPlayer.height; 
 						}
-						resource = new URLResource( vo.entry.thumbnailUrl+"/width/" + vo.entry.width + "/height/"+vo.entry.height+"/.a.jpg"  );
+						var imgUrl:String = vo.entry.thumbnailUrl+"/width/" + vo.entry.width + "/height/"+vo.entry.height+ URLUtils.getThumbURLPostfix(_flashvars, _client.ks) +"/.a.jpg";  
+						resource = new URLResource( imgUrl );
 						addMetadataToResource (resource);
 						if(vo.supportImageDuration)
 						{
@@ -155,12 +156,12 @@ package com.kaltura.kdpfl.model
 							else
 								imgDuration=vo.imageDefaultDuration;
 							
-							var timedImageElement: TimedImageElement = new TimedImageElement(new ImageLoader(),new URLResource(vo.entry.thumbnailUrl+"/width/" + vo.entry.width + "/height/"+vo.entry.height+"/.a.jpg"),imgDuration);
+							var timedImageElement: TimedImageElement = new TimedImageElement(new ImageLoader(),new URLResource(imgUrl),imgDuration);
 							vo.media = timedImageElement; 
 						}
 						else
 						{
-							var imageElement : ImageElement = new ImageElement(new URLResource(vo.entry.thumbnailUrl+"/width/" + vo.entry.width + "/height/"+vo.entry.height+"/.a.jpg"), new ImageLoader());
+							var imageElement : ImageElement = new ImageElement(new URLResource(imgUrl), new ImageLoader());
 							vo.media = imageElement;	
 						} 
 					}
