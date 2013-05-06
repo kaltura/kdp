@@ -140,6 +140,7 @@ package com.kaltura.kdpfl.plugin.component
 					break;
 				case "vastStartedPlaying":
 					isListening = true;
+					_adStarted = true;
 					break;
 				case NotificationType.SEQUENCE_ITEM_PLAY_END:
 					if (isListening ) {
