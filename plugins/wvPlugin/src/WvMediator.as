@@ -63,6 +63,7 @@ package
 		private var _mediaProxy:MediaProxy;
 		
 		private var _endOfStreamTimer:Timer;
+		private var _shouldSetFlavors:Boolean = false;
 		
 		public function WvMediator(wvPluginCode:widevinePluginCode, wvPI:WVPluginInfo)
 		{
@@ -241,17 +242,20 @@ package
 						(_mediaProxy.vo.kalturaMediaFlavorArray[0] is KalturaWidevineFlavorAsset))
 					{
 						_isWv = true;
-						//TODO: add condition to do this only when the asset is marked with "widevine_mbr"
-						if (_mediaProxy.vo.kalturaMediaFlavorArray.length == 1)
+						//check if the flavor is packaging mbr
+						if ((_mediaProxy.vo.kalturaMediaFlavorArray[0] as KalturaWidevineFlavorAsset).tags.indexOf(_wvPluginCode.mbrTag)!=-1)
 						{
 							_mediaProxy.vo.forceDynamicStream = true;
-							_mediaProxy.vo.kalturaMediaFlavorArray = null;
+							_shouldSetFlavors = true;
 							// disable flavor selector until we receive bitrates from wv netstream
 							setTimeout(function():void {sendNotification(NotificationType.SWITCHING_CHANGE_STARTED, {newIndex: -1});}, 1);
 						}
-						//if more than one wvm flavor, don't use the stream packaged bitrates
+						//if not mbr flavor
 						else
+						{
 							_mediaProxy.vo.forceDynamicStream = false;
+							_shouldSetFlavors = false;
+						}
 					}
 					else
 					{
@@ -361,7 +365,7 @@ package
 				case "NetStream.Wv.SwitchDown":
 					_wvPluginInfo.wvMediaElement.netStream.parseTransitionMsg(e.info.details);
 					//first time we get bitrates info - save it to kalturaflavorarray
-					if (_mediaProxy.vo.forceDynamicStream && !_mediaProxy.vo.kalturaMediaFlavorArray)
+					if (_mediaProxy.vo.forceDynamicStream && _shouldSetFlavors)
 					{
 
 						var bitrates:Array = _wvPluginInfo.wvMediaElement.netStream.getBitrates();
@@ -377,6 +381,7 @@ package
 							_mediaProxy.vo.kalturaMediaFlavorArray = flvArray;
 						}
 						_mediaProxy.vo.autoSwitchFlavors = true;
+						_shouldSetFlavors = false;
 					}
 				
 					

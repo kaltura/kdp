@@ -30,6 +30,10 @@ package
 		public var alert_missing_plugin:String = "Widevine Video Optimizer plugin is needed for enabling video playback in this player.";
 		
 		public var flavorTags:String;
+		/**
+		 * If flavor is tagged with this tag, it will indicate the current widevine package contains a few bitrates 
+		 */		
+		public var mbrTag:String = "widevine_mbr";
 		
 		public function widevinePluginCode()
 		{
