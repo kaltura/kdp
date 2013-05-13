@@ -45,6 +45,7 @@ package com.kaltura.kdpfl.view.media
 	import org.osmf.media.MediaPlayer;
 	import org.osmf.media.MediaPlayerState;
 	import org.osmf.media.URLResource;
+	import org.osmf.net.StreamingItem;
 	import org.osmf.traits.DynamicStreamTrait;
 	import org.osmf.traits.MediaTraitType;
 	import org.osmf.traits.TimeTrait;
@@ -69,6 +70,7 @@ package com.kaltura.kdpfl.view.media
 		private var _blockThumb : Boolean = false;
 		private var _mediaProxy : MediaProxy; 
 		private var _sequenceProxy : SequenceProxy;
+		private var _lang:Number = 0;
 		/**
 		 * intelli seek offset 
 		 */		
@@ -334,7 +336,23 @@ package com.kaltura.kdpfl.view.media
 			switch(note.getName())
 			{
 				case NotificationType.ENTRY_READY:
+					//if (!_playbackInitiated) 
+					//{ 	
+					//_playbackInitiated = true; 
+					trace("Alternative languages",player.hasAlternativeAudio ? "available" : " not available" ); 
+					if (player.hasAlternativeAudio) 
+					{     for (var index:int=0; index<player.numAlternativeAudioStreams; 
+						index++) 
+					{ var item:StreamingItem=player.getAlternativeAudioItemAt(index); 
+						trace("[LBA] [", item.info.language, "]", item.info.label); 
+					} 
+						// This is a good point to allow the user to select a language. 
+						// Here we pass 0, which plays the first alternative track. 
+						// Passing -1 plays the video stream's embedded audio track. 
+						player.switchAlternativeAudioIndex(0); 
+					}     
 					
+					//	} 
 					if(_mediaProxy.vo)
 					{
 						if( !_sequenceProxy.vo.isInSequence && !_flashvars.noThumbnail)
@@ -362,7 +380,23 @@ package com.kaltura.kdpfl.view.media
 					
 					break;
 				case NotificationType.SOURCE_READY: //when the source is ready for the media element
+					//if (!_playbackInitiated) 
+					//{ 	
+					//_playbackInitiated = true; 
+					trace("Alternative languages",player.hasAlternativeAudio ? "available" : " not available" ); 
+					if (player.hasAlternativeAudio) 
+					{     for (var index:int=0; index<player.numAlternativeAudioStreams; 
+						index++) 
+					{ var item:StreamingItem=player.getAlternativeAudioItemAt(index); 
+						trace("[LBA] [", item.info.language, "]", item.info.label); 
+					} 
+						// This is a good point to allow the user to select a language. 
+						// Here we pass 0, which plays the first alternative track. 
+						// Passing -1 plays the video stream's embedded audio track. 
+						player.switchAlternativeAudioIndex(0); 
+					}     
 					
+					//	} 
 					cleanMedia(); //clean the media element if exist
 						
 					setSource(); //set the source to the player
@@ -409,11 +443,14 @@ package com.kaltura.kdpfl.view.media
 					break;
 				
 				case NotificationType.MEDIA_ELEMENT_READY:
+				
+				
 					if (_waitForMediaElement)
 					{
 						_waitForMediaElement = false;	
 						sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : true , enableType : EnableType.CONTROLS});
 						onDoPlay();
+						
 					}
 					
 					break;
@@ -998,6 +1035,25 @@ package com.kaltura.kdpfl.view.media
 					}
 					break;
 				case MediaPlayerState.READY: 
+					//if (!_playbackInitiated) 
+					//{ 
+					//_playbackInitiated = true; 
+					trace("Alternative languages", 
+						player.hasAlternativeAudio ? "available" : " not available" ); 
+						if (player.hasAlternativeAudio) 
+						{     for (var index:int=0; index<player.numAlternativeAudioStreams; 
+							index++) 
+						{ var item:StreamingItem=player.getAlternativeAudioItemAt(index); 
+							trace("[LBA] [", item.info.language, "]", item.info.label); 
+						} 
+							// This is a good point to allow the user to select a language. 
+							// Here we pass 0, which plays the first alternative track. 
+							// Passing -1 plays the video stream's embedded audio track. 
+							player.switchAlternativeAudioIndex(-1); 
+						}     
+						
+					//} 
+					break; 
 					if(! player.hasEventListener(TimeEvent.COMPLETE))
 						player.addEventListener( TimeEvent.COMPLETE , onTimeComplete );
 					
@@ -1021,11 +1077,14 @@ package com.kaltura.kdpfl.view.media
 
 					break;
 				case MediaPlayerState.PAUSED:
+				
 					sendNotification( NotificationType.PLAYER_PAUSED );	
+					player.switchAlternativeAudioIndex(_lang); 
+					_lang = (_lang == 0)?-1:0;
 					break;
 				
 				case MediaPlayerState.PLAYING: 
-					
+				
 					if(!_hasPlayed && !_sequenceProxy.vo.isInSequence){
 						_hasPlayed = true;
 						if (_flashvars.maxAllowedRegularBitrate && player.isDynamicStream) player.maxAllowedDynamicStreamIndex = kMediaPlayer.findStreamByBitrate( _flashvars.maxAllowedRegularBitrate );

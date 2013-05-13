@@ -4,6 +4,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
+	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
 	import com.kaltura.kdpfl.view.RootMediator;
 	import com.kaltura.kdpfl.view.containers.KCanvas;
@@ -348,7 +349,7 @@ package com.kaltura.kdpfl.plugin.component {
 		/**
 		 * Switch to the secondary media element.
 		 * @param playerMediator - mediator of the MediaPlayer instance
-		 * 
+		 * h
 		 */		
 		private function playAdAsMidroll (playerMediator : Object) : void
 		{
@@ -389,6 +390,18 @@ package com.kaltura.kdpfl.plugin.component {
 				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
 				{
 					trace ("[VPIAD Metadata]" + event.key);
+					if (event.key == "adPaused")
+					{
+						sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
+
+						sendNotification(NotificationType.PLAYER_PAUSED);
+					}
+					if (event.key == "adPlaying")
+					{
+						sendNotification("enableGui", {guiEnabled : false, enableType : "full"});
+
+						sendNotification(NotificationType.PLAYER_PLAYED);
+					}
 					if (event.key == "adUserClose" ||event.key == "adStopped"  || event.key =="adError")
 					{
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
