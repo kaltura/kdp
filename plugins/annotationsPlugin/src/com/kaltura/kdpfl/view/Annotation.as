@@ -11,6 +11,8 @@ package com.kaltura.kdpfl.view {
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	import flash.xml.XMLNode;
+	import flash.xml.XMLNodeType;
 
 	/**
 	 * Visual rperesentation of a single annotation in the annotations box.
@@ -134,7 +136,7 @@ package com.kaltura.kdpfl.view {
 		protected function gotoViewMode():void {
 			removeAllChildren();
 			annotationTextField.selectable = false;
-			annotationTextField.htmlText = annotationText ? annotationText : "";
+			annotationTextField.htmlText = annotationText ? htmlEscape(annotationText) : "";
 			var intime:String = "<B><font color='#0051DE'><a href='event:intime'>" + parseInTimeString() + "</a></font></B>";
 			var edit:String = "";
 			var deleteAnnotation:String = ""; //0051DE
@@ -147,6 +149,11 @@ package com.kaltura.kdpfl.view {
 			addChild(annotationTextField);
 		}
 
+		
+		private function htmlEscape(str:String):String
+		{
+			return XML( new XMLNode( XMLNodeType.TEXT_NODE, str ) ).toXMLString();
+		}
 
 		private function removeAllChildren():void {
 			while (this.numChildren > 0) {
