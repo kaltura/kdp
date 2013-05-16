@@ -231,7 +231,8 @@ package
 						}
 
 						_wvPluginInfo.wvMediaElement.netStream.selectTrack(index);
-						sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {currentIndex : String(index)});
+						if (_mediaProxy.vo.kalturaMediaFlavorArray && _mediaProxy.vo.kalturaMediaFlavorArray.length > 1)
+							sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {currentIndex : String(index)});
 					}
 					break;
 				
