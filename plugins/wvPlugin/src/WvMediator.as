@@ -366,31 +366,33 @@ package
 				case "NetStream.Wv.SwitchDown":
 					_wvPluginInfo.wvMediaElement.netStream.parseTransitionMsg(e.info.details);
 					//first time we get bitrates info - save it to kalturaflavorarray
-					if (_mediaProxy.vo.forceDynamicStream && _shouldSetFlavors)
+					if (_mediaProxy.vo.forceDynamicStream)
 					{
-
-						var bitrates:Array = _wvPluginInfo.wvMediaElement.netStream.getBitrates();
-						if (bitrates) 
+						if (_shouldSetFlavors) 
 						{
-							var flvArray:Array = new Array();
-							for (var i:int = 0; i<bitrates.length; i++)
+							var bitrates:Array = _wvPluginInfo.wvMediaElement.netStream.getBitrates();
+							if (bitrates) 
 							{
-								var fa : KalturaFlavorAsset = new KalturaFlavorAsset();
-								fa.bitrate = bitrates[i] * 8 / 1024;
-								flvArray.push(fa);
+								var flvArray:Array = new Array();
+								for (var i:int = 0; i<bitrates.length; i++)
+								{
+									var fa : KalturaFlavorAsset = new KalturaFlavorAsset();
+									fa.bitrate = bitrates[i] * 8 / 1024;
+									flvArray.push(fa);
+								}
+								_mediaProxy.vo.kalturaMediaFlavorArray = flvArray;
 							}
-							_mediaProxy.vo.kalturaMediaFlavorArray = flvArray;
+							_mediaProxy.vo.autoSwitchFlavors = true;
+							_shouldSetFlavors = false;
 						}
-						_mediaProxy.vo.autoSwitchFlavors = true;
-						_shouldSetFlavors = false;
+
+						var newIndx:int = _wvPluginInfo.wvMediaElement.netStream.getCurrentQualityLevel() - 1;
+						_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[newIndx].bitrate;
+						sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : newIndx , newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
+						
 					}
 				
-					
-					var newIndx:int = _wvPluginInfo.wvMediaElement.netStream.getCurrentQualityLevel() - 1;
-					_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[newIndx].bitrate;
-					sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : newIndx , newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
-					break;
-
+				break;
 				
 				/*	case "NetStream.Buffer.Empty":
 				
