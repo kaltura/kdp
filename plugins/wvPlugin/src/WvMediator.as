@@ -383,6 +383,8 @@ package
 								_mediaProxy.vo.kalturaMediaFlavorArray = flvArray;
 							}
 							_mediaProxy.vo.autoSwitchFlavors = true;
+							//save main media in case we have ads
+							(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).saveMainMedia();
 							_shouldSetFlavors = false;
 						}
 
