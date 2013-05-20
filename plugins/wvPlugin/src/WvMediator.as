@@ -61,6 +61,7 @@ package
 		
 		private var _bufferLength:Number = 0;
 		private var _mediaProxy:MediaProxy;
+		private var _sequenceProxy:SequenceProxy;
 		
 		private var _endOfStreamTimer:Timer;
 		private var _shouldSetFlavors:Boolean = false;
@@ -76,6 +77,7 @@ package
 		override public function onRegister():void
 		{
 			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			_sequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			super.onRegister();
 		}
 		
@@ -112,7 +114,7 @@ package
 				
 				case NotificationType.MEDIA_ELEMENT_READY:	
 					//get flavor asset ID
-					if (!(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence && _mediaProxy.vo.deliveryType==StreamerType.HTTP)
+					if (!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.deliveryType==StreamerType.HTTP)
 					{
 						var flavors:Array = _mediaProxy.vo.kalturaMediaFlavorArray;
 						if (flavors && flavors.length)
@@ -154,7 +156,7 @@ package
 			
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					//in case we switch flavors we want to save last position
-					if (_isWv && !(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
+					if (_isWv && !_sequenceProxy.vo.isInSequence)
 						_lastPlayhead = note.getBody() as Number;
 					break;
 					
@@ -176,7 +178,7 @@ package
 					break;
 				
 				case NotificationType.PLAYER_PLAYED:
-					if (_isWv && !(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
+					if (_isWv && !_sequenceProxy.vo.isInSequence)
 					{
 						var playerMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 						//workaround for wv bug, netstream reports end before actual end
@@ -258,7 +260,8 @@ package
 							_shouldSetFlavors = false;
 						}
 					}
-					else
+					//bumper entry
+					else if (!_sequenceProxy.vo.isInSequence)
 					{
 						_isWv = false;
 						_mediaProxy.vo.forceDynamicStream = false;
@@ -384,7 +387,7 @@ package
 							}
 							_mediaProxy.vo.autoSwitchFlavors = true;
 							//save main media in case we have ads
-							(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).saveMainMedia();
+							_sequenceProxy.saveMainMedia();
 							_shouldSetFlavors = false;
 						}
 
