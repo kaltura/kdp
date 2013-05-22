@@ -103,14 +103,11 @@ package com.kaltura.kdpfl.plugin.component
 					
 					(view as ClosedCaptions).visible=true
 					var config: Object =  facade.retrieveProxy("configProxy");
-					var flashvars:Object = config.getData().flashvars;
+					_flashvars = config.getData().flashvars;
 					
 					if (_mediaProxy["vo"]["media"] != null )
 					{
 						_entryId = entry;
-						_flashvars = flashvars;
-						
-						
 						if (_closedCaptionsDefs["type"] == null || _closedCaptionsDefs["type"] == "")
 						{
 							_closedCaptionsDefs["type"] = "srt";
