@@ -634,8 +634,8 @@ package org.osmf.metadata
 				// Get the next time value after this one so we can decide to adjust the timer interval
 				var nextTime:Number = calcNextTime(index);
 				
-				var newDelay:Number = ((nextTime - thisTime)*1000)/4;
-				newDelay = (newDelay > CHECK_INTERVAL) ? newDelay : CHECK_INTERVAL;
+			//	var newDelay:Number = ((nextTime - thisTime)*1000)/4;
+			//	newDelay = (newDelay > CHECK_INTERVAL) ? newDelay : CHECK_INTERVAL;
 								
 				// If no more data, stop the timer
 				if (thisTime == nextTime) 
@@ -643,12 +643,12 @@ package org.osmf.metadata
 					startTimer(false);
 					restartTimer = false;
 				}
-				else if (newDelay != intervalTimer.delay) 
+				/*else if (newDelay != intervalTimer.delay) 
 				{
 					intervalTimer.reset();
 					intervalTimer.delay = newDelay;
 					startTimer();
-				}
+				}*/
 				result = true;
 			}
 			
