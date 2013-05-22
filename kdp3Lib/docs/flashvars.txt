@@ -271,6 +271,9 @@ Miscellaneous
    
    liveStreamCheckInterval = [Number]
    		interval in seconds for sampling the live stream in order to determine if it's currently broadcasting. Default value is 30 seconds.
+   		
+   hideBufferAnimation = [true / false]
+   		When this parameter is set to true the buffering animtaion won't appear. Default value is false.
     	                                
 Components & Plug-ins attributes
 --------------------------------
