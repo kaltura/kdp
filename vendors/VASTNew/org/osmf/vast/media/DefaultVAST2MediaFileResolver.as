@@ -76,8 +76,8 @@ package org.osmf.vast.media
 			"video/mp4", 
 			"video/mp4v-es", 
 			"video/x-m4v", 
-			"video/3gpp", 
-			"video/3gpp2", 
+			//"video/3gpp", 
+			//"video/3gpp2", 
 			"video/quicktime",
 			"application/x-shockwave-flash", 
 			"swf"

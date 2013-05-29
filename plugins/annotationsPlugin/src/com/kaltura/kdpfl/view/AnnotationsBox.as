@@ -6,25 +6,12 @@ package com.kaltura.kdpfl.view
 	import com.kaltura.kdpfl.view.strings.AnnotationStrings;
 	import com.kaltura.vo.KalturaAnnotation;
 	
-	import fl.controls.List;
-	import fl.controls.ScrollBarDirection;
 	import fl.controls.ScrollPolicy;
-	import fl.controls.listClasses.CellRenderer;
-	import fl.core.UIComponent;
 	import fl.data.DataProvider;
 	import fl.events.DataChangeEvent;
 	import fl.events.DataChangeType;
-	import fl.events.ListEvent;
-	import fl.events.ScrollEvent;
-	import fl.managers.StyleManager;
 	
 	import flash.events.Event;
-	import flash.events.MouseEvent;
-	
-	//import mx.collections.Sort;
-	import mx.collections.errors.ItemPendingError;
-	
-	import org.osmf.net.SwitchingRuleBase;
 	
 	public dynamic class AnnotationsBox extends KVBox
 	{
@@ -244,7 +231,7 @@ package com.kaltura.kdpfl.view
 			for (var i:int =0; i < dpArray.length; i++)
 			{
 				annotation = dpArray[i]["annotation"] as Annotation;	
-				annotationXML = new XML ("<annotation><createdAt></createdAt><updatedAt></updatedAt><text>" + annotation.annotationText + "</text><startTime>"+ annotation.inTime +"</startTime>" +
+				annotationXML = new XML ("<annotation><createdAt></createdAt><updatedAt></updatedAt><text>" + escape(annotation.annotationText) + "</text><startTime>"+ annotation.inTime +"</startTime>" +
 					"<endTime>" + annotation.kalturaAnnotation.endTime + "</endTime><userId>" + annotation.kalturaAnnotation.userId + "</userId></annotation>");
 				feedbackSessionXML.appendChild( annotationXML );
 			}
@@ -286,5 +273,6 @@ package com.kaltura.kdpfl.view
 				
 			}
 		}
+		
 	}
 }
