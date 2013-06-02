@@ -83,7 +83,7 @@ package com.kaltura.kdpfl.view
 		 */		
 		override public function onRegister():void
 		{
-			if (!root["flashvars"].hasOwnProperty("hideBufferAnimation") || root["flashvars"]["hideBufferAnimation"]!="true")
+			if (!root["flashvars"].hasOwnProperty("disablePlayerSpinner") || root["flashvars"]["disablePlayerSpinner"]!="true")
 			{
 				//TODO: add this child to the player continer so it will be in it's center and not in the root center
 				_kdp3Preloader = new BufferAnimation();

@@ -18,7 +18,6 @@ package {
 	import flash.utils.Timer;
 	import flash.utils.getDefinitionByName;
 	
-	
 	/**
 	 * @class ApplicationLoader
 	 * This class is the preloader of the kdp3 application and its document class (root). </br>
@@ -140,6 +139,8 @@ package {
 		 * @param e
 		 */
 		protected function loadPreloader(e:Event):void {
+			if ( parameters.disablePlayerSpinner == 'true' )
+				return;
 			// only load custom preloader if app is not yet running or it is required as buffer anim
 			if (!_isGoing || parameters.usePreloaderBufferAnimation=='true') {
 				if (hasEventListener(Event.ADDED_TO_STAGE)) {
