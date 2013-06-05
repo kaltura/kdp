@@ -4,6 +4,7 @@ package
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
+	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
@@ -144,8 +145,9 @@ package
 							
 							if (wvAssetId)
 							{
+								var referrerB64:String = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars.b64Referrer;
 								var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
-								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=widevine&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks;
+								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=widevine&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks + "&referrer=" + referrerB64;
 								ExternalInterface.call("WVSetEmmURL", emmUrl);		
 							}
 							
