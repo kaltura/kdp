@@ -45,6 +45,14 @@ package com.kaltura.kdpfl.view.media
 		public var isFileSystemMode : Boolean;
 		
 		/**
+		 * should keep original thumb aspect ratio 
+		 */		
+		public var keepAspectRatio : Boolean;
+		
+		public var originalWidth : Number;
+		public var originalHeight : Number;
+		
+		/**
 		 * Prepearing and adding the thumbnail to the displaylist 
 		 * 
 		 */			
@@ -115,8 +123,16 @@ package com.kaltura.kdpfl.view.media
 		{
 			if(_loader.content)
 			{
-				_loader.content.width = this.width;
-				_loader.content.height = this.height;
+				if (keepAspectRatio) 
+				{
+					originalWidth = _loader.content.width;
+					originalHeight = _loader.content.height
+				}
+				else
+				{
+					_loader.content.width = this.width;
+					_loader.content.height = this.height;
+				}
 			}
 			dispatchEvent( new Event( THUMBNAIL_LOADED ) );
 		}

@@ -6,6 +6,7 @@ package com.kaltura.kdpfl.view.media
 	import com.yahoo.astra.fl.containers.layoutClasses.AdvancedLayoutPane;
 	
 	import flash.display.Sprite;
+	import flash.events.Event;
 	
 	import org.osmf.events.DisplayObjectEvent;
 	import org.osmf.events.MediaPlayerStateChangeEvent;
@@ -157,36 +158,42 @@ package com.kaltura.kdpfl.view.media
 			_mediaHeight = thumbHeight > 0 ? thumbHeight : this.height;
 			
 			_thumbnail.isFileSystemMode = isFileSystemMode;
-			
-			
-			if (!stretchThumbnail && _keepAspectRatio)
-			{
-				var newDimensions : Object = getAspectratio(_mediaWidth, _mediaHeight );
-				thumbWidth = newDimensions.newWidth;
-				thumbHeight = newDimensions.newHeight;
-			}
-			else
-			{
-				thumbWidth = this.width;
-				thumbHeight = this.height;
-			}
-			
-
-			
-			
-			_thumbnail.width= thumbWidth;
-			_thumbnail.height = thumbHeight;
-			centerImages();
-			
-			addChild(_thumbnail);
-			
+			thumbWidth = this.width;
+			thumbHeight = this.height;
 			var thumbUrl:String = url;	
 			if ( url.indexOf( "thumbnail/entry_id" ) != -1 )
 			{
 				thumbUrl += "/width/" + thumbWidth+"/height/" + thumbHeight + URLUtils.getThumbURLPostfix(flashvars, ks);
 			}
-			_thumbnail.load(thumbUrl);
 			
+			if (!stretchThumbnail && _keepAspectRatio)
+			{
+				_thumbnail.keepAspectRatio = true;
+				_thumbnail.addEventListener(KThumbnail.THUMBNAIL_LOADED, onThumbLoaded);
+				//we will add the thumbnail after we receive its original aspect ratio
+			}
+			else
+			{
+				_thumbnail.width= thumbWidth;
+				_thumbnail.height = thumbHeight;
+				centerImages();
+				addChild(_thumbnail);
+			}			
+
+			_thumbnail.load(thumbUrl);
+		}
+		
+		/**
+		 * Adds the thumbnail with dimensions that keep its original aspect ratio
+		 * */
+		private function onThumbLoaded ( e : Event ) : void
+		{
+			_thumbnail.removeEventListener(KThumbnail.THUMBNAIL_LOADED, onThumbLoaded);
+			var newDimensions : Object = getAspectratio(_thumbnail.originalWidth, _thumbnail.originalWidth );
+			_thumbnail.width = newDimensions.newWidth;
+			_thumbnail.height = newDimensions.newHeight;
+			centerImages();
+			addChild(_thumbnail);	
 		}
 		
 		public function unloadThumbnail() : void
