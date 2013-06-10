@@ -176,6 +176,11 @@ package com.kaltura.kdpfl.controller.media
 						keedp.flavorTags = 	_flashvars.flavorTags;
 					}
 					
+					if (_flashvars.flavorId)
+					{
+						keedp.flavorAssetId = _flashvars.flavorId;
+					}
+					
 					var getExtraData : BaseEntryGetContextData = new BaseEntryGetContextData( _mediaProxy.vo.entry.id , keedp );
 					if (_isRefid) {
 						mr.addRequestParam(ind + ":entryId","{1:result:objects:0:id}");
