@@ -189,7 +189,7 @@ package com.kaltura.kdpfl.view.media
 		private function onThumbLoaded ( e : Event ) : void
 		{
 			_thumbnail.removeEventListener(KThumbnail.THUMBNAIL_LOADED, onThumbLoaded);
-			var newDimensions : Object = getAspectratio(_thumbnail.originalWidth, _thumbnail.originalWidth );
+			var newDimensions : Object = getAspectratio(_thumbnail.originalWidth, _thumbnail.originalHeight );
 			_thumbnail.width = newDimensions.newWidth;
 			_thumbnail.height = newDimensions.newHeight;
 			centerImages();
