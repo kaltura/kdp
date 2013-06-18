@@ -219,7 +219,8 @@ package com.kaltura.kdpfl.view.media
 			//if the thumbnail is not the last child, it won't be shown
 			if (numChildren && getChildAt(numChildren-1)!=_thumbnail)
 			{
-				removeChild(_thumbnail);
+				if (_thumbnail.parent)
+					removeChild(_thumbnail);
 				addChild(_thumbnail);
 			}
 		}
