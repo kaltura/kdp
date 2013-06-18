@@ -48,6 +48,7 @@ package
 		public function initializePlugin(facade:IFacade):void
 		{
 			_annotationsBox = new AnnotationsBox();
+			_annotationsBox.initialTabIndex = this.tabIndex + 1;
 			_annotationEditForm = new EditAnnotationForm();
 			_annotationsBoxMediator = new AnnotationBoxMediator(this);
 			facade.registerMediator(_annotationsBoxMediator);

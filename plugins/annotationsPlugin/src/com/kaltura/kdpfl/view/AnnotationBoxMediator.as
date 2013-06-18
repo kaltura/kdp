@@ -168,8 +168,7 @@ package com.kaltura.kdpfl.view {
 					for (index = 0; index < _unsavedAnnotationSO.length; index++) {
 						var annotationObj:Object = _unsavedAnnotationSO[index];
 
-						var unsavedAnnotation:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, annotationObj["inTime"], annotationObj["annotationText"], annotationObj["entryId"]);
-
+						var unsavedAnnotation:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, annotationObj["inTime"], annotationObj["annotationText"], annotationObj["entryId"], null, (viewComponent as annotationsPluginCode).annotationsBox.initialTabIndex);
 						(viewComponent as annotationsPluginCode).annotationsBox.addAnnotation(unsavedAnnotation);
 
 						addTimelineMarker(unsavedAnnotation.inTime);
@@ -599,7 +598,7 @@ package com.kaltura.kdpfl.view {
 			var kalturaAnnotationList:Array = e.data.objects as Array;
 			if (kalturaAnnotationList && kalturaAnnotationList.length) {
 				for (var i:int = 0; i < kalturaAnnotationList.length; i++) {
-					var annotations2Add:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, -1, "", "", kalturaAnnotationList[i] as KalturaAnnotation);
+					var annotations2Add:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, -1, "", "", kalturaAnnotationList[i] as KalturaAnnotation, (viewComponent as annotationsPluginCode).annotationsBox.initialTabIndex);
 					(viewComponent as annotationsPluginCode).annotationsBox.addAnnotation(annotations2Add);
 				}
 

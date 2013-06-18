@@ -21,6 +21,7 @@ package com.kaltura.kdpfl.view
 		
 		public static const KEY : String = "inTime";
 		public static const DATA : String = "annotation";
+		public var initialTabIndex:int;
 		
 		public function AnnotationsBox(configuration:Array=null)
 		{
@@ -33,7 +34,9 @@ package com.kaltura.kdpfl.view
 		{
 			if (findIndexByInTime(n_annotation.inTime) == -1)
 			{
-				this.dataProvider.addItem({inTime: n_annotation.inTime, annotation: n_annotation})
+				//each annotation holds 3 buttons with tabIndex
+				initialTabIndex += 3;
+				this.dataProvider.addItem({inTime: n_annotation.inTime, annotation: n_annotation});
 			}
 		}
 		
@@ -267,8 +270,7 @@ package com.kaltura.kdpfl.view
 					kalturaAnnotation[property.localName().toString()] = property.children()[0] ? property.children()[0].toString() : "";
 				}
 				
-				annotation = new Annotation (AnnotationStrings.VIEW_MODE, -1,"","",kalturaAnnotation);
-				
+				annotation = new Annotation (AnnotationStrings.VIEW_MODE, -1,"","",kalturaAnnotation, initialTabIndex);
 				this.addAnnotation( annotation );
 				
 			}
