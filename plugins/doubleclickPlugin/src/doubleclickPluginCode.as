@@ -65,7 +65,7 @@ package
 		public var cpAdTagUrl:String;
 		
 		//adTagURL from config, overrides cuepoint ad tags. 
-		public var adTagUrl:String;
+		private var _adTagUrl:String;
 		
 		//do we care about cuepoints? 
 		public var trackCuePoints:Boolean		= true;
@@ -143,6 +143,16 @@ package
 			Security.allowDomain("*");
 		}
 		
+		public function get adTagUrl():String
+		{
+			return _adTagUrl;
+		}
+
+		public function set adTagUrl(value:String):void
+		{
+			_adTagUrl = unescape(value);
+		}
+
 		public function initializePlugin(facade:IFacade):void
 		{
 			
