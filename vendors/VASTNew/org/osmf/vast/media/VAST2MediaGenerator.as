@@ -160,6 +160,7 @@ package org.osmf.vast.media
 			// Check for Video.
 			if (vastDocument.mediafileArray != null && vastDocument.mediafileArray.length > 0 && isLinear)
 			{
+				var mediaFileURL:Vector.<VAST2MediaFile> = new Vector.<VAST2MediaFile>;
 				
 				for each(var mediaObj:Object in vastDocument.mediafileArray)
 				{
@@ -175,7 +176,7 @@ package org.osmf.vast.media
 					mediaFileObj.maintainAspectRatio = mediaObj.maintainAspectRatio;
 					mediaFileObj.apiFramework = mediaObj.apiFramework;
 
-					var mediaFileURL:Vector.<VAST2MediaFile> = new Vector.<VAST2MediaFile>;
+					
 					mediaFileURL.push(mediaFileObj);
 				}
 

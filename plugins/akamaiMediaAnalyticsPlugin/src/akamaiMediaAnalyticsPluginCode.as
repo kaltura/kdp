@@ -33,6 +33,12 @@ package
 		private var _configPath:String;
 		public var securedConfigPath:String;
 		public var securedSwfPath:String;
+		public var title:String;
+		public var category:String;
+		public var subCategory:String;
+		public var playerId:String;
+		public var eventName:String;
+		
 		private static const forceReference:OSMFCSMALoaderInfo = null;
 		
 		public function akamaiMediaAnalyticsPluginCode()
@@ -62,7 +68,7 @@ package
 
 		public function initializePlugin(facade:IFacade):void
 		{
-			var mediator:akamaiMediaAnalyticsMediator = new akamaiMediaAnalyticsMediator();
+			var mediator:akamaiMediaAnalyticsMediator = new akamaiMediaAnalyticsMediator(this);
 			facade.registerMediator(mediator);
 			
 			//Getting Static reference to Plugin.

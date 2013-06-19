@@ -61,6 +61,7 @@ package
 		
 		private var _bufferLength:Number = 0;
 		private var _mediaProxy:MediaProxy;
+		private var _sequenceProxy:SequenceProxy;
 		
 		private var _endOfStreamTimer:Timer;
 		private var _shouldSetFlavors:Boolean = false;
@@ -76,6 +77,7 @@ package
 		override public function onRegister():void
 		{
 			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			_sequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			super.onRegister();
 		}
 		
@@ -112,7 +114,7 @@ package
 				
 				case NotificationType.MEDIA_ELEMENT_READY:	
 					//get flavor asset ID
-					if (!(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence && _mediaProxy.vo.deliveryType==StreamerType.HTTP)
+					if (!_sequenceProxy.vo.isInSequence && _mediaProxy.vo.deliveryType==StreamerType.HTTP)
 					{
 						var flavors:Array = _mediaProxy.vo.kalturaMediaFlavorArray;
 						if (flavors && flavors.length)
@@ -154,7 +156,7 @@ package
 			
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					//in case we switch flavors we want to save last position
-					if (_isWv && !(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
+					if (_isWv && !_sequenceProxy.vo.isInSequence)
 						_lastPlayhead = note.getBody() as Number;
 					break;
 					
@@ -176,7 +178,7 @@ package
 					break;
 				
 				case NotificationType.PLAYER_PLAYED:
-					if (_isWv && !(facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy).vo.isInSequence)
+					if (_isWv && !_sequenceProxy.vo.isInSequence)
 					{
 						var playerMediator:KMediaPlayerMediator = facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator;
 						//workaround for wv bug, netstream reports end before actual end
@@ -231,7 +233,8 @@ package
 						}
 
 						_wvPluginInfo.wvMediaElement.netStream.selectTrack(index);
-						sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {currentIndex : String(index)});
+						if (_mediaProxy.vo.kalturaMediaFlavorArray && _mediaProxy.vo.kalturaMediaFlavorArray.length > 1)
+							sendNotification( NotificationType.SWITCHING_CHANGE_STARTED, {currentIndex : String(index)});
 					}
 					break;
 				
@@ -257,7 +260,8 @@ package
 							_shouldSetFlavors = false;
 						}
 					}
-					else
+					//bumper entry
+					else if (!_sequenceProxy.vo.isInSequence)
 					{
 						_isWv = false;
 						_mediaProxy.vo.forceDynamicStream = false;
@@ -365,31 +369,35 @@ package
 				case "NetStream.Wv.SwitchDown":
 					_wvPluginInfo.wvMediaElement.netStream.parseTransitionMsg(e.info.details);
 					//first time we get bitrates info - save it to kalturaflavorarray
-					if (_mediaProxy.vo.forceDynamicStream && _shouldSetFlavors)
+					if (_mediaProxy.vo.forceDynamicStream)
 					{
-
-						var bitrates:Array = _wvPluginInfo.wvMediaElement.netStream.getBitrates();
-						if (bitrates) 
+						if (_shouldSetFlavors) 
 						{
-							var flvArray:Array = new Array();
-							for (var i:int = 0; i<bitrates.length; i++)
+							var bitrates:Array = _wvPluginInfo.wvMediaElement.netStream.getBitrates();
+							if (bitrates) 
 							{
-								var fa : KalturaFlavorAsset = new KalturaFlavorAsset();
-								fa.bitrate = bitrates[i] * 8 / 1024;
-								flvArray.push(fa);
+								var flvArray:Array = new Array();
+								for (var i:int = 0; i<bitrates.length; i++)
+								{
+									var fa : KalturaFlavorAsset = new KalturaFlavorAsset();
+									fa.bitrate = bitrates[i] * 8 / 1024;
+									flvArray.push(fa);
+								}
+								_mediaProxy.vo.kalturaMediaFlavorArray = flvArray;
 							}
-							_mediaProxy.vo.kalturaMediaFlavorArray = flvArray;
+							_mediaProxy.vo.autoSwitchFlavors = true;
+							//save main media in case we have ads
+							_sequenceProxy.saveMainMedia();
+							_shouldSetFlavors = false;
 						}
-						_mediaProxy.vo.autoSwitchFlavors = true;
-						_shouldSetFlavors = false;
+
+						var newIndx:int = _wvPluginInfo.wvMediaElement.netStream.getCurrentQualityLevel() - 1;
+						_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[newIndx].bitrate;
+						sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : newIndx , newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
+						
 					}
 				
-					
-					var newIndx:int = _wvPluginInfo.wvMediaElement.netStream.getCurrentQualityLevel() - 1;
-					_mediaProxy.vo.preferedFlavorBR = _mediaProxy.vo.kalturaMediaFlavorArray[newIndx].bitrate;
-					sendNotification( NotificationType.SWITCHING_CHANGE_COMPLETE, {newIndex : newIndx , newBitrate: _mediaProxy.vo.preferedFlavorBR}  );
-					break;
-
+				break;
 				
 				/*	case "NetStream.Buffer.Empty":
 				

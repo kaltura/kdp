@@ -260,7 +260,7 @@ package com.kaltura.kdpfl.view.controls
 				{
 					return "";
 				}
-				else if(this._streamerType != StreamerType.HTTP)
+				else if(isDynamic())
 				{
 					if (isAutoSwitch)
 					{
@@ -580,7 +580,7 @@ package com.kaltura.kdpfl.view.controls
 			{
 				this.enabled = true;
 				
-				if (this.streamerType == StreamerType.RTMP)
+				if (isDynamic())
 				{
 					this.selectedMessage = autoMessage;
 				}

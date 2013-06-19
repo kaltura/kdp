@@ -21,9 +21,11 @@ package com.kaltura.kdpfl.plugin
 		public static const NAME:String = "akamaiMediaAnalyticsMediator";
 		private var _mediaProxy:MediaProxy;
 	//	private var _hadBWCheck:Boolean = false;
+		private var _pluginCode:akamaiMediaAnalyticsPluginCode;
 		
 		public function akamaiMediaAnalyticsMediator(viewComponent:Object=null)
 		{
+			_pluginCode = viewComponent as akamaiMediaAnalyticsPluginCode;
 			super(NAME, viewComponent);
 		}
 		
@@ -49,14 +51,14 @@ package com.kaltura.kdpfl.plugin
 					
 					AnalyticsPluginLoader.setData("publisherId", configProxy.vo.flashvars.partnerId);
 					AnalyticsPluginLoader.setData("playerVersion", facade["kdpVersion"]);
-					AnalyticsPluginLoader.setData("playerId", configProxy.vo.kuiConf.id);
+					AnalyticsPluginLoader.setData("playerId", _pluginCode.playerId || configProxy.vo.kuiConf.id);
 					AnalyticsPluginLoader.setData("device", Capabilities.os );
 					AnalyticsPluginLoader.setData("playerLoadtime",(facade.retrieveProxy(PlayerStatusProxy.NAME) as PlayerStatusProxy).vo.loadTime);
 					
 					
 					if (entry is KalturaMediaEntry)
 					{
-						AnalyticsPluginLoader.setData("title", entry.id);
+						AnalyticsPluginLoader.setData("title", _pluginCode.title || entry.id);
 						
 						var mediaEntry:KalturaMediaEntry = entry as KalturaMediaEntry;
 						AnalyticsPluginLoader.setData("contentLength", mediaEntry.msDuration);
@@ -77,7 +79,9 @@ package com.kaltura.kdpfl.plugin
 							default:
 								contentType = "live";
 						}
-						AnalyticsPluginLoader.setData("category", contentType);
+						AnalyticsPluginLoader.setData("category", _pluginCode.category || contentType);
+						setDataIfExsits("subCategory");
+						setDataIfExsits("eventName");
 					}
 				
 					break;
@@ -112,6 +116,12 @@ package com.kaltura.kdpfl.plugin
 					//_hadBWCheck = true;
 					break;
 			}
+		}
+		
+		private function setDataIfExsits ( attr:String ) : void 
+		{
+			if ( _pluginCode[attr] ) 
+				AnalyticsPluginLoader.setData(attr, _pluginCode[attr]);
 		}
 		
 		/**
