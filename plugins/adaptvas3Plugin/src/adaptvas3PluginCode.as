@@ -6,6 +6,8 @@ package {
 	import com.kaltura.kdpfl.plugin.component.AdaptvAS3Mediator;
 	import com.kaltura.kdpfl.plugin.component.AdaptvAS3Player;
 	
+	import com.kaltura.kdpfl.model.type.NotificationType;
+	
 	import fl.core.UIComponent;
 	import fl.managers.*;
 	
@@ -22,6 +24,8 @@ package {
 		private var _adaptvAS3Player : AdaptvAS3Player ;
 		private var _configValues:Array = new Array();
 		private var _context:Object;
+		
+		private var _loadError:Boolean;
 		/**
 		 * Constructor 
 		 * 
@@ -73,6 +77,7 @@ package {
 		
 		private function onAdManagerLoadFailed (e : Event) : void
 		{
+			_loadError = true;
 			dispatchEvent( new KPluginEvent( KPluginEvent.KPLUGIN_INIT_FAILED) );
 		}
 		
@@ -170,7 +175,11 @@ package {
 		
 		public function start () : void
 		{
-			_adaptvas3Mediator.forceStart();
+			if (_loadError) {
+				_adaptvAS3Player.facade.sendNotification( NotificationType.SEQUENCE_ITEM_PLAY_END );
+			} else {
+				_adaptvas3Mediator.forceStart();
+			}
 		}
 		public function get sourceType () : String
 		{
