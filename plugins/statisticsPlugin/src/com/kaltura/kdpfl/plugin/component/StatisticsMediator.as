@@ -352,7 +352,7 @@ package com.kaltura.kdpfl.plugin.component {
 							_lastId = kse.entryId;
 						}
 						
-						if (_isNewLoad && !_played) {
+						if (!_played) {
 							kse.eventType = com.kaltura.types.KalturaStatsEventType.PLAY;
 							_p25Once = false;
 							_p50Once = false;
