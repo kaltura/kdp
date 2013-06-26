@@ -535,7 +535,7 @@ package com.kaltura.kdpfl.plugin.component {
 			//TODO track stats
 			var sequenceProxy:Proxy = facade.retrieveProxy("sequenceProxy") as Proxy;
 			sendNotification("adClick",
-							 {timeSlot: getContextString(sequenceProxy["sequenceContext"])});
+							 {timeSlot: getContextString(sequenceProxy["sequenceContext"]) , url:urlReq.url });
 		}
 		
 		private function fireBeacon(url:String) : void 
