@@ -110,12 +110,6 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		private var _lastId:String = "";
 		
-		/**
-		 * Flag indicating whether the entry that was loaded is a new one, and not a change in the same entry's flavor and not
-		 * the result if intelligent seeking.
-		 */		
-		private var _isNewLoad:Boolean = false;
-		
 		private var _kc : KalturaClient;
 		
 		private var _bufferStarted:Boolean = false;
@@ -371,11 +365,9 @@ package com.kaltura.kdpfl.plugin.component {
 								_played = false;
 								_lastId = kse.entryId;
 								_hasSeeked = false;
-								_isNewLoad = true;
 								kse.eventType = com.kaltura.types.KalturaStatsEventType.MEDIA_LOADED;
 							}
 							else {
-								_isNewLoad = false;
 								_lastSeek = 0;
 							}
 						}
