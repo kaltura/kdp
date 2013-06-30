@@ -181,7 +181,7 @@ package com.kaltura.delegates {
 
 			_call.setRequestArgument("ignoreNull", _config.ignoreNull);
 			_call.setRequestArgument("apiVersion", KalturaClient.API_VERSION);
-			_call.setRequestArgument("format", KalturaResponseType.RESPONSE_TYPE_XML);
+			//_call.setRequestArgument("format", KalturaResponseType.RESPONSE_TYPE_XML);
 
 			//Create signature hash.
 			//call.setRequestArgument("kalsig", getMD5Checksum(call));
