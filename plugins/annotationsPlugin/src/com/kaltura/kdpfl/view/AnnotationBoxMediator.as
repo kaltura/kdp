@@ -63,10 +63,18 @@ package com.kaltura.kdpfl.view {
 		/**
 		 * Saved annotations shared object prefix.
 		 */
-		public static const ANNOTATIONS_SO_PREFIX:String = "KalturaSavedAnnotations_"
+		public static const ANNOTATIONS_SO_PREFIX:String = "KalturaSavedAnnotations_";
+		
+		/**
+		 * Saves current displaying annotations, they will be removed before editing, and added back afterwards
+		 * */
+		private var _annotationsArr:Array;
+		
+		private var _pluginCode:annotationsPluginCode;
 
 
 		public function AnnotationBoxMediator(viewComponent:Object = null) {
+			_pluginCode = viewComponent as annotationsPluginCode;
 			super(NAME, viewComponent);
 			createListeners();
 		}
@@ -77,12 +85,12 @@ package com.kaltura.kdpfl.view {
 		}
 
 		protected function createListeners():void {
-			var box:AnnotationsBox = (viewComponent as annotationsPluginCode).annotationsBox; 
+			var box:AnnotationsBox = _pluginCode.annotationsBox; 
 			box.addEventListener(AnnotationEvent.DELETE_ANNOTATION, onAnnotationDeleted);
 			box.addEventListener(AnnotationEvent.EDIT_ANNOTATION, onAnnotationEdit);
 			box.addEventListener(AnnotationEvent.SEEK_TO_ANNOTATION, onAnnotationClick);
 
-			var form:EditAnnotationForm = (viewComponent as annotationsPluginCode).annotationEditForm; 
+			var form:EditAnnotationForm = _pluginCode.annotationEditForm; 
 			form.addEventListener(AnnotationEvent.MAX_LENGTH_REACHED, handleAnnotationMaxLength);
 			form.addEventListener(AnnotationEvent.MAX_LENGTH_FIXED, handleAnnotationMaxLength);
 		}
@@ -124,13 +132,13 @@ package com.kaltura.kdpfl.view {
 					if (currEntryId != _entryId) {
 						_entryId = currEntryId;
 					}
-					if ((viewComponent as annotationsPluginCode).userMode == AnnotationStrings.REVIEWER && (viewComponent as annotationsPluginCode).useSharedObject) {
+					if (_pluginCode.userMode == AnnotationStrings.REVIEWER && _pluginCode.useSharedObject) {
 						configureLocalSavedAnnotations();
 					}
 					else {
 						if (_sessionId && _sessionId != "")
 							loadFeedbackSession();
-						(viewComponent as annotationsPluginCode).removeEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject)
+						_pluginCode.removeEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject)
 					}
 
 
@@ -140,8 +148,8 @@ package com.kaltura.kdpfl.view {
 					if (currMedia && currEntryId == _entryId) {
 						initTimelineMetadata();
 					}
-					if ((viewComponent as annotationsPluginCode).annotationsBox.dataProvider.toArray().length) {
-						var dpArray:Array = (viewComponent as annotationsPluginCode).annotationsBox.dataProvider.toArray();
+					if (_pluginCode.annotationsBox.dataProvider.toArray().length) {
+						var dpArray:Array = _pluginCode.annotationsBox.dataProvider.toArray();
 						for (var i:int = 0; i < dpArray.length; i++) {
 							addTimelineMarker((dpArray[i]["annotation"] as Annotation).inTime);
 						}
@@ -150,7 +158,7 @@ package com.kaltura.kdpfl.view {
 
 				case Notifications.SUBMIT_FEEDBACK_SESSION:
 
-					var kAnnotationArray:Array = (viewComponent as annotationsPluginCode).annotationsBox.annotationsAsKalturaAnnotationArray;
+					var kAnnotationArray:Array = _pluginCode.annotationsBox.annotationsAsKalturaAnnotationArray;
 
 					if (kAnnotationArray && kAnnotationArray.length != 0 && _entryId && _entryId != "" && _entryId != "-1") {
 						submitFeedbackSession(kAnnotationArray);
@@ -161,22 +169,22 @@ package com.kaltura.kdpfl.view {
 
 				case Notifications.LOAD_LOCAL_SAVED_ANNOTATIONS:
 
-					if (!(viewComponent as annotationsPluginCode).showAnnotationsPlugin) {
-						(viewComponent as annotationsPluginCode).showAnnotationsPlugin = true;
+					if (!_pluginCode.showAnnotationsPlugin) {
+						_pluginCode.showAnnotationsPlugin = true;
 					}
 
 					for (index = 0; index < _unsavedAnnotationSO.length; index++) {
 						var annotationObj:Object = _unsavedAnnotationSO[index];
 
-						var unsavedAnnotation:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, annotationObj["inTime"], annotationObj["annotationText"], annotationObj["entryId"], null, (viewComponent as annotationsPluginCode).annotationsBox.initialTabIndex);
-						(viewComponent as annotationsPluginCode).annotationsBox.addAnnotation(unsavedAnnotation);
+						var unsavedAnnotation:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, annotationObj["inTime"], annotationObj["annotationText"], annotationObj["entryId"], null, _pluginCode.annotationsBox.initialTabIndex);
+						_pluginCode.annotationsBox.addAnnotation(unsavedAnnotation);
 
 						addTimelineMarker(unsavedAnnotation.inTime);
 					}
 
-					sendNotification("receivedCuePoints", (viewComponent as annotationsPluginCode).annotationsBox.millisecTimesArray);
+					sendNotification("receivedCuePoints", _pluginCode.annotationsBox.millisecTimesArray);
 
-					(viewComponent as annotationsPluginCode).addEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject);
+					_pluginCode.addEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject);
 
 					break;
 
@@ -187,22 +195,22 @@ package com.kaltura.kdpfl.view {
 
 						sendNotification(NotificationType.DO_PAUSE);
 
-						if (!(viewComponent as annotationsPluginCode).showAnnotationsPlugin) {
-							(viewComponent as annotationsPluginCode).showAnnotationsPlugin = true;
+						if (!_pluginCode.showAnnotationsPlugin) {
+							_pluginCode.showAnnotationsPlugin = true;
 						}
 						var n_annotation:Annotation = new Annotation(AnnotationStrings.EDIT_MODE, -1, Annotation.ANNOTATION_PROMPT, _entryId);
-
-						(viewComponent as annotationsPluginCode).gotoEditMode();
-						(viewComponent as annotationsPluginCode).annotationEditForm.openAnnotationForEditing(n_annotation);
+						removeAnnotationsFromLayout();
+						_pluginCode.gotoEditMode();
+						_pluginCode.annotationEditForm.openAnnotationForEditing(n_annotation);
 					}
 
 					break;
 
 				case Notifications.LOAD_FEEDBACK_SESSION:
-					(viewComponent as annotationsPluginCode).annotationsBox.reset();
-					if ((viewComponent as annotationsPluginCode).submissionTarget == AnnotationStrings.KALTURA) {
+					_pluginCode.annotationsBox.reset();
+					if (_pluginCode.submissionTarget == AnnotationStrings.KALTURA) {
 
-						(viewComponent as annotationsPluginCode).userMode = AnnotationStrings.CANDIDATE;
+						_pluginCode.userMode = AnnotationStrings.CANDIDATE;
 
 						_sessionId = notification.getBody().sessionId;
 
@@ -224,47 +232,48 @@ package com.kaltura.kdpfl.view {
 				case Notifications.SAVE_ANNOTATION:
 					sendNotification(NotificationType.DO_PAUSE);
 					currentTime = Math.floor(_playerMediaMediator.getCurrentTime());
-					var currTimeIndex:int = (viewComponent as annotationsPluginCode).annotationsBox.findIndexByInTime(currentTime);
+					var currTimeIndex:int = _pluginCode.annotationsBox.findIndexByInTime(currentTime);
 
-					if (currTimeIndex != -1 && (viewComponent as annotationsPluginCode).annotationsBox.findIndexByAnnotation((viewComponent as annotationsPluginCode).annotationEditForm.annotation) == -1) {
-						(viewComponent as annotationsPluginCode).annotationsBox.dispatchEvent(new Event(AnnotationStrings.INVALID_ANNOTATION_INTIME_EVENT, true));
+					if (currTimeIndex != -1 && _pluginCode.annotationsBox.findIndexByAnnotation(_pluginCode.annotationEditForm.annotation) == -1) {
+						_pluginCode.annotationsBox.dispatchEvent(new Event(AnnotationStrings.INVALID_ANNOTATION_INTIME_EVENT, true));
 						return;
 					}
-
-					var savedAnnotation:Annotation = (viewComponent as annotationsPluginCode).annotationEditForm.returnValidAnnotation(currentTime);
+					restoreAnnotationsInLayout();
+					var savedAnnotation:Annotation = _pluginCode.annotationEditForm.returnValidAnnotation(currentTime);
 					if (savedAnnotation) {
-						index = (viewComponent as annotationsPluginCode).annotationsBox.findIndexByAnnotation(savedAnnotation);
+						index = _pluginCode.annotationsBox.findIndexByAnnotation(savedAnnotation);
 						if (index != -1) {
-							KAstraAdvancedLayoutUtil.appendToLayoutAt((viewComponent as annotationsPluginCode).annotationsBox, savedAnnotation, index, 100, 100);
+							KAstraAdvancedLayoutUtil.appendToLayoutAt(_pluginCode.annotationsBox, savedAnnotation, index, 100, 100);
 							saveAnnotationsToLocalObject();
 						}
 						else {
+							
 							addTimelineMarker(savedAnnotation.inTime);
-							(viewComponent as annotationsPluginCode).annotationsBox.addAnnotation(savedAnnotation);
-
+							_pluginCode.annotationsBox.addAnnotation(savedAnnotation);
 						}
-						(viewComponent as annotationsPluginCode).gotoViewMode();
+						_pluginCode.gotoViewMode();
 
 					}
-					sendNotification("receivedCuePoints", (viewComponent as annotationsPluginCode).annotationsBox.millisecTimesArray);
-					if ((viewComponent as annotationsPluginCode).submissionTarget == AnnotationStrings.LOCAL_DB) {
-						var feedbackSessionXml:XML = (viewComponent as annotationsPluginCode).annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
+					sendNotification("receivedCuePoints", _pluginCode.annotationsBox.millisecTimesArray);
+					if (_pluginCode.submissionTarget == AnnotationStrings.LOCAL_DB) {
+						var feedbackSessionXml:XML = _pluginCode.annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
 						sendNotification(Notifications.ANNOTATION_SAVED, {feedbackSessionXML: feedbackSessionXml.toXMLString()});
 					}
 					break;
 
 				case Notifications.CANCEL_ANNOTATION:
-					var returnedAnnotation:Annotation = (viewComponent as annotationsPluginCode).annotationEditForm.canceledAnnotation();
+					restoreAnnotationsInLayout();
+					var returnedAnnotation:Annotation = _pluginCode.annotationEditForm.canceledAnnotation();
 					if (returnedAnnotation) {
-						index = (viewComponent as annotationsPluginCode).annotationsBox.findIndexByAnnotation(returnedAnnotation);
+						index = _pluginCode.annotationsBox.findIndexByAnnotation(returnedAnnotation);
 						if (index != -1) {
-							KAstraAdvancedLayoutUtil.appendToLayoutAt((viewComponent as annotationsPluginCode).annotationsBox, returnedAnnotation, index, 100, 100);
+							KAstraAdvancedLayoutUtil.appendToLayoutAt(_pluginCode.annotationsBox, returnedAnnotation, index, 100, 100);
 						}
-						(viewComponent as annotationsPluginCode).gotoViewMode();
+						_pluginCode.gotoViewMode();
 					}
 
-					if ((viewComponent as annotationsPluginCode).annotationsBox.dataProvider.length == 0) {
-						(viewComponent as annotationsPluginCode).showAnnotationsPlugin = false;
+					if (_pluginCode.annotationsBox.dataProvider.length == 0) {
+						_pluginCode.showAnnotationsPlugin = false;
 						restoreFocus();
 					}
 					break;
@@ -272,21 +281,21 @@ package com.kaltura.kdpfl.view {
 				case Notifications.ANNOTATION_DELETED:
 					var removedAnnotation:Annotation = notification.getBody().annotation as Annotation;
 					removeTimelineMarker(removedAnnotation.inTime);
-					if ((viewComponent as annotationsPluginCode).annotationsBox.dataProvider.length == 0) {
-						(viewComponent as annotationsPluginCode).showAnnotationsPlugin = false;
+					if (_pluginCode.annotationsBox.dataProvider.length == 0) {
+						_pluginCode.showAnnotationsPlugin = false;
 						restoreFocus();
 					}
-					sendNotification("receivedCuePoints", (viewComponent as annotationsPluginCode).annotationsBox.millisecTimesArray);
+					sendNotification("receivedCuePoints", _pluginCode.annotationsBox.millisecTimesArray);
 					break;
 				case NotificationType.HAS_OPENED_FULL_SCREEN:
 
-					_userModeBeforeFS = (viewComponent as annotationsPluginCode).userMode;
-					(viewComponent as annotationsPluginCode).userMode = AnnotationStrings.CANDIDATE;
+					_userModeBeforeFS = _pluginCode.userMode;
+					_pluginCode.userMode = AnnotationStrings.CANDIDATE;
 
 					break;
 				case NotificationType.HAS_CLOSED_FULL_SCREEN:
 
-					(viewComponent as annotationsPluginCode).userMode = _userModeBeforeFS;
+					_pluginCode.userMode = _userModeBeforeFS;
 					trace(_userModeBeforeFS);
 
 					break;
@@ -294,12 +303,12 @@ package com.kaltura.kdpfl.view {
 					resetAnnotationComponent();
 					break;
 				case NotificationType.PLAYER_PLAY_END:
-					if ((viewComponent as annotationsPluginCode).annotationsBox.dataProvider && (viewComponent as annotationsPluginCode).annotationsBox.dataProvider.length)
-						(viewComponent as annotationsPluginCode).annotationsBox.scrollToInTime((viewComponent as annotationsPluginCode).annotationsBox.dataProvider.getItemAt(0).inTime);
+					if (_pluginCode.annotationsBox.dataProvider && _pluginCode.annotationsBox.dataProvider.length)
+						_pluginCode.annotationsBox.scrollToInTime(_pluginCode.annotationsBox.dataProvider.getItemAt(0).inTime);
 					break;
 				case Notifications.SAVE_AS_DRAFT:
-					if ((viewComponent as annotationsPluginCode).submissionTarget == AnnotationStrings.LOCAL_DB) {
-						var feedbackSessionXml2:XML = (viewComponent as annotationsPluginCode).annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
+					if (_pluginCode.submissionTarget == AnnotationStrings.LOCAL_DB) {
+						var feedbackSessionXml2:XML = _pluginCode.annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
 						sendNotification(Notifications.FEEDBACK_SESSION_SUBMITTED, {feedbackSessionXML: feedbackSessionXml2.toXMLString()});
 					}
 					break;
@@ -320,11 +329,11 @@ package com.kaltura.kdpfl.view {
 			}
 			else if ((data is XML) && _entryId != data.@status[0].toString()) {
 				var feedbackSessionStatus:String = data.@status[0].toString();
-				(viewComponent as annotationsPluginCode).userMode = (feedbackSessionStatus == AnnotationStrings.FINAL) ? AnnotationStrings.CANDIDATE : AnnotationStrings.REVIEWER;
-				(viewComponent as annotationsPluginCode).annotationsBox.xmlToAnnotations(data as XML);
-				sendNotification("receivedCuePoints", (viewComponent as annotationsPluginCode).annotationsBox.millisecTimesArray);
-				if (!(viewComponent as annotationsPluginCode).showAnnotationsPlugin) {
-					(viewComponent as annotationsPluginCode).showAnnotationsPlugin = true;
+				_pluginCode.userMode = (feedbackSessionStatus == AnnotationStrings.FINAL) ? AnnotationStrings.CANDIDATE : AnnotationStrings.REVIEWER;
+				_pluginCode.annotationsBox.xmlToAnnotations(data as XML);
+				sendNotification("receivedCuePoints", _pluginCode.annotationsBox.millisecTimesArray);
+				if (!_pluginCode.showAnnotationsPlugin) {
+					_pluginCode.showAnnotationsPlugin = true;
 				}
 			}
 			else {
@@ -352,7 +361,7 @@ package com.kaltura.kdpfl.view {
 		protected function onAnnotationDeleted(e:AnnotationEvent):void {
 			_annotationToDelete = e.annotation;
 			sendNotification(NotificationType.ALERT, {message: "Are you sure you want to delete the annotation?", title: "Attention!", buttons: ["Yes", "No"], callbackFunction: annotationDeleteClicked});
-		/*(viewComponent as annotationsPluginCode).annotationsBox.removeAnnotation(e.annotation);
+		/*_pluginCode.annotationsBox.removeAnnotation(e.annotation);
 		 sendNotification(Notifications.ANNOTATION_DELETED, {annotation: e.annotation});*/
 		}
 
@@ -360,12 +369,12 @@ package com.kaltura.kdpfl.view {
 		private function annotationDeleteClicked(e:Event = null):void {
 			if (e.currentTarget is AutoSizeButton) {
 				if ((e.currentTarget as AutoSizeButton).label == "Yes" && _annotationToDelete) {
-					(viewComponent as annotationsPluginCode).annotationsBox.removeAnnotation(_annotationToDelete);
-					if ((viewComponent as annotationsPluginCode).submissionTarget == AnnotationStrings.KALTURA) {
+					_pluginCode.annotationsBox.removeAnnotation(_annotationToDelete);
+					if (_pluginCode.submissionTarget == AnnotationStrings.KALTURA) {
 						sendNotification(Notifications.ANNOTATION_DELETED, {annotation: _annotationToDelete});
 					}
 					else {
-						var feedbackSessionXml:XML = (viewComponent as annotationsPluginCode).annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
+						var feedbackSessionXml:XML = _pluginCode.annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
 						sendNotification(Notifications.ANNOTATION_DELETED, {annotation: _annotationToDelete, feedbackSessionXML: feedbackSessionXml.toXMLString()});
 					}
 				}
@@ -388,9 +397,10 @@ package com.kaltura.kdpfl.view {
 			//////////////////////////////////////////////////////////////////////////
 			
 			var editAnnotation:Annotation = e.annotation;
-			KAstraAdvancedLayoutUtil.removeFromLayout((viewComponent as annotationsPluginCode).annotationsBox, editAnnotation);
-			(viewComponent as annotationsPluginCode).gotoEditMode();
-			(viewComponent as annotationsPluginCode).annotationEditForm.openAnnotationForEditing(editAnnotation);
+			KAstraAdvancedLayoutUtil.removeFromLayout(_pluginCode.annotationsBox, editAnnotation);
+			removeAnnotationsFromLayout();
+			_pluginCode.gotoEditMode();
+			_pluginCode.annotationEditForm.openAnnotationForEditing(editAnnotation);
 		}
 
 
@@ -405,6 +415,33 @@ package com.kaltura.kdpfl.view {
 				_shouldPause = true;
 				sendNotification(NotificationType.DO_PLAY);
 			}
+		}
+		
+		/**
+		 * temporaly remove annotations from layout to fix tabIndex issues
+		 * */
+		private function removeAnnotationsFromLayout(): void {
+			_annotationsArr = new Array();
+			for (var i:int = 0; i < _pluginCode.annotationsBox.numChildren; i++) {
+				//save to append back later on
+				_annotationsArr.push(_pluginCode.annotationsBox.getChildAt(i));
+			}
+			for (var j:int = 0; j < _annotationsArr.length; j++) {
+				KAstraAdvancedLayoutUtil.removeFromLayout(_pluginCode.annotationsBox, _annotationsArr[j]);
+			}
+		}
+		
+		/**
+		 * restore annotations in view mode
+		 * */
+		private function restoreAnnotationsInLayout(): void {
+			if (!_annotationsArr)
+				return;
+			
+			for (var i:int = 0; i < _annotationsArr.length; i++) {
+				KAstraAdvancedLayoutUtil.appendToLayoutAt(_pluginCode.annotationsBox, _annotationsArr[i], i, 100, 100);
+			}
+			_annotationsArr = null;
 		}
 
 		
@@ -430,7 +467,7 @@ package com.kaltura.kdpfl.view {
 
 		protected function onMarkerReached(e:TimelineMetadataEvent):void {
 
-			(viewComponent as annotationsPluginCode).annotationsBox.scrollToInTime(e.marker.time);
+			_pluginCode.annotationsBox.scrollToInTime(e.marker.time);
 		}
 
 
@@ -440,11 +477,11 @@ package com.kaltura.kdpfl.view {
 		 *
 		 */
 		protected function configureLocalSavedAnnotations():void {
-			if ((viewComponent as annotationsPluginCode).hasEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT)) {
-				(viewComponent as annotationsPluginCode).removeEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject)
+			if (_pluginCode.hasEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT)) {
+				_pluginCode.removeEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject)
 			}
 
-			(viewComponent as annotationsPluginCode).annotationsBox.reset();
+			_pluginCode.annotationsBox.reset();
 			try {
 				var so:SharedObject = SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId);
 			}
@@ -461,9 +498,9 @@ package com.kaltura.kdpfl.view {
 
 				sendNotification("receivedCuePoints", new Array());
 
-				(viewComponent as annotationsPluginCode).showAnnotationsPlugin = false;
+				_pluginCode.showAnnotationsPlugin = false;
 
-				(viewComponent as annotationsPluginCode).addEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject);
+				_pluginCode.addEventListener(AnnotationStrings.ANNOTATIONS_LIST_CHANGED_EVENT, saveAnnotationsToLocalObject);
 			}
 		}
 
@@ -474,8 +511,8 @@ package com.kaltura.kdpfl.view {
 		 *
 		 */
 		protected function saveAnnotationsToLocalObject(e:Event = null):void {
-			if (_flashvars.allowCookies=="true" && (viewComponent as annotationsPluginCode).useSharedObject) {
-				_unsavedAnnotationSO = (viewComponent as annotationsPluginCode).annotationsBox.getAllObjectsInFieldAsArray("annotation");
+			if (_flashvars.allowCookies=="true" && _pluginCode.useSharedObject) {
+				_unsavedAnnotationSO = _pluginCode.annotationsBox.getAllObjectsInFieldAsArray("annotation");
 				try {
 					SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).data.savedAnnotations = _unsavedAnnotationSO;
 					SharedObject.getLocal(ANNOTATIONS_SO_PREFIX + _entryId).flush();
@@ -494,7 +531,7 @@ package com.kaltura.kdpfl.view {
 		 *
 		 */
 		protected function submitFeedbackSession(kalturaAnnotationsArray:Array):void {
-			if ((viewComponent as annotationsPluginCode).submissionTarget == AnnotationStrings.KALTURA) {
+			if (_pluginCode.submissionTarget == AnnotationStrings.KALTURA) {
 				var kalturaClient:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
 
 				var parentAnnotation:KalturaAnnotation = new KalturaAnnotation();
@@ -538,13 +575,13 @@ package com.kaltura.kdpfl.view {
 				}
 				else {
 
-					var feedbackSessionXml:XML = (viewComponent as annotationsPluginCode).annotationsBox.annotationsXML(AnnotationStrings.FINAL, _entryId, _partnerId);
+					var feedbackSessionXml:XML = _pluginCode.annotationsBox.annotationsXML(AnnotationStrings.FINAL, _entryId, _partnerId);
 					sendNotification(Notifications.FEEDBACK_SESSION_SUBMITTED, {feedbackSessionXML: feedbackSessionXml.toXMLString()});
 
 				}
 				//resetAnnotationComponent();
 				resetCookieForSessionId();
-				(viewComponent as annotationsPluginCode).userMode = AnnotationStrings.CANDIDATE;
+				_pluginCode.userMode = AnnotationStrings.CANDIDATE;
 
 			}
 
@@ -556,10 +593,10 @@ package com.kaltura.kdpfl.view {
 
 
 		protected function resetAnnotationComponent():void {
-			(viewComponent as annotationsPluginCode).annotationsBox.reset();
+			_pluginCode.annotationsBox.reset();
 			resetCookieForSessionId();
-			(viewComponent as annotationsPluginCode).showAnnotationsPlugin = false;
-			sendNotification("receivedCuePoints", (viewComponent as annotationsPluginCode).annotationsBox.millisecTimesArray);
+			_pluginCode.showAnnotationsPlugin = false;
+			sendNotification("receivedCuePoints", _pluginCode.annotationsBox.millisecTimesArray);
 		}
 
 
@@ -592,17 +629,17 @@ package com.kaltura.kdpfl.view {
 
 
 		protected function onSessionsAnnotationsLoaded(e:KalturaEvent):void {
-			if (!(viewComponent as annotationsPluginCode).showAnnotationsPlugin) {
-				(viewComponent as annotationsPluginCode).showAnnotationsPlugin = true;
+			if (!_pluginCode.showAnnotationsPlugin) {
+				_pluginCode.showAnnotationsPlugin = true;
 			}
 			var kalturaAnnotationList:Array = e.data.objects as Array;
 			if (kalturaAnnotationList && kalturaAnnotationList.length) {
 				for (var i:int = 0; i < kalturaAnnotationList.length; i++) {
-					var annotations2Add:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, -1, "", "", kalturaAnnotationList[i] as KalturaAnnotation, (viewComponent as annotationsPluginCode).annotationsBox.initialTabIndex);
-					(viewComponent as annotationsPluginCode).annotationsBox.addAnnotation(annotations2Add);
+					var annotations2Add:Annotation = new Annotation(AnnotationStrings.VIEW_MODE, -1, "", "", kalturaAnnotationList[i] as KalturaAnnotation, _pluginCode.annotationsBox.initialTabIndex);
+					_pluginCode.annotationsBox.addAnnotation(annotations2Add);
 				}
 
-				sendNotification("receivedCuePoints", (viewComponent as annotationsPluginCode).annotationsBox.millisecTimesArray);
+				sendNotification("receivedCuePoints", _pluginCode.annotationsBox.millisecTimesArray);
 			}
 		}
 
@@ -620,10 +657,10 @@ package com.kaltura.kdpfl.view {
 		protected function handleAnnotationMaxLength(e:AnnotationEvent):void {
 			switch (e.type) {
 				case AnnotationEvent.MAX_LENGTH_REACHED:
-					(viewComponent as annotationsPluginCode).messageText = MessageStrings.getString("INVALID_ANNOTATION_LENGTH_MESSAGE");
+					_pluginCode.messageText = MessageStrings.getString("INVALID_ANNOTATION_LENGTH_MESSAGE");
 					break;
 				case AnnotationEvent.MAX_LENGTH_FIXED:
-					(viewComponent as annotationsPluginCode).messageText = '';
+					_pluginCode.messageText = '';
 					break;
 			
 			}

@@ -16,6 +16,7 @@ package com.kaltura.kdpfl.view {
 	import flash.text.TextFormat;
 	import flash.xml.XMLNode;
 	import flash.xml.XMLNodeType;
+	import flash.display.DisplayObject
 	
 	/**
 	 * Visual rperesentation of a single annotation in the annotations box.
@@ -49,8 +50,6 @@ package com.kaltura.kdpfl.view {
 		 * is text longer than maxChars defined
 		 */
 		private var _textExceedsLength:Boolean = false;
-		
-		public var rootTabIndex:int;
 		
 		
 		public function Annotation(n_viewMode:String, n_inTime:Number = -1, n_annotationText:String = ANNOTATION_PROMPT, n_entryId:String = "", n_kalturaAnnotation:KalturaAnnotation = null, tabIndex:int = 0) {
