@@ -83,16 +83,19 @@ package com.kaltura.kdpfl.view
 		 */		
 		override public function onRegister():void
 		{
-			//TODO: add this child to the player continer so it will be in it's center and not in the root center
-			_kdp3Preloader = new BufferAnimation();
-			root.addChild(_kdp3Preloader);
-			facade.registerMediator(new BufferAnimationMediator(_kdp3Preloader));
-			
+			if (!root["flashvars"].hasOwnProperty("disablePlayerSpinner") || root["flashvars"]["disablePlayerSpinner"]!="true")
+			{
+				//TODO: add this child to the player continer so it will be in it's center and not in the root center
+				_kdp3Preloader = new BufferAnimation();
+				root.addChild(_kdp3Preloader);
+				facade.registerMediator(new BufferAnimationMediator(_kdp3Preloader));
+			}
+		
 			//create the alert mediator
 			
 			onResize();
 		}
-		
+	
 		/**
 		 * The notification that the root need to listen to 
 		 * @return 
@@ -156,6 +159,7 @@ package com.kaltura.kdpfl.view
 		public function get root() : DisplayObjectContainer{
 			return viewComponent as DisplayObjectContainer;
 		}
+		
 		
 	}
 }
