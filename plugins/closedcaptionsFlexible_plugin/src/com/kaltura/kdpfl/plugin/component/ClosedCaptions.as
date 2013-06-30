@@ -585,8 +585,9 @@ package com.kaltura.kdpfl.plugin.component
 					{
 						curTF.size = Number(curTF.size)*fullScreenRatio;
 					}
-					var lenDiff:int = ccLine.text.length - caption.text.length;
-					caption.setTextFormat(curTF, innerText.startIndex - lenDiff, innerText.endIndex - lenDiff);
+					var tempTf:TextField = new TextField();
+					tempTf.htmlText = ccLine.text.substring(innerText.startIndex, innerText.endIndex);
+					caption.setTextFormat(curTF, caption.text.indexOf(tempTf.text), tempTf.text.length + caption.text.indexOf(tempTf.text));
 				}
 			}	
 			
