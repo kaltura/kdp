@@ -16,3 +16,7 @@ vendors/*/bin/*
 # Flash builder files #
 ###################
 .metadata
+
+plugins/vastPlugin/bin-release/vastPlugin.swf
+
+plugins/vastPlugin/bin-release/vastPlugin.swf
