@@ -83,6 +83,8 @@ package com.kaltura.kdpfl.plugin
 					_flashvars["objMetadataNamespace"+i] = AkamaiStrings.AKAMAI_ADVANCED_STREAMING_PLUGIN_METADATA_NAMESPACE;
 					//set buffer length
 					var akamaiMetadataValues:String = AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH + "=" + bufferLength;
+					//disable netsession mode
+					akamaiMetadataValues +="&" + AkamaiStrings.AKAMAI_METADATA_KEY_USE_NETSESSION + "=never";
 					
 					if (_flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
 					{
