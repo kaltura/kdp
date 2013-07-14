@@ -33,6 +33,11 @@ package {
 		 */		
 		public var bufferStatsDis:Boolean;
 		
+		/**
+		 * name of externalInterface function to call when stats event is sent
+		 * */
+		public var trackEventMonitor:String;
+		
 		
 		/**
 		 * Constructor 
@@ -54,6 +59,7 @@ package {
 			_statisticsMediator = new StatisticsMediator(statsDis);
 			_statisticsMediator.statsDomain = statsDomain;
 			_statisticsMediator.bufferStatsDis = bufferStatsDis;
+			_statisticsMediator.trackEventMonitor = trackEventMonitor;
 			facade.registerMediator( _statisticsMediator);
 		}
 		

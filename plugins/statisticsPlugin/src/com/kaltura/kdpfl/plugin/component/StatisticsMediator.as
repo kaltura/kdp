@@ -2,14 +2,16 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.KalturaClient;
 	import com.kaltura.commands.stats.StatsCollect;
 	import com.kaltura.config.KalturaConfig;
-	import com.kaltura.kdpfl.model.SequenceProxy;
+	import com.kaltura.kdpfl.model.ExternalInterfaceProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
+	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.AdsNotificationTypes;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.types.KalturaStatsEventType;
 	import com.kaltura.vo.KalturaStatsEvent;
 	
 	import flash.display.DisplayObject;
+	import flash.external.ExternalInterface;
 	import flash.net.URLRequestMethod;
 	import flash.utils.ByteArray;
 	
@@ -120,6 +122,8 @@ package com.kaltura.kdpfl.plugin.component {
 		public var bufferStatsDis:Boolean = false;
 		
 		private var _mediaProxy:MediaProxy;
+		
+		public var trackEventMonitor:String;
 
 		/**
 		 * Constructor 
@@ -231,13 +235,13 @@ package com.kaltura.kdpfl.plugin.component {
 		 * @return 	event type code, or -1 if none matched
 		 * 
 		 */
-		private function percentStatsChanged(currPosition:Number, duration:int):int {
+		private function percentStatsChanged(currPosition:Number, duration:int):String {
 
 			var percent:Number = 0;
 			var seekPercent:Number = 0;
 
 			if (_inDrag || _inFF || _mediaProxy.vo.isLive) {
-				return int.MIN_VALUE;
+				return null;
 			}
 
 			if (duration > 0) {
@@ -247,22 +251,22 @@ package com.kaltura.kdpfl.plugin.component {
 
 			if (!_p25Once && Math.round(percent * 100) >= 25 && seekPercent < 0.25) {
 				_p25Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_25;
+				return "PLAY_REACHED_25";
 			}
 			else if (!_p50Once && Math.round(percent * 100) >= 50 && seekPercent < 0.50) {
 				_p50Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_50;
+				return "PLAY_REACHED_50";
 			}
 			else if (!_p75Once && Math.round(percent * 100) >= 75 && seekPercent < 0.75) {
 				_p75Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_75;
+				return "PLAY_REACHED_75";
 			}
 			else if (!_p100Once && Math.round(percent * 100) >= 98 && seekPercent < 1) {
 				_p100Once = true;
-				return com.kaltura.types.KalturaStatsEventType.PLAY_REACHED_100;
+				return "PLAY_REACHED_100";
 			}
 
-			return int.MIN_VALUE;
+			return null;
 		}
 
 		/**
@@ -271,7 +275,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 * 
 		 */		
 		override public function handleNotification(note:INotification):void {
-			
+			var eventName:String;
 			if (statsDis)
 				return;
 			var timeSlot:String;
@@ -302,13 +306,31 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			
 			// if we enter this function for any wrong reason and we don't have event to send, just return...
-			if (!kse.eventType || kse.eventType == int.MIN_VALUE) {
+			if (!eventName || eventName == "") {
 				return;
+			}
+			else {
+				kse.eventType = KalturaStatsEventType[eventName];
 			}
 			
 			var collect:StatsCollect = new StatsCollect(kse);
 			collect.method = URLRequestMethod.GET;
 			_kc.post(collect);
+			//notify js
+			if ((facade.retrieveProxy(ExternalInterfaceProxy.NAME) as ExternalInterfaceProxy).vo.enabled
+				&&trackEventMonitor && 
+				trackEventMonitor!="" ) 
+			{
+				try {
+					ExternalInterface.call(trackEventMonitor, eventName, kse);
+				}
+				catch (e:Error) {
+					//
+				}
+			}
+				
+			
+			
 			
 			function handleMainContentNotifications () : void
 			{
@@ -316,14 +338,14 @@ package com.kaltura.kdpfl.plugin.component {
 				{
 					case NotificationType.HAS_OPENED_FULL_SCREEN:
 						if (_fullScreen == false) {
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_FULL_SCREEN;
+							eventName = "OPEN_FULL_SCREEN";
 						}
 						_fullScreen = true;
 						_normalScreen = false;
 						break;
 					case NotificationType.HAS_CLOSED_FULL_SCREEN:
 						if (_normalScreen == false) {
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.CLOSE_FULL_SCREEN;
+							eventName = "CLOSE_FULL_SCREEN";
 						}
 						_fullScreen = false;
 						_normalScreen = true;
@@ -332,7 +354,7 @@ package com.kaltura.kdpfl.plugin.component {
 					case NotificationType.KDP_EMPTY:
 						if (_ready)
 							return;
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.WIDGET_LOADED;
+						eventName = "WIDGET_LOADED";
 						_ready = true;
 						break;
 	
@@ -347,7 +369,7 @@ package com.kaltura.kdpfl.plugin.component {
 						}
 						
 						if (!_played) {
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.PLAY;
+							eventName = "PLAY";
 							_p25Once = false;
 							_p50Once = false;
 							_p75Once = false;
@@ -365,7 +387,7 @@ package com.kaltura.kdpfl.plugin.component {
 								_played = false;
 								_lastId = kse.entryId;
 								_hasSeeked = false;
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.MEDIA_LOADED;
+								eventName = "MEDIA_LOADED";
 							}
 							else {
 								_lastSeek = 0;
@@ -391,8 +413,8 @@ package com.kaltura.kdpfl.plugin.component {
 	
 					case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 						
-							kse.eventType = percentStatsChanged(data as Number, kse.duration);
-							if (kse.eventType < 0) {
+							eventName = percentStatsChanged(data as Number, kse.duration);
+							if (!eventName) {
 								return; // negative number means no need to change update
 							}
 							break;
@@ -401,25 +423,25 @@ package com.kaltura.kdpfl.plugin.component {
 						// Ready should not occur more than once
 						if (_ready)
 							return;
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.WIDGET_LOADED;
+						eventName = "WIDGET_LOADED";
 						_ready = true;
 						break;
 					case "gotoEditorWindow":
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_EDIT;
+						eventName = "OPEN_EDIT";
 						break
 					case "doDownload":
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_DOWNLOAD;
+						eventName = "OPEN_DOWNLOAD";
 						break;
 					case "doGigya":
 					case "showAdvancedShare":
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_VIRAL;
+						eventName = "OPEN_VIRAL";
 						break;
 					case "flagForReview":
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_REPORT;
+						eventName = "OPEN_REPORT";
 						break;
 					case NotificationType.DO_SEEK:
 						if (_inDrag && !_inSeek) {
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.SEEK;
+							eventName = "SEEK";
 						}
 						_lastSeek = Number(note.getBody());
 						_inSeek = true;
@@ -427,7 +449,7 @@ package com.kaltura.kdpfl.plugin.component {
 						break;
 					
 					case "gotoContributorWindow":
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.OPEN_UPLOAD;
+						eventName = "OPEN_UPLOAD";
 						break;
 					
 					case NotificationType.PLAYER_STATE_CHANGE:
@@ -437,13 +459,13 @@ package com.kaltura.kdpfl.plugin.component {
 							{
 								if (!_bufferStarted)
 								{
-									kse.eventType = KalturaStatsEventType.BUFFER_START;
+									eventName = "BUFFER_START";
 									_bufferStarted = true;
 								}
 							}
 							else if (_bufferStarted)
 							{
-								kse.eventType = KalturaStatsEventType.BUFFER_END;
+								eventName = "BUFFER_END";
 								_bufferStarted = false;
 							}
 						}	
@@ -457,30 +479,30 @@ package com.kaltura.kdpfl.plugin.component {
 				switch (note.getName())
 				{
 					case AdsNotificationTypes.BUMPER_CLICKED:
-						kse.eventType = com.kaltura.types.KalturaStatsEventType.BUMPER_CLICKED;
+						eventName = "BUMPER_CLICKED";
 						break;
 					case AdsNotificationTypes.BUMPER_STARTED:
 						if (note.getBody().timeSlot == "preroll") {
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.PRE_BUMPER_PLAYED;
+							eventName = "PRE_BUMPER_PLAYED";
 						}
 						else if (note.getBody().timeSlot == "postroll") {
-							kse.eventType = com.kaltura.types.KalturaStatsEventType.POST_BUMPER_PLAYED;
+							eventName = "POST_BUMPER_PLAYED";
 						}
 						break;
 					case AdsNotificationTypes.AD_CLICK:
 						timeSlot = note.getBody().timeSlot;
 						switch (timeSlot) {
 							case "preroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_CLICKED;
+								eventName = "PREROLL_CLICKED";
 								break;
 							case "midroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_CLICKED;
+								eventName = "MIDROLL_CLICKED";
 								break;
 							case "postroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_CLICKED;
+								eventName = "POSTROLL_CLICKED";
 								break;
 							case "overlay":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_CLICKED;
+								eventName = "OVERLAY_CLICKED";
 								break;
 							
 						}
@@ -489,16 +511,16 @@ package com.kaltura.kdpfl.plugin.component {
 						timeSlot = note.getBody().timeSlot;
 						switch (timeSlot) {
 							case "preroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_STARTED;
+								eventName = "PREROLL_STARTED";
 								break;
 							case "midroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_STARTED;
+								eventName = "MIDROLL_STARTED";
 								break;
 							case "postroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_STARTED;
+								eventName = "POSTROLL_STARTED";
 								break;
 							case "overlay":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
+								eventName = "OVERLAY_STARTED";
 								break;
 						}
 						break;
@@ -506,16 +528,16 @@ package com.kaltura.kdpfl.plugin.component {
 						timeSlot = note.getBody().timeSlot;
 						switch (timeSlot) {
 							case "preroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_25;
+								eventName = "PREROLL_25";
 								break;
 							case "midroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_25;
+								eventName = "MIDROLL_25";
 								break;
 							case "postroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_25;
+								eventName = "POSTROLL_25";
 								break;
 							case "overlay":
-	//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
+	//							eventName = "OVERLAY_STARTED";
 								break;
 						}
 						break;
@@ -523,16 +545,16 @@ package com.kaltura.kdpfl.plugin.component {
 						timeSlot = note.getBody().timeSlot;
 						switch (timeSlot) {
 							case "preroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_50;
+								eventName = "PREROLL_50";
 								break;
 							case "midroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_50;
+								eventName = "MIDROLL_50";
 								break;
 							case "postroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_50;
+								eventName = "POSTROLL_50";
 								break;
 							case "overlay":
-	//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
+	//							eventName = "OVERLAY_STARTED";
 								break;
 						}
 						break;
@@ -540,16 +562,16 @@ package com.kaltura.kdpfl.plugin.component {
 						timeSlot = note.getBody().timeSlot;
 						switch (timeSlot) {
 							case "preroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.PREROLL_75;
+								eventName = "PREROLL_75";
 								break;
 							case "midroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.MIDROLL_75;
+								eventName = "MIDROLL_75";
 								break;
 							case "postroll":
-								kse.eventType = com.kaltura.types.KalturaStatsEventType.POSTROLL_75;
+								eventName = "POSTROLL_75";
 								break;
 							case "overlay":
-	//							kse.eventType = com.kaltura.types.KalturaStatsEventType.OVERLAY_STARTED;
+	//							eventName = "OVERLAY_STARTED";
 								break;
 						}
 						break;
@@ -557,8 +579,7 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			
 		}
-
-
+		
 		public function get view():DisplayObject {
 			return viewComponent as DisplayObject;
 		}
