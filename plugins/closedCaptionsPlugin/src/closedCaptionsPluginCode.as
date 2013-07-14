@@ -34,6 +34,8 @@ package {
 		private var _fontColor : Number = 0xFFFFFF;
 		[Bindable]
 		public var hasCaptions:Boolean;
+		[Bindable]
+		public var sortAlphabetically:Boolean;
 
 		public var defaultLanguageKey:String = "";
 		
@@ -62,7 +64,7 @@ package {
 		 */		
 		public function initializePlugin( facade : IFacade ) : void
 		{
-			_closedCaptionsMediator = new ClosedCaptionsMediator(this, new ClosedCaptions() );
+			_closedCaptionsMediator = new ClosedCaptionsMediator(this, new ClosedCaptions(),sortAlphabetically );
 
 			facade.registerMediator( _closedCaptionsMediator);
 			
