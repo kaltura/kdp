@@ -39,10 +39,12 @@ package com.kaltura.kdpfl.plugin.component
 		private var _embeddedCaptionsId : String;
 		
 		private var _mediaProxy : MediaProxy;
-
-		public function ClosedCaptionsMediator (closedCaptionsDefs:closedCaptionsPluginCode , viewComponent:Object=null)
+		private var _sortAlphabetically:Boolean;
+		
+		public function ClosedCaptionsMediator (closedCaptionsDefs:closedCaptionsPluginCode , viewComponent:Object=null , sortAlphabetically:Boolean=false)
 		{
 			super(NAME, viewComponent);
+			_sortAlphabetically = sortAlphabetically
 			_closedCaptionsDefs = closedCaptionsDefs;
 		}
 		
@@ -309,6 +311,9 @@ package com.kaltura.kdpfl.plugin.component
 					_closedCaptionsDefs.availableCCFiles.push( ccItem );
 				}
 				_closedCaptionsDefs.hasCaptions = true;
+				//sort			
+				if(_sortAlphabetically )
+					_closedCaptionsDefs.availableCCFiles.sortOn("label");
 			}
 			else {
 				_closedCaptionsDefs.hasCaptions = false;
@@ -319,8 +324,6 @@ package com.kaltura.kdpfl.plugin.component
 				parseEntryCCData();
 				sendNotification( ClosedCaptionsNotifications.CC_DATA_LOADED );
 			}
-			
-			
 		}
 		
 		private function captionsListFault (e : KalturaEvent=null) : void
