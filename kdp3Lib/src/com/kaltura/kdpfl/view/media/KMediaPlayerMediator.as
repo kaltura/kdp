@@ -849,7 +849,7 @@ package com.kaltura.kdpfl.view.media
 					return;
 				} 
 				
-				if(!getCurrentTime() && _hasPlayed && !_isIntelliSeeking){
+				if(getCurrentTime()==_entryDuration && _hasPlayed && !_isIntelliSeeking){
 					sendNotification(NotificationType.DO_REPLAY);
 					//sendNotification(NotificationType.DO_SEEK,0);
 					player.addEventListener(TimeEvent.COMPLETE, onTimeComplete);
@@ -860,6 +860,7 @@ package com.kaltura.kdpfl.view.media
 				//back form 0 before we can play
 				if(_loadMediaOnPlay)
 				{
+					sendNotification(NotificationType.DO_REPLAY);
 					_loadMediaOnPlay = false;
 					_mediaProxy.prepareMediaElement();
 					_mediaProxy.loadWithMediaReady();

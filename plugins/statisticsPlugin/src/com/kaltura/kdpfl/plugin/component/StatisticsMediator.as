@@ -168,7 +168,8 @@ package com.kaltura.kdpfl.plugin.component {
 				AdsNotificationTypes.BUMPER_CLICKED,
 				AdsNotificationTypes.FIRST_QUARTILE_OF_AD,
 				AdsNotificationTypes.MID_OF_AD,
-				AdsNotificationTypes.THIRD_QUARTILE_OF_AD
+				AdsNotificationTypes.THIRD_QUARTILE_OF_AD,
+				NotificationType.DO_REPLAY
 			];
 		}
 		
@@ -469,6 +470,10 @@ package com.kaltura.kdpfl.plugin.component {
 								_bufferStarted = false;
 							}
 						}	
+						break;
+					
+					case NotificationType.DO_REPLAY:
+						eventName = "REPLAY";
 						break;
 				}
 			}
