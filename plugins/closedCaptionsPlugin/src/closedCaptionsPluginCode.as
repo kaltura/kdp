@@ -46,6 +46,9 @@ package {
 		
 		//String which disables the captions in the player.
 		private var _noneString : String = "None";
+		
+		// determines whether to display stream embedded captions
+		public var showEmbeddedCaptions : Boolean = false;
 	
 		/**
 		 * Constructor 

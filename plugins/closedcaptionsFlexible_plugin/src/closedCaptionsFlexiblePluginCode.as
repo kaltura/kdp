@@ -49,6 +49,8 @@ package {
 		private var _noneString : String = "None";
 		
 		private var _hideClosedCaptions:Boolean = false;
+		// determines whether to display stream embedded captions
+		public var showEmbeddedCaptions : Boolean = false;
 		
 		/**
 		 * Constructor 

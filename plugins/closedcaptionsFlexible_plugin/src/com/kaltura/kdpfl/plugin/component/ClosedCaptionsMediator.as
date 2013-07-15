@@ -267,7 +267,7 @@ package com.kaltura.kdpfl.plugin.component
 
 		private function onTextData (info : Object) : void
 		{
-			if (_showingEmbeddedCaptions)
+			if  (_showingEmbeddedCaptions || _closedCaptionsDefs.showEmbeddedCaptions)
 				(viewComponent as ClosedCaptions).setText(info.text);
 		}
 
