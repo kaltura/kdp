@@ -92,6 +92,8 @@ package com.kaltura.kdpfl.view.media
 		public var bytesLoadedUpdateInterval : Number = 1000;
 		public var currentTimeUpdateInterval : Number = 500;
 		
+		private var _hideThumb:Boolean = false;
+		
 		public function get player():MediaPlayer{ return _player; } //read only
 		
 		public function set player( p : MediaPlayer ) : void { _player = p; }
@@ -193,7 +195,8 @@ package com.kaltura.kdpfl.view.media
 			_thumbnail.width = newDimensions.newWidth;
 			_thumbnail.height = newDimensions.newHeight;
 			centerImages();
-			addChild(_thumbnail);	
+			if (!_hideThumb)
+				addChild(_thumbnail);
 		}
 		
 		public function unloadThumbnail() : void
@@ -207,6 +210,7 @@ package com.kaltura.kdpfl.view.media
 			//the FocusManager dispatch Flex event to astra UIComponent
 			if (_thumbnail)
 				_thumbnail.alpha = 0;
+			_hideThumb = true;
 		}
 		
 		public function showThumbnail() : void
@@ -223,6 +227,7 @@ package com.kaltura.kdpfl.view.media
 					removeChild(_thumbnail);
 				addChild(_thumbnail);
 			}
+			_hideThumb = false;
 		}
 		
 		public function drawBg( color : uint = 0x000000, alpha : Number = 1) : void
