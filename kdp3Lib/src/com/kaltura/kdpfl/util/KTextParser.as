@@ -365,7 +365,20 @@ package com.kaltura.kdpfl.util
 			}
 
 			// in case of plain string or executing a function just continue as usual
-			return internalParse(site, prop, host, strippedString);
+			var parseResult:Object = internalParse(site, prop, host, strippedString);
+			//check if we should parse again - if we have {} expression
+			if (parseResult is String) {
+				var resString:String = parseResult as String;
+				var subStateStartInd:int = resString.indexOf("{");
+				if (subStateStartInd > -1) {
+					var subStateEndInd:int = resString.indexOf("}");
+					if (subStateEndInd > subStateStartInd) {
+						return parse(site, prop, host, resString);
+					}
+				}
+			}
+			
+			return parseResult;
 		}
 
 		// parse the given text and either execute or bind it to the given site and property
