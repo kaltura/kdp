@@ -20,7 +20,9 @@ package com.kaltura.osmf.kontiki
 	import org.osmf.traits.MediaTraitType;
 	
 	public class KontikiElement extends LightweightVideoElement
-	{	
+	{
+		public var jsToCall:String;
+		
 		public function KontikiElement()
 		{
 			super();
@@ -46,7 +48,7 @@ package com.kaltura.osmf.kontiki
 					
 					var realUrl:String;
 					try {
-						realUrl = ExternalInterface.call("kontikiAgent.getHttpUrl", urn, paramsObj);
+						realUrl = ExternalInterface.call(jsToCall, urn, paramsObj);
 					}
 					catch (e:Error) {
 						trace ("KontikiElement:: Failed to create streaming resource, invalid URL");

@@ -5,19 +5,22 @@ package
 	import com.kaltura.kdpfl.plugin.IPluginFactory;
 	import com.kaltura.kdpfl.plugin.KPluginEvent;
 	import com.kaltura.osmf.kontiki.KontikiPluginInfo;
-	import org.osmf.media.PluginInfoResource;
-	
 	
 	import flash.display.Sprite;
 	
 	import org.osmf.events.MediaFactoryEvent;
 	import org.osmf.media.DefaultMediaFactory;
+	import org.osmf.media.PluginInfoResource;
 	import org.puremvc.as3.interfaces.IFacade;
 	
 	public class kontikiPlugin extends Sprite  implements IPluginFactory, IPlugin
 	{
 		private var _localMediaFactory : DefaultMediaFactory;
 		
+		/**
+		 * js function to call in order to generate playback URL from kontiki URN
+		 */		
+		public var jsToCall:String = "kontikiAgent.getHttpUrl";
 		
 		public function kontikiPlugin()
 		{	
@@ -31,6 +34,7 @@ package
 		public function initializePlugin(facade:IFacade):void 
 		{
 			var kontikiPluginInfo:KontikiPluginInfo = new KontikiPluginInfo();
+			kontikiPluginInfo.jsToCall = jsToCall;
 			_localMediaFactory = (facade.retrieveProxy(MediaProxy.NAME) as MediaProxy).vo.mediaFactory;	
 			_localMediaFactory.addEventListener(MediaFactoryEvent.PLUGIN_LOAD, onOSMFPluginLoaded);
 			_localMediaFactory.addEventListener(MediaFactoryEvent.PLUGIN_LOAD_ERROR, onOSMFPluginLoadError);	

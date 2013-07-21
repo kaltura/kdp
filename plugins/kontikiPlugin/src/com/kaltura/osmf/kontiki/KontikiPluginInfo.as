@@ -1,12 +1,13 @@
 package com.kaltura.osmf.kontiki
 {
-	import org.osmf.media.MediaFactoryItem;
-	import org.osmf.media.PluginInfo;
 	import org.osmf.media.MediaElement;
+	import org.osmf.media.MediaFactoryItem;
 	import org.osmf.media.MediaResourceBase;
+	import org.osmf.media.PluginInfo;
 	
 	public class KontikiPluginInfo extends PluginInfo
 	{
+		public var jsToCall:String;
 		
 		public function KontikiPluginInfo(mediaFactoryItems:Vector.<MediaFactoryItem>=null, mediaElementCreationNotificationFunction:Function=null)
 		{
@@ -19,6 +20,7 @@ package com.kaltura.osmf.kontiki
 		protected function createKontikiMediaElement():MediaElement
 		{
 			var newElement :KontikiElement = new KontikiElement();
+			newElement.jsToCall = jsToCall;
 			return newElement;
 		}
 		
