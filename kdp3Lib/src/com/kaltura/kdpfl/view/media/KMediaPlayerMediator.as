@@ -320,6 +320,7 @@ package com.kaltura.kdpfl.view.media
 				NotificationType.PLAYER_PLAY_END,
 				NotificationType.MEDIA_ELEMENT_READY,
 				NotificationType.GO_LIVE,
+				NotificationType.READY_TO_PLAY,
 				NotificationType.MEDIA_ERROR
 			];
 		}
@@ -333,6 +334,11 @@ package com.kaltura.kdpfl.view.media
 		{ 
 			switch(note.getName())
 			{
+				case NotificationType.READY_TO_PLAY:
+					if(_flashvars.autoBuffer == "true"){
+						sendNotification(NotificationType.DO_SEEK, -1);
+					}
+					break;
 				case NotificationType.ENTRY_READY:
 					
 					if(_mediaProxy.vo)
