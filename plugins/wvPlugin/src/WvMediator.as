@@ -66,6 +66,9 @@ package
 		
 		private var _endOfStreamTimer:Timer;
 		private var _shouldSetFlavors:Boolean = false;
+		private var _configProxy:ConfigProxy;
+		
+		private var _ks:String;
 		
 		public function WvMediator(wvPluginCode:widevinePluginCode, wvPI:WVPluginInfo)
 		{
@@ -78,6 +81,7 @@ package
 		override public function onRegister():void
 		{
 			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
+			_configProxy	= facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
 			_sequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			super.onRegister();
 		}
@@ -94,12 +98,22 @@ package
 					NotificationType.DO_PAUSE,
 					NotificationType.DO_SWITCH,
 					NotificationType.ENTRY_READY,
+					NotificationType.READY_TO_PLAY,
 					NO_WV_BROWSER_PLUGIN];
 		}
 		
 		override public function handleNotification(note:INotification):void {
 			switch (note.getName()) 
 			{
+				case NotificationType.READY_TO_PLAY:
+					if(_configProxy.vo.flashvars.sourceType == "url"){
+						var cp:ConfigProxy		= (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy);	
+
+						if(cp.vo.flashvars.ks)
+							_ks	= cp.vo.flashvars.ks;
+						
+					}
+					break;
 				case NotificationType.DO_SEEK:
 					if (!_ignoreSeek && _isWv)
 					{
@@ -145,12 +159,31 @@ package
 							
 							if (wvAssetId)
 							{
+								
 								var referrerB64:String = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars.b64Referrer;
 								var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
 								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=widevine&flavorAssetId=" + wvAssetId + "&ks=" +kc.ks + "&referrer=" + referrerB64;
 								ExternalInterface.call("WVSetEmmURL", emmUrl);		
 							}
 							
+						}else if(_configProxy.vo.flashvars.sourceType == "url" && _configProxy.vo.flashvars.flavorAssetId){
+							try{
+								wvAssetId		= "1_bbry8y55";
+								/*
+								_isWv = true;
+								_mediaProxy.vo.forceDynamicStream = true;
+								_shouldSetFlavors = true;
+								*/
+								if(_configProxy.vo.flashvars.flavorAssetId)
+									wvAssetId	= _configProxy.vo.flashvars.flavorAssetId;
+								
+								var kc:KalturaClient = (facade.retrieveProxy(ServicesProxy.NAME) as ServicesProxy).kalturaClient;
+								var emmUrl:String = kc.protocol + kc.domain + "/api_v3/index.php?service=widevine_widevinedrm&action=getLicense&format=widevine&flavorAssetId=" + wvAssetId + "&ks="+_ks;
+								ExternalInterface.call("WVSetEmmURL", emmUrl);	
+							}catch(e:Error){
+								trace("[WVMediator]EX CALL ERROR "+e);
+							}						
+						
 						}
 					}
 					
