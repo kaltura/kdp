@@ -7,6 +7,10 @@ package com.kaltura.kdpfl.view.strings
 		 */		
 		public static const ADD_ANNOTATION : String = "addAnnotation";
 		/**
+		 * Notification fired when attempting to save annotation while not in edit mode..
+		 */		
+		public static const NOT_IN_EDIT_MODE : String = "notInEditMode";
+		/**
 		 * Notification fired when the "edit" link next to the annotation is clicked.
 		 */		
 		public static const EDIT_ANNOTATION : String = "editAnnotation";
@@ -15,6 +19,9 @@ package com.kaltura.kdpfl.view.strings
 		 * Body - {annotation: {deleted annotation}}
 		 */		
 		public static const ANNOTATION_DELETED : String = "annotationDeleted";
+		/** Notification fired to store annotation.
+			*/		
+		public static const PERSIST_ANNOTATION : String = "persistAnnotation";
 		/**
 		 * Notification fired when user clicks "save" button.
 		 */		

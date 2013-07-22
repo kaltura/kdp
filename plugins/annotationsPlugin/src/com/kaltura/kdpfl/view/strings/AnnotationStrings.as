@@ -19,6 +19,9 @@ package com.kaltura.kdpfl.view.strings
 		
 		public static const INVALID_FEEDBACK_SESSION_TITLE : String = "Could not load the specified feedback session";
 		
+		public static const NOT_IN_EDIT_MODE : String = "Please switch to edit mode before persisting annotation.";
+		
+		public static const ANNOTATION_SAVED : String = "Annotation saved.";
 		
 		//Viewer type strings
 		public static const REVIEWER : String = "editable";
