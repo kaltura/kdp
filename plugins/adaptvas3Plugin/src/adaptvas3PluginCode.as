@@ -1,12 +1,11 @@
 package {
 	//import com.kaltura.kdpfl.plugin.IPlugin;
+	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.plugin.IPlugin;
 	import com.kaltura.kdpfl.plugin.ISequencePlugin;
 	import com.kaltura.kdpfl.plugin.KPluginEvent;
 	import com.kaltura.kdpfl.plugin.component.AdaptvAS3Mediator;
 	import com.kaltura.kdpfl.plugin.component.AdaptvAS3Player;
-	
-	import com.kaltura.kdpfl.model.type.NotificationType;
 	
 	import fl.core.UIComponent;
 	import fl.managers.*;
@@ -26,13 +25,14 @@ package {
 		private var _context:Object;
 		
 		private var _loadError:Boolean;
+		private var _facade:IFacade;
 		/**
 		 * Constructor 
 		 * 
 		 */		
 		public function adaptvas3PluginCode()
 		{
-			trace('adaptv as3 v1.0');
+			trace('adaptv as3 v2.0');
 		}
 		/**
 		 *  
@@ -42,10 +42,23 @@ package {
 		public function initializePlugin( facade : IFacade ) : void
 		{
 			setSkin("clickThrough",true); //make this module transparent
-			addEventListener( AdaptvAS3Player.ADAPTV_ADMANAGER_LOADED , onAdManagerLoaded );
-			addEventListener( AdaptvAS3Player.ADAPTV_ADMANAGER_LOAD_FAILED , onAdManagerLoadFailed );
 			_adaptvAS3Player = new AdaptvAS3Player();
-			_adaptvAS3Player.facade = facade;
+			_adaptvAS3Player.addEventListener( AdaptvAS3Player.ADAPTV_ADMANAGER_LOADED , onAdManagerLoaded );
+			_adaptvAS3Player.addEventListener( AdaptvAS3Player.ADAPTV_ADMANAGER_LOAD_FAILED , onAdManagerLoadFailed );
+			_adaptvAS3Player.start();
+			_facade = facade;
+		}
+		
+		private function removeAdaptvListeners() : void 
+		{
+			_adaptvAS3Player.removeEventListener ( AdaptvAS3Player.ADAPTV_ADMANAGER_LOADED , onAdManagerLoaded );
+			_adaptvAS3Player.removeEventListener ( AdaptvAS3Player.ADAPTV_ADMANAGER_LOAD_FAILED , onAdManagerLoadFailed );
+		}
+		
+		private function onAdManagerLoaded (e : Event) : void
+		{
+			removeAdaptvListeners();
+			
 			_adaptvas3Mediator = new AdaptvAS3Mediator(  _adaptvAS3Player );
 			_adaptvas3Mediator.preSequence = preSequence;
 			_adaptvas3Mediator.postSequence = postSequence;
@@ -55,28 +68,27 @@ package {
 			{
 				try
 				{
-			   		_adaptvas3Mediator[key] =  _configValues[key];
-			 	}
-			 	catch(err:Error)
-			 	{	
-			 	}
+					_adaptvas3Mediator[key] =  _configValues[key];
+				}
+				catch(err:Error)
+				{	
+				}
 			}	 
 			if(_context)
 			{
 				_adaptvAS3Player.context = _context;
 			}
 			
-			facade.registerMediator( _adaptvas3Mediator);
+			_facade.registerMediator( _adaptvas3Mediator);
 			addChild( _adaptvas3Mediator.view );
-		}
-		
-		private function onAdManagerLoaded (e : Event) : void
-		{
+			
 			dispatchEvent( new KPluginEvent( KPluginEvent.KPLUGIN_INIT_COMPLETE) );
+			
 		}
 		
 		private function onAdManagerLoadFailed (e : Event) : void
 		{
+			removeAdaptvListeners();
 			_loadError = true;
 			dispatchEvent( new KPluginEvent( KPluginEvent.KPLUGIN_INIT_FAILED) );
 		}
@@ -176,7 +188,7 @@ package {
 		public function start () : void
 		{
 			if (_loadError) {
-				_adaptvAS3Player.facade.sendNotification( NotificationType.SEQUENCE_ITEM_PLAY_END );
+				_facade.sendNotification( NotificationType.SEQUENCE_ITEM_PLAY_END );
 			} else {
 				_adaptvas3Mediator.forceStart();
 			}
