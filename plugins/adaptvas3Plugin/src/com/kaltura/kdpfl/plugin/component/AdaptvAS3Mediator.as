@@ -177,7 +177,7 @@ package com.kaltura.kdpfl.plugin.component {
 		private function preAds():void 
 		{
 			_adContext = PRE;
-			(viewComponent as AdaptvAS3Player).fetchScript();
+			_adaptvPlayer.fetchScript();
 		}
 
 
@@ -188,7 +188,7 @@ package com.kaltura.kdpfl.plugin.component {
 		private function postAds():void
 		{
 			_adContext = POST;
-			(viewComponent as AdaptvAS3Player).endOfClip();
+			_adaptvPlayer.endOfClip();
 		}
 
 
@@ -292,7 +292,7 @@ package com.kaltura.kdpfl.plugin.component {
 				pageUrlOv: pageUrlOv     // page URL override
 			};
 			
-			(viewComponent as AdaptvAS3Player).buildConfig(o);
+			_adaptvPlayer.buildConfig(o);
 		}
 	}
 }
