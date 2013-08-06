@@ -76,7 +76,7 @@ package com.kaltura.kdpfl.controller
 			
 			//set application flashvars to be the global flashvars
 			rm.root["flashvars"] = flashvars; 
-			
+			rm.setBufferAnimation();
 			//create the kaltura client by passing it the configuration object base on the flashvars
 			setKalturaClientConfig( flashvars );
 			

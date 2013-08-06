@@ -71,6 +71,10 @@ package
 		public var directLink:String;
 		[Bindable]
 		public var dynamicLink:String;
+		//with this attribute you can override the default Kaltura embed code wuth custom embed. 
+		//The value must be encoded E.G. %3Cscript%20src%3D%27http%3A%2F%2Fwww instead of <script src='http://www 
+		[Bindable]
+		public var dynamicEmbed:String;		
 		[Bindable]
 		public var directEmbed:String;
 		
@@ -226,16 +230,23 @@ package
 			
 			var whtml:String = evt["data"]["widgetHTML"];
 			
-			directEmbed =  whtml;
+			//override embed code from uivar/flashvar 
+			if(dynamicEmbed)
+			{
+				directEmbed = unescape(dynamicEmbed);
+			}
+			else
+				directEmbed =  whtml;
+			
+			
 			if(_refferencer.hasOwnProperty("directEmbed"))
 				(_refferencer["directEmbed"] as KLabel).text = directEmbed;
 			
 						
 			if(landingPagePrefix)
 				directLink = landingPagePrefix + widgetId ; 
-			 else
+			else
 				directLink = "Plugin is not configured correctly. Generator page prefix is not set"; 
-
 			
 			if(dynamicLink)
 			{
@@ -266,7 +277,7 @@ package
 			
 			_addThisAPI		= new ShareAPI(pubid);
 			visible = false;
-			 advancedShareMediator = new AdvancedShareMediator(this);
+			advancedShareMediator = new AdvancedShareMediator(this);
 			facade.registerMediator(advancedShareMediator);
 			horizontalAlign = HorizontalAlignment.CENTER;
 			verticalAlign = VerticalAlignment.TOP;
