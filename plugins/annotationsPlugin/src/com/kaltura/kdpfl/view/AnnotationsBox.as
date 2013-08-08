@@ -267,7 +267,7 @@ package com.kaltura.kdpfl.view
 				kalturaAnnotation.parentId = parentId;
 				for each(var property : XML in annotationXML.children())
 				{
-					kalturaAnnotation[property.localName().toString()] = property.children()[0] ? property.children()[0].toString() : "";
+					kalturaAnnotation[property.localName().toString()] = property.children()[0] ? unescape(property.children()[0].toString()) : "";
 				}
 				
 				annotation = new Annotation (AnnotationStrings.VIEW_MODE, -1,"","",kalturaAnnotation, initialTabIndex);
