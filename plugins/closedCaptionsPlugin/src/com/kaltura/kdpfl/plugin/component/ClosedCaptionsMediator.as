@@ -4,6 +4,7 @@ package com.kaltura.kdpfl.plugin.component
 	import com.kaltura.commands.captionAsset.CaptionAssetGetUrl;
 	import com.kaltura.commands.captionAsset.CaptionAssetList;
 	import com.kaltura.events.KalturaEvent;
+	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.ServicesProxy;
@@ -51,15 +52,15 @@ package com.kaltura.kdpfl.plugin.component
 		override public function listNotificationInterests():Array
 		{
 			return  [
-						"mediaReady",
-						"mediaLoaded",
-						"entryReady",
-						"loadMedia",
-						"playerUpdatePlayhead",
-						"rootResize",
+						NotificationType.MEDIA_READY,
+						NotificationType.MEDIA_ELEMENT_READY,
+						NotificationType.ENTRY_READY,
+						NotificationType.LOAD_MEDIA,
+						NotificationType.PLAYER_UPDATE_PLAYHEAD,
+						NotificationType.ROOT_RESIZE,
 						"closedCaptionsClicked",
 						"changedClosedCaptions",
-						"layoutReady",
+						NotificationType.LAYOUT_READY,
 						ClosedCaptionsNotifications.SHOW_HIDE_CLOSED_CAPTIONS,
 						ClosedCaptionsNotifications.SHOW_CLOSED_CAPTIONS,
 						ClosedCaptionsNotifications.HIDE_CLOSED_CAPTIONS,
@@ -69,7 +70,8 @@ package com.kaltura.kdpfl.plugin.component
 						"playerPlayEnd",
 						NotificationType.HAS_OPENED_FULL_SCREEN,
 						NotificationType.HAS_CLOSED_FULL_SCREEN,
-						ClosedCaptionsNotifications.RELOAD_CAPTIONS
+						ClosedCaptionsNotifications.RELOAD_CAPTIONS,
+						ClosedCaptionsNotifications.LOAD_EMBEDDED_CAPTIONS
 					]; 
 		}
 		
@@ -78,7 +80,7 @@ package com.kaltura.kdpfl.plugin.component
 			var eventName:String = note.getName();
 			var data:Object = note.getBody();
 			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
-			var entry:String = _mediaProxy["vo"]["entry"]["id"];
+			var entry:String = _mediaProxy.vo.entry.id;
 			
 			var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			
@@ -90,24 +92,23 @@ package com.kaltura.kdpfl.plugin.component
 
 			switch (eventName)
 			{
-				case "entryReady":
+				case NotificationType.ENTRY_READY:
 				case ClosedCaptionsNotifications.RELOAD_CAPTIONS:
 					(viewComponent as ClosedCaptions).resetAll();
 					loadEntryCCData ();
 					break;
-				case "mediaLoaded":
+				case NotificationType.MEDIA_ELEMENT_READY:
 					addTextHandler();
-					
 					break;
-				case "mediaReady":
+				case NotificationType.MEDIA_READY:
 				case "changedClosedCaptions":
 				{
 					
 					(view as ClosedCaptions).visible=true
-					var config: Object =  facade.retrieveProxy("configProxy");
+					var config: Object =  facade.retrieveProxy(ConfigProxy.NAME);
 					_flashvars = config.getData().flashvars;
 					
-					if (_mediaProxy["vo"]["media"] != null )
+					if (_mediaProxy.vo.media != null )
 					{
 						_entryId = entry;
 						if (_closedCaptionsDefs["type"] == null || _closedCaptionsDefs["type"] == "")
@@ -124,7 +125,7 @@ package com.kaltura.kdpfl.plugin.component
 				}
 				break;
 				
-				case "layoutReady":
+				case NotificationType.LAYOUT_READY:
 					this.setStyleName(_closedCaptionsDefs.skin);
 					
 					if (_closedCaptionsDefs.useGlow)
@@ -153,11 +154,11 @@ package com.kaltura.kdpfl.plugin.component
 					
 					break;
 				
-				case "playerUpdatePlayhead":
+				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					(view as ClosedCaptions).updatePlayhead (data as Number);
 				break;
 				
-				case "rootResize":
+				case NotificationType.ROOT_RESIZE:
 					setScreenSize(data.width, data.height);
 				break;
 
@@ -222,23 +223,20 @@ package com.kaltura.kdpfl.plugin.component
 					break;
 				case "closedCaptionsSwitched":
 					break;
-				case "newClosedCaptionsData":
-					
+				case "newClosedCaptionsData":		
 					parseEntryCCData();
-					
 					break;
 				case "playerPlayEnd":
 					(viewComponent as ClosedCaptions).setText("");
 					break;
 				case NotificationType.HAS_OPENED_FULL_SCREEN:
 					(viewComponent as ClosedCaptions).setFullScreen(true);
-//					var time:Number = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player["currentTime"];
-//					(view as ClosedCaptions).updatePlayhead (time);
 					break;
 				case NotificationType.HAS_CLOSED_FULL_SCREEN:
 					(viewComponent as ClosedCaptions).setFullScreen(false);
-//					var time:Number = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player["currentTime"];
-//					(view as ClosedCaptions).updatePlayhead (time);
+					break;
+				case ClosedCaptionsNotifications.LOAD_EMBEDDED_CAPTIONS:
+					onTextData(note.getBody());
 					break;
 			}
 		}

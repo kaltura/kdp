@@ -84,7 +84,8 @@ package com.kaltura.kdpfl.plugin.component
 				NotificationType.HAS_OPENED_FULL_SCREEN,
 				NotificationType.HAS_CLOSED_FULL_SCREEN,
 				NotificationType.CHANGE_MEDIA,
-				ClosedCaptionsNotifications.RELOAD_CAPTIONS
+				ClosedCaptionsNotifications.RELOAD_CAPTIONS,
+				ClosedCaptionsNotifications.LOAD_EMBEDDED_CAPTIONS
 			];
 		}
 
@@ -255,6 +256,9 @@ package com.kaltura.kdpfl.plugin.component
 					break;
 				case NotificationType.HAS_CLOSED_FULL_SCREEN:
 					(viewComponent as ClosedCaptions).isInFullScreen = false;
+					break;
+				case ClosedCaptionsNotifications.LOAD_EMBEDDED_CAPTIONS:
+					onTextData(note.getBody());
 					break;
 			}
 		}

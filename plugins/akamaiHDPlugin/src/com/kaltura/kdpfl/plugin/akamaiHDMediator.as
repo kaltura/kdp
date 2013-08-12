@@ -1,10 +1,13 @@
 package com.kaltura.kdpfl.plugin
 {
+	import com.akamai.osmf.elements.AkamaiVideoElement;
 	import com.akamai.osmf.utils.AkamaiStrings;
 	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
+	import org.osmf.media.MediaElement;
+	import org.osmf.elements.ProxyElement;
 	
 	import org.osmf.events.MediaElementEvent;
 	import org.osmf.traits.DVRTrait;
@@ -121,8 +124,20 @@ package com.kaltura.kdpfl.plugin
 						_mediaProxy.vo.media.addEventListener(MediaElementEvent.TRAIT_ADD, onMediaTraitAdd);
 						
 					}
-					break;
+					//get embedded text, if exists
+					var media : MediaElement = _mediaProxy.vo.media;
+					while (media is ProxyElement)
+					{
+						media = (media as ProxyElement).proxiedElement;
+					} 
+					if (media is AkamaiVideoElement) {
+						(media as AkamaiVideoElement).client.addHandler( "onTextData", onEmbeddedCaptions );
+					}
 			}
+		}
+		
+		private function onEmbeddedCaptions (info: Object)  : void {
+			sendNotification("loadEmbeddedCaptions", info);
 		}
 		
 		
