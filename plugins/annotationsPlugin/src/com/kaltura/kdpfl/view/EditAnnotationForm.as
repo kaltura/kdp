@@ -71,6 +71,29 @@ package com.kaltura.kdpfl.view
 			
 		}
 		
+		//save as returnValidAnnotation but staty in edit mode
+		public function returnValidAnnotationPersist (currentTime : Number) : Annotation
+		{
+			if (annotation.inTime == -1)
+			{
+				annotation.inTime = currentTime;
+			}
+			annotation.saveText();
+			if (!validateAnnotation(annotation.annotationText) )
+			{
+				dispatchEvent (new Event( AnnotationStrings.INVALID_ANNOTATION_TEXT_EVENT, true) );
+				return null;
+			}
+			else
+			{
+				var currAnnotation : Annotation = annotation;
+				currAnnotation.viewMode = AnnotationStrings.EDIT_MODE; 
+				prevText = "";
+				return currAnnotation;
+			}
+			
+		}
+		
 		public function canceledAnnotation () : Annotation
 		{
 			var currAnnotation : Annotation = annotation;

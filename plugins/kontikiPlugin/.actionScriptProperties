@@ -33,9 +33,7 @@
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
-  <applications>
-    <application path="kontikiPlugin.as"/>
-  </applications>
+  <applications/>
   <modules/>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>

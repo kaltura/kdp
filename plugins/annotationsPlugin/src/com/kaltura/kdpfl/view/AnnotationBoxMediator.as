@@ -25,6 +25,7 @@ package com.kaltura.kdpfl.view {
 	
 	import flash.events.Event;
 	import flash.net.SharedObject;
+	import flash.utils.Timer;
 	
 	import org.osmf.events.TimelineMetadataEvent;
 	import org.osmf.media.MediaElement;
@@ -100,7 +101,8 @@ package com.kaltura.kdpfl.view {
 			var interests:Array = [Notifications.ADD_ANNOTATION, Notifications.CANCEL_ANNOTATION,
 				Notifications.ANNOTATION_DELETED, Notifications.SAVE_ANNOTATION, Notifications.LOAD_FEEDBACK_SESSION, Notifications.LOAD_LOCAL_SAVED_ANNOTATIONS, Notifications.RESET_ANNOTATIONS_COMPONENT,
 				NotificationType.LAYOUT_READY, NotificationType.MEDIA_LOADED, NotificationType.ENTRY_READY, Notifications.SUBMIT_FEEDBACK_SESSION, NotificationType.HAS_OPENED_FULL_SCREEN,
-				NotificationType.HAS_CLOSED_FULL_SCREEN, NotificationType.PLAYER_PLAY_END, Notifications.SAVE_AS_DRAFT, NotificationType.PLAYER_PLAYED];
+				NotificationType.HAS_CLOSED_FULL_SCREEN, NotificationType.PLAYER_PLAY_END, Notifications.SAVE_AS_DRAFT, NotificationType.PLAYER_PLAYED,
+				Notifications.PERSIST_ANNOTATION];
 			return interests;
 		}
 
@@ -228,8 +230,12 @@ package com.kaltura.kdpfl.view {
 
 					}
 					break;
-
+				case Notifications.PERSIST_ANNOTATION:
+					storeAnnotation(true);
+					break;
 				case Notifications.SAVE_ANNOTATION:
+					storeAnnotation();
+					/*
 					sendNotification(NotificationType.DO_PAUSE);
 					currentTime = Math.floor(_playerMediaMediator.getCurrentTime());
 					var currTimeIndex:int = _pluginCode.annotationsBox.findIndexByInTime(currentTime);
@@ -259,8 +265,8 @@ package com.kaltura.kdpfl.view {
 						var feedbackSessionXml:XML = _pluginCode.annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
 						sendNotification(Notifications.ANNOTATION_SAVED, {feedbackSessionXML: feedbackSessionXml.toXMLString()});
 					}
+					*/
 					break;
-
 				case Notifications.CANCEL_ANNOTATION:
 					restoreAnnotationsInLayout();
 					var returnedAnnotation:Annotation = _pluginCode.annotationEditForm.canceledAnnotation();
@@ -316,8 +322,59 @@ package com.kaltura.kdpfl.view {
 
 
 		}
+		
+		private function switchToEditMode(annot:Annotation):void{
+			annot.viewMode	= AnnotationStrings.EDIT_MODE;
+			var ae:AnnotationEvent	= new AnnotationEvent(AnnotationEvent.EDIT_ANNOTATION, annot);
+			
+			onAnnotationEdit(ae);
+		}
 
-
+		protected function storeAnnotation(persistMode:Boolean	= false):void{
+			if(!(viewComponent as annotationsPluginCode).inEditMode){
+				var responseXML:XML = (viewComponent as annotationsPluginCode).annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
+				sendNotification(Notifications.NOT_IN_EDIT_MODE, {feedbackSessionXML: responseXML.toXMLString()});
+				(viewComponent as annotationsPluginCode).messageText	= AnnotationStrings.NOT_IN_EDIT_MODE;
+				return;
+			}
+			
+			sendNotification(NotificationType.DO_PAUSE);
+			var index:int;
+			var currentTime = Math.floor(_playerMediaMediator.getCurrentTime());
+			var currTimeIndex:int = _pluginCode.annotationsBox.findIndexByInTime(currentTime);
+			
+			if (currTimeIndex != -1 && _pluginCode.annotationsBox.findIndexByAnnotation(_pluginCode.annotationEditForm.annotation) == -1) {
+				_pluginCode.annotationsBox.dispatchEvent(new Event(AnnotationStrings.INVALID_ANNOTATION_INTIME_EVENT, true));
+				return;
+			}
+			restoreAnnotationsInLayout();
+			var savedAnnotation:Annotation = _pluginCode.annotationEditForm.returnValidAnnotation(currentTime);
+			if (savedAnnotation) {
+				index = _pluginCode.annotationsBox.findIndexByAnnotation(savedAnnotation);
+				if (index != -1) {
+					KAstraAdvancedLayoutUtil.appendToLayoutAt(_pluginCode.annotationsBox, savedAnnotation, index, 100, 100);
+					saveAnnotationsToLocalObject();
+				}
+				else {
+					
+					addTimelineMarker(savedAnnotation.inTime);
+					_pluginCode.annotationsBox.addAnnotation(savedAnnotation);
+				}
+				_pluginCode.gotoViewMode();
+				
+			}
+			sendNotification("receivedCuePoints", _pluginCode.annotationsBox.millisecTimesArray);
+			if (_pluginCode.submissionTarget == AnnotationStrings.LOCAL_DB) {
+				var feedbackSessionXml:XML = _pluginCode.annotationsBox.annotationsXML(AnnotationStrings.DRAFT, _entryId, _partnerId);
+				sendNotification(Notifications.ANNOTATION_SAVED, {feedbackSessionXML: feedbackSessionXml.toXMLString()});
+			}
+			
+			(viewComponent as annotationsPluginCode).messageText	= AnnotationStrings.ANNOTATION_SAVED;
+			
+			if(persistMode)
+				switchToEditMode(savedAnnotation);
+		}
+		
 		/**
 		 * Function is in charge of loading the entry associated with the loaded feedback session.
 		 * @param e - KalturaEvent
