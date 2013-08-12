@@ -164,8 +164,11 @@ package com.kaltura.kdpfl.view {
 		private function addKButton(btnId:String, btnLabel:String, tabIndx:int) : void {
 			var btn:KButton = new KButton();
 			btn.id = btnId;
-			btn.buttonType = KButton.LABEL_BUTTON;
+			//to support 508 button behavior
+			btn.setSkin("onScreenBtn" , true);
+			//btn.buttonType = KButton.LABEL_BUTTON;
 			btn.label = btnLabel;
+			btn.maxHeight = 18;
 			btn.buttonMode = true;
 			btn.tabIndex = tabIndex;
 			btn.color1= 0x0051DE;
