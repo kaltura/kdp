@@ -14,7 +14,6 @@ package com.kaltura.kdpfl.plugin.component
 	import flash.system.Security;
 	import flash.utils.Timer;
 	
-	import org.puremvc.as3.interfaces.IFacade;
 	
 	/**
 	 * A class which can display ads on top of a video.
@@ -54,8 +53,7 @@ package com.kaltura.kdpfl.plugin.component
 		private var _shouldEnable:Boolean;
 		
 		private	var _tmrContentPlayheadChanged:Timer;
-		public var playheadPosition:Number = 0;    
-		public var facade:IFacade;    
+		public var playheadPosition:Number = 0;       
 		public var context:Object;    
 		
 		//LocalConnections
@@ -77,6 +75,11 @@ package com.kaltura.kdpfl.plugin.component
 		public function AdaptvAS3Player():void 
 		{	
 			Security.allowDomain("*");
+		
+		}
+		
+		public function start() : void 
+		{
 			//Load the AdPlayer: 
 			var loader:Loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.INIT, handleAdPlayerLoaded);
@@ -86,7 +89,8 @@ package com.kaltura.kdpfl.plugin.component
 			//addChild(loader);
 			_tmrContentPlayheadChanged = new Timer(800, 0);
 			_tmrContentPlayheadChanged.addEventListener(TimerEvent.TIMER, onContentPlayheadChanged);  
-		}	
+			
+		}
 		
 		
 		private function onContentPlayheadChanged(event:TimerEvent):void 
@@ -98,8 +102,6 @@ package com.kaltura.kdpfl.plugin.component
 		
 		private function ioErrorHandler(event:IOErrorEvent):void 
 		{
-			//go through Facade
-			//facade.sendNotification("sequenceItemPlayEnd");
 			dispatchEvent( new Event (ADAPTV_ADMANAGER_LOAD_FAILED, true) );
 		}
 		
@@ -248,7 +250,6 @@ package com.kaltura.kdpfl.plugin.component
 			enableControllers(false);
 			pauseVideo();
 			sendStat();
-			//facade.sendNotification(AdsNotificationTypes.AD_START);
 		}
 		
 		//Linear ad break ended:
@@ -259,7 +260,6 @@ package com.kaltura.kdpfl.plugin.component
 			playVideo();  
 			// To inform that the clip is playing and available for overlay call:
 			adPlayer.contentStarted();
-			//facade.sendNotification(AdsNotificationTypes.AD_END);
 		}
 		
 		//Custom ad plugin message:

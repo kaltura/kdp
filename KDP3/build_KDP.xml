@@ -6,7 +6,7 @@
 	 <!--property name="FLEX_HOME" value="/Applications/Adobe Flash Builder 4.6/sdks/4.6.0" /-->
 	 <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 
-	<property name="v_kdp" value="3.8.9"/>
+	<property name="v_kdp" value="3.9.0"/>
     <property name="src" value="src"/>  
     <property name="build" value="build-release"/>
      
@@ -17,7 +17,7 @@
 	
 	<target name="build">
 		<length property="length" mode="each">
-     		 <fileset dir="../KDP3/3.8.9/plugins" >
+     		 <fileset dir="../KDP3/3.9.0/plugins" >
 			<include name="**/*.swf"/>
 		   </fileset>
 	   </length>
@@ -128,7 +128,9 @@
     	<fb.exportReleaseBuild failonerror="true" project="parallelElementPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}/plugins" file="../plugins/parallelElementPlugin/${build}/parallelElementPlugin.swf"/>	
     	<fb.exportReleaseBuild failonerror="true" project="widevinePlugin" destdir="${build}"/>
-    	 <copy todir="${v_kdp}/plugins" file="../plugins/wvPlugin/${build}/widevinePlugin.swf"/>	
+    	 <copy todir="${v_kdp}/plugins" file="../plugins/wvPlugin/${build}/widevinePlugin.swf"/>
+    	 <fb.exportReleaseBuild failonerror="true" project="kontikiPlugin" destdir="${build}"/>
+    	 <copy todir="${v_kdp}/plugins" file="../plugins/kontikiPlugin/${build}/kontikiPlugin.swf"/>		
     	
     	<!-- don't build these plugins with sdk 4.6 -->
     	
