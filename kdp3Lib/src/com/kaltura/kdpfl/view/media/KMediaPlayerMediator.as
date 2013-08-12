@@ -1074,6 +1074,10 @@ package com.kaltura.kdpfl.view.media
 								setTimeout(startClip, 1);
 								break;
 							}
+							else //wait for seek trait
+							{
+								player.addEventListener(MediaPlayerCapabilityChangeEvent.CAN_SEEK_CHANGE, onCanSeekChange);
+							}
 						}
 					}
 					
@@ -1191,11 +1195,7 @@ package com.kaltura.kdpfl.view.media
 			//player.removeEventListener (MediaPlayerCapabilityChangeEvent.CAN_SEEK_CHANGE, onCanSeekChange);
 			if (player.media != null && _mediaProxy.vo.mediaPlayFrom!=-1 && player.canSeek)
 			{		
-				if (isAkamaiHD())
-				{
-					
-					setTimeout(startClip, 100 );
-				}
+				setTimeout(startClip, 100 );
 			}
 			
 		}
@@ -1209,7 +1209,7 @@ package com.kaltura.kdpfl.view.media
 			}
 		}
 		
-		private function startClip () : void
+		private function startClip (event:Event = null) : void
 		{
 			if (_mediaProxy.vo.mediaPlayFrom != -1)
 			{

@@ -27,16 +27,17 @@ package com.kaltura.kdpfl.util
 				try
 				{
 					cookie= SharedObject.getLocal(localName);
+					if (cookie)
+					{
+						cookie.data[propertyName] = value;
+						cookie.flush();
+					}
 				}
 				catch (e : Error)
 				{
 					KTrace.getInstance().log("No access to user's file system");
 				}
-				if (cookie)
-				{
-					cookie.data[propertyName] = value;
-					cookie.flush();
-				}
+				
 			}
 		}
 		
