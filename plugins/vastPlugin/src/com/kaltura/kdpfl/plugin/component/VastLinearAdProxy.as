@@ -1,5 +1,5 @@
 package com.kaltura.kdpfl.plugin.component {
-
+	
 	
 	import com.kaltura.kdpfl.ApplicationFacade;
 	import com.kaltura.kdpfl.model.MediaProxy;
@@ -118,7 +118,7 @@ package com.kaltura.kdpfl.plugin.component {
 		
 		//track progress events
 		private var _progressTrackingEvents:Array;
-
+		
 		/**
 		 * Constructor.
 		 * @param prerollUrl
@@ -141,8 +141,8 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			companionAds = new VastCompanionAdProxy(flashCompanions, htmlCompanions);
 		}
-
-
+		
+		
 		/**
 		 *Initiate the load process of the ad - determine whether loading pre-roll or post-roll ad.
 		 * @param context - signifies the context of the ad: "pre" for pre-roll and "post" for post-roll
@@ -183,8 +183,8 @@ package com.kaltura.kdpfl.plugin.component {
 				
 			}
 		}
-
-
+		
+		
 		/**
 		 * Function initiates the load of ads
 		 *
@@ -201,8 +201,8 @@ package com.kaltura.kdpfl.plugin.component {
 			_loadTimer.start();
 			_vastLoader.load(vastLoadTrait);
 		}
-
-
+		
+		
 		/**
 		 * Function handles the situation where a VAST ad has failed to load within the desired time frame 
 		 * @param e
@@ -237,7 +237,7 @@ package com.kaltura.kdpfl.plugin.component {
 					setStartingTranslatorIndex();
 				
 				createMediaElements();
-			//In case there was an error parsing or loading the VAST xml
+				//In case there was an error parsing or loading the VAST xml
 			} else if (e.newState == LoadState.LOAD_ERROR) {
 				//Stop the timeout timer
 				_loadTimer.stop();
@@ -284,7 +284,7 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			else
 				signalEnd();
-		
+			
 		}
 		
 		/**
@@ -328,7 +328,7 @@ package com.kaltura.kdpfl.plugin.component {
 			playerMediator["cleanMedia"]();
 			
 			
-				
+			
 			//_playingAd.addEventListener("traitAdd", onAdPlayable);
 			
 			if (_playingAdClickThru) {
@@ -355,7 +355,7 @@ package com.kaltura.kdpfl.plugin.component {
 			var mediaProxy : MediaProxy = facade.retrieveProxy( MediaProxy.NAME ) as MediaProxy;
 			(mediaProxy.vo.media as KSwitchingProxyElement).secondaryMediaElement = _playingAd;
 			(playerMediator["player"] as MediaPlayer).addEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived,false, int.MIN_VALUE);
-
+			
 			if (_playingAdClickThru) {
 				playerMediator["kMediaPlayer"].addEventListener(MouseEvent.CLICK, onAdClick);
 			}
@@ -363,7 +363,7 @@ package com.kaltura.kdpfl.plugin.component {
 				{timeSlot: getContextString(_currentSequenceContext)});
 			
 			(playerMediator["player"] as MediaPlayer).addEventListener( MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE , onAdPlayable );
-
+			
 			handleVpaidElement();
 			//if we're playing ad pods, don't switch elements again
 			if (sequencedAds)
@@ -374,7 +374,7 @@ package com.kaltura.kdpfl.plugin.component {
 			{
 				(mediaProxy.vo.media as KSwitchingProxyElement).switchElements();
 			}
-						
+			
 			
 		}
 		
@@ -406,12 +406,12 @@ package com.kaltura.kdpfl.plugin.component {
 						event.key.indexOf("AdVideoStart") == 0))
 					{
 						_initVPAIDSize = true;
-					
+						
 					}
 				});
 				
 				
-
+				
 			}
 		}
 		
@@ -434,17 +434,26 @@ package com.kaltura.kdpfl.plugin.component {
 			if (!isNaN(e.time) && e.time > 0)
 			{
 				var sequenceProxy : SequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
+				var skipOffset:String;
+				var skipOffsetInSecs:int;
 				sequenceProxy.vo.timeRemaining = Math.round(e.time);
 				sequenceProxy.vo.isAdLoaded = true;
 				//check for skipoffset
 				var curVast:VASTDataObject = getCurrentVastObject();
+				
+				if (sequenceProxy.vo.skipOffset && sequenceProxy.vo.skipOffset > 0) 
+				{
+					skipOffset = convertToHHMMSS(sequenceProxy.vo.skipOffset as Number);
+				}
+				
+				
 				if (curVast && curVast.vastVersion == VASTDataObject.VERSION_2_0) 
 				{
-					var skipOffsetInSecs:int;
-					var skipOffset:String = curVast["skipOffset"];
-					if (skipOffset)
-						skipOffsetInSecs = getOffsetInSecs(skipOffset, sequenceProxy.vo.timeRemaining);						
-						
+					if (skipOffset || curVast["skipOffset"]) 
+					{
+						skipOffsetInSecs = getOffsetInSecs(skipOffset, sequenceProxy.vo.timeRemaining);
+					}
+					
 					sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = skipOffsetInSecs;		
 					
 					//find progress tracking events
@@ -475,6 +484,26 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 		}
 		
+		private function doubleDigitFormat(arg1:uint):String
+		{
+			if (arg1 < 10) 
+			{
+				return "0" + arg1;
+			}
+			return String(arg1);
+		}
+		
+		private function convertToHHMMSS(arg1:Number):String
+		{
+			var loc1:*=arg1 % 60;
+			var loc2:*=Math.floor(arg1 % 3600 / 60);
+			var loc3:*;
+			var loc4:*=(loc3 = Math.floor(arg1 / (60 * 60))) != 0 ? this.doubleDigitFormat(loc3) + ":" : "00:";
+			var loc5:*=doubleDigitFormat(loc2) + ":";
+			var loc6:*=doubleDigitFormat(loc1);
+			return loc4 + loc5 + loc6;
+		}
+		
 		private function onVpaidDurationReceived(e: TimeEvent) : void
 		{
 			
@@ -489,7 +518,7 @@ package com.kaltura.kdpfl.plugin.component {
 					if (sequenceProxy.vo.skipOffsetRemaining<=0)
 						sequenceProxy.vo.skipOffsetRemaining = sequenceProxy.vo.skipOffset = 0;	
 					checkProgress(sequenceProxy.vo.timeRemaining);
-
+					
 				}
 				
 				if (e.time <= 1)
@@ -501,7 +530,7 @@ package com.kaltura.kdpfl.plugin.component {
 			
 		}
 		
-
+		
 		/**
 		 * selects the context name to be dispatched for statistics plugin.
 		 * @param str	context const (SequenceContextType)
@@ -522,8 +551,8 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			return res;
 		}
-
-
+		
+		
 		private function onAdClick(e:MouseEvent):void {
 			var urlReq:URLRequest = new URLRequest(_playingAdClickThru);
 			navigateToURL(urlReq);
@@ -535,7 +564,7 @@ package com.kaltura.kdpfl.plugin.component {
 			//TODO track stats
 			var sequenceProxy:Proxy = facade.retrieveProxy("sequenceProxy") as Proxy;
 			sendNotification("adClick",
-							 {timeSlot: getContextString(sequenceProxy["sequenceContext"]) , url:urlReq.url });
+				{timeSlot: getContextString(sequenceProxy["sequenceContext"]) , url:urlReq.url });
 		}
 		
 		private function fireBeacon(url:String) : void 
@@ -543,8 +572,8 @@ package com.kaltura.kdpfl.plugin.component {
 			var beacon : Beacon = new Beacon(url, new HTTPLoader() );
 			beacon.ping();
 		}
-
-
+		
+		
 		/**
 		 * Listener for and error in the playing process of the ad.
 		 * @param e
@@ -556,8 +585,8 @@ package com.kaltura.kdpfl.plugin.component {
 			if (sequenceProxy.vo.isInSequence)
 				signalEnd();
 		}
-
-
+		
+		
 		/**
 		 * Function parses the link of the video clickthru from the Vast document
 		 * @param vastDoc
@@ -571,7 +600,7 @@ package com.kaltura.kdpfl.plugin.component {
 				var vastObj:VASTDataObject = getCurrentVastObject();
 				if (vastObj)
 					parseVideoClicks(vastObj);
-					
+				
 			}
 			else if (vastDoc.vastVersion == VASTDataObject.VERSION_2_0) 
 			{
@@ -633,10 +662,10 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			return clickTrackings;
 		}
-
+		
 		//Public functions
 		//todo: check if skip ad also does this function
-
+		
 		public function removeClickThrough():void {
 			var playerMediator:Object = facade.retrieveMediator("kMediaPlayerMediator");
 			if (playerMediator["kMediaPlayer"].hasEventListener(MouseEvent.CLICK)) {
@@ -644,8 +673,8 @@ package com.kaltura.kdpfl.plugin.component {
 				_playingAdClickThru = null;
 			}
 		}
-
-
+		
+		
 		/**
 		 * This function dispatches a notification signifying that the vast component has finished playing. 
 		 * Used when the vast load trait has encountered a problem and the VAST was never loaded
@@ -664,8 +693,8 @@ package com.kaltura.kdpfl.plugin.component {
 				sendNotification("sequenceItemPlayEnd");
 			}
 		}
-
-
+		
+		
 		/**
 		 * Function removes the vast clickthrough, hides the companion ads and enables the GUI.
 		 * Used when the VAST video ads (linear ads) have finished playing.
@@ -828,7 +857,7 @@ package com.kaltura.kdpfl.plugin.component {
 			if (_icon)
 				addIcon();
 		}
-
+		
 		/**
 		 * duration of icon display has elapsed - remove the icon  
 		 * @param e
@@ -877,6 +906,7 @@ package com.kaltura.kdpfl.plugin.component {
 		 */		
 		private function getOffsetInSecs(offset:String, totalDuration:int):int
 		{
+			trace("HELLO :::: 	"+offset);
 			var val:int = 0;
 			if (offset.indexOf(":")!=-1) //parse HH:MM:SS offset format
 			{
@@ -955,7 +985,7 @@ package com.kaltura.kdpfl.plugin.component {
 			}
 			return pos;
 		}
-	
+		
 		
 		// ==============================================
 		// IEventDispatcher methods
@@ -985,8 +1015,8 @@ package com.kaltura.kdpfl.plugin.component {
 			return _dispatcher.willTrigger(type);
 		}
 		// ==============================================
-
-
+		
+		
 		/**
 		 *Getter for the ad playing in the player
 		 * @return
@@ -1004,7 +1034,7 @@ package com.kaltura.kdpfl.plugin.component {
 			_prerollUrl = value;
 			
 		}
-
+		
 		public function set postrollUrl(value:String):void
 		{
 			var timestamp : Number = new Date().time;
@@ -1041,8 +1071,8 @@ package com.kaltura.kdpfl.plugin.component {
 				}
 			}
 		}
-
-
+		
+		
 		
 	}
 }

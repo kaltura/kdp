@@ -9,20 +9,23 @@ package {
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.net.SharedObject;
 	
 	import org.osmf.media.MediaElement;
 	import org.puremvc.as3.interfaces.IFacade;
-
+	
 	public class vastPluginCode extends Sprite implements IPlugin, ISequencePlugin, IMidrollSequencePlugin {
 		//General plugin definitions
 		public var postSequence:Number;
 		public var preSequence:Number;
-
+		
 		
 		/**
 		 * Hide the timestamp 
 		 **/
 		public var omitTimestamp:Boolean;
+		public var storeSession:Boolean=true;
+		public var skipOffset:Number;
 		
 		//pre-roll properties
 		public var numPreroll:int;
@@ -31,7 +34,7 @@ package {
 		private var _prerollUrlArr : Array = new Array();
 		private var _prerollUrl:String;
 		private var _currentPrerollUrl : String;
-
+		
 		//post-roll properties
 		public var numPostroll:int;
 		public var postrollInterval:int;
@@ -39,25 +42,25 @@ package {
 		private var _postrollUrlArr : Array = new Array();
 		private var _postrollUrl:String;
 		private var _currentPostrollUrl : String;
-
+		
 		private var _overlays:Object;
 		
 		private var _trackCuePoints : Boolean = false;
 		private var _activeAdTagUrl : String;
-
+		
 		//Overlay properties
 		[Bindable]
 		/**
 		 * The time at which to show first overlay ad
 		 * */
 		public var overlayStartAt:Number;
-
+		
 		[Bindable]
 		/**
 		 * Interval time between overlays.
 		 * */
 		public var overlayInterval:Number;
-
+		
 		[Bindable]
 		public var overlayDisplayDuration:Number;
 		
@@ -73,82 +76,82 @@ package {
 		[Bindable]
 		public var midrollInterval : Number;
 		
-
+		
 		//Companion ad vars
-
+		
 		/**
 		 * a string representing the companion ads to be presented inside the player
 		 * */
 		public var flashCompanions:String;
-
+		
 		/**
 		 * a string representing the companion ads to be presented in the HTML page
 		 * */
 		public var htmlCompanions:String;
-
+		
 		/**
 		 * time to wait for ad load before skipping an ad
 		 */
 		public var timeout:Number;
-
-
+		
+		
 		// persistence
 		/**
 		 * should values be maintained in
 		 * sharedObject between sessions
 		 */
 		public var persistence:Boolean = false;
-
+		
 		/**
 		 * object that stores data between sessions
 		 */
 		private var _pers:PersistentData;
-
 		
-
+		
+		
 		//Privates
 		private var _linearAds:VastLinearAdProxy;
 		private var _nonlinearAds : NonLinearAdProxy;
 		private var _sequenceProxy:Object;
 		private var _vastMediator:VastMediator;
-
+		
 		/**
 		 * the context in which the current ad is playing, pre | post
 		 * */
 		private var _sequenceContext:String = "pre";
-
+		
 		/**
 		 * @copy #playedPrerollsSingleEntry
 		 * */
 		private var _playedPrerollsSingleEntry:int = 0;
-
+		
 		/**
 		 * @copy #playedPostrollsSingleEntry
 		 * */
 		private var _playedPostrollsSingleEntry:int = 0;
-
+		
 		/**
 		 * Boolean signifying whether the first pre roll ad was shown
 		 * */
 		private var _firstPrerollShown:Boolean = false;
-
+		
 		/**
 		 * Boolean signifying whether the first post roll ad was shown
 		 * */
 		private var _firstPostrollShown:Boolean = false;
-
+		
 		/**
 		 * number of entries which were played since the last preroll was shown
 		 */
 		private var _numEntriesPlayedPreroll:int = 1;
-
+		
 		/**
 		 * number of entries which were played since the last postroll was shown
 		 */
 		private var _numEntriesPlayedPostroll:int = 1;
-
 		
-
+		
+		
 		/**
 		 * Prepare media elements of the vast plugin and load them
 		 * */
@@ -157,7 +160,7 @@ package {
 				_pers = new PersistentData();
 				_pers.init(facade);
 			}
-
+			
 			_sequenceProxy = facade.retrieveProxy("sequenceProxy");
 			_vastMediator = new VastMediator(this);
 			facade.registerMediator(_vastMediator);
@@ -165,14 +168,53 @@ package {
 			_linearAds.omitTimestamp = omitTimestamp;
 			_nonlinearAds = new NonLinearAdProxy (this);
 			_linearAds.addEventListener(VastLinearAdProxy.SIGNAL_END, endSubsequence);
+			
+			if (storeSession) 
+			{
+				var kVastCookie:SharedObject = SharedObject.getLocal("kVastCookie");
+				if (prerollInterval) 
+				{
+					kVastCookie.data.prerollInterval = prerollInterval;
+				}
+				else if (kVastCookie.data.prerollInterval) 
+				{
+					prerollInterval = kVastCookie.data.prerollInterval;
+				}
+				
+				if (prerollStartWith) 
+				{
+					kVastCookie.data.prerollStartWith = prerollStartWith;
+				}
+				else if (kVastCookie.data.prerollStartWith) 
+				{
+					prerollStartWith = kVastCookie.data.prerollStartWith;
+				}
+				if (postrollInterval) 
+				{
+					kVastCookie.data.postrollInterval = postrollInterval;
+				}
+				else if (kVastCookie.data.postrollInterval) 
+				{
+					postrollInterval = kVastCookie.data.postrollInterval;
+				}
+				if (postrollStartWith) 
+				{
+					kVastCookie.data.postrollStartWith = postrollStartWith;
+				}
+				else if (kVastCookie.data.postrollStartWith) 
+				{
+					postrollStartWith = kVastCookie.data.postrollStartWith;
+				}
+			}
+			
 		}
 		
 		public function resize(width:Number,height:Number,mode:String):void
 		{
 			_linearAds.resizeAd(width,height,mode);
 		}
-
-
+		
+		
 		public function loadNonLinearAd( bannerURL : String =null):void
 		{
 			if (!bannerURL)
@@ -181,7 +223,7 @@ package {
 				{
 					_nonlinearAds.loadNonLinearAds(overlayUrl);
 				}
-					
+				
 			}
 			else
 			{
@@ -199,45 +241,45 @@ package {
 		{
 			_vastMediator.sendNotification( "showOverlayOnCuePoint" );
 		}
-
+		
 		public function setSkin(styleName:String, setSkinSize:Boolean = false):void {
 		}
-
-
+		
+		
 		//Implementation of the ISequencePlugin methods
-
+		
 		public function get entryId():String {
 			return "null"
 		}
-
-
+		
+		
 		public function get mediaElement():Object {
 			return 1;
 		}
-
-
+		
+		
 		public function get postIndex():Number {
 			return postSequence;
 		}
-
-
+		
+		
 		public function get preIndex():Number {
 			return preSequence;
 		}
-
-
+		
+		
 		public function hasMediaElement():Boolean {
 			return true;
 		}
-
-
+		
+		
 		public function get sourceType():String {
 			return "url"
 		}
-
-
+		
+		
 		public function hasSubSequence():Boolean {
-
+			
 			_vastMediator.reset();
 			_linearAds.resetVast();
 			
@@ -246,7 +288,7 @@ package {
 			
 			if (_sequenceContext == "pre") {
 				if (numPreroll - _playedPrerollsSingleEntry > 0) {
-
+					
 					return true;
 				}
 				else {
@@ -255,28 +297,28 @@ package {
 			}
 			if (_sequenceContext == "post") {
 				if (numPostroll - _playedPostrollsSingleEntry > 0) {
-
+					
 					return true;
 				}
 				else {
 					_playedPostrollsSingleEntry = 0;
 				}
 			}
-
+			
 			//Hack : Since we have no indication that the media has finished playing, 
 			// check whether there is no more sub-sequence left
-
+			
 			return false;
 		}
-
-
+		
+		
 		public function subSequenceLength():int {
 			var returnValue:int = (_sequenceContext == "pre") ? numPreroll : numPostroll;
 			return returnValue;
 		}
-
-
-
+		
+		
+		
 		/**
 		 * Function starts the plugin playing in the kdp
 		 *
@@ -289,10 +331,10 @@ package {
 			_vastMediator.adContext = _sequenceContext;
 			if (shouldPlay()) {
 				_vastMediator.isListening = true;
-
+				
 				if (!_playedPrerollsSingleEntry && !_playedPostrollsSingleEntry && !_linearAds.sequencedAds)
 					_vastMediator.enableGUI(false);
-
+				
 				if (_linearAds.hasPendingAds())
 				{
 					_linearAds.playNextPendingAd();
@@ -312,12 +354,12 @@ package {
 				
 			}
 			else {
-			//	_vastMediator.enableGUI(true);
+				//	_vastMediator.enableGUI(true);
 				_linearAds.signalEnd();
 			}
 		}
-
-
+		
+		
 		
 		/**
 		 * update counters and flush data according to current roll. </br>
@@ -336,10 +378,10 @@ package {
 			}
 		}
 		
-
 		
-
-
+		
+		
+		
 		private function shouldPlay():Boolean {
 			var result:Boolean = false;
 			if (_linearAds.hasPendingAds())
@@ -357,7 +399,7 @@ package {
 				_firstPostrollShown = pd.postrollFirstShow;
 				_numEntriesPlayedPostroll = pd.postrollEntries;
 			}
-
+			
 			if (_sequenceContext == "pre") {
 				if (prerollUrlArr && prerollUrlArr.length)
 				{
@@ -412,7 +454,7 @@ package {
 				if ( activeAdTagUrl )
 				{
 					if (_playedPostrollsSingleEntry == 0) {
-	//					_numEntriesPlayedPostroll++;
+						//					_numEntriesPlayedPostroll++;
 						if (!_firstPostrollShown) {
 							if (!postrollStartWith || _numEntriesPlayedPostroll == postrollStartWith) {
 								result = true;
@@ -480,56 +522,56 @@ package {
 			pd.postrollEntries = _numEntriesPlayedPostroll;
 			_pers.updatePersistentData(pd);
 		}
-
-
+		
+		
 		// =========================================================
 		// public getters / setters
 		// =========================================================
-
-
+		
+		
 		[Bindable]
 		public function set overlays(value:Object):void {
 			_overlays = value;
 		}
-
-
+		
+		
 		public function get overlays():Object {
 			return _overlays;
 		}
-
-
+		
+		
 		/**
 		 * number of preroll ads that were shown per a single entry
 		 * */
 		public function get playedPrerollsSingleEntry():int {
 			return _playedPrerollsSingleEntry;
 		}
-
-
+		
+		
 		/**
 		 * @private
 		 * */
 		public function set playedPrerollsSingleEntry(value:int):void {
 			_playedPrerollsSingleEntry = value;
 		}
-
-
+		
+		
 		/**
 		 * number of postroll ads that were shown per a single entry
 		 * */
 		public function get playedPostrollsSingleEntry():int {
 			return _playedPostrollsSingleEntry;
 		}
-
-
+		
+		
 		/**
 		 * @private
 		 * */
 		public function set playedPostrollsSingleEntry(value:int):void {
 			_playedPostrollsSingleEntry = value;
 		}
-
-
+		
+		
 		[Bindable]
 		public function set prerollUrl(value:String):void {
 			_prerollUrl = value;
@@ -539,8 +581,8 @@ package {
 				_linearAds.prerollUrl = value;
 			}
 		}
-
-
+		
+		
 		public function get prerollUrl():String {
 			return _prerollUrl;
 		}
@@ -552,20 +594,20 @@ package {
 		public function get prerollUrlArr():Array {
 			return _prerollUrlArr;
 		}
-
-
+		
+		
 		[Bindable]
 		public function set postrollUrl(value:String):void {
 			_postrollUrl = value;
 			
 			_postrollUrlArr.push( _postrollUrl );
 		}
-
-
+		
+		
 		public function get postrollUrl():String {
 			return _postrollUrl;
 		}
-
+		
 		
 		public function set postrollUrlArr(value : Array): void {
 			_postrollUrlArr = value;
@@ -610,12 +652,12 @@ package {
 			else
 				_trackCuePoints = false;
 		}
-
+		
 		public function get activeAdTagUrl():String
 		{
 			return _activeAdTagUrl;
 		}
-
+		
 		public function set activeAdTagUrl(value:String):void
 		{
 			_activeAdTagUrl = value;
@@ -641,6 +683,6 @@ package {
 			_linearAds.checkProgress(time);
 		}
 		
-
+		
 	}
 }

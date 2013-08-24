@@ -14,7 +14,7 @@ package com.kaltura.kdpfl.plugin.component
 	import flash.utils.Timer;
 	
 	import org.puremvc.as3.interfaces.INotification;
-
+	
 	public class VastMediator extends SequenceMultiMediator
 	{
 		public static const NAME : String = "vastMediator";
@@ -34,7 +34,7 @@ package com.kaltura.kdpfl.plugin.component
 		private var _pluginCode : vastPluginCode;
 		private var _adStarted:Boolean = false;
 		
-	//	private var _vastMidrollTimer : Timer;
+		//	private var _vastMidrollTimer : Timer;
 		
 		/**
 		 * @copy adContext
@@ -61,19 +61,20 @@ package com.kaltura.kdpfl.plugin.component
 		override public function listNotificationInterests():Array
 		{
 			var interests : Array = [
-									NotificationType.PLAYER_UPDATE_PLAYHEAD, 
-									NotificationType.SEQUENCE_ITEM_PLAY_END,
-									NotificationType.HAS_OPENED_FULL_SCREEN,
-									NotificationType.HAS_CLOSED_FULL_SCREEN,
-									NotificationType.ENTRY_READY,
-									"vastStartedPlaying",
-									NotificationType.PLAYER_PAUSED,
-									NotificationType.PLAYER_PLAYED,
-									NotificationType.AD_OPPORTUNITY,
-									NotificationType.CHANGE_MEDIA_PROCESS_STARTED,
-									NotificationType.ROOT_RESIZE,
-									NotificationType.SEQUENCE_SKIP_NEXT
-									];
+				NotificationType.PLAYER_UPDATE_PLAYHEAD, 
+				NotificationType.SEQUENCE_ITEM_PLAY_END,
+				NotificationType.HAS_OPENED_FULL_SCREEN,
+				NotificationType.HAS_CLOSED_FULL_SCREEN,
+				NotificationType.ENTRY_READY,
+				"vastStartedPlaying",
+				NotificationType.PLAYER_PAUSED,
+				NotificationType.PLAYER_PLAYED,
+				NotificationType.AD_OPPORTUNITY,
+				NotificationType.CHANGE_MEDIA_PROCESS_STARTED,
+				NotificationType.ROOT_RESIZE,
+				NotificationType.SEQUENCE_SKIP_NEXT,
+				"adStart"
+			];
 			
 			return interests;
 		}
@@ -90,7 +91,15 @@ package com.kaltura.kdpfl.plugin.component
 				sequenceProxy = facade.retrieveProxy(SequenceProxy.NAME) as SequenceProxy;
 			
 			switch (notification.getName()) {
-
+				case "adStart":
+				{
+					if (_pluginCode.skipOffset) 
+					{
+						var sp:SequenceProxy = facade.retrieveProxy("sequenceProxy") as SequenceProxy;
+						sp.vo.skipOffset = _pluginCode.skipOffset;
+					}
+					break;
+				}
 				case NotificationType.PLAYER_UPDATE_PLAYHEAD:
 					if (_isListening) {
 						// only listen to notification while active.
@@ -118,11 +127,11 @@ package com.kaltura.kdpfl.plugin.component
 							
 							_pluginCode.midrollUrlArr.push( _pluginCode.midrollUrl );
 							
-						/*	if ( _pluginCode.midrollInterval )
+							/*	if ( _pluginCode.midrollInterval )
 							{
-								_vastMidrollTimer = new Timer (_pluginCode.midrollInterval);
-								
-								_vastMidrollTimer.start()
+							_vastMidrollTimer = new Timer (_pluginCode.midrollInterval);
+							
+							_vastMidrollTimer.start()
 							}*/
 							
 							startVASTMidroll();
@@ -130,13 +139,13 @@ package com.kaltura.kdpfl.plugin.component
 					}
 					break;
 				case NotificationType.PLAYER_PLAYED:
-				//	if (_playedFirstMidroll && _vastMidrollTimer)
-				//		_vastMidrollTimer.start();
-			
+					//	if (_playedFirstMidroll && _vastMidrollTimer)
+					//		_vastMidrollTimer.start();
+					
 					break;
 				case NotificationType.PLAYER_PAUSED:
-				//	if (_playedFirstMidroll && _vastMidrollTimer)
-				//		_vastMidrollTimer.stop();
+					//	if (_playedFirstMidroll && _vastMidrollTimer)
+					//		_vastMidrollTimer.stop();
 					break;
 				case "vastStartedPlaying":
 					isListening = true;
@@ -166,7 +175,7 @@ package com.kaltura.kdpfl.plugin.component
 					}
 					break;
 				case NotificationType.ENTRY_READY :
-		
+					
 					if (!sequenceProxy.vo.isInSequence)
 					{
 						_loadedFirstOverlayVAST = false;
@@ -188,8 +197,8 @@ package com.kaltura.kdpfl.plugin.component
 								case SequenceContextType.PRE:
 									if (cuePoint.adType == KalturaAdType.VIDEO)
 									{
-											_pluginCode.prerollUrlArr.push( cuePoint.sourceUrl );
-											sequenceProxy.vo.preSequenceArr.push(_pluginCode);
+										_pluginCode.prerollUrlArr.push( cuePoint.sourceUrl );
+										sequenceProxy.vo.preSequenceArr.push(_pluginCode);
 									}
 									break;
 								case SequenceContextType.POST:
@@ -207,29 +216,29 @@ package com.kaltura.kdpfl.plugin.component
 							}
 						}
 					}
-						
-					break;
-					case NotificationType.CHANGE_MEDIA_PROCESS_STARTED:
-						
-						// Restore previous situation (if existed at all)
-						if (_pluginCode.prerollUrl )
-						{
-							_pluginCode.prerollUrlArr = new Array( _pluginCode.prerollUrl );
-						}
-						
-						if (_pluginCode.postrollUrl)
-						{
-							_pluginCode.postrollUrlArr = new Array(_pluginCode.postrollUrl);	
-						}
-						
-					break;
 					
-					case NotificationType.SEQUENCE_SKIP_NEXT:
-						//if at least one vast ad played, most likely skip was for vast ad
-						if (_adStarted)
-						{
-							_pluginCode.sendLinearTrackEvent("trkSkipEvent");
-						}
+					break;
+				case NotificationType.CHANGE_MEDIA_PROCESS_STARTED:
+					
+					// Restore previous situation (if existed at all)
+					if (_pluginCode.prerollUrl )
+					{
+						_pluginCode.prerollUrlArr = new Array( _pluginCode.prerollUrl );
+					}
+					
+					if (_pluginCode.postrollUrl)
+					{
+						_pluginCode.postrollUrlArr = new Array(_pluginCode.postrollUrl);	
+					}
+					
+					break;
+				
+				case NotificationType.SEQUENCE_SKIP_NEXT:
+					//if at least one vast ad played, most likely skip was for vast ad
+					if (_adStarted)
+					{
+						_pluginCode.sendLinearTrackEvent("trkSkipEvent");
+					}
 					break;
 			}	
 			
@@ -335,14 +344,14 @@ package com.kaltura.kdpfl.plugin.component
 		{
 			sendNotification("enableGui", {guiEnabled : enabled, enableType : "full"});
 		}
-
+		
 		/**
 		 * indicates the mediator is listening to notifications. 
 		 */
 		public function get isListening():Boolean {
 			return _isListening;
 		}
-
+		
 		/**
 		 * @private
 		 */
@@ -354,7 +363,7 @@ package com.kaltura.kdpfl.plugin.component
 				}
 			}
 		}
-
+		
 		/**
 		 * current ad context. <br/>
 		 * possible values enumerated in <code>SequenceContextType</code> 
@@ -363,7 +372,7 @@ package com.kaltura.kdpfl.plugin.component
 		{
 			return _adContext;
 		}
-
+		
 		/**
 		 * @private 
 		 */		
@@ -371,6 +380,6 @@ package com.kaltura.kdpfl.plugin.component
 		{
 			_adContext = value;
 		}
-	
+		
 	}
 }
