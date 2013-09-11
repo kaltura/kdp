@@ -338,7 +338,12 @@ package com.kaltura.kdpfl.view.controls
 		 * change volume all in one click - mouse_down and move
 		 * **/
 		private function onMouseMove(e:MouseEvent):void{
-			changeVolume(_slider.mouseX/_slider.width);
+			var vol:Number		= _slider.mouseX/_slider.width;
+			
+			if(vol < 0)
+				changeVolume(0);
+			else
+				changeVolume(vol);
 		}
 		
 		/**
