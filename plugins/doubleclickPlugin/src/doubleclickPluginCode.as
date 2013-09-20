@@ -48,7 +48,7 @@ package
 	
 	public dynamic class doubleclickPluginCode extends UIComponent implements IPlugin, ISequencePlugin
 	{
-		public var debugMode:Boolean	=	true;
+		public var debugMode:Boolean	=	false;
 		
 		public var contentPlayhead:Object = {};
 		
