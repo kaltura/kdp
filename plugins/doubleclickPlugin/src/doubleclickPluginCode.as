@@ -147,12 +147,12 @@ package
 		{
 			return _adTagUrl;
 		}
-
+		
 		public function set adTagUrl(value:String):void
 		{
 			_adTagUrl = unescape(value);
 		}
-
+		
 		public function initializePlugin(facade:IFacade):void
 		{
 			
@@ -324,9 +324,13 @@ package
 			// provides current playhead position for the content.						
 			contentPlayhead		= {
 				time:function():Number {
+					
 					var playTime:Number = _playerMediator.player.currentTime;
 					//correct the .25 sec delay on ads during adrule playback
 					playTime	= _mediator.playheadTime;//(playTime)*1000;
+					if(playTime < 0){
+						playTime = 0;
+					}
 					
 					return playTime; // Make time in ms.
 				}
@@ -428,13 +432,16 @@ package
 				});
 				
 				adsManager.addEventListener(AdEvent.LOADED, function(e:AdEvent):void{
-					log("AdEvent.LOADED");
+					log("AdEvent.LOADED	totalAds:"+e.ad.adPodInfo.totalAds );
+					log("AdEvent.LOADED	position:"+e.ad.adPodInfo.adPosition );
+					log("AdEvent.LOADED	isBumper:"+e.ad.adPodInfo.isBumper );
 					if(e.target.cuePoints.length > 0){
+						log("cuepont lenght:::: "+e.target.cuePoints.length);
 						_isAdRule		= true;
 					}
 					
 					//if overlay or adrule, resume content
-					if (!adsManager.linear || _isAdRule)
+					if (!adsManager.linear)
 						contentResumeRequestedHandler(e);
 				});
 				
@@ -498,7 +505,7 @@ package
 		}
 		
 		private function adCompletedHandler(event:AdEvent):void{
-			log("AdEvent.adCompletedHandler");
+			log("AdEvent.adCompletedHandler	"+event.ad.adPodInfo.adPosition +" of "+ event.ad.adPodInfo.totalAds);
 			if (!disableCompanionAds && flashCompanion)
 				flashCompanion.destroy();
 		}
@@ -555,6 +562,7 @@ package
 				
 				_mediator.stopPlayback();
 				_mediator.disableControls();
+				
 			}
 			
 			// This loads and displays the Companion Ads 
@@ -607,30 +615,30 @@ package
 		 */
 		private function contentResumeRequestedHandler(event:AdEvent	= null):void 
 		{	
+			adInProgress		= false;
 			
 			if(_background.parent)
 				_background.parent.removeChild(_background);
 			
-			
-			log("contentResumeRequestedHandler	isAdRulex:"+_isAdRule +"		:isLinear : ");
+			log("contentResumeRequestedHandler	");
 			
 			// Rewire controls to affect content instead of the ads manager.
 			//tell sequence proxy, hey this sequence item is done. do your thang. 
-			
-			//we tell it that we're done if the current ad was requested by the sequenceProxy
-			if(_sequenceProxy.vo.isInSequence)
-				_facade.sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
-			
-			//adRules are not managed by the sequenceProxy, so we force playback
-			if(!_mediator.playbackComplete)
-				_facade.sendNotification(NotificationType.DO_PLAY);
-			
-			//			if(event){
-			//				_facade.sendNotification(NotificationType.DO_PLAY);
-			//			}
-			
-			adInProgress		= false;
 			_mediator.enableControls();
+			//we tell it that we're done if the current ad was requested by the sequenceProxy
+			if(_sequenceProxy.vo.isInSequence && !event.ad)
+				_facade.sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
+			else if (event.ad){
+				if(!event.ad.linear && _sequenceProxy.vo.isInSequence)
+					_facade.sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
+			}
+			else if (!_mediator.playbackComplete){
+				//this is called when there's an adRule and midrolls are complete
+				_facade.sendNotification(NotificationType.DO_PLAY);
+			}
+			
+			
+			
 			
 		}
 		
