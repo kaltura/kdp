@@ -87,7 +87,7 @@ package com.kaltura.kdpfl.plugin
 					//set buffer length
 					var akamaiMetadataValues:String = AkamaiStrings.AKAMAI_METADATA_KEY_MAX_BUFFER_LENGTH + "=" + bufferLength;
 					//disable netsession mode
-					akamaiMetadataValues +="&" + AkamaiStrings.AKAMAI_METADATA_KEY_USE_NETSESSION + "=never";
+					akamaiMetadataValues +="&" + AkamaiStrings.AKAMAI_METADATA_KEY_NETSESSION_MODE + "=never";
 					
 					if (_flashvars.hdnetworkEnableBRDetection && _flashvars.hdnetworkEnableBRDetection=="true")
 					{
@@ -130,7 +130,7 @@ package com.kaltura.kdpfl.plugin
 					{
 						media = (media as ProxyElement).proxiedElement;
 					} 
-					if (media is AkamaiVideoElement) {
+					if ((media is AkamaiVideoElement) && (media as AkamaiVideoElement).client) {
 						(media as AkamaiVideoElement).client.addHandler( "onTextData", onEmbeddedCaptions );
 					}
 			}
