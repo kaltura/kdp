@@ -524,8 +524,11 @@ package com.kaltura.kdpfl.controller.media
 					
 					for each (var cuePoint : KalturaCuePoint in cuePointsArray)
 					{
-						if (cuePoint is KalturaAdCuePoint)
+						if (cuePoint is KalturaAdCuePoint && (cuePoint as KalturaAdCuePoint).sourceUrl)
+						{
 							(cuePoint as KalturaAdCuePoint).sourceUrl = KTextParser.evaluate(facade["bindObject"], (cuePoint as KalturaAdCuePoint).sourceUrl ) as String;
+						}
+							
 						// map cue point according to start time.
 						if ( cuePointsMap[cuePoint.startTime] )
 						{
