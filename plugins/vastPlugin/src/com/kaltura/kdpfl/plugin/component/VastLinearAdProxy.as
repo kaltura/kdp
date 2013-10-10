@@ -237,6 +237,7 @@ package com.kaltura.kdpfl.plugin.component {
 					setStartingTranslatorIndex();
 				
 				createMediaElements();
+
 			//In case there was an error parsing or loading the VAST xml
 			} else if (e.newState == LoadState.LOAD_ERROR) {
 				//Stop the timeout timer
@@ -661,6 +662,7 @@ package com.kaltura.kdpfl.plugin.component {
 				removeClickThrough();
 				sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
 				dispatchEvent(new Event(VastLinearAdProxy.SIGNAL_END));
+				(facade.retrieveMediator("kMediaPlayerMediator")["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				sendNotification("sequenceItemPlayEnd");
 			}
 		}
