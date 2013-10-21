@@ -259,6 +259,17 @@ package
 				cpAdTagUrl		= "";
 			}
 			
+			try{
+				if(response.indexOf("adTagUrl=") > -1){
+					var arr:Array = response.split("adTagUrl=");
+					
+					response 		= arr[0]+"adTagUrl="+encodeURIComponent(arr[1]);
+					
+				}
+			}catch(e:Error){
+				trace("[DOUBLECLICK] - unable to retreive adTag from IMA3VPAID URL.  Set into debugMode and make sure adTagURL portion of key/value string is encoded.");
+			}
+			
 			return response;
 		}
 		
