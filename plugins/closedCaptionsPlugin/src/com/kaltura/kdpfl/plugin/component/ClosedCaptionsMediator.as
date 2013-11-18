@@ -24,8 +24,13 @@ package com.kaltura.kdpfl.plugin.component
 	import flash.events.SecurityErrorEvent;
 	import flash.net.SharedObject;
 	
+	import org.osmf.events.LoadEvent;
+	import org.osmf.events.MediaElementEvent;
+	import org.osmf.traits.LoadTrait;
+	import org.osmf.traits.MediaTraitType;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
+	import org.osmf.traits.LoadState;
 
 	public class ClosedCaptionsMediator extends Mediator
 	{
@@ -243,10 +248,28 @@ package com.kaltura.kdpfl.plugin.component
 		
 		private function addTextHandler () : void
 		{
-			if (_mediaProxy.videoElement && _mediaProxy.videoElement.client)
-				_mediaProxy.videoElement.client.addHandler( "onTextData" , onTextData );
+			if (_mediaProxy.videoElement) {
+				if (_mediaProxy.videoElement.client) {
+					_mediaProxy.videoElement.client.addHandler( "onTextData" , onTextData );
+				} else {
+					var loadTrait:LoadTrait = _mediaProxy.vo.media.getTrait(MediaTraitType.LOAD) as LoadTrait;
+					if ( loadTrait ) {
+						loadTrait.addEventListener(LoadEvent.LOAD_STATE_CHANGE, onLoadStateChange);
+					}
+				}
+			}
+
 		}
 		
+		private function onLoadStateChange(e:LoadEvent) : void {
+			if (e.loadState == LoadState.READY) {
+				e.target.removeEventListener(LoadEvent.LOAD_STATE_CHANGE, onLoadStateChange);
+				if (_mediaProxy.videoElement.client) {
+					_mediaProxy.videoElement.client.addHandler( "onTextData" , onTextData );
+				} 
+			}
+		}
+
 		private function onTextData (info : Object) : void
 		{
 			if (_showingEmbeddedCaptions || _closedCaptionsDefs.showEmbeddedCaptions)
