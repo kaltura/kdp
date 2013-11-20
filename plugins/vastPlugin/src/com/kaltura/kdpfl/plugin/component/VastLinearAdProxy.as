@@ -401,6 +401,10 @@ package com.kaltura.kdpfl.plugin.component {
 						
 						sendNotification("sequenceItemPlayEnd");
 					}
+					if (event.key =='adClickThru')
+					{
+						onAdClick(null);
+					}
 					if (!_initVPAIDSize &&(event.key.indexOf("AdLoaded") == 0 ||
 						event.key.indexOf("adCreativeView") == 0 || 
 						event.key.indexOf("AdPlaying")== 0 || 
@@ -527,10 +531,16 @@ package com.kaltura.kdpfl.plugin.component {
 
 		private function onAdClick(e:MouseEvent):void {
 			var urlReq:URLRequest = new URLRequest(_playingAdClickThru);
-			navigateToURL(urlReq);
-			for (var i:int=0; i<_playingAdClickTrackings.length; i++)
+			if (_playingAdClickThru != null)
 			{
-				fireBeacon(_playingAdClickTrackings[i]);
+				navigateToURL(urlReq);
+			}
+			if (_playingAdClickTrackings != null)
+			{
+				for (var i:int=0; i<_playingAdClickTrackings.length; i++)
+				{
+					fireBeacon(_playingAdClickTrackings[i]);
+				}
 			}
 			//var clickTrackingUrl : String = ((e.target as KMediaPlayer).player.media as VASTTrackingProxyElement).
 			//TODO track stats
