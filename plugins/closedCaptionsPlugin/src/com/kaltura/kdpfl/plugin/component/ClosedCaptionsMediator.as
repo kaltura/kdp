@@ -26,11 +26,11 @@ package com.kaltura.kdpfl.plugin.component
 	
 	import org.osmf.events.LoadEvent;
 	import org.osmf.events.MediaElementEvent;
+	import org.osmf.traits.LoadState;
 	import org.osmf.traits.LoadTrait;
 	import org.osmf.traits.MediaTraitType;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
-	import org.osmf.traits.LoadState;
 
 	public class ClosedCaptionsMediator extends Mediator
 	{
@@ -186,6 +186,7 @@ package com.kaltura.kdpfl.plugin.component
 					if (currentLabel == _closedCaptionsDefs.noneString)
 					{
 						(viewComponent as ClosedCaptions).visible = false;
+						saveToSO( currentLabel );
 						return;
 					}
 					else
@@ -206,19 +207,7 @@ package com.kaltura.kdpfl.plugin.component
 								switchActiveCCFile( ccObj );
 							}
 							
-							if (_flashvars.allowCookies=="true" && ccObj.language )
-							{
-								try
-								{
-									var sharedObj : SharedObject = SharedObject.getLocal("Kaltura_CC_SO");
-									sharedObj.data.language = ccObj.language;
-									sharedObj.flush();
-								}
-								catch (e : Error)
-								{
-									sendNotification( NotificationType.ALERT, {message: "Application is unable to access your file system.", title: "Error saving localized settings"} );
-								}
-							}
+							saveToSO( ccObj.language );
 							
 							break;
 						}
@@ -243,6 +232,22 @@ package com.kaltura.kdpfl.plugin.component
 				case ClosedCaptionsNotifications.LOAD_EMBEDDED_CAPTIONS:
 					onTextData(note.getBody());
 					break;
+			}
+		}
+		
+		private function saveToSO(langKey:String):void {
+			if (_flashvars.allowCookies=="true" && langKey )
+			{
+				try
+				{
+					var sharedObj : SharedObject = SharedObject.getLocal("Kaltura_CC_SO");
+					sharedObj.data.language = langKey;
+					sharedObj.flush();
+				}
+				catch (e : Error)
+				{
+					sendNotification( NotificationType.ALERT, {message: "Application is unable to access your file system.", title: "Error saving localized settings"} );
+				}
 			}
 		}
 		
@@ -395,7 +400,7 @@ package com.kaltura.kdpfl.plugin.component
 				
 				_closedCaptionsDefs.availableCCFilesLabels.addItemAt( selectNone , 0 );
 				
-				if (_closedCaptionsDefs.defaultLanguageKey==_closedCaptionsDefs.noneString)
+				if (_closedCaptionsDefs.defaultLanguageKey==_closedCaptionsDefs.noneString || preferredLang==_closedCaptionsDefs.noneString)
 				{
 					_closedCaptionsDefs.currentCCFileIndex = 0;
 					(viewComponent as ClosedCaptions).visible = false;
