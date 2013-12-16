@@ -31,17 +31,17 @@ package com.kaltura.commands.category
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Move categories that belong to the same parent category to a target categroy - enabled only for ks with disable entitlement
-	 * 
-	 **/
+	* Move categories that belong to the same parent category to a target categroy - enabled only for ks with disable entitlement
+	* 
+	**/
 	public class CategoryMove extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param categoryIds String
-		 * @param targetCategoryParentId int
-		 **/
+		* @param categoryIds String
+		* @param targetCategoryParentId int
+		**/
 		public function CategoryMove( categoryIds : String,targetCategoryParentId : int )
 		{
 			service= 'category';

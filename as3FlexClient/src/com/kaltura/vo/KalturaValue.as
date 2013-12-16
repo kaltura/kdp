@@ -32,10 +32,25 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaValue extends BaseFlexVo
 	{
+		/**
+		**/
+		public var description : String = null;
+
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
+		{
+			var arr : Array;
+			arr = new Array();
+			arr.push('description');
+			return arr;
+		}
+
+		/** 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
+		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
@@ -43,13 +58,16 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
-		public function getInsertableParamKeys():Array
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
 		{
-			var arr : Array;
-			arr = new Array();
-			return arr;
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

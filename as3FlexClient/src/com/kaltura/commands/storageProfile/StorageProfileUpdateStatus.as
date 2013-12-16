@@ -31,15 +31,15 @@ package com.kaltura.commands.storageProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class StorageProfileUpdateStatus extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param storageId int
-		 * @param status int
-		 **/
+		* @param storageId int
+		* @param status int
+		**/
 		public function StorageProfileUpdateStatus( storageId : int,status : int )
 		{
 			service= 'storageprofile';

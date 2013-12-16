@@ -31,17 +31,17 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get download URL for the Flavor Asset
-	 * 
-	 **/
+	* Get download URL for the Flavor Asset
+	* 
+	**/
 	public class FlavorAssetGetDownloadUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param useCdn Boolean
-		 **/
+		* @param id String
+		* @param useCdn Boolean
+		**/
 		public function FlavorAssetGetDownloadUrl( id : String,useCdn : Boolean=false )
 		{
 			service= 'flavorasset';

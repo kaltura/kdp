@@ -27,20 +27,20 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
-	import com.kaltura.vo.KalturaAccessControlAction;
+	import com.kaltura.vo.KalturaRuleAction;
 
 	[Bindable]
-	public dynamic class KalturaAccessControlLimitFlavorsAction extends KalturaAccessControlAction
+	public dynamic class KalturaAccessControlLimitFlavorsAction extends KalturaRuleAction
 	{
 		/**
-		 * Comma separated list of flavor ids
-		 * 
-		 **/
+		* Comma separated list of flavor ids
+		* 
+		**/
 		public var flavorParamsIds : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isBlockedList : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -57,6 +57,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,18 +31,18 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Convert entry
-	 * 
-	 **/
+	* Convert entry
+	* 
+	**/
 	public class MediaConvert extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param conversionProfileId int
-		 * @param dynamicConversionAttributes Array
-		 **/
+		* @param entryId String
+		* @param conversionProfileId int
+		* @param dynamicConversionAttributes Array
+		**/
 		public function MediaConvert( entryId : String,conversionProfileId : int=int.MIN_VALUE,dynamicConversionAttributes : Array=null )
 		{
 			service= 'media';
@@ -55,11 +55,11 @@ package com.kaltura.commands.media
 			valueArr.push(entryId);
 			keyArr.push('conversionProfileId');
 			valueArr.push(conversionProfileId);
- 			if (dynamicConversionAttributes) { 
- 			keyValArr = extractArray(dynamicConversionAttributes,'dynamicConversionAttributes');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (dynamicConversionAttributes) { 
+				keyValArr = extractArray(dynamicConversionAttributes,'dynamicConversionAttributes');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

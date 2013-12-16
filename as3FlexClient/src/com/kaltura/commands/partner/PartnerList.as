@@ -27,25 +27,25 @@
 // ===================================================================================================
 package com.kaltura.commands.partner
 {
-	import com.kaltura.vo.KalturaPartnerFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaPartnerFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.partner.PartnerListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List partners by filter with paging support
-	 * Current implementation will only list the sub partners of the partner initiating the api call (using the current KS).
-	 * This action is only partially implemented to support listing sub partners of a VAR partner.
-	 * 
-	 **/
+	* List partners by filter with paging support
+	* Current implementation will only list the sub partners of the partner initiating the api call (using the current KS).
+	* This action is only partially implemented to support listing sub partners of a VAR partner.
+	* 
+	**/
 	public class PartnerList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaPartnerFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaPartnerFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function PartnerList( filter : KalturaPartnerFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'partner';
@@ -54,16 +54,16 @@ package com.kaltura.commands.partner
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

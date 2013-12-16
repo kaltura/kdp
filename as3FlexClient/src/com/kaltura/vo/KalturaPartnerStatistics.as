@@ -33,44 +33,44 @@ package com.kaltura.vo
 	public dynamic class KalturaPartnerStatistics extends BaseFlexVo
 	{
 		/**
-		 * Package total allowed bandwidth and storage
-		 * 
-		 **/
+		* Package total allowed bandwidth and storage
+		* 
+		**/
 		public var packageBandwidthAndStorage : int = int.MIN_VALUE;
 
 		/**
-		 * Partner total hosting in GB on the disk
-		 * 
-		 **/
+		* Partner total hosting in GB on the disk
+		* 
+		**/
 		public var hosting : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 * Partner total bandwidth in GB
-		 * 
-		 **/
+		* Partner total bandwidth in GB
+		* 
+		**/
 		public var bandwidth : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 * total usage in GB - including bandwidth and storage
-		 * 
-		 **/
+		* total usage in GB - including bandwidth and storage
+		* 
+		**/
 		public var usage : int = int.MIN_VALUE;
 
 		/**
-		 * Percent of usage out of partner's package. if usage is 5GB and package is 10GB, this value will be 50
-		 * 
-		 **/
+		* Percent of usage out of partner's package. if usage is 5GB and package is 10GB, this value will be 50
+		* 
+		**/
 		public var usagePercent : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 * date when partner reached the limit of his package (timestamp)
-		 * 
-		 **/
+		* date when partner reached the limit of his package (timestamp)
+		* 
+		**/
 		public var reachedLimitDate : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -79,13 +79,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

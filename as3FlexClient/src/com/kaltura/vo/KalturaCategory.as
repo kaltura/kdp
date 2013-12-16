@@ -33,210 +33,210 @@ package com.kaltura.vo
 	public dynamic class KalturaCategory extends BaseFlexVo
 	{
 		/**
-		 * The id of the Category
-		 * 
-		 **/
+		* The id of the Category
+		* 
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var parentId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var depth : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * The name of the Category.
-		 * The following characters are not allowed: '<', '>', ','
-		 * 
-		 **/
+		* The name of the Category.
+		* The following characters are not allowed: '<', '>', ','
+		* 
+		**/
 		public var name : String = null;
 
 		/**
-		 * The full name of the Category
-		 * 
-		 **/
+		* The full name of the Category
+		* 
+		**/
 		public var fullName : String = null;
 
 		/**
-		 * The full ids of the Category
-		 * 
-		 **/
+		* The full ids of the Category
+		* 
+		**/
 		public var fullIds : String = null;
 
 		/**
-		 * Number of entries in this Category (including child categories)
-		 * 
-		 **/
+		* Number of entries in this Category (including child categories)
+		* 
+		**/
 		public var entriesCount : int = int.MIN_VALUE;
 
 		/**
-		 * Creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * Update date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Update date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/**
-		 * Category description
-		 * 
-		 **/
+		* Category description
+		* 
+		**/
 		public var description : String = null;
 
 		/**
-		 * Category tags
-		 * 
-		 **/
+		* Category tags
+		* 
+		**/
 		public var tags : String = null;
 
 		/**
-		 * If category will be returned for list action.
-		 * 
-		 * @see com.kaltura.types.KalturaAppearInListType
-		 **/
+		* If category will be returned for list action.
+		* 
+		* @see com.kaltura.types.KalturaAppearInListType
+		**/
 		public var appearInList : int = int.MIN_VALUE;
 
 		/**
-		 * defines the privacy of the entries that assigned to this category
-		 * 
-		 * @see com.kaltura.types.KalturaPrivacyType
-		 **/
+		* defines the privacy of the entries that assigned to this category
+		* 
+		* @see com.kaltura.types.KalturaPrivacyType
+		**/
 		public var privacy : int = int.MIN_VALUE;
 
 		/**
-		 * If Category members are inherited from parent category or set manualy.
-		 * 
-		 * @see com.kaltura.types.KalturaInheritanceType
-		 **/
+		* If Category members are inherited from parent category or set manualy.
+		* 
+		* @see com.kaltura.types.KalturaInheritanceType
+		**/
 		public var inheritanceType : int = int.MIN_VALUE;
 
 		/**
-		 * Who can ask to join this category
-		 * 
-		 * @see com.kaltura.types.KalturaUserJoinPolicyType
-		 **/
+		* Who can ask to join this category
+		* 
+		* @see com.kaltura.types.KalturaUserJoinPolicyType
+		**/
 		public var userJoinPolicy : int = int.MIN_VALUE;
 
 		/**
-		 * Default permissionLevel for new users
-		 * 
-		 * @see com.kaltura.types.KalturaCategoryUserPermissionLevel
-		 **/
+		* Default permissionLevel for new users
+		* 
+		* @see com.kaltura.types.KalturaCategoryUserPermissionLevel
+		**/
 		public var defaultPermissionLevel : int = int.MIN_VALUE;
 
 		/**
-		 * Category Owner (User id)
-		 * 
-		 **/
+		* Category Owner (User id)
+		* 
+		**/
 		public var owner : String = null;
 
 		/**
-		 * Number of entries that belong to this category directly
-		 * 
-		 **/
+		* Number of entries that belong to this category directly
+		* 
+		**/
 		public var directEntriesCount : int = int.MIN_VALUE;
 
 		/**
-		 * Category external id, controlled and managed by the partner.
-		 * 
-		 **/
+		* Category external id, controlled and managed by the partner.
+		* 
+		**/
 		public var referenceId : String = null;
 
 		/**
-		 * who can assign entries to this category
-		 * 
-		 * @see com.kaltura.types.KalturaContributionPolicyType
-		 **/
+		* who can assign entries to this category
+		* 
+		* @see com.kaltura.types.KalturaContributionPolicyType
+		**/
 		public var contributionPolicy : int = int.MIN_VALUE;
 
 		/**
-		 * Number of active members for this category
-		 * 
-		 **/
+		* Number of active members for this category
+		* 
+		**/
 		public var membersCount : int = int.MIN_VALUE;
 
 		/**
-		 * Number of pending members for this category
-		 * 
-		 **/
+		* Number of pending members for this category
+		* 
+		**/
 		public var pendingMembersCount : int = int.MIN_VALUE;
 
 		/**
-		 * Set privacy context for search entries that assiged to private and public categories. the entries will be private if the search context is set with those categories.
-		 * 
-		 **/
+		* Set privacy context for search entries that assiged to private and public categories. the entries will be private if the search context is set with those categories.
+		* 
+		**/
 		public var privacyContext : String = null;
 
 		/**
-		 * comma separated parents that defines a privacyContext for search
-		 * 
-		 **/
+		* comma separated parents that defines a privacyContext for search
+		* 
+		**/
 		public var privacyContexts : String = null;
 
 		/**
-		 * Status
-		 * 
-		 * @see com.kaltura.types.KalturaCategoryStatus
-		 **/
+		* Status
+		* 
+		* @see com.kaltura.types.KalturaCategoryStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 * The category id that this category inherit its members and members permission (for contribution and join)
-		 * 
-		 **/
+		* The category id that this category inherit its members and members permission (for contribution and join)
+		* 
+		**/
 		public var inheritedParentId : int = int.MIN_VALUE;
 
 		/**
-		 * Can be used to store various partner related data as a numeric value
-		 * 
-		 **/
+		* Can be used to store various partner related data as a numeric value
+		* 
+		**/
 		public var partnerSortValue : int = int.MIN_VALUE;
 
 		/**
-		 * Can be used to store various partner related data as a string
-		 * 
-		 **/
+		* Can be used to store various partner related data as a string
+		* 
+		**/
 		public var partnerData : String = null;
 
 		/**
-		 * Enable client side applications to define how to sort the category child categories
-		 * 
-		 * @see com.kaltura.types.KalturaCategoryOrderBy
-		 **/
+		* Enable client side applications to define how to sort the category child categories
+		* 
+		* @see com.kaltura.types.KalturaCategoryOrderBy
+		**/
 		public var defaultOrderBy : String = null;
 
 		/**
-		 * Number of direct children categories
-		 * 
-		 **/
+		* Number of direct children categories
+		* 
+		**/
 		public var directSubCategoriesCount : int = int.MIN_VALUE;
 
 		/**
-		 * Moderation to add entries to this category by users that are not of permission level Manager or Moderator.
-		 * 
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* Moderation to add entries to this category by users that are not of permission level Manager or Moderator.
+		* 
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var moderation : int = int.MIN_VALUE;
 
 		/**
-		 * Nunber of pending moderation entries
-		 * 
-		 **/
+		* Nunber of pending moderation entries
+		* 
+		**/
 		public var pendingEntriesCount : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -261,13 +261,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

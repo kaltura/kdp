@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.search
 {
-	import com.kaltura.vo.KalturaSearch;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaSearch;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.search.SearchSearchDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Search for media in one of the supported media providers
-	 * 
-	 **/
+	* Search for media in one of the supported media providers
+	* 
+	**/
 	public class SearchSearch extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param search KalturaSearch
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param search KalturaSearch
+		* @param pager KalturaFilterPager
+		**/
 		public function SearchSearch( search : KalturaSearch,pager : KalturaFilterPager=null )
 		{
 			service= 'search';
@@ -52,14 +52,14 @@ package com.kaltura.commands.search
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(search, 'search');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+				keyValArr = kalturaObject2Arrays(search, 'search');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

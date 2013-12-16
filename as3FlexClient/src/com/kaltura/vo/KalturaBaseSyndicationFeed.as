@@ -33,122 +33,122 @@ package com.kaltura.vo
 	public dynamic class KalturaBaseSyndicationFeed extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var id : String = null;
 
 		/**
-		 **/
+		**/
 		public var feedUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * link a playlist that will set what content the feed will include
-		 * if empty, all content will be included in feed
-		 * 
-		 **/
+		* link a playlist that will set what content the feed will include
+		* if empty, all content will be included in feed
+		* 
+		**/
 		public var playlistId : String = null;
 
 		/**
-		 * feed name
-		 * 
-		 **/
+		* feed name
+		* 
+		**/
 		public var name : String = null;
 
 		/**
-		 * feed status
-		 * 
-		 * @see com.kaltura.types.KalturaSyndicationFeedStatus
-		 **/
+		* feed status
+		* 
+		* @see com.kaltura.types.KalturaSyndicationFeedStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 * feed type
-		 * 
-		 * @see com.kaltura.types.KalturaSyndicationFeedType
-		 **/
+		* feed type
+		* 
+		* @see com.kaltura.types.KalturaSyndicationFeedType
+		**/
 		public var type : int = int.MIN_VALUE;
 
 		/**
-		 * Base URL for each video, on the partners site
-		 * This is required by all syndication types.
-		 * 
-		 **/
+		* Base URL for each video, on the partners site
+		* This is required by all syndication types.
+		* 
+		**/
 		public var landingPage : String = null;
 
 		/**
-		 * Creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * allow_embed tells google OR yahoo weather to allow embedding the video on google OR yahoo video results
-		 * or just to provide a link to the landing page.
-		 * it is applied on the video-player_loc property in the XML (google)
-		 * and addes media-player tag (yahoo)
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* allow_embed tells google OR yahoo weather to allow embedding the video on google OR yahoo video results
+		* or just to provide a link to the landing page.
+		* it is applied on the video-player_loc property in the XML (google)
+		* and addes media-player tag (yahoo)
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var allowEmbed : Boolean;
 
 		/**
-		 * Select a uiconf ID as player skin to include in the kwidget url
-		 * 
-		 **/
+		* Select a uiconf ID as player skin to include in the kwidget url
+		* 
+		**/
 		public var playerUiconfId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var flavorParamId : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var transcodeExistingContent : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var addToDefaultConversionProfile : Boolean;
 
 		/**
-		 **/
+		**/
 		public var categories : String = null;
 
 		/**
-		 **/
+		**/
 		public var storageId : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaSyndicationFeedEntriesOrderBy
-		 **/
+		* @see com.kaltura.types.KalturaSyndicationFeedEntriesOrderBy
+		**/
 		public var entriesOrderBy : String = null;
 
 		/**
-		 * Should enforce entitlement on feed entries
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Should enforce entitlement on feed entries
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var enforceEntitlement : Boolean;
 
 		/**
-		 * Set privacy context for search entries that assiged to private and public categories within a category privacy context.
-		 * 
-		 **/
+		* Set privacy context for search entries that assiged to private and public categories within a category privacy context.
+		* 
+		**/
 		public var privacyContext : String = null;
 
 		/**
-		 * Update date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Update date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -170,14 +170,27 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			arr.push('type');
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

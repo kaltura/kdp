@@ -31,15 +31,15 @@ package com.kaltura.commands.session
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * End a session with the Kaltura server, making the current KS invalid.
-	 * 
-	 **/
+	* End a session with the Kaltura server, making the current KS invalid.
+	* 
+	**/
 	public class SessionEnd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
+		**/
 		public function SessionEnd(  )
 		{
 			service= 'session';

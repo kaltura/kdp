@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.mixing
 {
-	import com.kaltura.vo.KalturaMixEntry;
+		import com.kaltura.vo.KalturaMixEntry;
 	import com.kaltura.delegates.mixing.MixingUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update mix entry. Only the properties that were set will be updated.
-	 * 
-	 **/
+	* Update mix entry. Only the properties that were set will be updated.
+	* 
+	**/
 	public class MixingUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param mixEntry KalturaMixEntry
-		 **/
+		* @param entryId String
+		* @param mixEntry KalturaMixEntry
+		**/
 		public function MixingUpdate( entryId : String,mixEntry : KalturaMixEntry )
 		{
 			service= 'mixing';
@@ -53,9 +53,9 @@ package com.kaltura.commands.mixing
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
- 			keyValArr = kalturaObject2Arrays(mixEntry, 'mixEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(mixEntry, 'mixEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.baseEntry
 {
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.baseEntry.BaseEntryListByReferenceIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List base entries by filter according to reference id
-	 * 
-	 **/
+	* List base entries by filter according to reference id
+	* 
+	**/
 	public class BaseEntryListByReferenceId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param refId String
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param refId String
+		* @param pager KalturaFilterPager
+		**/
 		public function BaseEntryListByReferenceId( refId : String,pager : KalturaFilterPager=null )
 		{
 			service= 'baseentry';
@@ -53,11 +53,11 @@ package com.kaltura.commands.baseEntry
 			var keyValArr : Array = new Array();
 			keyArr.push('refId');
 			valueArr.push(refId);
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

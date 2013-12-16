@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.baseEntry
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.baseEntry.BaseEntryUpdateThumbnailJpegDelegate;
 
 	/**
-	 * Update entry thumbnail using a raw jpeg file.
-	 * 
-	 **/
+	* Update entry thumbnail using a raw jpeg file.
+	* 
+	**/
 	public class BaseEntryUpdateThumbnailJpeg extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param entryId String
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param entryId String
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function BaseEntryUpdateThumbnailJpeg( entryId : String,fileData : Object )
 		{
 			service= 'baseentry';

@@ -31,16 +31,16 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Set Conversion Profile to be the partner default
-	 * 
-	 **/
+	* Set Conversion Profile to be the partner default
+	* 
+	**/
 	public class ConversionProfileSetAsDefault extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function ConversionProfileSetAsDefault( id : int )
 		{
 			service= 'conversionprofile';

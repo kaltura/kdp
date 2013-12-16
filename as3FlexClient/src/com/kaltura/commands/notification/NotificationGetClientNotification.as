@@ -31,17 +31,17 @@ package com.kaltura.commands.notification
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Return the notifications for a specific entry id and type
-	 * 
-	 **/
+	* Return the notifications for a specific entry id and type
+	* 
+	**/
 	public class NotificationGetClientNotification extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param type int
-		 **/
+		* @param entryId String
+		* @param type int
+		**/
 		public function NotificationGetClientNotification( entryId : String,type : int )
 		{
 			service= 'notification';

@@ -33,27 +33,27 @@ package com.kaltura.vo
 	public dynamic class KalturaEntryContextDataParams extends KalturaAccessControlScope
 	{
 		/**
-		 * Id of the current flavor.
-		 * 
-		 **/
+		* Id of the current flavor.
+		* 
+		**/
 		public var flavorAssetId : String = null;
 
 		/**
-		 * The tags of the flavors that should be used for playback.
-		 * 
-		 **/
+		* The tags of the flavors that should be used for playback.
+		* 
+		**/
 		public var flavorTags : String = null;
 
 		/**
-		 * Playback streamer type: RTMP, HTTP, appleHttps, rtsp, sl.
-		 * 
-		 **/
+		* Playback streamer type: RTMP, HTTP, appleHttps, rtsp, sl.
+		* 
+		**/
 		public var streamerType : String = null;
 
 		/**
-		 * Protocol of the specific media object.
-		 * 
-		 **/
+		* Protocol of the specific media object.
+		* 
+		**/
 		public var mediaProtocol : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -72,6 +72,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

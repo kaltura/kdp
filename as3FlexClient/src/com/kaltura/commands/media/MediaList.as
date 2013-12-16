@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaMediaEntryFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaMediaEntryFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.media.MediaListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List media entries by filter with paging support.
-	 * 
-	 **/
+	* List media entries by filter with paging support.
+	* 
+	**/
 	public class MediaList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaMediaEntryFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaMediaEntryFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function MediaList( filter : KalturaMediaEntryFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'media';
@@ -52,16 +52,16 @@ package com.kaltura.commands.media
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

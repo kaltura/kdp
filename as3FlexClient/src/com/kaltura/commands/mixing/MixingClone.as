@@ -31,16 +31,16 @@ package com.kaltura.commands.mixing
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Clones an existing mix.
-	 * 
-	 **/
+	* Clones an existing mix.
+	* 
+	**/
 	public class MixingClone extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function MixingClone( entryId : String )
 		{
 			service= 'mixing';

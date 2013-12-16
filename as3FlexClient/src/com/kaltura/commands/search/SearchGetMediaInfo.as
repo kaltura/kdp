@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.search
 {
-	import com.kaltura.vo.KalturaSearchResult;
+		import com.kaltura.vo.KalturaSearchResult;
 	import com.kaltura.delegates.search.SearchGetMediaInfoDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve extra information about media found in search action
-	 * Some providers return only part of the fields needed to create entry from, use this action to get the rest of the fields.
-	 * 
-	 **/
+	* Retrieve extra information about media found in search action
+	* Some providers return only part of the fields needed to create entry from, use this action to get the rest of the fields.
+	* 
+	**/
 	public class SearchGetMediaInfo extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param searchResult KalturaSearchResult
-		 **/
+		* @param searchResult KalturaSearchResult
+		**/
 		public function SearchGetMediaInfo( searchResult : KalturaSearchResult )
 		{
 			service= 'search';
@@ -51,9 +51,9 @@ package com.kaltura.commands.search
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(searchResult, 'searchResult');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(searchResult, 'searchResult');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

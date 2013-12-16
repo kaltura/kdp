@@ -33,8 +33,8 @@ package com.kaltura.vo
 	public dynamic class KalturaThumbParamsBaseFilter extends KalturaAssetParamsFilter
 	{
 		/**
-		 * @see com.kaltura.types.KalturaContainerFormat
-		 **/
+		* @see com.kaltura.types.KalturaContainerFormat
+		**/
 		public var formatEqual : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -50,6 +50,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,16 +31,16 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete Flavor Asset by ID
-	 * 
-	 **/
+	* Delete Flavor Asset by ID
+	* 
+	**/
 	public class FlavorAssetDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function FlavorAssetDelete( id : String )
 		{
 			service= 'flavorasset';

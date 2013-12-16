@@ -31,16 +31,16 @@ package com.kaltura.commands.partner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get usage statistics for a partner
-	 * Calculation is done according to partner's package
-	 * 
-	 **/
+	* Get usage statistics for a partner
+	* Calculation is done according to partner's package
+	* 
+	**/
 	public class PartnerGetStatistics extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
+		**/
 		public function PartnerGetStatistics(  )
 		{
 			service= 'partner';

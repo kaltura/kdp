@@ -33,66 +33,86 @@ package com.kaltura.vo
 	public dynamic class KalturaUiConfBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var nameLike : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerIdIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaUiConfObjType
-		 **/
+		* @see com.kaltura.types.KalturaUiConfObjType
+		**/
 		public var objTypeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var objTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeAnd : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaUiConfCreationMode
-		 **/
+		* @see com.kaltura.types.KalturaUiConfCreationMode
+		**/
 		public var creationModeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var creationModeIn : String = null;
+
+		/**
+		**/
+		public var versionEqual : String = null;
+
+		/**
+		**/
+		public var versionMultiLikeOr : String = null;
+
+		/**
+		**/
+		public var versionMultiLikeAnd : String = null;
+
+		/**
+		**/
+		public var partnerTagsMultiLikeOr : String = null;
+
+		/**
+		**/
+		public var partnerTagsMultiLikeAnd : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -113,6 +133,11 @@ package com.kaltura.vo
 			arr.push('updatedAtLessThanOrEqual');
 			arr.push('creationModeEqual');
 			arr.push('creationModeIn');
+			arr.push('versionEqual');
+			arr.push('versionMultiLikeOr');
+			arr.push('versionMultiLikeAnd');
+			arr.push('partnerTagsMultiLikeOr');
+			arr.push('partnerTagsMultiLikeAnd');
 			return arr;
 		}
 
@@ -121,6 +146,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

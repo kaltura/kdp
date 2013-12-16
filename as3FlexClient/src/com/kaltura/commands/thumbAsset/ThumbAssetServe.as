@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.thumbAsset
 {
-	import com.kaltura.vo.KalturaThumbParams;
+		import com.kaltura.vo.KalturaThumbParams;
 	import com.kaltura.delegates.thumbAsset.ThumbAssetServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves thumbnail by its id
-	 * 
-	 **/
+	* Serves thumbnail by its id
+	* 
+	**/
 	public class ThumbAssetServe extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param thumbAssetId String
-		 * @param version int
-		 * @param thumbParams KalturaThumbParams
-		 **/
+		* @param thumbAssetId String
+		* @param version int
+		* @param thumbParams KalturaThumbParams
+		**/
 		public function ThumbAssetServe( thumbAssetId : String,version : int=int.MIN_VALUE,thumbParams : KalturaThumbParams=null )
 		{
 			service= 'thumbasset';
@@ -56,11 +56,11 @@ package com.kaltura.commands.thumbAsset
 			valueArr.push(thumbAssetId);
 			keyArr.push('version');
 			valueArr.push(version);
- 			if (thumbParams) { 
- 			keyValArr = kalturaObject2Arrays(thumbParams, 'thumbParams');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (thumbParams) { 
+				keyValArr = kalturaObject2Arrays(thumbParams, 'thumbParams');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

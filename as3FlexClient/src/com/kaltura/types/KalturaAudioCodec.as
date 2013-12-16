@@ -31,12 +31,13 @@ package com.kaltura.types
 	{
 		public static const NONE : String = '';
 		public static const AAC : String = 'aac';
+		public static const AACHE : String = 'aache';
 		public static const AC3 : String = 'ac3';
 		public static const AMRNB : String = 'amrnb';
 		public static const COPY : String = 'copy';
 		public static const MP3 : String = 'mp3';
 		public static const MPEG2 : String = 'mpeg2';
-		public static const PCMS16LE : String = 'pcm_s16le';
+		public static const PCM : String = 'pcm';
 		public static const VORBIS : String = 'vorbis';
 		public static const WMA : String = 'wma';
 		public static const WMAPRO : String = 'wmapro';

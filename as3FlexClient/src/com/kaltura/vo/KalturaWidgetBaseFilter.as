@@ -33,51 +33,51 @@ package com.kaltura.vo
 	public dynamic class KalturaWidgetBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var sourceWidgetIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var rootWidgetIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var entryIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var uiConfIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerDataLike : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -104,6 +104,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

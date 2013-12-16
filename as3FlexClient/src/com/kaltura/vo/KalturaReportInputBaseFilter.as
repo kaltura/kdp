@@ -33,32 +33,32 @@ package com.kaltura.vo
 	public dynamic class KalturaReportInputBaseFilter extends BaseFlexVo
 	{
 		/**
-		 * Start date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Start date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var fromDate : int = int.MIN_VALUE;
 
 		/**
-		 * End date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* End date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var toDate : int = int.MIN_VALUE;
 
 		/**
-		 * Start day as string (YYYYMMDD)
-		 * 
-		 **/
+		* Start day as string (YYYYMMDD)
+		* 
+		**/
 		public var fromDay : String = null;
 
 		/**
-		 * End date as string (YYYYMMDD)
-		 * 
-		 **/
+		* End date as string (YYYYMMDD)
+		* 
+		**/
 		public var toDay : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -71,13 +71,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

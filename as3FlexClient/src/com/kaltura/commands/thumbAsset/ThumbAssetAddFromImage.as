@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.thumbAsset
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.thumbAsset.ThumbAssetAddFromImageDelegate;
 
 	/**
-	 **/
+	**/
 	public class ThumbAssetAddFromImage extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param entryId String
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param entryId String
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function ThumbAssetAddFromImage( entryId : String,fileData : Object )
 		{
 			service= 'thumbasset';

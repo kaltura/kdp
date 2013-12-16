@@ -31,18 +31,18 @@ package com.kaltura.commands.playlist
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve playlist for playing purpose, based on content
-	 * 
-	 **/
+	* Retrieve playlist for playing purpose, based on content
+	* 
+	**/
 	public class PlaylistExecuteFromContent extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param playlistType int
-		 * @param playlistContent String
-		 * @param detailed String
-		 **/
+		* @param playlistType int
+		* @param playlistContent String
+		* @param detailed String
+		**/
 		public function PlaylistExecuteFromContent( playlistType : int,playlistContent : String,detailed : String='' )
 		{
 			service= 'playlist';

@@ -31,17 +31,17 @@ package com.kaltura.commands.playlist
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve a playlist
-	 * 
-	 **/
+	* Retrieve a playlist
+	* 
+	**/
 	public class PlaylistGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param version int
-		 **/
+		* @param id String
+		* @param version int
+		**/
 		public function PlaylistGet( id : String,version : int=-1 )
 		{
 			service= 'playlist';

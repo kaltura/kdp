@@ -31,14 +31,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ThumbAssetDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param thumbAssetId String
-		 **/
+		* @param thumbAssetId String
+		**/
 		public function ThumbAssetDelete( thumbAssetId : String )
 		{
 			service= 'thumbasset';

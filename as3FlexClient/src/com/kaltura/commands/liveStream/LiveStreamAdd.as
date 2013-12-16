@@ -27,24 +27,24 @@
 // ===================================================================================================
 package com.kaltura.commands.liveStream
 {
-	import com.kaltura.vo.KalturaLiveStreamAdminEntry;
+		import com.kaltura.vo.KalturaLiveStreamEntry;
 	import com.kaltura.delegates.liveStream.LiveStreamAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds new live stream entry.
-	 * The entry will be queued for provision.
-	 * 
-	 **/
+	* Adds new live stream entry.
+	* The entry will be queued for provision.
+	* 
+	**/
 	public class LiveStreamAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param liveStreamEntry KalturaLiveStreamAdminEntry
-		 * @param sourceType String
-		 **/
-		public function LiveStreamAdd( liveStreamEntry : KalturaLiveStreamAdminEntry,sourceType : String = null )
+		* @param liveStreamEntry KalturaLiveStreamEntry
+		* @param sourceType String
+		**/
+		public function LiveStreamAdd( liveStreamEntry : KalturaLiveStreamEntry,sourceType : String = null )
 		{
 			service= 'livestream';
 			action= 'add';
@@ -52,9 +52,9 @@ package com.kaltura.commands.liveStream
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(liveStreamEntry, 'liveStreamEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(liveStreamEntry, 'liveStreamEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('sourceType');
 			valueArr.push(sourceType);
 			applySchema(keyArr, valueArr);

@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.syndicationFeed
 {
-	import com.kaltura.vo.KalturaBaseSyndicationFeed;
+		import com.kaltura.vo.KalturaBaseSyndicationFeed;
 	import com.kaltura.delegates.syndicationFeed.SyndicationFeedAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new Syndication Feed
-	 * 
-	 **/
+	* Add new Syndication Feed
+	* 
+	**/
 	public class SyndicationFeedAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param syndicationFeed KalturaBaseSyndicationFeed
-		 **/
+		* @param syndicationFeed KalturaBaseSyndicationFeed
+		**/
 		public function SyndicationFeedAdd( syndicationFeed : KalturaBaseSyndicationFeed )
 		{
 			service= 'syndicationfeed';
@@ -50,9 +50,9 @@ package com.kaltura.commands.syndicationFeed
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(syndicationFeed, 'syndicationFeed');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(syndicationFeed, 'syndicationFeed');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

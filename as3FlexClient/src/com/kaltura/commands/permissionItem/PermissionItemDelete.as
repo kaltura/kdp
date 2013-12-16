@@ -31,17 +31,17 @@ package com.kaltura.commands.permissionItem
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Deletes an existing permission item object.
-	 * This action is available only to Kaltura system administrators.
-	 * 
-	 **/
+	* Deletes an existing permission item object.
+	* This action is available only to Kaltura system administrators.
+	* 
+	**/
 	public class PermissionItemDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param permissionItemId int
-		 **/
+		* @param permissionItemId int
+		**/
 		public function PermissionItemDelete( permissionItemId : int )
 		{
 			service= 'permissionitem';

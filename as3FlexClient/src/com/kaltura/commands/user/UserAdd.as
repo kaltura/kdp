@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.user
 {
-	import com.kaltura.vo.KalturaUser;
+		import com.kaltura.vo.KalturaUser;
 	import com.kaltura.delegates.user.UserAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds a new user to an existing account in the Kaltura database.
-	 * Input param $id is the unique identifier in the partner's system.
-	 * 
-	 **/
+	* Adds a new user to an existing account in the Kaltura database.
+	* Input param $id is the unique identifier in the partner's system.
+	* 
+	**/
 	public class UserAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param user KalturaUser
-		 **/
+		* @param user KalturaUser
+		**/
 		public function UserAdd( user : KalturaUser )
 		{
 			service= 'user';
@@ -51,9 +51,9 @@ package com.kaltura.commands.user
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(user, 'user');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(user, 'user');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

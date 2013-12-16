@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.user
 {
-	import com.kaltura.vo.KalturaUser;
+		import com.kaltura.vo.KalturaUser;
 	import com.kaltura.delegates.user.UserUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Updates an existing user object.
-	 * You can also use this action to update the userId.
-	 * 
-	 **/
+	* Updates an existing user object.
+	* You can also use this action to update the userId.
+	* 
+	**/
 	public class UserUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userId String
-		 * @param user KalturaUser
-		 **/
+		* @param userId String
+		* @param user KalturaUser
+		**/
 		public function UserUpdate( userId : String,user : KalturaUser )
 		{
 			service= 'user';
@@ -54,9 +54,9 @@ package com.kaltura.commands.user
 			var keyValArr : Array = new Array();
 			keyArr.push('userId');
 			valueArr.push(userId);
- 			keyValArr = kalturaObject2Arrays(user, 'user');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(user, 'user');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

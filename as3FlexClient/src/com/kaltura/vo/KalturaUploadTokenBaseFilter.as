@@ -33,25 +33,33 @@ package com.kaltura.vo
 	public dynamic class KalturaUploadTokenBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var userIdEqual : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaUploadTokenStatus
-		 **/
+		* @see com.kaltura.types.KalturaUploadTokenStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
+
+		/**
+		**/
+		public var fileNameEqual : String = null;
+
+		/**
+		**/
+		public var fileSizeEqual : Number = Number.NEGATIVE_INFINITY;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -62,6 +70,8 @@ package com.kaltura.vo
 			arr.push('userIdEqual');
 			arr.push('statusEqual');
 			arr.push('statusIn');
+			arr.push('fileNameEqual');
+			arr.push('fileSizeEqual');
 			return arr;
 		}
 
@@ -70,6 +80,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

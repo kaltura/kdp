@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.liveStream
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.liveStream.LiveStreamUpdateOfflineThumbnailJpegDelegate;
 
 	/**
-	 * Update live stream entry thumbnail using a raw jpeg file
-	 * 
-	 **/
+	* Update live stream entry thumbnail using a raw jpeg file
+	* 
+	**/
 	public class LiveStreamUpdateOfflineThumbnailJpeg extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param entryId String
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param entryId String
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function LiveStreamUpdateOfflineThumbnailJpeg( entryId : String,fileData : Object )
 		{
 			service= 'livestream';

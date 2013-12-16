@@ -33,83 +33,83 @@ package com.kaltura.vo
 	public dynamic class KalturaBulkUploadResult extends BaseFlexVo
 	{
 		/**
-		 * The id of the result
-		 * 
-		 **/
+		* The id of the result
+		* 
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 * The id of the parent job
-		 * 
-		 **/
+		* The id of the parent job
+		* 
+		**/
 		public var bulkUploadJobId : int = int.MIN_VALUE;
 
 		/**
-		 * The index of the line in the CSV
-		 * 
-		 **/
+		* The index of the line in the CSV
+		* 
+		**/
 		public var lineIndex : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaBulkUploadResultStatus
-		 **/
+		* @see com.kaltura.types.KalturaBulkUploadResultStatus
+		**/
 		public var status : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaBulkUploadAction
-		 **/
+		* @see com.kaltura.types.KalturaBulkUploadAction
+		**/
 		public var action : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectId : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectStatus : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaBulkUploadResultObjectType
-		 **/
+		* @see com.kaltura.types.KalturaBulkUploadResultObjectType
+		**/
 		public var bulkUploadResultObjectType : String = null;
 
 		/**
-		 * The data as recieved in the csv
-		 * 
-		 **/
+		* The data as recieved in the csv
+		* 
+		**/
 		public var rowData : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerData : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectErrorDescription : String = null;
 
 		/**
-		 **/
+		**/
 		public var pluginsData : Array = null;
 
 		/**
-		 **/
+		**/
 		public var errorDescription : String = null;
 
 		/**
-		 **/
+		**/
 		public var errorCode : String = null;
 
 		/**
-		 **/
+		**/
 		public var errorType : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -133,13 +133,29 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'pluginsData':
+					result = 'KalturaBulkUploadPluginData';
+					break;
+			}
+			return result;
 		}
 	}
 }

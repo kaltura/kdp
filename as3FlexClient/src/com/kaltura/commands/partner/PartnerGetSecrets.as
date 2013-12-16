@@ -31,18 +31,18 @@ package com.kaltura.commands.partner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve partner secret and admin secret
-	 * 
-	 **/
+	* Retrieve partner secret and admin secret
+	* 
+	**/
 	public class PartnerGetSecrets extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partnerId int
-		 * @param adminEmail String
-		 * @param cmsPassword String
-		 **/
+		* @param partnerId int
+		* @param adminEmail String
+		* @param cmsPassword String
+		**/
 		public function PartnerGetSecrets( partnerId : int,adminEmail : String,cmsPassword : String )
 		{
 			service= 'partner';

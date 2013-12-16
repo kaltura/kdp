@@ -31,16 +31,16 @@ package com.kaltura.commands.userRole
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieves a user role object using its ID.
-	 * 
-	 **/
+	* Retrieves a user role object using its ID.
+	* 
+	**/
 	public class UserRoleGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userRoleId int
-		 **/
+		* @param userRoleId int
+		**/
 		public function UserRoleGet( userRoleId : int )
 		{
 			service= 'userrole';

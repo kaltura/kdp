@@ -34,7 +34,6 @@ package com.kaltura.types
 		public static const END_DATE_ASC : String = '+endDate';
 		public static const MEDIA_TYPE_ASC : String = '+mediaType';
 		public static const MODERATION_COUNT_ASC : String = '+moderationCount';
-		public static const MS_DURATION_ASC : String = '+msDuration';
 		public static const NAME_ASC : String = '+name';
 		public static const PARTNER_SORT_VALUE_ASC : String = '+partnerSortValue';
 		public static const PLAYS_ASC : String = '+plays';
@@ -50,7 +49,6 @@ package com.kaltura.types
 		public static const END_DATE_DESC : String = '-endDate';
 		public static const MEDIA_TYPE_DESC : String = '-mediaType';
 		public static const MODERATION_COUNT_DESC : String = '-moderationCount';
-		public static const MS_DURATION_DESC : String = '-msDuration';
 		public static const NAME_DESC : String = '-name';
 		public static const PARTNER_SORT_VALUE_DESC : String = '-partnerSortValue';
 		public static const PLAYS_DESC : String = '-plays';

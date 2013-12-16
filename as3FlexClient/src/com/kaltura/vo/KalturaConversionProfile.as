@@ -35,116 +35,121 @@ package com.kaltura.vo
 	public dynamic class KalturaConversionProfile extends BaseFlexVo
 	{
 		/**
-		 * The id of the Conversion Profile
-		 * 
-		 **/
+		* The id of the Conversion Profile
+		* 
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaConversionProfileStatus
-		 **/
+		* @see com.kaltura.types.KalturaConversionProfileStatus
+		**/
 		public var status : String = null;
 
 		/**
-		 * The name of the Conversion Profile
-		 * 
-		 **/
+		* @see com.kaltura.types.KalturaConversionProfileType
+		**/
+		public var type : String = null;
+
+		/**
+		* The name of the Conversion Profile
+		* 
+		**/
 		public var name : String = null;
 
 		/**
-		 * System name of the Conversion Profile
-		 * 
-		 **/
+		* System name of the Conversion Profile
+		* 
+		**/
 		public var systemName : String = null;
 
 		/**
-		 * Comma separated tags
-		 * 
-		 **/
+		* Comma separated tags
+		* 
+		**/
 		public var tags : String = null;
 
 		/**
-		 * The description of the Conversion Profile
-		 * 
-		 **/
+		* The description of the Conversion Profile
+		* 
+		**/
 		public var description : String = null;
 
 		/**
-		 * ID of the default entry to be used for template data
-		 * 
-		 **/
+		* ID of the default entry to be used for template data
+		* 
+		**/
 		public var defaultEntryId : String = null;
 
 		/**
-		 * Creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * List of included flavor ids (comma separated)
-		 * 
-		 **/
+		* List of included flavor ids (comma separated)
+		* 
+		**/
 		public var flavorParamsIds : String = null;
 
 		/**
-		 * Indicates that this conversion profile is system default
-		 * 
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* Indicates that this conversion profile is system default
+		* 
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var isDefault : int = int.MIN_VALUE;
 
 		/**
-		 * Indicates that this conversion profile is partner default
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Indicates that this conversion profile is partner default
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isPartnerDefault : Boolean;
 
 		/**
-		 * Cropping dimensions
-		 * 
-		 **/
+		* Cropping dimensions
+		* 
+		**/
 		public var cropDimensions : KalturaCropDimensions;
 
 		/**
-		 * Clipping start position (in miliseconds)
-		 * 
-		 **/
+		* Clipping start position (in miliseconds)
+		* 
+		**/
 		public var clipStart : int = int.MIN_VALUE;
 
 		/**
-		 * Clipping duration (in miliseconds)
-		 * 
-		 **/
+		* Clipping duration (in miliseconds)
+		* 
+		**/
 		public var clipDuration : int = int.MIN_VALUE;
 
 		/**
-		 * XSL to transform ingestion MRSS XML
-		 * 
-		 **/
+		* XSL to transform ingestion MRSS XML
+		* 
+		**/
 		public var xslTransformation : String = null;
 
 		/**
-		 * ID of default storage profile to be used for linked net-storage file syncs
-		 * 
-		 **/
+		* ID of default storage profile to be used for linked net-storage file syncs
+		* 
+		**/
 		public var storageProfileId : int = int.MIN_VALUE;
 
 		/**
-		 * Media parser type to be used for extract media
-		 * 
-		 * @see com.kaltura.types.KalturaMediaParserType
-		 **/
+		* Media parser type to be used for extract media
+		* 
+		* @see com.kaltura.types.KalturaMediaParserType
+		**/
 		public var mediaParserType : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -167,13 +172,30 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
+			arr.push('type');
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'cropDimensions':
+					result = '';
+					break;
+			}
+			return result;
 		}
 	}
 }

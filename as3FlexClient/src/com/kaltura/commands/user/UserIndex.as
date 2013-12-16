@@ -31,17 +31,17 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Index an entry by id.
-	 * 
-	 **/
+	* Index an entry by id.
+	* 
+	**/
 	public class UserIndex extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param shouldUpdate Boolean
-		 **/
+		* @param id String
+		* @param shouldUpdate Boolean
+		**/
 		public function UserIndex( id : String,shouldUpdate : Boolean=true )
 		{
 			service= 'user';

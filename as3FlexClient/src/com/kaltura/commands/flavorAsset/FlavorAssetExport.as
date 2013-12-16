@@ -31,15 +31,17 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	* manually export an asset
+	* 
+	**/
 	public class FlavorAssetExport extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param assetId String
-		 * @param storageProfileId int
-		 **/
+		* @param assetId String
+		* @param storageProfileId int
+		**/
 		public function FlavorAssetExport( assetId : String,storageProfileId : int )
 		{
 			service= 'flavorasset';

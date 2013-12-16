@@ -33,50 +33,50 @@ package com.kaltura.vo
 	public dynamic class KalturaControlPanelCommandBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdByIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaControlPanelCommandType
-		 **/
+		* @see com.kaltura.types.KalturaControlPanelCommandType
+		**/
 		public var typeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var typeIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaControlPanelCommandTargetType
-		 **/
+		* @see com.kaltura.types.KalturaControlPanelCommandTargetType
+		**/
 		public var targetTypeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var targetTypeIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaControlPanelCommandStatus
-		 **/
+		* @see com.kaltura.types.KalturaControlPanelCommandStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -102,6 +102,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

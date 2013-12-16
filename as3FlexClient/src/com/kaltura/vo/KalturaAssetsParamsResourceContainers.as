@@ -33,9 +33,9 @@ package com.kaltura.vo
 	public dynamic class KalturaAssetsParamsResourceContainers extends KalturaResource
 	{
 		/**
-		 * Array of resources associated with asset params ids
-		 * 
-		 **/
+		* Array of resources associated with asset params ids
+		* 
+		**/
 		public var resources : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +51,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'resources':
+					result = 'KalturaAssetParamsResourceContainer';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

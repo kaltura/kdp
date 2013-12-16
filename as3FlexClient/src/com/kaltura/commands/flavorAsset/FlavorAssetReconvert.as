@@ -31,16 +31,16 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Reconvert Flavor Asset by ID
-	 * 
-	 **/
+	* Reconvert Flavor Asset by ID
+	* 
+	**/
 	public class FlavorAssetReconvert extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function FlavorAssetReconvert( id : String )
 		{
 			service= 'flavorasset';

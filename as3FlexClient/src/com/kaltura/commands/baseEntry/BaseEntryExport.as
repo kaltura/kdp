@@ -31,15 +31,15 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class BaseEntryExport extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param storageProfileId int
-		 **/
+		* @param entryId String
+		* @param storageProfileId int
+		**/
 		public function BaseEntryExport( entryId : String,storageProfileId : int )
 		{
 			service= 'baseentry';

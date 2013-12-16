@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.baseEntry
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.baseEntry.BaseEntryUploadDelegate;
 
 	/**
-	 * Upload a file to Kaltura, that can be used to create an entry.
-	 * 
-	 **/
+	* Upload a file to Kaltura, that can be used to create an entry.
+	* 
+	**/
 	public class BaseEntryUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function BaseEntryUpload( fileData : Object )
 		{
 			service= 'baseentry';

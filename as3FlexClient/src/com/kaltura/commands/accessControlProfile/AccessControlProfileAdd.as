@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.accessControlProfile
 {
-	import com.kaltura.vo.KalturaAccessControlProfile;
+		import com.kaltura.vo.KalturaAccessControlProfile;
 	import com.kaltura.delegates.accessControlProfile.AccessControlProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new access control profile
-	 * 
-	 **/
+	* Add new access control profile
+	* 
+	**/
 	public class AccessControlProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param accessControlProfile KalturaAccessControlProfile
-		 **/
+		* @param accessControlProfile KalturaAccessControlProfile
+		**/
 		public function AccessControlProfileAdd( accessControlProfile : KalturaAccessControlProfile )
 		{
 			service= 'accesscontrolprofile';
@@ -50,9 +50,9 @@ package com.kaltura.commands.accessControlProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(accessControlProfile, 'accessControlProfile');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(accessControlProfile, 'accessControlProfile');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

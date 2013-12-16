@@ -35,16 +35,16 @@ package com.kaltura.vo
 	public dynamic class KalturaCompareCondition extends KalturaCondition
 	{
 		/**
-		 * Value to evaluate against the field and operator
-		 * 
-		 **/
+		* Value to evaluate against the field and operator
+		* 
+		**/
 		public var value : KalturaIntegerValue;
 
 		/**
-		 * Comparing operator
-		 * 
-		 * @see com.kaltura.types.KalturaSearchConditionComparison
-		 **/
+		* Comparing operator
+		* 
+		* @see com.kaltura.types.KalturaSearchConditionComparison
+		**/
 		public var comparison : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -61,6 +61,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'value':
+					result = '';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

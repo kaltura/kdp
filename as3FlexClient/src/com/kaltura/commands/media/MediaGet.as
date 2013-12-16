@@ -31,17 +31,17 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get media entry by ID.
-	 * 
-	 **/
+	* Get media entry by ID.
+	* 
+	**/
 	public class MediaGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 **/
+		* @param entryId String
+		* @param version int
+		**/
 		public function MediaGet( entryId : String,version : int=-1 )
 		{
 			service= 'media';

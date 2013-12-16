@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaMediaEntry;
+		import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.delegates.media.MediaAddFromUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds new media entry by importing an HTTP or FTP URL.
-	 * The entry will be queued for import and then for conversion.
-	 * 
-	 **/
+	* Adds new media entry by importing an HTTP or FTP URL.
+	* The entry will be queued for import and then for conversion.
+	* 
+	**/
 	public class MediaAddFromUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param mediaEntry KalturaMediaEntry
-		 * @param url String
-		 **/
+		* @param mediaEntry KalturaMediaEntry
+		* @param url String
+		**/
 		public function MediaAddFromUrl( mediaEntry : KalturaMediaEntry,url : String )
 		{
 			service= 'media';
@@ -52,9 +52,9 @@ package com.kaltura.commands.media
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('url');
 			valueArr.push(url);
 			applySchema(keyArr, valueArr);

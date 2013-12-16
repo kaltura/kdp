@@ -33,28 +33,28 @@ package com.kaltura.vo
 	public dynamic class KalturaMediaEntryBaseFilter extends KalturaPlayableEntryFilter
 	{
 		/**
-		 * @see com.kaltura.types.KalturaMediaType
-		 **/
+		* @see com.kaltura.types.KalturaMediaType
+		**/
 		public var mediaTypeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var mediaTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var mediaDateGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var mediaDateLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var flavorParamsIdsMatchOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var flavorParamsIdsMatchAnd : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -75,6 +75,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

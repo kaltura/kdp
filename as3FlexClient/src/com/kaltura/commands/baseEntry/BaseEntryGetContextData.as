@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.baseEntry
 {
-	import com.kaltura.vo.KalturaEntryContextDataParams;
+		import com.kaltura.vo.KalturaEntryContextDataParams;
 	import com.kaltura.delegates.baseEntry.BaseEntryGetContextDataDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * This action delivers entry-related data, based on the user's context: access control, restriction, playback format and storage information.
-	 * 
-	 **/
+	* This action delivers entry-related data, based on the user's context: access control, restriction, playback format and storage information.
+	* 
+	**/
 	public class BaseEntryGetContextData extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param contextDataParams KalturaEntryContextDataParams
-		 **/
+		* @param entryId String
+		* @param contextDataParams KalturaEntryContextDataParams
+		**/
 		public function BaseEntryGetContextData( entryId : String,contextDataParams : KalturaEntryContextDataParams )
 		{
 			service= 'baseentry';
@@ -53,9 +53,9 @@ package com.kaltura.commands.baseEntry
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
- 			keyValArr = kalturaObject2Arrays(contextDataParams, 'contextDataParams');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(contextDataParams, 'contextDataParams');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

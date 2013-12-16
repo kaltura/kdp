@@ -31,16 +31,16 @@ package com.kaltura.commands.session
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Parse session key and return its info
-	 * 
-	 **/
+	* Parse session key and return its info
+	* 
+	**/
 	public class SessionGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param session String
-		 **/
+		* @param session String
+		**/
 		public function SessionGet( session : String = null )
 		{
 			service= 'session';

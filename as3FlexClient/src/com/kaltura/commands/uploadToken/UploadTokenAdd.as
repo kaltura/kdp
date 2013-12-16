@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.uploadToken
 {
-	import com.kaltura.vo.KalturaUploadToken;
+		import com.kaltura.vo.KalturaUploadToken;
 	import com.kaltura.delegates.uploadToken.UploadTokenAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds new upload token to upload a file
-	 * 
-	 **/
+	* Adds new upload token to upload a file
+	* 
+	**/
 	public class UploadTokenAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param uploadToken KalturaUploadToken
-		 **/
+		* @param uploadToken KalturaUploadToken
+		**/
 		public function UploadTokenAdd( uploadToken : KalturaUploadToken=null )
 		{
 			service= 'uploadtoken';
@@ -50,11 +50,11 @@ package com.kaltura.commands.uploadToken
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (uploadToken) { 
- 			keyValArr = kalturaObject2Arrays(uploadToken, 'uploadToken');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (uploadToken) { 
+				keyValArr = kalturaObject2Arrays(uploadToken, 'uploadToken');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.categoryUser
 {
-	import com.kaltura.vo.KalturaCategoryUserFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaCategoryUserFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.categoryUser.CategoryUserListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List all categories
-	 * 
-	 **/
+	* List all categories
+	* 
+	**/
 	public class CategoryUserList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaCategoryUserFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaCategoryUserFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function CategoryUserList( filter : KalturaCategoryUserFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'categoryuser';
@@ -52,16 +52,16 @@ package com.kaltura.commands.categoryUser
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

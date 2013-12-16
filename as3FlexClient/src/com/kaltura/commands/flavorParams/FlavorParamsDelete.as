@@ -31,16 +31,16 @@ package com.kaltura.commands.flavorParams
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete Flavor Params by ID
-	 * 
-	 **/
+	* Delete Flavor Params by ID
+	* 
+	**/
 	public class FlavorParamsDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function FlavorParamsDelete( id : int )
 		{
 			service= 'flavorparams';

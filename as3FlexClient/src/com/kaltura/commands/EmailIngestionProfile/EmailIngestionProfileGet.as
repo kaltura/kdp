@@ -31,16 +31,16 @@ package com.kaltura.commands.EmailIngestionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve a EmailIngestionProfile by id
-	 * 
-	 **/
+	* Retrieve a EmailIngestionProfile by id
+	* 
+	**/
 	public class EmailIngestionProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function EmailIngestionProfileGet( id : int )
 		{
 			service= 'emailingestionprofile';

@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaLimitFlavorsRestriction extends KalturaBaseRestriction
 	{
 		/**
-		 * Limit flavors restriction type (Allow or deny)
-		 * 
-		 * @see com.kaltura.types.KalturaLimitFlavorsRestrictionType
-		 **/
+		* Limit flavors restriction type (Allow or deny)
+		* 
+		* @see com.kaltura.types.KalturaLimitFlavorsRestrictionType
+		**/
 		public var limitFlavorsRestrictionType : int = int.MIN_VALUE;
 
 		/**
-		 * Comma separated list of flavor params ids to allow to deny
-		 * 
-		 **/
+		* Comma separated list of flavor params ids to allow to deny
+		* 
+		**/
 		public var flavorParamsIds : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,13 +31,13 @@ package com.kaltura.commands.system
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SystemGetTime extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
+		**/
 		public function SystemGetTime(  )
 		{
 			service= 'system';

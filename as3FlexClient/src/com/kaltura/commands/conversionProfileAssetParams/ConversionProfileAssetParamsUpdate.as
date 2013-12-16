@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.conversionProfileAssetParams
 {
-	import com.kaltura.vo.KalturaConversionProfileAssetParams;
+		import com.kaltura.vo.KalturaConversionProfileAssetParams;
 	import com.kaltura.delegates.conversionProfileAssetParams.ConversionProfileAssetParamsUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update asset parmas of conversion profile by ID
-	 * 
-	 **/
+	* Update asset parmas of conversion profile by ID
+	* 
+	**/
 	public class ConversionProfileAssetParamsUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param conversionProfileId int
-		 * @param assetParamsId int
-		 * @param conversionProfileAssetParams KalturaConversionProfileAssetParams
-		 **/
+		* @param conversionProfileId int
+		* @param assetParamsId int
+		* @param conversionProfileAssetParams KalturaConversionProfileAssetParams
+		**/
 		public function ConversionProfileAssetParamsUpdate( conversionProfileId : int,assetParamsId : int,conversionProfileAssetParams : KalturaConversionProfileAssetParams )
 		{
 			service= 'conversionprofileassetparams';
@@ -56,9 +56,9 @@ package com.kaltura.commands.conversionProfileAssetParams
 			valueArr.push(conversionProfileId);
 			keyArr.push('assetParamsId');
 			valueArr.push(assetParamsId);
- 			keyValArr = kalturaObject2Arrays(conversionProfileAssetParams, 'conversionProfileAssetParams');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(conversionProfileAssetParams, 'conversionProfileAssetParams');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

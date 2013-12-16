@@ -32,5 +32,6 @@ package com.kaltura.types
 		public static const ACTIVE : int = 1;
 		public static const PENDING : int = 2;
 		public static const NOT_ACTIVE : int = 3;
+		public static const DELETED : int = 4;
 	}
 }

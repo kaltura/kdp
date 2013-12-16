@@ -27,28 +27,28 @@
 // ===================================================================================================
 package com.kaltura.commands.bulkUpload
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.bulkUpload.BulkUploadAddDelegate;
 
 	/**
-	 * Add new bulk upload batch job
-	 * Conversion profile id can be specified in the API or in the CSV file, the one in the CSV file will be stronger.
-	 * If no conversion profile was specified, partner's default will be used
-	 * 
-	 **/
+	* Add new bulk upload batch job
+	* Conversion profile id can be specified in the API or in the CSV file, the one in the CSV file will be stronger.
+	* If no conversion profile was specified, partner's default will be used
+	* 
+	**/
 	public class BulkUploadAdd extends KalturaFileCall
 	{
 		public var csvFileData:Object;
 
 		
 		/**
-		 * @param conversionProfileId int
-		 * @param csvFileData Object - FileReference or ByteArray
-		 * @param bulkUploadType String
-		 * @param uploadedBy String
-		 * @param fileName String
-		 **/
+		* @param conversionProfileId int
+		* @param csvFileData Object - FileReference or ByteArray
+		* @param bulkUploadType String
+		* @param uploadedBy String
+		* @param fileName String
+		**/
 		public function BulkUploadAdd( conversionProfileId : int,csvFileData : Object,bulkUploadType : String = null,uploadedBy : String = null,fileName : String = null )
 		{
 			service= 'bulkupload';

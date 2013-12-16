@@ -31,16 +31,16 @@ package com.kaltura.commands.flavorParams
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Flavor Params by ID
-	 * 
-	 **/
+	* Get Flavor Params by ID
+	* 
+	**/
 	public class FlavorParamsGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function FlavorParamsGet( id : int )
 		{
 			service= 'flavorparams';

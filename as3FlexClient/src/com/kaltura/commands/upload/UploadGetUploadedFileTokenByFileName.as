@@ -31,14 +31,14 @@ package com.kaltura.commands.upload
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class UploadGetUploadedFileTokenByFileName extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param fileName String
-		 **/
+		* @param fileName String
+		**/
 		public function UploadGetUploadedFileTokenByFileName( fileName : String )
 		{
 			service= 'upload';

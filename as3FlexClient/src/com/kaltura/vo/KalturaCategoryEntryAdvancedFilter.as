@@ -27,17 +27,17 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
-	import com.kaltura.vo.KalturaSearchOperator;
+	import com.kaltura.vo.KalturaSearchItem;
 
 	[Bindable]
-	public dynamic class KalturaCategoryEntryAdvancedFilter extends KalturaSearchOperator
+	public dynamic class KalturaCategoryEntryAdvancedFilter extends KalturaSearchItem
 	{
 		/**
-		 **/
+		**/
 		public var categoriesMatchOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var categoryEntryStatusIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -54,6 +54,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

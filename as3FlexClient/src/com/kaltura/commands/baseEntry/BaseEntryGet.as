@@ -31,17 +31,17 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get base entry by ID.
-	 * 
-	 **/
+	* Get base entry by ID.
+	* 
+	**/
 	public class BaseEntryGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 **/
+		* @param entryId String
+		* @param version int
+		**/
 		public function BaseEntryGet( entryId : String,version : int=-1 )
 		{
 			service= 'baseentry';

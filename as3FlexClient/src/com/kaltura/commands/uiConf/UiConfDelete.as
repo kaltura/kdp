@@ -31,16 +31,16 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete an existing UIConf
-	 * 
-	 **/
+	* Delete an existing UIConf
+	* 
+	**/
 	public class UiConfDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function UiConfDelete( id : int )
 		{
 			service= 'uiconf';

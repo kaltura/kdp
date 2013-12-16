@@ -31,16 +31,16 @@ package com.kaltura.commands.thumbParams
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Thumb Params by Conversion Profile ID
-	 * 
-	 **/
+	* Get Thumb Params by Conversion Profile ID
+	* 
+	**/
 	public class ThumbParamsGetByConversionProfileId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param conversionProfileId int
-		 **/
+		* @param conversionProfileId int
+		**/
 		public function ThumbParamsGetByConversionProfileId( conversionProfileId : int )
 		{
 			service= 'thumbparams';

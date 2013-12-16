@@ -31,17 +31,17 @@ package com.kaltura.commands.syndicationFeed
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * request conversion for all entries that doesnt have the required flavor param
-	 * returns a comma-separated ids of conversion jobs
-	 * 
-	 **/
+	* request conversion for all entries that doesnt have the required flavor param
+	* returns a comma-separated ids of conversion jobs
+	* 
+	**/
 	public class SyndicationFeedRequestConversion extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param feedId String
-		 **/
+		* @param feedId String
+		**/
 		public function SyndicationFeedRequestConversion( feedId : String )
 		{
 			service= 'syndicationfeed';

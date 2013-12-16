@@ -77,8 +77,8 @@ package com.kaltura.delegates.bulkUpload
 				var urlRequest:URLRequest = new URLRequest(req);
 				((call as BulkUploadAdd).csvFileData as FileReference).upload(urlRequest,"csvFileData");
 			}
-			else{
-				mrloader.addFile(((call as BulkUploadAdd).csvFileData as ByteArray), UIDUtil.createUID(), 'csvFileData');	
+			else {
+				mrloader.addFile(((call as BulkUploadAdd).csvFileData as ByteArray), UIDUtil.createUID(), 'csvFileData'); 
 				mrloader.dataFormat = URLLoaderDataFormat.TEXT;
 				mrloader.load(req);
 			}
@@ -86,19 +86,19 @@ package com.kaltura.delegates.bulkUpload
 
 		// Event Handlers
 		override protected function onDataComplete(event:Event):void {
-			try{
+			try {
 				if ((call as BulkUploadAdd).csvFileData is FileReference) {
 					handleResult( XML(event["data"]) );
 				}
 				else {
 					handleResult( XML(event.target.loader.data) );
-				}
+ 				}
 			}
-			catch( e:Error ){
-				var kErr : KalturaError = new KalturaError();
-				kErr.errorCode = String(e.errorID);
-				kErr.errorMsg = e.message;
-				_call.handleError( kErr );
+ 			catch( e:Error ){
+ 				var kErr : KalturaError = new KalturaError();
+ 				kErr.errorCode = String(e.errorID);
+ 				kErr.errorMsg = e.message;
+ 				_call.handleError( kErr );
 			}
 		}
 

@@ -33,28 +33,28 @@ package com.kaltura.vo
 	public dynamic class KalturaThumbAsset extends KalturaAsset
 	{
 		/**
-		 * The Flavor Params used to create this Flavor Asset
-		 * 
-		 **/
+		* The Flavor Params used to create this Flavor Asset
+		* 
+		**/
 		public var thumbParamsId : int = int.MIN_VALUE;
 
 		/**
-		 * The width of the Flavor Asset
-		 * 
-		 **/
+		* The width of the Flavor Asset
+		* 
+		**/
 		public var width : int = int.MIN_VALUE;
 
 		/**
-		 * The height of the Flavor Asset
-		 * 
-		 **/
+		* The height of the Flavor Asset
+		* 
+		**/
 		public var height : int = int.MIN_VALUE;
 
 		/**
-		 * The status of the asset
-		 * 
-		 * @see com.kaltura.types.KalturaThumbAssetStatus
-		 **/
+		* The status of the asset
+		* 
+		* @see com.kaltura.types.KalturaThumbAssetStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -70,6 +70,17 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			arr.push('thumbParamsId');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

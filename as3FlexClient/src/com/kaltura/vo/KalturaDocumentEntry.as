@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaDocumentEntry extends KalturaBaseEntry
 	{
 		/**
-		 * The type of the document
-		 * 
-		 * @see com.kaltura.types.KalturaDocumentType
-		 **/
+		* The type of the document
+		* 
+		* @see com.kaltura.types.KalturaDocumentType
+		**/
 		public var documentType : int = int.MIN_VALUE;
 
 		/**
-		 * Comma separated asset params ids that exists for this media entry
-		 * 
-		 **/
+		* Comma separated asset params ids that exists for this media entry
+		* 
+		**/
 		public var assetParamsIds : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -58,6 +58,17 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			arr.push('documentType');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

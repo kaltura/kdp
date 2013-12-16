@@ -30,7 +30,6 @@ package com.kaltura.types
 	public class KalturaEntryType
 	{
 		public static const AUTOMATIC : String = '-1';
-		public static const EXTERNAL_MEDIA : String = 'externalMedia.externalMedia';
 		public static const MEDIA_CLIP : String = '1';
 		public static const MIX : String = '2';
 		public static const PLAYLIST : String = '5';

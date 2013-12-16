@@ -31,16 +31,16 @@ package com.kaltura.commands.uploadToken
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Deletes the upload token by upload token id
-	 * 
-	 **/
+	* Deletes the upload token by upload token id
+	* 
+	**/
 	public class UploadTokenDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param uploadTokenId String
-		 **/
+		* @param uploadTokenId String
+		**/
 		public function UploadTokenDelete( uploadTokenId : String )
 		{
 			service= 'uploadtoken';
