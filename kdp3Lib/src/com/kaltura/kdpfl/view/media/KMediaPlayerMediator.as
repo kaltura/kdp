@@ -706,6 +706,9 @@ package com.kaltura.kdpfl.view.media
 						{
 							message += "| Initial flavor index: " + _mediaProxy.startingIndex;
 						}
+						if ( player.media && player.media.resource && player.media.resource is URLResource) {
+							message += "| mediaUrl: " + (player.media.resource as URLResource).url;
+						}
 						
 						var sendError:StatsReportError = new StatsReportError(NotificationType.MEDIA_ERROR, message);
 						sendError.method = URLRequestMethod.POST;
