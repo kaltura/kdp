@@ -348,7 +348,7 @@ package {
 			{
 				for (var i:int = 0; i< mediaEntries.length; i++)
 				{
-					if ((mediaEntries[i] as PlaylistEntryVO).entry.entryId == initItemEntryId)
+					if ((mediaEntries[i] as PlaylistEntryVO).entryId == initItemEntryId)
 					{
 						initItemIndex = i;
 						break;
