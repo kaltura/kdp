@@ -42,7 +42,7 @@ package com.kaltura.commands.liveStream
 		* @param id String
 		* @param protocol String
 		**/
-		public function LiveStreamIsLive( id : String,protocol : String )
+		public function LiveStreamIsLive( id : String,protocol : String, partnerId: String )
 		{
 			service= 'livestream';
 			action= 'isLive';
@@ -54,6 +54,8 @@ package com.kaltura.commands.liveStream
 			valueArr.push(id);
 			keyArr.push('protocol');
 			valueArr.push(protocol);
+			keyArr.push('partnerId');
+			valueArr.push(partnerId);
 			applySchema(keyArr, valueArr);
 		}
 

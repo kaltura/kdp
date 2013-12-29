@@ -2,6 +2,7 @@ package com.kaltura.kdpfl.controller.media
 {
 	import com.kaltura.KalturaClient;
 	import com.kaltura.commands.liveStream.LiveStreamIsLive;
+	import com.kaltura.config.KalturaConfig;
 	import com.kaltura.events.KalturaEvent;
 	import com.kaltura.kdpfl.model.ConfigProxy;
 	import com.kaltura.kdpfl.model.MediaProxy;
@@ -9,6 +10,7 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.kdpfl.model.type.EnableType;
 	import com.kaltura.kdpfl.model.type.NotificationType;
 	import com.kaltura.kdpfl.view.media.KMediaPlayerMediator;
+	import com.kaltura.net.KalturaCall;
 	
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
@@ -61,6 +63,7 @@ package com.kaltura.kdpfl.controller.media
 		 * indicates previous result from "isLive" API 
 		 */		
 		private var _wasLive:Boolean;	
+		private var _flashvars:Object;
 			
 		
 		public function LiveStreamCommand()
@@ -68,8 +71,8 @@ package com.kaltura.kdpfl.controller.media
 			_mediaProxy = facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 			_player = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).player;
 			_kc = ( facade.retrieveProxy( ServicesProxy.NAME ) as ServicesProxy ).kalturaClient;
-			var flashvars:Object = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
-			var interval:int = flashvars.liveStreamCheckInterval ? flashvars.liveStreamCheckInterval : DEFAULT_IS_LIVE_INTERVAL;
+			_flashvars = (facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy).vo.flashvars;
+			var interval:int = _flashvars.liveStreamCheckInterval ? _flashvars.liveStreamCheckInterval : DEFAULT_IS_LIVE_INTERVAL;
 			if (_mediaProxy.vo.isHds)
 				_liveHdsTimer = new Timer(1000 * interval);
 			else	
@@ -118,10 +121,15 @@ package com.kaltura.kdpfl.controller.media
 		private function checkIsLive(e:TimerEvent = null):void {
 			if (_mediaProxy.vo.isLive && _mediaProxy.vo.isHds && !_player.playing)
 			{
-				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, _mediaProxy.vo.deliveryType);
+				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, _mediaProxy.vo.deliveryType, _flashvars.partnerId);
+				var ks:String = _kc.ks;
+				//islive should be sent without ks
+				_kc.ks = null;
 				isLive.addEventListener(KalturaEvent.COMPLETE, onIsLive);
 				isLive.addEventListener(KalturaEvent.FAILED, onIsLiveError);
 				_kc.post(isLive);
+				//restore ks for other api calls
+				_kc.ks = ks;
 			}
 			else
 			{
