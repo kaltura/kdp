@@ -263,7 +263,7 @@ package com.kaltura.kdpfl.model
 				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
 				addMetadataToResource(resource);
 				var element:MediaElement = vo.mediaFactory.createMediaElement(resource);
-				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement( vo.initialBufferTime, vo.expandedBufferTime, element);
+				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.isLive ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.isLive ? vo.expandedLiveBufferTime : vo.expandedBufferTime), element);
 				vo.media = adaptedHDElement;	
 		
 			}			
