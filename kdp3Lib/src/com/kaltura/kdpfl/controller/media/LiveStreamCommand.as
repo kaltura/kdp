@@ -121,7 +121,7 @@ package com.kaltura.kdpfl.controller.media
 		private function checkIsLive(e:TimerEvent = null):void {
 			if (_mediaProxy.vo.isLive && _mediaProxy.vo.isHds && !_player.playing)
 			{
-				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, _mediaProxy.vo.deliveryType, _flashvars.partnerId);
+				var isLive:LiveStreamIsLive = new LiveStreamIsLive(_mediaProxy.vo.entry.id, _mediaProxy.vo.deliveryType);
 				var ks:String = _kc.ks;
 				//islive should be sent without ks
 				_kc.ks = null;
