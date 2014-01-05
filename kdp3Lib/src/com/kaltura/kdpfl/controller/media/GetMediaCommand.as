@@ -82,6 +82,7 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.types.KalturaPlaybackProtocol;
 	import mx.controls.Text;
 	import com.kaltura.kdpfl.util.KTextParser;
+	import com.kaltura.vo.KalturaLiveChannel;KalturaLiveChannel;
 
  
 
