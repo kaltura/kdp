@@ -39,9 +39,9 @@ package com.kaltura.commands.bulkUpload
 		public var filterFields : String;
 		
 		/**
-		* @param id int
+		* @param id Number
 		**/
-		public function BulkUploadServe( id : int )
+		public function BulkUploadServe( id : Number )
 		{
 			service= 'bulkupload';
 			action= 'serve';

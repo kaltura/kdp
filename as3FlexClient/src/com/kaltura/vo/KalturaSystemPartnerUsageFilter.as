@@ -33,21 +33,21 @@ package com.kaltura.vo
 	public dynamic class KalturaSystemPartnerUsageFilter extends KalturaFilter
 	{
 		/**
-		 * Date range from
-		 * 
-		 **/
+		* Date range from
+		* 
+		**/
 		public var fromDate : int = int.MIN_VALUE;
 
 		/**
-		 * Date range to
-		 * 
-		 **/
+		* Date range to
+		* 
+		**/
 		public var toDate : int = int.MIN_VALUE;
 
 		/**
-		 * Time zone offset
-		 * 
-		 **/
+		* Time zone offset
+		* 
+		**/
 		public var timezoneOffset : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

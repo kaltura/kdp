@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.annotation
 {
-	import com.kaltura.vo.KalturaCuePointFilter;
+		import com.kaltura.vo.KalturaCuePointFilter;
 	import com.kaltura.delegates.annotation.AnnotationCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * count cue point objects by filter
-	 * 
-	 **/
+	* count cue point objects by filter
+	* 
+	**/
 	public class AnnotationCount extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaCuePointFilter
-		 **/
+		* @param filter KalturaCuePointFilter
+		**/
 		public function AnnotationCount( filter : KalturaCuePointFilter=null )
 		{
 			service= 'annotation_annotation';
@@ -50,11 +50,11 @@ package com.kaltura.commands.annotation
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

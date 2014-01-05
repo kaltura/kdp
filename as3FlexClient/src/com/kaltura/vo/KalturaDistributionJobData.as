@@ -39,55 +39,55 @@ package com.kaltura.vo
 	public dynamic class KalturaDistributionJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var distributionProfileId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var distributionProfile : KalturaDistributionProfile;
 
 		/**
-		 **/
+		**/
 		public var entryDistributionId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var entryDistribution : KalturaEntryDistribution;
 
 		/**
-		 * Id of the media in the remote system
-		 * 
-		 **/
+		* Id of the media in the remote system
+		* 
+		**/
 		public var remoteId : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDistributionProviderType
-		 **/
+		* @see com.kaltura.types.KalturaDistributionProviderType
+		**/
 		public var providerType : String = null;
 
 		/**
-		 * Additional data that relevant for the provider only
-		 * 
-		 **/
+		* Additional data that relevant for the provider only
+		* 
+		**/
 		public var providerData : KalturaDistributionJobProviderData;
 
 		/**
-		 * The results as returned from the remote destination
-		 * 
-		 **/
+		* The results as returned from the remote destination
+		* 
+		**/
 		public var results : String = null;
 
 		/**
-		 * The data as sent to the remote destination
-		 * 
-		 **/
+		* The data as sent to the remote destination
+		* 
+		**/
 		public var sentData : String = null;
 
 		/**
-		 * Stores array of media files that submitted to the destination site
-		 * Could be used later for media update
-		 * 
-		 **/
+		* Stores array of media files that submitted to the destination site
+		* Could be used later for media update
+		* 
+		**/
 		public var mediaFiles : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -112,6 +112,29 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'distributionProfile':
+					result = '';
+					break;
+				case 'entryDistribution':
+					result = '';
+					break;
+				case 'providerData':
+					result = '';
+					break;
+				case 'mediaFiles':
+					result = 'KalturaDistributionRemoteMediaFile';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

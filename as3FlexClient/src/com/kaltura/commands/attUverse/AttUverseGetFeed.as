@@ -31,15 +31,15 @@ package com.kaltura.commands.attUverse
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class AttUverseGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param distributionProfileId int
-		 * @param hash String
-		 **/
+		* @param distributionProfileId int
+		* @param hash String
+		**/
 		public function AttUverseGetFeed( distributionProfileId : int,hash : String )
 		{
 			service= 'attuversedistribution_attuverse';

@@ -31,17 +31,18 @@ package com.kaltura.commands.widevineDrm
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get license for encrypted content playback
-	 * 
-	 **/
+	* Get license for encrypted content playback
+	* 
+	**/
 	public class WidevineDrmGetLicense extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param flavorAssetId String
-		 **/
-		public function WidevineDrmGetLicense( flavorAssetId : String )
+		* @param flavorAssetId String
+		* @param referrer String
+		**/
+		public function WidevineDrmGetLicense( flavorAssetId : String,referrer : String = null )
 		{
 			service= 'widevine_widevinedrm';
 			action= 'getLicense';
@@ -51,6 +52,8 @@ package com.kaltura.commands.widevineDrm
 			var keyValArr : Array = new Array();
 			keyArr.push('flavorAssetId');
 			valueArr.push(flavorAssetId);
+			keyArr.push('referrer');
+			valueArr.push(referrer);
 			applySchema(keyArr, valueArr);
 		}
 

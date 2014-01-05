@@ -33,25 +33,25 @@ package com.kaltura.vo
 	public dynamic class KalturaAttachmentAssetBaseFilter extends KalturaAssetFilter
 	{
 		/**
-		 * @see com.kaltura.types.KalturaAttachmentType
-		 **/
+		* @see com.kaltura.types.KalturaAttachmentType
+		**/
 		public var formatEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var formatIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaAttachmentAssetStatus
-		 **/
+		* @see com.kaltura.types.KalturaAttachmentAssetStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var statusNotIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -71,6 +71,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

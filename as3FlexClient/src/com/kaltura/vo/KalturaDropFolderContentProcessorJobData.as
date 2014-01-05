@@ -33,20 +33,20 @@ package com.kaltura.vo
 	public dynamic class KalturaDropFolderContentProcessorJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var dropFolderFileIds : String = null;
 
 		/**
-		 **/
+		**/
 		public var parsedSlug : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderContentFileHandlerMatchPolicy
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderContentFileHandlerMatchPolicy
+		**/
 		public var contentMatchPolicy : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var conversionProfileId : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

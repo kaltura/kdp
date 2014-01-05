@@ -31,18 +31,18 @@ package com.kaltura.commands.sharepointExtension
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Is this Kaltura-Sharepoint-Server-Plugin supports minimum version of $major.$minor.$build (which is required by the extension)
-	 * 
-	 **/
+	* Is this Kaltura-Sharepoint-Server-Plugin supports minimum version of $major.$minor.$build (which is required by the extension)
+	* 
+	**/
 	public class SharepointExtensionIsVersionSupported extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param serverMajor int
-		 * @param serverMinor int
-		 * @param serverBuild int
-		 **/
+		* @param serverMajor int
+		* @param serverMinor int
+		* @param serverBuild int
+		**/
 		public function SharepointExtensionIsVersionSupported( serverMajor : int,serverMinor : int,serverBuild : int )
 		{
 			service= 'kalturasharepointextension_sharepointextension';

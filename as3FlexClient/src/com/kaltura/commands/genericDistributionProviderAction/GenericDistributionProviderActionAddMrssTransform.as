@@ -31,17 +31,17 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add MRSS transform file to generic distribution provider action
-	 * 
-	 **/
+	* Add MRSS transform file to generic distribution provider action
+	* 
+	**/
 	public class GenericDistributionProviderActionAddMrssTransform extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param xslData String
-		 **/
+		* @param id int
+		* @param xslData String
+		**/
 		public function GenericDistributionProviderActionAddMrssTransform( id : int,xslData : String )
 		{
 			service= 'contentdistribution_genericdistributionprovideraction';

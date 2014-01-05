@@ -31,16 +31,16 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Markss the caption as default and removes that mark from all other caption assets of the entry.
-	 * 
-	 **/
+	* Markss the caption as default and removes that mark from all other caption assets of the entry.
+	* 
+	**/
 	public class CaptionAssetSetAsDefault extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param captionAssetId String
-		 **/
+		* @param captionAssetId String
+		**/
 		public function CaptionAssetSetAsDefault( captionAssetId : String )
 		{
 			service= 'caption_captionasset';

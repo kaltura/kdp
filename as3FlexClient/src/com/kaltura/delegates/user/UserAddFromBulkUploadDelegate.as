@@ -77,8 +77,8 @@ package com.kaltura.delegates.user
 				var urlRequest:URLRequest = new URLRequest(req);
 				((call as UserAddFromBulkUpload).fileData as FileReference).upload(urlRequest,"fileData");
 			}
-			else{
-				mrloader.addFile(((call as UserAddFromBulkUpload).fileData as ByteArray), UIDUtil.createUID(), 'fileData');	
+			else {
+				mrloader.addFile(((call as UserAddFromBulkUpload).fileData as ByteArray), UIDUtil.createUID(), 'fileData'); 
 				mrloader.dataFormat = URLLoaderDataFormat.TEXT;
 				mrloader.load(req);
 			}
@@ -86,19 +86,19 @@ package com.kaltura.delegates.user
 
 		// Event Handlers
 		override protected function onDataComplete(event:Event):void {
-			try{
+			try {
 				if ((call as UserAddFromBulkUpload).fileData is FileReference) {
 					handleResult( XML(event["data"]) );
 				}
 				else {
 					handleResult( XML(event.target.loader.data) );
-				}
+ 				}
 			}
-			catch( e:Error ){
-				var kErr : KalturaError = new KalturaError();
-				kErr.errorCode = String(e.errorID);
-				kErr.errorMsg = e.message;
-				_call.handleError( kErr );
+ 			catch( e:Error ){
+ 				var kErr : KalturaError = new KalturaError();
+ 				kErr.errorCode = String(e.errorID);
+ 				kErr.errorMsg = e.message;
+ 				_call.handleError( kErr );
 			}
 		}
 

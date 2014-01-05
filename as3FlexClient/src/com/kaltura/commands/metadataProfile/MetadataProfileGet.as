@@ -31,16 +31,16 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve a metadata profile object by id
-	 * 
-	 **/
+	* Retrieve a metadata profile object by id
+	* 
+	**/
 	public class MetadataProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function MetadataProfileGet( id : int )
 		{
 			service= 'metadata_metadataprofile';

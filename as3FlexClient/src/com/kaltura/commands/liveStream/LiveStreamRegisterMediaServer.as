@@ -31,7 +31,7 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	* Register media server to live-stream entry
+	* Register media server to live entry
 	* 
 	**/
 	public class LiveStreamRegisterMediaServer extends KalturaCall

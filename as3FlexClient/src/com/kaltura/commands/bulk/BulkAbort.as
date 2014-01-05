@@ -31,16 +31,16 @@ package com.kaltura.commands.bulk
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Aborts the bulk upload and all its child jobs
-	 * 
-	 **/
+	* Aborts the bulk upload and all its child jobs
+	* 
+	**/
 	public class BulkAbort extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function BulkAbort( id : int )
 		{
 			service= 'bulkupload_bulk';

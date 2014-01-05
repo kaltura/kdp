@@ -32,6 +32,7 @@ package com.kaltura.types
 		public static const CREATED_AT_ASC : String = '+createdAt';
 		public static const DURATION_ASC : String = '+duration';
 		public static const END_DATE_ASC : String = '+endDate';
+		public static const LAST_PLAYED_AT_ASC : String = '+lastPlayedAt';
 		public static const MODERATION_COUNT_ASC : String = '+moderationCount';
 		public static const NAME_ASC : String = '+name';
 		public static const PARTNER_SORT_VALUE_ASC : String = '+partnerSortValue';
@@ -46,6 +47,7 @@ package com.kaltura.types
 		public static const CREATED_AT_DESC : String = '-createdAt';
 		public static const DURATION_DESC : String = '-duration';
 		public static const END_DATE_DESC : String = '-endDate';
+		public static const LAST_PLAYED_AT_DESC : String = '-lastPlayedAt';
 		public static const MODERATION_COUNT_DESC : String = '-moderationCount';
 		public static const NAME_DESC : String = '-name';
 		public static const PARTNER_SORT_VALUE_DESC : String = '-partnerSortValue';

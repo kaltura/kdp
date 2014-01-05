@@ -33,98 +33,103 @@ package com.kaltura.vo
 	public dynamic class KalturaDropFolderFile extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var dropFolderId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var fileName : String = null;
 
 		/**
-		 **/
+		**/
 		public var fileSize : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 **/
+		**/
 		public var fileSizeLastSetAt : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderFileStatus
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderFileStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderType
+		**/
+		public var type : String = null;
+
+		/**
+		**/
 		public var parsedSlug : String = null;
 
 		/**
-		 **/
+		**/
 		public var parsedFlavor : String = null;
 
 		/**
-		 **/
+		**/
 		public var leadDropFolderFileId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var deletedDropFolderFileId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var entryId : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderFileErrorCode
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderFileErrorCode
+		**/
 		public var errorCode : String = null;
 
 		/**
-		 **/
+		**/
 		public var errorDescription : String = null;
 
 		/**
-		 **/
+		**/
 		public var lastModificationTime : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var uploadStartDetectedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var uploadEndDetectedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var importStartedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var importEndedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var batchJobId : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -146,8 +151,8 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
@@ -155,6 +160,19 @@ package com.kaltura.vo
 			arr.push('dropFolderId');
 			arr.push('fileName');
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

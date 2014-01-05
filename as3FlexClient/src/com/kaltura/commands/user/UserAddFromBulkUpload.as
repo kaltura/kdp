@@ -27,24 +27,24 @@
 // ===================================================================================================
 package com.kaltura.commands.user
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
-	import com.kaltura.vo.KalturaBulkUploadJobData;
-	import com.kaltura.vo.KalturaBulkUploadUserData;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
+		import com.kaltura.vo.KalturaBulkUploadJobData;
+		import com.kaltura.vo.KalturaBulkUploadUserData;
 	import com.kaltura.delegates.user.UserAddFromBulkUploadDelegate;
 
 	/**
-	 **/
+	**/
 	public class UserAddFromBulkUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 * @param bulkUploadData KalturaBulkUploadJobData
-		 * @param bulkUploadUserData KalturaBulkUploadUserData
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		* @param bulkUploadData KalturaBulkUploadJobData
+		* @param bulkUploadUserData KalturaBulkUploadUserData
+		**/
 		public function UserAddFromBulkUpload( fileData : Object,bulkUploadData : KalturaBulkUploadJobData=null,bulkUploadUserData : KalturaBulkUploadUserData=null )
 		{
 			service= 'user';
@@ -54,16 +54,16 @@ package com.kaltura.commands.user
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
 			this.fileData = fileData;
- 			if (bulkUploadData) { 
- 			keyValArr = kalturaObject2Arrays(bulkUploadData, 'bulkUploadData');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (bulkUploadUserData) { 
- 			keyValArr = kalturaObject2Arrays(bulkUploadUserData, 'bulkUploadUserData');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (bulkUploadData) { 
+				keyValArr = kalturaObject2Arrays(bulkUploadData, 'bulkUploadData');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (bulkUploadUserData) { 
+				keyValArr = kalturaObject2Arrays(bulkUploadUserData, 'bulkUploadUserData');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

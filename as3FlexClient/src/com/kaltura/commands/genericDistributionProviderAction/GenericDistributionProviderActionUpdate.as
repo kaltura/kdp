@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.genericDistributionProviderAction
 {
-	import com.kaltura.vo.KalturaGenericDistributionProviderAction;
+		import com.kaltura.vo.KalturaGenericDistributionProviderAction;
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update Generic Distribution Provider Action by id
-	 * 
-	 **/
+	* Update Generic Distribution Provider Action by id
+	* 
+	**/
 	public class GenericDistributionProviderActionUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param genericDistributionProviderAction KalturaGenericDistributionProviderAction
-		 **/
+		* @param id int
+		* @param genericDistributionProviderAction KalturaGenericDistributionProviderAction
+		**/
 		public function GenericDistributionProviderActionUpdate( id : int,genericDistributionProviderAction : KalturaGenericDistributionProviderAction )
 		{
 			service= 'contentdistribution_genericdistributionprovideraction';
@@ -53,9 +53,9 @@ package com.kaltura.commands.genericDistributionProviderAction
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(genericDistributionProviderAction, 'genericDistributionProviderAction');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(genericDistributionProviderAction, 'genericDistributionProviderAction');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

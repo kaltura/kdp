@@ -31,16 +31,16 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve an CuePoint object by id
-	 * 
-	 **/
+	* Retrieve an CuePoint object by id
+	* 
+	**/
 	public class CuePointGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function CuePointGet( id : String )
 		{
 			service= 'cuepoint_cuepoint';

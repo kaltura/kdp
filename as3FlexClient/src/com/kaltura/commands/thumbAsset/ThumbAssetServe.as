@@ -28,6 +28,7 @@
 package com.kaltura.commands.thumbAsset
 {
 		import com.kaltura.vo.KalturaThumbParams;
+		import com.kaltura.vo.KalturaThumbnailServeOptions;
 	import com.kaltura.delegates.thumbAsset.ThumbAssetServeDelegate;
 	import com.kaltura.net.KalturaCall;
 
@@ -43,8 +44,9 @@ package com.kaltura.commands.thumbAsset
 		* @param thumbAssetId String
 		* @param version int
 		* @param thumbParams KalturaThumbParams
+		* @param options KalturaThumbnailServeOptions
 		**/
-		public function ThumbAssetServe( thumbAssetId : String,version : int=int.MIN_VALUE,thumbParams : KalturaThumbParams=null )
+		public function ThumbAssetServe( thumbAssetId : String,version : int=int.MIN_VALUE,thumbParams : KalturaThumbParams=null,options : KalturaThumbnailServeOptions=null )
 		{
 			service= 'thumbasset';
 			action= 'serve';
@@ -58,6 +60,11 @@ package com.kaltura.commands.thumbAsset
 			valueArr.push(version);
 			if (thumbParams) { 
 				keyValArr = kalturaObject2Arrays(thumbParams, 'thumbParams');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (options) { 
+				keyValArr = kalturaObject2Arrays(options, 'options');
 				keyArr = keyArr.concat(keyValArr[0]);
 				valueArr = valueArr.concat(keyValArr[1]);
 			} 

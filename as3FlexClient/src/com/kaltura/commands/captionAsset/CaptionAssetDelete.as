@@ -31,14 +31,14 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class CaptionAssetDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param captionAssetId String
-		 **/
+		* @param captionAssetId String
+		**/
 		public function CaptionAssetDelete( captionAssetId : String )
 		{
 			service= 'caption_captionasset';

@@ -33,25 +33,25 @@ package com.kaltura.vo
 	public dynamic class KalturaAttUverseDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 **/
+		**/
 		public var filesForDistribution : Array = null;
 
 		/**
-		 * The remote URL of the video asset that was distributed
-		 * 
-		 **/
+		* The remote URL of the video asset that was distributed
+		* 
+		**/
 		public var remoteAssetFileUrls : String = null;
 
 		/**
-		 * The remote URL of the thumbnail asset that was distributed
-		 * 
-		 **/
+		* The remote URL of the thumbnail asset that was distributed
+		* 
+		**/
 		public var remoteThumbnailFileUrls : String = null;
 
 		/**
-		 * The remote URL of the caption asset that was distributed
-		 * 
-		 **/
+		* The remote URL of the caption asset that was distributed
+		* 
+		**/
 		public var remoteCaptionFileUrls : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -70,6 +70,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'filesForDistribution':
+					result = 'KalturaAttUverseDistributionFile';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

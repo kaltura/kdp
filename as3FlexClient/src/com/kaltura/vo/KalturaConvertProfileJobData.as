@@ -33,19 +33,19 @@ package com.kaltura.vo
 	public dynamic class KalturaConvertProfileJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var inputFileSyncLocalPath : String = null;
 
 		/**
-		 * The height of last created thumbnail, will be used to comapare if this thumbnail is the best we can have
-		 * 
-		 **/
+		* The height of last created thumbnail, will be used to comapare if this thumbnail is the best we can have
+		* 
+		**/
 		public var thumbHeight : int = int.MIN_VALUE;
 
 		/**
-		 * The bit rate of last created thumbnail, will be used to comapare if this thumbnail is the best we can have
-		 * 
-		 **/
+		* The bit rate of last created thumbnail, will be used to comapare if this thumbnail is the best we can have
+		* 
+		**/
 		public var thumbBitrate : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -63,6 +63,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

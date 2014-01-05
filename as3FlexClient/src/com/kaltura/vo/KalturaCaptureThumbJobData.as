@@ -33,38 +33,38 @@ package com.kaltura.vo
 	public dynamic class KalturaCaptureThumbJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var srcFileSyncLocalPath : String = null;
 
 		/**
-		 * The translated path as used by the scheduler
-		 * 
-		 **/
+		* The translated path as used by the scheduler
+		* 
+		**/
 		public var actualSrcFileSyncLocalPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var srcFileSyncRemoteUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbParamsOutputId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var thumbAssetId : String = null;
 
 		/**
-		 **/
+		**/
 		public var srcAssetId : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaAssetType
-		 **/
+		* @see com.kaltura.types.KalturaAssetType
+		**/
 		public var srcAssetType : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbPath : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -87,6 +87,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

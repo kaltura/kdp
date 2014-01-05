@@ -31,17 +31,17 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Scan flavor asset according to virus scan profile
-	 * 
-	 **/
+	* Scan flavor asset according to virus scan profile
+	* 
+	**/
 	public class VirusScanProfileScan extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param flavorAssetId String
-		 * @param virusScanProfileId int
-		 **/
+		* @param flavorAssetId String
+		* @param virusScanProfileId int
+		**/
 		public function VirusScanProfileScan( flavorAssetId : String,virusScanProfileId : int=int.MIN_VALUE )
 		{
 			service= 'virusscan_virusscanprofile';

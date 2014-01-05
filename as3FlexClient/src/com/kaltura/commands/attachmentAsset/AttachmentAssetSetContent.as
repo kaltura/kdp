@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.attachmentAsset
 {
-	import com.kaltura.vo.KalturaContentResource;
+		import com.kaltura.vo.KalturaContentResource;
 	import com.kaltura.delegates.attachmentAsset.AttachmentAssetSetContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update content of attachment asset
-	 * 
-	 **/
+	* Update content of attachment asset
+	* 
+	**/
 	public class AttachmentAssetSetContent extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param contentResource KalturaContentResource
-		 **/
+		* @param id String
+		* @param contentResource KalturaContentResource
+		**/
 		public function AttachmentAssetSetContent( id : String,contentResource : KalturaContentResource )
 		{
 			service= 'attachment_attachmentasset';
@@ -53,9 +53,9 @@ package com.kaltura.commands.attachmentAsset
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(contentResource, 'contentResource');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(contentResource, 'contentResource');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

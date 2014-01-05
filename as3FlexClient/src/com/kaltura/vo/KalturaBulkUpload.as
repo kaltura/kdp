@@ -34,7 +34,7 @@ package com.kaltura.vo
 	{
 		/**
 		**/
-		public var id : int = int.MIN_VALUE;
+		public var id : Number = Number.NEGATIVE_INFINITY;
 
 		/**
 		**/

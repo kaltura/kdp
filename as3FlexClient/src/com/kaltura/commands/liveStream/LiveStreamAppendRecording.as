@@ -32,7 +32,7 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	* Append recorded video to live stream entry
+	* Append recorded video to live entry
 	* 
 	**/
 	public class LiveStreamAppendRecording extends KalturaCall

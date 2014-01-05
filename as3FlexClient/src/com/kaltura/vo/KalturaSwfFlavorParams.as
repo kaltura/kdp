@@ -33,12 +33,12 @@ package com.kaltura.vo
 	public dynamic class KalturaSwfFlavorParams extends KalturaFlavorParams
 	{
 		/**
-		 **/
+		**/
 		public var flashVersion : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var poly2Bitmap : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -55,6 +55,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

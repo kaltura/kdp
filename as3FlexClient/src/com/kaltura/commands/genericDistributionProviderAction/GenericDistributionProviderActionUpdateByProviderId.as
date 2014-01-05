@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.genericDistributionProviderAction
 {
-	import com.kaltura.vo.KalturaGenericDistributionProviderAction;
+		import com.kaltura.vo.KalturaGenericDistributionProviderAction;
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionUpdateByProviderIdDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update Generic Distribution Provider Action by provider id
-	 * 
-	 **/
+	* Update Generic Distribution Provider Action by provider id
+	* 
+	**/
 	public class GenericDistributionProviderActionUpdateByProviderId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param genericDistributionProviderId int
-		 * @param actionType int
-		 * @param genericDistributionProviderAction KalturaGenericDistributionProviderAction
-		 **/
+		* @param genericDistributionProviderId int
+		* @param actionType int
+		* @param genericDistributionProviderAction KalturaGenericDistributionProviderAction
+		**/
 		public function GenericDistributionProviderActionUpdateByProviderId( genericDistributionProviderId : int,actionType : int,genericDistributionProviderAction : KalturaGenericDistributionProviderAction )
 		{
 			service= 'contentdistribution_genericdistributionprovideraction';
@@ -56,9 +56,9 @@ package com.kaltura.commands.genericDistributionProviderAction
 			valueArr.push(genericDistributionProviderId);
 			keyArr.push('actionType');
 			valueArr.push(actionType);
- 			keyValArr = kalturaObject2Arrays(genericDistributionProviderAction, 'genericDistributionProviderAction');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(genericDistributionProviderAction, 'genericDistributionProviderAction');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

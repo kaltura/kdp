@@ -31,15 +31,15 @@ package com.kaltura.commands.sharepointExtension
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * list uiconfs for sharepoint extension
-	 * 
-	 **/
+	* list uiconfs for sharepoint extension
+	* 
+	**/
 	public class SharepointExtensionListUiconfs extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
+		**/
 		public function SharepointExtensionListUiconfs(  )
 		{
 			service= 'kalturasharepointextension_sharepointextension';

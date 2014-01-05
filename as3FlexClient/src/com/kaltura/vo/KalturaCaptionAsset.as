@@ -33,50 +33,50 @@ package com.kaltura.vo
 	public dynamic class KalturaCaptionAsset extends KalturaAsset
 	{
 		/**
-		 * The Caption Params used to create this Caption Asset
-		 * 
-		 **/
+		* The Caption Params used to create this Caption Asset
+		* 
+		**/
 		public var captionParamsId : int = int.MIN_VALUE;
 
 		/**
-		 * The language of the caption asset content
-		 * 
-		 * @see com.kaltura.types.KalturaLanguage
-		 **/
+		* The language of the caption asset content
+		* 
+		* @see com.kaltura.types.KalturaLanguage
+		**/
 		public var language : String = null;
 
 		/**
-		 * The language of the caption asset content
-		 * 
-		 * @see com.kaltura.types.KalturaLanguageCode
-		 **/
+		* The language of the caption asset content
+		* 
+		* @see com.kaltura.types.KalturaLanguageCode
+		**/
 		public var languageCode : String = null;
 
 		/**
-		 * Is default caption asset of the entry
-		 * 
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* Is default caption asset of the entry
+		* 
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var isDefault : int = int.MIN_VALUE;
 
 		/**
-		 * Friendly label
-		 * 
-		 **/
+		* Friendly label
+		* 
+		**/
 		public var label : String = null;
 
 		/**
-		 * The caption format
-		 * 
-		 * @see com.kaltura.types.KalturaCaptionType
-		 **/
+		* The caption format
+		* 
+		* @see com.kaltura.types.KalturaCaptionType
+		**/
 		public var format : String = null;
 
 		/**
-		 * The status of the asset
-		 * 
-		 * @see com.kaltura.types.KalturaCaptionAssetStatus
-		 **/
+		* The status of the asset
+		* 
+		* @see com.kaltura.types.KalturaCaptionAssetStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -96,6 +96,17 @@ package com.kaltura.vo
 			arr.push('captionParamsId');
 			arr.push('format');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

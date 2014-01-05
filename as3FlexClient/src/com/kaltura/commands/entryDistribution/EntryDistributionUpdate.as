@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.entryDistribution
 {
-	import com.kaltura.vo.KalturaEntryDistribution;
+		import com.kaltura.vo.KalturaEntryDistribution;
 	import com.kaltura.delegates.entryDistribution.EntryDistributionUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update Entry Distribution by id
-	 * 
-	 **/
+	* Update Entry Distribution by id
+	* 
+	**/
 	public class EntryDistributionUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param entryDistribution KalturaEntryDistribution
-		 **/
+		* @param id int
+		* @param entryDistribution KalturaEntryDistribution
+		**/
 		public function EntryDistributionUpdate( id : int,entryDistribution : KalturaEntryDistribution )
 		{
 			service= 'contentdistribution_entrydistribution';
@@ -53,9 +53,9 @@ package com.kaltura.commands.entryDistribution
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(entryDistribution, 'entryDistribution');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(entryDistribution, 'entryDistribution');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

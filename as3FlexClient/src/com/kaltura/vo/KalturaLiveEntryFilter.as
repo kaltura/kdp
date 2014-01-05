@@ -32,10 +32,16 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaLiveEntryFilter extends KalturaLiveEntryBaseFilter
 	{
+		/**
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
+		public var isLive : int = int.MIN_VALUE;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('isLive');
 			return arr;
 		}
 

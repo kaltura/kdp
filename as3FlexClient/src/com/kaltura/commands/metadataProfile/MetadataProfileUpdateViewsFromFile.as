@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.metadataProfile
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.metadataProfile.MetadataProfileUpdateViewsFromFileDelegate;
 
 	/**
-	 * Update an existing metadata object views file
-	 * 
-	 **/
+	* Update an existing metadata object views file
+	* 
+	**/
 	public class MetadataProfileUpdateViewsFromFile extends KalturaFileCall
 	{
 		public var viewsFile:Object;
 
 		
 		/**
-		 * @param id int
-		 * @param viewsFile Object - FileReference or ByteArray
-		 **/
+		* @param id int
+		* @param viewsFile Object - FileReference or ByteArray
+		**/
 		public function MetadataProfileUpdateViewsFromFile( id : int,viewsFile : Object )
 		{
 			service= 'metadata_metadataprofile';

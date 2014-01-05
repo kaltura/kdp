@@ -31,7 +31,9 @@ package com.kaltura.types
 	{
 		public static const ERROR_IMPORTING : String = '-2';
 		public static const ERROR_CONVERTING : String = '-1';
+		public static const SCAN_FAILURE : String = 'virusScan.ScanFailure';
 		public static const IMPORT : String = '0';
+		public static const INFECTED : String = 'virusScan.Infected';
 		public static const PRECONVERT : String = '1';
 		public static const READY : String = '2';
 		public static const DELETED : String = '3';

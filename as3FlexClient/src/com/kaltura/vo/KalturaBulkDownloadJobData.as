@@ -33,21 +33,21 @@ package com.kaltura.vo
 	public dynamic class KalturaBulkDownloadJobData extends KalturaJobData
 	{
 		/**
-		 * Comma separated list of entry ids
-		 * 
-		 **/
+		* Comma separated list of entry ids
+		* 
+		**/
 		public var entryIds : String = null;
 
 		/**
-		 * Flavor params id to use for conversion
-		 * 
-		 **/
+		* Flavor params id to use for conversion
+		* 
+		**/
 		public var flavorParamsId : int = int.MIN_VALUE;
 
 		/**
-		 * The id of the requesting user
-		 * 
-		 **/
+		* The id of the requesting user
+		* 
+		**/
 		public var puserId : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -34,6 +34,14 @@ package com.kaltura.vo
 	{
 		/**
 		**/
+		public var lastPlayedAtGreaterThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		**/
+		public var lastPlayedAtLessThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		**/
 		public var durationLessThan : int = int.MIN_VALUE;
 
 		/**
@@ -56,6 +64,8 @@ package com.kaltura.vo
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('lastPlayedAtGreaterThanOrEqual');
+			arr.push('lastPlayedAtLessThanOrEqual');
 			arr.push('durationLessThan');
 			arr.push('durationGreaterThan');
 			arr.push('durationLessThanOrEqual');

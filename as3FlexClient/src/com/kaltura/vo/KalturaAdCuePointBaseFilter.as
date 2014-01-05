@@ -33,40 +33,40 @@ package com.kaltura.vo
 	public dynamic class KalturaAdCuePointBaseFilter extends KalturaCuePointFilter
 	{
 		/**
-		 * @see com.kaltura.types.KalturaAdProtocolType
-		 **/
+		* @see com.kaltura.types.KalturaAdProtocolType
+		**/
 		public var protocolTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var protocolTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var titleLike : String = null;
 
 		/**
-		 **/
+		**/
 		public var titleMultiLikeOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var titleMultiLikeAnd : String = null;
 
 		/**
-		 **/
+		**/
 		public var endTimeGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var endTimeLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var durationGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var durationLessThanOrEqual : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -90,6 +90,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

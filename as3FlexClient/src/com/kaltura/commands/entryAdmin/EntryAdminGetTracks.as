@@ -31,16 +31,16 @@ package com.kaltura.commands.entryAdmin
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get base entry by ID with no filters.
-	 * 
-	 **/
+	* Get base entry by ID with no filters.
+	* 
+	**/
 	public class EntryAdminGetTracks extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function EntryAdminGetTracks( entryId : String )
 		{
 			service= 'adminconsole_entryadmin';

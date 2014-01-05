@@ -97,6 +97,10 @@ package com.kaltura.vo
 
 		/**
 		**/
+		public var deliveryHttpsBaseUrl : String = null;
+
+		/**
+		**/
 		public var deliveryRmpBaseUrl : String = null;
 
 		/**
@@ -198,6 +202,7 @@ package com.kaltura.vo
 			arr.push('storagePassword');
 			arr.push('storageFtpPassiveMode');
 			arr.push('deliveryHttpBaseUrl');
+			arr.push('deliveryHttpsBaseUrl');
 			arr.push('deliveryRmpBaseUrl');
 			arr.push('deliveryIisBaseUrl');
 			arr.push('minFileSize');

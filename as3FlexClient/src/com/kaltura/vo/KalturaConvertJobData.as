@@ -33,31 +33,31 @@ package com.kaltura.vo
 	public dynamic class KalturaConvertJobData extends KalturaConvartableJobData
 	{
 		/**
-		 **/
+		**/
 		public var destFileSyncLocalPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var destFileSyncRemoteUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var logFileSyncLocalPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var logFileSyncRemoteUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var flavorAssetId : String = null;
 
 		/**
-		 **/
+		**/
 		public var remoteMediaId : String = null;
 
 		/**
-		 **/
+		**/
 		public var customData : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -79,6 +79,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

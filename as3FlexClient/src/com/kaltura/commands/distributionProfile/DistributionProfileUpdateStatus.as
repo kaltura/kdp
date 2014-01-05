@@ -31,17 +31,17 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update Distribution Profile status by id
-	 * 
-	 **/
+	* Update Distribution Profile status by id
+	* 
+	**/
 	public class DistributionProfileUpdateStatus extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param status int
-		 **/
+		* @param id int
+		* @param status int
+		**/
 		public function DistributionProfileUpdateStatus( id : int,status : int )
 		{
 			service= 'contentdistribution_distributionprofile';

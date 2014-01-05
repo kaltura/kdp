@@ -33,51 +33,57 @@ package com.kaltura.vo
 	public dynamic class KalturaMoveCategoryEntriesJobData extends KalturaJobData
 	{
 		/**
-		 * Source category id
-		 * 
-		 **/
+		* Source category id
+		* 
+		**/
 		public var srcCategoryId : int = int.MIN_VALUE;
 
 		/**
-		 * Destination category id
-		 * 
-		 **/
+		* Destination category id
+		* 
+		**/
 		public var destCategoryId : int = int.MIN_VALUE;
 
 		/**
-		 * Saves the last category id that its entries moved completely
-		 * In case of crash the batch will restart from that point
-		 * 
-		 **/
+		* Saves the last category id that its entries moved completely
+		* In case of crash the batch will restart from that point
+		* 
+		**/
 		public var lastMovedCategoryId : int = int.MIN_VALUE;
 
 		/**
-		 * Saves the last page index of the child categories filter pager
-		 * In case of crash the batch will restart from that point
-		 * 
-		 **/
+		* Saves the last page index of the child categories filter pager
+		* In case of crash the batch will restart from that point
+		* 
+		**/
 		public var lastMovedCategoryPageIndex : int = int.MIN_VALUE;
 
 		/**
-		 * Saves the last page index of the category entries filter pager
-		 * In case of crash the batch will restart from that point
-		 * 
-		 **/
+		* Saves the last page index of the category entries filter pager
+		* In case of crash the batch will restart from that point
+		* 
+		**/
 		public var lastMovedCategoryEntryPageIndex : int = int.MIN_VALUE;
 
 		/**
-		 * All entries from all child categories will be moved as well
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* All entries from all child categories will be moved as well
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var moveFromChildren : Boolean;
 
 		/**
-		 * Entries won't be deleted from the source entry
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Entries won't be deleted from the source entry
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var copyOnly : Boolean;
+
+		/**
+		* Destination categories fallback ids
+		* 
+		**/
+		public var destCategoryFullIds : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -90,6 +96,7 @@ package com.kaltura.vo
 			arr.push('lastMovedCategoryEntryPageIndex');
 			arr.push('moveFromChildren');
 			arr.push('copyOnly');
+			arr.push('destCategoryFullIds');
 			return arr;
 		}
 
@@ -98,6 +105,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

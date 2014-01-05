@@ -31,17 +31,17 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Submits Entry Distribution to the remote destination
-	 * 
-	 **/
+	* Submits Entry Distribution to the remote destination
+	* 
+	**/
 	public class EntryDistributionSubmitAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param submitWhenReady Boolean
-		 **/
+		* @param id int
+		* @param submitWhenReady Boolean
+		**/
 		public function EntryDistributionSubmitAdd( id : int,submitWhenReady : Boolean=false )
 		{
 			service= 'contentdistribution_entrydistribution';

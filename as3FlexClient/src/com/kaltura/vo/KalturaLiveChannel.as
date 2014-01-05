@@ -32,10 +32,25 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaLiveChannel extends KalturaLiveEntry
 	{
+		/**
+		* Playlist id to be played
+		* 
+		**/
+		public var playlistId : String = null;
+
+		/**
+		* Indicates that the segments should be repeated for ever
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
+		public var repeat : Boolean;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('playlistId');
+			arr.push('repeat');
 			return arr;
 		}
 

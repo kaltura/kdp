@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.externalMedia
 {
-	import com.kaltura.vo.KalturaExternalMediaEntryFilter;
+		import com.kaltura.vo.KalturaExternalMediaEntryFilter;
 	import com.kaltura.delegates.externalMedia.ExternalMediaCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Count media entries by filter.
-	 * 
-	 **/
+	* Count media entries by filter.
+	* 
+	**/
 	public class ExternalMediaCount extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaExternalMediaEntryFilter
-		 **/
+		* @param filter KalturaExternalMediaEntryFilter
+		**/
 		public function ExternalMediaCount( filter : KalturaExternalMediaEntryFilter=null )
 		{
 			service= 'externalmedia_externalmedia';
@@ -50,11 +50,11 @@ package com.kaltura.commands.externalMedia
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

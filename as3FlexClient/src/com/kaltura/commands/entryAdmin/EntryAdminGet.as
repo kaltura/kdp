@@ -31,17 +31,17 @@ package com.kaltura.commands.entryAdmin
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get base entry by ID with no filters.
-	 * 
-	 **/
+	* Get base entry by ID with no filters.
+	* 
+	**/
 	public class EntryAdminGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 **/
+		* @param entryId String
+		* @param version int
+		**/
 		public function EntryAdminGet( entryId : String,version : int=-1 )
 		{
 			service= 'adminconsole_entryadmin';

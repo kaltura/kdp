@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.shortLink
 {
-	import com.kaltura.vo.KalturaShortLink;
+		import com.kaltura.vo.KalturaShortLink;
 	import com.kaltura.delegates.shortLink.ShortLinkAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Allows you to add a short link object
-	 * 
-	 **/
+	* Allows you to add a short link object
+	* 
+	**/
 	public class ShortLinkAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param shortLink KalturaShortLink
-		 **/
+		* @param shortLink KalturaShortLink
+		**/
 		public function ShortLinkAdd( shortLink : KalturaShortLink )
 		{
 			service= 'shortlink_shortlink';
@@ -50,9 +50,9 @@ package com.kaltura.commands.shortLink
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(shortLink, 'shortLink');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(shortLink, 'shortLink');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

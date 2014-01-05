@@ -35,103 +35,116 @@ package com.kaltura.vo
 	public dynamic class KalturaDropFolder extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var name : String = null;
 
 		/**
-		 **/
+		**/
 		public var description : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderType
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderType
+		**/
 		public var type : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderStatus
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var conversionProfileId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var dc : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var path : String = null;
 
 		/**
-		 * The ammount of time, in seconds, that should pass so that a file with no change in size we'll be treated as "finished uploading to folder"
-		 * 
-		 **/
+		* The ammount of time, in seconds, that should pass so that a file with no change in size we'll be treated as "finished uploading to folder"
+		* 
+		**/
 		public var fileSizeCheckInterval : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderFileDeletePolicy
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderFileDeletePolicy
+		**/
 		public var fileDeletePolicy : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var autoFileDeleteDays : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderFileHandlerType
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderFileHandlerType
+		**/
 		public var fileHandlerType : String = null;
 
 		/**
-		 **/
+		**/
 		public var fileNamePatterns : String = null;
 
 		/**
-		 **/
+		**/
 		public var fileHandlerConfig : KalturaDropFolderFileHandlerConfig;
 
 		/**
-		 **/
+		**/
 		public var tags : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderErrorCode
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderErrorCode
+		**/
 		public var errorCode : String = null;
 
 		/**
-		 **/
+		**/
 		public var errorDescription : String = null;
 
 		/**
-		 **/
+		**/
 		public var ignoreFileNamePatterns : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var lastAccessedAt : int = int.MIN_VALUE;
 
+		/**
+		* @see com.kaltura.types.kalturaBoolean
+		**/
+		public var incremental : Boolean;
+
+		/**
+		**/
+		public var lastFileTimestamp : int = int.MIN_VALUE;
+
+		/**
+		**/
+		public var metadataProfileId : int = int.MIN_VALUE;
+
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -154,18 +167,37 @@ package com.kaltura.vo
 			arr.push('errorDescription');
 			arr.push('ignoreFileNamePatterns');
 			arr.push('lastAccessedAt');
+			arr.push('incremental');
+			arr.push('lastFileTimestamp');
+			arr.push('metadataProfileId');
 			return arr;
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			arr.push('partnerId');
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'fileHandlerConfig':
+					result = '';
+					break;
+			}
+			return result;
 		}
 	}
 }

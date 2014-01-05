@@ -31,14 +31,14 @@ package com.kaltura.commands.reportAdmin
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ReportAdminGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function ReportAdminGet( id : int )
 		{
 			service= 'adminconsole_reportadmin';

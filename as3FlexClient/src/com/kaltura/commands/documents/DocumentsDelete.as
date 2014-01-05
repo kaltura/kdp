@@ -31,16 +31,16 @@ package com.kaltura.commands.documents
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete a document entry.
-	 * 
-	 **/
+	* Delete a document entry.
+	* 
+	**/
 	public class DocumentsDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function DocumentsDelete( entryId : String )
 		{
 			service= 'document_documents';

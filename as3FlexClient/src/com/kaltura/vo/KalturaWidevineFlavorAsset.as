@@ -33,21 +33,21 @@ package com.kaltura.vo
 	public dynamic class KalturaWidevineFlavorAsset extends KalturaFlavorAsset
 	{
 		/**
-		 * License distribution window start date
-		 * 
-		 **/
+		* License distribution window start date
+		* 
+		**/
 		public var widevineDistributionStartDate : int = int.MIN_VALUE;
 
 		/**
-		 * License distribution window end date
-		 * 
-		 **/
+		* License distribution window end date
+		* 
+		**/
 		public var widevineDistributionEndDate : int = int.MIN_VALUE;
 
 		/**
-		 * Widevine unique asset id
-		 * 
-		 **/
+		* Widevine unique asset id
+		* 
+		**/
 		public var widevineAssetId : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

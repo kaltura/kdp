@@ -33,31 +33,31 @@ package com.kaltura.vo
 	public dynamic class KalturaSshDropFolder extends KalturaRemoteDropFolder
 	{
 		/**
-		 **/
+		**/
 		public var host : String = null;
 
 		/**
-		 **/
+		**/
 		public var port : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var username : String = null;
 
 		/**
-		 **/
+		**/
 		public var password : String = null;
 
 		/**
-		 **/
+		**/
 		public var privateKey : String = null;
 
 		/**
-		 **/
+		**/
 		public var publicKey : String = null;
 
 		/**
-		 **/
+		**/
 		public var passPhrase : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -79,6 +79,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,16 +31,16 @@ package com.kaltura.commands.genericDistributionProvider
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Generic Distribution Provider by id
-	 * 
-	 **/
+	* Get Generic Distribution Provider by id
+	* 
+	**/
 	public class GenericDistributionProviderGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function GenericDistributionProviderGet( id : int )
 		{
 			service= 'contentdistribution_genericdistributionprovider';

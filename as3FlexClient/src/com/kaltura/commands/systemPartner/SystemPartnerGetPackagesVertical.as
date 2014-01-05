@@ -31,13 +31,13 @@ package com.kaltura.commands.systemPartner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SystemPartnerGetPackagesVertical extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
+		**/
 		public function SystemPartnerGetPackagesVertical(  )
 		{
 			service= 'systempartner_systempartner';

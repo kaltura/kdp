@@ -45,6 +45,12 @@ package com.kaltura.vo
 		public var views : int = int.MIN_VALUE;
 
 		/**
+		* The last time the entry was played
+		* 
+		**/
+		public var lastPlayedAt : int = int.MIN_VALUE;
+
+		/**
 		* The width in pixels
 		* 
 		**/

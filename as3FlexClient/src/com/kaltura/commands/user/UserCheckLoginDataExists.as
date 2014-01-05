@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.user
 {
-	import com.kaltura.vo.KalturaUserLoginDataFilter;
+		import com.kaltura.vo.KalturaUserLoginDataFilter;
 	import com.kaltura.delegates.user.UserCheckLoginDataExistsDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Action which checks whther user login
-	 * 
-	 **/
+	* Action which checks whther user login
+	* 
+	**/
 	public class UserCheckLoginDataExists extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaUserLoginDataFilter
-		 **/
+		* @param filter KalturaUserLoginDataFilter
+		**/
 		public function UserCheckLoginDataExists( filter : KalturaUserLoginDataFilter )
 		{
 			service= 'user';
@@ -50,9 +50,9 @@ package com.kaltura.commands.user
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

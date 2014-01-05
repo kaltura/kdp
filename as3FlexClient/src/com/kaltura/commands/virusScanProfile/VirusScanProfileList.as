@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.virusScanProfile
 {
-	import com.kaltura.vo.KalturaVirusScanProfileFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaVirusScanProfileFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List virus scan profile objects by filter and pager
-	 * 
-	 **/
+	* List virus scan profile objects by filter and pager
+	* 
+	**/
 	public class VirusScanProfileList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaVirusScanProfileFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaVirusScanProfileFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function VirusScanProfileList( filter : KalturaVirusScanProfileFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'virusscan_virusscanprofile';
@@ -52,16 +52,16 @@ package com.kaltura.commands.virusScanProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

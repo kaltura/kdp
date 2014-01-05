@@ -31,15 +31,15 @@ package com.kaltura.commands.systemPartner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SystemPartnerGetAdminSession extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partnerId int
-		 * @param userId String
-		 **/
+		* @param partnerId int
+		* @param userId String
+		**/
 		public function SystemPartnerGetAdminSession( partnerId : int,userId : String = null )
 		{
 			service= 'systempartner_systempartner';

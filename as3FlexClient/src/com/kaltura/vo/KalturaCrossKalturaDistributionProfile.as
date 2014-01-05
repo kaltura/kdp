@@ -33,80 +33,80 @@ package com.kaltura.vo
 	public dynamic class KalturaCrossKalturaDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 **/
+		**/
 		public var targetServiceUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var targetAccountId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var targetLoginId : String = null;
 
 		/**
-		 **/
+		**/
 		public var targetLoginPassword : String = null;
 
 		/**
-		 **/
+		**/
 		public var metadataXslt : String = null;
 
 		/**
-		 **/
+		**/
 		public var metadataXpathsTriggerUpdate : Array = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var distributeCaptions : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var distributeCuePoints : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var distributeRemoteFlavorAssetContent : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var distributeRemoteThumbAssetContent : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var distributeRemoteCaptionAssetContent : Boolean;
 
 		/**
-		 **/
+		**/
 		public var mapAccessControlProfileIds : Array = null;
 
 		/**
-		 **/
+		**/
 		public var mapConversionProfileIds : Array = null;
 
 		/**
-		 **/
+		**/
 		public var mapMetadataProfileIds : Array = null;
 
 		/**
-		 **/
+		**/
 		public var mapStorageProfileIds : Array = null;
 
 		/**
-		 **/
+		**/
 		public var mapFlavorParamsIds : Array = null;
 
 		/**
-		 **/
+		**/
 		public var mapThumbParamsIds : Array = null;
 
 		/**
-		 **/
+		**/
 		public var mapCaptionParamsIds : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -139,6 +139,41 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'metadataXpathsTriggerUpdate':
+					result = 'KalturaStringValue';
+					break;
+				case 'mapAccessControlProfileIds':
+					result = 'KalturaKeyValue';
+					break;
+				case 'mapConversionProfileIds':
+					result = 'KalturaKeyValue';
+					break;
+				case 'mapMetadataProfileIds':
+					result = 'KalturaKeyValue';
+					break;
+				case 'mapStorageProfileIds':
+					result = 'KalturaKeyValue';
+					break;
+				case 'mapFlavorParamsIds':
+					result = 'KalturaKeyValue';
+					break;
+				case 'mapThumbParamsIds':
+					result = 'KalturaKeyValue';
+					break;
+				case 'mapCaptionParamsIds':
+					result = 'KalturaKeyValue';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

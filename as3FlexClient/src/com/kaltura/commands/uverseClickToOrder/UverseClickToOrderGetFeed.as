@@ -31,15 +31,15 @@ package com.kaltura.commands.uverseClickToOrder
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class UverseClickToOrderGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param distributionProfileId int
-		 * @param hash String
-		 **/
+		* @param distributionProfileId int
+		* @param hash String
+		**/
 		public function UverseClickToOrderGetFeed( distributionProfileId : int,hash : String )
 		{
 			service= 'uverseclicktoorderdistribution_uverseclicktoorder';

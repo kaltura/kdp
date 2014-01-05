@@ -31,18 +31,18 @@ package com.kaltura.commands.metadata
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update an existing metadata object with new XML content
-	 * 
-	 **/
+	* Update an existing metadata object with new XML content
+	* 
+	**/
 	public class MetadataUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param xmlData String
-		 * @param version int
-		 **/
+		* @param id int
+		* @param xmlData String
+		* @param version int
+		**/
 		public function MetadataUpdate( id : int,xmlData : String = null,version : int=int.MIN_VALUE )
 		{
 			service= 'metadata_metadata';

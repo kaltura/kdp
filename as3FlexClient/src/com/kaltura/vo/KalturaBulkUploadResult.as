@@ -42,7 +42,7 @@ package com.kaltura.vo
 		* The id of the parent job
 		* 
 		**/
-		public var bulkUploadJobId : int = int.MIN_VALUE;
+		public var bulkUploadJobId : Number = Number.NEGATIVE_INFINITY;
 
 		/**
 		* The index of the line in the CSV

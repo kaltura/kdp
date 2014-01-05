@@ -33,78 +33,78 @@ package com.kaltura.vo
 	public dynamic class KalturaFtpDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 * @see com.kaltura.types.KalturaDistributionProtocol
-		 **/
+		* @see com.kaltura.types.KalturaDistributionProtocol
+		**/
 		public var protocol : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var host : String = null;
 
 		/**
-		 **/
+		**/
 		public var port : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var basePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var username : String = null;
 
 		/**
-		 **/
+		**/
 		public var password : String = null;
 
 		/**
-		 **/
+		**/
 		public var passphrase : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpPublicKey : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpPrivateKey : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var disableMetadata : Boolean;
 
 		/**
-		 **/
+		**/
 		public var metadataXslt : String = null;
 
 		/**
-		 **/
+		**/
 		public var metadataFilenameXslt : String = null;
 
 		/**
-		 **/
+		**/
 		public var flavorAssetFilenameXslt : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbnailAssetFilenameXslt : String = null;
 
 		/**
-		 **/
+		**/
 		public var assetFilenameXslt : String = null;
 
 		/**
-		 **/
+		**/
 		public var asperaPublicKey : String = null;
 
 		/**
-		 **/
+		**/
 		public var asperaPrivateKey : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var sendMetadataAfterAssets : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -137,6 +137,17 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			arr.push('protocol');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

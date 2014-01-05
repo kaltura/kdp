@@ -31,16 +31,16 @@ package com.kaltura.commands.externalMedia
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get external media entry by ID.
-	 * 
-	 **/
+	* Get external media entry by ID.
+	* 
+	**/
 	public class ExternalMediaGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function ExternalMediaGet( id : String )
 		{
 			service= 'externalmedia_externalmedia';

@@ -148,6 +148,11 @@ package com.kaltura.vo
 		public var isAdmin : Boolean;
 
 		/**
+		* @see com.kaltura.types.KalturaLanguageCode
+		**/
+		public var language : String = null;
+
+		/**
 		**/
 		public var lastLoginTime : int = int.MIN_VALUE;
 
@@ -213,6 +218,7 @@ package com.kaltura.vo
 			arr.push('firstName');
 			arr.push('lastName');
 			arr.push('isAdmin');
+			arr.push('language');
 			arr.push('roleIds');
 			arr.push('allowedPartnerIds');
 			arr.push('allowedPartnerPackages');

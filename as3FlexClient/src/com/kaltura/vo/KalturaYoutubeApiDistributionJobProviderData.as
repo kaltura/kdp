@@ -33,15 +33,15 @@ package com.kaltura.vo
 	public dynamic class KalturaYoutubeApiDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 **/
+		**/
 		public var videoAssetFilePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbAssetFilePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var captionsInfo : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'captionsInfo':
+					result = 'KalturaYouTubeApiCaptionDistributionInfo';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

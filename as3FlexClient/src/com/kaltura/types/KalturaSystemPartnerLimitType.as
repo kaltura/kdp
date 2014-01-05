@@ -34,6 +34,8 @@ package com.kaltura.types
 		public static const BULK_SIZE : String = 'BULK_SIZE';
 		public static const END_USERS : String = 'END_USERS';
 		public static const ENTRIES : String = 'ENTRIES';
+		public static const LIVE_STREAM_INPUTS : String = 'LIVE_STREAM_INPUTS';
+		public static const LIVE_STREAM_OUTPUTS : String = 'LIVE_STREAM_OUTPUTS';
 		public static const LOGIN_USERS : String = 'LOGIN_USERS';
 		public static const MONTHLY_BANDWIDTH : String = 'MONTHLY_BANDWIDTH';
 		public static const MONTHLY_STORAGE : String = 'MONTHLY_STORAGE';

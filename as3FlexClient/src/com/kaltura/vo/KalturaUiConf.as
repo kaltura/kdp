@@ -162,7 +162,6 @@ package com.kaltura.vo
 			arr.push('swfUrlVersion');
 			arr.push('creationMode');
 			arr.push('html5Url');
-			arr.push('version');
 			arr.push('partnerTags');
 			return arr;
 		}

@@ -33,15 +33,15 @@ package com.kaltura.vo
 	public dynamic class KalturaQuickPlayDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 **/
+		**/
 		public var xml : String = null;
 
 		/**
-		 **/
+		**/
 		public var videoFilePaths : Array = null;
 
 		/**
-		 **/
+		**/
 		public var thumbnailFilePaths : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,23 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'videoFilePaths':
+					result = 'KalturaString';
+					break;
+				case 'thumbnailFilePaths':
+					result = 'KalturaString';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

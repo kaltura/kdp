@@ -31,16 +31,16 @@ package com.kaltura.commands.bulk
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * serveLog action returns the log file for the bulk-upload job.
-	 * 
-	 **/
+	* serveLog action returns the log file for the bulk-upload job.
+	* 
+	**/
 	public class BulkServeLog extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function BulkServeLog( id : int )
 		{
 			service= 'bulkupload_bulk';

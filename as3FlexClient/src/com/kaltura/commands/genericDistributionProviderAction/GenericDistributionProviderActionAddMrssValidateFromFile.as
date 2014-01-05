@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.genericDistributionProviderAction
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.genericDistributionProviderAction.GenericDistributionProviderActionAddMrssValidateFromFileDelegate;
 
 	/**
-	 * Add MRSS validate file to generic distribution provider action
-	 * 
-	 **/
+	* Add MRSS validate file to generic distribution provider action
+	* 
+	**/
 	public class GenericDistributionProviderActionAddMrssValidateFromFile extends KalturaFileCall
 	{
 		public var xsdFile:Object;
 
 		
 		/**
-		 * @param id int
-		 * @param xsdFile Object - FileReference or ByteArray
-		 **/
+		* @param id int
+		* @param xsdFile Object - FileReference or ByteArray
+		**/
 		public function GenericDistributionProviderActionAddMrssValidateFromFile( id : int,xsdFile : Object )
 		{
 			service= 'contentdistribution_genericdistributionprovideraction';

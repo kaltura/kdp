@@ -31,16 +31,16 @@ package com.kaltura.commands.externalMedia
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete a external media entry.
-	 * 
-	 **/
+	* Delete a external media entry.
+	* 
+	**/
 	public class ExternalMediaDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function ExternalMediaDelete( id : String )
 		{
 			service= 'externalmedia_externalmedia';

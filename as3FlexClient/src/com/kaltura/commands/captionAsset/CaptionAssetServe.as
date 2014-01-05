@@ -31,16 +31,16 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves caption by its id
-	 * 
-	 **/
+	* Serves caption by its id
+	* 
+	**/
 	public class CaptionAssetServe extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param captionAssetId String
-		 **/
+		* @param captionAssetId String
+		**/
 		public function CaptionAssetServe( captionAssetId : String )
 		{
 			service= 'caption_captionasset';

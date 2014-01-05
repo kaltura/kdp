@@ -31,16 +31,16 @@ package com.kaltura.commands.annotation
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve an CuePoint object by id
-	 * 
-	 **/
+	* Retrieve an CuePoint object by id
+	* 
+	**/
 	public class AnnotationGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function AnnotationGet( id : String )
 		{
 			service= 'annotation_annotation';

@@ -33,15 +33,15 @@ package com.kaltura.vo
 	public dynamic class KalturaUverseClickToOrderDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 **/
+		**/
 		public var feedUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var backgroundImageWide : String = null;
 
 		/**
-		 **/
+		**/
 		public var backgroundImageStandard : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -58,6 +58,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

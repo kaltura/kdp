@@ -33,24 +33,52 @@ package com.kaltura.vo
 	public dynamic class KalturaYouTubeDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 **/
+		**/
 		public var videoAssetFilePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbAssetFilePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpDirectory : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpMetadataFilename : String = null;
 
 		/**
-		 **/
+		**/
 		public var currentPlaylists : String = null;
+
+		/**
+		**/
+		public var newPlaylists : String = null;
+
+		/**
+		**/
+		public var submitXml : String = null;
+
+		/**
+		**/
+		public var updateXml : String = null;
+
+		/**
+		**/
+		public var deleteXml : String = null;
+
+		/**
+		**/
+		public var googleClientId : String = null;
+
+		/**
+		**/
+		public var googleClientSecret : String = null;
+
+		/**
+		**/
+		public var googleTokenData : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -61,6 +89,13 @@ package com.kaltura.vo
 			arr.push('sftpDirectory');
 			arr.push('sftpMetadataFilename');
 			arr.push('currentPlaylists');
+			arr.push('newPlaylists');
+			arr.push('submitXml');
+			arr.push('updateXml');
+			arr.push('deleteXml');
+			arr.push('googleClientId');
+			arr.push('googleClientSecret');
+			arr.push('googleTokenData');
 			return arr;
 		}
 
@@ -69,6 +104,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

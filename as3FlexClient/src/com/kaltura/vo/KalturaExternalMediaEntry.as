@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaExternalMediaEntry extends KalturaMediaEntry
 	{
 		/**
-		 * The source type of the external media
-		 * 
-		 * @see com.kaltura.types.KalturaExternalMediaSourceType
-		 **/
+		* The source type of the external media
+		* 
+		* @see com.kaltura.types.KalturaExternalMediaSourceType
+		**/
 		public var externalSourceType : String = null;
 
 		/**
-		 * Comma separated asset params ids that exists for this external media entry
-		 * 
-		 **/
+		* Comma separated asset params ids that exists for this external media entry
+		* 
+		**/
 		public var assetParamsIds : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -58,6 +58,17 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			arr.push('externalSourceType');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

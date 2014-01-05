@@ -33,9 +33,9 @@ package com.kaltura.vo
 	public dynamic class KalturaEmailNotificationStaticRecipientJobData extends KalturaEmailNotificationRecipientJobData
 	{
 		/**
-		 * Email to emails and names
-		 * 
-		 **/
+		* Email to emails and names
+		* 
+		**/
 		public var emailRecipients : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +51,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'emailRecipients':
+					result = 'KalturaKeyValue';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

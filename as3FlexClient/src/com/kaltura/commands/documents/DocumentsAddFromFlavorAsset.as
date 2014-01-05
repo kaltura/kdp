@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.documents
 {
-	import com.kaltura.vo.KalturaDocumentEntry;
+		import com.kaltura.vo.KalturaDocumentEntry;
 	import com.kaltura.delegates.documents.DocumentsAddFromFlavorAssetDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Copy flavor asset into new entry
-	 * 
-	 **/
+	* Copy flavor asset into new entry
+	* 
+	**/
 	public class DocumentsAddFromFlavorAsset extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param sourceFlavorAssetId String
-		 * @param documentEntry KalturaDocumentEntry
-		 **/
+		* @param sourceFlavorAssetId String
+		* @param documentEntry KalturaDocumentEntry
+		**/
 		public function DocumentsAddFromFlavorAsset( sourceFlavorAssetId : String,documentEntry : KalturaDocumentEntry=null )
 		{
 			service= 'document_documents';
@@ -53,11 +53,11 @@ package com.kaltura.commands.documents
 			var keyValArr : Array = new Array();
 			keyArr.push('sourceFlavorAssetId');
 			valueArr.push(sourceFlavorAssetId);
- 			if (documentEntry) { 
- 			keyValArr = kalturaObject2Arrays(documentEntry, 'documentEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (documentEntry) { 
+				keyValArr = kalturaObject2Arrays(documentEntry, 'documentEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

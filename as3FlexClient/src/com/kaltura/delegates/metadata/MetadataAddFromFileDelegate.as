@@ -77,8 +77,8 @@ package com.kaltura.delegates.metadata
 				var urlRequest:URLRequest = new URLRequest(req);
 				((call as MetadataAddFromFile).xmlFile as FileReference).upload(urlRequest,"xmlFile");
 			}
-			else{
-				mrloader.addFile(((call as MetadataAddFromFile).xmlFile as ByteArray), UIDUtil.createUID(), 'xmlFile');	
+			else {
+				mrloader.addFile(((call as MetadataAddFromFile).xmlFile as ByteArray), UIDUtil.createUID(), 'xmlFile'); 
 				mrloader.dataFormat = URLLoaderDataFormat.TEXT;
 				mrloader.load(req);
 			}
@@ -86,19 +86,19 @@ package com.kaltura.delegates.metadata
 
 		// Event Handlers
 		override protected function onDataComplete(event:Event):void {
-			try{
+			try {
 				if ((call as MetadataAddFromFile).xmlFile is FileReference) {
 					handleResult( XML(event["data"]) );
 				}
 				else {
 					handleResult( XML(event.target.loader.data) );
-				}
+ 				}
 			}
-			catch( e:Error ){
-				var kErr : KalturaError = new KalturaError();
-				kErr.errorCode = String(e.errorID);
-				kErr.errorMsg = e.message;
-				_call.handleError( kErr );
+ 			catch( e:Error ){
+ 				var kErr : KalturaError = new KalturaError();
+ 				kErr.errorCode = String(e.errorID);
+ 				kErr.errorMsg = e.message;
+ 				_call.handleError( kErr );
 			}
 		}
 

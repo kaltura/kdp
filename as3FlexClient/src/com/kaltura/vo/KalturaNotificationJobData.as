@@ -33,42 +33,42 @@ package com.kaltura.vo
 	public dynamic class KalturaNotificationJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var userId : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaNotificationType
-		 **/
+		* @see com.kaltura.types.KalturaNotificationType
+		**/
 		public var type : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var typeAsString : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectId : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaNotificationStatus
-		 **/
+		* @see com.kaltura.types.KalturaNotificationStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var data : String = null;
 
 		/**
-		 **/
+		**/
 		public var numberOfAttempts : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var notificationResult : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaNotificationObjectType
-		 **/
+		* @see com.kaltura.types.KalturaNotificationObjectType
+		**/
 		public var objType : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -92,6 +92,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

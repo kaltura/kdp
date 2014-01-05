@@ -33,11 +33,11 @@ package com.kaltura.vo
 	public dynamic class KalturaDistributionFetchReportJobData extends KalturaDistributionJobData
 	{
 		/**
-		 **/
+		**/
 		public var plays : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var views : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -54,6 +54,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }
