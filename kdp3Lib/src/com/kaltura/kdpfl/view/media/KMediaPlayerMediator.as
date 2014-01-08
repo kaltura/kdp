@@ -178,6 +178,8 @@ package com.kaltura.kdpfl.view.media
 		 * */
 		private var _liveDurationSet:Boolean = false;
 		
+		private var _liveDuration:Number = 0;
+		
 		/**
 		 * Constructor 
 		 * @param name
@@ -688,7 +690,7 @@ package com.kaltura.kdpfl.view.media
 					if (_mediaProxy.vo.isLive && _mediaProxy.vo.canSeek)
 					{
 						if (_hasPlayed && _inDvr)
-							sendNotification(NotificationType.DO_SEEK, _duration);
+							sendNotification(NotificationType.DO_SEEK, _liveDuration);
 						
 						sendNotification(NotificationType.DO_PLAY);
 					}
@@ -1441,7 +1443,12 @@ package com.kaltura.kdpfl.view.media
 						}
 							
 					} else {
-						_duration = Math.max(dvrWinSize, event.time);
+						_liveDuration = event.time; //save last actual duration of live+dvr
+						var newDuration:Number = Math.max(dvrWinSize, event.time);
+						if ( newDuration == _duration ) {
+							return; //avoid multiple durationChange events with the same value
+						}
+						_duration = newDuration;
 					}	
 				}
 				else
