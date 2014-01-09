@@ -769,6 +769,7 @@ package org.osmf.vpaid.elements
 			{
 				trace("[VPAID] Error: " + message);
 			}
+			_vpaidMetadata.addValue(VPAIDMetadata.ERROR, VPAIDMetadata.ERROR); 
 			cleanUp();
 		}
 		
