@@ -888,10 +888,10 @@ package com.kaltura.kdpfl.view.media
 				else
 				{
 					_changeMediaOccur = false;
-					player.addEventListener(MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE,function(event:Event):void
+					player.addEventListener(MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE,function(event:MediaPlayerCapabilityChangeEvent):void
 					{
 						
-						if (!_changeMediaOccur)
+						if (!_changeMediaOccur && event.enabled)
 						{
 							sendNotification(NotificationType.DO_PLAY);
 						}
