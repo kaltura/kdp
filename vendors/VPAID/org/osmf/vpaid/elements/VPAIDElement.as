@@ -207,8 +207,8 @@ package org.osmf.vpaid.elements
 				_timeTrait.addEventListener(TimeEvent.COMPLETE, onTimerChange);
 				_timeTrait.addEventListener(TimeEvent.DURATION_CHANGE, onTimerChange);			
 			}
-			
-			_vpaid.initVPAID(getDimensions().width,getDimensions().height,"normal", 500, "", "");
+			var creativeData:String = _vpaidMetadata.getValue("adParameters");
+			_vpaid.initVPAID(getDimensions().width,getDimensions().height,"normal", 500, creativeData, "");
 	        
 		}
 		

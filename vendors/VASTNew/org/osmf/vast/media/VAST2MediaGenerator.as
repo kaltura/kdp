@@ -206,7 +206,14 @@ package org.osmf.vast.media
 							rootElement = new VPAIDElement(new URLResource(mediaFile.url), new SWFLoader(),mediaFile.width,mediaFile.height);
 						}
 						VPAIDMetadata(rootElement.getMetadata("org.osmf.vpaid.metadata.VPAIDMetadata")).addValue(VPAIDMetadata.NON_LINEAR_CREATIVE, false);
+						if ( vastDocument.vastParser._InLine &&
+							vastDocument.vastParser._InLine.Creatives &&
+							vastDocument.vastParser._InLine.Creatives.length &&
+							vastDocument.vastParser._InLine.Creatives[0].Linear)
+						{	
+							VPAIDMetadata(rootElement.getMetadata("org.osmf.vpaid.metadata.VPAIDMetadata")).addValue("adParameters", vastDocument.vastParser._InLine.Creatives[0].Linear.AdParameters);
 
+						}
 					}
 					else 
 					{
