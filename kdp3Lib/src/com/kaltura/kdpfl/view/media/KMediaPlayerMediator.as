@@ -781,7 +781,7 @@ package com.kaltura.kdpfl.view.media
 		
 		
 		private function onDoPlay():void
-		{						trace("my controlADPlayback value  xxx:::::: 	"+_flashvars.controlAdPlayback);
+		{						
 			if (_mediaProxy.vo.isLive)
 			{
 				if (_mediaProxy.vo.isOffline)
@@ -806,7 +806,7 @@ package com.kaltura.kdpfl.view.media
 				_sequenceProxy.playNextInSequence();
 				return;
 			}
-			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media && _flashvars.controlAdPlayback != "true")
+			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media && _flashvars.allowUserPauseAds != "true")
 			{
 
 				if (_mediaProxy.vo.preferedFlavorBR && !isAkamaiHD())
