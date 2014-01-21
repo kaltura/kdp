@@ -793,7 +793,7 @@ package com.kaltura.kdpfl.view.media
 		
 		
 		private function onDoPlay():void
-		{		
+		{						
 			if (_mediaProxy.vo.isLive)
 			{
 				if (_mediaProxy.vo.isOffline)
@@ -818,14 +818,16 @@ package com.kaltura.kdpfl.view.media
 				_sequenceProxy.playNextInSequence();
 				return;
 			}
-			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media)
+			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media && _flashvars.allowUserPauseAds != "true")
 			{
+
 				if (_mediaProxy.vo.preferedFlavorBR && !isAkamaiHD())
 				{
 					_mediaProxy.vo.switchDue = true; //TODO: CHECK do we still need it?
 				}
 				_mediaProxy.loadWithMediaReady();
 				return;
+				
 			}
 			else if(_mediaProxy.vo.entry is KalturaMixEntry && 
 				player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["isReadyForLoad"] &&
