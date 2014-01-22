@@ -782,6 +782,9 @@ package com.kaltura.kdpfl.view.media
 		
 		private function onDoPlay():void
 		{						
+			var allowUserPauseAds:Boolean	= (_flashvars.allowUserPauseAds == "true");
+			var adPlaying:Boolean			= _sequenceProxy.vo.isInSequence;
+
 			if (_mediaProxy.vo.isLive)
 			{
 				if (_mediaProxy.vo.isOffline)
@@ -805,8 +808,12 @@ package com.kaltura.kdpfl.view.media
 				_sequenceProxy.vo.isInSequence = true;
 				_sequenceProxy.playNextInSequence();
 				return;
+				//allow user to play/pause ads
+			}else if(allowUserPauseAds && adPlaying &&player.canPlay){
+				playContent();
+				return;
 			}
-			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media && _flashvars.allowUserPauseAds != "true")
+			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media)
 			{
 
 				if (_mediaProxy.vo.preferedFlavorBR && !isAkamaiHD())
