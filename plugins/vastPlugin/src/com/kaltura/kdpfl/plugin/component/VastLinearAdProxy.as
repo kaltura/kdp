@@ -5,9 +5,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
-	import com.kaltura.kdpfl.view.RootMediator;
 	import com.kaltura.kdpfl.view.containers.KCanvas;
-	import com.kaltura.osmf.events.KSwitchingProxyEvent;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	
 	import flash.display.Loader;
@@ -397,6 +395,7 @@ package com.kaltura.kdpfl.plugin.component {
 						removeClickThrough();
 						if (event.key == "adUserClose")
 							trackEvent("trkCloseLinearEvent");
+						sendNotification("doPause");
 						sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
 						
 						sendNotification("sequenceItemPlayEnd");
