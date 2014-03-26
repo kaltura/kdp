@@ -315,9 +315,15 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 					break;
 			}
 			
-			
 			var gaCategory:String	= customObject["Category"] || defaultCategory;
-			var	gaLabel:String		= customObject["Label"] || ((entry.name || _mediaTitle)+" | "+entry.id+" | "+kw.id);
+			var	gaLabel:String;
+			var refIdStr:String = "";
+			if(_plugin.sendRefId && entry.referenceId){
+				refIdStr = entry.referenceId;
+				if (refIdStr)
+					refIdStr = " | " +  refIdStr;
+			} 
+			gaLabel = customObject["Label"] || ( (entry.name || _mediaTitle)+" | "+entry.id+" | "+kw.id + refIdStr);
 			var	gaAction:String		= customObject["Action"] || note;
 			var	gaValue:Number		= customObject["Value"] || value;
 			log("SENDING ::: "+notification.getName() +" | "+shouldPublish);	
