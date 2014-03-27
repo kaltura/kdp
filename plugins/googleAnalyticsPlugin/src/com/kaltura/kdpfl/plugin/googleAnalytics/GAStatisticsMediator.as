@@ -321,9 +321,9 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 			if(_plugin.sendRefId && entry.referenceId){
 				refIdStr = entry.referenceId;
 				if (refIdStr)
-					refIdStr = " | " +  refIdStr;
+					refIdStr = refIdStr + " | ";
 			} 
-			gaLabel = customObject["Label"] || ( (entry.name || _mediaTitle)+" | "+entry.id+" | "+kw.id + refIdStr);
+			gaLabel = customObject["Label"] || ( refIdStr + (entry.name || _mediaTitle)+" | "+entry.id+" | "+kw.id );
 			var	gaAction:String		= customObject["Action"] || note;
 			var	gaValue:Number		= customObject["Value"] || value;
 			log("SENDING ::: "+notification.getName() +" | "+shouldPublish);	
