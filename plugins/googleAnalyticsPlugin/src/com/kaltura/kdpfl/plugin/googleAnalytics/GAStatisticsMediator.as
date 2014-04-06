@@ -72,6 +72,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 		public var urchinCode : String;
 		
 		public var defaultCategory:String;
+		private var _isLive:Boolean = false;
 		/**
 		 *Constructor. 
 		 * @param urchin_code		The google analytics tracking code.
@@ -120,6 +121,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 			kse.widgetId = config["vo"]["flashvars"].id;
             kse.uiconfId = config["vo"].flashvars.uiConfId;
             kse.entryId =  (facade.retrieveProxy("mediaProxy"))["vo"].entry.id;
+			_isLive = (facade.retrieveProxy("mediaProxy"))["vo"]["isLive"];
  		    kse.clientVer = "3.0:" + facade["kdpVersion"];
             var dt:Date = new Date();
             kse.eventTimestamp = dt.time + dt.timezoneOffset-dt.timezoneOffset*60000; // milisec UTC + users timezone offset
@@ -334,6 +336,9 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 			 * 
 			 */
 			function percentStatsChanged(currPosition:Number):void {
+				if ( _isLive ) 
+					return;
+				
 				if (_nextCuePoint==-1)
 				{
 					if(_percentages.length == 0 || (_duration - currPosition) < 3 )
