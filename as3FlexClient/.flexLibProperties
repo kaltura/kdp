@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="1">
   <includeClasses>
     <classEntry path="com.kaltura.KalturaClient"/>
     <classEntry path="com.kaltura.commands.EmailIngestionProfile.EmailIngestionProfileAdd"/>

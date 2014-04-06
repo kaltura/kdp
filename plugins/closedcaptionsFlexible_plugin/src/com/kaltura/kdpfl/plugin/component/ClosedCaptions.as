@@ -376,19 +376,21 @@ package com.kaltura.kdpfl.plugin.component
 							
 							currLine.text += " " + textToAdd;
 						}
+						
+						if ( !paragraph.attribute("style").length() && body.attribute("style").length() ) {
+							paragraph.@["style"] = body.attribute("style")[0].toString();
+						}
 						if (paragraph.attribute("style").length() )
 						{
-							currLine.textFormat = stylingObject[paragraph.attribute ("style") [0].toString ()]["tf"];
-							
-							currLine.backgroundColor = stylingObject[paragraph.attribute ("style") [0].toString ()]["backgroundColor"];
-							
-							currLine.showBGColor = stylingObject[paragraph.attribute ("style") [0].toString ()]["showBGColor"];
+							var curStyle:Object = stylingObject[paragraph.attribute("style")[0].toString()];
+							currLine.textFormat = curStyle.tf;					
+							currLine.backgroundColor = curStyle.backgroundColor;
+							currLine.showBGColor = curStyle.showBGColor;
 							
 						}
 						else
 						{
-							currLine.textFormat = new TextFormat (defaultFontFamily, defaultFontSize, defaultFontColor, null, null, null, null, null, "center");
-							
+							currLine.textFormat = new TextFormat (defaultFontFamily, defaultFontSize, defaultFontColor, null, null, null, null, null, "center");					
 							currLine.showBGColor = false;
 						}
 						
@@ -432,17 +434,44 @@ package com.kaltura.kdpfl.plugin.component
 			return tf;	
 			
 		}
+		private function translateToColor(c:String):String
+		{
+			
+			switch(c){
+				
+				case "black" : return "0x000000";
+				case "silver" : return "0xc0c0c0";
+				case "gray" : return "0x808080";
+				case "white" : return "0xffffff";
+				case "maroon" : return "0x800000";
+				case "red" : return "0xff0000";
+				case "purple" : return "0x800080";
+				case "fuchsia" : return "0xff00ff";
+				case "magenta" : return "0xff00ff";
+				case "green" : return "0x008000";
+				case "lime" : return "0x00ff00";
+				case "olive" : return "0x808000";
+				case "yellow" : return "0xffff00";
+				case "navy" : return "0x000080";
+				case "blue" : return "0x0000ff";
+				case "teal" : return "0x008080";
+				case "aqua" : return "0x00ffff";
+				case "cyan" : return "0x00ffff";
+			}
+			return c;
+		}
 		
 		private function xmlToBGColor(style : XML) : Number
 		{
-			var bgColor : Number = style.@xmlns_tts::backgroundColor.length() ? Number(style.@xmlns_tts::backgroundColor[0].toString().replace("#", "0x")) : 0x000000;
-			return bgColor;
-			
-			
-			
-			
-			
-			
+			var bgColor:String;
+			if(style.@xmlns_tts::backgroundColor.length())
+			{
+				bgColor = style.@xmlns_tts::backgroundColor[0].toString().replace("#", "0x");
+				//fix color names value 
+				bgColor = translateToColor(bgColor);
+			} else
+				bgColor = "0";
+			return Number(bgColor);		
 		}
 		
 		private function shouldShowBGColor (style : XML) : Boolean			
@@ -596,14 +625,14 @@ package com.kaltura.kdpfl.plugin.component
 			
 			if (defaultGlowFilter && !ccLine.showBGColor)
 			{
-				_label.filters = [defaultGlowFilter];
-				_label.background = false;
+				caption.filters = [defaultGlowFilter];
+				caption.background = false;
 			}
 			else
 			{
-				_label.filters = [];
-				_label.background = true;
-				_label.backgroundColor = ccLine.backgroundColor;
+				caption.filters = [];
+				caption.background = true;
+				caption.backgroundColor = ccLine.backgroundColor;
 			}
 			caption.x = x;
 			caption.y = y;

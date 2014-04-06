@@ -45,6 +45,7 @@ package com.kaltura.kdpfl.plugin.component
 		private var _embeddedCaptionsId : String;
 		
 		private var _mediaProxy : MediaProxy;
+		private var _hideClosedCaptions:Boolean  = false;
 		private var _sortAlphabetically:Boolean;
 		
 		public function ClosedCaptionsMediator (closedCaptionsDefs:closedCaptionsPluginCode , viewComponent:Object=null , sortAlphabetically:Boolean=false)
@@ -52,6 +53,17 @@ package com.kaltura.kdpfl.plugin.component
 			super(NAME, viewComponent);
 			_sortAlphabetically = sortAlphabetically
 			_closedCaptionsDefs = closedCaptionsDefs;
+		}
+		
+		public function get hideClosedCaptions():Boolean
+		{
+			return _hideClosedCaptions;
+		}
+		
+		public function set hideClosedCaptions(value:Boolean):void
+		{
+			_hideClosedCaptions = value;
+			(viewComponent as ClosedCaptions).visible = !_hideClosedCaptions;
 		}
 		
 		override public function listNotificationInterests():Array
@@ -109,7 +121,7 @@ package com.kaltura.kdpfl.plugin.component
 				case "changedClosedCaptions":
 				{
 					
-					(view as ClosedCaptions).visible=true
+					(view as ClosedCaptions).visible= !hideClosedCaptions;
 					var config: Object =  facade.retrieveProxy(ConfigProxy.NAME);
 					_flashvars = config.getData().flashvars;
 					
@@ -172,13 +184,13 @@ package com.kaltura.kdpfl.plugin.component
 				break;
 				
 				case ClosedCaptionsNotifications.SHOW_HIDE_CLOSED_CAPTIONS:
-					(view as ClosedCaptions).visible = !(view as ClosedCaptions).visible;
+					hideClosedCaptions = !hideClosedCaptions;
 					break;
 				case ClosedCaptionsNotifications.SHOW_CLOSED_CAPTIONS:
-					(view as ClosedCaptions).visible = true;
+					hideClosedCaptions = false;
 					break;
 				case ClosedCaptionsNotifications.HIDE_CLOSED_CAPTIONS:
-					(view as ClosedCaptions).visible = false;
+					hideClosedCaptions = true;
 					break;
 				case "closedCaptionsSelected":
 					var currentLabel : String = note.getBody().label;
@@ -191,7 +203,7 @@ package com.kaltura.kdpfl.plugin.component
 					}
 					else
 					{
-						(viewComponent as ClosedCaptions).visible = true;
+						(viewComponent as ClosedCaptions).visible = !hideClosedCaptions;
 					}
 					
 					for each (var ccObj : KalturaCaptionAsset in _closedCaptionsDefs.availableCCFiles)
