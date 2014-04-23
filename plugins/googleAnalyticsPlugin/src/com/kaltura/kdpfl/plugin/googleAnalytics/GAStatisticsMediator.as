@@ -315,12 +315,18 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 					break;
 			}
 			
-			
 			var gaCategory:String	= customObject["Category"] || defaultCategory;
-			var	gaLabel:String		= customObject["Label"] || ((entry.name || _mediaTitle)+" | "+entry.id+" | "+kw.id);
+			var	gaLabel:String;
+			var refIdStr:String = "";
+			if(_plugin.sendRefId && entry.referenceId){
+				refIdStr = entry.referenceId;
+				if (refIdStr)
+					refIdStr = refIdStr + "|";
+			} 
+			gaLabel = customObject["Label"] || ( refIdStr + (entry.name || _mediaTitle)+"|"+entry.id+"|"+kw.id );
 			var	gaAction:String		= customObject["Action"] || note;
 			var	gaValue:Number		= customObject["Value"] || value;
-			log("SENDING ::: "+notification.getName() +" | "+shouldPublish);	
+			log("SENDING ::: "+notification.getName() +"|"+shouldPublish);	
 			if(shouldPublish){
 				publishGa(gaCategory, gaAction, gaLabel, gaValue);
 			}
@@ -366,8 +372,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 						{
 							if(currPosition ) 
 							{
-								publishGa (defaultCategory, _percentages[s][1]+"_pct_watched",  entry.name +" | "+entry.id+" | "+kw.id, Math.round(_currentTime))
-								trace("PERCENTAGE REACHED!!!!!!			"+_percentages[s][1]);
+								publishGa (defaultCategory, _percentages[s][1]+"_pct_watched",  entry.name +"|"+entry.id+"|"+kw.id, Math.round(_currentTime))
 								if(_percentages.length == s+1)
 								{
 									_percentages.splice(s,1);
@@ -478,7 +483,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 			}
 			
 			log ("GA tracking************************: "+_ga+" : "+value);
-			log ("GA tracking************************: "+category+" | "+ action+" | "+ label+" | "+ value);
+			log ("GA tracking************************: "+category+"|"+ action+"|"+ label+"|"+ value);
 		}
 		
 		private function log(str:String):void{
