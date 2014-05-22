@@ -71,7 +71,7 @@ package com.kaltura.kdpfl.plugin.googleAnalytics
 		 */		
 		public var urchinCode : String;
 		
-		public var defaultCategory:String;
+		public var defaultCategory:String = 'Kaltura Video Events';
 		private var _isLive:Boolean = false;
 		/**
 		 *Constructor. 
