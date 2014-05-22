@@ -23,10 +23,21 @@ package {
 		private var _urchinCode:String; 
 		
 		private var _readyToSet:Boolean = false;
+		private var _sendRefId:Boolean = false;
 		private var _eventTimeLapse:Number	= 1000;
 		//1000 represents = 1sec. 
 		//number of seconds that should pass before an event is considered new. 
 		//this is used to avoid duplicate beacons on events that occur immediately after another. 
+		[Binding]
+		public function get sendRefId():Boolean
+		{
+			return _sendRefId;
+		}
+
+		public function set sendRefId(value:Boolean):void
+		{
+			_sendRefId = value;
+		}
 
 		[Binding]
 		public function get urchinCode():String
@@ -39,7 +50,7 @@ package {
 			_urchinCode = value;
 			if (_readyToSet)
 			{
-				_statisticsMediator.setupGa(urchinCode);
+				_statisticsMediator.setupGa(urchinCode );
 				_readyToSet = false;
 			}
 		}
