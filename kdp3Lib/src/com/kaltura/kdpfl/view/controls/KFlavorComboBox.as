@@ -482,8 +482,12 @@ package com.kaltura.kdpfl.view.controls
 		{
 			_streamerType = value;
 			//we check if this is RTMP so we need to add the auto mode
-			_isRtmp = (_streamerType == StreamerType.RTMP || _streamerType == StreamerType.LIVE) ? true : false;
-			_isHttpStreaming = (_streamerType == StreamerType.HDNETWORK || _streamerType == StreamerType.HDNETWORK_HDS || _streamerType == StreamerType.HDS) ;
+			_isRtmp = (_streamerType == StreamerType.RTMP
+				|| _streamerType == StreamerType.RTMFP
+				|| _streamerType == StreamerType.LIVE) ? true : false;
+			_isHttpStreaming = (_streamerType == StreamerType.HDNETWORK 
+				|| _streamerType == StreamerType.HDNETWORK_HDS 
+				|| _streamerType == StreamerType.HDS) ;
 		}
 		/**
 		 * 

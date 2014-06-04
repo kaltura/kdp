@@ -30,5 +30,9 @@ package com.kaltura.kdpfl.model.type
 		 * StreamerType HDS represents media that is being http-dynamic-streamed.
 		 */		
 		public static const HDS : String = "hds";
+		 /** 
+		  * StreamerType RTMFP represents media that is streamed via AMS multicast.					 
+		  */		
+		public static const RTMFP : String = "rtmfp";
 	}
 }
