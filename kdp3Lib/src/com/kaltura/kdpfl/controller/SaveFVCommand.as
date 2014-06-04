@@ -63,8 +63,14 @@ package com.kaltura.kdpfl.controller
 			}
 			
 			// if mediaProtocol wasnt specified implicitly and we are using http delivery use the httpProtcol
-			if (!flashvars.mediaProtocol && flashvars.streamerType != StreamerType.RTMP && flashvars.streamerType != StreamerType.LIVE)
+			if (!flashvars.mediaProtocol 
+							&& flashvars.streamerType != StreamerType.RTMP 
+							&& flashvars.streamerType != StreamerType.RTMFP 
+							&& flashvars.streamerType != StreamerType.LIVE)	
+			{
+				
 				flashvars.mediaProtocol = flashvars.httpProtocol;
+			}
 			
 			
 			if (flashvars.httpProtocol.indexOf("://") == -1)
