@@ -24,6 +24,7 @@ package com.kaltura.kdpfl.controller.media
 	import org.osmf.media.MediaPlayer;
 	import org.osmf.media.URLResource;
 	import org.osmf.net.FMSURL;
+	import org.osmf.net.MulticastResource;
 	import org.osmf.net.NetClient;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -56,6 +57,8 @@ package com.kaltura.kdpfl.controller.media
 		private var _mediaProxy:MediaProxy;	
 		private var _kc:KalturaClient;
 		private var _player:MediaPlayer;
+		private var _isRtmfp:Boolean
+		private var _rtmfpObj:Object;
 			
 		/**
 		 * indicates previous result from "isLive" API 
@@ -191,8 +194,21 @@ package com.kaltura.kdpfl.controller.media
 		{
 			var manifest : XML = new XML((e.target as URLLoader).data);
 			_baseUrl = manifest.xmlns::baseURL.text();
+
 			var children : XMLList = manifest.xmlns::media;
 			_entryUrl = children[0].@url;
+			
+			//support manifest that has no baseUrl and rtmfp
+			if(!_baseUrl && _entryUrl == "rtmfp:"){
+				_baseUrl = "rtmfp:"
+				_isRtmfp = true;
+				_rtmfpObj = new Object();
+				_rtmfpObj.groupspec = String(children[0].@groupspec);
+				_rtmfpObj.multicastStreamName = String(children[0].@multicastStreamName);
+				
+			}
+			
+			
 			createConnection();
 		}
 		/**
@@ -219,16 +235,25 @@ package com.kaltura.kdpfl.controller.media
 			//If the client has successfully connected to the FMS, create a new net stream connected to the specific stream
 			if(msg == "NetConnection.Connect.Success"){
 				var video : Video = new Video();
-				_netStream = new NetStream(e.target as NetConnection);
-				//_netStream.receiveAudio(false);
-				_netStream.soundTransform = new SoundTransform (0);
-				_netStream.client = new CustomClient();
-				//_netStream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
-				video.attachNetStream(_netStream);
-				_netStream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler );
-				_netStream.play(_entryUrl);
-				
-				
+				if(_isRtmfp){
+					var video : Video = new Video();
+					//var resource:MulticastResource = new MulticastResource("rtmfp:","G:0101210513d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c010d160e666d732e6d756c7469636173742e6578616d706c6500070aef0102037530");
+					var resource:MulticastResource = new MulticastResource(_baseUrl,_rtmfpObj.groupspec);
+					var _netStream:NetStream = new NetStream(_nc, resource.groupspec);
+					_netStream.soundTransform = new SoundTransform (0);
+					video.attachNetStream(_netStream);
+					_netStream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler );
+					_netStream.play(_rtmfpObj.multicastStreamName);
+				}else{
+					_netStream = new NetStream(e.target as NetConnection);
+					//_netStream.receiveAudio(false);
+					_netStream.soundTransform = new SoundTransform (0);
+					_netStream.client = new CustomClient();
+					//_netStream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+					video.attachNetStream(_netStream);
+					_netStream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler );
+					_netStream.play(_entryUrl);
+				}
 			}
 		}
 		/**
@@ -238,6 +263,11 @@ package com.kaltura.kdpfl.controller.media
 		 */		
 		private function netStatusHandler (e:NetStatusEvent) : void
 		{
+			
+			if (!_netStream && _isRtmfp){
+				_netStream = e.currentTarget as NetStream;
+			}
+			
 			if(e.info.code == "NetStream.Play.Start")
 			{
 				_netStream.soundTransform.volume = 0;
