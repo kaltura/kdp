@@ -11,7 +11,8 @@ plugins/*/build-release/*
 plugins/*/bin-release/*
 vendors/*/bin/*
 *.prefs
-
+.DS_Store
+*.DS_Store
 ####################
 # Flash builder files #
 ###################

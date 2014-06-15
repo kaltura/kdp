@@ -6,7 +6,7 @@
 	 <!--property name="FLEX_HOME" value="/Applications/Adobe Flash Builder 4.6/sdks/4.6.0" /-->
 	 <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 
-	<property name="v_kdp" value="3.9.7"/>
+	<property name="v_kdp" value="v3.9.9"/>
     <property name="src" value="src"/>  
     <property name="build" value="build-release"/>
      
@@ -17,7 +17,7 @@
 	
 	<target name="build">
 		<length property="length" mode="each">
-     		 <fileset dir="../KDP3/3.9.7/plugins" >
+     		 <fileset dir="../KDP3/v3.9.9/plugins" >
 			<include name="**/*.swf"/>
 		   </fileset>
 	   </length>
