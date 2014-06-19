@@ -81,6 +81,8 @@ package
 				_loader.addEventListener(Event.COMPLETE, goodResponce);
 				_loader.addEventListener(IOErrorEvent.IO_ERROR, badResponce);
 				_loader.load(urlReq);
+			} else {
+				_hitReady = true;
 			}
 			
 			var mediator:akamaiHDMediator = new akamaiHDMediator();
