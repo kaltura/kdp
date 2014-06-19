@@ -3,13 +3,17 @@
     <VBox id="player" width="100%" height="100%" styleName="black">
       <Plugin id="kalturaMix" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand"/>
       <Plugin id="statistics" width="0%" height="0%" includeInLayout="false"/>
+      <!--  Plugin id="smartstream" width="0%" height="0%" includeInLayout="false"/-->
+      
+      
+      <Plugin id="akamaiHD" width="0%" height="0%" includeInLayout="false" loadingPolicy="preInitialize" asyncInit="true" hitUrl="http://localhost/a/hit.txt"/>
+      
       <Plugin id="akamaiMediaAnalytics" width="0%" height="0%" includeInLayout="false" asyncInit="true" 
 		      swfPath="http://79423.analytics.edgesuite.net/csma/plugin/csma.swf" 
 		      configPath="http://ma193-r.analytics.edgesuite.net/config/beacon-3431.xml"
 			  securedSwfPath="https://79423.analytics.edgekey.net/csma/plugin/csma.swf"
 			  securedConfigPath="https://ma193-r.analytics.edgekey.net/config/beacon-3900.xml"/> 
 			  
-      <Plugin id="relatedEntries" width="0%" height="0%" sourceType="automatic" autoPlayDelay="10" autoPlay="true" automaticPlaylistId="_KDP_CTXPL" entryId="{mediaProxy.entry.id}"/>
       
 	  <Canvas height="100%" width="100%" id="PlayerHolder" styleName="black">
         <Video id="video" width="100%" height="100%"/>
@@ -26,50 +30,7 @@
 			     	<Spacer height="100%" />
 		    	</VBox>
         <Screens id="screensLayer" width="100%" height="100%" mouseOverTarget="{PlayerHolder}" styleName="clickThrough" startScreenId="startScreen" startScreenOverId="startScreen" pauseScreenOverId="pauseScreen" pauseScreenId="pauseScreen" playScreenOverId="playScreen" endScreenId="endScreen" endScreenOverId="endScreen"/>
-		<VBox id="relatedViewVBox" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%" visible="{relatedView.visible}" includeInLayout="{relatedView.visible}" verticalGap="10" styleName="black">
-          <VBox id="relatedVBox" width="100%" height="100%" maxWidth="800" maxHeight="600" paddingLeft="13" paddingRight="13" styleName="black" verticalAlign="bottom">
-            <HBox id="upNextHbox" width="100%" height="35" paddingTop="10" horizontalGap="0" visible="{not(layoutProxy.isInFullScreen)}" includeInLayout="{not(layoutProxy.isInFullScreen)}">
-              <Label id="upNextLabel" visible="{relatedEntries.autoPlay}" text="Up next in {relatedEntries.timeRemaining} secs" width="115" height="20" styleName="Related_Text_UpNext"/>
-              <HBox id="pauseConteinueHBox" width="63" height="20" visible="{relatedEntries.autoPlay}" paddingLeft="0" verticalAlign="middle" >
-                <Button id="pauseRelatedBtn" width="30" height="20" label="Pause" visible="{relatedEntries.isTimerRunning}" includeInLayout="{relatedEntries.isTimerRunning}" kClick="sendNotification('pauseResumeRelatedTimer')" buttonType="labelButton"  color1="0xCECECE" color2="0xFFFFFF" />
-                <Button id="playRelatedBtn" width="63" height="20" visible="{not(relatedEntries.isTimerRunning)}" includeInLayout="{not(relatedEntries.isTimerRunning)}" label="Continue" kClick="sendNotification('pauseResumeRelatedTimer')" buttonType="labelButton" color1="0xCECECE" color2="0xFFFFFF" />
-              </HBox>
-              
-              <HBox id="actionsHBox" width="100%" height="35" horizontalAlign="right" horizontalGap="5">
-                <Button id="replayOnRelatedScreen" kClick="sendNotification('doSeek','0');sendNotification('doPlay')" label="Replay" labelPlacement="right" textPadding="5" minWidth="80" visible="{relatedView.showReplayBtn}"
-                  icon="replayIcon_Up" upIcon="replayIcon_Up" overIcon="replayIcon_Hover" downIcon="replayIcon_Down" disabeledIcon="replayIcon_Disabled"/>
-                <Button id="shareOnRelatedWithAutoPlay" visible="{and(relatedEntries.autoPlay,relatedEntries.isTimerRunning)}" includeInLayout="{shareOnRelatedWithAutoPlay.visible}" kClick="sendNotification ('pauseResumeRelatedTimer');sendNotification('showAdvancedShare')" textPadding="5" label="Share" labelPlacement="right" minWidth="80"
-                  icon="shareIcon_Up" upIcon="shareIcon_Up" overIcon="shareIcon_Hover" downIcon="shareIcon_Down" disabeledIcon="shareIcon_Disabled"/>
-                <Button id="shareOnRelated" visible="{not(shareOnRelatedWithAutoPlay.visible)}" includeInLayout="{shareOnRelated.visible}" kClick="sendNotification('showAdvancedShare')" label="Share" textPadding="5" labelPlacement="right" minWidth="80"
-                  icon="shareIcon_Up" upIcon="shareIcon_Up" overIcon="shareIcon_Hover" downIcon="shareIcon_Down" disabeledIcon="shareIcon_Disabled"/>
-              </HBox>
-            </HBox>
 
-            <!-- different styles when in full screen -->
-            <HBox id="upNextHboxFS" width="100%" height="50" paddingTop="10" horizontalGap="0" visible="{layoutProxy.isInFullScreen}" includeInLayout="{layoutProxy.isInFullScreen}">
-              <Label id="upNextLabelFS" visible="{relatedEntries.autoPlay}" text="Up next in {relatedEntries.timeRemaining} secs" width="135" height="20" styleName="RelatedFS_Text_UpNext"/>
-              <HBox width="85" height="20" visible="{relatedEntries.autoPlay}" paddingLeft="0" verticalAlign="middle" >
-                <Button id="pauseRelatedBtnFS" width="40" height="30" label="Pause" visible="{relatedEntries.isTimerRunning}" includeInLayout="{relatedEntries.isTimerRunning}" kClick="sendNotification('pauseResumeRelatedTimer')" buttonType="labelButton"  color1="0xCECECE" color2="0xFFFFFF" styleName="FS"/>
-                <Button id="playRelatedBtnFS" width="85" height="30" visible="{not(relatedEntries.isTimerRunning)}" includeInLayout="{not(relatedEntries.isTimerRunning)}" label="Continue" kClick="sendNotification('pauseResumeRelatedTimer')" buttonType="labelButton" color1="0xCECECE" color2="0xFFFFFF" styleName="FS"/>
-              </HBox>
-              
-              <HBox width="100%" height="50" horizontalAlign="right" horizontalGap="5">
-                <Button id="replayOnRelatedScreenFS" kClick="sendNotification('doSeek','0');sendNotification('doPlay')" label="Replay" labelPlacement="right" textPadding="5" minWidth="80" visible="{relatedView.showReplayBtn}"
-                  icon="replayIcon_Up" upIcon="replayIcon_Up" overIcon="replayIcon_Hover" downIcon="replayIcon_Down" disabeledIcon="replayIcon_Disabled"/>
-                <Button id="shareOnRelatedWithAutoPlayFS" visible="{and(relatedEntries.autoPlay,relatedEntries.isTimerRunning)}" includeInLayout="{shareOnRelatedWithAutoPlay.visible}" kClick="sendNotification ('pauseResumeRelatedTimer');sendNotification('showAdvancedShare')" textPadding="5" label="Share" labelPlacement="right" minWidth="80"
-                  icon="shareIcon_Up" upIcon="shareIcon_Up" overIcon="shareIcon_Hover" downIcon="shareIcon_Down" disabeledIcon="shareIcon_Disabled"/>
-                <Button id="shareOnRelatedFS" visible="{not(shareOnRelatedWithAutoPlay.visible)}" includeInLayout="{shareOnRelated.visible}" kClick="sendNotification('showAdvancedShare')" label="Share" textPadding="5" labelPlacement="right" minWidth="80"
-                  icon="shareIcon_Up" upIcon="shareIcon_Up" overIcon="shareIcon_Hover" downIcon="shareIcon_Down" disabeledIcon="shareIcon_Disabled"/>
-              </HBox>
-            </HBox>
-            
-          
-            <Spacer height="20"/>
-            
-            <Plugin id="relatedView" visible="false" width="100%" height="100%" dataProvider="{relatedEntries.dataProvider}" itemRenderer="relatedViewItemRenderer" viewType="tile"/> 
-          </VBox>
-        </VBox>     
-	 <Plugin id="kalturaShare" uiconfId="8700151" width="100%" height="100%"/>
 	 
       </Canvas>
     <Canvas id="controlsHolder" width="100%" height="80" styleName="PlayerBg">
