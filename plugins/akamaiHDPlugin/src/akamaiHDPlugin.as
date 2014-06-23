@@ -71,10 +71,9 @@ package
 		
 		public function initializePlugin(facade:IFacade):void
 		{
-			
 			_facade = facade;
 			_cp = _facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
-			
+			var mp:MediaProxy = _facade.retrieveProxy(MediaProxy.NAME) as MediaProxy;
 			if (hitUrl){
 				_loader = new URLLoader();
 				var urlReq:URLRequest = new URLRequest(hitUrl);
