@@ -6,7 +6,7 @@
       <!--  Plugin id="smartstream" width="0%" height="0%" includeInLayout="false"/-->
       
       
-      <Plugin id="akamaiHD" width="0%" height="0%" includeInLayout="false" loadingPolicy="preInitialize" asyncInit="true" hitUrl="http://localhost/a/hit.txt"/>
+      <Plugin id="akamaiHD" width="0%" height="0%" includeInLayout="false" loadingPolicy="preInitialize" asyncInit="true" hitUrl="http://localhost4/a/hit.txt"/>
       
       <Plugin id="akamaiMediaAnalytics" width="0%" height="0%" includeInLayout="false" asyncInit="true" 
 		      swfPath="http://79423.analytics.edgesuite.net/csma/plugin/csma.swf" 

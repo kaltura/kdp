@@ -13,6 +13,7 @@ package
 	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.system.Security;
@@ -82,7 +83,16 @@ package
 				var urlReq:URLRequest = new URLRequest(hitUrl);
 				_loader.addEventListener(Event.COMPLETE, goodResponce);
 				_loader.addEventListener(IOErrorEvent.IO_ERROR, badResponce);
-				_loader.load(urlReq);
+				_loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR , badResponce);
+				try
+				{
+					_loader.load(urlReq);
+					
+				} 
+				catch(error:Error) 
+				{
+					trace(1);	
+				}
 			} else {
 				_hitReady = true;
 			}
