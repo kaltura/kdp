@@ -60,8 +60,11 @@ package
 			}
 		}
 		private function goodResponce(e:Event): void{
+			var returndeString:String = (e.currentTarget as URLLoader).data;
+			if(returndeString == "1"){
+				_cp.vo.flashvars.serveRtmfp = true;
+			}
 			_hitReady = true;
-			_cp.vo.flashvars.serveRtmfp = true;
 			raceCondition();
 		}
 		private function badResponce(e:Event): void{
