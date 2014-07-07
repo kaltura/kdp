@@ -637,7 +637,7 @@ package
 			//tell sequence proxy, hey this sequence item is done. do your thang. 
 			_mediator.enableControls();
 			//we tell it that we're done if the current ad was requested by the sequenceProxy
-			if(_sequenceProxy.vo.isInSequence && !event.ad)
+			if(_sequenceProxy.vo.isInSequence && (!event || !event.ad))
 				_facade.sendNotification(NotificationType.SEQUENCE_ITEM_PLAY_END);
 			else if (event.ad){
 				if(!event.ad.linear && _sequenceProxy.vo.isInSequence)
