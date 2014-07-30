@@ -276,8 +276,17 @@ package com.kaltura.kdpfl.controller.media
 					sendNotification( NotificationType.ENTRY_FAILED );
 					sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_ENTRY_ERROR'), title: MessageStrings.getString('SERVICE_ERROR')} );
 				}
-					
+				//remove tags from description if exists 	
+				var descrip:String = entry.description ;
+				if(descrip){
+					var removeHtmlRegExp:RegExp = new RegExp("<[^<]+?>", "gi");
+					descrip = descrip.replace(removeHtmlRegExp, "");
+					descrip = descrip.split("&amp;").join("&"); 
+					entry.description= descrip;
+				}
+
 				_mediaProxy.vo.entry = entry;
+				
 				
 				if(entry is KalturaLiveStreamEntry || _flashvars.streamerType == StreamerType.LIVE)
 				{
