@@ -43,6 +43,11 @@ package com.kaltura.kdpfl.plugin.component
 		{
 			return entry.description;
 		}
+		
+		public function set description(value:String):String
+		{
+			entry.description = value;
+		}
 	
 		public function get duration():int
 		{

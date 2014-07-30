@@ -302,7 +302,17 @@ package {
 					
 				}
 				kalturaEntry.name = itemTo.media.title;
-				kalturaEntry.description = itemTo.media.description;
+			
+				var descrip:String = itemTo.media.description ;
+				if(descrip){
+					var removeHtmlRegExp:RegExp = new RegExp("<[^<]+?>", "gi");
+					descrip = descrip.replace(removeHtmlRegExp, "");
+					descrip = descrip.split("&amp;").join("&");
+					kalturaEntry.description = descrip;
+				}else{
+					kalturaEntry.description = itemTo.media.description;
+				}
+
 				kalturaEntry['partnerLandingPage'] = itemTo.link;
 				kalturaEntry.createdAt = itemTo.createdAtInt;
 				
