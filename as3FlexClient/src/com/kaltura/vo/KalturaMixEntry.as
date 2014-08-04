@@ -33,23 +33,23 @@ package com.kaltura.vo
 	public dynamic class KalturaMixEntry extends KalturaPlayableEntry
 	{
 		/**
-		 * Indicates whether the user has submited a real thumbnail to the mix (Not the one that was generated automaticaly)
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Indicates whether the user has submited a real thumbnail to the mix (Not the one that was generated automaticaly)
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var hasRealThumbnail : Boolean;
 
 		/**
-		 * The editor type used to edit the metadata
-		 * 
-		 * @see com.kaltura.types.KalturaEditorType
-		 **/
+		* The editor type used to edit the metadata
+		* 
+		* @see com.kaltura.types.KalturaEditorType
+		**/
 		public var editorType : int = int.MIN_VALUE;
 
 		/**
-		 * The xml data of the mix
-		 * 
-		 **/
+		* The xml data of the mix
+		* 
+		**/
 		public var dataContent : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -66,6 +66,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

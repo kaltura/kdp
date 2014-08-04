@@ -33,51 +33,51 @@ package com.kaltura.vo
 	public dynamic class KalturaUverseDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 **/
+		**/
 		public var feedUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelTitle : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelLink : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelDescription : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelLanguage : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelCopyright : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelImageTitle : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelImageUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var channelImageLink : String = null;
 
 		/**
-		 **/
+		**/
 		public var ftpHost : String = null;
 
 		/**
-		 **/
+		**/
 		public var ftpLogin : String = null;
 
 		/**
-		 **/
+		**/
 		public var ftpPassword : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -103,6 +103,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

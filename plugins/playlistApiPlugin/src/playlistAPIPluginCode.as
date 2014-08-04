@@ -348,7 +348,7 @@ package {
 			{
 				for (var i:int = 0; i< mediaEntries.length; i++)
 				{
-					if ((mediaEntries[i] as PlaylistEntryVO).entry.entryId == initItemEntryId)
+					if ((mediaEntries[i] as PlaylistEntryVO).entryId == initItemEntryId)
 					{
 						initItemIndex = i;
 						break;
@@ -385,11 +385,12 @@ package {
 		 * @param evt
 		 */
 		private function onChangeItem(evt:Event):void {
-			if (_started) {
-				_playlistAPIMediator.setMediaProxySingleAutoPlay(true);
-			}
 			if (isNaN(_dataProvider.selectedIndex)) {
 				_dataProvider.selectedIndex = 0;
+			}
+			_playlistAPIMediator.sendNotification(NotificationType.DO_PAUSE);
+			if (_started) {
+				_playlistAPIMediator.setMediaProxySingleAutoPlay(true);
 			}
 			sendChangeMedia(_dataProvider.selectedIndex);
 			_started = true;

@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryUserFilter extends KalturaCategoryUserBaseFilter
 	{
 		/**
-		 * Return the list of categoryUser that are not inherited from parent category - only the direct categoryUsers.
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Return the list of categoryUser that are not inherited from parent category - only the direct categoryUsers.
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var categoryDirectMembers : Boolean;
 
 		/**
-		 * Free text search on user id or screen name
-		 * 
-		 **/
+		* Free text search on user id or screen name
+		* 
+		**/
 		public var freeText : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

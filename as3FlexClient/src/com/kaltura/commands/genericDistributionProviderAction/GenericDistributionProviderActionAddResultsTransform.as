@@ -31,17 +31,17 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add results transform file to generic distribution provider action
-	 * 
-	 **/
+	* Add results transform file to generic distribution provider action
+	* 
+	**/
 	public class GenericDistributionProviderActionAddResultsTransform extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param transformData String
-		 **/
+		* @param id int
+		* @param transformData String
+		**/
 		public function GenericDistributionProviderActionAddResultsTransform( id : int,transformData : String )
 		{
 			service= 'contentdistribution_genericdistributionprovideraction';

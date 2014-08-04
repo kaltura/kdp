@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.widget
 {
-	import com.kaltura.vo.KalturaWidget;
+		import com.kaltura.vo.KalturaWidget;
 	import com.kaltura.delegates.widget.WidgetCloneDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add widget based on existing widget.
-	 * Must provide valid sourceWidgetId
-	 * 
-	 **/
+	* Add widget based on existing widget.
+	* Must provide valid sourceWidgetId
+	* 
+	**/
 	public class WidgetClone extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param widget KalturaWidget
-		 **/
+		* @param widget KalturaWidget
+		**/
 		public function WidgetClone( widget : KalturaWidget )
 		{
 			service= 'widget';
@@ -51,9 +51,9 @@ package com.kaltura.commands.widget
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(widget, 'widget');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(widget, 'widget');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

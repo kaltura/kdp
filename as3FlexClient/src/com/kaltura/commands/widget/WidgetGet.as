@@ -31,16 +31,16 @@ package com.kaltura.commands.widget
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get widget by id
-	 * 
-	 **/
+	* Get widget by id
+	* 
+	**/
 	public class WidgetGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function WidgetGet( id : String )
 		{
 			service= 'widget';

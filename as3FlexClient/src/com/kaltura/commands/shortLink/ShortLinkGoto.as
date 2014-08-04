@@ -31,17 +31,17 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves short link
-	 * 
-	 **/
+	* Serves short link
+	* 
+	**/
 	public class ShortLinkGoto extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param proxy Boolean
-		 **/
+		* @param id String
+		* @param proxy Boolean
+		**/
 		public function ShortLinkGoto( id : String,proxy : Boolean=false )
 		{
 			service= 'shortlink_shortlink';

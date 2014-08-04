@@ -33,19 +33,19 @@ package com.kaltura.vo
 	public dynamic class KalturaDailymotionDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 **/
+		**/
 		public var videoAssetFilePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var accessControlGeoBlockingOperation : String = null;
 
 		/**
-		 **/
+		**/
 		public var accessControlGeoBlockingCountryList : String = null;
 
 		/**
-		 **/
+		**/
 		public var captionsInfo : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -64,6 +64,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'captionsInfo':
+					result = 'KalturaDailymotionDistributionCaptionInfo';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

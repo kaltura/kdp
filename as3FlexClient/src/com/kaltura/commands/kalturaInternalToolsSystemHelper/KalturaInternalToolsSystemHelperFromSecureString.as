@@ -31,16 +31,16 @@ package com.kaltura.commands.kalturaInternalToolsSystemHelper
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * KS from Secure String
-	 * 
-	 **/
+	* KS from Secure String
+	* 
+	**/
 	public class KalturaInternalToolsSystemHelperFromSecureString extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param str String
-		 **/
+		* @param str String
+		**/
 		public function KalturaInternalToolsSystemHelperFromSecureString( str : String )
 		{
 			service= 'kalturainternaltools_kalturainternaltoolssystemhelper';

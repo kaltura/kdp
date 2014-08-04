@@ -33,46 +33,52 @@ package com.kaltura.vo
 	public dynamic class KalturaPlayableEntry extends KalturaBaseEntry
 	{
 		/**
-		 * Number of plays
-		 * 
-		 **/
+		* Number of plays
+		* 
+		**/
 		public var plays : int = int.MIN_VALUE;
 
 		/**
-		 * Number of views
-		 * 
-		 **/
+		* Number of views
+		* 
+		**/
 		public var views : int = int.MIN_VALUE;
 
 		/**
-		 * The width in pixels
-		 * 
-		 **/
+		* The last time the entry was played
+		* 
+		**/
+		public var lastPlayedAt : int = int.MIN_VALUE;
+
+		/**
+		* The width in pixels
+		* 
+		**/
 		public var width : int = int.MIN_VALUE;
 
 		/**
-		 * The height in pixels
-		 * 
-		 **/
+		* The height in pixels
+		* 
+		**/
 		public var height : int = int.MIN_VALUE;
 
 		/**
-		 * The duration in seconds
-		 * 
-		 **/
+		* The duration in seconds
+		* 
+		**/
 		public var duration : int = int.MIN_VALUE;
 
 		/**
-		 * The duration in miliseconds
-		 * 
-		 **/
+		* The duration in miliseconds
+		* 
+		**/
 		public var msDuration : int = int.MIN_VALUE;
 
 		/**
-		 * The duration type (short for 0-4 mins, medium for 4-20 mins, long for 20+ mins)
-		 * 
-		 * @see com.kaltura.types.KalturaDurationType
-		 **/
+		* The duration type (short for 0-4 mins, medium for 4-20 mins, long for 20+ mins)
+		* 
+		* @see com.kaltura.types.KalturaDurationType
+		**/
 		public var durationType : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -88,6 +94,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,15 +31,15 @@ package com.kaltura.commands.tag
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags.
-	 * 
-	 **/
+	* Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags.
+	* 
+	**/
 	public class TagDeletePending extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
+		**/
 		public function TagDeletePending(  )
 		{
 			service= 'tagsearch_tag';

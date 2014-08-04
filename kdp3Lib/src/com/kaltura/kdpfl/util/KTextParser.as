@@ -266,8 +266,16 @@ package com.kaltura.kdpfl.util
 		// the host is the root object the text belongs to
 		static public function evaluate(host:Object, text:String):Object
 		{
-			var parser:KTextParser = new KTextParser(PARSER_MODE_EVAL);
-			return parser.parse(null, null, host, text);
+			var value:Object;
+			try {
+				var parser:KTextParser = new KTextParser(PARSER_MODE_EVAL);
+				value = parser.parse(null, null, host, text);
+			} 
+			catch (e:Error) {
+				trace ("KTextParser:: failed to evaluate " + text );
+			}
+			return value;
+
 		}
 
 		// bind a text to the given site and property

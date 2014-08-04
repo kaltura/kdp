@@ -31,15 +31,15 @@ package com.kaltura.commands.uverse
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class UverseGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param distributionProfileId int
-		 * @param hash String
-		 **/
+		* @param distributionProfileId int
+		* @param hash String
+		**/
 		public function UverseGetFeed( distributionProfileId : int,hash : String )
 		{
 			service= 'uversedistribution_uverse';

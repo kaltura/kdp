@@ -27,24 +27,24 @@
 // ===================================================================================================
 package com.kaltura.commands.partner
 {
-	import com.kaltura.vo.KalturaPartner;
+		import com.kaltura.vo.KalturaPartner;
 	import com.kaltura.delegates.partner.PartnerRegisterDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Create a new Partner object
-	 * 
-	 **/
+	* Create a new Partner object
+	* 
+	**/
 	public class PartnerRegister extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partner KalturaPartner
-		 * @param cmsPassword String
-		 * @param templatePartnerId int
-		 * @param silent Boolean
-		 **/
+		* @param partner KalturaPartner
+		* @param cmsPassword String
+		* @param templatePartnerId int
+		* @param silent Boolean
+		**/
 		public function PartnerRegister( partner : KalturaPartner,cmsPassword : String='',templatePartnerId : int=int.MIN_VALUE,silent : Boolean=false )
 		{
 			service= 'partner';
@@ -53,9 +53,9 @@ package com.kaltura.commands.partner
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(partner, 'partner');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(partner, 'partner');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('cmsPassword');
 			valueArr.push(cmsPassword);
 			keyArr.push('templatePartnerId');

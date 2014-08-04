@@ -31,17 +31,17 @@ package com.kaltura.commands.stats
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Use this action to report errors to the kaltura server.
-	 * 
-	 **/
+	* Use this action to report errors to the kaltura server.
+	* 
+	**/
 	public class StatsReportError extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param errorCode String
-		 * @param errorMessage String
-		 **/
+		* @param errorCode String
+		* @param errorMessage String
+		**/
 		public function StatsReportError( errorCode : String,errorMessage : String )
 		{
 			service= 'stats';

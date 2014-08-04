@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.media.MediaUploadDelegate;
 
 	/**
-	 * Upload a media file to Kaltura, then the file can be used to create a media entry.
-	 * 
-	 **/
+	* Upload a media file to Kaltura, then the file can be used to create a media entry.
+	* 
+	**/
 	public class MediaUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function MediaUpload( fileData : Object )
 		{
 			service= 'media';

@@ -31,17 +31,17 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Generic Distribution Provider Action by provider id
-	 * 
-	 **/
+	* Get Generic Distribution Provider Action by provider id
+	* 
+	**/
 	public class GenericDistributionProviderActionGetByProviderId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param genericDistributionProviderId int
-		 * @param actionType int
-		 **/
+		* @param genericDistributionProviderId int
+		* @param actionType int
+		**/
 		public function GenericDistributionProviderActionGetByProviderId( genericDistributionProviderId : int,actionType : int )
 		{
 			service= 'contentdistribution_genericdistributionprovideraction';

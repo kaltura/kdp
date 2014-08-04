@@ -33,49 +33,49 @@ package com.kaltura.vo
 	public dynamic class KalturaUserRole extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var name : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemName : String = null;
 
 		/**
-		 **/
+		**/
 		public var description : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaUserRoleStatus
-		 **/
+		* @see com.kaltura.types.KalturaUserRoleStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var permissionNames : String = null;
 
 		/**
-		 **/
+		**/
 		public var tags : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -90,13 +90,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

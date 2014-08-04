@@ -31,16 +31,16 @@ package com.kaltura.commands.mixing
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get the mixes in which the media entry is included
-	 * 
-	 **/
+	* Get the mixes in which the media entry is included
+	* 
+	**/
 	public class MixingGetMixesByMediaId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param mediaEntryId String
-		 **/
+		* @param mediaEntryId String
+		**/
 		public function MixingGetMixesByMediaId( mediaEntryId : String )
 		{
 			service= 'mixing';

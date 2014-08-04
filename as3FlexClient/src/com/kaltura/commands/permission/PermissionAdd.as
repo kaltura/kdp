@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.permission
 {
-	import com.kaltura.vo.KalturaPermission;
+		import com.kaltura.vo.KalturaPermission;
 	import com.kaltura.delegates.permission.PermissionAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds a new permission object to the account.
-	 * 
-	 **/
+	* Adds a new permission object to the account.
+	* 
+	**/
 	public class PermissionAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param permission KalturaPermission
-		 **/
+		* @param permission KalturaPermission
+		**/
 		public function PermissionAdd( permission : KalturaPermission )
 		{
 			service= 'permission';
@@ -50,9 +50,9 @@ package com.kaltura.commands.permission
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(permission, 'permission');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(permission, 'permission');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

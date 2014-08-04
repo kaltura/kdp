@@ -31,17 +31,17 @@ package com.kaltura.commands.bulkUpload
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * serveLog action returan the original file.
-	 * 
-	 **/
+	* serveLog action returan the original file.
+	* 
+	**/
 	public class BulkUploadServeLog extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
-		public function BulkUploadServeLog( id : int )
+		* @param id Number
+		**/
+		public function BulkUploadServeLog( id : Number )
 		{
 			service= 'bulkupload';
 			action= 'serveLog';

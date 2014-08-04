@@ -77,8 +77,8 @@ package com.kaltura.delegates.genericDistributionProviderAction
 				var urlRequest:URLRequest = new URLRequest(req);
 				((call as GenericDistributionProviderActionAddMrssTransformFromFile).xslFile as FileReference).upload(urlRequest,"xslFile");
 			}
-			else{
-				mrloader.addFile(((call as GenericDistributionProviderActionAddMrssTransformFromFile).xslFile as ByteArray), UIDUtil.createUID(), 'xslFile');	
+			else {
+				mrloader.addFile(((call as GenericDistributionProviderActionAddMrssTransformFromFile).xslFile as ByteArray), UIDUtil.createUID(), 'xslFile'); 
 				mrloader.dataFormat = URLLoaderDataFormat.TEXT;
 				mrloader.load(req);
 			}
@@ -86,19 +86,19 @@ package com.kaltura.delegates.genericDistributionProviderAction
 
 		// Event Handlers
 		override protected function onDataComplete(event:Event):void {
-			try{
+			try {
 				if ((call as GenericDistributionProviderActionAddMrssTransformFromFile).xslFile is FileReference) {
 					handleResult( XML(event["data"]) );
 				}
 				else {
 					handleResult( XML(event.target.loader.data) );
-				}
+ 				}
 			}
-			catch( e:Error ){
-				var kErr : KalturaError = new KalturaError();
-				kErr.errorCode = String(e.errorID);
-				kErr.errorMsg = e.message;
-				_call.handleError( kErr );
+ 			catch( e:Error ){
+ 				var kErr : KalturaError = new KalturaError();
+ 				kErr.errorCode = String(e.errorID);
+ 				kErr.errorMsg = e.message;
+ 				_call.handleError( kErr );
 			}
 		}
 

@@ -174,6 +174,13 @@ package com.kaltura.kdpfl.view.media
 		private var _mediaErrorSent:Boolean = false;
 		
 		/**
+		 * when playing livestream with useLiveStreamMinDuration flag, this flag will indicate duration for the first time wasn't set yet
+		 * */
+		private var _liveDurationSet:Boolean = false;
+		
+		private var _liveDuration:Number = 0;
+		
+		/**
 		 * Constructor 
 		 * @param name
 		 * @param viewComponent
@@ -357,7 +364,8 @@ package com.kaltura.kdpfl.view.media
 					{
 						_mediaProxy.vo.canSeek = true;
 						dvrWinSize = (_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrWindow * 60;
-						sendNotification( NotificationType.DURATION_CHANGE , {newValue:dvrWinSize});
+						if ( !_flashvars.useLiveStreamMinDuration ) 
+							sendNotification( NotificationType.DURATION_CHANGE , {newValue:dvrWinSize});
 					}
 					
 					break;
@@ -381,6 +389,7 @@ package com.kaltura.kdpfl.view.media
 					_hasPlayed = false;
 					ignorePlaybackComplete = false;
 					_mediaErrorSent = false;
+					_liveDurationSet = false;
 					//Fixed weird issue, where the CHANGE_MEDIA would be caught by the mediator 
 					// AFTER the new media has already loaded. Caused media never to be loaded.
 					if (designatedEntryId != _mediaProxy.vo.entry.id || _mediaProxy.vo.isFlavorSwitching )
@@ -681,7 +690,7 @@ package com.kaltura.kdpfl.view.media
 					if (_mediaProxy.vo.isLive && _mediaProxy.vo.canSeek)
 					{
 						if (_hasPlayed && _inDvr)
-							sendNotification(NotificationType.DO_SEEK, _duration);
+							sendNotification(NotificationType.DO_SEEK, _liveDuration);
 						
 						sendNotification(NotificationType.DO_PLAY);
 					}
@@ -705,6 +714,9 @@ package com.kaltura.kdpfl.view.media
 						if (!_hasPlayed)
 						{
 							message += "| Initial flavor index: " + _mediaProxy.startingIndex;
+						}
+						if ( player.media && player.media.resource && player.media.resource is URLResource) {
+							message += "| mediaUrl: " + (player.media.resource as URLResource).url;
 						}
 						
 						var sendError:StatsReportError = new StatsReportError(NotificationType.MEDIA_ERROR, message);
@@ -781,7 +793,7 @@ package com.kaltura.kdpfl.view.media
 		
 		
 		private function onDoPlay():void
-		{		
+		{						
 			if (_mediaProxy.vo.isLive)
 			{
 				if (_mediaProxy.vo.isOffline)
@@ -806,14 +818,16 @@ package com.kaltura.kdpfl.view.media
 				_sequenceProxy.playNextInSequence();
 				return;
 			}
-			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media)
+			else if (!_mediaProxy.vo.media || player.media != _mediaProxy.vo.media && _flashvars.allowUserPauseAds != "true")
 			{
+
 				if (_mediaProxy.vo.preferedFlavorBR && !isAkamaiHD())
 				{
 					_mediaProxy.vo.switchDue = true; //TODO: CHECK do we still need it?
 				}
 				_mediaProxy.loadWithMediaReady();
 				return;
+				
 			}
 			else if(_mediaProxy.vo.entry is KalturaMixEntry && 
 				player.media.getTrait(MediaTraitType.DISPLAY_OBJECT)["isReadyForLoad"] &&
@@ -876,10 +890,10 @@ package com.kaltura.kdpfl.view.media
 				else
 				{
 					_changeMediaOccur = false;
-					player.addEventListener(MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE,function(event:Event):void
+					player.addEventListener(MediaPlayerCapabilityChangeEvent.CAN_PLAY_CHANGE,function(event:MediaPlayerCapabilityChangeEvent):void
 					{
 						
-						if (!_changeMediaOccur)
+						if (!_changeMediaOccur && event.enabled)
 						{
 							sendNotification(NotificationType.DO_PLAY);
 						}
@@ -1309,6 +1323,12 @@ package com.kaltura.kdpfl.view.media
 					sendNotification( NotificationType.ENABLE_GUI , {guiEnabled : false , enableType : EnableType.CONTROLS} );
 					
 				}
+				
+				if ( _mediaProxy.vo.isLive && _duration && _flashvars.useLiveStreamMinDuration ) {
+					if ( event.time >= _duration ) {
+						sendNotification( NotificationType.DO_PAUSE );
+					}
+				}
 			}
 		}
 		
@@ -1397,7 +1417,7 @@ package com.kaltura.kdpfl.view.media
 					sendNotification( NotificationType.DURATION_CHANGE , {newValue:_entryDuration});
 					if (isMP4Stream())
 					{
-						if (!isNaN(event.time) && event.time )
+						if ( !isNaN(event.time) && event.time )
 						{
 							_offsetAddition = _entryDuration - event.time ;
 							sendNotification(NotificationType.RE_REGISTER_CUE_POINTS, {offsetAddition: _offsetAddition});
@@ -1416,7 +1436,22 @@ package com.kaltura.kdpfl.view.media
 				if (!_sequenceProxy.vo.isInSequence && (_mediaProxy.vo.entry is KalturaLiveStreamEntry &&
 					(_mediaProxy.vo.entry as KalturaLiveStreamEntry).dvrStatus == KalturaDVRStatus.ENABLED))
 				{
-					_duration = Math.max(dvrWinSize, event.time);
+					if ( _flashvars.useLiveStreamMinDuration ) {
+						if ( !_liveDurationSet ) {
+							_liveDurationSet = true;
+							_duration = Math.min(dvrWinSize, event.time);
+						} else { //don't send durationChange notification
+							return;
+						}
+							
+					} else {
+						_liveDuration = event.time; //save last actual duration of live+dvr
+						var newDuration:Number = Math.max(dvrWinSize, event.time);
+						if ( newDuration == _duration ) {
+							return; //avoid multiple durationChange events with the same value
+						}
+						_duration = newDuration;
+					}	
 				}
 				else
 				{

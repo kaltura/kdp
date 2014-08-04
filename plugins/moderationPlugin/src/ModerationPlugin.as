@@ -42,6 +42,16 @@ package {
 		
 		
 		/**
+		 * defines the value of the notification which turns off the shortcut 508 plugin 
+		 */		
+		public static const DISABLE_SHORTCUT_PLUGIN:String = "disableShortcutPlugin";
+		/**
+		 * defines the value of the notification which turns on the shortcut 508 plugin 
+		 */		
+		public static const ENABLE_SHORTCUT_PLUGIN:String = "enableShortcutPlugin";
+		
+		
+		/**
 		 * flagging form header 
 		 */		
 		public var header:String;
@@ -169,7 +179,7 @@ package {
 			_mediator.sendNotification(NotificationType.CLOSE_FULL_SCREEN);
 			_mediator.sendNotification(NotificationType.ENABLE_GUI, {guiEnabled : false, enableType : "full"});
 			_mediator.sendNotification(NotificationType.DO_PAUSE);
-			
+			_mediator.sendNotification(DISABLE_SHORTCUT_PLUGIN);
 			// show flagging form
 			if (_ui == null) {
 				_ui = new ModerationScreen();
@@ -215,6 +225,7 @@ package {
 			_ui.clearData();
 			removeChild(_ui);
 			end();
+			_mediator.sendNotification(ENABLE_SHORTCUT_PLUGIN);
 		}
 		
 		

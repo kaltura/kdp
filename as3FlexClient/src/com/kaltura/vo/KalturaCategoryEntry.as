@@ -33,37 +33,37 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryEntry extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var categoryId : int = int.MIN_VALUE;
 
 		/**
-		 * entry id
-		 * 
-		 **/
+		* entry id
+		* 
+		**/
 		public var entryId : String = null;
 
 		/**
-		 * Creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * The full ids of the Category
-		 * 
-		 **/
+		* The full ids of the Category
+		* 
+		**/
 		public var categoryFullIds : String = null;
 
 		/**
-		 * CategroyEntry status
-		 * 
-		 * @see com.kaltura.types.KalturaCategoryEntryStatus
-		 **/
+		* CategroyEntry status
+		* 
+		* @see com.kaltura.types.KalturaCategoryEntryStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -74,13 +74,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

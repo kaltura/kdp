@@ -82,6 +82,7 @@ package com.kaltura.kdpfl.controller.media
 	import com.kaltura.types.KalturaPlaybackProtocol;
 	import mx.controls.Text;
 	import com.kaltura.kdpfl.util.KTextParser;
+	import com.kaltura.vo.KalturaLiveChannel;KalturaLiveChannel;
 
  
 
@@ -98,11 +99,6 @@ package com.kaltura.kdpfl.controller.media
 		private var _sequenceProxy : SequenceProxy;
 		private var _flashvars : Object;
 		
-		/**
-		 * a flag to distinguish between getting an entry by 
-		 * entry id and getting an entry by reference id
-		 */
-		private var _isRefid:Boolean;
 		
 		/**
 		 * when true, command will not be completed until akamai plugin load process is done 
@@ -154,17 +150,20 @@ package com.kaltura.kdpfl.controller.media
 				{
 					var ind:int =  1;
 					var mr : MultiRequest = new MultiRequest();
-					// get entry by refid / entryid
+					
+					// get entry by refid / redirectEntryId / entryId
+					var baseEntryFilter:KalturaBaseEntryFilter = new KalturaBaseEntryFilter();	
 					if (refid) {
-						_isRefid = true;
-						var getEntryByRefid:BaseEntryListByReferenceId = new BaseEntryListByReferenceId(refid);
-						mr.addAction(getEntryByRefid);
+						baseEntryFilter.referenceIdEqual = refid;
+					} else if ( !_flashvars.disableEntryRedirect || _flashvars.disableEntryRedirect == "false" ) {
+						baseEntryFilter.redirectFromEntryId = entryId;
+					} else {
+						baseEntryFilter.idEqual = entryId;
 					}
-					else {
-						_isRefid = false;	
-						var getEntry : BaseEntryGet = new BaseEntryGet( entryId );
-						mr.addAction( getEntry );
-					}
+					
+
+					var getEntry : BaseEntryList = new BaseEntryList(baseEntryFilter);
+					mr.addAction( getEntry );
 
 					ind ++;
 					
@@ -182,9 +181,7 @@ package com.kaltura.kdpfl.controller.media
 					}
 					
 					var getExtraData : BaseEntryGetContextData = new BaseEntryGetContextData( _mediaProxy.vo.entry.id , keedp );
-					if (_isRefid) {
-						mr.addRequestParam(ind + ":entryId","{1:result:objects:0:id}");
-					}
+					mr.addRequestParam(ind + ":entryId","{1:result:objects:0:id}");
 					mr.addAction(getExtraData); 
 					ind ++;
 					
@@ -211,9 +208,8 @@ package com.kaltura.kdpfl.controller.media
 						
 						metadataAction = new MetadataList(metadataFilter,metadataPager);
 						
-						if (_isRefid) {
-							mr.addRequestParam(ind + ":filter:objectIdEqual","{1:result:objects:0:id}");
-						}
+						mr.addRequestParam(ind + ":filter:objectIdEqual","{1:result:objects:0:id}");
+						
 						mr.addAction(metadataAction);
 						ind ++;
 					}
@@ -226,9 +222,8 @@ package com.kaltura.kdpfl.controller.media
 						
 						var cuePointList : CuePointList = new CuePointList( cuePointFilter );
 						
-						if (_isRefid) {
-							mr.addRequestParam(ind + ":filter:entryIdEqual","{1:result:objects:0:id}");
-						}
+						mr.addRequestParam(ind + ":filter:entryIdEqual","{1:result:objects:0:id}");
+						
 						mr.addAction( cuePointList );
 						ind ++;
 					}
@@ -272,22 +267,16 @@ package com.kaltura.kdpfl.controller.media
 			// save the received value
 			else
 			{
-				if (_isRefid) {
-					// arr[i] is KalturaBaseEntryListResponse, take the first entry in the result array
-					if (arr[i].objects.length) {
-						entry = arr[i].objects[0];
-					}
-					else {
-						KTrace.getInstance().log("Error in Get Entry: No Entry with given ReferenceId");
-						sendNotification( NotificationType.ENTRY_FAILED );
-						sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_ENTRY_ERROR'), title: MessageStrings.getString('SERVICE_ERROR')} );
-					}
+				// arr[i] is KalturaBaseEntryListResponse, take the first entry in the result array
+				if (arr[i].objects.length) {
+					entry = arr[i].objects[0];
 				}
 				else {
-					// the call was BaseEntryGet, use the result as is
-					entry = arr[i];
+					KTrace.getInstance().log("Error in Get Entry: No Entry with given filter");
+					sendNotification( NotificationType.ENTRY_FAILED );
+					sendNotification( NotificationType.ALERT , {message: MessageStrings.getString('SERVICE_GET_ENTRY_ERROR'), title: MessageStrings.getString('SERVICE_ERROR')} );
 				}
-				
+					
 				_mediaProxy.vo.entry = entry;
 				
 				if(entry is KalturaLiveStreamEntry || _flashvars.streamerType == StreamerType.LIVE)
@@ -524,8 +513,11 @@ package com.kaltura.kdpfl.controller.media
 					
 					for each (var cuePoint : KalturaCuePoint in cuePointsArray)
 					{
-						if (cuePoint is KalturaAdCuePoint)
+						if (cuePoint is KalturaAdCuePoint && (cuePoint as KalturaAdCuePoint).sourceUrl)
+						{
 							(cuePoint as KalturaAdCuePoint).sourceUrl = KTextParser.evaluate(facade["bindObject"], (cuePoint as KalturaAdCuePoint).sourceUrl ) as String;
+						}
+							
 						// map cue point according to start time.
 						if ( cuePointsMap[cuePoint.startTime] )
 						{

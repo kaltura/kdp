@@ -33,15 +33,15 @@ package com.kaltura.vo
 	public dynamic class KalturaEntryResource extends KalturaContentResource
 	{
 		/**
-		 * ID of the source entry
-		 * 
-		 **/
+		* ID of the source entry
+		* 
+		**/
 		public var entryId : String = null;
 
 		/**
-		 * ID of the source flavor params, set to null to use the source flavor
-		 * 
-		 **/
+		* ID of the source flavor params, set to null to use the source flavor
+		* 
+		**/
 		public var flavorParamsId : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -58,6 +58,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

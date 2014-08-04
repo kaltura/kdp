@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.thumbParamsOutput
 {
-	import com.kaltura.vo.KalturaThumbParamsOutputFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaThumbParamsOutputFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.thumbParamsOutput.ThumbParamsOutputListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List thumb params output objects by filter and pager
-	 * 
-	 **/
+	* List thumb params output objects by filter and pager
+	* 
+	**/
 	public class ThumbParamsOutputList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaThumbParamsOutputFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaThumbParamsOutputFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function ThumbParamsOutputList( filter : KalturaThumbParamsOutputFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'thumbparamsoutput';
@@ -52,16 +52,16 @@ package com.kaltura.commands.thumbParamsOutput
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.annotation
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.annotation.AnnotationAddFromBulkDelegate;
 
 	/**
-	 * Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
-	 * 
-	 **/
+	* Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
+	* 
+	**/
 	public class AnnotationAddFromBulk extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function AnnotationAddFromBulk( fileData : Object )
 		{
 			service= 'annotation_annotation';

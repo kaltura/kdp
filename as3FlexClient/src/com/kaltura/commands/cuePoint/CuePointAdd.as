@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.cuePoint
 {
-	import com.kaltura.vo.KalturaCuePoint;
+		import com.kaltura.vo.KalturaCuePoint;
 	import com.kaltura.delegates.cuePoint.CuePointAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Allows you to add an cue point object associated with an entry
-	 * 
-	 **/
+	* Allows you to add an cue point object associated with an entry
+	* 
+	**/
 	public class CuePointAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param cuePoint KalturaCuePoint
-		 **/
+		* @param cuePoint KalturaCuePoint
+		**/
 		public function CuePointAdd( cuePoint : KalturaCuePoint )
 		{
 			service= 'cuepoint_cuepoint';
@@ -50,9 +50,9 @@ package com.kaltura.commands.cuePoint
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(cuePoint, 'cuePoint');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(cuePoint, 'cuePoint');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

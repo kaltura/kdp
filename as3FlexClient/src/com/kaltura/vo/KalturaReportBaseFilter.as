@@ -33,27 +33,27 @@ package com.kaltura.vo
 	public dynamic class KalturaReportBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemNameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemNameIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -74,6 +74,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

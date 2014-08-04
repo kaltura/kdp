@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaResource;
+		import com.kaltura.vo.KalturaResource;
 	import com.kaltura.delegates.media.MediaAddContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add content to media entry which is not yet associated with content (therefore is in status NO_CONTENT).
-	 * If the requirement is to replace the entry's associated content, use action updateContent.
-	 * 
-	 **/
+	* Add content to media entry which is not yet associated with content (therefore is in status NO_CONTENT).
+	* If the requirement is to replace the entry's associated content, use action updateContent.
+	* 
+	**/
 	public class MediaAddContent extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param resource KalturaResource
-		 **/
+		* @param entryId String
+		* @param resource KalturaResource
+		**/
 		public function MediaAddContent( entryId : String,resource : KalturaResource=null )
 		{
 			service= 'media';
@@ -54,11 +54,11 @@ package com.kaltura.commands.media
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
- 			if (resource) { 
- 			keyValArr = kalturaObject2Arrays(resource, 'resource');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (resource) { 
+				keyValArr = kalturaObject2Arrays(resource, 'resource');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

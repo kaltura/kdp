@@ -33,23 +33,23 @@ package com.kaltura.vo
 	public dynamic class KalturaImageFlavorParams extends KalturaFlavorParams
 	{
 		/**
-		 **/
+		**/
 		public var densityWidth : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var densityHeight : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var sizeWidth : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var sizeHeight : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var depth : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -69,6 +69,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

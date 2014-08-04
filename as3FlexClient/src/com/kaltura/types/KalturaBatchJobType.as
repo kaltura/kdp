@@ -37,12 +37,14 @@ package com.kaltura.types
 		public static const DISTRIBUTION_SUBMIT : String = 'contentDistribution.DistributionSubmit';
 		public static const DISTRIBUTION_SYNC : String = 'contentDistribution.DistributionSync';
 		public static const DISTRIBUTION_UPDATE : String = 'contentDistribution.DistributionUpdate';
-		public static const DROP_FOLDER_CONTENT_PROCESSOR : String = 'dropFolder.DropFolderContentProcessor';
 		public static const CONVERT : String = '0';
+		public static const DROP_FOLDER_CONTENT_PROCESSOR : String = 'dropFolder.DropFolderContentProcessor';
 		public static const DROP_FOLDER_WATCHER : String = 'dropFolder.DropFolderWatcher';
 		public static const EVENT_NOTIFICATION_HANDLER : String = 'eventNotification.EventNotificationHandler';
+		public static const INDEX_TAGS : String = 'tagSearch.IndexTagsByPrivacyContext';
 		public static const TAG_RESOLVE : String = 'tagSearch.TagResolve';
 		public static const VIRUS_SCAN : String = 'virusScan.VirusScan';
+		public static const WIDEVINE_REPOSITORY_SYNC : String = 'widevine.WidevineRepositorySync';
 		public static const IMPORT : String = '1';
 		public static const DELETE : String = '2';
 		public static const FLATTEN : String = '3';
@@ -73,5 +75,9 @@ package com.kaltura.types
 		public static const INDEX : String = '32';
 		public static const MOVE_CATEGORY_ENTRIES : String = '33';
 		public static const COPY : String = '34';
+		public static const CONCAT : String = '35';
+		public static const CONVERT_LIVE_SEGMENT : String = '36';
+		public static const COPY_PARTNER : String = '37';
+		public static const VALIDATE_LIVE_MEDIA_SERVERS : String = '38';
 	}
 }

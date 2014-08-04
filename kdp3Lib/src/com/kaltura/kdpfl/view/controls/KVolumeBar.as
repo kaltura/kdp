@@ -303,6 +303,14 @@ package com.kaltura.kdpfl.view.controls
 			_slider.liveDragging = true;
 			_slider.addEventListener( SliderEvent.THUMB_RELEASE, onSliderClick, false, 0, true );
 			_slider.addEventListener( SliderEvent.CHANGE, onSliderChange, false, 0, true );
+			//allow client to click anywhere in the slider area to adjust volume.  
+			_volumeSlider.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent):void{
+				_volumeSlider.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			});
+			
+			_volumeSlider.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent):void{
+				_volumeSlider.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			});
 			_volumeSlider.addChild( _slider );
 			
 			_button = new KButton();
@@ -325,6 +333,17 @@ package com.kaltura.kdpfl.view.controls
 			
 			this.addEventListener( Event.REMOVED, onRemoved, false, 0, true );
 			this.addEventListener(Event.ADDED, onAdded, false,0,true);
+		}
+		/**
+		 * change volume all in one click - mouse_down and move
+		 * **/
+		private function onMouseMove(e:MouseEvent):void{
+			var vol:Number		= _slider.mouseX/_slider.width;
+			
+			if(vol < 0)
+				changeVolume(0);
+			else
+				changeVolume(vol);
 		}
 		
 		/**
@@ -411,6 +430,10 @@ package com.kaltura.kdpfl.view.controls
 				this.width -= _volumeSlider.width;
 			}
 			_volumeSlider.visible = false;
+			
+			if(_volumeSlider.hasEventListener(MouseEvent.MOUSE_MOVE)){
+				_volumeSlider.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			}
 		}
 		
 		/**

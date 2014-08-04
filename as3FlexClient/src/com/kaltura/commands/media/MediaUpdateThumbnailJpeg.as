@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.media.MediaUpdateThumbnailJpegDelegate;
 
 	/**
-	 * Update media entry thumbnail using a raw jpeg file
-	 * 
-	 **/
+	* Update media entry thumbnail using a raw jpeg file
+	* 
+	**/
 	public class MediaUpdateThumbnailJpeg extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param entryId String
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param entryId String
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function MediaUpdateThumbnailJpeg( entryId : String,fileData : Object )
 		{
 			service= 'media';

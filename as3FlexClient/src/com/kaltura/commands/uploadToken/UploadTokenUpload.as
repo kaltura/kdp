@@ -27,26 +27,26 @@
 // ===================================================================================================
 package com.kaltura.commands.uploadToken
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.uploadToken.UploadTokenUploadDelegate;
 
 	/**
-	 * Upload a file using the upload token id, returns an error on failure (an exception will be thrown when using one of the Kaltura clients)
-	 * 
-	 **/
+	* Upload a file using the upload token id, returns an error on failure (an exception will be thrown when using one of the Kaltura clients)
+	* 
+	**/
 	public class UploadTokenUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param uploadTokenId String
-		 * @param fileData Object - FileReference or ByteArray
-		 * @param resume Boolean
-		 * @param finalChunk Boolean
-		 * @param resumeAt Number
-		 **/
+		* @param uploadTokenId String
+		* @param fileData Object - FileReference or ByteArray
+		* @param resume Boolean
+		* @param finalChunk Boolean
+		* @param resumeAt Number
+		**/
 		public function UploadTokenUpload( uploadTokenId : String,fileData : Object,resume : Boolean=false,finalChunk : Boolean=true,resumeAt : Number=-1 )
 		{
 			service= 'uploadtoken';

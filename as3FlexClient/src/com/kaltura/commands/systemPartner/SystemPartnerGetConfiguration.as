@@ -31,14 +31,14 @@ package com.kaltura.commands.systemPartner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SystemPartnerGetConfiguration extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partnerId int
-		 **/
+		* @param partnerId int
+		**/
 		public function SystemPartnerGetConfiguration( partnerId : int )
 		{
 			service= 'systempartner_systempartner';

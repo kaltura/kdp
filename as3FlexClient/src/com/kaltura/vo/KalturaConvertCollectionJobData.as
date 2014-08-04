@@ -33,31 +33,31 @@ package com.kaltura.vo
 	public dynamic class KalturaConvertCollectionJobData extends KalturaConvartableJobData
 	{
 		/**
-		 **/
+		**/
 		public var destDirLocalPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var destDirRemoteUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var destFileName : String = null;
 
 		/**
-		 **/
+		**/
 		public var inputXmlLocalPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var inputXmlRemoteUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var commandLinesStr : String = null;
 
 		/**
-		 **/
+		**/
 		public var flavors : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -79,6 +79,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'flavors':
+					result = 'KalturaConvertCollectionFlavorData';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

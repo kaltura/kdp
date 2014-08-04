@@ -33,48 +33,48 @@ package com.kaltura.vo
 	public dynamic class KalturaUserFilter extends KalturaUserBaseFilter
 	{
 		/**
-		 **/
+		**/
 		public var idOrScreenNameStartsWith : String = null;
 
 		/**
-		 **/
+		**/
 		public var idEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var loginEnabledEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var roleIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var roleIdsEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var roleIdsIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var firstNameOrLastNameStartsWith : String = null;
 
 		/**
-		 * Permission names filter expression
-		 * 
-		 **/
+		* Permission names filter expression
+		* 
+		**/
 		public var permissionNamesMultiLikeOr : String = null;
 
 		/**
-		 * Permission names filter expression
-		 * 
-		 **/
+		* Permission names filter expression
+		* 
+		**/
 		public var permissionNamesMultiLikeAnd : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -99,6 +99,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

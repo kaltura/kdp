@@ -31,16 +31,16 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retries last submit action
-	 * 
-	 **/
+	* Retries last submit action
+	* 
+	**/
 	public class EntryDistributionRetrySubmit extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function EntryDistributionRetrySubmit( id : int )
 		{
 			service= 'contentdistribution_entrydistribution';

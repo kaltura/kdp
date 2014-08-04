@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.dropFolder
 {
-	import com.kaltura.vo.KalturaDropFolder;
+		import com.kaltura.vo.KalturaDropFolder;
 	import com.kaltura.delegates.dropFolder.DropFolderAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Allows you to add a new KalturaDropFolder object
-	 * 
-	 **/
+	* Allows you to add a new KalturaDropFolder object
+	* 
+	**/
 	public class DropFolderAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param dropFolder KalturaDropFolder
-		 **/
+		* @param dropFolder KalturaDropFolder
+		**/
 		public function DropFolderAdd( dropFolder : KalturaDropFolder )
 		{
 			service= 'dropfolder_dropfolder';
@@ -50,9 +50,9 @@ package com.kaltura.commands.dropFolder
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(dropFolder, 'dropFolder');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(dropFolder, 'dropFolder');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

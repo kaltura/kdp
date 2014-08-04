@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.externalMedia
 {
-	import com.kaltura.vo.KalturaExternalMediaEntry;
+		import com.kaltura.vo.KalturaExternalMediaEntry;
 	import com.kaltura.delegates.externalMedia.ExternalMediaUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update external media entry. Only the properties that were set will be updated.
-	 * 
-	 **/
+	* Update external media entry. Only the properties that were set will be updated.
+	* 
+	**/
 	public class ExternalMediaUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param entry KalturaExternalMediaEntry
-		 **/
+		* @param id String
+		* @param entry KalturaExternalMediaEntry
+		**/
 		public function ExternalMediaUpdate( id : String,entry : KalturaExternalMediaEntry )
 		{
 			service= 'externalmedia_externalmedia';
@@ -53,9 +53,9 @@ package com.kaltura.commands.externalMedia
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(entry, 'entry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(entry, 'entry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

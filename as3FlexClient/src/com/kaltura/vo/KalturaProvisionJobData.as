@@ -33,55 +33,55 @@ package com.kaltura.vo
 	public dynamic class KalturaProvisionJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var streamID : String = null;
 
 		/**
-		 **/
+		**/
 		public var backupStreamID : String = null;
 
 		/**
-		 **/
+		**/
 		public var rtmp : String = null;
 
 		/**
-		 **/
+		**/
 		public var encoderIP : String = null;
 
 		/**
-		 **/
+		**/
 		public var backupEncoderIP : String = null;
 
 		/**
-		 **/
+		**/
 		public var encoderPassword : String = null;
 
 		/**
-		 **/
+		**/
 		public var encoderUsername : String = null;
 
 		/**
-		 **/
+		**/
 		public var endDate : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var returnVal : String = null;
 
 		/**
-		 **/
+		**/
 		public var mediaType : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var primaryBroadcastingUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var secondaryBroadcastingUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var streamName : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -109,6 +109,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

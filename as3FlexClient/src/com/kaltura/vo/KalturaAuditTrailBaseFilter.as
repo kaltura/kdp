@@ -33,156 +33,156 @@ package com.kaltura.vo
 	public dynamic class KalturaAuditTrailBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var parsedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var parsedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaAuditTrailStatus
-		 **/
+		* @see com.kaltura.types.KalturaAuditTrailStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaAuditTrailObjectType
-		 **/
+		* @see com.kaltura.types.KalturaAuditTrailObjectType
+		**/
 		public var auditObjectTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var auditObjectTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var relatedObjectIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var relatedObjectIdIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaAuditTrailObjectType
-		 **/
+		* @see com.kaltura.types.KalturaAuditTrailObjectType
+		**/
 		public var relatedObjectTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var relatedObjectTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var masterPartnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var masterPartnerIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var requestIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var requestIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var userIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var userIdIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaAuditTrailAction
-		 **/
+		* @see com.kaltura.types.KalturaAuditTrailAction
+		**/
 		public var actionEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var actionIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var ksEqual : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaAuditTrailContext
-		 **/
+		* @see com.kaltura.types.KalturaAuditTrailContext
+		**/
 		public var contextEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var contextIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryPointEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryPointIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var serverNameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var serverNameIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var ipAddressEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var ipAddressIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var clientTagEqual : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -234,6 +234,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

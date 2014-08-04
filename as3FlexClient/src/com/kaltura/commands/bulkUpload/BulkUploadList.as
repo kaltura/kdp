@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.bulkUpload
 {
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.bulkUpload.BulkUploadListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List bulk upload batch jobs
-	 * 
-	 **/
+	* List bulk upload batch jobs
+	* 
+	**/
 	public class BulkUploadList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param pager KalturaFilterPager
+		**/
 		public function BulkUploadList( pager : KalturaFilterPager=null )
 		{
 			service= 'bulkupload';
@@ -50,11 +50,11 @@ package com.kaltura.commands.bulkUpload
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

@@ -31,17 +31,17 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves thumbnail by entry id and thumnail params id
-	 * 
-	 **/
+	* Serves thumbnail by entry id and thumnail params id
+	* 
+	**/
 	public class ThumbAssetServeByEntryId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param thumbParamId int
-		 **/
+		* @param entryId String
+		* @param thumbParamId int
+		**/
 		public function ThumbAssetServeByEntryId( entryId : String,thumbParamId : int=int.MIN_VALUE )
 		{
 			service= 'thumbasset';

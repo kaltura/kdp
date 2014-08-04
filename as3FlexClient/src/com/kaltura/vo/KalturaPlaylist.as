@@ -33,48 +33,54 @@ package com.kaltura.vo
 	public dynamic class KalturaPlaylist extends KalturaBaseEntry
 	{
 		/**
-		 * Content of the playlist -
-		 * XML if the playlistType is dynamic
-		 * text if the playlistType is static
-		 * url if the playlistType is mRss
-		 * 
-		 **/
+		* Content of the playlist -
+		* XML if the playlistType is dynamic
+		* text if the playlistType is static
+		* url if the playlistType is mRss
+		* 
+		**/
 		public var playlistContent : String = null;
 
 		/**
-		 **/
+		**/
 		public var filters : Array = null;
 
 		/**
-		 * Maximum count of results to be returned in playlist execution
-		 * 
-		 **/
+		* Maximum count of results to be returned in playlist execution
+		* 
+		**/
 		public var totalResults : int = int.MIN_VALUE;
 
 		/**
-		 * Type of playlist
-		 * 
-		 * @see com.kaltura.types.KalturaPlaylistType
-		 **/
+		* Type of playlist
+		* 
+		* @see com.kaltura.types.KalturaPlaylistType
+		**/
 		public var playlistType : int = int.MIN_VALUE;
 
 		/**
-		 * Number of plays
-		 * 
-		 **/
+		* Number of plays
+		* 
+		**/
 		public var plays : int = int.MIN_VALUE;
 
 		/**
-		 * Number of views
-		 * 
-		 **/
+		* Number of views
+		* 
+		**/
 		public var views : int = int.MIN_VALUE;
 
 		/**
-		 * The duration in seconds
-		 * 
-		 **/
+		* The duration in seconds
+		* 
+		**/
 		public var duration : int = int.MIN_VALUE;
+
+		/**
+		* The url for this playlist
+		* 
+		**/
+		public var executeUrl : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -92,6 +98,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'filters':
+					result = 'KalturaMediaEntryFilterForPlaylist';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

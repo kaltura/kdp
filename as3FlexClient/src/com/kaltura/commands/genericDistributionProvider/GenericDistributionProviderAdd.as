@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.genericDistributionProvider
 {
-	import com.kaltura.vo.KalturaGenericDistributionProvider;
+		import com.kaltura.vo.KalturaGenericDistributionProvider;
 	import com.kaltura.delegates.genericDistributionProvider.GenericDistributionProviderAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new Generic Distribution Provider
-	 * 
-	 **/
+	* Add new Generic Distribution Provider
+	* 
+	**/
 	public class GenericDistributionProviderAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param genericDistributionProvider KalturaGenericDistributionProvider
-		 **/
+		* @param genericDistributionProvider KalturaGenericDistributionProvider
+		**/
 		public function GenericDistributionProviderAdd( genericDistributionProvider : KalturaGenericDistributionProvider )
 		{
 			service= 'contentdistribution_genericdistributionprovider';
@@ -50,9 +50,9 @@ package com.kaltura.commands.genericDistributionProvider
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(genericDistributionProvider, 'genericDistributionProvider');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(genericDistributionProvider, 'genericDistributionProvider');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

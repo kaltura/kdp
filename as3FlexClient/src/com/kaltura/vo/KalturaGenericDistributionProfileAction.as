@@ -33,42 +33,42 @@ package com.kaltura.vo
 	public dynamic class KalturaGenericDistributionProfileAction extends BaseFlexVo
 	{
 		/**
-		 * @see com.kaltura.types.KalturaDistributionProtocol
-		 **/
+		* @see com.kaltura.types.KalturaDistributionProtocol
+		**/
 		public var protocol : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var serverUrl : String = null;
 
 		/**
-		 **/
+		**/
 		public var serverPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var username : String = null;
 
 		/**
-		 **/
+		**/
 		public var password : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var ftpPassiveMode : Boolean;
 
 		/**
-		 **/
+		**/
 		public var httpFieldName : String = null;
 
 		/**
-		 **/
+		**/
 		public var httpFileName : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -85,13 +85,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

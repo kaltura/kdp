@@ -31,16 +31,16 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Copy all memeber from parent category
-	 * 
-	 **/
+	* Copy all memeber from parent category
+	* 
+	**/
 	public class CategoryUserCopyFromCategory extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param categoryId int
-		 **/
+		* @param categoryId int
+		**/
 		public function CategoryUserCopyFromCategory( categoryId : int )
 		{
 			service= 'categoryuser';

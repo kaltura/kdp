@@ -33,79 +33,79 @@ package com.kaltura.vo
 	public dynamic class KalturaMetadataProfileBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaMetadataObjectType
-		 **/
+		* @see com.kaltura.types.KalturaMetadataObjectType
+		**/
 		public var metadataObjectTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var metadataObjectTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var versionEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var nameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemNameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemNameIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaMetadataProfileStatus
-		 **/
+		* @see com.kaltura.types.KalturaMetadataProfileStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaMetadataProfileCreateMode
-		 **/
+		* @see com.kaltura.types.KalturaMetadataProfileCreateMode
+		**/
 		public var createModeEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaMetadataProfileCreateMode
-		 **/
+		* @see com.kaltura.types.KalturaMetadataProfileCreateMode
+		**/
 		public var createModeNotEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createModeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createModeNotIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -138,6 +138,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

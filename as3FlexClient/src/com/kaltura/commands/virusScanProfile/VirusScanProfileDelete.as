@@ -31,16 +31,16 @@ package com.kaltura.commands.virusScanProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Mark the virus scan profile as deleted
-	 * 
-	 **/
+	* Mark the virus scan profile as deleted
+	* 
+	**/
 	public class VirusScanProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param virusScanProfileId int
-		 **/
+		* @param virusScanProfileId int
+		**/
 		public function VirusScanProfileDelete( virusScanProfileId : int )
 		{
 			service= 'virusscan_virusscanprofile';

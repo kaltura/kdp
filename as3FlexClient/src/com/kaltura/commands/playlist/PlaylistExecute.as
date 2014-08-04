@@ -27,25 +27,25 @@
 // ===================================================================================================
 package com.kaltura.commands.playlist
 {
-	import com.kaltura.vo.KalturaContext;
-	import com.kaltura.vo.KalturaMediaEntryFilterForPlaylist;
+		import com.kaltura.vo.KalturaContext;
+		import com.kaltura.vo.KalturaMediaEntryFilterForPlaylist;
 	import com.kaltura.delegates.playlist.PlaylistExecuteDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve playlist for playing purpose
-	 * 
-	 **/
+	* Retrieve playlist for playing purpose
+	* 
+	**/
 	public class PlaylistExecute extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param detailed String
-		 * @param playlistContext KalturaContext
-		 * @param filter KalturaMediaEntryFilterForPlaylist
-		 **/
+		* @param id String
+		* @param detailed String
+		* @param playlistContext KalturaContext
+		* @param filter KalturaMediaEntryFilterForPlaylist
+		**/
 		public function PlaylistExecute( id : String,detailed : String='',playlistContext : KalturaContext=null,filter : KalturaMediaEntryFilterForPlaylist=null )
 		{
 			service= 'playlist';
@@ -58,16 +58,16 @@ package com.kaltura.commands.playlist
 			valueArr.push(id);
 			keyArr.push('detailed');
 			valueArr.push(detailed);
- 			if (playlistContext) { 
- 			keyValArr = kalturaObject2Arrays(playlistContext, 'playlistContext');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (playlistContext) { 
+				keyValArr = kalturaObject2Arrays(playlistContext, 'playlistContext');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

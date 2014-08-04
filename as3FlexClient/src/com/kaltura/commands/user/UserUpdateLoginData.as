@@ -31,21 +31,21 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Updates a user's login data: email, password, name.
-	 * 
-	 **/
+	* Updates a user's login data: email, password, name.
+	* 
+	**/
 	public class UserUpdateLoginData extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param oldLoginId String
-		 * @param password String
-		 * @param newLoginId String
-		 * @param newPassword String
-		 * @param newFirstName String
-		 * @param newLastName String
-		 **/
+		* @param oldLoginId String
+		* @param password String
+		* @param newLoginId String
+		* @param newPassword String
+		* @param newFirstName String
+		* @param newLastName String
+		**/
 		public function UserUpdateLoginData( oldLoginId : String,password : String,newLoginId : String='',newPassword : String='',newFirstName : String = null,newLastName : String = null )
 		{
 			service= 'user';

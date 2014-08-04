@@ -31,16 +31,16 @@ package com.kaltura.commands.partner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve partner object by Id
-	 * 
-	 **/
+	* Retrieve partner object by Id
+	* 
+	**/
 	public class PartnerGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function PartnerGet( id : int=int.MIN_VALUE )
 		{
 			service= 'partner';

@@ -27,30 +27,30 @@
 // ===================================================================================================
 package com.kaltura.commands.report
 {
-	import com.kaltura.vo.KalturaReportInputFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaReportInputFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.report.ReportGetUrlForReportAsCsvDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * will create a Csv file for the given report and return the URL to access it
-	 * 
-	 **/
+	* will create a Csv file for the given report and return the URL to access it
+	* 
+	**/
 	public class ReportGetUrlForReportAsCsv extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param reportTitle String
-		 * @param reportText String
-		 * @param headers String
-		 * @param reportType int
-		 * @param reportInputFilter KalturaReportInputFilter
-		 * @param dimension String
-		 * @param pager KalturaFilterPager
-		 * @param order String
-		 * @param objectIds String
-		 **/
+		* @param reportTitle String
+		* @param reportText String
+		* @param headers String
+		* @param reportType int
+		* @param reportInputFilter KalturaReportInputFilter
+		* @param dimension String
+		* @param pager KalturaFilterPager
+		* @param order String
+		* @param objectIds String
+		**/
 		public function ReportGetUrlForReportAsCsv( reportTitle : String,reportText : String,headers : String,reportType : int,reportInputFilter : KalturaReportInputFilter,dimension : String = null,pager : KalturaFilterPager=null,order : String = null,objectIds : String = null )
 		{
 			service= 'report';
@@ -67,16 +67,16 @@ package com.kaltura.commands.report
 			valueArr.push(headers);
 			keyArr.push('reportType');
 			valueArr.push(reportType);
- 			keyValArr = kalturaObject2Arrays(reportInputFilter, 'reportInputFilter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(reportInputFilter, 'reportInputFilter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('dimension');
 			valueArr.push(dimension);
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			keyArr.push('order');
 			valueArr.push(order);
 			keyArr.push('objectIds');

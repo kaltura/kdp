@@ -33,85 +33,85 @@ package com.kaltura.vo
 	public dynamic class KalturaEntryDistributionBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var submittedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var submittedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var entryIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var distributionProfileIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var distributionProfileIdIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaEntryDistributionStatus
-		 **/
+		* @see com.kaltura.types.KalturaEntryDistributionStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaEntryDistributionFlag
-		 **/
+		* @see com.kaltura.types.KalturaEntryDistributionFlag
+		**/
 		public var dirtyStatusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var dirtyStatusIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var sunriseGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var sunriseLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var sunsetGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var sunsetLessThanOrEqual : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -146,6 +146,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

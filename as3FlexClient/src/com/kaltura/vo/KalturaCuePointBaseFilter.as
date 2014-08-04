@@ -33,110 +33,110 @@ package com.kaltura.vo
 	public dynamic class KalturaCuePointBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaCuePointType
-		 **/
+		* @see com.kaltura.types.KalturaCuePointType
+		**/
 		public var cuePointTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var cuePointTypeIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaCuePointStatus
-		 **/
+		* @see com.kaltura.types.KalturaCuePointStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var tagsLike : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeAnd : String = null;
 
 		/**
-		 **/
+		**/
 		public var startTimeGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var startTimeLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var userIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var userIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerSortValueEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerSortValueIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerSortValueGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerSortValueLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var forceStopEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var systemNameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemNameIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -177,6 +177,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

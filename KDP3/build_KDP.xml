@@ -1,4 +1,4 @@
-<project name="AntTest" default="compile" basedir=".">
+<project name="AntTest" default="build" basedir=".">
  
 	<!-- sdk 4.5 -->
 	 <property name="FLEX_HOME" value="/Applications/Adobe Flash Builder 4.6/sdks/4.5.1" />
@@ -6,7 +6,7 @@
 	 <!--property name="FLEX_HOME" value="/Applications/Adobe Flash Builder 4.6/sdks/4.6.0" /-->
 	 <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 
-	<property name="v_kdp" value="3.9.0"/>
+	<property name="v_kdp" value="v3.9.9"/>
     <property name="src" value="src"/>  
     <property name="build" value="build-release"/>
      
@@ -17,7 +17,7 @@
 	
 	<target name="build">
 		<length property="length" mode="each">
-     		 <fileset dir="../KDP3/3.9.0/plugins" >
+     		 <fileset dir="../KDP3/v3.9.9/plugins" >
 			<include name="**/*.swf"/>
 		   </fileset>
 	   </length>
@@ -136,6 +136,7 @@
     	
     	<fb.exportReleaseBuild failonerror="true" project="kalturaMixPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}/plugins" file="../plugins/kalturaMixPlugin/${build}/kalturaMixPlugin.swf"/>
+    	<fb.exportReleaseBuild failonerror="true" project="eyewonderPlugin" destdir="${build}"/>
     	<copy todir="${v_kdp}/plugins" file="../plugins/eyewonderPlugin/${build}/eyewonderPlugin.swf"/>
     	  	
     </target>

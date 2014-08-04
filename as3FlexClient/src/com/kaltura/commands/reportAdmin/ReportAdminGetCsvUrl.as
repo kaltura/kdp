@@ -31,15 +31,15 @@ package com.kaltura.commands.reportAdmin
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ReportAdminGetCsvUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param reportPartnerId int
-		 **/
+		* @param id int
+		* @param reportPartnerId int
+		**/
 		public function ReportAdminGetCsvUrl( id : int,reportPartnerId : int )
 		{
 			service= 'adminconsole_reportadmin';

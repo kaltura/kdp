@@ -31,16 +31,16 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get remote storage existing paths for the asset.
-	 * 
-	 **/
+	* Get remote storage existing paths for the asset.
+	* 
+	**/
 	public class BaseEntryGetRemotePaths extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function BaseEntryGetRemotePaths( entryId : String )
 		{
 			service= 'baseentry';

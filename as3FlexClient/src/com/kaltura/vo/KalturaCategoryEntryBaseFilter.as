@@ -33,40 +33,40 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryEntryBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var categoryIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var categoryIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var entryIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var categoryFullIdsStartsWith : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaCategoryEntryStatus
-		 **/
+		* @see com.kaltura.types.KalturaCategoryEntryStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -90,6 +90,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -27,37 +27,34 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
-	import com.kaltura.vo.BaseFlexVo;
+	import com.kaltura.vo.KalturaContextTypeHolder;
 
 	[Bindable]
-	public dynamic class KalturaAccessControlContextTypeHolder extends BaseFlexVo
+	public dynamic class KalturaAccessControlContextTypeHolder extends KalturaContextTypeHolder
 	{
-		/**
-		 * The type of the access control condition context
-		 * 
-		 * @see com.kaltura.types.KalturaAccessControlContextType
-		 **/
-		public var type : String = null;
-
-		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
-		public function getUpdateableParamKeys():Array
+		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
-			arr = new Array();
-			arr.push('type');
+			arr = super.getUpdateableParamKeys();
 			return arr;
 		}
 
-		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
-		public function getInsertableParamKeys():Array
+		override public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
-			arr = new Array();
+			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

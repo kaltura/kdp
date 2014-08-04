@@ -33,86 +33,86 @@ package com.kaltura.vo
 	public dynamic class KalturaGenericDistributionProviderAction extends BaseFlexVo
 	{
 		/**
-		 * Auto generated
-		 * 
-		 **/
+		* Auto generated
+		* 
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 * Generic distribution provider action creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Generic distribution provider action creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * Generic distribution provider action last update date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Generic distribution provider action last update date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var genericDistributionProviderId : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaDistributionAction
-		 **/
+		* @see com.kaltura.types.KalturaDistributionAction
+		**/
 		public var action : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaGenericDistributionProviderStatus
-		 **/
+		* @see com.kaltura.types.KalturaGenericDistributionProviderStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaGenericDistributionProviderParser
-		 **/
+		* @see com.kaltura.types.KalturaGenericDistributionProviderParser
+		**/
 		public var resultsParser : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaDistributionProtocol
-		 **/
+		* @see com.kaltura.types.KalturaDistributionProtocol
+		**/
 		public var protocol : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var serverAddress : String = null;
 
 		/**
-		 **/
+		**/
 		public var remotePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var remoteUsername : String = null;
 
 		/**
-		 **/
+		**/
 		public var remotePassword : String = null;
 
 		/**
-		 **/
+		**/
 		public var editableFields : String = null;
 
 		/**
-		 **/
+		**/
 		public var mandatoryFields : String = null;
 
 		/**
-		 **/
+		**/
 		public var mrssTransformer : String = null;
 
 		/**
-		 **/
+		**/
 		public var mrssValidator : String = null;
 
 		/**
-		 **/
+		**/
 		public var resultsTransformer : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -129,8 +129,8 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
@@ -138,6 +138,19 @@ package com.kaltura.vo
 			arr.push('genericDistributionProviderId');
 			arr.push('action');
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

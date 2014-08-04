@@ -31,17 +31,17 @@ package com.kaltura.commands.systemPartner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve all info about partner
-	 * This service gets partner id as parameter and accessable to the admin console partner only
-	 * 
-	 **/
+	* Retrieve all info about partner
+	* This service gets partner id as parameter and accessable to the admin console partner only
+	* 
+	**/
 	public class SystemPartnerGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partnerId int
-		 **/
+		* @param partnerId int
+		**/
 		public function SystemPartnerGet( partnerId : int )
 		{
 			service= 'systempartner_systempartner';

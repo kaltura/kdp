@@ -33,33 +33,33 @@ package com.kaltura.vo
 	public dynamic class KalturaCrossKalturaDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 * Key-value array where the keys are IDs of distributed flavor assets in the source account and the values are the matching IDs in the target account
-		 * 
-		 **/
+		* Key-value array where the keys are IDs of distributed flavor assets in the source account and the values are the matching IDs in the target account
+		* 
+		**/
 		public var distributedFlavorAssets : String = null;
 
 		/**
-		 * Key-value array where the keys are IDs of distributed thumb assets in the source account and the values are the matching IDs in the target account
-		 * 
-		 **/
+		* Key-value array where the keys are IDs of distributed thumb assets in the source account and the values are the matching IDs in the target account
+		* 
+		**/
 		public var distributedThumbAssets : String = null;
 
 		/**
-		 * Key-value array where the keys are IDs of distributed metadata objects in the source account and the values are the matching IDs in the target account
-		 * 
-		 **/
+		* Key-value array where the keys are IDs of distributed metadata objects in the source account and the values are the matching IDs in the target account
+		* 
+		**/
 		public var distributedMetadata : String = null;
 
 		/**
-		 * Key-value array where the keys are IDs of distributed caption assets in the source account and the values are the matching IDs in the target account
-		 * 
-		 **/
+		* Key-value array where the keys are IDs of distributed caption assets in the source account and the values are the matching IDs in the target account
+		* 
+		**/
 		public var distributedCaptionAssets : String = null;
 
 		/**
-		 * Key-value array where the keys are IDs of distributed cue points in the source account and the values are the matching IDs in the target account
-		 * 
-		 **/
+		* Key-value array where the keys are IDs of distributed cue points in the source account and the values are the matching IDs in the target account
+		* 
+		**/
 		public var distributedCuePoints : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -79,6 +79,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

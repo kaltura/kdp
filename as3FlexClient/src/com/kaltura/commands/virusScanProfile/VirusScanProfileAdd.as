@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.virusScanProfile
 {
-	import com.kaltura.vo.KalturaVirusScanProfile;
+		import com.kaltura.vo.KalturaVirusScanProfile;
 	import com.kaltura.delegates.virusScanProfile.VirusScanProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
-	 * 
-	 **/
+	* Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
+	* 
+	**/
 	public class VirusScanProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param virusScanProfile KalturaVirusScanProfile
-		 **/
+		* @param virusScanProfile KalturaVirusScanProfile
+		**/
 		public function VirusScanProfileAdd( virusScanProfile : KalturaVirusScanProfile )
 		{
 			service= 'virusscan_virusscanprofile';
@@ -50,9 +50,9 @@ package com.kaltura.commands.virusScanProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(virusScanProfile, 'virusScanProfile');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(virusScanProfile, 'virusScanProfile');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

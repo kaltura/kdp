@@ -33,53 +33,43 @@ package com.kaltura.vo
 	public dynamic class KalturaPlayableEntryBaseFilter extends KalturaBaseEntryFilter
 	{
 		/**
-		 **/
+		**/
+		public var lastPlayedAtGreaterThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		**/
+		public var lastPlayedAtLessThanOrEqual : int = int.MIN_VALUE;
+
+		/**
+		**/
 		public var durationLessThan : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var durationGreaterThan : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var durationLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var durationGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
-		public var msDurationLessThan : int = int.MIN_VALUE;
-
-		/**
-		 **/
-		public var msDurationGreaterThan : int = int.MIN_VALUE;
-
-		/**
-		 **/
-		public var msDurationLessThanOrEqual : int = int.MIN_VALUE;
-
-		/**
-		 **/
-		public var msDurationGreaterThanOrEqual : int = int.MIN_VALUE;
-
-		/**
-		 **/
+		**/
 		public var durationTypeMatchOr : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('lastPlayedAtGreaterThanOrEqual');
+			arr.push('lastPlayedAtLessThanOrEqual');
 			arr.push('durationLessThan');
 			arr.push('durationGreaterThan');
 			arr.push('durationLessThanOrEqual');
 			arr.push('durationGreaterThanOrEqual');
-			arr.push('msDurationLessThan');
-			arr.push('msDurationGreaterThan');
-			arr.push('msDurationLessThanOrEqual');
-			arr.push('msDurationGreaterThanOrEqual');
 			arr.push('durationTypeMatchOr');
 			return arr;
 		}
@@ -89,6 +79,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

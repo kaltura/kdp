@@ -31,16 +31,16 @@ package com.kaltura.commands.uploadToken
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get upload token by id
-	 * 
-	 **/
+	* Get upload token by id
+	* 
+	**/
 	public class UploadTokenGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param uploadTokenId String
-		 **/
+		* @param uploadTokenId String
+		**/
 		public function UploadTokenGet( uploadTokenId : String )
 		{
 			service= 'uploadtoken';

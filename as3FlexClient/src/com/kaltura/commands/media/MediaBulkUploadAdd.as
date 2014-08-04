@@ -27,28 +27,28 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
-	import com.kaltura.vo.KalturaBulkUploadJobData;
-	import com.kaltura.vo.KalturaBulkUploadEntryData;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
+		import com.kaltura.vo.KalturaBulkUploadJobData;
+		import com.kaltura.vo.KalturaBulkUploadEntryData;
 	import com.kaltura.delegates.media.MediaBulkUploadAddDelegate;
 
 	/**
-	 * Add new bulk upload batch job
-	 * Conversion profile id can be specified in the API or in the CSV file, the one in the CSV file will be stronger.
-	 * If no conversion profile was specified, partner's default will be used
-	 * 
-	 **/
+	* Add new bulk upload batch job
+	* Conversion profile id can be specified in the API or in the CSV file, the one in the CSV file will be stronger.
+	* If no conversion profile was specified, partner's default will be used
+	* 
+	**/
 	public class MediaBulkUploadAdd extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 * @param bulkUploadData KalturaBulkUploadJobData
-		 * @param bulkUploadEntryData KalturaBulkUploadEntryData
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		* @param bulkUploadData KalturaBulkUploadJobData
+		* @param bulkUploadEntryData KalturaBulkUploadEntryData
+		**/
 		public function MediaBulkUploadAdd( fileData : Object,bulkUploadData : KalturaBulkUploadJobData=null,bulkUploadEntryData : KalturaBulkUploadEntryData=null )
 		{
 			service= 'media';
@@ -58,16 +58,16 @@ package com.kaltura.commands.media
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
 			this.fileData = fileData;
- 			if (bulkUploadData) { 
- 			keyValArr = kalturaObject2Arrays(bulkUploadData, 'bulkUploadData');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (bulkUploadEntryData) { 
- 			keyValArr = kalturaObject2Arrays(bulkUploadEntryData, 'bulkUploadEntryData');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (bulkUploadData) { 
+				keyValArr = kalturaObject2Arrays(bulkUploadData, 'bulkUploadData');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (bulkUploadEntryData) { 
+				keyValArr = kalturaObject2Arrays(bulkUploadEntryData, 'bulkUploadEntryData');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

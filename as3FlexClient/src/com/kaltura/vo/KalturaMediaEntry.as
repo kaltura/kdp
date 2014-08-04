@@ -33,66 +33,66 @@ package com.kaltura.vo
 	public dynamic class KalturaMediaEntry extends KalturaPlayableEntry
 	{
 		/**
-		 * The media type of the entry
-		 * 
-		 * @see com.kaltura.types.KalturaMediaType
-		 **/
+		* The media type of the entry
+		* 
+		* @see com.kaltura.types.KalturaMediaType
+		**/
 		public var mediaType : int = int.MIN_VALUE;
 
 		/**
-		 * Override the default conversion quality
-		 * 
-		 **/
+		* Override the default conversion quality
+		* 
+		**/
 		public var conversionQuality : String = null;
 
 		/**
-		 * The source type of the entry
-		 * 
-		 * @see com.kaltura.types.KalturaSourceType
-		 **/
+		* The source type of the entry
+		* 
+		* @see com.kaltura.types.KalturaSourceType
+		**/
 		public var sourceType : String = null;
 
 		/**
-		 * The search provider type used to import this entry
-		 * 
-		 * @see com.kaltura.types.KalturaSearchProviderType
-		 **/
+		* The search provider type used to import this entry
+		* 
+		* @see com.kaltura.types.KalturaSearchProviderType
+		**/
 		public var searchProviderType : int = int.MIN_VALUE;
 
 		/**
-		 * The ID of the media in the importing site
-		 * 
-		 **/
+		* The ID of the media in the importing site
+		* 
+		**/
 		public var searchProviderId : String = null;
 
 		/**
-		 * The user name used for credits
-		 * 
-		 **/
+		* The user name used for credits
+		* 
+		**/
 		public var creditUserName : String = null;
 
 		/**
-		 * The URL for credits
-		 * 
-		 **/
+		* The URL for credits
+		* 
+		**/
 		public var creditUrl : String = null;
 
 		/**
-		 * The media date extracted from EXIF data (For images) as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* The media date extracted from EXIF data (For images) as Unix timestamp (In seconds)
+		* 
+		**/
 		public var mediaDate : int = int.MIN_VALUE;
 
 		/**
-		 * The URL used for playback. This is not the download URL.
-		 * 
-		 **/
+		* The URL used for playback. This is not the download URL.
+		* 
+		**/
 		public var dataUrl : String = null;
 
 		/**
-		 * Comma separated flavor params ids that exists for this media entry
-		 * 
-		 **/
+		* Comma separated flavor params ids that exists for this media entry
+		* 
+		**/
 		public var flavorParamsIds : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -114,6 +114,17 @@ package com.kaltura.vo
 			arr.push('searchProviderType');
 			arr.push('searchProviderId');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

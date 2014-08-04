@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.metadataProfile
 {
-	import com.kaltura.vo.KalturaMetadataProfile;
+		import com.kaltura.vo.KalturaMetadataProfile;
 	import com.kaltura.delegates.metadataProfile.MetadataProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Allows you to add a metadata profile object and metadata profile content associated with Kaltura object type
-	 * 
-	 **/
+	* Allows you to add a metadata profile object and metadata profile content associated with Kaltura object type
+	* 
+	**/
 	public class MetadataProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param metadataProfile KalturaMetadataProfile
-		 * @param xsdData String
-		 * @param viewsData String
-		 **/
+		* @param metadataProfile KalturaMetadataProfile
+		* @param xsdData String
+		* @param viewsData String
+		**/
 		public function MetadataProfileAdd( metadataProfile : KalturaMetadataProfile,xsdData : String,viewsData : String = null )
 		{
 			service= 'metadata_metadataprofile';
@@ -52,9 +52,9 @@ package com.kaltura.commands.metadataProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(metadataProfile, 'metadataProfile');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(metadataProfile, 'metadataProfile');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('xsdData');
 			valueArr.push(xsdData);
 			keyArr.push('viewsData');

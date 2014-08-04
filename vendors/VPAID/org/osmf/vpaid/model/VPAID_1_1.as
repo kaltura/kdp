@@ -41,7 +41,7 @@ package org.osmf.vpaid.model
 	**/
 	public class VPAID_1_1 extends EventDispatcher implements IVPAIDBase
 	{
-		private var _handshakeVersions:Array = ["1.1"];
+		private var _handshakeVersions:Array = ["1.1","1.0"];
 		private var _vpaidElement:VPAIDElement;
 
 		public var adVersion:String;

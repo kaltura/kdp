@@ -31,16 +31,16 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Deletes a user from a partner account.
-	 * 
-	 **/
+	* Deletes a user from a partner account.
+	* 
+	**/
 	public class UserDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userId String
-		 **/
+		* @param userId String
+		**/
 		public function UserDelete( userId : String )
 		{
 			service= 'user';

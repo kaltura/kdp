@@ -31,16 +31,16 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Deletes Entry Distribution from the remote destination
-	 * 
-	 **/
+	* Deletes Entry Distribution from the remote destination
+	* 
+	**/
 	public class EntryDistributionSubmitDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function EntryDistributionSubmitDelete( id : int )
 		{
 			service= 'contentdistribution_entrydistribution';

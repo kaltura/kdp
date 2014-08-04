@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.category
 {
-	import com.kaltura.vo.KalturaCategory;
+		import com.kaltura.vo.KalturaCategory;
 	import com.kaltura.delegates.category.CategoryAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new Category
-	 * 
-	 **/
+	* Add new Category
+	* 
+	**/
 	public class CategoryAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param category KalturaCategory
-		 **/
+		* @param category KalturaCategory
+		**/
 		public function CategoryAdd( category : KalturaCategory )
 		{
 			service= 'category';
@@ -50,9 +50,9 @@ package com.kaltura.commands.category
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(category, 'category');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(category, 'category');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

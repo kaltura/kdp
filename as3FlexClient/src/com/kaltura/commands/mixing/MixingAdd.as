@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.mixing
 {
-	import com.kaltura.vo.KalturaMixEntry;
+		import com.kaltura.vo.KalturaMixEntry;
 	import com.kaltura.delegates.mixing.MixingAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds a new mix.
-	 * If the dataContent is null, a default timeline will be created.
-	 * 
-	 **/
+	* Adds a new mix.
+	* If the dataContent is null, a default timeline will be created.
+	* 
+	**/
 	public class MixingAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param mixEntry KalturaMixEntry
-		 **/
+		* @param mixEntry KalturaMixEntry
+		**/
 		public function MixingAdd( mixEntry : KalturaMixEntry )
 		{
 			service= 'mixing';
@@ -51,9 +51,9 @@ package com.kaltura.commands.mixing
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(mixEntry, 'mixEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(mixEntry, 'mixEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

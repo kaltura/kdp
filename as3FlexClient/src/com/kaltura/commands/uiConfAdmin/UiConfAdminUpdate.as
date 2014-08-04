@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.uiConfAdmin
 {
-	import com.kaltura.vo.KalturaUiConfAdmin;
+		import com.kaltura.vo.KalturaUiConfAdmin;
 	import com.kaltura.delegates.uiConfAdmin.UiConfAdminUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update an existing UIConf with no partner limitation
-	 * 
-	 **/
+	* Update an existing UIConf with no partner limitation
+	* 
+	**/
 	public class UiConfAdminUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param uiConf KalturaUiConfAdmin
-		 **/
+		* @param id int
+		* @param uiConf KalturaUiConfAdmin
+		**/
 		public function UiConfAdminUpdate( id : int,uiConf : KalturaUiConfAdmin )
 		{
 			service= 'adminconsole_uiconfadmin';
@@ -53,9 +53,9 @@ package com.kaltura.commands.uiConfAdmin
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(uiConf, 'uiConf');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(uiConf, 'uiConf');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

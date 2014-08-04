@@ -31,16 +31,16 @@ package com.kaltura.commands.search
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SearchExternalLogin extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param searchSource int
-		 * @param userName String
-		 * @param password String
-		 **/
+		* @param searchSource int
+		* @param userName String
+		* @param password String
+		**/
 		public function SearchExternalLogin( searchSource : int,userName : String,password : String )
 		{
 			service= 'search';

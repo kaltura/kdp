@@ -31,16 +31,16 @@ package com.kaltura.commands.auditTrail
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve an audit trail object by id
-	 * 
-	 **/
+	* Retrieve an audit trail object by id
+	* 
+	**/
 	public class AuditTrailGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function AuditTrailGet( id : int )
 		{
 			service= 'audit_audittrail';

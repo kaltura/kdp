@@ -27,22 +27,24 @@
 // ===================================================================================================
 package com.kaltura.commands.thumbAsset
 {
+		import com.kaltura.vo.KalturaThumbParams;
 	import com.kaltura.delegates.thumbAsset.ThumbAssetGetUrlDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get download URL for the asset
-	 * 
-	 **/
+	* Get download URL for the asset
+	* 
+	**/
 	public class ThumbAssetGetUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param storageId int
-		 **/
-		public function ThumbAssetGetUrl( id : String,storageId : int=int.MIN_VALUE )
+		* @param id String
+		* @param storageId int
+		* @param thumbParams KalturaThumbParams
+		**/
+		public function ThumbAssetGetUrl( id : String,storageId : int=int.MIN_VALUE,thumbParams : KalturaThumbParams=null )
 		{
 			service= 'thumbasset';
 			action= 'getUrl';
@@ -54,6 +56,11 @@ package com.kaltura.commands.thumbAsset
 			valueArr.push(id);
 			keyArr.push('storageId');
 			valueArr.push(storageId);
+			if (thumbParams) { 
+				keyValArr = kalturaObject2Arrays(thumbParams, 'thumbParams');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

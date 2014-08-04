@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.documents
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.documents.DocumentsUploadDelegate;
 
 	/**
-	 * Upload a document file to Kaltura, then the file can be used to create a document entry.
-	 * 
-	 **/
+	* Upload a document file to Kaltura, then the file can be used to create a document entry.
+	* 
+	**/
 	public class DocumentsUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function DocumentsUpload( fileData : Object )
 		{
 			service= 'document_documents';

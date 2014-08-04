@@ -31,19 +31,19 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update media entry thumbnail by a specified time offset (In seconds)
-	 * If flavor params id not specified, source flavor will be used by default
-	 * 
-	 **/
+	* Update media entry thumbnail by a specified time offset (In seconds)
+	* If flavor params id not specified, source flavor will be used by default
+	* 
+	**/
 	public class MediaUpdateThumbnail extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param timeOffset int
-		 * @param flavorParamsId int
-		 **/
+		* @param entryId String
+		* @param timeOffset int
+		* @param flavorParamsId int
+		**/
 		public function MediaUpdateThumbnail( entryId : String,timeOffset : int,flavorParamsId : int=int.MIN_VALUE )
 		{
 			service= 'media';

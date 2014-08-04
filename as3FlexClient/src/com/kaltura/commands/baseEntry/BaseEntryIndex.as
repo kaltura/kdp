@@ -31,17 +31,17 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Index an entry by id.
-	 * 
-	 **/
+	* Index an entry by id.
+	* 
+	**/
 	public class BaseEntryIndex extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param shouldUpdate Boolean
-		 **/
+		* @param id String
+		* @param shouldUpdate Boolean
+		**/
 		public function BaseEntryIndex( id : String,shouldUpdate : Boolean=true )
 		{
 			service= 'baseentry';

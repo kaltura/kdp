@@ -31,16 +31,16 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Cancels media replacement
-	 * 
-	 **/
+	* Cancels media replacement
+	* 
+	**/
 	public class MediaCancelReplace extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function MediaCancelReplace( entryId : String )
 		{
 			service= 'media';

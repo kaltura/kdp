@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.metadataProfile
 {
-	import com.kaltura.vo.KalturaMetadataProfileFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaMetadataProfileFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.metadataProfile.MetadataProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List metadata profile objects by filter and pager
-	 * 
-	 **/
+	* List metadata profile objects by filter and pager
+	* 
+	**/
 	public class MetadataProfileList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaMetadataProfileFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaMetadataProfileFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function MetadataProfileList( filter : KalturaMetadataProfileFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'metadata_metadataprofile';
@@ -52,16 +52,16 @@ package com.kaltura.commands.metadataProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

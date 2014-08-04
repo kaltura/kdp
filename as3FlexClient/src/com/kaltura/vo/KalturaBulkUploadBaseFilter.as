@@ -33,33 +33,33 @@ package com.kaltura.vo
 	public dynamic class KalturaBulkUploadBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var uploadedOnGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var uploadedOnLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var uploadedOnEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaBatchJobStatus
-		 **/
+		* @see com.kaltura.types.KalturaBatchJobStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaBulkUploadObjectType
-		 **/
+		* @see com.kaltura.types.KalturaBulkUploadObjectType
+		**/
 		public var bulkUploadObjectTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var bulkUploadObjectTypeIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -81,6 +81,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -33,21 +33,21 @@ package com.kaltura.vo
 	public dynamic class KalturaSshUrlResource extends KalturaUrlResource
 	{
 		/**
-		 * SSH private key
-		 * 
-		 **/
+		* SSH private key
+		* 
+		**/
 		public var privateKey : String = null;
 
 		/**
-		 * SSH public key
-		 * 
-		 **/
+		* SSH public key
+		* 
+		**/
 		public var publicKey : String = null;
 
 		/**
-		 * Passphrase for SSH keys
-		 * 
-		 **/
+		* Passphrase for SSH keys
+		* 
+		**/
 		public var keyPassphrase : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -33,33 +33,33 @@ package com.kaltura.vo
 	public dynamic class KalturaYouTubeApiCaptionDistributionInfo extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var language : String = null;
 
 		/**
-		 **/
+		**/
 		public var filePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var remoteId : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaYouTubeApiDistributionCaptionAction
-		 **/
+		* @see com.kaltura.types.KalturaYouTubeApiDistributionCaptionAction
+		**/
 		public var action : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var version : String = null;
 
 		/**
-		 **/
+		**/
 		public var assetId : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -74,13 +74,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

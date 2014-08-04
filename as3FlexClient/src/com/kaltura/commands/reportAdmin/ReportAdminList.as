@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.reportAdmin
 {
-	import com.kaltura.vo.KalturaReportFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaReportFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.reportAdmin.ReportAdminListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ReportAdminList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaReportFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaReportFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function ReportAdminList( filter : KalturaReportFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'adminconsole_reportadmin';
@@ -50,16 +50,16 @@ package com.kaltura.commands.reportAdmin
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

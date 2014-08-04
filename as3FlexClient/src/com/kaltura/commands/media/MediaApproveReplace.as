@@ -31,16 +31,16 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Approves media replacement
-	 * 
-	 **/
+	* Approves media replacement
+	* 
+	**/
 	public class MediaApproveReplace extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function MediaApproveReplace( entryId : String )
 		{
 			service= 'media';

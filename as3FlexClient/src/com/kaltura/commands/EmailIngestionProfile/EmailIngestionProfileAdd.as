@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.EmailIngestionProfile
 {
-	import com.kaltura.vo.KalturaEmailIngestionProfile;
+		import com.kaltura.vo.KalturaEmailIngestionProfile;
 	import com.kaltura.delegates.EmailIngestionProfile.EmailIngestionProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * EmailIngestionProfile Add action allows you to add a EmailIngestionProfile to Kaltura DB
-	 * 
-	 **/
+	* EmailIngestionProfile Add action allows you to add a EmailIngestionProfile to Kaltura DB
+	* 
+	**/
 	public class EmailIngestionProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param EmailIP KalturaEmailIngestionProfile
-		 **/
+		* @param EmailIP KalturaEmailIngestionProfile
+		**/
 		public function EmailIngestionProfileAdd( EmailIP : KalturaEmailIngestionProfile )
 		{
 			service= 'emailingestionprofile';
@@ -50,9 +50,9 @@ package com.kaltura.commands.EmailIngestionProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(EmailIP, 'EmailIP');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(EmailIP, 'EmailIP');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

@@ -38,5 +38,6 @@ package com.kaltura.types
 		public static const WIDEVINE_FLAVOR : String = 'widevine.WidevineFlavor';
 		public static const FLAVOR : String = '1';
 		public static const THUMBNAIL : String = '2';
+		public static const LIVE : String = '3';
 	}
 }

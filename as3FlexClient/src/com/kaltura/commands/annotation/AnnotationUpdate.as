@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.annotation
 {
-	import com.kaltura.vo.KalturaCuePoint;
+		import com.kaltura.vo.KalturaCuePoint;
 	import com.kaltura.delegates.annotation.AnnotationUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update annotation by id
-	 * 
-	 **/
+	* Update annotation by id
+	* 
+	**/
 	public class AnnotationUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param annotation KalturaCuePoint
-		 **/
+		* @param id String
+		* @param annotation KalturaCuePoint
+		**/
 		public function AnnotationUpdate( id : String,annotation : KalturaCuePoint )
 		{
 			service= 'annotation_annotation';
@@ -53,9 +53,9 @@ package com.kaltura.commands.annotation
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(annotation, 'annotation');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(annotation, 'annotation');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

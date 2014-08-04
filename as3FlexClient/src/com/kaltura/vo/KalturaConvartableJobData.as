@@ -35,42 +35,50 @@ package com.kaltura.vo
 	public dynamic class KalturaConvartableJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var srcFileSyncLocalPath : String = null;
 
 		/**
-		 * The translated path as used by the scheduler
-		 * 
-		 **/
+		* The translated path as used by the scheduler
+		* 
+		**/
 		public var actualSrcFileSyncLocalPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var srcFileSyncRemoteUrl : String = null;
 
 		/**
-		 **/
+		**/
+		public var srcFileSyncs : Array = null;
+
+		/**
+		**/
 		public var engineVersion : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var flavorParamsOutputId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var flavorParamsOutput : KalturaFlavorParamsOutput;
 
 		/**
-		 **/
+		**/
 		public var mediaInfoId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var currentOperationSet : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var currentOperationIndex : int = int.MIN_VALUE;
+
+		/**
+		**/
+		public var pluginData : Array = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -79,12 +87,14 @@ package com.kaltura.vo
 			arr.push('srcFileSyncLocalPath');
 			arr.push('actualSrcFileSyncLocalPath');
 			arr.push('srcFileSyncRemoteUrl');
+			arr.push('srcFileSyncs');
 			arr.push('engineVersion');
 			arr.push('flavorParamsOutputId');
 			arr.push('flavorParamsOutput');
 			arr.push('mediaInfoId');
 			arr.push('currentOperationSet');
 			arr.push('currentOperationIndex');
+			arr.push('pluginData');
 			return arr;
 		}
 
@@ -93,6 +103,26 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'srcFileSyncs':
+					result = 'KalturaSourceFileSyncDescriptor';
+					break;
+				case 'flavorParamsOutput':
+					result = '';
+					break;
+				case 'pluginData':
+					result = 'KalturaKeyValue';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

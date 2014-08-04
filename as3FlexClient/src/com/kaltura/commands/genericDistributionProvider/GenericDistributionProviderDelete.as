@@ -31,16 +31,16 @@ package com.kaltura.commands.genericDistributionProvider
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete Generic Distribution Provider by id
-	 * 
-	 **/
+	* Delete Generic Distribution Provider by id
+	* 
+	**/
 	public class GenericDistributionProviderDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function GenericDistributionProviderDelete( id : int )
 		{
 			service= 'contentdistribution_genericdistributionprovider';

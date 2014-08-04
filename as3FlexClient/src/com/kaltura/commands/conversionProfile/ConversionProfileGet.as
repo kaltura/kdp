@@ -31,16 +31,16 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Conversion Profile by ID
-	 * 
-	 **/
+	* Get Conversion Profile by ID
+	* 
+	**/
 	public class ConversionProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function ConversionProfileGet( id : int )
 		{
 			service= 'conversionprofile';

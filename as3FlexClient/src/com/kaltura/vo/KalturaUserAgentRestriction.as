@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaUserAgentRestriction extends KalturaBaseRestriction
 	{
 		/**
-		 * User agent restriction type (Allow or deny)
-		 * 
-		 * @see com.kaltura.types.KalturaUserAgentRestrictionType
-		 **/
+		* User agent restriction type (Allow or deny)
+		* 
+		* @see com.kaltura.types.KalturaUserAgentRestrictionType
+		**/
 		public var userAgentRestrictionType : int = int.MIN_VALUE;
 
 		/**
-		 * A comma seperated list of user agent regular expressions
-		 * 
-		 **/
+		* A comma seperated list of user agent regular expressions
+		* 
+		**/
 		public var userAgentRegexList : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

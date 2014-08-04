@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.metadataProfile
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.metadataProfile.MetadataProfileUpdateTransformationFromFileDelegate;
 
 	/**
-	 * Update an existing metadata object xslt file
-	 * 
-	 **/
+	* Update an existing metadata object xslt file
+	* 
+	**/
 	public class MetadataProfileUpdateTransformationFromFile extends KalturaFileCall
 	{
 		public var xsltFile:Object;
 
 		
 		/**
-		 * @param id int
-		 * @param xsltFile Object - FileReference or ByteArray
-		 **/
+		* @param id int
+		* @param xsltFile Object - FileReference or ByteArray
+		**/
 		public function MetadataProfileUpdateTransformationFromFile( id : int,xsltFile : Object )
 		{
 			service= 'metadata_metadataprofile';

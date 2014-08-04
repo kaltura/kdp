@@ -33,80 +33,80 @@ package com.kaltura.vo
 	public dynamic class KalturaThumbParams extends KalturaAssetParams
 	{
 		/**
-		 * @see com.kaltura.types.KalturaThumbCropType
-		 **/
+		* @see com.kaltura.types.KalturaThumbCropType
+		**/
 		public var cropType : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var quality : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var cropX : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var cropY : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var cropWidth : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var cropHeight : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var videoOffset : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 **/
+		**/
 		public var width : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var height : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var scaleWidth : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 **/
+		**/
 		public var scaleHeight : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 * Hexadecimal value
-		 * 
-		 **/
+		* Hexadecimal value
+		* 
+		**/
 		public var backgroundColor : String = null;
 
 		/**
-		 * Id of the flavor params or the thumbnail params to be used as source for the thumbnail creation
-		 * 
-		 **/
+		* Id of the flavor params or the thumbnail params to be used as source for the thumbnail creation
+		* 
+		**/
 		public var sourceParamsId : int = int.MIN_VALUE;
 
 		/**
-		 * The container format of the Flavor Params
-		 * 
-		 * @see com.kaltura.types.KalturaContainerFormat
-		 **/
+		* The container format of the Flavor Params
+		* 
+		* @see com.kaltura.types.KalturaContainerFormat
+		**/
 		public var format : String = null;
 
 		/**
-		 * The image density (dpi) for example: 72 or 96
-		 * 
-		 **/
+		* The image density (dpi) for example: 72 or 96
+		* 
+		**/
 		public var density : int = int.MIN_VALUE;
 
 		/**
-		 * Strip profiles and comments
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Strip profiles and comments
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var stripProfiles : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -137,6 +137,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

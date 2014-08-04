@@ -31,16 +31,16 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Distribution Profile by id
-	 * 
-	 **/
+	* Get Distribution Profile by id
+	* 
+	**/
 	public class DistributionProfileGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function DistributionProfileGet( id : int )
 		{
 			service= 'contentdistribution_distributionprofile';

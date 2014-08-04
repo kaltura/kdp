@@ -33,6 +33,7 @@ package com.kaltura.types
 		public static const APPLEHTTP : String = 'applehttp';
 		public static const AVI : String = 'avi';
 		public static const BMP : String = 'bmp';
+		public static const COPY : String = 'copy';
 		public static const FLV : String = 'flv';
 		public static const ISMV : String = 'ismv';
 		public static const JPG : String = 'jpg';
@@ -43,6 +44,7 @@ package com.kaltura.types
 		public static const MPEG : String = 'mpeg';
 		public static const MPEGTS : String = 'mpegts';
 		public static const OGG : String = 'ogg';
+		public static const OGV : String = 'ogv';
 		public static const PDF : String = 'pdf';
 		public static const PNG : String = 'png';
 		public static const SWF : String = 'swf';

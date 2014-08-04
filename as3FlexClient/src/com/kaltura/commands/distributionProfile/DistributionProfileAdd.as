@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.distributionProfile
 {
-	import com.kaltura.vo.KalturaDistributionProfile;
+		import com.kaltura.vo.KalturaDistributionProfile;
 	import com.kaltura.delegates.distributionProfile.DistributionProfileAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new Distribution Profile
-	 * 
-	 **/
+	* Add new Distribution Profile
+	* 
+	**/
 	public class DistributionProfileAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param distributionProfile KalturaDistributionProfile
-		 **/
+		* @param distributionProfile KalturaDistributionProfile
+		**/
 		public function DistributionProfileAdd( distributionProfile : KalturaDistributionProfile )
 		{
 			service= 'contentdistribution_distributionprofile';
@@ -50,9 +50,9 @@ package com.kaltura.commands.distributionProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(distributionProfile, 'distributionProfile');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(distributionProfile, 'distributionProfile');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

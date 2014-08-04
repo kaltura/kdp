@@ -33,66 +33,66 @@ package com.kaltura.vo
 	public dynamic class KalturaFlavorAsset extends KalturaAsset
 	{
 		/**
-		 * The Flavor Params used to create this Flavor Asset
-		 * 
-		 **/
+		* The Flavor Params used to create this Flavor Asset
+		* 
+		**/
 		public var flavorParamsId : int = int.MIN_VALUE;
 
 		/**
-		 * The width of the Flavor Asset
-		 * 
-		 **/
+		* The width of the Flavor Asset
+		* 
+		**/
 		public var width : int = int.MIN_VALUE;
 
 		/**
-		 * The height of the Flavor Asset
-		 * 
-		 **/
+		* The height of the Flavor Asset
+		* 
+		**/
 		public var height : int = int.MIN_VALUE;
 
 		/**
-		 * The overall bitrate (in KBits) of the Flavor Asset
-		 * 
-		 **/
+		* The overall bitrate (in KBits) of the Flavor Asset
+		* 
+		**/
 		public var bitrate : int = int.MIN_VALUE;
 
 		/**
-		 * The frame rate (in FPS) of the Flavor Asset
-		 * 
-		 **/
+		* The frame rate (in FPS) of the Flavor Asset
+		* 
+		**/
 		public var frameRate : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 * True if this Flavor Asset is the original source
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* True if this Flavor Asset is the original source
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isOriginal : Boolean;
 
 		/**
-		 * True if this Flavor Asset is playable in KDP
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* True if this Flavor Asset is playable in KDP
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isWeb : Boolean;
 
 		/**
-		 * The container format
-		 * 
-		 **/
+		* The container format
+		* 
+		**/
 		public var containerFormat : String = null;
 
 		/**
-		 * The video codec
-		 * 
-		 **/
+		* The video codec
+		* 
+		**/
 		public var videoCodecId : String = null;
 
 		/**
-		 * The status of the Flavor Asset
-		 * 
-		 * @see com.kaltura.types.KalturaFlavorAssetStatus
-		 **/
+		* The status of the Flavor Asset
+		* 
+		* @see com.kaltura.types.KalturaFlavorAssetStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -108,6 +108,17 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			arr.push('flavorParamsId');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

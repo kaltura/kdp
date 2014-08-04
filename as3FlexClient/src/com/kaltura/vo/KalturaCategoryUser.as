@@ -33,69 +33,69 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryUser extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var categoryId : int = int.MIN_VALUE;
 
 		/**
-		 * User id
-		 * 
-		 **/
+		* User id
+		* 
+		**/
 		public var userId : String = null;
 
 		/**
-		 * Partner id
-		 * 
-		 **/
+		* Partner id
+		* 
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * Permission level
-		 * 
-		 * @see com.kaltura.types.KalturaCategoryUserPermissionLevel
-		 **/
+		* Permission level
+		* 
+		* @see com.kaltura.types.KalturaCategoryUserPermissionLevel
+		**/
 		public var permissionLevel : int = int.MIN_VALUE;
 
 		/**
-		 * Status
-		 * 
-		 * @see com.kaltura.types.KalturaCategoryUserStatus
-		 **/
+		* Status
+		* 
+		* @see com.kaltura.types.KalturaCategoryUserStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 * CategoryUser creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* CategoryUser creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * CategoryUser update date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* CategoryUser update date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/**
-		 * Update method can be either manual or automatic to distinguish between manual operations (for example in KMC) on automatic - using bulk upload
-		 * 
-		 * @see com.kaltura.types.KalturaUpdateMethodType
-		 **/
+		* Update method can be either manual or automatic to distinguish between manual operations (for example in KMC) on automatic - using bulk upload
+		* 
+		* @see com.kaltura.types.KalturaUpdateMethodType
+		**/
 		public var updateMethod : int = int.MIN_VALUE;
 
 		/**
-		 * The full ids of the Category
-		 * 
-		 **/
+		* The full ids of the Category
+		* 
+		**/
 		public var categoryFullIds : String = null;
 
 		/**
-		 * Set of category-related permissions for the current category user.
-		 * 
-		 **/
+		* Set of category-related permissions for the current category user.
+		* 
+		**/
 		public var permissionNames : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -107,8 +107,8 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
@@ -116,6 +116,19 @@ package com.kaltura.vo
 			arr.push('categoryId');
 			arr.push('userId');
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

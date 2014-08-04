@@ -31,17 +31,17 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get live stream entry by ID.
-	 * 
-	 **/
+	* Get live stream entry by ID.
+	* 
+	**/
 	public class LiveStreamGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 **/
+		* @param entryId String
+		* @param version int
+		**/
 		public function LiveStreamGet( entryId : String,version : int=-1 )
 		{
 			service= 'livestream';

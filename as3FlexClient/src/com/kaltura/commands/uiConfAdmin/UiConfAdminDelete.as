@@ -31,16 +31,16 @@ package com.kaltura.commands.uiConfAdmin
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete an existing UIConf with no partner limitation
-	 * 
-	 **/
+	* Delete an existing UIConf with no partner limitation
+	* 
+	**/
 	public class UiConfAdminDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function UiConfAdminDelete( id : int )
 		{
 			service= 'adminconsole_uiconfadmin';

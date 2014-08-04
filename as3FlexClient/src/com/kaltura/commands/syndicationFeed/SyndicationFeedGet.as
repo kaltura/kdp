@@ -31,16 +31,16 @@ package com.kaltura.commands.syndicationFeed
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Syndication Feed by ID
-	 * 
-	 **/
+	* Get Syndication Feed by ID
+	* 
+	**/
 	public class SyndicationFeedGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function SyndicationFeedGet( id : String )
 		{
 			service= 'syndicationfeed';

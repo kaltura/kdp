@@ -31,17 +31,17 @@ package com.kaltura.commands.documents
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get document entry by ID.
-	 * 
-	 **/
+	* Get document entry by ID.
+	* 
+	**/
 	public class DocumentsGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 **/
+		* @param entryId String
+		* @param version int
+		**/
 		public function DocumentsGet( entryId : String,version : int=-1 )
 		{
 			service= 'document_documents';

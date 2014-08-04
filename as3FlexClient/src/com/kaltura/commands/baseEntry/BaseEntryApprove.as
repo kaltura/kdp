@@ -31,16 +31,16 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Approve the entry and mark the pending flags (if any) as moderated (this will make the entry playable).
-	 * 
-	 **/
+	* Approve the entry and mark the pending flags (if any) as moderated (this will make the entry playable).
+	* 
+	**/
 	public class BaseEntryApprove extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function BaseEntryApprove( entryId : String )
 		{
 			service= 'baseentry';

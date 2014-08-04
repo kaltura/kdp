@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaBulkUploadCsvJobData extends KalturaBulkUploadJobData
 	{
 		/**
-		 * The version of the csv file
-		 * 
-		 * @see com.kaltura.types.KalturaBulkUploadCsvVersion
-		 **/
+		* The version of the csv file
+		* 
+		* @see com.kaltura.types.KalturaBulkUploadCsvVersion
+		**/
 		public var csvVersion : int = int.MIN_VALUE;
 
 		/**
-		 * Array containing CSV headers
-		 * 
-		 **/
+		* Array containing CSV headers
+		* 
+		**/
 		public var columns : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -58,6 +58,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'columns':
+					result = 'KalturaString';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.playlist
 {
-	import com.kaltura.vo.KalturaPlaylistFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaPlaylistFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.playlist.PlaylistListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List available playlists
-	 * 
-	 **/
+	* List available playlists
+	* 
+	**/
 	public class PlaylistList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaPlaylistFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaPlaylistFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function PlaylistList( filter : KalturaPlaylistFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'playlist';
@@ -52,16 +52,16 @@ package com.kaltura.commands.playlist
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

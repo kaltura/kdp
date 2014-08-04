@@ -27,26 +27,26 @@
 // ===================================================================================================
 package com.kaltura.commands.report
 {
-	import com.kaltura.vo.KalturaReportInputFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaReportInputFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.report.ReportGetTableDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * report getTable action allows to get a graph data for a specific report.
-	 * 
-	 **/
+	* report getTable action allows to get a graph data for a specific report.
+	* 
+	**/
 	public class ReportGetTable extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param reportType int
-		 * @param reportInputFilter KalturaReportInputFilter
-		 * @param pager KalturaFilterPager
-		 * @param order String
-		 * @param objectIds String
-		 **/
+		* @param reportType int
+		* @param reportInputFilter KalturaReportInputFilter
+		* @param pager KalturaFilterPager
+		* @param order String
+		* @param objectIds String
+		**/
 		public function ReportGetTable( reportType : int,reportInputFilter : KalturaReportInputFilter,pager : KalturaFilterPager,order : String = null,objectIds : String = null )
 		{
 			service= 'report';
@@ -57,12 +57,12 @@ package com.kaltura.commands.report
 			var keyValArr : Array = new Array();
 			keyArr.push('reportType');
 			valueArr.push(reportType);
- 			keyValArr = kalturaObject2Arrays(reportInputFilter, 'reportInputFilter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(reportInputFilter, 'reportInputFilter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('order');
 			valueArr.push(order);
 			keyArr.push('objectIds');

@@ -17,6 +17,17 @@ package com.kaltura.kdpfl.plugin.component
 	{
 		public static const NAME:String = "shortcuts508Mediator";
 		
+		private var disabled:Boolean;
+		
+		/**
+		 * defines the value of the notification which turns off the shortcut 508 plugin 
+		 */		
+		public static const DISABLE_SHORTCUT_PLUGIN:String = "disableShortcutPlugin";
+		/**
+		 * defines the value of the notification which turns on the shortcut 508 plugin 
+		 */		
+		public static const ENABLE_SHORTCUT_PLUGIN:String = "enableShortcutPlugin";
+		
 		private var _shortcutsMap : Object;
 
 		public function Shortcuts508Mediator(viewComponent:Object=null)
@@ -27,7 +38,9 @@ package com.kaltura.kdpfl.plugin.component
 		override public function listNotificationInterests():Array
 		{
 			return  [
-						NotificationType.LAYOUT_READY
+						NotificationType.LAYOUT_READY , 
+						ENABLE_SHORTCUT_PLUGIN ,
+						DISABLE_SHORTCUT_PLUGIN
 					];
 		}
 		
@@ -43,6 +56,14 @@ package com.kaltura.kdpfl.plugin.component
 				// this means that the main container will be 100% X 100% always
 				case NotificationType.LAYOUT_READY:
 					setButtons();
+					break;
+				// this means that the main container will be 100% X 100% always
+				case ENABLE_SHORTCUT_PLUGIN:
+						disabled = false;
+					break;
+				// this means that the main container will be 100% X 100% always
+				case DISABLE_SHORTCUT_PLUGIN:
+						disabled = true;
 					break;
 			}
 		}
@@ -70,6 +91,12 @@ package com.kaltura.kdpfl.plugin.component
 		
 		private function onKeyDown (e : KeyboardEvent) : void
 		{
+			
+			if(disabled)
+			{
+				return;
+			}
+			
 			if (_shortcutsMap[e.keyCode.toString()] && !(viewComponent as Shortcuts508PluginCode).disableShortcuts)
 			{
 				( facade["bindObject"][_shortcutsMap[e.keyCode.toString()]] as UIComponent).setFocus();

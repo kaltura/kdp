@@ -33,15 +33,21 @@ package com.kaltura.vo
 	public dynamic class KalturaStorageExportJobData extends KalturaStorageJobData
 	{
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var force : Boolean;
+
+		/**
+		* @see com.kaltura.types.kalturaBoolean
+		**/
+		public var createLink : Boolean;
 
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
 			arr.push('force');
+			arr.push('createLink');
 			return arr;
 		}
 
@@ -50,6 +56,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaMediaEntry;
+		import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.delegates.media.MediaAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add entry
-	 * 
-	 **/
+	* Add entry
+	* 
+	**/
 	public class MediaAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entry KalturaMediaEntry
-		 **/
+		* @param entry KalturaMediaEntry
+		**/
 		public function MediaAdd( entry : KalturaMediaEntry )
 		{
 			service= 'media';
@@ -50,9 +50,9 @@ package com.kaltura.commands.media
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(entry, 'entry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(entry, 'entry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

@@ -27,25 +27,25 @@
 // ===================================================================================================
 package com.kaltura.commands.varConsole
 {
-	import com.kaltura.vo.KalturaPartnerFilter;
-	import com.kaltura.vo.KalturaReportInputFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaPartnerFilter;
+		import com.kaltura.vo.KalturaReportInputFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.varConsole.VarConsoleGetPartnerUsageDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Function which calulates partner usage of a group of a VAR's sub-publishers
-	 * 
-	 **/
+	* Function which calulates partner usage of a group of a VAR's sub-publishers
+	* 
+	**/
 	public class VarConsoleGetPartnerUsage extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partnerFilter KalturaPartnerFilter
-		 * @param usageFilter KalturaReportInputFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param partnerFilter KalturaPartnerFilter
+		* @param usageFilter KalturaReportInputFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function VarConsoleGetPartnerUsage( partnerFilter : KalturaPartnerFilter=null,usageFilter : KalturaReportInputFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'varconsole_varconsole';
@@ -54,21 +54,21 @@ package com.kaltura.commands.varConsole
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (partnerFilter) { 
- 			keyValArr = kalturaObject2Arrays(partnerFilter, 'partnerFilter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (usageFilter) { 
- 			keyValArr = kalturaObject2Arrays(usageFilter, 'usageFilter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (partnerFilter) { 
+				keyValArr = kalturaObject2Arrays(partnerFilter, 'partnerFilter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (usageFilter) { 
+				keyValArr = kalturaObject2Arrays(usageFilter, 'usageFilter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

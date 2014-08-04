@@ -35,7 +35,7 @@ package com.kaltura.vo
 	public dynamic class KalturaEmailNotificationCategoryRecipientJobData extends KalturaEmailNotificationRecipientJobData
 	{
 		/**
-		 **/
+		**/
 		public var categoryUserFilter : KalturaCategoryUserFilter;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +51,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'categoryUserFilter':
+					result = '';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -33,32 +33,32 @@ package com.kaltura.vo
 	public dynamic class KalturaYahooDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 **/
+		**/
 		public var ftpPath : String = null;
 
 		/**
-		 **/
+		**/
 		public var ftpUsername : String = null;
 
 		/**
-		 **/
+		**/
 		public var ftpPassword : String = null;
 
 		/**
-		 **/
+		**/
 		public var ftpHost : String = null;
 
 		/**
-		 **/
+		**/
 		public var contactTelephone : String = null;
 
 		/**
-		 **/
+		**/
 		public var contactEmail : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaYahooDistributionProcessFeedActionStatus
-		 **/
+		* @see com.kaltura.types.KalturaYahooDistributionProcessFeedActionStatus
+		**/
 		public var processFeed : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -80,6 +80,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

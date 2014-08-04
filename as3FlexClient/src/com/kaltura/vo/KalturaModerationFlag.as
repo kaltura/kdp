@@ -33,69 +33,69 @@ package com.kaltura.vo
 	public dynamic class KalturaModerationFlag extends BaseFlexVo
 	{
 		/**
-		 * Moderation flag id
-		 * 
-		 **/
+		* Moderation flag id
+		* 
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * The user id that added the moderation flag
-		 * 
-		 **/
+		* The user id that added the moderation flag
+		* 
+		**/
 		public var userId : String = null;
 
 		/**
-		 * The type of the moderation flag (entry or user)
-		 * 
-		 * @see com.kaltura.types.KalturaModerationObjectType
-		 **/
+		* The type of the moderation flag (entry or user)
+		* 
+		* @see com.kaltura.types.KalturaModerationObjectType
+		**/
 		public var moderationObjectType : String = null;
 
 		/**
-		 * If moderation flag is set for entry, this is the flagged entry id
-		 * 
-		 **/
+		* If moderation flag is set for entry, this is the flagged entry id
+		* 
+		**/
 		public var flaggedEntryId : String = null;
 
 		/**
-		 * If moderation flag is set for user, this is the flagged user id
-		 * 
-		 **/
+		* If moderation flag is set for user, this is the flagged user id
+		* 
+		**/
 		public var flaggedUserId : String = null;
 
 		/**
-		 * The moderation flag status
-		 * 
-		 * @see com.kaltura.types.KalturaModerationFlagStatus
-		 **/
+		* The moderation flag status
+		* 
+		* @see com.kaltura.types.KalturaModerationFlagStatus
+		**/
 		public var status : String = null;
 
 		/**
-		 * The comment that was added to the flag
-		 * 
-		 **/
+		* The comment that was added to the flag
+		* 
+		**/
 		public var comments : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaModerationFlagType
-		 **/
+		* @see com.kaltura.types.KalturaModerationFlagType
+		**/
 		public var flagType : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -108,13 +108,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

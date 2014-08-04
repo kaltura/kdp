@@ -33,42 +33,42 @@ package com.kaltura.vo
 	public dynamic class KalturaReportInputFilter extends KalturaReportInputBaseFilter
 	{
 		/**
-		 * Search keywords to filter objects
-		 * 
-		 **/
+		* Search keywords to filter objects
+		* 
+		**/
 		public var keywords : String = null;
 
 		/**
-		 * Search keywords in onjects tags
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Search keywords in onjects tags
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var searchInTags : Boolean;
 
 		/**
-		 * Search keywords in onjects admin tags
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Search keywords in onjects admin tags
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var searchInAdminTags : Boolean;
 
 		/**
-		 * Search onjects in specified categories
-		 * 
-		 **/
+		* Search onjects in specified categories
+		* 
+		**/
 		public var categories : String = null;
 
 		/**
-		 * Time zone offset in minutes
-		 * 
-		 **/
+		* Time zone offset in minutes
+		* 
+		**/
 		public var timeZoneOffset : int = int.MIN_VALUE;
 
 		/**
-		 * Aggregated results according to interval
-		 * 
-		 * @see com.kaltura.types.KalturaReportInterval
-		 **/
+		* Aggregated results according to interval
+		* 
+		* @see com.kaltura.types.KalturaReportInterval
+		**/
 		public var interval : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -89,6 +89,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

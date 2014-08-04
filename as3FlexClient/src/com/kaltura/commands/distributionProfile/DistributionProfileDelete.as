@@ -31,16 +31,16 @@ package com.kaltura.commands.distributionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete Distribution Profile by id
-	 * 
-	 **/
+	* Delete Distribution Profile by id
+	* 
+	**/
 	public class DistributionProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function DistributionProfileDelete( id : int )
 		{
 			service= 'contentdistribution_distributionprofile';

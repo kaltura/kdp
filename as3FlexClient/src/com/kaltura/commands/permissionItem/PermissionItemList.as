@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.permissionItem
 {
-	import com.kaltura.vo.KalturaPermissionItemFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaPermissionItemFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.permissionItem.PermissionItemListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Lists permission item objects that are associated with an account.
-	 * 
-	 **/
+	* Lists permission item objects that are associated with an account.
+	* 
+	**/
 	public class PermissionItemList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaPermissionItemFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaPermissionItemFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function PermissionItemList( filter : KalturaPermissionItemFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'permissionitem';
@@ -52,16 +52,16 @@ package com.kaltura.commands.permissionItem
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

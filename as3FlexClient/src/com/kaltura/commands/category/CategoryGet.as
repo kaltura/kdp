@@ -31,16 +31,16 @@ package com.kaltura.commands.category
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Category by id
-	 * 
-	 **/
+	* Get Category by id
+	* 
+	**/
 	public class CategoryGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function CategoryGet( id : int )
 		{
 			service= 'category';

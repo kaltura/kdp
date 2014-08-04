@@ -31,16 +31,16 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Submits Entry Distribution report request
-	 * 
-	 **/
+	* Submits Entry Distribution report request
+	* 
+	**/
 	public class EntryDistributionSubmitFetchReport extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function EntryDistributionSubmitFetchReport( id : int )
 		{
 			service= 'contentdistribution_entrydistribution';

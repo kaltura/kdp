@@ -27,19 +27,19 @@
 // ===================================================================================================
 package com.kaltura.commands.reportAdmin
 {
-	import com.kaltura.vo.KalturaReport;
+		import com.kaltura.vo.KalturaReport;
 	import com.kaltura.delegates.reportAdmin.ReportAdminAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ReportAdminAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param report KalturaReport
-		 **/
+		* @param report KalturaReport
+		**/
 		public function ReportAdminAdd( report : KalturaReport )
 		{
 			service= 'adminconsole_reportadmin';
@@ -48,9 +48,9 @@ package com.kaltura.commands.reportAdmin
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(report, 'report');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(report, 'report');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

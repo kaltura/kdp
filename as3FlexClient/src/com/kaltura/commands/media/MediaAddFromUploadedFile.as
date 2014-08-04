@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaMediaEntry;
+		import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.delegates.media.MediaAddFromUploadedFileDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new entry after the specific media file was uploaded and the upload token id exists
-	 * 
-	 **/
+	* Add new entry after the specific media file was uploaded and the upload token id exists
+	* 
+	**/
 	public class MediaAddFromUploadedFile extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param mediaEntry KalturaMediaEntry
-		 * @param uploadTokenId String
-		 **/
+		* @param mediaEntry KalturaMediaEntry
+		* @param uploadTokenId String
+		**/
 		public function MediaAddFromUploadedFile( mediaEntry : KalturaMediaEntry,uploadTokenId : String )
 		{
 			service= 'media';
@@ -51,9 +51,9 @@ package com.kaltura.commands.media
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('uploadTokenId');
 			valueArr.push(uploadTokenId);
 			applySchema(keyArr, valueArr);

@@ -31,17 +31,17 @@ package com.kaltura.commands.category
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Index Category by id
-	 * 
-	 **/
+	* Index Category by id
+	* 
+	**/
 	public class CategoryIndex extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param shouldUpdate Boolean
-		 **/
+		* @param id int
+		* @param shouldUpdate Boolean
+		**/
 		public function CategoryIndex( id : int,shouldUpdate : Boolean=true )
 		{
 			service= 'category';

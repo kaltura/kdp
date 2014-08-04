@@ -31,16 +31,16 @@ package com.kaltura.commands.uiConfAdmin
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve a UIConf by id with no partner limitation
-	 * 
-	 **/
+	* Retrieve a UIConf by id with no partner limitation
+	* 
+	**/
 	public class UiConfAdminGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function UiConfAdminGet( id : int )
 		{
 			service= 'adminconsole_uiconfadmin';

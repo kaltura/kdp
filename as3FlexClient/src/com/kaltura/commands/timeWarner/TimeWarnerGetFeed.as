@@ -31,15 +31,15 @@ package com.kaltura.commands.timeWarner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class TimeWarnerGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param distributionProfileId int
-		 * @param hash String
-		 **/
+		* @param distributionProfileId int
+		* @param hash String
+		**/
 		public function TimeWarnerGetFeed( distributionProfileId : int,hash : String )
 		{
 			service= 'timewarnerdistribution_timewarner';

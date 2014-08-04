@@ -33,59 +33,59 @@ package com.kaltura.vo
 	public dynamic class KalturaGenericDistributionProvider extends KalturaDistributionProvider
 	{
 		/**
-		 * Auto generated
-		 * 
-		 **/
+		* Auto generated
+		* 
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 * Generic distribution provider creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Generic distribution provider creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * Generic distribution provider last update date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Generic distribution provider last update date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isDefault : Boolean;
 
 		/**
-		 * @see com.kaltura.types.KalturaGenericDistributionProviderStatus
-		 **/
+		* @see com.kaltura.types.KalturaGenericDistributionProviderStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var optionalFlavorParamsIds : String = null;
 
 		/**
-		 **/
+		**/
 		public var requiredFlavorParamsIds : String = null;
 
 		/**
-		 **/
+		**/
 		public var optionalThumbDimensions : Array = null;
 
 		/**
-		 **/
+		**/
 		public var requiredThumbDimensions : Array = null;
 
 		/**
-		 **/
+		**/
 		public var editableFields : String = null;
 
 		/**
-		 **/
+		**/
 		public var mandatoryFields : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -107,6 +107,23 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'optionalThumbDimensions':
+					result = 'KalturaDistributionThumbDimensions';
+					break;
+				case 'requiredThumbDimensions':
+					result = 'KalturaDistributionThumbDimensions';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,18 +31,18 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add and convert new Flavor Asset for Entry with specific Flavor Params
-	 * 
-	 **/
+	* Add and convert new Flavor Asset for Entry with specific Flavor Params
+	* 
+	**/
 	public class FlavorAssetConvert extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param flavorParamsId int
-		 * @param priority int
-		 **/
+		* @param entryId String
+		* @param flavorParamsId int
+		* @param priority int
+		**/
 		public function FlavorAssetConvert( entryId : String,flavorParamsId : int,priority : int=0 )
 		{
 			service= 'flavorasset';

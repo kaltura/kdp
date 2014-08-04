@@ -31,17 +31,17 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * reject CategoryUser
-	 * 
-	 **/
+	* reject CategoryUser
+	* 
+	**/
 	public class CategoryUserDeactivate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param categoryId int
-		 * @param userId String
-		 **/
+		* @param categoryId int
+		* @param userId String
+		**/
 		public function CategoryUserDeactivate( categoryId : int,userId : String )
 		{
 			service= 'categoryuser';

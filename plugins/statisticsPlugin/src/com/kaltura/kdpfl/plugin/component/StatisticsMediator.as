@@ -218,8 +218,12 @@ package com.kaltura.kdpfl.plugin.component {
 			kse.widgetId = _flashvars.id;
 			kse.uiconfId = _flashvars.uiConfId;
 			// this is where we choose the entry to report on
-			if (_mediaProxy.vo.entry.id)
-				kse.entryId = _mediaProxy.vo.entry.id;
+			if ( _mediaProxy.vo.entry ) {
+				if (_mediaProxy.vo.entry.id)
+					kse.entryId = _mediaProxy.vo.entry.id;
+				kse.partnerId = _mediaProxy.vo.entry.partnerId;
+			}
+
 			kse.clientVer = "3.0:" + facade["kdpVersion"];
 			var dt:Date = new Date();
 			kse.eventTimestamp = dt.time + dt.timezoneOffset - dt.timezoneOffset * 60; // milisec UTC + users timezone offset

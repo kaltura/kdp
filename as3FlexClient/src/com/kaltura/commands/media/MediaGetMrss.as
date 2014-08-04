@@ -31,18 +31,18 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get MRSS by entry id
-	 * XML will return as an escaped string
-	 * 
-	 **/
+	* Get MRSS by entry id
+	* XML will return as an escaped string
+	* 
+	**/
 	public class MediaGetMrss extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param extendingItemsArray Array
-		 **/
+		* @param entryId String
+		* @param extendingItemsArray Array
+		**/
 		public function MediaGetMrss( entryId : String,extendingItemsArray : Array=null )
 		{
 			service= 'media';
@@ -53,11 +53,11 @@ package com.kaltura.commands.media
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
- 			if (extendingItemsArray) { 
- 			keyValArr = extractArray(extendingItemsArray,'extendingItemsArray');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (extendingItemsArray) { 
+				keyValArr = extractArray(extendingItemsArray,'extendingItemsArray');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

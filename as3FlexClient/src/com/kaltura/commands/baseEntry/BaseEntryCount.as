@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.baseEntry
 {
-	import com.kaltura.vo.KalturaBaseEntryFilter;
+		import com.kaltura.vo.KalturaBaseEntryFilter;
 	import com.kaltura.delegates.baseEntry.BaseEntryCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Count base entries by filter.
-	 * 
-	 **/
+	* Count base entries by filter.
+	* 
+	**/
 	public class BaseEntryCount extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaBaseEntryFilter
-		 **/
+		* @param filter KalturaBaseEntryFilter
+		**/
 		public function BaseEntryCount( filter : KalturaBaseEntryFilter=null )
 		{
 			service= 'baseentry';
@@ -50,11 +50,11 @@ package com.kaltura.commands.baseEntry
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

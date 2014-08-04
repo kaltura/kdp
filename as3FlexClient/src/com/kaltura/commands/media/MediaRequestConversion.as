@@ -31,17 +31,17 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Request a new conversion job, this can be used to convert the media entry to a different format
-	 * 
-	 **/
+	* Request a new conversion job, this can be used to convert the media entry to a different format
+	* 
+	**/
 	public class MediaRequestConversion extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param fileFormat String
-		 **/
+		* @param entryId String
+		* @param fileFormat String
+		**/
 		public function MediaRequestConversion( entryId : String,fileFormat : String )
 		{
 			service= 'media';

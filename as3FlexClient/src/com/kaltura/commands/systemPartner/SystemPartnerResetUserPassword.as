@@ -31,16 +31,16 @@ package com.kaltura.commands.systemPartner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SystemPartnerResetUserPassword extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userId String
-		 * @param partnerId int
-		 * @param newPassword String
-		 **/
+		* @param userId String
+		* @param partnerId int
+		* @param newPassword String
+		**/
 		public function SystemPartnerResetUserPassword( userId : String,partnerId : int,newPassword : String )
 		{
 			service= 'systempartner_systempartner';

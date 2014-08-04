@@ -33,11 +33,11 @@ package com.kaltura.vo
 	public dynamic class KalturaMetroPcsDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 **/
+		**/
 		public var assetLocalPaths : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbUrls : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -54,6 +54,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -33,158 +33,158 @@ package com.kaltura.vo
 	public dynamic class KalturaYouTubeDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 * @see com.kaltura.types.KalturaYouTubeDistributionFeedSpecVersion
-		 **/
+		* @see com.kaltura.types.KalturaYouTubeDistributionFeedSpecVersion
+		**/
 		public var feedSpecVersion : String = null;
 
 		/**
-		 **/
+		**/
 		public var username : String = null;
 
 		/**
-		 **/
+		**/
 		public var notificationEmail : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpHost : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpPort : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var sftpLogin : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpPublicKey : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpPrivateKey : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpBaseDir : String = null;
 
 		/**
-		 **/
+		**/
 		public var ownerName : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultCategory : String = null;
 
 		/**
-		 **/
+		**/
 		public var allowComments : String = null;
 
 		/**
-		 **/
+		**/
 		public var allowEmbedding : String = null;
 
 		/**
-		 **/
+		**/
 		public var allowRatings : String = null;
 
 		/**
-		 **/
+		**/
 		public var allowResponses : String = null;
 
 		/**
-		 **/
+		**/
 		public var commercialPolicy : String = null;
 
 		/**
-		 **/
+		**/
 		public var ugcPolicy : String = null;
 
 		/**
-		 **/
+		**/
 		public var target : String = null;
 
 		/**
-		 **/
+		**/
 		public var adServerPartnerId : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var enableAdServer : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var allowPreRollAds : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var allowPostRollAds : Boolean;
 
 		/**
-		 **/
+		**/
 		public var strict : String = null;
 
 		/**
-		 **/
+		**/
 		public var overrideManualEdits : String = null;
 
 		/**
-		 **/
+		**/
 		public var urgentReference : String = null;
 
 		/**
-		 **/
+		**/
 		public var allowSyndication : String = null;
 
 		/**
-		 **/
+		**/
 		public var hideViewCount : String = null;
 
 		/**
-		 **/
+		**/
 		public var allowAdsenseForVideo : String = null;
 
 		/**
-		 **/
+		**/
 		public var allowInvideo : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var allowMidRollAds : Boolean;
 
 		/**
-		 **/
+		**/
 		public var instreamStandard : String = null;
 
 		/**
-		 **/
+		**/
 		public var instreamTrueview : String = null;
 
 		/**
-		 **/
+		**/
 		public var claimType : String = null;
 
 		/**
-		 **/
+		**/
 		public var blockOutsideOwnership : String = null;
 
 		/**
-		 **/
+		**/
 		public var captionAutosync : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var deleteReference : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var releaseClaims : Boolean;
 
 		override public function getUpdateableParamKeys():Array
@@ -236,6 +236,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

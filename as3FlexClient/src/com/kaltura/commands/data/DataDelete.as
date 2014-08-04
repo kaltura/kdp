@@ -31,16 +31,16 @@ package com.kaltura.commands.data
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete a data entry.
-	 * 
-	 **/
+	* Delete a data entry.
+	* 
+	**/
 	public class DataDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function DataDelete( entryId : String )
 		{
 			service= 'data';

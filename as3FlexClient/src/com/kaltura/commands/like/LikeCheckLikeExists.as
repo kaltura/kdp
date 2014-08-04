@@ -31,15 +31,15 @@ package com.kaltura.commands.like
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class LikeCheckLikeExists extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param userId String
-		 **/
+		* @param entryId String
+		* @param userId String
+		**/
 		public function LikeCheckLikeExists( entryId : String,userId : String = null )
 		{
 			service= 'like_like';

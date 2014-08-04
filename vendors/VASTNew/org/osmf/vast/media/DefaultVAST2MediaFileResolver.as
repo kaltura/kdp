@@ -45,15 +45,19 @@ package org.osmf.vast.media
 		 */
 		public function resolveMediaFiles(mediaFiles:Vector.<VAST2MediaFile>):VAST2MediaFile
 		{	
+			var foundFile:VAST2MediaFile;
+			
 			for (var i:int = 0; i < mediaFiles.length; i++)
 			{
 				if (supportsMimeType(mediaFiles[i].type))
 				{
-					return mediaFiles[i];
+					if ( !foundFile || foundFile.bitrate < mediaFiles[i].bitrate ) {
+						foundFile = mediaFiles[i];
+					}
 				}
 			}
 			
-			return null;
+			return foundFile;
 		}
 		
 		private static function supportsMimeType(mimeType:String):Boolean

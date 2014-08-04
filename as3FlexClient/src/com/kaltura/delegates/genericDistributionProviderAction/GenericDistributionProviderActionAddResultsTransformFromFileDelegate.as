@@ -77,8 +77,8 @@ package com.kaltura.delegates.genericDistributionProviderAction
 				var urlRequest:URLRequest = new URLRequest(req);
 				((call as GenericDistributionProviderActionAddResultsTransformFromFile).transformFile as FileReference).upload(urlRequest,"transformFile");
 			}
-			else{
-				mrloader.addFile(((call as GenericDistributionProviderActionAddResultsTransformFromFile).transformFile as ByteArray), UIDUtil.createUID(), 'transformFile');	
+			else {
+				mrloader.addFile(((call as GenericDistributionProviderActionAddResultsTransformFromFile).transformFile as ByteArray), UIDUtil.createUID(), 'transformFile'); 
 				mrloader.dataFormat = URLLoaderDataFormat.TEXT;
 				mrloader.load(req);
 			}
@@ -86,19 +86,19 @@ package com.kaltura.delegates.genericDistributionProviderAction
 
 		// Event Handlers
 		override protected function onDataComplete(event:Event):void {
-			try{
+			try {
 				if ((call as GenericDistributionProviderActionAddResultsTransformFromFile).transformFile is FileReference) {
 					handleResult( XML(event["data"]) );
 				}
 				else {
 					handleResult( XML(event.target.loader.data) );
-				}
+ 				}
 			}
-			catch( e:Error ){
-				var kErr : KalturaError = new KalturaError();
-				kErr.errorCode = String(e.errorID);
-				kErr.errorMsg = e.message;
-				_call.handleError( kErr );
+ 			catch( e:Error ){
+ 				var kErr : KalturaError = new KalturaError();
+ 				kErr.errorCode = String(e.errorID);
+ 				kErr.errorMsg = e.message;
+ 				_call.handleError( kErr );
 			}
 		}
 

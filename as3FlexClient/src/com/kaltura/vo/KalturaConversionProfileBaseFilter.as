@@ -33,48 +33,57 @@ package com.kaltura.vo
 	public dynamic class KalturaConversionProfileBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaConversionProfileStatus
-		 **/
+		* @see com.kaltura.types.KalturaConversionProfileStatus
+		**/
 		public var statusEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 **/
+		* @see com.kaltura.types.KalturaConversionProfileType
+		**/
+		public var typeEqual : String = null;
+
+		/**
+		**/
+		public var typeIn : String = null;
+
+		/**
+		**/
 		public var nameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemNameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemNameIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeAnd : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultEntryIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultEntryIdIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -85,6 +94,8 @@ package com.kaltura.vo
 			arr.push('idIn');
 			arr.push('statusEqual');
 			arr.push('statusIn');
+			arr.push('typeEqual');
+			arr.push('typeIn');
 			arr.push('nameEqual');
 			arr.push('systemNameEqual');
 			arr.push('systemNameIn');
@@ -100,6 +111,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.tag
 {
-	import com.kaltura.vo.KalturaTagFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaTagFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.tag.TagSearchDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class TagSearch extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param tagFilter KalturaTagFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param tagFilter KalturaTagFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function TagSearch( tagFilter : KalturaTagFilter,pager : KalturaFilterPager=null )
 		{
 			service= 'tagsearch_tag';
@@ -50,14 +50,14 @@ package com.kaltura.commands.tag
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(tagFilter, 'tagFilter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+				keyValArr = kalturaObject2Arrays(tagFilter, 'tagFilter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

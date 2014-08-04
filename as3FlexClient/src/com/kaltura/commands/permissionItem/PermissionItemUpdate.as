@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.permissionItem
 {
-	import com.kaltura.vo.KalturaPermissionItem;
+		import com.kaltura.vo.KalturaPermissionItem;
 	import com.kaltura.delegates.permissionItem.PermissionItemUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Updates an existing permission item object.
-	 * This action is available only to Kaltura system administrators.
-	 * 
-	 **/
+	* Updates an existing permission item object.
+	* This action is available only to Kaltura system administrators.
+	* 
+	**/
 	public class PermissionItemUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param permissionItemId int
-		 * @param permissionItem KalturaPermissionItem
-		 **/
+		* @param permissionItemId int
+		* @param permissionItem KalturaPermissionItem
+		**/
 		public function PermissionItemUpdate( permissionItemId : int,permissionItem : KalturaPermissionItem )
 		{
 			service= 'permissionitem';
@@ -54,9 +54,9 @@ package com.kaltura.commands.permissionItem
 			var keyValArr : Array = new Array();
 			keyArr.push('permissionItemId');
 			valueArr.push(permissionItemId);
- 			keyValArr = kalturaObject2Arrays(permissionItem, 'permissionItem');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(permissionItem, 'permissionItem');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

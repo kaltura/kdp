@@ -31,17 +31,17 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieves a user object for a user's login ID and partner ID.
-	 * A login ID is the email address used by a user to log into the system.
-	 * 
-	 **/
+	* Retrieves a user object for a user's login ID and partner ID.
+	* A login ID is the email address used by a user to log into the system.
+	* 
+	**/
 	public class UserGetByLoginId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param loginId String
-		 **/
+		* @param loginId String
+		**/
 		public function UserGetByLoginId( loginId : String )
 		{
 			service= 'user';

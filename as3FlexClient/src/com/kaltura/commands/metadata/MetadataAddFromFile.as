@@ -27,25 +27,25 @@
 // ===================================================================================================
 package com.kaltura.commands.metadata
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.metadata.MetadataAddFromFileDelegate;
 
 	/**
-	 * Allows you to add a metadata object and metadata file associated with Kaltura object
-	 * 
-	 **/
+	* Allows you to add a metadata object and metadata file associated with Kaltura object
+	* 
+	**/
 	public class MetadataAddFromFile extends KalturaFileCall
 	{
 		public var xmlFile:Object;
 
 		
 		/**
-		 * @param metadataProfileId int
-		 * @param objectType String
-		 * @param objectId String
-		 * @param xmlFile Object - FileReference or ByteArray
-		 **/
+		* @param metadataProfileId int
+		* @param objectType String
+		* @param objectId String
+		* @param xmlFile Object - FileReference or ByteArray
+		**/
 		public function MetadataAddFromFile( metadataProfileId : int,objectType : String,objectId : String,xmlFile : Object )
 		{
 			service= 'metadata_metadata';

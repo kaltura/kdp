@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.media.MediaListFlagsDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List all pending flags for the media entry
-	 * 
-	 **/
+	* List all pending flags for the media entry
+	* 
+	**/
 	public class MediaListFlags extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param entryId String
+		* @param pager KalturaFilterPager
+		**/
 		public function MediaListFlags( entryId : String,pager : KalturaFilterPager=null )
 		{
 			service= 'media';
@@ -53,11 +53,11 @@ package com.kaltura.commands.media
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaAssetDistributionPropertyCondition extends KalturaAssetDistributionCondition
 	{
 		/**
-		 * The property name to look for, this will match to a getter on the asset object.
-		 * Should be camelCase naming convention (defining "myPropertyName" will look for getMyPropertyName())
-		 * 
-		 **/
+		* The property name to look for, this will match to a getter on the asset object.
+		* Should be camelCase naming convention (defining "myPropertyName" will look for getMyPropertyName())
+		* 
+		**/
 		public var propertyName : String = null;
 
 		/**
-		 * The value to compare
-		 * 
-		 **/
+		* The value to compare
+		* 
+		**/
 		public var propertyValue : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

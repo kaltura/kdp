@@ -45,6 +45,11 @@ package com.type
 		 * reload caption assets 
 		 */		
 		public static const RELOAD_CAPTIONS	: String = "reloadCaptions";
+
+		/**
+		 * will set captions with the given embedded captions
+		 * */
+		public static const LOAD_EMBEDDED_CAPTIONS	: String = "loadEmbeddedCaptions";
 		
 	}
 }

@@ -31,16 +31,16 @@ package com.kaltura.commands.dropFolder
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Mark the KalturaDropFolder object as deleted
-	 * 
-	 **/
+	* Mark the KalturaDropFolder object as deleted
+	* 
+	**/
 	public class DropFolderDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param dropFolderId int
-		 **/
+		* @param dropFolderId int
+		**/
 		public function DropFolderDelete( dropFolderId : int )
 		{
 			service= 'dropfolder_dropfolder';

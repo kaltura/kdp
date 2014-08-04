@@ -31,16 +31,16 @@ package com.kaltura.commands.cuePoint
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * delete cue point by id, and delete all children cue points
-	 * 
-	 **/
+	* delete cue point by id, and delete all children cue points
+	* 
+	**/
 	public class CuePointDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function CuePointDelete( id : String )
 		{
 			service= 'cuepoint_cuepoint';

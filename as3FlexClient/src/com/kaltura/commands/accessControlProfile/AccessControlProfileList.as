@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.accessControlProfile
 {
-	import com.kaltura.vo.KalturaAccessControlProfileFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaAccessControlProfileFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.accessControlProfile.AccessControlProfileListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List access control profiles by filter and pager
-	 * 
-	 **/
+	* List access control profiles by filter and pager
+	* 
+	**/
 	public class AccessControlProfileList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaAccessControlProfileFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaAccessControlProfileFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function AccessControlProfileList( filter : KalturaAccessControlProfileFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'accesscontrolprofile';
@@ -52,16 +52,16 @@ package com.kaltura.commands.accessControlProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

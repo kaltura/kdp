@@ -33,12 +33,12 @@ package com.kaltura.vo
 	public dynamic class KalturaDistributionProviderBaseFilter extends KalturaFilter
 	{
 		/**
-		 * @see com.kaltura.types.KalturaDistributionProviderType
-		 **/
+		* @see com.kaltura.types.KalturaDistributionProviderType
+		**/
 		public var typeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var typeIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -55,6 +55,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

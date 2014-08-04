@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaDailymotionDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 **/
+		**/
 		public var user : String = null;
 
 		/**
-		 **/
+		**/
 		public var password : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDailymotionGeoBlockingMapping
-		 **/
+		* @see com.kaltura.types.KalturaDailymotionGeoBlockingMapping
+		**/
 		public var geoBlockingMapping : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -60,6 +60,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -35,255 +35,260 @@ package com.kaltura.vo
 	public dynamic class KalturaSystemPartnerConfiguration extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerName : String = null;
 
 		/**
-		 **/
+		**/
 		public var description : String = null;
 
 		/**
-		 **/
+		**/
 		public var adminName : String = null;
 
 		/**
-		 **/
+		**/
 		public var adminEmail : String = null;
 
 		/**
-		 **/
+		**/
 		public var host : String = null;
 
 		/**
-		 **/
+		**/
 		public var cdnHost : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbnailHost : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerPackage : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var monitorUsage : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var moderateContent : Boolean;
 
 		/**
-		 **/
+		**/
 		public var rtmpUrl : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var storageDeleteFromKaltura : Boolean;
 
 		/**
-		 * @see com.kaltura.types.KalturaStorageServePriority
-		 **/
+		* @see com.kaltura.types.KalturaStorageServePriority
+		**/
 		public var storageServePriority : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var kmcVersion : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var restrictThumbnailByKs : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var supportAnimatedThumbnails : Boolean;
 
 		/**
-		 **/
+		**/
 		public var defThumbOffset : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var defThumbDensity : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var userSessionRoleId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var adminSessionRoleId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var alwaysAllowedPermissionNames : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var importRemoteSourceForConvert : Boolean;
 
 		/**
-		 **/
+		**/
 		public var permissions : Array = null;
 
 		/**
-		 **/
+		**/
 		public var notificationsConfig : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var allowMultiNotification : Boolean;
 
 		/**
-		 **/
+		**/
 		public var loginBlockPeriod : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var numPrevPassToKeep : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var passReplaceFreq : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isFirstLogin : Boolean;
 
 		/**
-		 * @see com.kaltura.types.KalturaPartnerGroupType
-		 **/
+		* @see com.kaltura.types.KalturaPartnerGroupType
+		**/
 		public var partnerGroupType : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerParentId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var limits : Array = null;
 
 		/**
-		 * http/rtmp/hdnetwork
-		 * 
-		 **/
+		* http/rtmp/hdnetwork
+		* 
+		**/
 		public var streamerType : String = null;
 
 		/**
-		 * http/https, rtmp/rtmpe
-		 * 
-		 **/
+		* http/https, rtmp/rtmpe
+		* 
+		**/
 		public var mediaProtocol : String = null;
 
 		/**
-		 **/
+		**/
 		public var extendedFreeTrailExpiryReason : String = null;
 
 		/**
-		 * Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Unix timestamp (In seconds)
+		* 
+		**/
 		public var extendedFreeTrailExpiryDate : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var extendedFreeTrail : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var crmId : String = null;
 
 		/**
-		 **/
+		**/
 		public var crmLink : String = null;
 
 		/**
-		 **/
+		**/
 		public var verticalClasiffication : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerPackageClassOfService : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var enableBulkUploadNotificationsEmails : Boolean;
 
 		/**
-		 **/
+		**/
 		public var deliveryRestrictions : String = null;
 
 		/**
-		 **/
+		**/
 		public var bulkUploadNotificationsEmail : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var internalUse : Boolean;
 
 		/**
-		 * @see com.kaltura.types.KalturaSourceType
-		 **/
+		* @see com.kaltura.types.KalturaSourceType
+		**/
 		public var defaultLiveStreamEntrySourceType : String = null;
 
 		/**
-		 **/
+		**/
 		public var liveStreamProvisionParams : String = null;
 
 		/**
-		 **/
+		**/
 		public var autoModerateEntryFilter : KalturaBaseEntryFilter;
 
 		/**
-		 **/
+		**/
 		public var logoutUrl : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var defaultEntitlementEnforcement : Boolean;
 
 		/**
-		 **/
+		**/
 		public var cacheFlavorVersion : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var apiAccessControlId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var defaultDeliveryType : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultEmbedCodeType : String = null;
 
 		/**
-		 **/
+		**/
 		public var disabledDeliveryTypes : Array = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var restrictEntryByMetadata : Boolean;
 
+		/**
+		* @see com.kaltura.types.KalturaLanguageCode
+		**/
+		public var language : String = null;
+
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -344,17 +349,43 @@ package com.kaltura.vo
 			arr.push('defaultEmbedCodeType');
 			arr.push('disabledDeliveryTypes');
 			arr.push('restrictEntryByMetadata');
+			arr.push('language');
 			return arr;
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'permissions':
+					result = 'KalturaPermission';
+					break;
+				case 'limits':
+					result = 'KalturaSystemPartnerLimit';
+					break;
+				case 'autoModerateEntryFilter':
+					result = '';
+					break;
+				case 'disabledDeliveryTypes':
+					result = 'KalturaString';
+					break;
+			}
+			return result;
 		}
 	}
 }

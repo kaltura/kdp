@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.thumbAsset
 {
-	import com.kaltura.vo.KalturaThumbAsset;
+		import com.kaltura.vo.KalturaThumbAsset;
 	import com.kaltura.delegates.thumbAsset.ThumbAssetAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add thumbnail asset
-	 * 
-	 **/
+	* Add thumbnail asset
+	* 
+	**/
 	public class ThumbAssetAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param thumbAsset KalturaThumbAsset
-		 **/
+		* @param entryId String
+		* @param thumbAsset KalturaThumbAsset
+		**/
 		public function ThumbAssetAdd( entryId : String,thumbAsset : KalturaThumbAsset )
 		{
 			service= 'thumbasset';
@@ -53,9 +53,9 @@ package com.kaltura.commands.thumbAsset
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
- 			keyValArr = kalturaObject2Arrays(thumbAsset, 'thumbAsset');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(thumbAsset, 'thumbAsset');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

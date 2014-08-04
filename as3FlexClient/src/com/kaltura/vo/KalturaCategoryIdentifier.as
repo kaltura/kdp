@@ -33,10 +33,10 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryIdentifier extends KalturaObjectIdentifier
 	{
 		/**
-		 * Identifier of the object
-		 * 
-		 * @see com.kaltura.types.KalturaCategoryIdentifierField
-		 **/
+		* Identifier of the object
+		* 
+		* @see com.kaltura.types.KalturaCategoryIdentifierField
+		**/
 		public var identifier : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -52,6 +52,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

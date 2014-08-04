@@ -20,19 +20,13 @@ package com.kaltura.kdpfl.model
 	import com.kaltura.osmf.kaltura.KalturaBaseEntryResource;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	import com.kaltura.types.KalturaMediaType;
-	import com.kaltura.types.KalturaPlaybackProtocol;
 	import com.kaltura.vo.KalturaFlavorAsset;
-	import com.kaltura.vo.KalturaLiveStreamEntry;
 	import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.vo.KalturaMixEntry;
 	
 	import flash.events.Event;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	
-	import flashx.textLayout.formats.Float;
-	
-	import mx.utils.ObjectUtil;
 	
 	import org.osmf.elements.F4MElement;
 	import org.osmf.elements.F4MLoader;
@@ -143,7 +137,7 @@ package com.kaltura.kdpfl.model
 						{
 							vo.entry.height = (facade.retrieveMediator(KMediaPlayerMediator.NAME) as KMediaPlayerMediator).kMediaPlayer.height; 
 						}
-						var imgUrl:String = vo.entry.thumbnailUrl+"/width/" + vo.entry.width + "/height/"+vo.entry.height+ URLUtils.getThumbURLPostfix(_flashvars, _client.ks) +"/.a.jpg";  
+						var imgUrl:String = vo.entry.thumbnailUrl+"/width/" + vo.entry.width + "/height/"+vo.entry.height+"/.a.jpg" +  URLUtils.getThumbURLPostfix(_flashvars, _client.ks);  
 						resource = new URLResource( imgUrl );
 						addMetadataToResource (resource);
 						if(vo.supportImageDuration)
@@ -263,7 +257,7 @@ package com.kaltura.kdpfl.model
 				resource = new StreamingURLResource(resourceUrl, StreamType.LIVE_OR_RECORDED);
 				addMetadataToResource(resource);
 				var element:MediaElement = vo.mediaFactory.createMediaElement(resource);
-				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement( vo.initialBufferTime, vo.expandedBufferTime, element);
+				var adaptedHDElement : DualThresholdBufferingProxyElement = new DualThresholdBufferingProxyElement((vo.isLive ? vo.initialLiveBufferTime : vo.initialBufferTime), (vo.isLive ? vo.expandedLiveBufferTime : vo.expandedBufferTime), element);
 				vo.media = adaptedHDElement;	
 		
 			}			
