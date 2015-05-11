@@ -1,4 +1,4 @@
-<project name="AntTest" default="compile" basedir=".">
+<project name="AntTest" default="build" basedir=".">
  
 	<!-- sdk 4.5 -->
 	 <property name="FLEX_HOME" value="/Applications/Adobe Flash Builder 4.6/sdks/4.5.1" />
