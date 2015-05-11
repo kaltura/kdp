@@ -302,7 +302,8 @@ package {
 					
 				}
 				kalturaEntry.name = itemTo.media.title;
-				kalturaEntry.description = itemTo.media.description;
+				kalturaEntry.description = this.removeHtml5Chars(itemTo.media.description);
+
 				kalturaEntry['partnerLandingPage'] = itemTo.link;
 				kalturaEntry.createdAt = itemTo.createdAtInt;
 				
@@ -836,6 +837,8 @@ package {
 				var mediaEntries:Array = new Array();
 				for each (var entry:KalturaMediaEntry in resArr)
 				{
+					entry.description = this.removeHtml5Chars(entry.description);
+					
 					var playlistVo:PlaylistEntryVO = new PlaylistEntryVO(entry);
 					mediaEntries.push(playlistVo);
 				}
@@ -876,6 +879,16 @@ package {
 			trace ("failed to get playlists");
 		}
 		
-		
+		private function removeHtml5Chars (str:String) : String
+		{
+			if (!str)
+				return "";
+			
+			var removeHtmlRegExp:RegExp = new RegExp("<[^<]+?>", "gi");
+			str = str.replace(removeHtmlRegExp, "");
+			str = str.split("&amp;").join("&");
+			
+			return str;
+		}
 	}
 }
