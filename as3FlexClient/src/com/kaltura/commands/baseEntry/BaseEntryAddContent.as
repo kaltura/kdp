@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.baseEntry
 {
-	import com.kaltura.vo.KalturaResource;
+		import com.kaltura.vo.KalturaResource;
 	import com.kaltura.delegates.baseEntry.BaseEntryAddContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Attach content resource to entry in status NO_MEDIA
-	 * 
-	 **/
+	* Attach content resource to entry in status NO_MEDIA
+	* 
+	**/
 	public class BaseEntryAddContent extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param resource KalturaResource
-		 **/
+		* @param entryId String
+		* @param resource KalturaResource
+		**/
 		public function BaseEntryAddContent( entryId : String,resource : KalturaResource )
 		{
 			service= 'baseentry';
@@ -53,9 +53,9 @@ package com.kaltura.commands.baseEntry
 			var keyValArr : Array = new Array();
 			keyArr.push('entryId');
 			valueArr.push(entryId);
- 			keyValArr = kalturaObject2Arrays(resource, 'resource');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(resource, 'resource');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

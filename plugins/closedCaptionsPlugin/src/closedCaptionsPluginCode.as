@@ -49,6 +49,7 @@ package {
 		
 		// determines whether to display stream embedded captions
 		public var showEmbeddedCaptions : Boolean = false;
+		private var _hideClosedCaptions:Boolean = false;
 	
 		/**
 		 * Constructor 
@@ -60,6 +61,21 @@ package {
 			//_availableCCFilesLabels = new DataProvider();
 		}
 
+		[Bindable]
+		/**
+		 * determines whether to display closedCaptions
+		 * */
+		public function get hideClosedCaptions():Boolean
+		{
+			return _hideClosedCaptions;
+		}
+		
+		public function set hideClosedCaptions(value:Boolean):void
+		{
+			_hideClosedCaptions = value;
+			if (_closedCaptionsMediator)
+				_closedCaptionsMediator.hideClosedCaptions = _hideClosedCaptions;
+		}
 		/**
 		 *  
 		 * @param facade
@@ -68,6 +84,7 @@ package {
 		public function initializePlugin( facade : IFacade ) : void
 		{
 			_closedCaptionsMediator = new ClosedCaptionsMediator(this, new ClosedCaptions(),sortAlphabetically );
+			_closedCaptionsMediator.hideClosedCaptions = hideClosedCaptions;
 
 			facade.registerMediator( _closedCaptionsMediator);
 			

@@ -27,13 +27,13 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
-	import com.kaltura.vo.KalturaAccessControlAction;
+	import com.kaltura.vo.KalturaRuleAction;
 
 	[Bindable]
-	public dynamic class KalturaAccessControlPreviewAction extends KalturaAccessControlAction
+	public dynamic class KalturaAccessControlPreviewAction extends KalturaRuleAction
 	{
 		/**
-		 **/
+		**/
 		public var limit : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -49,6 +49,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

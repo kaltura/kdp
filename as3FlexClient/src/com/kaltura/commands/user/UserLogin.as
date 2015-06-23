@@ -31,20 +31,20 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Logs a user into a partner account with a partner ID, a partner user ID (puser), and a user password.
-	 * 
-	 **/
+	* Logs a user into a partner account with a partner ID, a partner user ID (puser), and a user password.
+	* 
+	**/
 	public class UserLogin extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partnerId int
-		 * @param userId String
-		 * @param password String
-		 * @param expiry int
-		 * @param privileges String
-		 **/
+		* @param partnerId int
+		* @param userId String
+		* @param password String
+		* @param expiry int
+		* @param privileges String
+		**/
 		public function UserLogin( partnerId : int,userId : String,password : String,expiry : int=86400,privileges : String='*' )
 		{
 			service= 'user';

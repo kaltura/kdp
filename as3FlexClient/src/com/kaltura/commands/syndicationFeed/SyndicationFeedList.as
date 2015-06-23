@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.syndicationFeed
 {
-	import com.kaltura.vo.KalturaBaseSyndicationFeedFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaBaseSyndicationFeedFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.syndicationFeed.SyndicationFeedListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List Syndication Feeds by filter with paging support
-	 * 
-	 **/
+	* List Syndication Feeds by filter with paging support
+	* 
+	**/
 	public class SyndicationFeedList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaBaseSyndicationFeedFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaBaseSyndicationFeedFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function SyndicationFeedList( filter : KalturaBaseSyndicationFeedFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'syndicationfeed';
@@ -52,16 +52,16 @@ package com.kaltura.commands.syndicationFeed
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

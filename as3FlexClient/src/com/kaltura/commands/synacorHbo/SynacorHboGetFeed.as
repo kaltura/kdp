@@ -31,15 +31,15 @@ package com.kaltura.commands.synacorHbo
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SynacorHboGetFeed extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param distributionProfileId int
-		 * @param hash String
-		 **/
+		* @param distributionProfileId int
+		* @param hash String
+		**/
 		public function SynacorHboGetFeed( distributionProfileId : int,hash : String )
 		{
 			service= 'synacorhbodistribution_synacorhbo';

@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.userRole
 {
-	import com.kaltura.vo.KalturaUserRole;
+		import com.kaltura.vo.KalturaUserRole;
 	import com.kaltura.delegates.userRole.UserRoleAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds a new user role object to the account.
-	 * 
-	 **/
+	* Adds a new user role object to the account.
+	* 
+	**/
 	public class UserRoleAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userRole KalturaUserRole
-		 **/
+		* @param userRole KalturaUserRole
+		**/
 		public function UserRoleAdd( userRole : KalturaUserRole )
 		{
 			service= 'userrole';
@@ -50,9 +50,9 @@ package com.kaltura.commands.userRole
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(userRole, 'userRole');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(userRole, 'userRole');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

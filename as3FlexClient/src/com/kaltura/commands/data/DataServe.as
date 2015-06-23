@@ -31,18 +31,18 @@ package com.kaltura.commands.data
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * serve action returan the file from dataContent field.
-	 * 
-	 **/
+	* serve action returan the file from dataContent field.
+	* 
+	**/
 	public class DataServe extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 * @param forceProxy Boolean
-		 **/
+		* @param entryId String
+		* @param version int
+		* @param forceProxy Boolean
+		**/
 		public function DataServe( entryId : String,version : int=-1,forceProxy : Boolean=false )
 		{
 			service= 'data';

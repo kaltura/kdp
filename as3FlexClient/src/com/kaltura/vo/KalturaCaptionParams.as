@@ -33,36 +33,36 @@ package com.kaltura.vo
 	public dynamic class KalturaCaptionParams extends KalturaAssetParams
 	{
 		/**
-		 * The language of the caption content
-		 * 
-		 * @see com.kaltura.types.KalturaLanguage
-		 **/
+		* The language of the caption content
+		* 
+		* @see com.kaltura.types.KalturaLanguage
+		**/
 		public var language : String = null;
 
 		/**
-		 * Is default caption asset of the entry
-		 * 
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* Is default caption asset of the entry
+		* 
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var isDefault : int = int.MIN_VALUE;
 
 		/**
-		 * Friendly label
-		 * 
-		 **/
+		* Friendly label
+		* 
+		**/
 		public var label : String = null;
 
 		/**
-		 * The caption format
-		 * 
-		 * @see com.kaltura.types.KalturaCaptionType
-		 **/
+		* The caption format
+		* 
+		* @see com.kaltura.types.KalturaCaptionType
+		**/
 		public var format : String = null;
 
 		/**
-		 * Id of the caption params or the flavor params to be used as source for the caption creation
-		 * 
-		 **/
+		* Id of the caption params or the flavor params to be used as source for the caption creation
+		* 
+		**/
 		public var sourceParamsId : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -82,6 +82,17 @@ package com.kaltura.vo
 			arr.push('language');
 			arr.push('format');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,16 +31,16 @@ package com.kaltura.commands.userRole
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Deletes an existing user role object.
-	 * 
-	 **/
+	* Deletes an existing user role object.
+	* 
+	**/
 	public class UserRoleDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userRoleId int
-		 **/
+		* @param userRoleId int
+		**/
 		public function UserRoleDelete( userRoleId : int )
 		{
 			service= 'userrole';

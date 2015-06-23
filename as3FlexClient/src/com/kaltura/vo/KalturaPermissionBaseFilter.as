@@ -33,85 +33,85 @@ package com.kaltura.vo
 	public dynamic class KalturaPermissionBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaPermissionType
-		 **/
+		* @see com.kaltura.types.KalturaPermissionType
+		**/
 		public var typeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var typeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var nameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var nameIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var friendlyNameLike : String = null;
 
 		/**
-		 **/
+		**/
 		public var descriptionLike : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaPermissionStatus
-		 **/
+		* @see com.kaltura.types.KalturaPermissionStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var dependsOnPermissionNamesMultiLikeOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var dependsOnPermissionNamesMultiLikeAnd : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagsMultiLikeAnd : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -146,6 +146,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

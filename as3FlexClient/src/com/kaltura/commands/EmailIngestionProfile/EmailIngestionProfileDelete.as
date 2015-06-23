@@ -31,16 +31,16 @@ package com.kaltura.commands.EmailIngestionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete an existing EmailIngestionProfile
-	 * 
-	 **/
+	* Delete an existing EmailIngestionProfile
+	* 
+	**/
 	public class EmailIngestionProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function EmailIngestionProfileDelete( id : int )
 		{
 			service= 'emailingestionprofile';

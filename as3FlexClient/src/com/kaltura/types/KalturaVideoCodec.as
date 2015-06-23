@@ -36,6 +36,7 @@ package com.kaltura.types
 		public static const APCS : String = 'apcs';
 		public static const COPY : String = 'copy';
 		public static const DNXHD : String = 'dnxhd';
+		public static const DV : String = 'dv';
 		public static const FLV : String = 'flv';
 		public static const H263 : String = 'h263';
 		public static const H264 : String = 'h264';

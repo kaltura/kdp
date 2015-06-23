@@ -31,16 +31,16 @@ package com.kaltura.commands.thumbParams
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete Thumb Params by ID
-	 * 
-	 **/
+	* Delete Thumb Params by ID
+	* 
+	**/
 	public class ThumbParamsDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function ThumbParamsDelete( id : int )
 		{
 			service= 'thumbparams';

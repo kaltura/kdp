@@ -27,20 +27,20 @@
 // ===================================================================================================
 package com.kaltura.commands.upload
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.upload.UploadUploadDelegate;
 
 	/**
-	 **/
+	**/
 	public class UploadUpload extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function UploadUpload( fileData : Object )
 		{
 			service= 'upload';

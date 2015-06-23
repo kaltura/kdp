@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.captionAsset
 {
-	import com.kaltura.vo.KalturaAssetFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaAssetFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.captionAsset.CaptionAssetListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List caption Assets by filter and pager
-	 * 
-	 **/
+	* List caption Assets by filter and pager
+	* 
+	**/
 	public class CaptionAssetList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaAssetFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaAssetFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function CaptionAssetList( filter : KalturaAssetFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'caption_captionasset';
@@ -52,16 +52,16 @@ package com.kaltura.commands.captionAsset
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

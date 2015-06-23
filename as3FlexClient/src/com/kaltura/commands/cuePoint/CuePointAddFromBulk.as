@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.cuePoint
 {
-	import flash.net.FileReference;
-	import com.kaltura.net.KalturaFileCall;
+		import flash.net.FileReference;
+		import com.kaltura.net.KalturaFileCall;
 	import com.kaltura.delegates.cuePoint.CuePointAddFromBulkDelegate;
 
 	/**
-	 * Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
-	 * 
-	 **/
+	* Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
+	* 
+	**/
 	public class CuePointAddFromBulk extends KalturaFileCall
 	{
 		public var fileData:Object;
 
 		
 		/**
-		 * @param fileData Object - FileReference or ByteArray
-		 **/
+		* @param fileData Object - FileReference or ByteArray
+		**/
 		public function CuePointAddFromBulk( fileData : Object )
 		{
 			service= 'cuepoint_cuepoint';

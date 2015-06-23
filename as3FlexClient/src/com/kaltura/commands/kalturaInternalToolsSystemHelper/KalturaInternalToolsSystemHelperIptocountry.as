@@ -31,16 +31,16 @@ package com.kaltura.commands.kalturaInternalToolsSystemHelper
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * from ip to country
-	 * 
-	 **/
+	* from ip to country
+	* 
+	**/
 	public class KalturaInternalToolsSystemHelperIptocountry extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param remote_addr String
-		 **/
+		* @param remote_addr String
+		**/
 		public function KalturaInternalToolsSystemHelperIptocountry( remote_addr : String )
 		{
 			service= 'kalturainternaltools_kalturainternaltoolssystemhelper';

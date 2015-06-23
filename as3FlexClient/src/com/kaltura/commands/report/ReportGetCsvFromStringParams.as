@@ -31,17 +31,17 @@ package com.kaltura.commands.report
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Returns report CSV file executed by string params with the following convention: param1=value1;param2=value2
-	 * 
-	 **/
+	* Returns report CSV file executed by string params with the following convention: param1=value1;param2=value2
+	* 
+	**/
 	public class ReportGetCsvFromStringParams extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param params String
-		 **/
+		* @param id int
+		* @param params String
+		**/
 		public function ReportGetCsvFromStringParams( id : int,params : String = null )
 		{
 			service= 'report';

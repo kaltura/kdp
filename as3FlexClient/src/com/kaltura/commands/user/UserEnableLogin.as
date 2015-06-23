@@ -31,18 +31,18 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Enables a user to log into a partner account using an email address and a password
-	 * 
-	 **/
+	* Enables a user to log into a partner account using an email address and a password
+	* 
+	**/
 	public class UserEnableLogin extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userId String
-		 * @param loginId String
-		 * @param password String
-		 **/
+		* @param userId String
+		* @param loginId String
+		* @param password String
+		**/
 		public function UserEnableLogin( userId : String,loginId : String,password : String = null )
 		{
 			service= 'user';

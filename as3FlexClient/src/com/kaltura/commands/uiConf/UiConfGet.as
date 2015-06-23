@@ -31,16 +31,16 @@ package com.kaltura.commands.uiConf
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve a UIConf by id
-	 * 
-	 **/
+	* Retrieve a UIConf by id
+	* 
+	**/
 	public class UiConfGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function UiConfGet( id : int )
 		{
 			service= 'uiconf';

@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaMediaEntry;
+		import com.kaltura.vo.KalturaMediaEntry;
 	import com.kaltura.delegates.media.MediaAddFromEntryDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Copy entry into new entry
-	 * 
-	 **/
+	* Copy entry into new entry
+	* 
+	**/
 	public class MediaAddFromEntry extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param sourceEntryId String
-		 * @param mediaEntry KalturaMediaEntry
-		 * @param sourceFlavorParamsId int
-		 **/
+		* @param sourceEntryId String
+		* @param mediaEntry KalturaMediaEntry
+		* @param sourceFlavorParamsId int
+		**/
 		public function MediaAddFromEntry( sourceEntryId : String,mediaEntry : KalturaMediaEntry=null,sourceFlavorParamsId : int=int.MIN_VALUE )
 		{
 			service= 'media';
@@ -54,11 +54,11 @@ package com.kaltura.commands.media
 			var keyValArr : Array = new Array();
 			keyArr.push('sourceEntryId');
 			valueArr.push(sourceEntryId);
- 			if (mediaEntry) { 
- 			keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (mediaEntry) { 
+				keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			keyArr.push('sourceFlavorParamsId');
 			valueArr.push(sourceFlavorParamsId);
 			applySchema(keyArr, valueArr);

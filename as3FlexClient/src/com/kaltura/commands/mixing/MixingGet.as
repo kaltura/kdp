@@ -31,17 +31,17 @@ package com.kaltura.commands.mixing
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get mix entry by id.
-	 * 
-	 **/
+	* Get mix entry by id.
+	* 
+	**/
 	public class MixingGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 **/
+		* @param entryId String
+		* @param version int
+		**/
 		public function MixingGet( entryId : String,version : int=-1 )
 		{
 			service= 'mixing';

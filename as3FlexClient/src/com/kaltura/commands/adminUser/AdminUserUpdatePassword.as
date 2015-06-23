@@ -31,19 +31,19 @@ package com.kaltura.commands.adminUser
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update admin user password and email
-	 * 
-	 **/
+	* Update admin user password and email
+	* 
+	**/
 	public class AdminUserUpdatePassword extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param email String
-		 * @param password String
-		 * @param newEmail String
-		 * @param newPassword String
-		 **/
+		* @param email String
+		* @param password String
+		* @param newEmail String
+		* @param newPassword String
+		**/
 		public function AdminUserUpdatePassword( email : String,password : String,newEmail : String='',newPassword : String='' )
 		{
 			service= 'adminuser';

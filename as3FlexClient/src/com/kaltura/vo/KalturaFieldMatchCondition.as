@@ -35,9 +35,9 @@ package com.kaltura.vo
 	public dynamic class KalturaFieldMatchCondition extends KalturaMatchCondition
 	{
 		/**
-		 * Field to evaluate
-		 * 
-		 **/
+		* Field to evaluate
+		* 
+		**/
 		public var field : KalturaStringField;
 
 		override public function getUpdateableParamKeys():Array
@@ -53,6 +53,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'field':
+					result = '';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

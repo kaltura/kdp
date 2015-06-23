@@ -31,17 +31,17 @@ package com.kaltura.commands.categoryEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * activate CategoryEntry when it is pending moderation
-	 * 
-	 **/
+	* activate CategoryEntry when it is pending moderation
+	* 
+	**/
 	public class CategoryEntryActivate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param categoryId int
-		 **/
+		* @param entryId String
+		* @param categoryId int
+		**/
 		public function CategoryEntryActivate( entryId : String,categoryId : int )
 		{
 			service= 'categoryentry';

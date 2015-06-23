@@ -31,17 +31,17 @@ package com.kaltura.commands.mixing
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Anonymously rank a mix entry, no validation is done on duplicate rankings
-	 * 
-	 **/
+	* Anonymously rank a mix entry, no validation is done on duplicate rankings
+	* 
+	**/
 	public class MixingAnonymousRank extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param rank int
-		 **/
+		* @param entryId String
+		* @param rank int
+		**/
 		public function MixingAnonymousRank( entryId : String,rank : int )
 		{
 			service= 'mixing';

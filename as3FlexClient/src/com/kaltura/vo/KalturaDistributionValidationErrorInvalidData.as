@@ -33,19 +33,19 @@ package com.kaltura.vo
 	public dynamic class KalturaDistributionValidationErrorInvalidData extends KalturaDistributionValidationError
 	{
 		/**
-		 **/
+		**/
 		public var fieldName : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDistributionValidationErrorType
-		 **/
+		* @see com.kaltura.types.KalturaDistributionValidationErrorType
+		**/
 		public var validationErrorType : int = int.MIN_VALUE;
 
 		/**
-		 * Parameter of the validation error
-		 * For example, minimum value for KalturaDistributionValidationErrorType::STRING_TOO_SHORT validation error
-		 * 
-		 **/
+		* Parameter of the validation error
+		* For example, minimum value for KalturaDistributionValidationErrorType::STRING_TOO_SHORT validation error
+		* 
+		**/
 		public var validationErrorParam : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -63,6 +63,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.distributionProvider
 {
-	import com.kaltura.vo.KalturaDistributionProviderFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaDistributionProviderFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.distributionProvider.DistributionProviderListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * List all distribution providers
-	 * 
-	 **/
+	* List all distribution providers
+	* 
+	**/
 	public class DistributionProviderList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaDistributionProviderFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaDistributionProviderFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function DistributionProviderList( filter : KalturaDistributionProviderFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'contentdistribution_distributionprovider';
@@ -52,16 +52,16 @@ package com.kaltura.commands.distributionProvider
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

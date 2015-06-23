@@ -33,11 +33,11 @@ package com.kaltura.vo
 	public dynamic class KalturaConfigurableDistributionProfile extends KalturaDistributionProfile
 	{
 		/**
-		 **/
+		**/
 		public var fieldConfigArray : Array = null;
 
 		/**
-		 **/
+		**/
 		public var itemXpathsToExtend : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -54,6 +54,23 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'fieldConfigArray':
+					result = 'KalturaDistributionFieldConfig';
+					break;
+				case 'itemXpathsToExtend':
+					result = 'KalturaExtendingItemMrssParameter';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -31,16 +31,16 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete a media entry.
-	 * 
-	 **/
+	* Delete a media entry.
+	* 
+	**/
 	public class MediaDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function MediaDelete( entryId : String )
 		{
 			service= 'media';

@@ -33,54 +33,61 @@ package com.kaltura.vo
 	public dynamic class KalturaITunesSyndicationFeed extends KalturaBaseSyndicationFeed
 	{
 		/**
-		 * feed description
-		 * 
-		 **/
+		* feed description
+		* 
+		**/
 		public var feedDescription : String = null;
 
 		/**
-		 * feed language
-		 * 
-		 **/
+		* feed language
+		* 
+		**/
 		public var language : String = null;
 
 		/**
-		 * feed landing page (i.e publisher website)
-		 * 
-		 **/
+		* feed landing page (i.e publisher website)
+		* 
+		**/
 		public var feedLandingPage : String = null;
 
 		/**
-		 * author/publisher name
-		 * 
-		 **/
+		* author/publisher name
+		* 
+		**/
 		public var ownerName : String = null;
 
 		/**
-		 * publisher email
-		 * 
-		 **/
+		* publisher email
+		* 
+		**/
 		public var ownerEmail : String = null;
 
 		/**
-		 * podcast thumbnail
-		 * 
-		 **/
+		* podcast thumbnail
+		* 
+		**/
 		public var feedImageUrl : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaITunesSyndicationFeedCategories
-		 **/
+		* @see com.kaltura.types.KalturaITunesSyndicationFeedCategories
+		**/
 		public var category : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaITunesSyndicationFeedAdultValues
-		 **/
+		* @see com.kaltura.types.KalturaITunesSyndicationFeedAdultValues
+		**/
 		public var adultContent : String = null;
 
 		/**
-		 **/
+		**/
 		public var feedAuthor : String = null;
+
+		/**
+		* true in case you want to enfore the palylist order on the
+		* 
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
+		public var enforceOrder : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -94,6 +101,7 @@ package com.kaltura.vo
 			arr.push('feedImageUrl');
 			arr.push('adultContent');
 			arr.push('feedAuthor');
+			arr.push('enforceOrder');
 			return arr;
 		}
 
@@ -102,6 +110,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

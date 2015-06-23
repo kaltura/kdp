@@ -31,16 +31,16 @@ package com.kaltura.commands.metadataProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves metadata profile XSD file
-	 * 
-	 **/
+	* Serves metadata profile XSD file
+	* 
+	**/
 	public class MetadataProfileServe extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function MetadataProfileServe( id : int )
 		{
 			service= 'metadata_metadataprofile';

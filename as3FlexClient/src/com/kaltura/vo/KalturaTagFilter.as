@@ -33,24 +33,24 @@ package com.kaltura.vo
 	public dynamic class KalturaTagFilter extends KalturaFilter
 	{
 		/**
-		 * @see com.kaltura.types.KalturaTaggedObjectType
-		 **/
+		* @see com.kaltura.types.KalturaTaggedObjectType
+		**/
 		public var objectTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var tagStartsWith : String = null;
 
 		/**
-		 **/
+		**/
 		public var instanceCountEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var instanceCountIn : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -70,6 +70,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

@@ -27,24 +27,24 @@
 // ===================================================================================================
 package com.kaltura.commands.media
 {
-	import com.kaltura.vo.KalturaMediaEntry;
-	import com.kaltura.vo.KalturaSearchResult;
+		import com.kaltura.vo.KalturaMediaEntry;
+		import com.kaltura.vo.KalturaSearchResult;
 	import com.kaltura.delegates.media.MediaAddFromSearchResultDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds new media entry by importing the media file from a search provider.
-	 * This action should be used with the search service result.
-	 * 
-	 **/
+	* Adds new media entry by importing the media file from a search provider.
+	* This action should be used with the search service result.
+	* 
+	**/
 	public class MediaAddFromSearchResult extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param mediaEntry KalturaMediaEntry
-		 * @param searchResult KalturaSearchResult
-		 **/
+		* @param mediaEntry KalturaMediaEntry
+		* @param searchResult KalturaSearchResult
+		**/
 		public function MediaAddFromSearchResult( mediaEntry : KalturaMediaEntry=null,searchResult : KalturaSearchResult=null )
 		{
 			service= 'media';
@@ -53,16 +53,16 @@ package com.kaltura.commands.media
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (mediaEntry) { 
- 			keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (searchResult) { 
- 			keyValArr = kalturaObject2Arrays(searchResult, 'searchResult');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (mediaEntry) { 
+				keyValArr = kalturaObject2Arrays(mediaEntry, 'mediaEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (searchResult) { 
+				keyValArr = kalturaObject2Arrays(searchResult, 'searchResult');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

@@ -31,14 +31,14 @@ package com.kaltura.commands.attachmentAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class AttachmentAssetGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param attachmentAssetId String
-		 **/
+		* @param attachmentAssetId String
+		**/
 		public function AttachmentAssetGet( attachmentAssetId : String )
 		{
 			service= 'attachment_attachmentasset';

@@ -36,6 +36,7 @@ package com.kaltura.types
 		public static const HDS : String = 'hds';
 		public static const HLS : String = 'hls';
 		public static const HTTP : String = 'http';
+		public static const MPEG_DASH : String = 'mpegdash';
 		public static const RTMP : String = 'rtmp';
 		public static const RTSP : String = 'rtsp';
 		public static const SILVER_LIGHT : String = 'sl';

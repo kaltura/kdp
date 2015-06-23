@@ -33,45 +33,45 @@ package com.kaltura.vo
 	public dynamic class KalturaAkamaiUniversalProvisionJobData extends KalturaProvisionJobData
 	{
 		/**
-		 **/
+		**/
 		public var streamId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var systemUserName : String = null;
 
 		/**
-		 **/
+		**/
 		public var systemPassword : String = null;
 
 		/**
-		 **/
+		**/
 		public var domainName : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDVRStatus
-		 **/
+		* @see com.kaltura.types.KalturaDVRStatus
+		**/
 		public var dvrEnabled : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var dvrWindow : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var primaryContact : String = null;
 
 		/**
-		 **/
+		**/
 		public var secondaryContact : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaAkamaiUniversalStreamType
-		 **/
+		* @see com.kaltura.types.KalturaAkamaiUniversalStreamType
+		**/
 		public var streamType : String = null;
 
 		/**
-		 **/
+		**/
 		public var notificationEmail : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -96,6 +96,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

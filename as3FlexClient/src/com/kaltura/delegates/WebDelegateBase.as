@@ -35,7 +35,6 @@ package com.kaltura.delegates {
 	import com.kaltura.errors.KalturaError;
 	import com.kaltura.events.KalturaEvent;
 	import com.kaltura.net.KalturaCall;
-	import com.kaltura.types.KalturaResponseType;
 	
 	import flash.events.ErrorEvent;
 	import flash.events.Event;
@@ -54,7 +53,7 @@ package com.kaltura.delegates {
 
 	public class WebDelegateBase extends EventDispatcher implements IKalturaCallDelegate {
 
-		public static var CONNECT_TIME:int = 60000; //60 secs
+		public static var CONNECT_TIME:int = 120000; //120 secs
 		public static var LOAD_TIME:int = 120000; //120 secs
 
 		protected var connectTimer:Timer;
@@ -170,7 +169,7 @@ package com.kaltura.delegates {
 
 		protected function formatRequest():void {
 			//The configuration is stronger then the args
-			if (_config.partnerId != null && _call.args["partnerId"] == -1)
+			if (_config.partnerId != null && (!_call.args["partnerId"] || _call.args["partnerId"]==-1))
 				_call.setRequestArgument("partnerId", _config.partnerId);
 
 			if (_config.ks != null)
@@ -181,7 +180,6 @@ package com.kaltura.delegates {
 
 			_call.setRequestArgument("ignoreNull", _config.ignoreNull);
 			_call.setRequestArgument("apiVersion", KalturaClient.API_VERSION);
-			//_call.setRequestArgument("format", KalturaResponseType.RESPONSE_TYPE_XML);
 
 			//Create signature hash.
 			//call.setRequestArgument("kalsig", getMD5Checksum(call));
@@ -197,6 +195,7 @@ package com.kaltura.delegates {
 
 			var s:String = "";
 			for each (var prop:String in props) {
+
 				if ( call.args[prop] )
 					s += prop +  call.args[prop];
 			}
@@ -289,7 +288,7 @@ package com.kaltura.delegates {
 			if (!kError) {
 				kError = new KalturaError();
 				kError.errorMsg = event.text;
-				//kError.errorCode;
+				kError.errorCode = event.type; 	// either IOErrorEvent.IO_ERROR or SecurityErrorEvent.SECURITY_ERROR
 			}
 
 			call.handleError(kError);
@@ -391,6 +390,7 @@ package com.kaltura.delegates {
 		protected function createKalturaError(event:ErrorEvent, loaderData:*):KalturaError {
 			var ke:KalturaError = new KalturaError();
 			ke.errorMsg = event.text;
+			ke.errorCode = event.type;
 			return ke;
 		}
 

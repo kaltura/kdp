@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.flavorParams
 {
-	import com.kaltura.vo.KalturaFlavorParams;
+		import com.kaltura.vo.KalturaFlavorParams;
 	import com.kaltura.delegates.flavorParams.FlavorParamsAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new Flavor Params
-	 * 
-	 **/
+	* Add new Flavor Params
+	* 
+	**/
 	public class FlavorParamsAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param flavorParams KalturaFlavorParams
-		 **/
+		* @param flavorParams KalturaFlavorParams
+		**/
 		public function FlavorParamsAdd( flavorParams : KalturaFlavorParams )
 		{
 			service= 'flavorparams';
@@ -50,9 +50,9 @@ package com.kaltura.commands.flavorParams
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(flavorParams, 'flavorParams');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(flavorParams, 'flavorParams');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

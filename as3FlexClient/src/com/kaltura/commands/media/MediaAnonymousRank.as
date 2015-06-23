@@ -31,17 +31,17 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Anonymously rank a media entry, no validation is done on duplicate rankings
-	 * 
-	 **/
+	* Anonymously rank a media entry, no validation is done on duplicate rankings
+	* 
+	**/
 	public class MediaAnonymousRank extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param rank int
-		 **/
+		* @param entryId String
+		* @param rank int
+		**/
 		public function MediaAnonymousRank( entryId : String,rank : int )
 		{
 			service= 'media';

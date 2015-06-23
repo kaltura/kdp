@@ -31,17 +31,17 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves caption by entry id and thumnail params id
-	 * 
-	 **/
+	* Serves caption by entry id and thumnail params id
+	* 
+	**/
 	public class CaptionAssetServeByEntryId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param captionParamId int
-		 **/
+		* @param entryId String
+		* @param captionParamId int
+		**/
 		public function CaptionAssetServeByEntryId( entryId : String,captionParamId : int=int.MIN_VALUE )
 		{
 			service= 'caption_captionasset';

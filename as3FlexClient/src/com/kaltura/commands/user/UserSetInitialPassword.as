@@ -31,17 +31,17 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Set initial users password
-	 * 
-	 **/
+	* Set initial users password
+	* 
+	**/
 	public class UserSetInitialPassword extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param hashKey String
-		 * @param newPassword String
-		 **/
+		* @param hashKey String
+		* @param newPassword String
+		**/
 		public function UserSetInitialPassword( hashKey : String,newPassword : String )
 		{
 			service= 'user';

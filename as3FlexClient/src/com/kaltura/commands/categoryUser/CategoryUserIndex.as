@@ -31,18 +31,18 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Index CategoryUser by userid and category id
-	 * 
-	 **/
+	* Index CategoryUser by userid and category id
+	* 
+	**/
 	public class CategoryUserIndex extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userId String
-		 * @param categoryId int
-		 * @param shouldUpdate Boolean
-		 **/
+		* @param userId String
+		* @param categoryId int
+		* @param shouldUpdate Boolean
+		**/
 		public function CategoryUserIndex( userId : String,categoryId : int,shouldUpdate : Boolean=true )
 		{
 			service= 'categoryuser';

@@ -31,15 +31,15 @@ package com.kaltura.commands.systemPartner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class SystemPartnerUpdateStatus extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param partnerId int
-		 * @param status int
-		 **/
+		* @param partnerId int
+		* @param status int
+		**/
 		public function SystemPartnerUpdateStatus( partnerId : int,status : int )
 		{
 			service= 'systempartner_systempartner';

@@ -33,82 +33,82 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryUserBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var categoryIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var categoryIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var userIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var userIdIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaCategoryUserPermissionLevel
-		 **/
+		* @see com.kaltura.types.KalturaCategoryUserPermissionLevel
+		**/
 		public var permissionLevelEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var permissionLevelIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaCategoryUserStatus
-		 **/
+		* @see com.kaltura.types.KalturaCategoryUserStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaUpdateMethodType
-		 **/
+		* @see com.kaltura.types.KalturaUpdateMethodType
+		**/
 		public var updateMethodEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updateMethodIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var categoryFullIdsStartsWith : String = null;
 
 		/**
-		 **/
+		**/
 		public var categoryFullIdsEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var permissionNamesMatchAnd : String = null;
 
 		/**
-		 **/
+		**/
 		public var permissionNamesMatchOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var permissionNamesNotContains : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -142,6 +142,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

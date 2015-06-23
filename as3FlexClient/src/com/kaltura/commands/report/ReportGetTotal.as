@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.report
 {
-	import com.kaltura.vo.KalturaReportInputFilter;
+		import com.kaltura.vo.KalturaReportInputFilter;
 	import com.kaltura.delegates.report.ReportGetTotalDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * report getTotal action allows to get a graph data for a specific report.
-	 * 
-	 **/
+	* report getTotal action allows to get a graph data for a specific report.
+	* 
+	**/
 	public class ReportGetTotal extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param reportType int
-		 * @param reportInputFilter KalturaReportInputFilter
-		 * @param objectIds String
-		 **/
+		* @param reportType int
+		* @param reportInputFilter KalturaReportInputFilter
+		* @param objectIds String
+		**/
 		public function ReportGetTotal( reportType : int,reportInputFilter : KalturaReportInputFilter,objectIds : String = null )
 		{
 			service= 'report';
@@ -54,9 +54,9 @@ package com.kaltura.commands.report
 			var keyValArr : Array = new Array();
 			keyArr.push('reportType');
 			valueArr.push(reportType);
- 			keyValArr = kalturaObject2Arrays(reportInputFilter, 'reportInputFilter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(reportInputFilter, 'reportInputFilter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('objectIds');
 			valueArr.push(objectIds);
 			applySchema(keyArr, valueArr);

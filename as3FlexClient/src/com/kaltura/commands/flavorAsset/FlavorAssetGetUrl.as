@@ -31,18 +31,19 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get download URL for the asset
-	 * 
-	 **/
+	* Get download URL for the asset
+	* 
+	**/
 	public class FlavorAssetGetUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param storageId int
-		 **/
-		public function FlavorAssetGetUrl( id : String,storageId : int=int.MIN_VALUE )
+		* @param id String
+		* @param storageId int
+		* @param forceProxy Boolean
+		**/
+		public function FlavorAssetGetUrl( id : String,storageId : int=int.MIN_VALUE,forceProxy : Boolean=false )
 		{
 			service= 'flavorasset';
 			action= 'getUrl';
@@ -54,6 +55,8 @@ package com.kaltura.commands.flavorAsset
 			valueArr.push(id);
 			keyArr.push('storageId');
 			valueArr.push(storageId);
+			keyArr.push('forceProxy');
+			valueArr.push(forceProxy);
 			applySchema(keyArr, valueArr);
 		}
 

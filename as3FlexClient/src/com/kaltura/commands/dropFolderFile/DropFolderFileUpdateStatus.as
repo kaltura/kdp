@@ -31,17 +31,17 @@ package com.kaltura.commands.dropFolderFile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update status of KalturaDropFolderFile
-	 * 
-	 **/
+	* Update status of KalturaDropFolderFile
+	* 
+	**/
 	public class DropFolderFileUpdateStatus extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param dropFolderFileId int
-		 * @param status int
-		 **/
+		* @param dropFolderFileId int
+		* @param status int
+		**/
 		public function DropFolderFileUpdateStatus( dropFolderFileId : int,status : int )
 		{
 			service= 'dropfolder_dropfolderfile';

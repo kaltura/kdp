@@ -31,21 +31,21 @@ package com.kaltura.commands.session
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Start an impersonated session with Kaltura's server.
-	 * The result KS info contains the session key that you should pass to all services that requires a ticket.
-	 * Type, expiry and privileges won't be changed if they're not set
-	 * 
-	 **/
+	* Start an impersonated session with Kaltura's server.
+	* The result KS info contains the session key that you should pass to all services that requires a ticket.
+	* Type, expiry and privileges won't be changed if they're not set
+	* 
+	**/
 	public class SessionImpersonateByKs extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param session String
-		 * @param type int
-		 * @param expiry int
-		 * @param privileges String
-		 **/
+		* @param session String
+		* @param type int
+		* @param expiry int
+		* @param privileges String
+		**/
 		public function SessionImpersonateByKs( session : String,type : int=int.MIN_VALUE,expiry : int=int.MIN_VALUE,privileges : String = null )
 		{
 			service= 'session';

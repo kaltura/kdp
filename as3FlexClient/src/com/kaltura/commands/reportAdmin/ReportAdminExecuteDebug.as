@@ -31,15 +31,15 @@ package com.kaltura.commands.reportAdmin
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ReportAdminExecuteDebug extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param params Array
-		 **/
+		* @param id int
+		* @param params Array
+		**/
 		public function ReportAdminExecuteDebug( id : int,params : Array=null )
 		{
 			service= 'adminconsole_reportadmin';
@@ -50,11 +50,11 @@ package com.kaltura.commands.reportAdmin
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			if (params) { 
- 			keyValArr = extractArray(params,'params');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (params) { 
+				keyValArr = extractArray(params,'params');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

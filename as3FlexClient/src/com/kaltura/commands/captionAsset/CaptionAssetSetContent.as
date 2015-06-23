@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.captionAsset
 {
-	import com.kaltura.vo.KalturaContentResource;
+		import com.kaltura.vo.KalturaContentResource;
 	import com.kaltura.delegates.captionAsset.CaptionAssetSetContentDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update content of caption asset
-	 * 
-	 **/
+	* Update content of caption asset
+	* 
+	**/
 	public class CaptionAssetSetContent extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param contentResource KalturaContentResource
-		 **/
+		* @param id String
+		* @param contentResource KalturaContentResource
+		**/
 		public function CaptionAssetSetContent( id : String,contentResource : KalturaContentResource )
 		{
 			service= 'caption_captionasset';
@@ -53,9 +53,9 @@ package com.kaltura.commands.captionAsset
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(contentResource, 'contentResource');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(contentResource, 'contentResource');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

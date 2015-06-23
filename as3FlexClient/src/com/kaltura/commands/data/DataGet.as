@@ -31,17 +31,17 @@ package com.kaltura.commands.data
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get data entry by ID.
-	 * 
-	 **/
+	* Get data entry by ID.
+	* 
+	**/
 	public class DataGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param version int
-		 **/
+		* @param entryId String
+		* @param version int
+		**/
 		public function DataGet( entryId : String,version : int=-1 )
 		{
 			service= 'data';

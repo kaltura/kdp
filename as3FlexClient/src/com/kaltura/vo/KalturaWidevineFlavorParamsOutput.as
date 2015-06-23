@@ -32,10 +32,24 @@ package com.kaltura.vo
 	[Bindable]
 	public dynamic class KalturaWidevineFlavorParamsOutput extends KalturaFlavorParamsOutput
 	{
+		/**
+		* License distribution window start date
+		* 
+		**/
+		public var widevineDistributionStartDate : int = int.MIN_VALUE;
+
+		/**
+		* License distribution window end date
+		* 
+		**/
+		public var widevineDistributionEndDate : int = int.MIN_VALUE;
+
 		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = super.getUpdateableParamKeys();
+			arr.push('widevineDistributionStartDate');
+			arr.push('widevineDistributionEndDate');
 			return arr;
 		}
 
@@ -44,6 +58,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

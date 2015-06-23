@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.playlist
 {
-	import com.kaltura.vo.KalturaPlaylist;
+		import com.kaltura.vo.KalturaPlaylist;
 	import com.kaltura.delegates.playlist.PlaylistAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add new playlist
-	 * Note that all entries used in a playlist will become public and may appear in KalturaNetwork
-	 * 
-	 **/
+	* Add new playlist
+	* Note that all entries used in a playlist will become public and may appear in KalturaNetwork
+	* 
+	**/
 	public class PlaylistAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param playlist KalturaPlaylist
-		 * @param updateStats Boolean
-		 **/
+		* @param playlist KalturaPlaylist
+		* @param updateStats Boolean
+		**/
 		public function PlaylistAdd( playlist : KalturaPlaylist,updateStats : Boolean=false )
 		{
 			service= 'playlist';
@@ -52,9 +52,9 @@ package com.kaltura.commands.playlist
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(playlist, 'playlist');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(playlist, 'playlist');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('updateStats');
 			valueArr.push(updateStats);
 			applySchema(keyArr, valueArr);

@@ -31,17 +31,17 @@ package com.kaltura.commands.categoryUser
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * activate CategoryUser
-	 * 
-	 **/
+	* activate CategoryUser
+	* 
+	**/
 	public class CategoryUserActivate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param categoryId int
-		 * @param userId String
-		 **/
+		* @param categoryId int
+		* @param userId String
+		**/
 		public function CategoryUserActivate( categoryId : int,userId : String )
 		{
 			service= 'categoryuser';

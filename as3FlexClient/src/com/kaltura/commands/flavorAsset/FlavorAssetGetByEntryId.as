@@ -31,16 +31,16 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Flavor Assets for Entry
-	 * 
-	 **/
+	* Get Flavor Assets for Entry
+	* 
+	**/
 	public class FlavorAssetGetByEntryId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function FlavorAssetGetByEntryId( entryId : String )
 		{
 			service= 'flavorasset';

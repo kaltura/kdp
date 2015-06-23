@@ -35,19 +35,19 @@ package com.kaltura.vo
 	public dynamic class KalturaOperationResource extends KalturaContentResource
 	{
 		/**
-		 * Only KalturaEntryResource and KalturaAssetResource are supported
-		 * 
-		 **/
+		* Only KalturaEntryResource and KalturaAssetResource are supported
+		* 
+		**/
 		public var resource : KalturaContentResource;
 
 		/**
-		 **/
+		**/
 		public var operationAttributes : Array = null;
 
 		/**
-		 * ID of alternative asset params to be used instead of the system default flavor params
-		 * 
-		 **/
+		* ID of alternative asset params to be used instead of the system default flavor params
+		* 
+		**/
 		public var assetParamsId : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,23 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'resource':
+					result = '';
+					break;
+				case 'operationAttributes':
+					result = 'KalturaOperationAttributes';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

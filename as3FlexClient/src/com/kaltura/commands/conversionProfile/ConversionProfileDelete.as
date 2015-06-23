@@ -31,16 +31,16 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete Conversion Profile by ID
-	 * 
-	 **/
+	* Delete Conversion Profile by ID
+	* 
+	**/
 	public class ConversionProfileDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function ConversionProfileDelete( id : int )
 		{
 			service= 'conversionprofile';

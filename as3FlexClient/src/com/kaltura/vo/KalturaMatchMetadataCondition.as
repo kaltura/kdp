@@ -33,19 +33,25 @@ package com.kaltura.vo
 	public dynamic class KalturaMatchMetadataCondition extends KalturaMatchCondition
 	{
 		/**
-		 * May contain the full xpath to the field in three formats
-		 * 1. Slashed xPath, e.g. /metadata/myElementName
-		 * 2. Using local-name function, e.g. /[local-name()='metadata']/[local-name()='myElementName']
-		 * 3. Using only the field name, e.g. myElementName, it will be searched as //myElementName
-		 * 
-		 **/
+		* May contain the full xpath to the field in three formats
+		* 1. Slashed xPath, e.g. /metadata/myElementName
+		* 2. Using local-name function, e.g. /[local-name()='metadata']/[local-name()='myElementName']
+		* 3. Using only the field name, e.g. myElementName, it will be searched as //myElementName
+		* 
+		**/
 		public var xPath : String = null;
 
 		/**
-		 * Metadata profile id
-		 * 
-		 **/
+		* Metadata profile id
+		* 
+		**/
 		public var profileId : int = int.MIN_VALUE;
+
+		/**
+		* Metadata profile system name
+		* 
+		**/
+		public var profileSystemName : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -53,6 +59,7 @@ package com.kaltura.vo
 			arr = super.getUpdateableParamKeys();
 			arr.push('xPath');
 			arr.push('profileId');
+			arr.push('profileSystemName');
 			return arr;
 		}
 
@@ -61,6 +68,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

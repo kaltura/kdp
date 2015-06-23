@@ -31,16 +31,16 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Reset user's password and send the user an email to generate a new one.
-	 * 
-	 **/
+	* Reset user's password and send the user an email to generate a new one.
+	* 
+	**/
 	public class UserResetPassword extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param email String
-		 **/
+		* @param email String
+		**/
 		public function UserResetPassword( email : String )
 		{
 			service= 'user';

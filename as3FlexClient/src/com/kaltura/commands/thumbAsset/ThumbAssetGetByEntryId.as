@@ -31,14 +31,14 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ThumbAssetGetByEntryId extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function ThumbAssetGetByEntryId( entryId : String )
 		{
 			service= 'thumbasset';

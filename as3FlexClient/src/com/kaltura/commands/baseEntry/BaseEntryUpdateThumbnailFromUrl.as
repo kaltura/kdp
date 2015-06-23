@@ -31,17 +31,17 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update entry thumbnail using url.
-	 * 
-	 **/
+	* Update entry thumbnail using url.
+	* 
+	**/
 	public class BaseEntryUpdateThumbnailFromUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param url String
-		 **/
+		* @param entryId String
+		* @param url String
+		**/
 		public function BaseEntryUpdateThumbnailFromUrl( entryId : String,url : String )
 		{
 			service= 'baseentry';

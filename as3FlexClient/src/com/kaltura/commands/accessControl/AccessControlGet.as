@@ -31,16 +31,16 @@ package com.kaltura.commands.accessControl
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Access Control Profile by id
-	 * 
-	 **/
+	* Get Access Control Profile by id
+	* 
+	**/
 	public class AccessControlGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function AccessControlGet( id : int )
 		{
 			service= 'accesscontrol';

@@ -33,20 +33,20 @@ package com.kaltura.vo
 	public dynamic class KalturaExternalMediaEntryBaseFilter extends KalturaMediaEntryFilter
 	{
 		/**
-		 * @see com.kaltura.types.KalturaExternalMediaSourceType
-		 **/
+		* @see com.kaltura.types.KalturaExternalMediaSourceType
+		**/
 		public var externalSourceTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var externalSourceTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var assetParamsIdsMatchOr : String = null;
 
 		/**
-		 **/
+		**/
 		public var assetParamsIdsMatchAnd : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -65,6 +65,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

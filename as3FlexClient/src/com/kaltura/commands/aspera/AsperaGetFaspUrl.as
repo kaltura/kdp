@@ -31,14 +31,14 @@ package com.kaltura.commands.aspera
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class AsperaGetFaspUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param flavorAssetId String
-		 **/
+		* @param flavorAssetId String
+		**/
 		public function AsperaGetFaspUrl( flavorAssetId : String )
 		{
 			service= 'aspera_aspera';

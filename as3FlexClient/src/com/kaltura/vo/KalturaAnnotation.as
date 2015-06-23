@@ -33,41 +33,41 @@ package com.kaltura.vo
 	public dynamic class KalturaAnnotation extends KalturaCuePoint
 	{
 		/**
-		 **/
+		**/
 		public var parentId : String = null;
 
 		/**
-		 **/
+		**/
 		public var text : String = null;
 
 		/**
-		 * End time in milliseconds
-		 * 
-		 **/
+		* End time in milliseconds
+		* 
+		**/
 		public var endTime : int = int.MIN_VALUE;
 
 		/**
-		 * Duration in milliseconds
-		 * 
-		 **/
+		* Duration in milliseconds
+		* 
+		**/
 		public var duration : int = int.MIN_VALUE;
 
 		/**
-		 * Depth in the tree
-		 * 
-		 **/
+		* Depth in the tree
+		* 
+		**/
 		public var depth : int = int.MIN_VALUE;
 
 		/**
-		 * Number of all descendants
-		 * 
-		 **/
+		* Number of all descendants
+		* 
+		**/
 		public var childrenCount : int = int.MIN_VALUE;
 
 		/**
-		 * Number of children, first generation only.
-		 * 
-		 **/
+		* Number of children, first generation only.
+		* 
+		**/
 		public var directChildrenCount : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -85,6 +85,17 @@ package com.kaltura.vo
 			arr = super.getInsertableParamKeys();
 			arr.push('parentId');
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

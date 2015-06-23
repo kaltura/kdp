@@ -31,25 +31,25 @@ package com.kaltura.commands.xInternal
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Creates new download job for multiple entry ids (comma separated), an email will be sent when the job is done
-	 * This sevice support the following entries:
-	 * - MediaEntry
-	 * - Video will be converted using the flavor params id
-	 * - Audio will be downloaded as MP3
-	 * - Image will be downloaded as Jpeg
-	 * - MixEntry will be flattened using the flavor params id
-	 * - Other entry types are not supported
-	 * Returns the admin email that the email message will be sent to
-	 * 
-	 **/
+	* Creates new download job for multiple entry ids (comma separated), an email will be sent when the job is done
+	* This sevice support the following entries:
+	* - MediaEntry
+	* - Video will be converted using the flavor params id
+	* - Audio will be downloaded as MP3
+	* - Image will be downloaded as Jpeg
+	* - MixEntry will be flattened using the flavor params id
+	* - Other entry types are not supported
+	* Returns the admin email that the email message will be sent to
+	* 
+	**/
 	public class XInternalXAddBulkDownload extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryIds String
-		 * @param flavorParamsId String
-		 **/
+		* @param entryIds String
+		* @param flavorParamsId String
+		**/
 		public function XInternalXAddBulkDownload( entryIds : String,flavorParamsId : String='' )
 		{
 			service= 'xinternal';

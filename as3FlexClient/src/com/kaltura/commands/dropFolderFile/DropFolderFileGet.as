@@ -31,16 +31,16 @@ package com.kaltura.commands.dropFolderFile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve a KalturaDropFolderFile object by ID
-	 * 
-	 **/
+	* Retrieve a KalturaDropFolderFile object by ID
+	* 
+	**/
 	public class DropFolderFileGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param dropFolderFileId int
-		 **/
+		* @param dropFolderFileId int
+		**/
 		public function DropFolderFileGet( dropFolderFileId : int )
 		{
 			service= 'dropfolder_dropfolderfile';

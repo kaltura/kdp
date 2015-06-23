@@ -31,17 +31,17 @@ package com.kaltura.commands.varConsole
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Function to change a sub-publisher's status
-	 * 
-	 **/
+	* Function to change a sub-publisher's status
+	* 
+	**/
 	public class VarConsoleUpdateStatus extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param status int
-		 **/
+		* @param id int
+		* @param status int
+		**/
 		public function VarConsoleUpdateStatus( id : int,status : int )
 		{
 			service= 'varconsole_varconsole';

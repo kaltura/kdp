@@ -33,109 +33,113 @@ package com.kaltura.vo
 	public dynamic class KalturaDropFolderFileBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var idEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var idIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var dropFolderIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var dropFolderIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var fileNameEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var fileNameIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var fileNameLike : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderFileStatus
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderFileStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 **/
+		**/
+		public var statusNotIn : String = null;
+
+		/**
+		**/
 		public var parsedSlugEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var parsedSlugIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var parsedSlugLike : String = null;
 
 		/**
-		 **/
+		**/
 		public var parsedFlavorEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var parsedFlavorIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var parsedFlavorLike : String = null;
 
 		/**
-		 **/
+		**/
 		public var leadDropFolderFileIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var deletedDropFolderFileIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var entryIdEqual : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaDropFolderFileErrorCode
-		 **/
+		* @see com.kaltura.types.KalturaDropFolderFileErrorCode
+		**/
 		public var errorCodeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var errorCodeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -153,6 +157,7 @@ package com.kaltura.vo
 			arr.push('fileNameLike');
 			arr.push('statusEqual');
 			arr.push('statusIn');
+			arr.push('statusNotIn');
 			arr.push('parsedSlugEqual');
 			arr.push('parsedSlugIn');
 			arr.push('parsedSlugLike');
@@ -176,6 +181,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

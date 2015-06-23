@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.partner
 {
-	import com.kaltura.vo.KalturaPartnerFilter;
+		import com.kaltura.vo.KalturaPartnerFilter;
 	import com.kaltura.delegates.partner.PartnerCountDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Count partner's existing sub-publishers (count includes the partner itself).
-	 * 
-	 **/
+	* Count partner's existing sub-publishers (count includes the partner itself).
+	* 
+	**/
 	public class PartnerCount extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaPartnerFilter
-		 **/
+		* @param filter KalturaPartnerFilter
+		**/
 		public function PartnerCount( filter : KalturaPartnerFilter=null )
 		{
 			service= 'partner';
@@ -50,11 +50,11 @@ package com.kaltura.commands.partner
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

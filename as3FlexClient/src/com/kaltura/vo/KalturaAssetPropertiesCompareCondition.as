@@ -33,9 +33,9 @@ package com.kaltura.vo
 	public dynamic class KalturaAssetPropertiesCompareCondition extends KalturaCondition
 	{
 		/**
-		 * Array of key/value objects that holds the property and the value to find and compare on an asset object
-		 * 
-		 **/
+		* Array of key/value objects that holds the property and the value to find and compare on an asset object
+		* 
+		**/
 		public var properties : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -51,6 +51,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'properties':
+					result = 'KalturaKeyValue';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

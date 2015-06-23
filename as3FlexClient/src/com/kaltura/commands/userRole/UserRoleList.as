@@ -27,25 +27,25 @@
 // ===================================================================================================
 package com.kaltura.commands.userRole
 {
-	import com.kaltura.vo.KalturaUserRoleFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaUserRoleFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.userRole.UserRoleListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Lists user role objects that are associated with an account.
-	 * Blocked user roles are listed unless you use a filter to exclude them.
-	 * Deleted user roles are not listed unless you use a filter to include them.
-	 * 
-	 **/
+	* Lists user role objects that are associated with an account.
+	* Blocked user roles are listed unless you use a filter to exclude them.
+	* Deleted user roles are not listed unless you use a filter to include them.
+	* 
+	**/
 	public class UserRoleList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaUserRoleFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaUserRoleFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function UserRoleList( filter : KalturaUserRoleFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'userrole';
@@ -54,16 +54,16 @@ package com.kaltura.commands.userRole
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

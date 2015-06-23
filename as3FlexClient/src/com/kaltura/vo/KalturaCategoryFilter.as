@@ -33,34 +33,38 @@ package com.kaltura.vo
 	public dynamic class KalturaCategoryFilter extends KalturaCategoryBaseFilter
 	{
 		/**
-		 **/
+		**/
 		public var freeText : String = null;
 
 		/**
-		 **/
+		**/
 		public var membersIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var nameOrReferenceIdStartsWith : String = null;
 
 		/**
-		 **/
+		**/
 		public var managerEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var memberEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var fullNameStartsWithIn : String = null;
 
 		/**
-		 * not includes the category itself (only sub categories)
-		 * 
-		 **/
+		* not includes the category itself (only sub categories)
+		* 
+		**/
 		public var ancestorIdIn : String = null;
+
+		/**
+		**/
+		public var idOrInheritedParentIdIn : String = null;
 
 		override public function getUpdateableParamKeys():Array
 		{
@@ -73,6 +77,7 @@ package com.kaltura.vo
 			arr.push('memberEqual');
 			arr.push('fullNameStartsWithIn');
 			arr.push('ancestorIdIn');
+			arr.push('idOrInheritedParentIdIn');
 			return arr;
 		}
 
@@ -81,6 +86,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

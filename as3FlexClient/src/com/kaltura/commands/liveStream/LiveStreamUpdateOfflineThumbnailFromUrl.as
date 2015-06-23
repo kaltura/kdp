@@ -31,17 +31,17 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update entry thumbnail using url
-	 * 
-	 **/
+	* Update entry thumbnail using url
+	* 
+	**/
 	public class LiveStreamUpdateOfflineThumbnailFromUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param url String
-		 **/
+		* @param entryId String
+		* @param url String
+		**/
 		public function LiveStreamUpdateOfflineThumbnailFromUrl( entryId : String,url : String )
 		{
 			service= 'livestream';

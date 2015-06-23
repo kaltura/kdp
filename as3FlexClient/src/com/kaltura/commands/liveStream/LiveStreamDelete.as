@@ -31,16 +31,16 @@ package com.kaltura.commands.liveStream
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete a live stream entry.
-	 * 
-	 **/
+	* Delete a live stream entry.
+	* 
+	**/
 	public class LiveStreamDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function LiveStreamDelete( entryId : String )
 		{
 			service= 'livestream';

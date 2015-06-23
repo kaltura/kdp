@@ -31,18 +31,18 @@ package com.kaltura.commands.baseEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update entry thumbnail from a different entry by a specified time offset (in seconds).
-	 * 
-	 **/
+	* Update entry thumbnail from a different entry by a specified time offset (in seconds).
+	* 
+	**/
 	public class BaseEntryUpdateThumbnailFromSourceEntry extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param sourceEntryId String
-		 * @param timeOffset int
-		 **/
+		* @param entryId String
+		* @param sourceEntryId String
+		* @param timeOffset int
+		**/
 		public function BaseEntryUpdateThumbnailFromSourceEntry( entryId : String,sourceEntryId : String,timeOffset : int )
 		{
 			service= 'baseentry';

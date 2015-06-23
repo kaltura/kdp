@@ -33,50 +33,50 @@ package com.kaltura.vo
 	public dynamic class KalturaAccessControlScope extends BaseFlexVo
 	{
 		/**
-		 * URL to be used to test domain conditions.
-		 * 
-		 **/
+		* URL to be used to test domain conditions.
+		* 
+		**/
 		public var referrer : String = null;
 
 		/**
-		 * IP to be used to test geographic location conditions.
-		 * 
-		 **/
+		* IP to be used to test geographic location conditions.
+		* 
+		**/
 		public var ip : String = null;
 
 		/**
-		 * Kaltura session to be used to test session and user conditions.
-		 * 
-		 **/
+		* Kaltura session to be used to test session and user conditions.
+		* 
+		**/
 		public var ks : String = null;
 
 		/**
-		 * Browser or client application to be used to test agent conditions.
-		 * 
-		 **/
+		* Browser or client application to be used to test agent conditions.
+		* 
+		**/
 		public var userAgent : String = null;
 
 		/**
-		 * Unix timestamp (In seconds) to be used to test entry scheduling, keep null to use now.
-		 * 
-		 **/
+		* Unix timestamp (In seconds) to be used to test entry scheduling, keep null to use now.
+		* 
+		**/
 		public var time : int = int.MIN_VALUE;
 
 		/**
-		 * Indicates what contexts should be tested. No contexts means any context.
-		 * 
-		 **/
+		* Indicates what contexts should be tested. No contexts means any context.
+		* 
+		**/
 		public var contexts : Array = null;
 
 		/**
-		 * Array of hashes to pass to the access control profile scope
-		 * 
-		 **/
+		* Array of hashes to pass to the access control profile scope
+		* 
+		**/
 		public var hashes : Array = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -92,13 +92,32 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'contexts':
+					result = 'KalturaAccessControlContextTypeHolder';
+					break;
+				case 'hashes':
+					result = 'KalturaKeyValue';
+					break;
+			}
+			return result;
 		}
 	}
 }

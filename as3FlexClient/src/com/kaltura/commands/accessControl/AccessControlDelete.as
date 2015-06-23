@@ -31,16 +31,16 @@ package com.kaltura.commands.accessControl
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete Access Control Profile by id
-	 * 
-	 **/
+	* Delete Access Control Profile by id
+	* 
+	**/
 	public class AccessControlDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function AccessControlDelete( id : int )
 		{
 			service= 'accesscontrol';

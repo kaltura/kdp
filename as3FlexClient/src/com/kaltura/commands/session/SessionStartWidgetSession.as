@@ -31,17 +31,17 @@ package com.kaltura.commands.session
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Start a session for Kaltura's flash widgets
-	 * 
-	 **/
+	* Start a session for Kaltura's flash widgets
+	* 
+	**/
 	public class SessionStartWidgetSession extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param widgetId String
-		 * @param expiry int
-		 **/
+		* @param widgetId String
+		* @param expiry int
+		**/
 		public function SessionStartWidgetSession( widgetId : String,expiry : int=86400 )
 		{
 			service= 'session';

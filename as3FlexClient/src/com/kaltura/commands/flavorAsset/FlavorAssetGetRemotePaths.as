@@ -31,16 +31,16 @@ package com.kaltura.commands.flavorAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get remote storage existing paths for the asset
-	 * 
-	 **/
+	* Get remote storage existing paths for the asset
+	* 
+	**/
 	public class FlavorAssetGetRemotePaths extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function FlavorAssetGetRemotePaths( id : String )
 		{
 			service= 'flavorasset';

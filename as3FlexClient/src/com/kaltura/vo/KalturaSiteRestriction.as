@@ -33,16 +33,16 @@ package com.kaltura.vo
 	public dynamic class KalturaSiteRestriction extends KalturaBaseRestriction
 	{
 		/**
-		 * The site restriction type (allow or deny)
-		 * 
-		 * @see com.kaltura.types.KalturaSiteRestrictionType
-		 **/
+		* The site restriction type (allow or deny)
+		* 
+		* @see com.kaltura.types.KalturaSiteRestrictionType
+		**/
 		public var siteRestrictionType : int = int.MIN_VALUE;
 
 		/**
-		 * Comma separated list of sites (domains) to allow or deny
-		 * 
-		 **/
+		* Comma separated list of sites (domains) to allow or deny
+		* 
+		**/
 		public var siteList : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -59,6 +59,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

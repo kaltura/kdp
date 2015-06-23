@@ -27,21 +27,21 @@
 // ===================================================================================================
 package com.kaltura.commands.data
 {
-	import com.kaltura.vo.KalturaDataEntry;
+		import com.kaltura.vo.KalturaDataEntry;
 	import com.kaltura.delegates.data.DataAddDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Adds a new data entry
-	 * 
-	 **/
+	* Adds a new data entry
+	* 
+	**/
 	public class DataAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param dataEntry KalturaDataEntry
-		 **/
+		* @param dataEntry KalturaDataEntry
+		**/
 		public function DataAdd( dataEntry : KalturaDataEntry )
 		{
 			service= 'data';
@@ -50,9 +50,9 @@ package com.kaltura.commands.data
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(dataEntry, 'dataEntry');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(dataEntry, 'dataEntry');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

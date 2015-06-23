@@ -33,122 +33,122 @@ package com.kaltura.vo
 	public dynamic class KalturaFileSyncBaseFilter extends KalturaFilter
 	{
 		/**
-		 **/
+		**/
 		public var partnerIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaFileSyncObjectType
-		 **/
+		* @see com.kaltura.types.KalturaFileSyncObjectType
+		**/
 		public var fileObjectTypeEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var fileObjectTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectIdEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectIdIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var versionEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var versionIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var objectSubTypeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var objectSubTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var dcEqual : String = null;
 
 		/**
-		 **/
+		**/
 		public var dcIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var originalEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var readyAtGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var readyAtLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var syncTimeGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var syncTimeLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaFileSyncStatus
-		 **/
+		* @see com.kaltura.types.KalturaFileSyncStatus
+		**/
 		public var statusEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var statusIn : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaFileSyncType
-		 **/
+		* @see com.kaltura.types.KalturaFileSyncType
+		**/
 		public var fileTypeEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var fileTypeIn : String = null;
 
 		/**
-		 **/
+		**/
 		public var linkedIdEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var linkCountGreaterThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var linkCountLessThanOrEqual : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var fileSizeGreaterThanOrEqual : Number = Number.NEGATIVE_INFINITY;
 
 		/**
-		 **/
+		**/
 		public var fileSizeLessThanOrEqual : Number = Number.NEGATIVE_INFINITY;
 
 		override public function getUpdateableParamKeys():Array
@@ -192,6 +192,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

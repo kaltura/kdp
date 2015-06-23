@@ -31,16 +31,16 @@ package com.kaltura.commands.user
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieves a user object for a specified user ID.
-	 * 
-	 **/
+	* Retrieves a user object for a specified user ID.
+	* 
+	**/
 	public class UserGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param userId String
-		 **/
+		* @param userId String
+		**/
 		public function UserGet( userId : String = null )
 		{
 			service= 'user';

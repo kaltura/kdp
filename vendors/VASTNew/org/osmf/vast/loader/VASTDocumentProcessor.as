@@ -77,6 +77,9 @@ package org.osmf.vast.loader
 					vastVersion = VASTDataObject.VERSION_1_0;
 				}else if(documentXML.localName() == VAST_2_ROOT){
 					vastVersion = documentXML.@version;
+					if ( documentXML.@version == "2.0.1" ) {
+						vastVersion = VASTDataObject.VERSION_2_0;
+					}
 				}
 				
 				switch(vastVersion)

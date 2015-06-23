@@ -31,16 +31,16 @@ package com.kaltura.commands.playlist
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete existing playlist
-	 * 
-	 **/
+	* Delete existing playlist
+	* 
+	**/
 	public class PlaylistDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function PlaylistDelete( id : String )
 		{
 			service= 'playlist';

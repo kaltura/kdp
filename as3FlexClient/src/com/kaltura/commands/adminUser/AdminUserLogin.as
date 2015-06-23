@@ -31,18 +31,18 @@ package com.kaltura.commands.adminUser
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get an admin session using admin email and password (Used for login to the KMC application)
-	 * 
-	 **/
+	* Get an admin session using admin email and password (Used for login to the KMC application)
+	* 
+	**/
 	public class AdminUserLogin extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param email String
-		 * @param password String
-		 * @param partnerId int
-		 **/
+		* @param email String
+		* @param password String
+		* @param partnerId int
+		**/
 		public function AdminUserLogin( email : String,password : String,partnerId : int=int.MIN_VALUE )
 		{
 			service= 'adminuser';

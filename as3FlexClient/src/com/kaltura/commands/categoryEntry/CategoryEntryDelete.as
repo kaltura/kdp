@@ -31,17 +31,17 @@ package com.kaltura.commands.categoryEntry
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete CategoryEntry
-	 * 
-	 **/
+	* Delete CategoryEntry
+	* 
+	**/
 	public class CategoryEntryDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param categoryId int
-		 **/
+		* @param entryId String
+		* @param categoryId int
+		**/
 		public function CategoryEntryDelete( entryId : String,categoryId : int )
 		{
 			service= 'categoryentry';

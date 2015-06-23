@@ -207,8 +207,8 @@ package org.osmf.vpaid.elements
 				_timeTrait.addEventListener(TimeEvent.COMPLETE, onTimerChange);
 				_timeTrait.addEventListener(TimeEvent.DURATION_CHANGE, onTimerChange);			
 			}
-			
-			_vpaid.initVPAID(getDimensions().width,getDimensions().height,"normal", 500, "", "");
+			var creativeData:String = _vpaidMetadata.getValue("adParameters");
+			_vpaid.initVPAID(getDimensions().width,getDimensions().height,"normal", 500, creativeData, "");
 	        
 		}
 		
@@ -625,6 +625,12 @@ package org.osmf.vpaid.elements
 			{
 				if(_firstRun){
 					_firstRun = false;
+					var loaderLoadTrait:LoaderLoadTrait = getTrait(MediaTraitType.LOAD) as LoaderLoadTrait;
+					var size:Rectangle = getDimensions();
+					
+					addTrait(MediaTraitType.DISPLAY_OBJECT, LoaderUtils.createDisplayObjectTrait(loaderLoadTrait.loader, this,size));
+
+					
 					_vpaid.startVPAID();						
 				}
 			}
@@ -653,12 +659,12 @@ package org.osmf.vpaid.elements
 		//Add the SWF to the display list and resize the Ad after it is started to get new values
 		private function onAdStarted(event:Event):void
 		{
-			
 			removeEventListener("AdStarted", onAdStarted);
 			var loaderLoadTrait:LoaderLoadTrait = getTrait(MediaTraitType.LOAD) as LoaderLoadTrait;
 			var size:Rectangle = getDimensions();
-	
+			removeTrait(MediaTraitType.DISPLAY_OBJECT);
 			addTrait(MediaTraitType.DISPLAY_OBJECT, LoaderUtils.createDisplayObjectTrait(loaderLoadTrait.loader, this,size));
+			
 			//_vpaid.resizeVPAID(getDimensions().width, getDimensions().height, "normal");
 		}
 		
@@ -763,6 +769,7 @@ package org.osmf.vpaid.elements
 			{
 				trace("[VPAID] Error: " + message);
 			}
+			_vpaidMetadata.addValue(VPAIDMetadata.ERROR, VPAIDMetadata.ERROR); 
 			cleanUp();
 		}
 		

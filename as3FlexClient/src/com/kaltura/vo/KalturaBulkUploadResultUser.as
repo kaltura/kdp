@@ -33,55 +33,55 @@ package com.kaltura.vo
 	public dynamic class KalturaBulkUploadResultUser extends KalturaBulkUploadResult
 	{
 		/**
-		 **/
+		**/
 		public var userId : String = null;
 
 		/**
-		 **/
+		**/
 		public var screenName : String = null;
 
 		/**
-		 **/
+		**/
 		public var email : String = null;
 
 		/**
-		 **/
+		**/
 		public var description : String = null;
 
 		/**
-		 **/
+		**/
 		public var tags : String = null;
 
 		/**
-		 **/
+		**/
 		public var dateOfBirth : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var country : String = null;
 
 		/**
-		 **/
+		**/
 		public var state : String = null;
 
 		/**
-		 **/
+		**/
 		public var city : String = null;
 
 		/**
-		 **/
+		**/
 		public var zip : String = null;
 
 		/**
-		 **/
+		**/
 		public var gender : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var firstName : String = null;
 
 		/**
-		 **/
+		**/
 		public var lastName : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -109,6 +109,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

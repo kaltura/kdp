@@ -33,48 +33,48 @@ package com.kaltura.vo
 	public dynamic class KalturaDistributionProvider extends BaseFlexVo
 	{
 		/**
-		 * @see com.kaltura.types.KalturaDistributionProviderType
-		 **/
+		* @see com.kaltura.types.KalturaDistributionProviderType
+		**/
 		public var type : String = null;
 
 		/**
-		 **/
+		**/
 		public var name : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var scheduleUpdateEnabled : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var availabilityUpdateEnabled : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var deleteInsteadUpdate : Boolean;
 
 		/**
-		 **/
+		**/
 		public var intervalBeforeSunrise : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var intervalBeforeSunset : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updateRequiredEntryFields : String = null;
 
 		/**
-		 **/
+		**/
 		public var updateRequiredMetadataXPaths : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -91,13 +91,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

@@ -274,6 +274,10 @@ Miscellaneous
    		
    disablePlayerSpinner = [true / false]
    		When this parameter is set to true the buffering animtaion won't appear. Default value is false.
+   	
+   	useLiveStreamMinDuration = [true / false ]
+   		relevant for livestream with dvr window. When this paramter is set to true, entry duration will be set once, by the current dvr time, and it will be the maximum point to view the livestream.
+   		Default vlaue is false
     	                                
 Components & Plug-ins attributes
 --------------------------------

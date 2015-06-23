@@ -31,16 +31,16 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Mark the short link as deleted
-	 * 
-	 **/
+	* Mark the short link as deleted
+	* 
+	**/
 	public class ShortLinkDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function ShortLinkDelete( id : String )
 		{
 			service= 'shortlink_shortlink';

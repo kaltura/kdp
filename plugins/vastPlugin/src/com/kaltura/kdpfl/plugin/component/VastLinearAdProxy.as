@@ -5,9 +5,7 @@ package com.kaltura.kdpfl.plugin.component {
 	import com.kaltura.kdpfl.model.MediaProxy;
 	import com.kaltura.kdpfl.model.SequenceProxy;
 	import com.kaltura.kdpfl.model.type.SequenceContextType;
-	import com.kaltura.kdpfl.view.RootMediator;
 	import com.kaltura.kdpfl.view.containers.KCanvas;
-	import com.kaltura.osmf.events.KSwitchingProxyEvent;
 	import com.kaltura.osmf.proxy.KSwitchingProxyElement;
 	
 	import flash.display.Loader;
@@ -237,6 +235,7 @@ package com.kaltura.kdpfl.plugin.component {
 					setStartingTranslatorIndex();
 				
 				createMediaElements();
+
 			//In case there was an error parsing or loading the VAST xml
 			} else if (e.newState == LoadState.LOAD_ERROR) {
 				//Stop the timeout timer
@@ -389,16 +388,21 @@ package com.kaltura.kdpfl.plugin.component {
 				vpaidMetadata.addEventListener(MetadataEvent.VALUE_ADD, function(event:MetadataEvent):void
 				{
 					trace ("[VPIAD Metadata]" + event.key);
-					if (event.key == "adUserClose" ||event.key == "adStopped"  || event.key =="adError")
+					if (event.key == "adUserClose" ||event.key == "adStopped"  || event.key =="adError" || event.key == "error" )
 					{
 						(playerMediator["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 						vpaidMetadata.removeEventListener(MetadataEvent.VALUE_ADD,arguments.callee);
 						removeClickThrough();
 						if (event.key == "adUserClose")
 							trackEvent("trkCloseLinearEvent");
+						sendNotification("doPause");
 						sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
 						
 						sendNotification("sequenceItemPlayEnd");
+					}
+					if (event.key =='adClickThru')
+					{
+						onAdClick(null);
 					}
 					if (!_initVPAIDSize &&(event.key.indexOf("AdLoaded") == 0 ||
 						event.key.indexOf("adCreativeView") == 0 || 
@@ -526,10 +530,16 @@ package com.kaltura.kdpfl.plugin.component {
 
 		private function onAdClick(e:MouseEvent):void {
 			var urlReq:URLRequest = new URLRequest(_playingAdClickThru);
-			navigateToURL(urlReq);
-			for (var i:int=0; i<_playingAdClickTrackings.length; i++)
+			if (_playingAdClickThru != null)
 			{
-				fireBeacon(_playingAdClickTrackings[i]);
+				navigateToURL(urlReq);
+			}
+			if (_playingAdClickTrackings != null)
+			{
+				for (var i:int=0; i<_playingAdClickTrackings.length; i++)
+				{
+					fireBeacon(_playingAdClickTrackings[i]);
+				}
 			}
 			//var clickTrackingUrl : String = ((e.target as KMediaPlayer).player.media as VASTTrackingProxyElement).
 			//TODO track stats
@@ -661,6 +671,7 @@ package com.kaltura.kdpfl.plugin.component {
 				removeClickThrough();
 				sendNotification("enableGui", {guiEnabled : true, enableType : "full"});
 				dispatchEvent(new Event(VastLinearAdProxy.SIGNAL_END));
+				(facade.retrieveMediator("kMediaPlayerMediator")["player"] as MediaPlayer).removeEventListener(TimeEvent.DURATION_CHANGE, onAdDurationReceived );
 				sendNotification("sequenceItemPlayEnd");
 			}
 		}

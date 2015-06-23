@@ -31,17 +31,17 @@ package com.kaltura.commands.genericDistributionProviderAction
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Add MRSS validate file to generic distribution provider action
-	 * 
-	 **/
+	* Add MRSS validate file to generic distribution provider action
+	* 
+	**/
 	public class GenericDistributionProviderActionAddMrssValidate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param xsdData String
-		 **/
+		* @param id int
+		* @param xsdData String
+		**/
 		public function GenericDistributionProviderActionAddMrssValidate( id : int,xsdData : String )
 		{
 			service= 'contentdistribution_genericdistributionprovideraction';

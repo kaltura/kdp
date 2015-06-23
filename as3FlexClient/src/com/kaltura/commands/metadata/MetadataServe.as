@@ -31,16 +31,16 @@ package com.kaltura.commands.metadata
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves metadata XML file
-	 * 
-	 **/
+	* Serves metadata XML file
+	* 
+	**/
 	public class MetadataServe extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function MetadataServe( id : int )
 		{
 			service= 'metadata_metadata';

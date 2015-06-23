@@ -31,19 +31,19 @@ package com.kaltura.commands.metadata
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Allows you to add a metadata object and metadata content associated with Kaltura object
-	 * 
-	 **/
+	* Allows you to add a metadata object and metadata content associated with Kaltura object
+	* 
+	**/
 	public class MetadataAdd extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param metadataProfileId int
-		 * @param objectType String
-		 * @param objectId String
-		 * @param xmlData String
-		 **/
+		* @param metadataProfileId int
+		* @param objectType String
+		* @param objectId String
+		* @param xmlData String
+		**/
 		public function MetadataAdd( metadataProfileId : int,objectType : String,objectId : String,xmlData : String )
 		{
 			service= 'metadata_metadata';

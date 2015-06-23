@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.stats
 {
-	import com.kaltura.vo.KalturaStatsKmcEvent;
+		import com.kaltura.vo.KalturaStatsKmcEvent;
 	import com.kaltura.delegates.stats.StatsKmcCollectDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Will collect the kmcEvent sent form the KMC client
-	 * // this will actually be an empty function because all events will be sent using GET and will anyway be logged in the apache log
-	 * 
-	 **/
+	* Will collect the kmcEvent sent form the KMC client
+	* // this will actually be an empty function because all events will be sent using GET and will anyway be logged in the apache log
+	* 
+	**/
 	public class StatsKmcCollect extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param kmcEvent KalturaStatsKmcEvent
-		 **/
+		* @param kmcEvent KalturaStatsKmcEvent
+		**/
 		public function StatsKmcCollect( kmcEvent : KalturaStatsKmcEvent )
 		{
 			service= 'stats';
@@ -51,9 +51,9 @@ package com.kaltura.commands.stats
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			keyValArr = kalturaObject2Arrays(kmcEvent, 'kmcEvent');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(kmcEvent, 'kmcEvent');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

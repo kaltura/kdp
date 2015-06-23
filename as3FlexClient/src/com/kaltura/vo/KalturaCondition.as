@@ -33,36 +33,54 @@ package com.kaltura.vo
 	public dynamic class KalturaCondition extends BaseFlexVo
 	{
 		/**
-		 * The type of the access control condition
-		 * 
-		 * @see com.kaltura.types.KalturaConditionType
-		 **/
+		* The type of the access control condition
+		* 
+		* @see com.kaltura.types.KalturaConditionType
+		**/
 		public var type : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		**/
+		public var description : String = null;
+
+		/**
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var not : Boolean;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
+			arr.push('description');
 			arr.push('not');
 			return arr;
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

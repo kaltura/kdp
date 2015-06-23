@@ -27,23 +27,23 @@
 // ===================================================================================================
 package com.kaltura.commands.widget
 {
-	import com.kaltura.vo.KalturaWidgetFilter;
-	import com.kaltura.vo.KalturaFilterPager;
+		import com.kaltura.vo.KalturaWidgetFilter;
+		import com.kaltura.vo.KalturaFilterPager;
 	import com.kaltura.delegates.widget.WidgetListDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve a list of available widget depends on the filter given
-	 * 
-	 **/
+	* Retrieve a list of available widget depends on the filter given
+	* 
+	**/
 	public class WidgetList extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param filter KalturaWidgetFilter
-		 * @param pager KalturaFilterPager
-		 **/
+		* @param filter KalturaWidgetFilter
+		* @param pager KalturaFilterPager
+		**/
 		public function WidgetList( filter : KalturaWidgetFilter=null,pager : KalturaFilterPager=null )
 		{
 			service= 'widget';
@@ -52,16 +52,16 @@ package com.kaltura.commands.widget
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
- 			if (filter) { 
- 			keyValArr = kalturaObject2Arrays(filter, 'filter');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
- 			if (pager) { 
- 			keyValArr = kalturaObject2Arrays(pager, 'pager');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
- 			} 
+			if (filter) { 
+				keyValArr = kalturaObject2Arrays(filter, 'filter');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
+			if (pager) { 
+				keyValArr = kalturaObject2Arrays(pager, 'pager');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
+			} 
 			applySchema(keyArr, valueArr);
 		}
 

@@ -35,87 +35,87 @@ package com.kaltura.vo
 	public dynamic class KalturaBulkUploadJobData extends KalturaJobData
 	{
 		/**
-		 **/
+		**/
 		public var userId : String = null;
 
 		/**
-		 * The screen name of the user
-		 * 
-		 **/
+		* The screen name of the user
+		* 
+		**/
 		public var uploadedBy : String = null;
 
 		/**
-		 * Selected profile id for all bulk entries
-		 * 
-		 **/
+		* Selected profile id for all bulk entries
+		* 
+		**/
 		public var conversionProfileId : int = int.MIN_VALUE;
 
 		/**
-		 * Created by the API
-		 * 
-		 **/
+		* Created by the API
+		* 
+		**/
 		public var resultsFileLocalPath : String = null;
 
 		/**
-		 * Created by the API
-		 * 
-		 **/
+		* Created by the API
+		* 
+		**/
 		public var resultsFileUrl : String = null;
 
 		/**
-		 * Number of created entries
-		 * 
-		 **/
+		* Number of created entries
+		* 
+		**/
 		public var numOfEntries : int = int.MIN_VALUE;
 
 		/**
-		 * Number of created objects
-		 * 
-		 **/
+		* Number of created objects
+		* 
+		**/
 		public var numOfObjects : int = int.MIN_VALUE;
 
 		/**
-		 * The bulk upload file path
-		 * 
-		 **/
+		* The bulk upload file path
+		* 
+		**/
 		public var filePath : String = null;
 
 		/**
-		 * Type of object for bulk upload
-		 * 
-		 * @see com.kaltura.types.KalturaBulkUploadObjectType
-		 **/
+		* Type of object for bulk upload
+		* 
+		* @see com.kaltura.types.KalturaBulkUploadObjectType
+		**/
 		public var bulkUploadObjectType : String = null;
 
 		/**
-		 * Friendly name of the file, used to be recognized later in the logs.
-		 * 
-		 **/
+		* Friendly name of the file, used to be recognized later in the logs.
+		* 
+		**/
 		public var fileName : String = null;
 
 		/**
-		 * Data pertaining to the objects being uploaded
-		 * 
-		 **/
+		* Data pertaining to the objects being uploaded
+		* 
+		**/
 		public var objectData : KalturaBulkUploadObjectData;
 
 		/**
-		 * Type of bulk upload
-		 * 
-		 * @see com.kaltura.types.KalturaBulkUploadType
-		 **/
+		* Type of bulk upload
+		* 
+		* @see com.kaltura.types.KalturaBulkUploadType
+		**/
 		public var type : String = null;
 
 		/**
-		 * Recipients of the email for bulk upload success/failure
-		 * 
-		 **/
+		* Recipients of the email for bulk upload success/failure
+		* 
+		**/
 		public var emailRecipients : String = null;
 
 		/**
-		 * Number of objects that finished on error status
-		 * 
-		 **/
+		* Number of objects that finished on error status
+		* 
+		**/
 		public var numOfErrorObjects : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -133,6 +133,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'objectData':
+					result = '';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

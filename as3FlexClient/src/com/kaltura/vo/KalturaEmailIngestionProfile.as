@@ -33,74 +33,74 @@ package com.kaltura.vo
 	public dynamic class KalturaEmailIngestionProfile extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var name : String = null;
 
 		/**
-		 **/
+		**/
 		public var description : String = null;
 
 		/**
-		 **/
+		**/
 		public var emailAddress : String = null;
 
 		/**
-		 **/
+		**/
 		public var mailboxId : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var conversionProfile2Id : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaEntryModerationStatus
-		 **/
+		* @see com.kaltura.types.KalturaEntryModerationStatus
+		**/
 		public var moderationStatus : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaEmailIngestionProfileStatus
-		 **/
+		* @see com.kaltura.types.KalturaEmailIngestionProfileStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAt : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultCategory : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultUserId : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultTags : String = null;
 
 		/**
-		 **/
+		**/
 		public var defaultAdminTags : String = null;
 
 		/**
-		 **/
+		**/
 		public var maxAttachmentSizeKbytes : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var maxAttachmentsPerMail : int = int.MIN_VALUE;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -121,13 +121,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

@@ -27,91 +27,88 @@
 // ===================================================================================================
 package com.kaltura.vo
 {
-	import com.kaltura.vo.BaseFlexVo;
+	import com.kaltura.vo.KalturaContextDataResult;
 
 	[Bindable]
-	public dynamic class KalturaEntryContextDataResult extends BaseFlexVo
+	public dynamic class KalturaEntryContextDataResult extends KalturaContextDataResult
 	{
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isSiteRestricted : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isCountryRestricted : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isSessionRestricted : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isIpAddressRestricted : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isUserAgentRestricted : Boolean;
 
 		/**
-		 **/
+		**/
 		public var previewLength : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isScheduledNow : Boolean;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var isAdmin : Boolean;
 
 		/**
-		 * http/rtmp/hdnetwork
-		 * 
-		 **/
+		* http/rtmp/hdnetwork
+		* 
+		**/
 		public var streamerType : String = null;
 
 		/**
-		 * http/https, rtmp/rtmpe
-		 * 
-		 **/
+		* http/https, rtmp/rtmpe
+		* 
+		**/
 		public var mediaProtocol : String = null;
 
 		/**
-		 **/
+		**/
 		public var storageProfilesXML : String = null;
 
 		/**
-		 * Array of messages as received from the access control rules that invalidated
-		 * 
-		 **/
+		* Array of messages as received from the access control rules that invalidated
+		* 
+		**/
 		public var accessControlMessages : Array = null;
 
 		/**
-		 * Array of actions as received from the access control rules that invalidated
-		 * 
-		 **/
+		* Array of actions as received from the access control rules that invalidated
+		* 
+		**/
 		public var accessControlActions : Array = null;
 
 		/**
-		 * Array of allowed flavor assets according to access control limitations and requested tags
-		 * 
-		 **/
+		* Array of allowed flavor assets according to access control limitations and requested tags
+		* 
+		**/
 		public var flavorAssets : Array = null;
 
-		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
-		public function getUpdateableParamKeys():Array
+		override public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
-			arr = new Array();
+			arr = super.getUpdateableParamKeys();
 			arr.push('isSiteRestricted');
 			arr.push('isCountryRestricted');
 			arr.push('isSessionRestricted');
@@ -129,14 +126,31 @@ package com.kaltura.vo
 			return arr;
 		}
 
-		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
-		public function getInsertableParamKeys():Array
+		override public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
-			arr = new Array();
+			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'accessControlMessages':
+					result = 'KalturaString';
+					break;
+				case 'accessControlActions':
+					result = 'KalturaRuleAction';
+					break;
+				case 'flavorAssets':
+					result = 'KalturaFlavorAsset';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

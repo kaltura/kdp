@@ -33,73 +33,73 @@ package com.kaltura.vo
 	public dynamic class KalturaCuePoint extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var id : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaCuePointType
-		 **/
+		* @see com.kaltura.types.KalturaCuePointType
+		**/
 		public var cuePointType : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaCuePointStatus
-		 **/
+		* @see com.kaltura.types.KalturaCuePointStatus
+		**/
 		public var status : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var entryId : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var updatedAt : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var tags : String = null;
 
 		/**
-		 * Start time in milliseconds
-		 * 
-		 **/
+		* Start time in milliseconds
+		* 
+		**/
 		public var startTime : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var userId : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerData : String = null;
 
 		/**
-		 **/
+		**/
 		public var partnerSortValue : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var forceStop : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var thumbOffset : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var systemName : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -115,14 +115,27 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			arr.push('entryId');
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }

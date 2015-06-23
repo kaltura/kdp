@@ -31,16 +31,16 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get remote storage existing paths for the asset
-	 * 
-	 **/
+	* Get remote storage existing paths for the asset
+	* 
+	**/
 	public class ThumbAssetGetRemotePaths extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function ThumbAssetGetRemotePaths( id : String )
 		{
 			service= 'thumbasset';

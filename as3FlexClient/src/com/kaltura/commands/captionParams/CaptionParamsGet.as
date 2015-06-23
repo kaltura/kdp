@@ -31,16 +31,16 @@ package com.kaltura.commands.captionParams
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get Caption Params by ID
-	 * 
-	 **/
+	* Get Caption Params by ID
+	* 
+	**/
 	public class CaptionParamsGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function CaptionParamsGet( id : int )
 		{
 			service= 'caption_captionparams';

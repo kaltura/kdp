@@ -31,16 +31,16 @@ package com.kaltura.commands.partner
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve all info attributed to the partner
-	 * This action expects no parameters. It returns information for the current KS partnerId.
-	 * 
-	 **/
+	* Retrieve all info attributed to the partner
+	* This action expects no parameters. It returns information for the current KS partnerId.
+	* 
+	**/
 	public class PartnerGetInfo extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
+		**/
 		public function PartnerGetInfo(  )
 		{
 			service= 'partner';

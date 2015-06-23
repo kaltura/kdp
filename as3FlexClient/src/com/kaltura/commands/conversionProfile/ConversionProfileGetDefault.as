@@ -31,16 +31,17 @@ package com.kaltura.commands.conversionProfile
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get the partner's default conversion profile
-	 * 
-	 **/
+	* Get the partner's default conversion profile
+	* 
+	**/
 	public class ConversionProfileGetDefault extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 **/
-		public function ConversionProfileGetDefault(  )
+		* @param type String
+		**/
+		public function ConversionProfileGetDefault( type : String = null )
 		{
 			service= 'conversionprofile';
 			action= 'getDefault';
@@ -48,6 +49,8 @@ package com.kaltura.commands.conversionProfile
 			var keyArr : Array = new Array();
 			var valueArr : Array = new Array();
 			var keyValArr : Array = new Array();
+			keyArr.push('type');
+			valueArr.push(type);
 			applySchema(keyArr, valueArr);
 		}
 

@@ -31,16 +31,16 @@ package com.kaltura.commands.metadata
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Delete an existing metadata
-	 * 
-	 **/
+	* Delete an existing metadata
+	* 
+	**/
 	public class MetadataDelete extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
+		* @param id int
+		**/
 		public function MetadataDelete( id : int )
 		{
 			service= 'metadata_metadata';

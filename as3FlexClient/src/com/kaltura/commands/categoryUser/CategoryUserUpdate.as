@@ -27,24 +27,24 @@
 // ===================================================================================================
 package com.kaltura.commands.categoryUser
 {
-	import com.kaltura.vo.KalturaCategoryUser;
+		import com.kaltura.vo.KalturaCategoryUser;
 	import com.kaltura.delegates.categoryUser.CategoryUserUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update CategoryUser by id
-	 * 
-	 **/
+	* Update CategoryUser by id
+	* 
+	**/
 	public class CategoryUserUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param categoryId int
-		 * @param userId String
-		 * @param categoryUser KalturaCategoryUser
-		 * @param override Boolean
-		 **/
+		* @param categoryId int
+		* @param userId String
+		* @param categoryUser KalturaCategoryUser
+		* @param override Boolean
+		**/
 		public function CategoryUserUpdate( categoryId : int,userId : String,categoryUser : KalturaCategoryUser,override : Boolean=false )
 		{
 			service= 'categoryuser';
@@ -57,9 +57,9 @@ package com.kaltura.commands.categoryUser
 			valueArr.push(categoryId);
 			keyArr.push('userId');
 			valueArr.push(userId);
- 			keyValArr = kalturaObject2Arrays(categoryUser, 'categoryUser');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(categoryUser, 'categoryUser');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			keyArr.push('override');
 			valueArr.push(override);
 			applySchema(keyArr, valueArr);

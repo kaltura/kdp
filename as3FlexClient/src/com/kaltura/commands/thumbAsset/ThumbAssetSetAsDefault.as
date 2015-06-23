@@ -31,17 +31,17 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Tags the thumbnail as DEFAULT_THUMB and removes that tag from all other thumbnail assets of the entry.
-	 * Create a new file sync link on the entry thumbnail that points to the thumbnail asset file sync.
-	 * 
-	 **/
+	* Tags the thumbnail as DEFAULT_THUMB and removes that tag from all other thumbnail assets of the entry.
+	* Create a new file sync link on the entry thumbnail that points to the thumbnail asset file sync.
+	* 
+	**/
 	public class ThumbAssetSetAsDefault extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param thumbAssetId String
-		 **/
+		* @param thumbAssetId String
+		**/
 		public function ThumbAssetSetAsDefault( thumbAssetId : String )
 		{
 			service= 'thumbasset';

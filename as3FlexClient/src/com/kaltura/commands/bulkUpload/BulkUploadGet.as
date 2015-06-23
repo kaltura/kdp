@@ -31,17 +31,17 @@ package com.kaltura.commands.bulkUpload
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get bulk upload batch job by id
-	 * 
-	 **/
+	* Get bulk upload batch job by id
+	* 
+	**/
 	public class BulkUploadGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 **/
-		public function BulkUploadGet( id : int )
+		* @param id Number
+		**/
+		public function BulkUploadGet( id : Number )
 		{
 			service= 'bulkupload';
 			action= 'get';

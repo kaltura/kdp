@@ -33,39 +33,39 @@ package com.kaltura.vo
 	public dynamic class KalturaRule extends BaseFlexVo
 	{
 		/**
-		 * Message to be thrown to the player in case the rule is fulfilled
-		 * 
-		 **/
+		* Message to be thrown to the player in case the rule is fulfilled
+		* 
+		**/
 		public var message : String = null;
 
 		/**
-		 * Actions to be performed by the player in case the rule is fulfilled
-		 * 
-		 **/
+		* Actions to be performed by the player in case the rule is fulfilled
+		* 
+		**/
 		public var actions : Array = null;
 
 		/**
-		 * Conditions to validate the rule
-		 * 
-		 **/
+		* Conditions to validate the rule
+		* 
+		**/
 		public var conditions : Array = null;
 
 		/**
-		 * Indicates what contexts should be tested by this rule
-		 * 
-		 **/
+		* Indicates what contexts should be tested by this rule
+		* 
+		**/
 		public var contexts : Array = null;
 
 		/**
-		 * Indicates that this rule is enough and no need to continue checking the rest of the rules
-		 * 
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* Indicates that this rule is enough and no need to continue checking the rest of the rules
+		* 
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var stopProcessing : Boolean;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -79,13 +79,35 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'actions':
+					result = 'KalturaRuleAction';
+					break;
+				case 'conditions':
+					result = 'KalturaCondition';
+					break;
+				case 'contexts':
+					result = 'KalturaContextTypeHolder';
+					break;
+			}
+			return result;
 		}
 	}
 }

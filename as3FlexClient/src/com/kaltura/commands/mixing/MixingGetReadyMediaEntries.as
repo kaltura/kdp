@@ -31,17 +31,17 @@ package com.kaltura.commands.mixing
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get all ready media entries that exist in the given mix id
-	 * 
-	 **/
+	* Get all ready media entries that exist in the given mix id
+	* 
+	**/
 	public class MixingGetReadyMediaEntries extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param mixId String
-		 * @param version int
-		 **/
+		* @param mixId String
+		* @param version int
+		**/
 		public function MixingGetReadyMediaEntries( mixId : String,version : int=-1 )
 		{
 			service= 'mixing';

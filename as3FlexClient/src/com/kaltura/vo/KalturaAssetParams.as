@@ -33,80 +33,86 @@ package com.kaltura.vo
 	public dynamic class KalturaAssetParams extends BaseFlexVo
 	{
 		/**
-		 * The id of the Flavor Params
-		 * 
-		 **/
+		* The id of the Flavor Params
+		* 
+		**/
 		public var id : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var partnerId : int = int.MIN_VALUE;
 
 		/**
-		 * The name of the Flavor Params
-		 * 
-		 **/
+		* The name of the Flavor Params
+		* 
+		**/
 		public var name : String = null;
 
 		/**
-		 * System name of the Flavor Params
-		 * 
-		 **/
+		* System name of the Flavor Params
+		* 
+		**/
 		public var systemName : String = null;
 
 		/**
-		 * The description of the Flavor Params
-		 * 
-		 **/
+		* The description of the Flavor Params
+		* 
+		**/
 		public var description : String = null;
 
 		/**
-		 * Creation date as Unix timestamp (In seconds)
-		 * 
-		 **/
+		* Creation date as Unix timestamp (In seconds)
+		* 
+		**/
 		public var createdAt : int = int.MIN_VALUE;
 
 		/**
-		 * True if those Flavor Params are part of system defaults
-		 * 
-		 * @see com.kaltura.types.KalturaNullableBoolean
-		 **/
+		* True if those Flavor Params are part of system defaults
+		* 
+		* @see com.kaltura.types.KalturaNullableBoolean
+		**/
 		public var isSystemDefault : int = int.MIN_VALUE;
 
 		/**
-		 * The Flavor Params tags are used to identify the flavor for different usage (e.g. web, hd, mobile)
-		 * 
-		 **/
+		* The Flavor Params tags are used to identify the flavor for different usage (e.g. web, hd, mobile)
+		* 
+		**/
 		public var tags : String = null;
 
 		/**
-		 * Array of partner permisison names that required for using this asset params
-		 * 
-		 **/
+		* Array of partner permisison names that required for using this asset params
+		* 
+		**/
 		public var requiredPermissions : Array = null;
 
 		/**
-		 * Id of remote storage profile that used to get the source, zero indicates Kaltura data center
-		 * 
-		 **/
+		* Id of remote storage profile that used to get the source, zero indicates Kaltura data center
+		* 
+		**/
 		public var sourceRemoteStorageProfileId : int = int.MIN_VALUE;
 
 		/**
-		 * Comma seperated ids of remote storage profiles that the flavor distributed to, the distribution done by the conversion engine
-		 * 
-		 **/
+		* Comma seperated ids of remote storage profiles that the flavor distributed to, the distribution done by the conversion engine
+		* 
+		**/
 		public var remoteStorageProfileIds : int = int.MIN_VALUE;
 
 		/**
-		 * Media parser type to be used for post-conversion validation
-		 * 
-		 * @see com.kaltura.types.KalturaMediaParserType
-		 **/
+		* Media parser type to be used for post-conversion validation
+		* 
+		* @see com.kaltura.types.KalturaMediaParserType
+		**/
 		public var mediaParserType : String = null;
 
+		/**
+		* Comma seperated ids of source flavor params this flavor is created from
+		* 
+		**/
+		public var sourceAssetParamsIds : String = null;
+
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -119,17 +125,34 @@ package com.kaltura.vo
 			arr.push('sourceRemoteStorageProfileId');
 			arr.push('remoteStorageProfileIds');
 			arr.push('mediaParserType');
+			arr.push('sourceAssetParamsIds');
 			return arr;
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'requiredPermissions':
+					result = 'KalturaString';
+					break;
+			}
+			return result;
 		}
 	}
 }

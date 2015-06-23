@@ -31,17 +31,17 @@ package com.kaltura.commands.mixing
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Appends a media entry to a the end of the mix timeline, this will save the mix timeline as a new version.
-	 * 
-	 **/
+	* Appends a media entry to a the end of the mix timeline, this will save the mix timeline as a new version.
+	* 
+	**/
 	public class MixingAppendMediaEntry extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param mixEntryId String
-		 * @param mediaEntryId String
-		 **/
+		* @param mixEntryId String
+		* @param mediaEntryId String
+		**/
 		public function MixingAppendMediaEntry( mixEntryId : String,mediaEntryId : String )
 		{
 			service= 'mixing';

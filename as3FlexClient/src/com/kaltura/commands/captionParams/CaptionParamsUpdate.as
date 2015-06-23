@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.captionParams
 {
-	import com.kaltura.vo.KalturaCaptionParams;
+		import com.kaltura.vo.KalturaCaptionParams;
 	import com.kaltura.delegates.captionParams.CaptionParamsUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update Caption Params by ID
-	 * 
-	 **/
+	* Update Caption Params by ID
+	* 
+	**/
 	public class CaptionParamsUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param captionParams KalturaCaptionParams
-		 **/
+		* @param id int
+		* @param captionParams KalturaCaptionParams
+		**/
 		public function CaptionParamsUpdate( id : int,captionParams : KalturaCaptionParams )
 		{
 			service= 'caption_captionparams';
@@ -53,9 +53,9 @@ package com.kaltura.commands.captionParams
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(captionParams, 'captionParams');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(captionParams, 'captionParams');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

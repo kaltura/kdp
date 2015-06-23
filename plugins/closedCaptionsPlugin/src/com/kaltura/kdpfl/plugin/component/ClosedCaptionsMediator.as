@@ -24,6 +24,11 @@ package com.kaltura.kdpfl.plugin.component
 	import flash.events.SecurityErrorEvent;
 	import flash.net.SharedObject;
 	
+	import org.osmf.events.LoadEvent;
+	import org.osmf.events.MediaElementEvent;
+	import org.osmf.traits.LoadState;
+	import org.osmf.traits.LoadTrait;
+	import org.osmf.traits.MediaTraitType;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 
@@ -40,6 +45,7 @@ package com.kaltura.kdpfl.plugin.component
 		private var _embeddedCaptionsId : String;
 		
 		private var _mediaProxy : MediaProxy;
+		private var _hideClosedCaptions:Boolean  = false;
 		private var _sortAlphabetically:Boolean;
 		
 		public function ClosedCaptionsMediator (closedCaptionsDefs:closedCaptionsPluginCode , viewComponent:Object=null , sortAlphabetically:Boolean=false)
@@ -47,6 +53,17 @@ package com.kaltura.kdpfl.plugin.component
 			super(NAME, viewComponent);
 			_sortAlphabetically = sortAlphabetically
 			_closedCaptionsDefs = closedCaptionsDefs;
+		}
+		
+		public function get hideClosedCaptions():Boolean
+		{
+			return _hideClosedCaptions;
+		}
+		
+		public function set hideClosedCaptions(value:Boolean):void
+		{
+			_hideClosedCaptions = value;
+			(viewComponent as ClosedCaptions).visible = !_hideClosedCaptions;
 		}
 		
 		override public function listNotificationInterests():Array
@@ -104,7 +121,7 @@ package com.kaltura.kdpfl.plugin.component
 				case "changedClosedCaptions":
 				{
 					
-					(view as ClosedCaptions).visible=true
+					(view as ClosedCaptions).visible= !hideClosedCaptions;
 					var config: Object =  facade.retrieveProxy(ConfigProxy.NAME);
 					_flashvars = config.getData().flashvars;
 					
@@ -167,13 +184,13 @@ package com.kaltura.kdpfl.plugin.component
 				break;
 				
 				case ClosedCaptionsNotifications.SHOW_HIDE_CLOSED_CAPTIONS:
-					(view as ClosedCaptions).visible = !(view as ClosedCaptions).visible;
+					hideClosedCaptions = !hideClosedCaptions;
 					break;
 				case ClosedCaptionsNotifications.SHOW_CLOSED_CAPTIONS:
-					(view as ClosedCaptions).visible = true;
+					hideClosedCaptions = false;
 					break;
 				case ClosedCaptionsNotifications.HIDE_CLOSED_CAPTIONS:
-					(view as ClosedCaptions).visible = false;
+					hideClosedCaptions = true;
 					break;
 				case "closedCaptionsSelected":
 					var currentLabel : String = note.getBody().label;
@@ -181,11 +198,12 @@ package com.kaltura.kdpfl.plugin.component
 					if (currentLabel == _closedCaptionsDefs.noneString)
 					{
 						(viewComponent as ClosedCaptions).visible = false;
+						saveToSO( currentLabel );
 						return;
 					}
 					else
 					{
-						(viewComponent as ClosedCaptions).visible = true;
+						(viewComponent as ClosedCaptions).visible = !hideClosedCaptions;
 					}
 					
 					for each (var ccObj : KalturaCaptionAsset in _closedCaptionsDefs.availableCCFiles)
@@ -201,19 +219,7 @@ package com.kaltura.kdpfl.plugin.component
 								switchActiveCCFile( ccObj );
 							}
 							
-							if (_flashvars.allowCookies=="true" && ccObj.language )
-							{
-								try
-								{
-									var sharedObj : SharedObject = SharedObject.getLocal("Kaltura_CC_SO");
-									sharedObj.data.language = ccObj.language;
-									sharedObj.flush();
-								}
-								catch (e : Error)
-								{
-									sendNotification( NotificationType.ALERT, {message: "Application is unable to access your file system.", title: "Error saving localized settings"} );
-								}
-							}
+							saveToSO( ccObj.language );
 							
 							break;
 						}
@@ -241,12 +247,46 @@ package com.kaltura.kdpfl.plugin.component
 			}
 		}
 		
-		private function addTextHandler () : void
-		{
-			if (_mediaProxy.videoElement && _mediaProxy.videoElement.client)
-				_mediaProxy.videoElement.client.addHandler( "onTextData" , onTextData );
+		private function saveToSO(langKey:String):void {
+			if (_flashvars.allowCookies=="true" && langKey )
+			{
+				try
+				{
+					var sharedObj : SharedObject = SharedObject.getLocal("Kaltura_CC_SO");
+					sharedObj.data.language = langKey;
+					sharedObj.flush();
+				}
+				catch (e : Error)
+				{
+					sendNotification( NotificationType.ALERT, {message: "Application is unable to access your file system.", title: "Error saving localized settings"} );
+				}
+			}
 		}
 		
+		private function addTextHandler () : void
+		{
+			if (_mediaProxy.videoElement) {
+				if (_mediaProxy.videoElement.client) {
+					_mediaProxy.videoElement.client.addHandler( "onTextData" , onTextData );
+				} else {
+					var loadTrait:LoadTrait = _mediaProxy.vo.media.getTrait(MediaTraitType.LOAD) as LoadTrait;
+					if ( loadTrait ) {
+						loadTrait.addEventListener(LoadEvent.LOAD_STATE_CHANGE, onLoadStateChange);
+					}
+				}
+			}
+
+		}
+		
+		private function onLoadStateChange(e:LoadEvent) : void {
+			if (e.loadState == LoadState.READY) {
+				e.target.removeEventListener(LoadEvent.LOAD_STATE_CHANGE, onLoadStateChange);
+				if (_mediaProxy.videoElement.client) {
+					_mediaProxy.videoElement.client.addHandler( "onTextData" , onTextData );
+				} 
+			}
+		}
+
 		private function onTextData (info : Object) : void
 		{
 			if (_showingEmbeddedCaptions || _closedCaptionsDefs.showEmbeddedCaptions)
@@ -372,7 +412,7 @@ package com.kaltura.kdpfl.plugin.component
 				
 				_closedCaptionsDefs.availableCCFilesLabels.addItemAt( selectNone , 0 );
 				
-				if (_closedCaptionsDefs.defaultLanguageKey==_closedCaptionsDefs.noneString)
+				if (_closedCaptionsDefs.defaultLanguageKey==_closedCaptionsDefs.noneString || preferredLang==_closedCaptionsDefs.noneString)
 				{
 					_closedCaptionsDefs.currentCCFileIndex = 0;
 					(viewComponent as ClosedCaptions).visible = false;

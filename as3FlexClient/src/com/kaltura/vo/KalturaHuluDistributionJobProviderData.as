@@ -33,23 +33,23 @@ package com.kaltura.vo
 	public dynamic class KalturaHuluDistributionJobProviderData extends KalturaConfigurableDistributionJobProviderData
 	{
 		/**
-		 **/
+		**/
 		public var videoAssetFilePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var thumbAssetFilePath : String = null;
 
 		/**
-		 **/
+		**/
 		public var cuePoints : Array = null;
 
 		/**
-		 **/
+		**/
 		public var fileBaseName : String = null;
 
 		/**
-		 **/
+		**/
 		public var captionLocalPaths : Array = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -69,6 +69,23 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'cuePoints':
+					result = 'KalturaCuePoint';
+					break;
+				case 'captionLocalPaths':
+					result = 'KalturaString';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

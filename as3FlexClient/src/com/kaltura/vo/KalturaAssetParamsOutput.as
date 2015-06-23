@@ -33,30 +33,30 @@ package com.kaltura.vo
 	public dynamic class KalturaAssetParamsOutput extends KalturaAssetParams
 	{
 		/**
-		 **/
+		**/
 		public var assetParamsId : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var assetParamsVersion : String = null;
 
 		/**
-		 **/
+		**/
 		public var assetId : String = null;
 
 		/**
-		 **/
+		**/
 		public var assetVersion : String = null;
 
 		/**
-		 **/
+		**/
 		public var readyBehavior : int = int.MIN_VALUE;
 
 		/**
-		 * The container format of the Flavor Params
-		 * 
-		 * @see com.kaltura.types.KalturaContainerFormat
-		 **/
+		* The container format of the Flavor Params
+		* 
+		* @see com.kaltura.types.KalturaContainerFormat
+		**/
 		public var format : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -77,6 +77,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

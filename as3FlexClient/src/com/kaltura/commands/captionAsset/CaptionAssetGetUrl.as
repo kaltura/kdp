@@ -31,17 +31,17 @@ package com.kaltura.commands.captionAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Get download URL for the asset
-	 * 
-	 **/
+	* Get download URL for the asset
+	* 
+	**/
 	public class CaptionAssetGetUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 * @param storageId int
-		 **/
+		* @param id String
+		* @param storageId int
+		**/
 		public function CaptionAssetGetUrl( id : String,storageId : int=int.MIN_VALUE )
 		{
 			service= 'caption_captionasset';

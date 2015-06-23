@@ -367,6 +367,9 @@ package com.kaltura.kdpfl.plugin.component {
 							
 							currLine.text += " " + textToAdd;
 						}
+						if ( !resultElem.attribute("style").length() && body.attribute("style").length() ) {
+							resultElem.@["style"] = body.attribute("style")[0].toString();
+						}
 						// line text
 						//     currLine.text = resultElem.text().toXMLString();
 						// line style
@@ -381,7 +384,7 @@ package com.kaltura.kdpfl.plugin.component {
 								currLine.textFormat = new TextFormat(defaultFontFamily, defaultFontSize, defaultFontColor, null, null, null, null, null, "center");
 								currLine.showBGColor = false;     
 							}
-						}
+						} 
 						else {
 							currLine.textFormat = new TextFormat(defaultFontFamily, defaultFontSize, defaultFontColor, null, null, null, null, null, "center");
 							currLine.showBGColor = false;

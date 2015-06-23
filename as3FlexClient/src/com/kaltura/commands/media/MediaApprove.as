@@ -31,16 +31,16 @@ package com.kaltura.commands.media
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Approve the media entry and mark the pending flags (if any) as moderated (this will make the entry playable)
-	 * 
-	 **/
+	* Approve the media entry and mark the pending flags (if any) as moderated (this will make the entry playable)
+	* 
+	**/
 	public class MediaApprove extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 **/
+		* @param entryId String
+		**/
 		public function MediaApprove( entryId : String )
 		{
 			service= 'media';

@@ -27,22 +27,22 @@
 // ===================================================================================================
 package com.kaltura.commands.category
 {
-	import com.kaltura.vo.KalturaCategory;
+		import com.kaltura.vo.KalturaCategory;
 	import com.kaltura.delegates.category.CategoryUpdateDelegate;
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Update Category
-	 * 
-	 **/
+	* Update Category
+	* 
+	**/
 	public class CategoryUpdate extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param category KalturaCategory
-		 **/
+		* @param id int
+		* @param category KalturaCategory
+		**/
 		public function CategoryUpdate( id : int,category : KalturaCategory )
 		{
 			service= 'category';
@@ -53,9 +53,9 @@ package com.kaltura.commands.category
 			var keyValArr : Array = new Array();
 			keyArr.push('id');
 			valueArr.push(id);
- 			keyValArr = kalturaObject2Arrays(category, 'category');
-			keyArr = keyArr.concat(keyValArr[0]);
-			valueArr = valueArr.concat(keyValArr[1]);
+				keyValArr = kalturaObject2Arrays(category, 'category');
+				keyArr = keyArr.concat(keyValArr[0]);
+				valueArr = valueArr.concat(keyValArr[1]);
 			applySchema(keyArr, valueArr);
 		}
 

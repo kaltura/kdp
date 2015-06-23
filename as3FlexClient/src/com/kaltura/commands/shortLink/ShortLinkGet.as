@@ -31,16 +31,16 @@ package com.kaltura.commands.shortLink
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Retrieve an short link object by id
-	 * 
-	 **/
+	* Retrieve an short link object by id
+	* 
+	**/
 	public class ShortLinkGet extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id String
-		 **/
+		* @param id String
+		**/
 		public function ShortLinkGet( id : String )
 		{
 			service= 'shortlink_shortlink';

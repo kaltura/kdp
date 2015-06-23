@@ -83,6 +83,12 @@ package com.kaltura.kdpfl.plugin
 						setDataIfExsits("subCategory");
 						setDataIfExsits("eventName");
 					}
+					
+					var deliveryType:String = "O";
+					if ( _mediaProxy.vo.isLive ) {
+						deliveryType = "L";
+					}
+					AnalyticsPluginLoader.setData("deliveryType", deliveryType);
 				
 					break;
 				

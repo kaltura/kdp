@@ -31,17 +31,17 @@ package com.kaltura.commands.entryDistribution
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves entry distribution sent data
-	 * 
-	 **/
+	* Serves entry distribution sent data
+	* 
+	**/
 	public class EntryDistributionServeSentData extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param id int
-		 * @param actionType int
-		 **/
+		* @param id int
+		* @param actionType int
+		**/
 		public function EntryDistributionServeSentData( id : int,actionType : int )
 		{
 			service= 'contentdistribution_entrydistribution';

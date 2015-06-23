@@ -31,18 +31,18 @@ package com.kaltura.commands.document
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 * Serves the file content
-	 * 
-	 **/
+	* Serves the file content
+	* 
+	**/
 	public class DocumentServe extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param flavorAssetId String
-		 * @param forceProxy Boolean
-		 **/
+		* @param entryId String
+		* @param flavorAssetId String
+		* @param forceProxy Boolean
+		**/
 		public function DocumentServe( entryId : String,flavorAssetId : String = null,forceProxy : Boolean=false )
 		{
 			service= 'document';

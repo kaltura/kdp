@@ -49,7 +49,8 @@ package com.kaltura.kdpfl.plugin
 			return [
 				NotificationType.MEDIA_READY,
 				NotificationType.PLAYER_PLAYED,
-				NotificationType.MEDIA_ELEMENT_READY
+				NotificationType.MEDIA_ELEMENT_READY,
+				NotificationType.MEDIA_LOADED
 			];
 		}
 		
@@ -124,15 +125,18 @@ package com.kaltura.kdpfl.plugin
 						_mediaProxy.vo.media.addEventListener(MediaElementEvent.TRAIT_ADD, onMediaTraitAdd);
 						
 					}
+					break;
+				case NotificationType.MEDIA_LOADED:
 					//get embedded text, if exists
 					var media : MediaElement = _mediaProxy.vo.media;
 					while (media is ProxyElement)
 					{
 						media = (media as ProxyElement).proxiedElement;
 					} 
-					if ((media is AkamaiVideoElement) && (media as AkamaiVideoElement).client) {
-						(media as AkamaiVideoElement).client.addHandler( "onTextData", onEmbeddedCaptions );
+					if (media.hasOwnProperty("client") && media["client"]) {
+						media["client"].addHandler( "onTextData", onEmbeddedCaptions );
 					}
+					break;
 			}
 		}
 		

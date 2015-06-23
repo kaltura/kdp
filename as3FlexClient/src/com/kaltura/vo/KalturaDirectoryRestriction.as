@@ -33,10 +33,10 @@ package com.kaltura.vo
 	public dynamic class KalturaDirectoryRestriction extends KalturaBaseRestriction
 	{
 		/**
-		 * Kaltura directory restriction type
-		 * 
-		 * @see com.kaltura.types.KalturaDirectoryRestrictionType
-		 **/
+		* Kaltura directory restriction type
+		* 
+		* @see com.kaltura.types.KalturaDirectoryRestrictionType
+		**/
 		public var directoryRestrictionType : int = int.MIN_VALUE;
 
 		override public function getUpdateableParamKeys():Array
@@ -52,6 +52,17 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

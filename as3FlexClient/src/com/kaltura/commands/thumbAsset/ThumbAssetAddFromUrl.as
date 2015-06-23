@@ -31,15 +31,15 @@ package com.kaltura.commands.thumbAsset
 	import com.kaltura.net.KalturaCall;
 
 	/**
-	 **/
+	**/
 	public class ThumbAssetAddFromUrl extends KalturaCall
 	{
 		public var filterFields : String;
 		
 		/**
-		 * @param entryId String
-		 * @param url String
-		 **/
+		* @param entryId String
+		* @param url String
+		**/
 		public function ThumbAssetAddFromUrl( entryId : String,url : String )
 		{
 			service= 'thumbasset';

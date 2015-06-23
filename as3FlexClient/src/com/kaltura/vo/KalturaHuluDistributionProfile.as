@@ -33,81 +33,81 @@ package com.kaltura.vo
 	public dynamic class KalturaHuluDistributionProfile extends KalturaConfigurableDistributionProfile
 	{
 		/**
-		 **/
+		**/
 		public var sftpHost : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpLogin : String = null;
 
 		/**
-		 **/
+		**/
 		public var sftpPass : String = null;
 
 		/**
-		 **/
+		**/
 		public var seriesChannel : String = null;
 
 		/**
-		 **/
+		**/
 		public var seriesPrimaryCategory : String = null;
 
 		/**
-		 **/
+		**/
 		public var seriesAdditionalCategories : Array = null;
 
 		/**
-		 **/
+		**/
 		public var seasonNumber : String = null;
 
 		/**
-		 **/
+		**/
 		public var seasonSynopsis : String = null;
 
 		/**
-		 **/
+		**/
 		public var seasonTuneInInformation : String = null;
 
 		/**
-		 **/
+		**/
 		public var videoMediaType : String = null;
 
 		/**
-		 * @see com.kaltura.types.kalturaBoolean
-		 **/
+		* @see com.kaltura.types.kalturaBoolean
+		**/
 		public var disableEpisodeNumberCustomValidation : Boolean;
 
 		/**
-		 * @see com.kaltura.types.KalturaDistributionProtocol
-		 **/
+		* @see com.kaltura.types.KalturaDistributionProtocol
+		**/
 		public var protocol : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var asperaHost : String = null;
 
 		/**
-		 **/
+		**/
 		public var asperaLogin : String = null;
 
 		/**
-		 **/
+		**/
 		public var asperaPass : String = null;
 
 		/**
-		 **/
+		**/
 		public var port : int = int.MIN_VALUE;
 
 		/**
-		 **/
+		**/
 		public var passphrase : String = null;
 
 		/**
-		 **/
+		**/
 		public var asperaPublicKey : String = null;
 
 		/**
-		 **/
+		**/
 		public var asperaPrivateKey : String = null;
 
 		override public function getUpdateableParamKeys():Array
@@ -141,6 +141,20 @@ package com.kaltura.vo
 			var arr : Array;
 			arr = super.getInsertableParamKeys();
 			return arr;
+		}
+
+		override public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+				case 'seriesAdditionalCategories':
+					result = 'KalturaString';
+					break;
+				default:
+					result = super.getElementType(arrayName);
+					break;
+			}
+			return result;
 		}
 	}
 }

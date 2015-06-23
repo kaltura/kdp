@@ -33,34 +33,34 @@ package com.kaltura.vo
 	public dynamic class KalturaSearch extends BaseFlexVo
 	{
 		/**
-		 **/
+		**/
 		public var keyWords : String = null;
 
 		/**
-		 * @see com.kaltura.types.KalturaSearchProviderType
-		 **/
+		* @see com.kaltura.types.KalturaSearchProviderType
+		**/
 		public var searchSource : int = int.MIN_VALUE;
 
 		/**
-		 * @see com.kaltura.types.KalturaMediaType
-		 **/
+		* @see com.kaltura.types.KalturaMediaType
+		**/
 		public var mediaType : int = int.MIN_VALUE;
 
 		/**
-		 * Use this field to pass dynamic data for searching
-		 * For example - if you set this field to "mymovies_$partner_id"
-		 * The $partner_id will be automatically replcaed with your real partner Id
-		 * 
-		 **/
+		* Use this field to pass dynamic data for searching
+		* For example - if you set this field to "mymovies_$partner_id"
+		* The $partner_id will be automatically replcaed with your real partner Id
+		* 
+		**/
 		public var extraData : String = null;
 
 		/**
-		 **/
+		**/
 		public var authData : String = null;
 
 		/** 
-		 * a list of attributes which may be updated on this object 
-		 **/ 
+		* a list of attributes which may be updated on this object 
+		**/ 
 		public function getUpdateableParamKeys():Array
 		{
 			var arr : Array;
@@ -74,13 +74,26 @@ package com.kaltura.vo
 		}
 
 		/** 
-		 * a list of attributes which may only be inserted when initializing this object 
-		 **/ 
+		* a list of attributes which may only be inserted when initializing this object 
+		**/ 
 		public function getInsertableParamKeys():Array
 		{
 			var arr : Array;
 			arr = new Array();
 			return arr;
+		}
+
+		/** 
+		* get the expected type of array elements 
+		* @param arrayName 	 name of an attribute of type array of the current object 
+		* @return 	 un-qualified class name 
+		**/ 
+		public function getElementType(arrayName:String):String
+		{
+			var result:String = '';
+			switch (arrayName) {
+			}
+			return result;
 		}
 	}
 }
